@@ -1,0 +1,349 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+\usepackage[normalem]{ulem} % durchstreichen mit \sout{}
+\usepackage{color, soul}
+
+\linespread{1.0}
+
+\title{Cocoalytics}
+\author{Sebastian Fichtner}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Product Idea}
+
+\subsection{Original Note (The Napkin)}
+
+tool das grafisch das ood in einem softwareprojekt darstellt und zum teil refactoring unterstützt .... quellcode nach imports durchsuchen.... möglichst baum-darstellung der abhängigkeiten finden (main = wurzel) ...  visualisieren: zyklen, mvc, daten die privatisiert werden können, indirekte abhängigkeiten durch fehlende imports ....... Marktlücke entstanden: swift files haben weniger explizite Abhängigkeiten weil es innerhalb eines Moduls (targets) keine imports gibt, es werden keine files sondern meist nur ganze frameworks importiert, man könnte sich auf swift spezialisieren und außerdem: das tool als online tool das den code in git repos darstellen kann… tool bräuchte evtl. zugansdaten bei privaten repos… dann könnte jeder diesen online service sofort nutzen.
+
+\subsection{Value Proposition}
+
+\begin{itemize}
+	\item Overview over a code base, like a map provides overview over a territory
+	\begin{itemize}
+		\item seeing general architecture and relationships between entities at a glance
+		\item getting back into your own code after short and long breaks
+		\item getting into other people's code and legacy code
+		\item maintaining context during development and avoid getting lost in details
+	\end{itemize}
+	\item Visualization
+	\begin{itemize}
+		\item more balance and effectiveness in leveraging cognitive capacities by complementing textual with visual artefacts
+		\item easier communication of abstract properties of the code by having explicit artefacts to refer to 
+	\end{itemize}
+	\item Automated diagrams
+	\begin{itemize}
+		\item strong support for domain-driven design as diagrams and code are always congruent. you change the design/diagram by changing the code.
+		\item Relieve developers of having to create and maintain class diagrams
+	\end{itemize}
+	\item Objective quality standards
+	\begin{itemize}
+		\item Objective Insights into how different parts of the code compare with regards to different quality metrics
+		\item Objective measures for what parts of the code are most essential to unit test based on ROI of testing. (As opposed to the ideological black and white (all or nothing) stance that many developers take so they don't have to navigate through a grey area)
+		\item Objective data-based suggestions on how to improve the code
+		\item Better communication and more consensus on quality standards
+	\end{itemize}
+	\item Real time monitoring of quality
+	\begin{itemize}
+		\item More flow during development through immediate feedback
+		\item Increased awareness of how code rots or can be improved over time
+		\item Knowledge in action, learning by doing and seeing
+	\end{itemize}
+\end{itemize}
+
+\subsection{Unfair Advantage}
+
+With this project, I can leverage 5 distinct areas of my expertise or passions:
+\begin{enumerate}
+	\item Software Development and UX
+	\item Creativity-Support Tools (master-thesis, flow, creative process, psychology)
+	\item Data Mining \& Visualization (in particular concerning graph and text data, my master in Information Engineering covers exactly that)
+	\item Clean Code \& Architecture (specific passion of mine that not all developers share, also developed an original idea here...)
+	\item Writing \& Teaching (as part of the product and its marketing)
+\end{enumerate}
+
+In addition, I know people who research in the field of data- and even source code visualization.
+
+\section{Market Analysis}
+
+\subsection{Niche \& Competitors}
+\begin{enumerate}
+	\item Category: Analytics tools for software development
+	\begin{enumerate}
+		\item codalytics.com (workforce management)
+		\item crashlytics.com
+		\item localytics.com
+		\item google.com/analytics
+		\item klocwork.com (non-visual code analytics)
+		\item codeclimate.com (platform for code analytics plugins, very few plugins, not really visual)
+	\end{enumerate}
+	\item Market: Visual Code Analytics\\...no tools that are ONLY available as IDE plugins, since their (visual) capabilities are limited
+	\begin{enumerate}
+		\item lattix.com (no Swift support)
+		\item semmle.com (cocoa support unlikely, aimed at executives, managers and developers)
+		\item grammatech.com (cocoa support unlikely, security oriented)
+		\item ndepend.com
+		\item imagix.com
+	\end{enumerate}
+	\item Niche: Compatible with Mac OS or cloud-based (developing \textbf{on} Apple platforms, developers with taste, creative developers)
+	\begin{enumerate}
+		\item scitools.com (no Swift support, no simple download, no price transparancy, technical and complicated)
+	\end{enumerate}
+	\item Micro Niche A: Supporting Objective-c and Swift (developing \textbf{for} Apple platforms, Cocoa projects, ca. 15 million registered Apple developers, even greater emphasis on simplicity, fun, creativity and aesthetics)
+	\begin{enumerate}
+		\item seerene.com (under construction, raised their capital in 12/2015, support for Objective-c and Swift possible but unclear and unlikely to come in 2016, heavily aimed at big companies)
+	\end{enumerate}
+	\item Micro Niche B: Servicing "small" customers through simple app download (simplicity of consumer product, for freelancers, solo developers, startups, small companies)
+	\begin{enumerate}
+		\item structure101.com (no support for Swift)
+	\end{enumerate}
+\end{enumerate}
+
+\subsection{The Five Closest Competitors}
+
+\begin{enumerate}
+	\item structure101.com
+	\begin{enumerate}
+		\item What they sell: An app that provides static code analysis to developers
+		\item They require to fill out a form including email address to download the free 30 trial version
+		\item They provide product demos and talks on their Vimeo channel
+		\item They offer free licenses for academic-, classroom- and open source projects 
+		\item They offer a 15 day "no questions asked" refund policy
+		\item They provide a Blog, but it's not very up to date
+		\item They maintain a twitter profile
+		\item Their newsletter requires filling out their contact form
+		\item Their trial request is still the best: It only requires name, email and company, and it lets customers download the app immediately.
+	\end{enumerate}
+	\item seerene.com
+	\begin{enumerate}
+		\item What they sell: An app that provides visual code analytics to CIOs and stakeholders
+		\item They have an impressive beautiful landing page
+		\item They maintain a LinkedIn profile where they post updates that link to interesting related blog posts all over the web
+		\item They maintain a twitter profile where they post the same links as on LinkedIn, among other tweets
+		\item ... and a Product/Service page on Facebook with the same updates
+		\item Their newsletter requires filling out their contact form and sending a message
+		\item the 2 problem here: 1) they've just been founded and are in the seeding phase, putting the millions they raised to use. it'll take a while until they provide a product. 2) they aim specifically at big players who have CIOs and can afford a very complex integrated solution.
+		\item Q: When will there be a trial version of Seerene?\\A: Never. Seerene is no stand-alone frontend product, but a SaaS solution connected to business software that is being analysed in real time.
+		\item Q: On which platforms will Seerene run?\\A: Seerene already runs for some time on our Server-Farm, that is being provided by a Banking-Level Security Service Provider. The Software that connects the business applications with the Seerene-Backend runs on all common operating systems - but as I said, Seerene ist no Frontend Product, at which your question probably aimed.
+		\item Q: Which Programming languages will Seerene be able to analyse? Also Swift und Objective-c?\\LONG ANSWER:\\Seerene currently supports ca. 60 languages i.e. all languages that are commonly used in medium und large sized companies. Currently, about one language is added every month, which so to speak is a regular byproduct of our client project activities. Swift and Objective-c currently not, since our focus is on larger and very large business software, where both languages play almost no role. But we also work together with several famous '.com' companies, that require more and more to integrate languages that are unusual from a traditional developer perspective, which we, as i said, also currently do with one additional language every month step by step.
+
+			According to your questions and you company-website your focus is presumably on client projects of iOS Apps, which are by their nature probably relatively "small" and behind which is a rather small Resource-Budget (Manpower/Cost). I don't mean that degrading in any way - but the point is, that the central value proposition of Seerene is to support clients to radically reveal hidden costs, risks and complexities in rather large applications, so that these can be reduced systematically step by step.
+
+			That means that Seerene generally requires a certain 'flywheel mass', to be applied meaningfully. In situations where, for example, a small application is being delivered to a customer once as a finished work, applying seerene is rather not reasonable and also commercially not viable, and in such a situation, the client will mostly have no motivation to let a small and budgetwise not very relevant application be analysed continuously in real time.
+
+			I intentionally sketch out the basic guardrails here, so that you can accurately assess what we're all about. Should there be meaningful connections from your point of view, I'm happy to hear from you.
+	\end{enumerate}
+	\item scitools.com
+	\begin{enumerate}
+		\item What they sell: Apps that provide static code analysis to developers
+		\item They maintain a Blog that is technical and focused on their specific product (no general interesting posts)
+		\item They responded to my trial request by emailing me a link to the download page
+	\end{enumerate}
+	\item lattix.com
+	\begin{enumerate}
+		\item What they sell: What they sell: An app that provides static code analysis to developers
+		\item They maintain a Youtube channel with product demonstrations, a Blog and a twitter profile
+		\item Their "customer portal" requires a login
+		\item They offer consulting and training for the use of their product (which speaks to how little intuitive and simple those products are) ... no price transparency here either
+		\item They responded to my trial request several days later by email and suggested we have a phone call: "To discuss your needs and the evaluation process please let us know when you have time for a short call." ... clearly ONLY targeted at classic B2B custom business-software...
+	\end{enumerate}
+	\item semmle.com
+	\begin{enumerate}
+		\item What they sell: A suite of apps that provide static code analysis to executives, managers and developers
+		\item They have a LinkedIn profile without any updates, a newsletter and nothing else
+	\end{enumerate}
+\end{enumerate}
+
+Only Semmle offers an independent newsletter that is not tied to the request form. Seerene and Structure101 offer newsletters. In general, newsletters seem to be out of date. Competitors prefer to spread the little news they have through twitter, facebook, linkedin etc...
+
+Twitter profiles and Blogs are always half informative and half promotional. They try to weave their products into the public conversation.
+
+Some have more online profiles than listed here (twitter, facebook ...) but those profiles aren't worth mentioning (too little content and traffic)
+
+Structure101 is a bit better, but in general, the only way to get infos on what exactly competitors offer or where and when to get the app and at which price is a contact form on their website. There is no explicit download option. Customers need to fill out a form to even get the trial version which they receive a few days later. That is annoying for customers and wouldn't work if you had many small customers instead of a few big players cause it doesn't scale.
+
+Most competitor's websites lack transparency they don't explicitly state:
+\begin{enumerate}
+	\item on what platforms their tool can run
+	\item what programming languages their tool can actually analyse
+	\item what additional tools or steps are required until a project can actually be analysed
+	\item what the tool costs
+\end{enumerate}
+
+\subsection{USPs of Cocoalytics}
+
+Except for structure101.com, all competitors aim at big companies and classic B2B. They offer no trial app downloads but require to fill out complex forms to contact them. Many don't even display pricing information on their website and offer no free value beyond limited evaluation periods (ridiculous selling funnel) or a few blog posts. Their products are very technical oriented, ugly and have no educational aspect. Most of all, they don't support Cocoa projects (Objective-c and Swift).
+
+Even structure101 tends in that direction: its personal licence costs 395\$. The download requires filling out a form. The app is not available in the App Store and is as technical and ugly as the other products.
+
+There are only few products out there that are remotely similar to Cocoalytics. Cocoalytics easily sets itself apart:
+
+\begin{enumerate}
+	\item \textbf{Mac}: Developers using Macs have almost no products to choose from. They are underserved because competitors aim at B2B and developers of critical software which mostly is developed (and runs) on other platforms. Or so it has been. As mobile software (and thereby iOS apps) become more and more professional, powerful and critical, developers with Macs need more code analytics.
+
+		Key point to understand: In general, software for apple platforms can \textbf{only} be developed on Macs, while software for other platforms can \textbf{also} be developed on Macs, although native Windows software is \textbf{mostly} being developed on Windows.
+	\item \textbf{Cocoa}: Support of Objective-c and Swift, Specialization on Mac OS, iOS and tvOS (developer needs, frameworks...). Btw: Swift is now open source and will eventually conquer all platforms. It's the future.
+	\item \textbf{Simplicity} (low entry threshold): Just download, open, select project directory, done. Not required: git, login, host application, request form, additional software, console commands, configuration, etc.
+	\item \textbf{Small Customers}: Serving solo developers, educators, consultants, startups, small companies, individual developers
+	\item \textbf{Availability}: There is not a single remotely comparable app among the top 180 developer tools in the app store. Not even any static code analyzer.
+	\item \textbf{Visualization}: Non-technical people (like SCRUM masters) can use and benefit from the app. Focus on feedback, not editing. No interference with established workflows. Interface and visualizations are not just functional but also beautiful, engaging and promoting focus and flow.
+	\item \textbf{Architecture}: Convey information about higher-level architecture and design. Utilize en.wikipedia.org/wiki/Software\_package\_metrics and incorporate en.wikipedia.org/wiki/Package\_principles.
+	\item \textbf{Quality-oriented}: Convey not just structure or explicit defects but also general code quality metrics to avoid software rot in the first place. No focus on team controlling or git activities.
+	\item \textbf{Action-oriented}: Main intent of the output is to suggest how the code could be improved. No overwhelming data dump. No useless technicalities. No pointless fancy eye candy.
+	\item \textbf{Learning}: Educate about the quality metrics, principles and ideas behind Cocoalytics. Let user explore those background infos on demand.
+	\item \textbf{Real-time} feedback: Immediate monitoring and code exploration during programming. No upload to git repo required. No email digest BS.
+	\item \textbf{Pricing}: Competitive price and price transparency. Most competitors don't even name a price.
+\end{enumerate}
+
+\section{Customer Analysis}
+
+\subsection{Search Term Prediction}
+\begin{itemize}
+	\item (source) code visualization (tools) $\rightarrow$ tools, c, php, java, python, eclipse, c\#, free, video, javascript, open source, c++, objectice-c, visual studio
+	\item software visualization (tools) $\rightarrow$ for debugging, tools, architecture, development, free, porting them to the web, open source
+	\item (source) code quality $\rightarrow$ tools, metrics, java, analysis, sonar, measures, assurance, assessment, measurement, standards, check, criteria
+	\item software quality $\rightarrow$ assurance, metrics, assurance jobs, assurance engineer, assurance training, analyst, engineer salary, assurance salary
+	\item software architecture $\rightarrow$ diagram, patterns, in practice, document, interview questions, design, books, document template, diagram tool
+	\item software architecture diagram $\rightarrow$ tool, example, visio, types, template, tool mac, software, symbols, visio template, powerpoint
+	\item source code analysis $\rightarrow$ tools, java, open source, laboritory, php, free
+	\item software quality metrics $\rightarrow$ dashboard, examples, tools, overview, methodology, formulas 
+	\item (source) code quality metrics $\rightarrow$ sonar, c\#, java, jenkins, tools, visual studio, eclipse, python, measurement, check, open source
+\end{itemize}
+
+The search term prediction didn't reveal much new information except a number of programming languages for which people want to have quality analytics the most: java, php, c\# and python came up several times. 
+
+\subsection{Communication and Problems}
+
+\begin{itemize}
+	\item structure101.com: blog and https://vimeo.com/structure101, here are some customer tweets:
+	\begin{itemize}
+		\item "qotd: why does it always have to get worse before it gets better? (refactoring with @structure101, tools is great, but my design is awful)"
+		\item "... I really like structure101  (although it’s not a build plugin)"
+		\item "i know one clean open source project, the Spring framework. And they used tools like Sonargraph or Structure101."
+		\item "structure101 is the tool to help you splitting tangled monolith into a bunch of micorservices"
+		\item "cloc, gource, structure101, sonarqube are the tools I use to familiarize myself with unfamiliar java (and non-java) code bases"
+		\item "Tool to analyze architecture entropy. structure101"
+	\end{itemize}
+	\item stackoverflow.com (technical question-answer platform): Most people want to know what code visualization tools exist at all and whether they do what they need.
+	\begin{itemize}
+		\item "I'm trying to get a grip on a large code base that has hundreds and hundreds of classes and a large inheritance hierarchy. I want to be able to see the "main veins" of the inheritance hierarchy at a glance - not all the "peripheral" classes that only do some very specific / specialized thing."
+		\item "Basically I want tools which generate source code visualization like: function call graph, dependency graph ..."
+		\item "Is there code visualizer available (preferred as eclipse plugin)?"
+		\item "is there a code visualization plugin for eclipse? ... it's too expensive however so is there a open source version?"
+		\item "Is there a code visualization website for Racket programs (for novice WeScheme users) similar to what is available at Online Python Tutor? Needless to say, it would provide a great self-teaching or learning tool."
+		\item "... intention being to enable a user to manually track interconnectivity between different parts of their code for the purposes of implementing specific features. In particular, a user could pull out a window into their code and associate it with a completely different part of their code, seeing lots of independently controllable code snippets (and any relevant notes) linked together. The purpose of this tool was to enable someone working on a chunk of code that crossed multiple functions (or separate modules) to be able to more cleanly figure out what was going on and to see more of the relevant code at once"
+		\item "coming across a lot of reasonably large, complicated codebases at work recently which I've been asked to either review or refactor or both. This can be extremely time consuming when the code is highly concurrent, makes heavy use of templates (particularly static polymorphism) and has logic that depends on callbacks/signals/condition variables/etc.
+
+			Are there any good visualization tools for C++ period, and of those are there any that actually play well with "advanced" C++ features? Anything would probably be better than my approach now, which is basically pen+paper or stepping through the debugger. The debugger method can be good for following a particular code path, but isn't great for seeing the big picture you really need when doing serious refactoring."
+	\end{itemize}
+\end{itemize}
+
+The problem mostly is finding and quickly evaluating tools that provide overview of complex code bases and help with refactoring and producing clean architecture and clean code i.e. software quality.
+
+Cocoalytics adresses that by providing a low entry threshold (good availability, educational aspects, consumer market vibe and ... well, all the USPs listed previously.
+
+\subsection{Customer Survey}
+
+http://bit.ly/1UVdZBF
+
+\begin{enumerate}
+	\item What metrics do you use to estimate the code quality and maintainability of a software project? Do your colleagues agree on these metrics?
+	\item How do you maintain overview over complex code bases, in order to keep the architecture and design of your code clean and maintainable over long time periods?
+	\item How you and your team communicate the architecture, design and quality of a code base in order to improve it?
+	\item For what software, books or other products have you (or your company) ever paid to help you produce clean maintainable code? What did you hate or love about them?
+	\item What techniques/tools (manual, automated) have you ever used to generate diagrams from source code. What did you hate or love about these techniques/tools?
+\end{enumerate}
+
+\section{Product Ecosystem}
+
+\subsection{Free Products}
+\begin{enumerate}
+	\item Cocoalytics Lite: Demonstrates graphics, look and feel. Is fun to use. Playful. Makes development more exciting. Makes itself as well as architecture, design and quality of code a subject of discussion in teams. Supports as many programming languages as possible!
+	\item Blog: Posts on software development, in particular on architecture, design, quality, metrics, visualization etc... (already got material) ... possibly video logs... integrate the posts into something whole like a book/wiki.
+	\item Some open source code for the community via github and cocoapods.org
+	\item Some kind of forum or network for a community of cocoa craftsmen. Relate to cocoaheads.org? possibly build local group (already got cocoaheads-bodensee.de for that)
+\end{enumerate}
+
+\subsection{Products for Prospects}
+\begin{enumerate}
+	\item Cocoalytics Pro. It has more: metrics, graphical mappings, visualization types, customization options, saving project files... pay once for the app.
+	\item By writing, researching and testing for the blog and for cocoalytics, I gather material for talks/videos/webinars and a book i.e. some form of educational product.
+\end{enumerate}
+
+\subsection{Core Product}
+\begin{enumerate}
+	\item Cocoalytics Master: login, build integration, web dashboard, github access, IDE plugins, customer support. subscription payment.
+	\item Individual consulting and workshops
+	\item Add custom features to Cocoalytics (for individual clients) thereby turning it into business software and a B2B operation
+\end{enumerate}
+
+\subsection{Success Path}
+
+\paragraph{What Customers Achieve} clarity, perspective, fun, overview, understanding, flow, productivity, clean code, maintainability, momentum, confidence, communication, accountability, insights, knowledge, pleasure, code quality, clean architecture, clean OOD, pride, control, objectivity, agility, flexibility, motivation, energy
+
+10 words: Produce better software quicker, be a proud craftsman, have fun!
+
+\paragraph{Cocoalytics Pro (for prospects)} Price: starting with 5\$, increasing up to 90\$ as product value increases with new features
+
+\begin{enumerate}
+	\item \textbf{Awareness}: Customer becomes aware of Cocoalytics Pro through online media or Cocoalytics Lite
+	\item \textbf{Download}: Customer downloads the app from the App Store or from cocoalytics.com
+	\item \textbf{Setup}: Customer selects an existing project directory from within the app
+	\item \textbf{Explore}: Customer explores his  code through an interactive visualization
+	\item \textbf{Improve}: Customer improves his code in his familiar IDE of choice (most likely XCode)
+	\item \textbf{Learn}: Customer sees how the code changed in terms of architecture, design and quality. He learns more about the theoretical background through the app. 
+	\item \textbf{Assurance}: Customer feels in control and is confident in his ability to produce high quality code, design and architecture. He understands and oversees his own code better and in a new way. The additional layer of feedback pleases and leverages his visual sense and enables him to work longer.
+	\item \textbf{Communicate}: Customer shows his code to others through the app. He starts conversations on architecture, design and quality of his team's codebase, instills pride into them and encourages them to use the app as well.
+\end{enumerate}
+
+\section{Product Pitch}
+
+\subsection{Pitch for LRBA application}
+
+Millions of software developers try to create clean software architecture while staring at code, juggling tons of little infos in their heads.
+
+Forget the money that this insanity costs. Their SOULS are depleted!
+
+I will create a service (cocoalytics.com) that provides meaningful interactive visualizations of program code. Developers of Apple software (cocoa projects) will be able to make sense of the whole picture. They will see and shape the "building" instead of a list of one million bricks.
+
+They will think about code in more semantic terms, develop pride in their work and communicate it better to others. This will make software development more productive, more social and more fun!
+
+\subsection{Iteration 2}
+
+Cocoalytics is the tool that introduces visual feedback to software development. It provides you with meaningful interactive visualizations of Objective-c and Swift code. As a developer you attain overview and insight on the architecture and quality of your project, just by looking at its graphical representation.
+
+You and your team will be able to monitor in real time how your programming effects the design and quality of your code. When will be able to talk about implicit qualities of your code by referring to their tangible representation. This will change the way you think about code and will bring your whole development process to a new level where it is more productive, more social and more fun!
+
+If you want to experience more flow in programming, become a better software craftsman and upgrade your team's agility and drive, we offer you to pioneer a new way of software development. Be the first to try the Cocoalytics experience and shape this exciting product with your feedback!
+
+\subsection{Iteration 3}
+
+Cocoalytics is the tool that introduces visual feedback to software development. It provides meaningful interactive visualizations of Objective-c and Swift code, so you attain overview and insight into your code base, by just looking at clean graphics.
+
+You and your team will be able to monitor in real time how your work effects the implicit architecture and quality of your code. This will change the way you communicate and think about software and raise your whole process to a new level in terms of agility, craftsmanship and fun.
+
+If you want to experience more flow and team spirit, we offer you to pioneer a new way of software development. By participating in our user tests you can taste the Cocoalytics mindset and shape an exciting product with your feedback!
+
+\subsection{Iteration 4}
+
+Cocoalytics is the app that empowers software developers as well as their managers and clients by providing visual maps and analytics of software quality.
+
+I started coding more than 20 years ago and worked as a software engineer for different companies, and I learned that managers and clients often fail to consider and understand the internal quality of software. And even the best software craftsmen struggle to apply their knowledge to real projects and to see the  high-level architecture implicit in code.
+
+Cocoalytics provides meaningful real-time visualizations of source code, so that everyone can communicate the architecture and monitor the quality of software, by just exploring interactive graphics.
+
+And that also allows you to share objective quality standards, communicate visually, experience flow and establish accountability. You can shape the cocoalytics app with your feedback and ideas. Visit cocoalytics.com for more!
+
+\pagebreak
+\nocite{*}
+\bibliographystyle{plain}
+%\bibliography{flowtoolz_pitch}
+
+\end{document}
