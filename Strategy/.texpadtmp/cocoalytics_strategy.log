@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.12.14)  20 JAN 2016 12:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.12.14)  14 AUG 2016 12:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -267,12 +267,12 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 29.
  [3] [4]
-Overfull \hbox (21.7229pt too wide) in paragraph at lines 97--98
+Overfull \hbox (21.7229pt too wide) in paragraph at lines 115--116
 []\OT1/cmr/m/n/10 scitools.com (no Swift sup-port, no sim-ple down-load, no price transparancy,
  []
 
-[5] [6] [7] [8] [9]
-Overfull \hbox (5.05623pt too wide) in paragraph at lines 225--226
+[5] [6] [7] [8] [9] [10]
+Overfull \hbox (5.05623pt too wide) in paragraph at lines 243--244
 []\OT1/cmr/m/n/10 structure101.com: blog and https://vimeo.com/structure101, here are some
  []
 
@@ -280,38 +280,38 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Overfull \hbox (0.58391pt too wide) in paragraph at lines 234--235
+Overfull \hbox (0.58391pt too wide) in paragraph at lines 252--253
 []\OT1/cmr/m/n/10 stackoverflow.com (tech-ni-cal question-answer plat-form): Most peo-ple want
  []
 
-[10] [11] [12]
-Overfull \hbox (0.69514pt too wide) in paragraph at lines 289--290
+[11] [12]
+Overfull \hbox (0.69514pt too wide) in paragraph at lines 307--308
 \OT1/cmr/m/n/10 com-mu-ni-ca-tion, ac-count-abil-ity, in-sights, knowl-edge, plea-sure, code qual-ity, clean
  []
 
-[13] [14] [15]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 349.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 349.
+[13] [14] [15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 367.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 367.
  (/Users/sebastian/Desktop/Cocoalytics/Strategy/.texpadtmp/cocoalytics_strategy.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 349.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 349.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 367.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 367.
 Package rerunfilecheck Info: File `cocoalytics_strategy.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 349.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 367.
  ) 
 Here is how much of TeX's memory you used:
- 5248 strings out of 494501
- 77411 string characters out of 6167029
+ 5253 strings out of 494501
+ 77478 string characters out of 6167029
  155179 words of memory out of 5000000
- 8385 multiletter control sequences out of 15000+600000
+ 8387 multiletter control sequences out of 15000+600000
  8314 words of font info for 30 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  29i,6n,28p,818b,489s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on /Users/sebastian/Desktop/Cocoalytics/Strategy/.texpadtmp/cocoalytics_strategy.pdf (15 pages, 122112 bytes).
+Output written on /Users/sebastian/Desktop/Cocoalytics/Strategy/.texpadtmp/cocoalytics_strategy.pdf (16 pages, 124058 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 309 compressed objects within 4 object streams
- 137 named destinations out of 1000 (max. 500000)
- 177 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 351 PDF objects out of 1000 (max. 8388607)
+ 323 compressed objects within 4 object streams
+ 140 named destinations out of 1000 (max. 500000)
+ 193 words of extra memory for PDF output out of 10000 (max. 10000000)
 
