@@ -8,5 +8,7 @@ class CocoalyticsController: AppController, NSWindowDelegate
         window.show()
     }
     
-    private lazy var window = Window()
+    private lazy var window = Window(viewController: viewController)
+    
+    private let viewController = ViewControlller<MainView>()
 }
