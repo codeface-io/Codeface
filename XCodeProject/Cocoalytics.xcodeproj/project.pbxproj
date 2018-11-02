@@ -12,6 +12,8 @@
 		9E95A723218C76BA009A58A9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A722218C76BA009A58A9 /* main.swift */; };
 		9E95A725218C77B4009A58A9 /* CocoalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A724218C77B4009A58A9 /* CocoalyticsController.swift */; };
 		9E95A729218C7CD8009A58A9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A728218C7CD8009A58A9 /* MainView.swift */; };
+		9E95A72B218C8041009A58A9 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A72A218C8041009A58A9 /* Menu.swift */; };
+		9E95A72D218C809D009A58A9 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A72C218C809D009A58A9 /* AppMenu.swift */; };
 		E6EA65633B289664C0699D40 /* Pods_Cocoalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +41,8 @@
 		9E95A722218C76BA009A58A9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = ../../Code/main.swift; sourceTree = "<group>"; };
 		9E95A724218C77B4009A58A9 /* CocoalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CocoalyticsController.swift; path = ../../Code/CocoalyticsController.swift; sourceTree = "<group>"; };
 		9E95A728218C7CD8009A58A9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainView.swift; path = ../../Code/MainView.swift; sourceTree = "<group>"; };
+		9E95A72A218C8041009A58A9 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Menu.swift; path = ../../Code/Menu.swift; sourceTree = "<group>"; };
+		9E95A72C218C809D009A58A9 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppMenu.swift; path = ../../Code/AppMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,8 @@
 			children = (
 				9E95A722218C76BA009A58A9 /* main.swift */,
 				9E95A724218C77B4009A58A9 /* CocoalyticsController.swift */,
+				9E95A72A218C8041009A58A9 /* Menu.swift */,
+				9E95A72C218C809D009A58A9 /* AppMenu.swift */,
 				9E95A728218C7CD8009A58A9 /* MainView.swift */,
 				9E95A708218C73CA009A58A9 /* Assets.xcassets */,
 				9E95A70D218C73CA009A58A9 /* Info.plist */,
@@ -279,6 +285,8 @@
 			files = (
 				9E95A723218C76BA009A58A9 /* main.swift in Sources */,
 				9E95A729218C7CD8009A58A9 /* MainView.swift in Sources */,
+				9E95A72B218C8041009A58A9 /* Menu.swift in Sources */,
+				9E95A72D218C809D009A58A9 /* AppMenu.swift in Sources */,
 				9E95A725218C77B4009A58A9 /* CocoalyticsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

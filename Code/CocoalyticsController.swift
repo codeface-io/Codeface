@@ -2,6 +2,8 @@ import UIToolz
 
 class CocoalyticsController: AppController, NSWindowDelegate
 {
+    init() { super.init(withMainMenu: Menu()) }
+    
     func applicationWillBecomeActive(_ notification: Notification)
     {
         window.delegate = self
