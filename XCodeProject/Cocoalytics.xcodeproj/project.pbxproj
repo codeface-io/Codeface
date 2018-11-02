@@ -11,6 +11,7 @@
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A70C218C73CA009A58A9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A70A218C73CA009A58A9 /* MainMenu.xib */; };
 		9E95A718218C73CA009A58A9 /* CocoalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */; };
+		E6EA65633B289664C0699D40 /* Pods_Cocoalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,6 +25,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		151086E6A4D2CFBA5F0A6FF9 /* Pods-Cocoalytics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocoalytics.release.xcconfig"; path = "Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics.release.xcconfig"; sourceTree = "<group>"; };
+		408DED073DAF22DAF444DC63 /* Pods-Cocoalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocoalytics.debug.xcconfig"; path = "Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics.debug.xcconfig"; sourceTree = "<group>"; };
+		75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cocoalytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A703218C73C7009A58A9 /* Cocoalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A706218C73C7009A58A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -40,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6EA65633B289664C0699D40 /* Pods_Cocoalytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,12 +58,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A3B359FF834E3A86C457C58 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				408DED073DAF22DAF444DC63 /* Pods-Cocoalytics.debug.xcconfig */,
+				151086E6A4D2CFBA5F0A6FF9 /* Pods-Cocoalytics.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6C237E29F3EEF33999E8B256 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
 				9E95A705218C73C7009A58A9 /* Cocoalytics */,
 				9E95A716218C73CA009A58A9 /* CocoalyticsTests */,
 				9E95A704218C73C7009A58A9 /* Products */,
+				6A3B359FF834E3A86C457C58 /* Pods */,
+				6C237E29F3EEF33999E8B256 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,9 +124,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E95A71C218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "Cocoalytics" */;
 			buildPhases = (
+				7F7AC665F8A7A330F12DFBB8 /* [CP] Check Pods Manifest.lock */,
 				9E95A6FF218C73C7009A58A9 /* Sources */,
 				9E95A700218C73C7009A58A9 /* Frameworks */,
 				9E95A701218C73C7009A58A9 /* Resources */,
+				980F9ABE29FBF185CD16D45D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -186,6 +213,63 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7F7AC665F8A7A330F12DFBB8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Cocoalytics-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		980F9ABE29FBF185CD16D45D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FoundationToolz/FoundationToolz.framework",
+				"${BUILT_PRODUCTS_DIR}/GetLaid/GetLaid.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftObserver/SwiftObserver.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyToolz/SwiftyToolz.framework",
+				"${BUILT_PRODUCTS_DIR}/UIObserver/UIObserver.framework",
+				"${BUILT_PRODUCTS_DIR}/UIToolz/UIToolz.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FoundationToolz.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GetLaid.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftObserver.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyToolz.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIObserver.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIToolz.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9E95A6FF218C73C7009A58A9 /* Sources */ = {
@@ -343,6 +427,7 @@
 		};
 		9E95A71D218C73CA009A58A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 408DED073DAF22DAF444DC63 /* Pods-Cocoalytics.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cocoalytics/Cocoalytics.entitlements;
@@ -362,6 +447,7 @@
 		};
 		9E95A71E218C73CA009A58A9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 151086E6A4D2CFBA5F0A6FF9 /* Pods-Cocoalytics.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cocoalytics/Cocoalytics.entitlements;

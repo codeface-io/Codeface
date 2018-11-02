@@ -1,0 +1,46 @@
+PODS:
+  - FoundationToolz (1.0.0)
+  - GetLaid (1.1.2)
+  - SwiftObserver (1.3.2):
+    - SwiftyToolz (= 1.1.0)
+  - SwiftyToolz (1.1.0)
+  - UIObserver (0.1.0):
+    - SwiftObserver
+  - UIToolz (1.0.0):
+    - GetLaid
+    - SwiftObserver
+    - SwiftyToolz
+
+DEPENDENCIES:
+  - FoundationToolz (from `../../FoundationToolz`)
+  - GetLaid (from `../../GetLaid`)
+  - SwiftObserver (from `../../SwiftObserver`)
+  - SwiftyToolz (from `../../SwiftyToolz`)
+  - UIObserver (from `../../UIObserver`)
+  - UIToolz (from `../../UIToolz`)
+
+EXTERNAL SOURCES:
+  FoundationToolz:
+    :path: "../../FoundationToolz"
+  GetLaid:
+    :path: "../../GetLaid"
+  SwiftObserver:
+    :path: "../../SwiftObserver"
+  SwiftyToolz:
+    :path: "../../SwiftyToolz"
+  UIObserver:
+    :path: "../../UIObserver"
+  UIToolz:
+    :path: "../../UIToolz"
+
+SPEC CHECKSUMS:
+  FoundationToolz: e40cc7cc969480357a44eaafd9bab4b75a3f0c7a
+  GetLaid: 8748c8b539131896e1b0d73790baf10c8cb96fa8
+  SwiftObserver: a8d183c0984fa9ffa531069f462b59f061390924
+  SwiftyToolz: 461391682260e0c485c4007f60c7cc882b8f7211
+  UIObserver: d52d08987839f94e2ca4f4767b233fc53e6837e3
+  UIToolz: 152bc2e5c7c7ee5e2c71c20480892fcb87a60ea1
+
+PODFILE CHECKSUM: 857aa571df5bdf57e499da4f4f7040beede58bf7
+
+COCOAPODS: 1.6.0.beta.1
