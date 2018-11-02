@@ -1,8 +1,14 @@
 import UIToolz
+import SwiftObserver
 
 class CocoalyticsController: AppController, NSWindowDelegate
 {
-    init() { super.init(withMainMenu: Menu(appName: "Cocoalytics")) }
+    init()
+    {
+        Log.prefix = "COCOALYTICS"
+        
+        super.init(withMainMenu: CocoalyticsMenu())
+    }
     
     func applicationWillBecomeActive(_ notification: Notification)
     {
