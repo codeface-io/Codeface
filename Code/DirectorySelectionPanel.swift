@@ -16,7 +16,6 @@ class DirectorySelectionPanel: NSOpenPanel
         message = "Choose a Code Folder"
         canChooseFiles = false
         canChooseDirectories = true
-        canCreateDirectories = true
         allowsMultipleSelection = false
     }
     
