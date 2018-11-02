@@ -2,7 +2,7 @@ import UIToolz
 
 class CocoalyticsController: AppController, NSWindowDelegate
 {
-    init() { super.init(withMainMenu: Menu()) }
+    init() { super.init(withMainMenu: Menu(appName: "Cocoalytics")) }
     
     func applicationWillBecomeActive(_ notification: Notification)
     {

@@ -1,12 +1,14 @@
 import AppKit
 
+// MARK: - Framework Candidates
+
 class Menu: NSMenu
 {
-    init()
+    init(appName: String)
     {
-        super.init(title: "Cocoalytics Menu Bar")
+        super.init(title: "\(appName) Menu Bar")
         
-        addItem(NSMenuItem(with: ApplicationMenu()))
+        addItem(NSMenuItem(with: ApplicationMenu(appName: appName)))
     }
     
     required init(coder decoder: NSCoder) { fatalError() }

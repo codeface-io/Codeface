@@ -1,15 +1,17 @@
 import AppKit
 
+// MARK: - Framework Candidates
+
 class ApplicationMenu: NSMenu
 {
-    init()
+    init(appName: String)
     {
         super.init(title: "Application Menu")
         
-        addItem(withTitle: "Hide Cocoalytics",
+        addItem(withTitle: "Hide \(appName)",
                 action: #selector(NSApplication.hide(_:)),
                 keyEquivalent: "h")
-        addItem(withTitle: "Quit Cocoalytics",
+        addItem(withTitle: "Quit \(appName)",
                 action: #selector(NSApplication.terminate(_:)),
                 keyEquivalent: "q")
     }
