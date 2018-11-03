@@ -59,6 +59,8 @@ class Table: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
             let loc = analytics.linesOfCode
             let label = Label(text: "\(loc)")
             
+            label.font = NSFont.monospacedDigitSystemFont(ofSize: 12,
+                                                          weight: .regular)
             label.alignment = .right
             label.textColor = warningColor(for: loc).labelColor
             
