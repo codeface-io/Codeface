@@ -27,12 +27,16 @@ class DirectorySelectionPanel: NSOpenPanel
             
             guard let self = self,
                 response == .OK,
-                let directoryUrl = self.url else { return }
+                let folder = self.url else { return }
             
-            if let urls = FileManager.default.files(inDirectory: directoryUrl,
-                                                    extension: "swift")
+            if let files = FileManager.default.files(inDirectory: folder,
+                                                     extension: "swift")
             {
-                var analytics = urls.compactMap { CodeFileAnalytics(url: $0) }
+                var analytics = files.compactMap
+                {
+                    CodeFileAnalytics(file: $0, folder: folder)
+                }
+                
                 analytics.sortByLinesOfCode()
                 Store.shared.analytics = analytics
             }

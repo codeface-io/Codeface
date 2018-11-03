@@ -14,7 +14,7 @@ class Table: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
         
         usesAlternatingRowBackgroundColors = true
         
-        addColumn(fileColumnID, minWidth: 600)
+        addColumn(fileColumnID, minWidth: 300)
         addColumn(linesColumnID)
         
         dataSource = self
@@ -53,7 +53,7 @@ class Table: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
         switch column.identifier
         {
         case fileColumnID:
-            return Label(text: analytics.file.path)
+            return Label(text: analytics.file.pathInCodeFolder)
         case linesColumnID:
             let label = Label(text: "\(analytics.linesOfCode)")
             label.alignment = .right

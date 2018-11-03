@@ -5,9 +5,9 @@ import SwiftObserver
 
 extension CodeFileAnalytics
 {
-    init?(url: URL)
+    init?(file: URL, folder: URL)
     {
-        guard let file = CodeFile(url: url) else { return nil }
+        guard let file = CodeFile(file: file, folder: folder) else { return nil }
         
         self.init(file: file)
     }
@@ -15,12 +15,26 @@ extension CodeFileAnalytics
 
 extension CodeFile
 {
-    init?(url: URL)
+    init?(file: URL, folder: URL)
     {
-        guard let code = try? String(contentsOf: url,
-                                     encoding: .utf8) else { return nil }
+        let filePath = file.absoluteString
+        let folderPath = folder.absoluteString
         
-        self.init(path: url.path, content: code)
+        let relativeFilePath = filePath.replacingOccurrences(of: folderPath,
+                                                             with: "")
+        
+        guard filePath != relativeFilePath else
+        {
+            log(error: "Given file is not in given folder.")
+            return nil
+        }
+        
+        guard let code = try? String(contentsOf: file, encoding: .utf8) else
+        {
+            return nil
+        }
+        
+        self.init(pathInCodeFolder: relativeFilePath, content: code)
     }
 }
 
@@ -51,7 +65,7 @@ extension Array where Element == CodeFileAnalytics
     
     mutating func sortByFilePath(ascending: Bool = true)
     {
-        sort { ($0.file.path < $1.file.path) == ascending }
+        sort { ($0.file.pathInCodeFolder < $1.file.pathInCodeFolder) == ascending }
     }
 }
 
@@ -69,7 +83,7 @@ struct CodeFileAnalytics
 
 struct CodeFile
 {
-    let path: String
+    let pathInCodeFolder: String
     var content: String
 }
 
