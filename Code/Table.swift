@@ -4,13 +4,17 @@ import GetLaid
 import SwiftObserver
 import SwiftyToolz
 
-class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
+class Table: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
 {
+    // MARK: - Life Cycle
+    
     override init(frame frameRect: NSRect)
     {
         super.init(frame: frameRect)
         
-        addColumn(fileColumnID, minWidth: 400)
+        usesAlternatingRowBackgroundColors = true
+        
+        addColumn(fileColumnID, minWidth: 600)
         addColumn(linesColumnID)
         
         dataSource = self
@@ -28,6 +32,10 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
     }
     
     required init?(coder: NSCoder) { fatalError() }
+    
+    deinit { stopAllObserving() }
+    
+    // MARK: - Content
     
     func numberOfRows(in tableView: NSTableView) -> Int
     {

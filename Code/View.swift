@@ -1,7 +1,7 @@
 import AppKit
 import UIToolz
 
-class MainView: LayerBackedView
+class View: LayerBackedView
 {
     override init(frame frameRect: NSRect)
     {
@@ -14,8 +14,8 @@ class MainView: LayerBackedView
     
     private func layoutTable()
     {
-        fileTable.constrainToParent()
+        table.constrainToParent()
     }
     
-    private lazy var fileTable = addForAutoLayout(ScrollTable<FileTable>())
+    private lazy var table = addForAutoLayout(ScrollTable<Table>())
 }
