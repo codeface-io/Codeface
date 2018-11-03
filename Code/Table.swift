@@ -54,10 +54,16 @@ class Table: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
         {
         case fileColumnID:
             return Label(text: analytics.file.pathInCodeFolder)
+            
         case linesColumnID:
-            let label = Label(text: "\(analytics.linesOfCode)")
+            let loc = analytics.linesOfCode
+            let label = Label(text: "\(loc)")
+            
             label.alignment = .right
+            label.textColor = warningColor(for: loc).labelColor
+            
             return label
+            
         default: return nil
         }
     }
@@ -136,3 +142,18 @@ extension NSTableView
 }
 
 typealias UIItemID = NSUserInterfaceItemIdentifier
+
+extension WarningColor
+{
+    var labelColor: NSColor
+    {
+        switch self
+        {
+        case .none: return NSColor.labelColor
+        case .green: return NSColor.systemGreen
+        case .yellow: return NSColor.systemYellow
+        case .orange: return NSColor.systemOrange
+        case .red:  return NSColor.systemRed
+        }
+    }
+}

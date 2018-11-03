@@ -100,3 +100,17 @@ extension String
         return result
     }
 }
+
+func warningColor(for linesOfCode: Int) -> WarningColor
+{
+    if linesOfCode < 100 { return .green }
+    else if linesOfCode < 200 { return .yellow }
+    else if linesOfCode < 300 { return .orange }
+    else { return .red }
+    
+}
+
+enum WarningColor
+{
+    case none, green, yellow, orange, red
+}
