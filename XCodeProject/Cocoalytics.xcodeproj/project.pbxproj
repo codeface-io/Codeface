@@ -15,6 +15,7 @@
 		9E95A72B218C8041009A58A9 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A72A218C8041009A58A9 /* Menu.swift */; };
 		9E95A72D218C809D009A58A9 /* DirectorySelectionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A72C218C809D009A58A9 /* DirectorySelectionPanel.swift */; };
 		9E9E275F218D9E12005EFCEE /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E275E218D9E12005EFCEE /* Store.swift */; };
+		9E9E2761218DAF5F005EFCEE /* FileTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E2760218DAF5F005EFCEE /* FileTable.swift */; };
 		E6EA65633B289664C0699D40 /* Pods_Cocoalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		9E95A72A218C8041009A58A9 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Menu.swift; path = ../../Code/Menu.swift; sourceTree = "<group>"; };
 		9E95A72C218C809D009A58A9 /* DirectorySelectionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DirectorySelectionPanel.swift; path = ../../Code/DirectorySelectionPanel.swift; sourceTree = "<group>"; };
 		9E9E275E218D9E12005EFCEE /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Store.swift; path = ../../Code/Store.swift; sourceTree = "<group>"; };
+		9E9E2760218DAF5F005EFCEE /* FileTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileTable.swift; path = ../../Code/FileTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				9E95A72A218C8041009A58A9 /* Menu.swift */,
 				9E95A72C218C809D009A58A9 /* DirectorySelectionPanel.swift */,
 				9E95A728218C7CD8009A58A9 /* MainView.swift */,
+				9E9E2760218DAF5F005EFCEE /* FileTable.swift */,
 				9E9E275E218D9E12005EFCEE /* Store.swift */,
 				9E95A708218C73CA009A58A9 /* Assets.xcassets */,
 				9E95A70D218C73CA009A58A9 /* Info.plist */,
@@ -292,6 +295,7 @@
 				9E9E275F218D9E12005EFCEE /* Store.swift in Sources */,
 				9E95A72D218C809D009A58A9 /* DirectorySelectionPanel.swift in Sources */,
 				9E95A725218C77B4009A58A9 /* CocoalyticsController.swift in Sources */,
+				9E9E2761218DAF5F005EFCEE /* FileTable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
