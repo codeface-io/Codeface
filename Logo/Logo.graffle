@@ -5,7 +5,7 @@
 	<key>ApplicationVersion</key>
 	<array>
 		<string>com.omnigroup.OmniGraffle7</string>
-		<string>186.9.0.304876</string>
+		<string>192.15.0.319654</string>
 	</array>
 	<key>ColorProfiles</key>
 	<array>
@@ -103,7 +103,7 @@
 	<key>Creator</key>
 	<string>Sebastian Fichtner</string>
 	<key>GraphDocumentVersion</key>
-	<integer>14</integer>
+	<integer>16</integer>
 	<key>GuidesLocked</key>
 	<string>NO</string>
 	<key>GuidesVisible</key>
@@ -117,7 +117,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2018-03-30 01:58:42 +0000</string>
+	<string>2018-11-03 15:04:27 +0000</string>
 	<key>Modifier</key>
 	<string>Sebastian ********</string>
 	<key>MovementHandleVisible</key>
@@ -127,13 +127,18 @@
 	<key>OriginVisible</key>
 	<string>NO</string>
 	<key>PageBreaks</key>
-	<string>YES</string>
+	<string>NO</string>
 	<key>PrintInfo</key>
 	<dict>
 		<key>NSBottomMargin</key>
 		<array>
 			<string>float</string>
 			<string>41</string>
+		</array>
+		<key>NSHorizonalPagination</key>
+		<array>
+			<string>coded</string>
+			<string>YnBsaXN0MDDUAQIDBAUGCQpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKIHCFUkbnVsbBAAXxAPTlNLZXllZEFyY2hpdmVy0QsMVHJvb3SAAQgRGiMtMjc6QEJUV1wAAAAAAAABAQAAAAAAAAANAAAAAAAAAAAAAAAAAAAAXg==</string>
 		</array>
 		<key>NSLeftMargin</key>
 		<array>
@@ -144,6 +149,11 @@
 		<array>
 			<string>size</string>
 			<string>{595, 842}</string>
+		</array>
+		<key>NSPrintReverseOrientation</key>
+		<array>
+			<string>coded</string>
+			<string>YnBsaXN0MDDUAQIDBAUGCQpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKIHCFUkbnVsbBAAXxAPTlNLZXllZEFyY2hpdmVy0QsMVHJvb3SAAQgRGiMtMjc6QEJUV1wAAAAAAAABAQAAAAAAAAANAAAAAAAAAAAAAAAAAAAAXg==</string>
 		</array>
 		<key>NSRightMargin</key>
 		<array>
@@ -164,19 +174,33 @@
 			<key>ActiveLayerIndex</key>
 			<integer>0</integer>
 			<key>AutoAdjust</key>
-			<integer>6</integer>
+			<integer>15</integer>
 			<key>AutosizingMargin</key>
 			<integer>72</integer>
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {559, 783}}</string>
+				<string>{{-1393.8028169014083, -1069.183098591549}, {3100, 2990.1408450704221}}</string>
 				<key>Class</key>
 				<string>GraffleShapes.CanvasBackgroundGraphic</string>
 				<key>ID</key>
-				<integer>2</integer>
+				<integer>0</integer>
 				<key>Style</key>
 				<dict>
+					<key>fill</key>
+					<dict>
+						<key>Color</key>
+						<dict>
+							<key>b</key>
+							<real>0.83742713930000001</real>
+							<key>g</key>
+							<real>0.83743780850000005</real>
+							<key>r</key>
+							<real>0.83741801979999997</real>
+							<key>space</key>
+							<string>srgb</string>
+						</dict>
+					</dict>
 					<key>shadow</key>
 					<dict>
 						<key>Draws</key>
@@ -192,115 +216,98 @@
 			<key>BaseZoom</key>
 			<integer>0</integer>
 			<key>CanvasDimensionsOrigin</key>
-			<string>{0, 0}</string>
+			<string>{-288, 0}</string>
 			<key>CanvasOrigin</key>
 			<string>{0, 0}</string>
+			<key>CanvasSize</key>
+			<string>{288, 288}</string>
 			<key>CanvasSizingMode</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>ColumnAlign</key>
 			<integer>1</integer>
 			<key>ColumnSpacing</key>
 			<real>36</real>
 			<key>DisplayScale</key>
-			<string>1.0000 cm = 1.0000 cm</string>
+			<string>1 in = 1.00000 in</string>
 			<key>GraphicsList</key>
 			<array>
 				<dict>
+					<key>Bounds</key>
+					<string>{{-90, 99}, {72, 36}}</string>
 					<key>Class</key>
-					<string>LineGraphic</string>
+					<string>ShapedGraphic</string>
 					<key>ID</key>
-					<integer>4</integer>
-					<key>Points</key>
-					<array>
-						<string>{306, 180}</string>
-						<string>{261, 180}</string>
-					</array>
+					<integer>20</integer>
 					<key>Style</key>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>Draws</key>
-							<string>NO</string>
-						</dict>
-						<key>shadow</key>
-						<dict>
-							<key>Draws</key>
-							<string>NO</string>
-						</dict>
-						<key>stroke</key>
-						<dict>
-							<key>Cap</key>
-							<integer>0</integer>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>Legacy</key>
-							<true/>
-							<key>LineType</key>
-							<integer>1</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-							<key>Width</key>
-							<real>20</real>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>5</integer>
-					<key>Points</key>
-					<array>
-						<string>{225, 207}</string>
-						<string>{180, 252}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>fill</key>
-						<dict>
-							<key>Draws</key>
-							<string>NO</string>
-						</dict>
-						<key>shadow</key>
-						<dict>
-							<key>Draws</key>
-							<string>NO</string>
-						</dict>
-						<key>stroke</key>
-						<dict>
-							<key>Cap</key>
-							<integer>0</integer>
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<real>1.0000069141387939</real>
+								<real>0.0</real>
 								<key>g</key>
-								<real>1.0000194311141968</real>
+								<real>0.0</real>
 								<key>r</key>
-								<real>0.99999600648880005</real>
+								<real>0.0</real>
 								<key>space</key>
 								<string>srgb</string>
 							</dict>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>Legacy</key>
-							<true/>
-							<key>LineType</key>
-							<integer>1</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-							<key>Width</key>
-							<real>20</real>
 						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+							<key>Width</key>
+							<real>4</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>VerticalPad</key>
+						<real>0.0</real>
 					</dict>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{216, 144}, {72, 72}}</string>
+					<string>{{-261, 180}, {126, 36.000000000000028}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>ID</key>
+					<integer>19</integer>
+					<key>Rotation</key>
+					<real>315</real>
+					<key>Shape</key>
+					<string>RoundRect</string>
+					<key>Style</key>
+					<dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+							<key>Width</key>
+							<real>4</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>VerticalPad</key>
+						<real>0.0</real>
+					</dict>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{-198, 36}, {162, 162}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -332,14 +339,18 @@
 								<key>space</key>
 								<string>srgb</string>
 							</dict>
+							<key>Inner</key>
+							<true/>
 							<key>Width</key>
-							<real>20</real>
+							<real>36</real>
 						</dict>
 					</dict>
 				</dict>
 				<dict>
+					<key>AllowConnections</key>
+					<string>NO</string>
 					<key>Bounds</key>
-					<string>{{153, 117}, {162, 162}}</string>
+					<string>{{-288, 0}, {288, 288}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -367,6 +378,8 @@
 						</dict>
 						<key>stroke</key>
 						<dict>
+							<key>CornerRadius</key>
+							<real>36</real>
 							<key>Draws</key>
 							<string>NO</string>
 						</dict>
@@ -375,6 +388,28 @@
 			</array>
 			<key>GridInfo</key>
 			<dict>
+				<key>MajorGridColor</key>
+				<dict>
+					<key>b</key>
+					<string>0.570465</string>
+					<key>g</key>
+					<string>0.570472</string>
+					<key>r</key>
+					<string>0.570459</string>
+					<key>space</key>
+					<string>srgb</string>
+				</dict>
+				<key>MinorGridColor</key>
+				<dict>
+					<key>b</key>
+					<string>0.754077</string>
+					<key>g</key>
+					<string>0.754087</string>
+					<key>r</key>
+					<string>0.754069</string>
+					<key>space</key>
+					<string>srgb</string>
+				</dict>
 				<key>ShowsGrid</key>
 				<string>YES</string>
 				<key>SnapsToGrid</key>
@@ -383,7 +418,7 @@
 			<key>HPages</key>
 			<integer>1</integer>
 			<key>KeepToScale</key>
-			<false/>
+			<true/>
 			<key>Layers</key>
 			<array>
 				<dict>
@@ -445,7 +480,7 @@
 		<key>CurrentSheet</key>
 		<integer>0</integer>
 		<key>Frame</key>
-		<string>{{171, 0}, {1071, 777}}</string>
+		<string>{{0, 0}, {1280, 740}}</string>
 		<key>ShowInfo</key>
 		<true/>
 		<key>ShowRuler</key>
@@ -453,16 +488,20 @@
 		<key>Sidebar</key>
 		<true/>
 		<key>SidebarWidth</key>
-		<integer>216</integer>
+		<integer>244</integer>
 		<key>Sidebar_Tab</key>
 		<integer>0</integer>
 		<key>VisibleRegion</key>
-		<string>{{0, 0}, {537, 619}}</string>
+		<string>{{-695.21126760563357, -355.09859154929558}, {1033.8028169014083, 997.18309859154942}}</string>
+		<key>WindowInfo_InspectorTab</key>
+		<array>
+			<string>com.omnigroup.OmniGraffle.inspectorGroup.object</string>
+		</array>
 		<key>ZoomValues</key>
 		<array>
 			<array>
 				<string>Canvas 1</string>
-				<real>1</real>
+				<real>0.70999999999999996</real>
 				<real>1</real>
 			</array>
 		</array>
@@ -472,9 +511,9 @@
 	<key>copyLinkedImagesKey</key>
 	<false/>
 	<key>createSinglePDFKey</key>
-	<false/>
+	<integer>0</integer>
 	<key>exportAreaKey</key>
-	<integer>3</integer>
+	<integer>0</integer>
 	<key>exportQualityKey</key>
 	<real>100</real>
 	<key>exportSizesKey</key>
@@ -487,15 +526,13 @@
 	<key>htmlImageTypeKey</key>
 	<integer>0</integer>
 	<key>includeBackgroundGraphicKey</key>
-	<true/>
+	<false/>
 	<key>includeNonPrintingLayersKey</key>
 	<false/>
 	<key>lastExportTypeKey</key>
 	<integer>0</integer>
 	<key>marginWidthKey</key>
 	<real>0.0</real>
-	<key>previewTypeKey</key>
-	<integer>0</integer>
 	<key>readOnlyKey</key>
 	<false/>
 	<key>resolutionForBMPKey</key>
@@ -507,7 +544,7 @@
 	<key>resolutionForJPGKey</key>
 	<real>1</real>
 	<key>resolutionForPNGKey</key>
-	<real>1</real>
+	<real>3.5555555820465088</real>
 	<key>resolutionForTIFFKey</key>
 	<real>1</real>
 	<key>resolutionUnitsKey</key>
