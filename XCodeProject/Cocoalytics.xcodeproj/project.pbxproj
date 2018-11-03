@@ -21,6 +21,7 @@
 		9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */; };
 		9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */; };
 		9EB8BA61218E30A6007ED4E7 /* ScrollTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA60218E30A6007ED4E7 /* ScrollTable.swift */; };
+		9EB8BA67218E47BF007ED4E7 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA66218E47BF007ED4E7 /* Menu.swift */; };
 		E6EA65633B289664C0699D40 /* Pods_Cocoalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+LoadingFiles.swift"; sourceTree = "<group>"; };
 		9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+NSTableColumn.swift"; sourceTree = "<group>"; };
 		9EB8BA60218E30A6007ED4E7 /* ScrollTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollTable.swift; sourceTree = "<group>"; };
+		9EB8BA66218E47BF007ED4E7 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,13 +100,9 @@
 		9E00727A218E250E0094BD1C /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				9EB8BA5A218E2B70007ED4E7 /* Code Files */,
 				9EB8BA59218E2AD3007ED4E7 /* Main */,
-				9E00727D218E250E0094BD1C /* FileTable.swift */,
-				9EB8BA55218E2873007ED4E7 /* CodeFileAnalytics+Foundation.swift */,
-				9E00727E218E250E0094BD1C /* Store.swift */,
-				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
-				9EB8BA5B218E2C78007ED4E7 /* Framework Candidates */,
+				9EB8BA62218E44ED007ED4E7 /* File-Table */,
+				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 			);
 			name = Code;
 			path = ../Code;
@@ -161,22 +159,51 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		9EB8BA5A218E2B70007ED4E7 /* Code Files */ = {
+		9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = "Code Files";
-			sourceTree = "<group>";
-		};
-		9EB8BA5B218E2C78007ED4E7 /* Framework Candidates */ = {
-			isa = PBXGroup;
-			children = (
+				9EB8BA66218E47BF007ED4E7 /* Menu.swift */,
 				9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */,
 				9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */,
 				9EB8BA60218E30A6007ED4E7 /* ScrollTable.swift */,
 				9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */,
 			);
-			path = "Framework Candidates";
+			path = "Framework-Candidates";
+			sourceTree = "<group>";
+		};
+		9EB8BA62218E44ED007ED4E7 /* File-Table */ = {
+			isa = PBXGroup;
+			children = (
+				9EB8BA65218E456C007ED4E7 /* UI */,
+				9EB8BA64218E455C007ED4E7 /* Foundation */,
+				9EB8BA63218E4534007ED4E7 /* Model */,
+			);
+			path = "File-Table";
+			sourceTree = "<group>";
+		};
+		9EB8BA63218E4534007ED4E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9E00727E218E250E0094BD1C /* Store.swift */,
+				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9EB8BA64218E455C007ED4E7 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				9EB8BA55218E2873007ED4E7 /* CodeFileAnalytics+Foundation.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		9EB8BA65218E456C007ED4E7 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9E00727D218E250E0094BD1C /* FileTable.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +373,7 @@
 				9E007283218E250E0094BD1C /* CocoalyticsController.swift in Sources */,
 				9EB8BA61218E30A6007ED4E7 /* ScrollTable.swift in Sources */,
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
+				9EB8BA67218E47BF007ED4E7 /* Menu.swift in Sources */,
 				9E007288218E250E0094BD1C /* CocoalyticsMenu.swift in Sources */,
 				9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */,
 				9E007285218E250E0094BD1C /* Store.swift in Sources */,

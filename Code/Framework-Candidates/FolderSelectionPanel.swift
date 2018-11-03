@@ -27,8 +27,7 @@ class FolderSelectionPanel: NSOpenPanel
             
             guard let self = self,
                 response == .OK,
-                let folder = self.url
-            else
+                let folder = self.url else
             {
                 log(error: "Selecting folder failed.")
                 return
