@@ -1,6 +1,7 @@
 import AppKit
 import UIToolz
 import GetLaid
+import SwiftObserver
 import SwiftyToolz
 
 class MainView: LayerBackedView
@@ -22,7 +23,7 @@ class MainView: LayerBackedView
     private lazy var fileTable = addForAutoLayout(ScrollTable<FileTable>())
 }
 
-class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate
+class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
 {
     override init(frame frameRect: NSRect)
     {
@@ -33,13 +34,23 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate
         
         dataSource = self
         delegate = self
+        
+        observe(Store.shared)
+        {
+            [weak self] event in
+            
+            if event == Store.Event.didModifyData
+            {
+                self?.reloadData()
+            }
+        }
     }
     
     required init?(coder: NSCoder) { fatalError() }
     
     func numberOfRows(in tableView: NSTableView) -> Int
     {
-        return 10
+        return Store.shared.analytics.count
     }
     
     func tableView(_ tableView: NSTableView,
@@ -48,10 +59,14 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate
     {
         guard let column = tableColumn else { return nil }
         
+        let analytics = Store.shared.analytics[row]
+        
         switch column.identifier
         {
-        case fileColumnID: return Label(text: "SuperMegaCode.swift")
-        case linesColumnID: return Label(text: "666")
+        case fileColumnID:
+            return Label(text: analytics.file.path)
+        case linesColumnID:
+            return Label(text: "\(analytics.linesOfCode)")
         default: return nil
         }
     }
@@ -84,6 +99,7 @@ extension NSTableView
         column.resizingMask = .userResizingMask
         column.minWidth = minWidth
         column.title = id.rawValue
+        
         
         addTableColumn(column)
     }
