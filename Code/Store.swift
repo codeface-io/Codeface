@@ -42,6 +42,19 @@ class Store: Observable
     enum Event { case didNothing, didModifyData }
 }
 
+extension Array where Element == CodeFileAnalytics
+{
+    mutating func sortByLinesOfCode(ascending: Bool = false)
+    {
+        sort { ($0.linesOfCode < $1.linesOfCode) == ascending }
+    }
+    
+    mutating func sortByFilePath(ascending: Bool = true)
+    {
+        sort { ($0.file.path < $1.file.path) == ascending }
+    }
+}
+
 struct CodeFileAnalytics
 {
     init(file: CodeFile)

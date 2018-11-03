@@ -32,10 +32,9 @@ class DirectorySelectionPanel: NSOpenPanel
             if let urls = FileManager.default.files(inDirectory: directoryUrl,
                                                     extension: "swift")
             {
-                Store.shared.analytics = urls.compactMap
-                {
-                    CodeFileAnalytics(url: $0)
-                }
+                var analytics = urls.compactMap { CodeFileAnalytics(url: $0) }
+                analytics.sortByLinesOfCode()
+                Store.shared.analytics = analytics
             }
         }
     }

@@ -10,7 +10,7 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
     {
         super.init(frame: frameRect)
         
-        addColumn(fileColumnID, minWidth: 200)
+        addColumn(fileColumnID, minWidth: 400)
         addColumn(linesColumnID)
         
         dataSource = self
@@ -47,8 +47,39 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
         case fileColumnID:
             return Label(text: analytics.file.path)
         case linesColumnID:
-            return Label(text: "\(analytics.linesOfCode)")
+            let label = Label(text: "\(analytics.linesOfCode)")
+            label.alignment = .right
+            return label
         default: return nil
+        }
+    }
+    
+    func tableView(_ tableView: NSTableView,
+                   sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor])
+    {
+        for new in sortDescriptors
+        {
+            guard let key = new.key else
+            {
+                log(warning: "Sort descriptor has no key.")
+                continue
+            }
+            
+            let old = oldDescriptors.first { $0.key == key }
+            
+            if old == nil || old?.ascending != new.ascending
+            {
+                let store = Store.shared
+                
+                switch key
+                {
+                case linesColumnID.rawValue:
+                    store.analytics.sortByLinesOfCode(ascending: new.ascending)
+                case fileColumnID.rawValue:
+                    store.analytics.sortByFilePath(ascending: new.ascending)
+                default: break
+                }
+            }
         }
     }
     
@@ -74,14 +105,25 @@ class ScrollTable<T: NSTableView>: NSScrollView
 
 extension NSTableView
 {
-    func addColumn(_ id: UIItemID, minWidth: CGFloat = 100)
+    @discardableResult
+    func addColumn(_ id: UIItemID,
+                   sortable: Bool = true,
+                   minWidth: CGFloat = 100) -> NSTableColumn
     {
         let column = NSTableColumn(identifier: id)
         column.resizingMask = .userResizingMask
         column.minWidth = minWidth
         column.title = id.rawValue
         
+        if sortable
+        {
+            column.sortDescriptorPrototype = NSSortDescriptor(key: id.rawValue,
+                                                              ascending: true)
+        }
+        
         addTableColumn(column)
+        
+        return column
     }
 }
 
