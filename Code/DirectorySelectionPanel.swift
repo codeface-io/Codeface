@@ -25,9 +25,41 @@ class DirectorySelectionPanel: NSOpenPanel
         {
             [weak self] response in
             
-            guard let self = self, response == .OK else { return }
+            guard let self = self,
+                response == .OK,
+                let directoryUrl = self.url else { return }
             
-            log("DIRECTORY: \(self.url)")
+            if let urls = FileManager.default.files(inDirectory: directoryUrl,
+                                                    extension: "swift")
+            {
+                CodeFileStore.shared.files = urls.compactMap { CodeFile(url: $0) }
+            }
+        }
+    }
+}
+
+extension FileManager
+{
+    func files(inDirectory directoryURL: URL,
+               extension fileExtension: String) -> [URL]?
+    {
+        let options: DirectoryEnumerationOptions =
+        [
+            .skipsHiddenFiles,
+            .skipsPackageDescendants
+        ]
+        
+        let urlEnumerator = enumerator(at: directoryURL,
+                                       includingPropertiesForKeys: nil,
+                                       options: options,
+                                       errorHandler: nil)
+        
+        return urlEnumerator?.compactMap
+        {
+            guard let fileURL = $0 as? URL,
+                fileURL.pathExtension == fileExtension else { return nil }
+            
+            return fileURL
         }
     }
 }
