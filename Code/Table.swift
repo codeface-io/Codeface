@@ -14,8 +14,8 @@ class Table: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
         
         usesAlternatingRowBackgroundColors = true
         
-        addColumn(fileColumnID, minWidth: 300)
         addColumn(linesColumnID)
+        addColumn(fileColumnID, minWidth: 300)
         
         dataSource = self
         delegate = self
