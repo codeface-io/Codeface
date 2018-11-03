@@ -1,7 +1,7 @@
 import AppKit
 import UIToolz
 
-class View: LayerBackedView
+class CocoalyticsView: LayerBackedView
 {
     override init(frame frameRect: NSRect)
     {
@@ -17,5 +17,5 @@ class View: LayerBackedView
         table.constrainToParent()
     }
     
-    private lazy var table = addForAutoLayout(ScrollTable<Table>())
+    private lazy var table = addForAutoLayout(ScrollTable<FileTable>())
 }

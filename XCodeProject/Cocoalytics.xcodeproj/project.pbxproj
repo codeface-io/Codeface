@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E007282218E250E0094BD1C /* CocoalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727B218E250E0094BD1C /* CocoalyticsView.swift */; };
+		9E007283218E250E0094BD1C /* CocoalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CocoalyticsController.swift */; };
+		9E007284218E250E0094BD1C /* FileTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727D218E250E0094BD1C /* FileTable.swift */; };
+		9E007285218E250E0094BD1C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727E218E250E0094BD1C /* Store.swift */; };
+		9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */; };
+		9E007287218E250E0094BD1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007280218E250E0094BD1C /* main.swift */; };
+		9E007288218E250E0094BD1C /* CocoalyticsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007281218E250E0094BD1C /* CocoalyticsMenu.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CocoalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */; };
-		9E95A723218C76BA009A58A9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A722218C76BA009A58A9 /* main.swift */; };
-		9E95A725218C77B4009A58A9 /* CocoalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A724218C77B4009A58A9 /* CocoalyticsController.swift */; };
-		9E95A729218C7CD8009A58A9 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A728218C7CD8009A58A9 /* View.swift */; };
-		9E95A72B218C8041009A58A9 /* CocoalyticsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A72A218C8041009A58A9 /* CocoalyticsMenu.swift */; };
-		9E95A72D218C809D009A58A9 /* DirectorySelectionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A72C218C809D009A58A9 /* DirectorySelectionPanel.swift */; };
-		9E9E275F218D9E12005EFCEE /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E275E218D9E12005EFCEE /* Store.swift */; };
-		9E9E2761218DAF5F005EFCEE /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E2760218DAF5F005EFCEE /* Table.swift */; };
+		9EB8BA56218E2873007ED4E7 /* CodeFileAnalytics+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA55218E2873007ED4E7 /* CodeFileAnalytics+Foundation.swift */; };
+		9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */; };
+		9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */; };
+		9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */; };
+		9EB8BA61218E30A6007ED4E7 /* ScrollTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA60218E30A6007ED4E7 /* ScrollTable.swift */; };
 		E6EA65633B289664C0699D40 /* Pods_Cocoalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +38,13 @@
 		151086E6A4D2CFBA5F0A6FF9 /* Pods-Cocoalytics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocoalytics.release.xcconfig"; path = "Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics.release.xcconfig"; sourceTree = "<group>"; };
 		408DED073DAF22DAF444DC63 /* Pods-Cocoalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocoalytics.debug.xcconfig"; path = "Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics.debug.xcconfig"; sourceTree = "<group>"; };
 		75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cocoalytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E00727B218E250E0094BD1C /* CocoalyticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoalyticsView.swift; sourceTree = "<group>"; };
+		9E00727C218E250E0094BD1C /* CocoalyticsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoalyticsController.swift; sourceTree = "<group>"; };
+		9E00727D218E250E0094BD1C /* FileTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTable.swift; sourceTree = "<group>"; };
+		9E00727E218E250E0094BD1C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderSelectionPanel.swift; sourceTree = "<group>"; };
+		9E007280218E250E0094BD1C /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		9E007281218E250E0094BD1C /* CocoalyticsMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoalyticsMenu.swift; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Cocoalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E95A70D218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,13 +52,11 @@
 		9E95A713218C73CA009A58A9 /* CocoalyticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoalyticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoalyticsTests.swift; sourceTree = "<group>"; };
 		9E95A719218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E95A722218C76BA009A58A9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = ../../Code/main.swift; sourceTree = "<group>"; };
-		9E95A724218C77B4009A58A9 /* CocoalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CocoalyticsController.swift; path = ../../Code/CocoalyticsController.swift; sourceTree = "<group>"; };
-		9E95A728218C7CD8009A58A9 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = View.swift; path = ../../Code/View.swift; sourceTree = "<group>"; };
-		9E95A72A218C8041009A58A9 /* CocoalyticsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CocoalyticsMenu.swift; path = ../../Code/CocoalyticsMenu.swift; sourceTree = "<group>"; };
-		9E95A72C218C809D009A58A9 /* DirectorySelectionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DirectorySelectionPanel.swift; path = ../../Code/DirectorySelectionPanel.swift; sourceTree = "<group>"; };
-		9E9E275E218D9E12005EFCEE /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Store.swift; path = ../../Code/Store.swift; sourceTree = "<group>"; };
-		9E9E2760218DAF5F005EFCEE /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Table.swift; path = ../../Code/Table.swift; sourceTree = "<group>"; };
+		9EB8BA55218E2873007ED4E7 /* CodeFileAnalytics+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileAnalytics+Foundation.swift"; sourceTree = "<group>"; };
+		9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileAnalytics.swift; sourceTree = "<group>"; };
+		9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+LoadingFiles.swift"; sourceTree = "<group>"; };
+		9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+NSTableColumn.swift"; sourceTree = "<group>"; };
+		9EB8BA60218E30A6007ED4E7 /* ScrollTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,9 +95,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9E00727A218E250E0094BD1C /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				9EB8BA5A218E2B70007ED4E7 /* Code Files */,
+				9EB8BA59218E2AD3007ED4E7 /* Main */,
+				9E00727D218E250E0094BD1C /* FileTable.swift */,
+				9EB8BA55218E2873007ED4E7 /* CodeFileAnalytics+Foundation.swift */,
+				9E00727E218E250E0094BD1C /* Store.swift */,
+				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
+				9EB8BA5B218E2C78007ED4E7 /* Framework Candidates */,
+			);
+			name = Code;
+			path = ../Code;
+			sourceTree = "<group>";
+		};
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
+				9E00727A218E250E0094BD1C /* Code */,
 				9E95A705218C73C7009A58A9 /* Cocoalytics */,
 				9E95A716218C73CA009A58A9 /* CocoalyticsTests */,
 				9E95A704218C73C7009A58A9 /* Products */,
@@ -108,13 +134,6 @@
 		9E95A705218C73C7009A58A9 /* Cocoalytics */ = {
 			isa = PBXGroup;
 			children = (
-				9E95A722218C76BA009A58A9 /* main.swift */,
-				9E95A724218C77B4009A58A9 /* CocoalyticsController.swift */,
-				9E95A72A218C8041009A58A9 /* CocoalyticsMenu.swift */,
-				9E95A72C218C809D009A58A9 /* DirectorySelectionPanel.swift */,
-				9E95A728218C7CD8009A58A9 /* View.swift */,
-				9E9E2760218DAF5F005EFCEE /* Table.swift */,
-				9E9E275E218D9E12005EFCEE /* Store.swift */,
 				9E95A708218C73CA009A58A9 /* Assets.xcassets */,
 				9E95A70D218C73CA009A58A9 /* Info.plist */,
 				9E95A70E218C73CA009A58A9 /* Cocoalytics.entitlements */,
@@ -129,6 +148,35 @@
 				9E95A719218C73CA009A58A9 /* Info.plist */,
 			);
 			path = CocoalyticsTests;
+			sourceTree = "<group>";
+		};
+		9EB8BA59218E2AD3007ED4E7 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				9E007280218E250E0094BD1C /* main.swift */,
+				9E00727C218E250E0094BD1C /* CocoalyticsController.swift */,
+				9E007281218E250E0094BD1C /* CocoalyticsMenu.swift */,
+				9E00727B218E250E0094BD1C /* CocoalyticsView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		9EB8BA5A218E2B70007ED4E7 /* Code Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Code Files";
+			sourceTree = "<group>";
+		};
+		9EB8BA5B218E2C78007ED4E7 /* Framework Candidates */ = {
+			isa = PBXGroup;
+			children = (
+				9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */,
+				9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */,
+				9EB8BA60218E30A6007ED4E7 /* ScrollTable.swift */,
+				9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */,
+			);
+			path = "Framework Candidates";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,13 +337,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E95A723218C76BA009A58A9 /* main.swift in Sources */,
-				9E95A729218C7CD8009A58A9 /* View.swift in Sources */,
-				9E95A72B218C8041009A58A9 /* CocoalyticsMenu.swift in Sources */,
-				9E9E275F218D9E12005EFCEE /* Store.swift in Sources */,
-				9E95A72D218C809D009A58A9 /* DirectorySelectionPanel.swift in Sources */,
-				9E95A725218C77B4009A58A9 /* CocoalyticsController.swift in Sources */,
-				9E9E2761218DAF5F005EFCEE /* Table.swift in Sources */,
+				9EB8BA56218E2873007ED4E7 /* CodeFileAnalytics+Foundation.swift in Sources */,
+				9E007284218E250E0094BD1C /* FileTable.swift in Sources */,
+				9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */,
+				9E007282218E250E0094BD1C /* CocoalyticsView.swift in Sources */,
+				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
+				9E007287218E250E0094BD1C /* main.swift in Sources */,
+				9E007283218E250E0094BD1C /* CocoalyticsController.swift in Sources */,
+				9EB8BA61218E30A6007ED4E7 /* ScrollTable.swift in Sources */,
+				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
+				9E007288218E250E0094BD1C /* CocoalyticsMenu.swift in Sources */,
+				9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */,
+				9E007285218E250E0094BD1C /* Store.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

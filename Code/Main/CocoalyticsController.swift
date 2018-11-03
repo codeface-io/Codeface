@@ -18,5 +18,5 @@ class CocoalyticsController: AppController, NSWindowDelegate
     
     private lazy var window = Window(viewController: viewController)
     
-    private let viewController = ViewControlller<View>()
+    private let viewController = ViewControlller<CocoalyticsView>()
 }

@@ -34,7 +34,26 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
     
     @objc private func selectFolder()
     {
-        DirectorySelectionPanel().open()
+        FolderSelectionPanel().selectFolder
+        {
+            folder in
+            
+            let manager = FileManager.default
+            
+            guard let files = manager.files(inDirectory: folder,
+                                            extension: "swift") else
+            {
+                return
+            }
+        
+            var analytics = files.compactMap
+            {
+                CodeFileAnalytics(file: $0, folder: folder)
+            }
+            
+            analytics.sortByLinesOfCode()
+            Store.shared.analytics = analytics
+        }
     }
 }
 

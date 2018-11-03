@@ -4,7 +4,7 @@ import GetLaid
 import SwiftObserver
 import SwiftyToolz
 
-class Table: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
+class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
 {
     // MARK: - Life Cycle
     
@@ -102,48 +102,6 @@ class Table: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
     private let fileColumnID = UIItemID(rawValue: "File")
     private let linesColumnID = UIItemID(rawValue: "Lines of Code")
 }
-
-// MARK: - Framework Candidates
-
-class ScrollTable<T: NSTableView>: NSScrollView
-{
-    override init(frame frameRect: NSRect)
-    {
-        super.init(frame: frameRect)
-        
-        documentView = table
-    }
-    
-    required init?(coder: NSCoder) { fatalError() }
-    
-    let table = T()
-}
-
-extension NSTableView
-{
-    @discardableResult
-    func addColumn(_ id: UIItemID,
-                   sortable: Bool = true,
-                   minWidth: CGFloat = 100) -> NSTableColumn
-    {
-        let column = NSTableColumn(identifier: id)
-        column.resizingMask = .userResizingMask
-        column.minWidth = minWidth
-        column.title = id.rawValue
-        
-        if sortable
-        {
-            column.sortDescriptorPrototype = NSSortDescriptor(key: id.rawValue,
-                                                              ascending: true)
-        }
-        
-        addTableColumn(column)
-        
-        return column
-    }
-}
-
-typealias UIItemID = NSUserInterfaceItemIdentifier
 
 extension WarningColor
 {
