@@ -10,19 +10,14 @@ class Store: Observable
     {
         self.folderPath = folderPath
         self.analytics = analytics
-        self.analytics.sortByLinesOfCode()
+        self.analytics.sort(by: .linesOfCode, ascending: false)
         send(.didModifyData)
     }
     
-    func sortByLinesOfCode(ascending: Bool)
+    func sort(by dimension: CodeFileAnalytics.SortDimension,
+              ascending: Bool)
     {
-        analytics.sortByLinesOfCode(ascending: ascending)
-        send(.didModifyData)
-    }
-    
-    func sortByFilePath(ascending: Bool)
-    {
-        analytics.sortByFilePath(ascending: ascending)
+        analytics.sort(by: dimension, ascending: ascending)
         send(.didModifyData)
     }
     

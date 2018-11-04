@@ -85,9 +85,9 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
                 switch key
                 {
                 case linesColumnID.rawValue:
-                    store.sortByLinesOfCode(ascending: new.ascending)
+                    store.sort(by: .linesOfCode, ascending: new.ascending)
                 case fileColumnID.rawValue:
-                    store.sortByFilePath(ascending: new.ascending)
+                    store.sort(by: .filePath, ascending: new.ascending)
                 default: break
                 }
             }

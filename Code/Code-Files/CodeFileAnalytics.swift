@@ -11,19 +11,6 @@ enum WarningColor
     case none, green, yellow, orange, red
 }
 
-extension Array where Element == CodeFileAnalytics
-{
-    mutating func sortByLinesOfCode(ascending: Bool = false)
-    {
-        sort { ($0.linesOfCode < $1.linesOfCode) == ascending }
-    }
-    
-    mutating func sortByFilePath(ascending: Bool = true)
-    {
-        sort { ($0.file.pathInCodeFolder < $1.file.pathInCodeFolder) == ascending }
-    }
-}
-
 struct CodeFileAnalytics
 {
     init(file: CodeFile)
