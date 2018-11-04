@@ -40,8 +40,11 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
             
             let manager = FileManager.default
             
+            let unwantedFolders = ["Pods", "Carthage", "Example%20Projects"]
+            
             guard let files = manager.files(inDirectory: folder,
-                                            extension: "swift") else
+                                            extension: "swift",
+                                            skipFolders: unwantedFolders) else
             {
                 return
             }

@@ -3,7 +3,8 @@ import Foundation
 extension FileManager
 {
     func files(inDirectory directoryURL: URL,
-               extension fileExtension: String) -> [URL]?
+               extension fileExtension: String,
+               skipFolders: [String] = []) -> [URL]?
     {
         let options: DirectoryEnumerationOptions =
         [
@@ -20,6 +21,13 @@ extension FileManager
         {
             guard let fileURL = $0 as? URL,
                 fileURL.pathExtension == fileExtension else { return nil }
+            
+            let urlString = fileURL.absoluteString
+            
+            for unwantedFolder in skipFolders
+            {
+                if urlString.contains(unwantedFolder) { return nil }
+            }
             
             return fileURL
         }
