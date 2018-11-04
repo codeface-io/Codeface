@@ -12,26 +12,26 @@ PODS:
     - SwiftyToolz
 
 DEPENDENCIES:
-  - FoundationToolz (from `../../FoundationToolz`)
-  - GetLaid (from `../../GetLaid`)
-  - SwiftObserver (from `../../SwiftObserver`)
-  - SwiftyToolz (from `../../SwiftyToolz`)
-  - UIObserver (from `../../UIObserver`)
-  - UIToolz (from `../../UIToolz`)
+  - FoundationToolz (from `../../Frameworks/FoundationToolz`)
+  - GetLaid (from `../../Frameworks/GetLaid`)
+  - SwiftObserver (from `../../Frameworks/SwiftObserver`)
+  - SwiftyToolz (from `../../Frameworks/SwiftyToolz`)
+  - UIObserver (from `../../Frameworks/UIObserver`)
+  - UIToolz (from `../../Frameworks/UIToolz`)
 
 EXTERNAL SOURCES:
   FoundationToolz:
-    :path: "../../FoundationToolz"
+    :path: "../../Frameworks/FoundationToolz"
   GetLaid:
-    :path: "../../GetLaid"
+    :path: "../../Frameworks/GetLaid"
   SwiftObserver:
-    :path: "../../SwiftObserver"
+    :path: "../../Frameworks/SwiftObserver"
   SwiftyToolz:
-    :path: "../../SwiftyToolz"
+    :path: "../../Frameworks/SwiftyToolz"
   UIObserver:
-    :path: "../../UIObserver"
+    :path: "../../Frameworks/UIObserver"
   UIToolz:
-    :path: "../../UIToolz"
+    :path: "../../Frameworks/UIToolz"
 
 SPEC CHECKSUMS:
   FoundationToolz: e40cc7cc969480357a44eaafd9bab4b75a3f0c7a
@@ -41,6 +41,6 @@ SPEC CHECKSUMS:
   UIObserver: d52d08987839f94e2ca4f4767b233fc53e6837e3
   UIToolz: 152bc2e5c7c7ee5e2c71c20480892fcb87a60ea1
 
-PODFILE CHECKSUM: 857aa571df5bdf57e499da4f4f7040beede58bf7
+PODFILE CHECKSUM: 56684b74f502b3eeafb4da04660925a6e8357e0b
 
 COCOAPODS: 1.6.0.beta.1
