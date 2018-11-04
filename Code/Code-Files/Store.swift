@@ -8,28 +8,26 @@ class Store: Observable
     
     func set(analytics: [CodeFileAnalytics], folderPath: String)
     {
-        var sortingArray = analytics
-        sortingArray.sortByLinesOfCode()
         self.folderPath = folderPath
-        self.analytics = sortingArray
+        self.analytics = analytics
+        self.analytics.sortByLinesOfCode()
+        send(.didModifyData)
     }
     
     func sortByLinesOfCode(ascending: Bool)
     {
         analytics.sortByLinesOfCode(ascending: ascending)
+        send(.didModifyData)
     }
     
     func sortByFilePath(ascending: Bool)
     {
         analytics.sortByFilePath(ascending: ascending)
+        send(.didModifyData)
     }
     
     private(set) var folderPath = ""
-    
     private(set) var analytics = [CodeFileAnalytics]()
-    {
-        didSet { send(.didModifyData) }
-    }
     
     var latestUpdate = Event.didNothing
     
