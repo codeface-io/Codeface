@@ -11,5 +11,5 @@ class CocoalyticsController: AppController
         window.contentViewController = viewController
     }
     
-    private let viewController = ViewController<CocoalyticsView>()
+    private let viewController = ViewController<CodeFolderView>()
 }

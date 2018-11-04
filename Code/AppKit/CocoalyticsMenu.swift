@@ -10,6 +10,7 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
         if let appMenu = items.first?.submenu
         {
             appMenu.insertItem(directoryItem, at: 0)
+            appMenu.insertItem(NSMenuItem.separator(), at: 1)
         }
     }
     
@@ -22,7 +23,7 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
     
     private lazy var directoryItem: NSMenuItem =
     {
-        let item = NSMenuItem(title: "Select Code Folder...",
+        let item = NSMenuItem(title: "Open Code Folder...",
                               action: #selector(selectFolder),
                               keyEquivalent: "o")
         
@@ -36,23 +37,7 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
     {
         FolderSelectionPanel().selectFolder
         {
-            folder in
-            
-            let manager = FileManager.default
-            
-            let unwantedFolders = ["Pods", "Carthage", "Example%20Projects"]
-            
-            guard let files = manager.files(inDirectory: folder,
-                                            extension: "swift",
-                                            skipFolders: unwantedFolders)
-            else { return }
-            
-            let analytics = files.compactMap
-            {
-                CodeFileAnalytics(file: $0, folder: folder)
-            }
-
-            Store.shared.set(analytics: analytics, folderPath: folder.path)
+            folder in CodeFolder.shared.update(with: folder)
         }
     }
 }

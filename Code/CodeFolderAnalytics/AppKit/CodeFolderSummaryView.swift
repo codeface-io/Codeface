@@ -2,7 +2,7 @@ import AppKit
 import UIToolz
 import SwiftObserver
 
-class SummaryView: NSView, Observer
+class CodeFolderSummaryView: NSView, Observer
 {
     override init(frame frameRect: NSRect)
     {
@@ -12,7 +12,7 @@ class SummaryView: NSView, Observer
         
         folderPathLabel.alignment = .right
         
-        observe(Store.shared, select: .didModifyData)
+        observe(CodeFolder.shared, select: .didModifyData)
         {
             [weak self] in self?.storeDidModifyData()
         }
@@ -20,10 +20,10 @@ class SummaryView: NSView, Observer
     
     private func storeDidModifyData()
     {
-        let store = Store.shared
+        let store = CodeFolder.shared
         
-        folderPathLabel.stringValue = "\(store.folderPath)"
-        numbersLabel.stringValue = "\(store.numberOfLines) lines of code in \(store.analytics.count) Swift files"
+        folderPathLabel.stringValue = "\(store.path)"
+        numbersLabel.stringValue = "\(store.totalLinesOfCode) lines of code in \(store.folderAnalytics.count) Swift files"
     }
     
     private func layoutSubviews()

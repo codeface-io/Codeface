@@ -4,7 +4,7 @@ import GetLaid
 import SwiftObserver
 import SwiftyToolz
 
-class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
+class CodeFolderTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
 {
     // MARK: - Life Cycle
     
@@ -20,7 +20,7 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
         dataSource = self
         delegate = self
         
-        observe(Store.shared, select: .didModifyData)
+        observe(CodeFolder.shared, select: .didModifyData)
         {
             [weak self] in self?.reloadData()
         }
@@ -34,7 +34,7 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
     
     func numberOfRows(in tableView: NSTableView) -> Int
     {
-        return Store.shared.analytics.count
+        return CodeFolder.shared.folderAnalytics.count
     }
     
     func tableView(_ tableView: NSTableView,
@@ -43,7 +43,7 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
     {
         guard let column = tableColumn else { return nil }
         
-        let analytics = Store.shared.analytics[row]
+        let analytics = CodeFolder.shared.folderAnalytics[row]
         
         switch column.identifier
         {
@@ -57,7 +57,7 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
             label.font = NSFont.monospacedDigitSystemFont(ofSize: 12,
                                                           weight: .regular)
             label.alignment = .right
-            label.textColor = warningColor(for: loc).labelColor
+            label.textColor = warningColor(for: loc).nsColor
             
             return label
             
@@ -80,7 +80,7 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
             
             if old == nil || old?.ascending != new.ascending
             {
-                let store = Store.shared
+                let store = CodeFolder.shared
                 
                 switch key
                 {
@@ -96,19 +96,4 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
     
     private let fileColumnID = UIItemID(rawValue: "File")
     private let linesColumnID = UIItemID(rawValue: "Lines of Code")
-}
-
-extension WarningColor
-{
-    var labelColor: NSColor
-    {
-        switch self
-        {
-        case .none: return NSColor.labelColor
-        case .green: return NSColor.systemGreen
-        case .yellow: return NSColor.systemYellow
-        case .orange: return NSColor.systemOrange
-        case .red:  return NSColor.systemRed
-        }
-    }
 }

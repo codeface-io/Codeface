@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E007282218E250E0094BD1C /* CocoalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727B218E250E0094BD1C /* CocoalyticsView.swift */; };
+		9E007282218E250E0094BD1C /* CodeFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727B218E250E0094BD1C /* CodeFolderView.swift */; };
 		9E007283218E250E0094BD1C /* CocoalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CocoalyticsController.swift */; };
-		9E007284218E250E0094BD1C /* FileTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727D218E250E0094BD1C /* FileTable.swift */; };
-		9E007285218E250E0094BD1C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727E218E250E0094BD1C /* Store.swift */; };
+		9E007284218E250E0094BD1C /* CodeFolderTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727D218E250E0094BD1C /* CodeFolderTable.swift */; };
+		9E007285218E250E0094BD1C /* CodeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727E218E250E0094BD1C /* CodeFolder.swift */; };
 		9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */; };
 		9E007287218E250E0094BD1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007280218E250E0094BD1C /* main.swift */; };
 		9E007288218E250E0094BD1C /* CocoalyticsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007281218E250E0094BD1C /* CocoalyticsMenu.swift */; };
+		9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E245218F5A1200339F55 /* CodeFile.swift */; };
+		9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */; };
+		9E76E24D218F6A6A00339F55 /* CodeFolder+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E24C218F6A6A00339F55 /* CodeFolder+Foundation.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CocoalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */; };
 		9EA5A8B1218EE934004902F7 /* CodeFileAnalytics+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B0218EE934004902F7 /* CodeFileAnalytics+Foundation.swift */; };
-		9EA5A8B5218EEB7E004902F7 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B4218EEB7E004902F7 /* SummaryView.swift */; };
+		9EA5A8B5218EEB7E004902F7 /* CodeFolderSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B4218EEB7E004902F7 /* CodeFolderSummaryView.swift */; };
 		9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */; };
 		9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */; };
 		9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */; };
@@ -41,13 +44,16 @@
 		151086E6A4D2CFBA5F0A6FF9 /* Pods-Cocoalytics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocoalytics.release.xcconfig"; path = "Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics.release.xcconfig"; sourceTree = "<group>"; };
 		408DED073DAF22DAF444DC63 /* Pods-Cocoalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocoalytics.debug.xcconfig"; path = "Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics.debug.xcconfig"; sourceTree = "<group>"; };
 		75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cocoalytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E00727B218E250E0094BD1C /* CocoalyticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoalyticsView.swift; sourceTree = "<group>"; };
+		9E00727B218E250E0094BD1C /* CodeFolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFolderView.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CocoalyticsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoalyticsController.swift; sourceTree = "<group>"; };
-		9E00727D218E250E0094BD1C /* FileTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTable.swift; sourceTree = "<group>"; };
-		9E00727E218E250E0094BD1C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		9E00727D218E250E0094BD1C /* CodeFolderTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFolderTable.swift; sourceTree = "<group>"; };
+		9E00727E218E250E0094BD1C /* CodeFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFolder.swift; sourceTree = "<group>"; };
 		9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderSelectionPanel.swift; sourceTree = "<group>"; };
 		9E007280218E250E0094BD1C /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		9E007281218E250E0094BD1C /* CocoalyticsMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoalyticsMenu.swift; sourceTree = "<group>"; };
+		9E76E245218F5A1200339F55 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
+		9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFile+Foundation.swift"; sourceTree = "<group>"; };
+		9E76E24C218F6A6A00339F55 /* CodeFolder+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+Foundation.swift"; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Cocoalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E95A70D218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,7 +62,7 @@
 		9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoalyticsTests.swift; sourceTree = "<group>"; };
 		9E95A719218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EA5A8B0218EE934004902F7 /* CodeFileAnalytics+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CodeFileAnalytics+Foundation.swift"; sourceTree = "<group>"; };
-		9EA5A8B4218EEB7E004902F7 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		9EA5A8B4218EEB7E004902F7 /* CodeFolderSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolderSummaryView.swift; sourceTree = "<group>"; };
 		9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileAnalytics+Sorting.swift"; sourceTree = "<group>"; };
 		9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileAnalytics.swift; sourceTree = "<group>"; };
 		9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+LoadingFiles.swift"; sourceTree = "<group>"; };
@@ -105,11 +111,58 @@
 			isa = PBXGroup;
 			children = (
 				9EB8BA59218E2AD3007ED4E7 /* AppKit */,
-				9EB8BA62218E44ED007ED4E7 /* Code-Files */,
+				9E76E24B218F64D000339F55 /* CodeFolderAnalytics */,
+				9E76E24A218F608800339F55 /* CodeFileAnalytics */,
+				9E76E244218F59E700339F55 /* CodeFile */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 			);
 			name = Code;
 			path = ../Code;
+			sourceTree = "<group>";
+		};
+		9E76E244218F59E700339F55 /* CodeFile */ = {
+			isa = PBXGroup;
+			children = (
+				9E76E247218F5A1E00339F55 /* Foundation */,
+				9E76E245218F5A1200339F55 /* CodeFile.swift */,
+			);
+			path = CodeFile;
+			sourceTree = "<group>";
+		};
+		9E76E247218F5A1E00339F55 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		9E76E24A218F608800339F55 /* CodeFileAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				9EA5A8AF218EE934004902F7 /* Foundation */,
+				9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */,
+				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
+			);
+			path = CodeFileAnalytics;
+			sourceTree = "<group>";
+		};
+		9E76E24B218F64D000339F55 /* CodeFolderAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				9EB8BA65218E456C007ED4E7 /* AppKit */,
+				9E76E24E218F6CE700339F55 /* Foundation */,
+				9E00727E218E250E0094BD1C /* CodeFolder.swift */,
+			);
+			path = CodeFolderAnalytics;
+			sourceTree = "<group>";
+		};
+		9E76E24E218F6CE700339F55 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				9E76E24C218F6A6A00339F55 /* CodeFolder+Foundation.swift */,
+			);
+			path = Foundation;
 			sourceTree = "<group>";
 		};
 		9E95A6FA218C73C7009A58A9 = {
@@ -185,7 +238,6 @@
 				9E007280218E250E0094BD1C /* main.swift */,
 				9E00727C218E250E0094BD1C /* CocoalyticsController.swift */,
 				9E007281218E250E0094BD1C /* CocoalyticsMenu.swift */,
-				9E00727B218E250E0094BD1C /* CocoalyticsView.swift */,
 			);
 			path = AppKit;
 			sourceTree = "<group>";
@@ -199,23 +251,12 @@
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
 		};
-		9EB8BA62218E44ED007ED4E7 /* Code-Files */ = {
-			isa = PBXGroup;
-			children = (
-				9EB8BA65218E456C007ED4E7 /* AppKit */,
-				9EA5A8AF218EE934004902F7 /* Foundation */,
-				9E00727E218E250E0094BD1C /* Store.swift */,
-				9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */,
-				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
-			);
-			path = "Code-Files";
-			sourceTree = "<group>";
-		};
 		9EB8BA65218E456C007ED4E7 /* AppKit */ = {
 			isa = PBXGroup;
 			children = (
-				9E00727D218E250E0094BD1C /* FileTable.swift */,
-				9EA5A8B4218EEB7E004902F7 /* SummaryView.swift */,
+				9E00727B218E250E0094BD1C /* CodeFolderView.swift */,
+				9EA5A8B4218EEB7E004902F7 /* CodeFolderSummaryView.swift */,
+				9E00727D218E250E0094BD1C /* CodeFolderTable.swift */,
 			);
 			path = AppKit;
 			sourceTree = "<group>";
@@ -378,10 +419,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E007284218E250E0094BD1C /* FileTable.swift in Sources */,
-				9EA5A8B5218EEB7E004902F7 /* SummaryView.swift in Sources */,
+				9E007284218E250E0094BD1C /* CodeFolderTable.swift in Sources */,
+				9EA5A8B5218EEB7E004902F7 /* CodeFolderSummaryView.swift in Sources */,
 				9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */,
-				9E007282218E250E0094BD1C /* CocoalyticsView.swift in Sources */,
+				9E76E24D218F6A6A00339F55 /* CodeFolder+Foundation.swift in Sources */,
+				9E007282218E250E0094BD1C /* CodeFolderView.swift in Sources */,
+				9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				9E007287218E250E0094BD1C /* main.swift in Sources */,
 				9E007283218E250E0094BD1C /* CocoalyticsController.swift in Sources */,
@@ -392,7 +435,8 @@
 				9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */,
 				9EA5A8B1218EE934004902F7 /* CodeFileAnalytics+Foundation.swift in Sources */,
 				9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */,
-				9E007285218E250E0094BD1C /* Store.swift in Sources */,
+				9E007285218E250E0094BD1C /* CodeFolder.swift in Sources */,
+				9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

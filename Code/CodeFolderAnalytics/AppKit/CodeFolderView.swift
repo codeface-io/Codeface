@@ -1,7 +1,7 @@
 import AppKit
 import UIToolz
 
-class CocoalyticsView: LayerBackedView
+class CodeFolderView: LayerBackedView
 {
     override init(frame frameRect: NSRect)
     {
@@ -20,6 +20,6 @@ class CocoalyticsView: LayerBackedView
         table.constrain(below: summary)
     }
     
-    private lazy var table = addForAutoLayout(ScrollTable<FileTable>())
-    private lazy var summary = addForAutoLayout(SummaryView())
+    private lazy var summary = addForAutoLayout(CodeFolderSummaryView())
+    private lazy var table = addForAutoLayout(ScrollTable<CodeFolderTable>())
 }
