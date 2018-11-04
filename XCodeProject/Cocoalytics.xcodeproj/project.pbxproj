@@ -17,6 +17,7 @@
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CocoalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */; };
 		9EA5A8B1218EE934004902F7 /* CodeFileAnalytics+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B0218EE934004902F7 /* CodeFileAnalytics+Foundation.swift */; };
+		9EA5A8B5218EEB7E004902F7 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B4218EEB7E004902F7 /* SummaryView.swift */; };
 		9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */; };
 		9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */; };
 		9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */; };
@@ -54,6 +55,7 @@
 		9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoalyticsTests.swift; sourceTree = "<group>"; };
 		9E95A719218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EA5A8B0218EE934004902F7 /* CodeFileAnalytics+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CodeFileAnalytics+Foundation.swift"; sourceTree = "<group>"; };
+		9EA5A8B4218EEB7E004902F7 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileAnalytics.swift; sourceTree = "<group>"; };
 		9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+LoadingFiles.swift"; sourceTree = "<group>"; };
 		9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+NSTableColumn.swift"; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				9E00727D218E250E0094BD1C /* FileTable.swift */,
+				9EA5A8B4218EEB7E004902F7 /* SummaryView.swift */,
 			);
 			path = AppKit;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E007284218E250E0094BD1C /* FileTable.swift in Sources */,
+				9EA5A8B5218EEB7E004902F7 /* SummaryView.swift in Sources */,
 				9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */,
 				9E007282218E250E0094BD1C /* CocoalyticsView.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,

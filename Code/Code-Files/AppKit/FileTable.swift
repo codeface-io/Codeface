@@ -20,14 +20,9 @@ class FileTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observ
         dataSource = self
         delegate = self
         
-        observe(Store.shared)
+        observe(Store.shared, select: .didModifyData)
         {
-            [weak self] event in
-            
-            if event == Store.Event.didModifyData
-            {
-                self?.reloadData()
-            }
+            [weak self] in self?.reloadData()
         }
     }
     

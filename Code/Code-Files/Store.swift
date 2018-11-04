@@ -6,6 +6,8 @@ class Store: Observable
     
     private init() {}
     
+    var folderPath = ""
+    
     var analytics = [CodeFileAnalytics]()
     {
         didSet { send(.didModifyData) }

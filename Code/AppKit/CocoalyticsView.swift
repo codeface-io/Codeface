@@ -7,15 +7,19 @@ class CocoalyticsView: LayerBackedView
     {
         super.init(frame: frameRect)
         
-        layoutTable()
+        layoutViews()
     }
     
     required init?(coder decoder: NSCoder) { fatalError() }
     
-    private func layoutTable()
+    private func layoutViews()
     {
-        table.constrainToParent()
+        summary.constrainToParentExcludingBottom()
+        
+        table.constrainToParentExcludingTop()
+        table.constrain(below: summary)
     }
     
     private lazy var table = addForAutoLayout(ScrollTable<FileTable>())
+    private lazy var summary = addForAutoLayout(SummaryView())
 }

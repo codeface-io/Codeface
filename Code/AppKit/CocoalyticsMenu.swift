@@ -44,17 +44,18 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
             
             guard let files = manager.files(inDirectory: folder,
                                             extension: "swift",
-                                            skipFolders: unwantedFolders) else
-            {
-                return
-            }
+                                            skipFolders: unwantedFolders)
+            else { return }
         
+            Store.shared.folderPath = folder.path
+            
             var analytics = files.compactMap
             {
                 CodeFileAnalytics(file: $0, folder: folder)
             }
             
             analytics.sortByLinesOfCode()
+
             Store.shared.analytics = analytics
         }
     }
