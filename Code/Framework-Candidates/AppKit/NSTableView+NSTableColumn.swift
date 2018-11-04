@@ -1,4 +1,5 @@
 import AppKit
+import UIToolz
 
 extension NSTableView
 {
@@ -24,5 +25,3 @@ extension NSTableView
         return column
     }
 }
-
-typealias UIItemID = NSUserInterfaceItemIdentifier

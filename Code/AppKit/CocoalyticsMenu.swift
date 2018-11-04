@@ -9,8 +9,23 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
         
         if let appMenu = items.first?.submenu
         {
+            let reloadItem = makeItem("Reload", key: "r", id: reloadID)
+            {
+                CodeFolder.shared.loadFromLastFolder()
+            }
+            
             appMenu.insertItem(reloadItem, at: 0)
-            appMenu.insertItem(directoryItem, at: 1)
+            
+            let loadItem = makeItem("Load Code Folder...", key: "l", id: loadID)
+            {
+                FolderSelectionPanel().selectFolder
+                {
+                    folder in CodeFolder.shared.load(from: folder)
+                }
+            }
+            
+            appMenu.insertItem(loadItem, at: 1)
+            
             appMenu.insertItem(NSMenuItem.separator(), at: 2)
         }
     }
@@ -19,47 +34,12 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool
     {
-        switch menuItem
+        switch menuItem.id
         {
-        case reloadItem: return CodeFolder.lastLoadedFolder != nil
+        case reloadID: return CodeFolder.lastLoadedFolder != nil
         default: return true
         }
     }
     
-    private lazy var directoryItem: NSMenuItem =
-    {
-        let item = NSMenuItem(title: "Load Code Folder...",
-                              action: #selector(selectFolder),
-                              keyEquivalent: "l")
-        
-        item.target = self
-        item.keyEquivalentModifierMask = [.command]
-        
-        return item
-    }()
-    
-    @objc private func selectFolder()
-    {
-        FolderSelectionPanel().selectFolder
-        {
-            folder in CodeFolder.shared.load(from: folder)
-        }
-    }
-    
-    private lazy var reloadItem: NSMenuItem =
-    {
-        let item = NSMenuItem(title: "Reload",
-                              action: #selector(reload),
-                              keyEquivalent: "r")
-        
-        item.target = self
-        item.keyEquivalentModifierMask = [.command]
-        
-        return item
-    }()
-    
-    @objc private func reload()
-    {
-        CodeFolder.shared.loadFromLastFolder()
-    }
+    private let reloadID = "reload", loadID = "load"
 }
