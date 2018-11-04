@@ -9,6 +9,8 @@ class CocoalyticsController: AppController
         super.applicationDidFinishLaunching(aNotification)
         
         window.contentViewController = viewController
+        
+        CodeFolder.shared.loadFromLastFolder()
     }
     
     private let viewController = ViewController<CodeFolderView>()

@@ -2,7 +2,14 @@ import Foundation
 
 extension CodeFolder
 {
-    func update(with folder: URL)
+    func loadFromLastFolder()
+    {
+        guard let folder = CodeFolder.lastLoadedFolder else { return }
+        
+        load(from: folder)
+    }
+    
+    func load(from folder: URL)
     {
         let manager = FileManager.default
         
@@ -13,6 +20,8 @@ extension CodeFolder
                                         skipFolders: unwantedFolders)
         else { return }
         
+        CodeFolder.lastLoadedFolder = folder
+        
         let analytics = files.compactMap
         {
             CodeFileAnalytics(file: $0, folder: folder)
@@ -20,4 +29,12 @@ extension CodeFolder
         
         set(analytics: analytics, path: folder.path)
     }
+
+    static var lastLoadedFolder: URL?
+    {
+        get { return UserDefaults.standard.url(forKey: folderKey) }
+        set { UserDefaults.standard.set(newValue, forKey: folderKey) }
+    }
+    
+    private static let folderKey = "UserDefaultsKeyFolderURL"
 }

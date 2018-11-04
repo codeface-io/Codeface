@@ -37,7 +37,7 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
     {
         FolderSelectionPanel().selectFolder
         {
-            folder in CodeFolder.shared.update(with: folder)
+            folder in CodeFolder.shared.load(from: folder)
         }
     }
 }
