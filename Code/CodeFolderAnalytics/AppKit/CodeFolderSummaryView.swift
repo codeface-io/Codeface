@@ -28,12 +28,8 @@ class CodeFolderSummaryView: NSView, Observer
     
     private func layoutSubviews()
     {
-        numbersLabel.constrainToParentExcludingRight(insetTop: 10,
-                                                        insetLeft: 10,
-                                                        insetBottom: 10)
-        folderPathLabel.constrainToParentExcludingLeft(insetTop: 10,
-                                                    insetBottom: 10,
-                                                    insetRight: 10)
+        numbersLabel.constrainToParentExcludingRight(inset: 10)
+        folderPathLabel.constrainToParentExcludingLeft(inset: 10)
         folderPathLabel.constrain(toTheRightOf: numbersLabel, gap: 10)
         folderPathLabel.constrainWidth(to: numbersLabel)
     }
