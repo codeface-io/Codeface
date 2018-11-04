@@ -1,12 +1,13 @@
 import AppKit
+import FoundationToolz
 
 class Menu: NSMenu
 {
-    init(appName: String)
+    init()
     {
-        super.init(title: "\(appName) Menu Bar")
+        super.init(title: "Menu Bar")
         
-        addItem(NSMenuItem(submenu: ApplicationMenu(appName: appName)))
+        addItem(NSMenuItem(submenu: ApplicationMenu()))
     }
     
     required init(coder decoder: NSCoder) { fatalError() }
@@ -14,14 +15,18 @@ class Menu: NSMenu
 
 class ApplicationMenu: NSMenu
 {
-    init(appName: String)
+    init()
     {
-        super.init(title: "\(appName) Application Menu")
+        super.init(title: "Application Menu")
         
-        addItem(withTitle: "Hide \(appName)",
+        var namePostfix = ""
+        
+        if let name = appName { namePostfix = " " + name }
+        
+        addItem(withTitle: "Hide" + namePostfix,
             action: #selector(NSApplication.hide(_:)),
             keyEquivalent: "h")
-        addItem(withTitle: "Quit \(appName)",
+        addItem(withTitle: "Quit" + namePostfix,
             action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q")
     }

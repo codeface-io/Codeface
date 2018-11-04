@@ -3,9 +3,9 @@ import UIToolz
 
 class CocoalyticsMenu: Menu, NSMenuItemValidation
 {
-    init()
+    override init()
     {
-        super.init(appName: "Cocoalytics")
+        super.init()
         
         if let appMenu = items.first?.submenu
         {
