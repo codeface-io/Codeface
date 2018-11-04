@@ -1,22 +1,15 @@
 import UIToolz
-import SwiftObserver
 
-class CocoalyticsController: AppController, NSWindowDelegate
+class CocoalyticsController: AppController
 {
-    init()
+    init() { super.init(withMainMenu: CocoalyticsMenu()) }
+    
+    override func applicationDidFinishLaunching(_ aNotification: Notification)
     {
-        Log.prefix = "COCOALYTICS"
+        super.applicationDidFinishLaunching(aNotification)
         
-        super.init(withMainMenu: CocoalyticsMenu())
+        window.contentViewController = viewController
     }
-    
-    func applicationWillBecomeActive(_ notification: Notification)
-    {
-        window.delegate = self
-        window.show()
-    }
-    
-    private lazy var window = Window(viewController: viewController)
     
     private let viewController = ViewController<CocoalyticsView>()
 }
