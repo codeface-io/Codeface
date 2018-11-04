@@ -9,8 +9,9 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
         
         if let appMenu = items.first?.submenu
         {
-            appMenu.insertItem(directoryItem, at: 0)
-            appMenu.insertItem(NSMenuItem.separator(), at: 1)
+            appMenu.insertItem(reloadItem, at: 0)
+            appMenu.insertItem(directoryItem, at: 1)
+            appMenu.insertItem(NSMenuItem.separator(), at: 2)
         }
     }
     
@@ -18,14 +19,18 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool
     {
-        return true
+        switch menuItem
+        {
+        case reloadItem: return CodeFolder.lastLoadedFolder != nil
+        default: return true
+        }
     }
     
     private lazy var directoryItem: NSMenuItem =
     {
-        let item = NSMenuItem(title: "Open Code Folder...",
+        let item = NSMenuItem(title: "Load Code Folder...",
                               action: #selector(selectFolder),
-                              keyEquivalent: "o")
+                              keyEquivalent: "l")
         
         item.target = self
         item.keyEquivalentModifierMask = [.command]
@@ -39,5 +44,22 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
         {
             folder in CodeFolder.shared.load(from: folder)
         }
+    }
+    
+    private lazy var reloadItem: NSMenuItem =
+    {
+        let item = NSMenuItem(title: "Reload",
+                              action: #selector(reload),
+                              keyEquivalent: "r")
+        
+        item.target = self
+        item.keyEquivalentModifierMask = [.command]
+        
+        return item
+    }()
+    
+    @objc private func reload()
+    {
+        CodeFolder.shared.loadFromLastFolder()
     }
 }
