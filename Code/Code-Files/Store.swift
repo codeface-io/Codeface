@@ -6,9 +6,27 @@ class Store: Observable
     
     private init() {}
     
-    var folderPath = ""
+    func set(analytics: [CodeFileAnalytics], folderPath: String)
+    {
+        var sortingArray = analytics
+        sortingArray.sortByLinesOfCode()
+        self.folderPath = folderPath
+        self.analytics = sortingArray
+    }
     
-    var analytics = [CodeFileAnalytics]()
+    func sortByLinesOfCode(ascending: Bool)
+    {
+        analytics.sortByLinesOfCode(ascending: ascending)
+    }
+    
+    func sortByFilePath(ascending: Bool)
+    {
+        analytics.sortByFilePath(ascending: ascending)
+    }
+    
+    private(set) var folderPath = ""
+    
+    private(set) var analytics = [CodeFileAnalytics]()
     {
         didSet { send(.didModifyData) }
     }

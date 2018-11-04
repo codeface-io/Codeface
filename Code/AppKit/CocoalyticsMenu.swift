@@ -46,17 +46,13 @@ class CocoalyticsMenu: Menu, NSMenuItemValidation
                                             extension: "swift",
                                             skipFolders: unwantedFolders)
             else { return }
-        
-            Store.shared.folderPath = folder.path
             
-            var analytics = files.compactMap
+            let analytics = files.compactMap
             {
                 CodeFileAnalytics(file: $0, folder: folder)
             }
-            
-            analytics.sortByLinesOfCode()
 
-            Store.shared.analytics = analytics
+            Store.shared.set(analytics: analytics, folderPath: folder.path)
         }
     }
 }
