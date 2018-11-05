@@ -17,8 +17,7 @@ extension CodeFile
             return nil
         }
         
-        guard let code = try? String(contentsOf: file,
-                                     encoding: .utf8) else
+        guard let code = try? String(contentsOf: file, encoding: .utf8) else
         {
             return nil
         }
