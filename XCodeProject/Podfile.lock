@@ -6,7 +6,7 @@ PODS:
   - SwiftyToolz (1.1.0)
   - UIObserver (0.1.0):
     - SwiftObserver
-  - UIToolz (1.0.0):
+  - UIToolz (1.1.0):
     - FoundationToolz
     - GetLaid
     - SwiftObserver
@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   SwiftObserver: a8d183c0984fa9ffa531069f462b59f061390924
   SwiftyToolz: 461391682260e0c485c4007f60c7cc882b8f7211
   UIObserver: d52d08987839f94e2ca4f4767b233fc53e6837e3
-  UIToolz: 44a129bd953db4ce42c259709162ee4a02f8ccd0
+  UIToolz: 618029f8860707519cc4826eeb7581ef73fa2468
 
 PODFILE CHECKSUM: 56684b74f502b3eeafb4da04660925a6e8357e0b
 
