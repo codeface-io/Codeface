@@ -7,7 +7,7 @@ class CocoalyticsMenu: MainMenu
     {
         super.init()
         
-        insert(topItems, at: 0)
+        appMenu.insert(topItems, at: 0)
     }
     
     required init(coder decoder: NSCoder) { fatalError() }
