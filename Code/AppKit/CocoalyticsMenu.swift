@@ -1,45 +1,37 @@
 import AppKit
 import UIToolz
 
-class CocoalyticsMenu: Menu, NSMenuItemValidation
+class CocoalyticsMenu: MainMenu
 {
     override init()
     {
         super.init()
         
-        if let appMenu = items.first?.submenu
-        {
-            let reloadItem = makeItem("Reload", key: "r", id: reloadID)
-            {
-                CodeFolder.shared.loadFromLastFolder()
-            }
-            
-            appMenu.insertItem(reloadItem, at: 0)
-            
-            let loadItem = makeItem("Load Code Folder...", key: "l", id: loadID)
-            {
-                FolderSelectionPanel().selectFolder
-                {
-                    folder in CodeFolder.shared.load(from: folder)
-                }
-            }
-            
-            appMenu.insertItem(loadItem, at: 1)
-            
-            appMenu.insertItem(NSMenuItem.separator(), at: 2)
-        }
+        insert(topItems, at: 0)
     }
     
     required init(coder decoder: NSCoder) { fatalError() }
     
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool
+    override func validateItem(with id: String) -> Bool
     {
-        switch menuItem.id
-        {
-        case reloadID: return CodeFolder.lastLoadedFolder != nil
-        default: return true
-        }
+        return id != reloadID || CodeFolder.lastLoadedFolder != nil
     }
     
-    private let reloadID = "reload", loadID = "load"
+    private lazy var topItems: [NSMenuItem] =
+    [
+        makeItem("Reload", key: "r", id: reloadID)
+        {
+            CodeFolder.shared.loadFromLastFolder()
+        },
+        makeItem("Load Code Folder...", key: "l")
+        {
+            FolderSelectionPanel().selectFolder
+            {
+                folder in CodeFolder.shared.load(from: folder)
+            }
+        },
+        NSMenuItem.separator()
+    ]
+    
+    private let reloadID = "reload"
 }
