@@ -52,6 +52,12 @@ class TypeDeclarationReporter: ASTVisitor
         return true
     }
     
+    func visit(_ typeAliasDeclaration: TypealiasDeclaration) throws -> Bool
+    {
+        report(type: typeAliasDeclaration.name)
+        return true
+    }
+    
     private func report(type identifier: Identifier)
     {
         switch identifier
