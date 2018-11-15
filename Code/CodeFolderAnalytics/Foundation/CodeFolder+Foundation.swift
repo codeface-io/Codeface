@@ -22,9 +22,10 @@ extension CodeFolder
         
         CodeFolder.lastLoadedFolder = folder
         
-        let analytics = files.compactMap
+        let analytics: [CodeFileAnalytics] = files.compactMap
         {
-            CodeFileAnalytics(file: $0, folder: folder)
+            testSwiftAST(withFilePath: $0.path)
+            return CodeFileAnalytics(file: $0, folder: folder)
         }
         
         set(analytics: analytics, path: folder.path)

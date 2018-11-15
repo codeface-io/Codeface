@@ -23,11 +23,7 @@ class FolderSelectionPanel: NSOpenPanel
     {
         begin()
         {
-            [weak self] response in
-            
-            guard let self = self,
-                response == .OK,
-                let folder = self.url else
+            guard $0 == .OK, let folder = self.url else
             {
                 log(error: "Selecting folder failed.")
                 return
