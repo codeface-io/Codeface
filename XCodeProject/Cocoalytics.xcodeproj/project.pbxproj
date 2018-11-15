@@ -22,6 +22,7 @@
 		9EA5A8B1218EE934004902F7 /* CodeFileAnalytics+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B0218EE934004902F7 /* CodeFileAnalytics+Foundation.swift */; };
 		9EA5A8B5218EEB7E004902F7 /* CodeFolderSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B4218EEB7E004902F7 /* CodeFolderSummaryView.swift */; };
 		9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */; };
+		9EAA3D11219E17FD00129239 /* SPM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAA3D10219E17FD00129239 /* SPM.framework */; };
 		9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */; };
 		9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */; };
 		9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */; };
@@ -62,6 +63,7 @@
 		9EA5A8B0218EE934004902F7 /* CodeFileAnalytics+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CodeFileAnalytics+Foundation.swift"; sourceTree = "<group>"; };
 		9EA5A8B4218EEB7E004902F7 /* CodeFolderSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolderSummaryView.swift; sourceTree = "<group>"; };
 		9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileAnalytics+Sorting.swift"; sourceTree = "<group>"; };
+		9EAA3D10219E17FD00129239 /* SPM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileAnalytics.swift; sourceTree = "<group>"; };
 		9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+LoadingFiles.swift"; sourceTree = "<group>"; };
 		9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+NSTableColumn.swift"; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EAA3D11219E17FD00129239 /* SPM.framework in Frameworks */,
 				E6EA65633B289664C0699D40 /* Pods_Cocoalytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,6 +101,7 @@
 		6C237E29F3EEF33999E8B256 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9EAA3D10219E17FD00129239 /* SPM.framework */,
 				75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */,
 			);
 			name = Frameworks;
