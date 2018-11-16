@@ -26,7 +26,7 @@ class TopLevelTypeReporter
         {
             guard case let declaration as Declaration = statement else
             {
-                return
+                continue
             }
             
             switch declaration
