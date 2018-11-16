@@ -22,6 +22,8 @@ extension CodeFile
             return nil
         }
         
+        testSwiftAST(withFileContent: code)
+        
         self.init(pathInCodeFolder: relativeFilePath, content: code)
     }
 }

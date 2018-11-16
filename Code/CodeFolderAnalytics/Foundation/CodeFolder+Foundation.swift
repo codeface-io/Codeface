@@ -24,7 +24,6 @@ extension CodeFolder
         
         let analytics: [CodeFileAnalytics] = files.compactMap
         {
-            testSwiftAST(withFilePath: $0.path)
             return CodeFileAnalytics(file: $0, folder: folder)
         }
         

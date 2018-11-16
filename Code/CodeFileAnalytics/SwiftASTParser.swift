@@ -2,15 +2,15 @@ import AST
 import Parser
 import Source
 
-func testSwiftAST(withFilePath filePath: String)
+func testSwiftAST(withFileContent content: String)
 {
+    let parser = Parser(source: SourceFile(content: content))
+    
     do
     {
-        let sourceFile = try SourceReader.read(at: filePath)
-        let parser = Parser(source: sourceFile)
         let fileSyntaxTree = try parser.parse()
 
-        TopLevelTypeReporter().reportTopLevelTypes(fileSyntaxTree)
+        TopLevelTypeReporter().reportTypes(in: fileSyntaxTree)
     }
     catch let error
     {
@@ -20,7 +20,7 @@ func testSwiftAST(withFilePath filePath: String)
 
 class TopLevelTypeReporter
 {
-    func reportTopLevelTypes(_ topLevelDecl: TopLevelDeclaration)
+    func reportTypes(in topLevelDecl: TopLevelDeclaration)
     {
         for statement in topLevelDecl.statements
         {
