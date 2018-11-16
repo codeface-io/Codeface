@@ -4,6 +4,946 @@
    <FileRef
       location = "group:Cocoalytics.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:../../../../Library/Developer/Xcode/DerivedData/Cocoalytics-gujnaoawukydnhecebyrjwajgkoq/Build/Products/Debug"
+      name = "Debug">
+      <Group
+         location = "group:Bocho.framework"
+         name = "Bocho.framework">
+         <FileRef
+            location = "group:Resources">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <Group
+                  location = "group:Resources"
+                  name = "Resources">
+                  <FileRef
+                     location = "group:Info.plist">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:Bocho-Swift.h">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Modules"
+                  name = "Modules">
+                  <Group
+                     location = "group:Bocho.swiftmodule"
+                     name = "Bocho.swiftmodule">
+                     <FileRef
+                        location = "group:x86_64.swiftdoc">
+                     </FileRef>
+                     <FileRef
+                        location = "group:x86_64.swiftmodule">
+                     </FileRef>
+                  </Group>
+               </Group>
+               <FileRef
+                  location = "group:Bocho">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+         <FileRef
+            location = "group:Modules">
+         </FileRef>
+         <FileRef
+            location = "group:Bocho">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:UIObserver"
+         name = "UIObserver">
+         <Group
+            location = "group:UIObserver.framework"
+            name = "UIObserver.framework">
+            <FileRef
+               location = "group:UIObserver">
+            </FileRef>
+            <FileRef
+               location = "group:Resources">
+            </FileRef>
+            <Group
+               location = "group:Versions"
+               name = "Versions">
+               <Group
+                  location = "group:A"
+                  name = "A">
+                  <FileRef
+                     location = "group:UIObserver">
+                  </FileRef>
+                  <Group
+                     location = "group:Resources"
+                     name = "Resources">
+                     <FileRef
+                        location = "group:Info.plist">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Headers"
+                     name = "Headers">
+                     <FileRef
+                        location = "group:UIObserver-umbrella.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:UIObserver-Swift.h">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Modules"
+                     name = "Modules">
+                     <FileRef
+                        location = "group:module.modulemap">
+                     </FileRef>
+                     <Group
+                        location = "group:UIObserver.swiftmodule"
+                        name = "UIObserver.swiftmodule">
+                        <FileRef
+                           location = "group:x86_64.swiftdoc">
+                        </FileRef>
+                        <FileRef
+                           location = "group:x86_64.swiftmodule">
+                        </FileRef>
+                     </Group>
+                  </Group>
+               </Group>
+               <FileRef
+                  location = "group:Current">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Headers">
+            </FileRef>
+            <FileRef
+               location = "group:Modules">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:GetLaid"
+         name = "GetLaid">
+         <Group
+            location = "group:GetLaid.framework"
+            name = "GetLaid.framework">
+            <FileRef
+               location = "group:GetLaid">
+            </FileRef>
+            <FileRef
+               location = "group:Resources">
+            </FileRef>
+            <Group
+               location = "group:Versions"
+               name = "Versions">
+               <Group
+                  location = "group:A"
+                  name = "A">
+                  <FileRef
+                     location = "group:GetLaid">
+                  </FileRef>
+                  <Group
+                     location = "group:Resources"
+                     name = "Resources">
+                     <FileRef
+                        location = "group:Info.plist">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Headers"
+                     name = "Headers">
+                     <FileRef
+                        location = "group:GetLaid-Swift.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GetLaid-umbrella.h">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Modules"
+                     name = "Modules">
+                     <Group
+                        location = "group:GetLaid.swiftmodule"
+                        name = "GetLaid.swiftmodule">
+                        <FileRef
+                           location = "group:x86_64.swiftdoc">
+                        </FileRef>
+                        <FileRef
+                           location = "group:x86_64.swiftmodule">
+                        </FileRef>
+                     </Group>
+                     <FileRef
+                        location = "group:module.modulemap">
+                     </FileRef>
+                  </Group>
+               </Group>
+               <FileRef
+                  location = "group:Current">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Headers">
+            </FileRef>
+            <FileRef
+               location = "group:Modules">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:SPM.framework"
+         name = "SPM.framework">
+         <FileRef
+            location = "group:SPM">
+         </FileRef>
+         <FileRef
+            location = "group:Resources">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <FileRef
+                  location = "group:SPM">
+               </FileRef>
+               <Group
+                  location = "group:Resources"
+                  name = "Resources">
+                  <FileRef
+                     location = "group:Info.plist">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:SPM-Swift.h">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Modules"
+                  name = "Modules">
+                  <Group
+                     location = "group:SPM.swiftmodule"
+                     name = "SPM.swiftmodule">
+                     <FileRef
+                        location = "group:x86_64.swiftdoc">
+                     </FileRef>
+                     <FileRef
+                        location = "group:x86_64.swiftmodule">
+                     </FileRef>
+                  </Group>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+         <FileRef
+            location = "group:Modules">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Sema.framework"
+         name = "Sema.framework">
+         <FileRef
+            location = "group:Resources">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <Group
+                  location = "group:Resources"
+                  name = "Resources">
+                  <FileRef
+                     location = "group:Info.plist">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:Sema">
+               </FileRef>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:Sema-Swift.h">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Modules"
+                  name = "Modules">
+                  <Group
+                     location = "group:Sema.swiftmodule"
+                     name = "Sema.swiftmodule">
+                     <FileRef
+                        location = "group:x86_64.swiftdoc">
+                     </FileRef>
+                     <FileRef
+                        location = "group:x86_64.swiftmodule">
+                     </FileRef>
+                  </Group>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Sema">
+         </FileRef>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+         <FileRef
+            location = "group:Modules">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:FoundationToolz"
+         name = "FoundationToolz">
+         <Group
+            location = "group:FoundationToolz.framework"
+            name = "FoundationToolz.framework">
+            <FileRef
+               location = "group:FoundationToolz">
+            </FileRef>
+            <FileRef
+               location = "group:Resources">
+            </FileRef>
+            <Group
+               location = "group:Versions"
+               name = "Versions">
+               <Group
+                  location = "group:A"
+                  name = "A">
+                  <FileRef
+                     location = "group:FoundationToolz">
+                  </FileRef>
+                  <Group
+                     location = "group:Resources"
+                     name = "Resources">
+                     <FileRef
+                        location = "group:Info.plist">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Headers"
+                     name = "Headers">
+                     <FileRef
+                        location = "group:FoundationToolz-Swift.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:FoundationToolz-umbrella.h">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Modules"
+                     name = "Modules">
+                     <Group
+                        location = "group:FoundationToolz.swiftmodule"
+                        name = "FoundationToolz.swiftmodule">
+                        <FileRef
+                           location = "group:x86_64.swiftdoc">
+                        </FileRef>
+                        <FileRef
+                           location = "group:x86_64.swiftmodule">
+                        </FileRef>
+                     </Group>
+                     <FileRef
+                        location = "group:module.modulemap">
+                     </FileRef>
+                  </Group>
+               </Group>
+               <FileRef
+                  location = "group:Current">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Headers">
+            </FileRef>
+            <FileRef
+               location = "group:Modules">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:AST.framework"
+         name = "AST.framework">
+         <FileRef
+            location = "group:Resources">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <Group
+                  location = "group:Resources"
+                  name = "Resources">
+                  <FileRef
+                     location = "group:Info.plist">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:AST-Swift.h">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:AST">
+               </FileRef>
+               <Group
+                  location = "group:Modules"
+                  name = "Modules">
+                  <Group
+                     location = "group:AST.swiftmodule"
+                     name = "AST.swiftmodule">
+                     <FileRef
+                        location = "group:x86_64.swiftdoc">
+                     </FileRef>
+                     <FileRef
+                        location = "group:x86_64.swiftmodule">
+                     </FileRef>
+                  </Group>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+         <FileRef
+            location = "group:AST">
+         </FileRef>
+         <FileRef
+            location = "group:Modules">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Source.framework"
+         name = "Source.framework">
+         <FileRef
+            location = "group:Resources">
+         </FileRef>
+         <FileRef
+            location = "group:Source">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <Group
+                  location = "group:Resources"
+                  name = "Resources">
+                  <FileRef
+                     location = "group:Info.plist">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:Source">
+               </FileRef>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:Source-Swift.h">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Modules"
+                  name = "Modules">
+                  <Group
+                     location = "group:Source.swiftmodule"
+                     name = "Source.swiftmodule">
+                     <FileRef
+                        location = "group:x86_64.swiftdoc">
+                     </FileRef>
+                     <FileRef
+                        location = "group:x86_64.swiftmodule">
+                     </FileRef>
+                  </Group>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+         <FileRef
+            location = "group:Modules">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Pods_Cocoalytics.framework"
+         name = "Pods_Cocoalytics.framework">
+         <FileRef
+            location = "group:Pods_Cocoalytics">
+         </FileRef>
+         <FileRef
+            location = "group:Resources">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <FileRef
+                  location = "group:Pods_Cocoalytics">
+               </FileRef>
+               <Group
+                  location = "group:Resources"
+                  name = "Resources">
+                  <FileRef
+                     location = "group:Info.plist">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:Pods-Cocoalytics-umbrella.h">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Modules"
+                  name = "Modules">
+                  <FileRef
+                     location = "group:module.modulemap">
+                  </FileRef>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+         <FileRef
+            location = "group:Modules">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Diagnostic.framework"
+         name = "Diagnostic.framework">
+         <FileRef
+            location = "group:Diagnostic">
+         </FileRef>
+         <FileRef
+            location = "group:Resources">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <FileRef
+                  location = "group:Diagnostic">
+               </FileRef>
+               <Group
+                  location = "group:Resources"
+                  name = "Resources">
+                  <FileRef
+                     location = "group:Info.plist">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:Diagnostic-Swift.h">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Modules"
+                  name = "Modules">
+                  <Group
+                     location = "group:Diagnostic.swiftmodule"
+                     name = "Diagnostic.swiftmodule">
+                     <FileRef
+                        location = "group:x86_64.swiftdoc">
+                     </FileRef>
+                     <FileRef
+                        location = "group:x86_64.swiftmodule">
+                     </FileRef>
+                  </Group>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+         <FileRef
+            location = "group:Modules">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:UIToolz"
+         name = "UIToolz">
+         <Group
+            location = "group:UIToolz.framework"
+            name = "UIToolz.framework">
+            <FileRef
+               location = "group:Resources">
+            </FileRef>
+            <Group
+               location = "group:Versions"
+               name = "Versions">
+               <Group
+                  location = "group:A"
+                  name = "A">
+                  <Group
+                     location = "group:Resources"
+                     name = "Resources">
+                     <FileRef
+                        location = "group:Info.plist">
+                     </FileRef>
+                  </Group>
+                  <FileRef
+                     location = "group:UIToolz">
+                  </FileRef>
+                  <Group
+                     location = "group:Headers"
+                     name = "Headers">
+                     <FileRef
+                        location = "group:UIToolz-Swift.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:UIToolz-umbrella.h">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Modules"
+                     name = "Modules">
+                     <Group
+                        location = "group:UIToolz.swiftmodule"
+                        name = "UIToolz.swiftmodule">
+                        <FileRef
+                           location = "group:x86_64.swiftdoc">
+                        </FileRef>
+                        <FileRef
+                           location = "group:x86_64.swiftmodule">
+                        </FileRef>
+                     </Group>
+                     <FileRef
+                        location = "group:module.modulemap">
+                     </FileRef>
+                  </Group>
+               </Group>
+               <FileRef
+                  location = "group:Current">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:UIToolz">
+            </FileRef>
+            <FileRef
+               location = "group:Headers">
+            </FileRef>
+            <FileRef
+               location = "group:Modules">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Lexer.framework"
+         name = "Lexer.framework">
+         <FileRef
+            location = "group:Lexer">
+         </FileRef>
+         <FileRef
+            location = "group:Resources">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <FileRef
+                  location = "group:Lexer">
+               </FileRef>
+               <Group
+                  location = "group:Resources"
+                  name = "Resources">
+                  <FileRef
+                     location = "group:Info.plist">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:Lexer-Swift.h">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Modules"
+                  name = "Modules">
+                  <Group
+                     location = "group:Lexer.swiftmodule"
+                     name = "Lexer.swiftmodule">
+                     <FileRef
+                        location = "group:x86_64.swiftdoc">
+                     </FileRef>
+                     <FileRef
+                        location = "group:x86_64.swiftmodule">
+                     </FileRef>
+                  </Group>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+         <FileRef
+            location = "group:Modules">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:Cocoalytics.app">
+      </FileRef>
+      <Group
+         location = "group:Parser.framework"
+         name = "Parser.framework">
+         <FileRef
+            location = "group:Resources">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <Group
+                  location = "group:Resources"
+                  name = "Resources">
+                  <FileRef
+                     location = "group:Info.plist">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:Parser">
+               </FileRef>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:Parser-Swift.h">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:Modules"
+                  name = "Modules">
+                  <Group
+                     location = "group:Parser.swiftmodule"
+                     name = "Parser.swiftmodule">
+                     <FileRef
+                        location = "group:x86_64.swiftdoc">
+                     </FileRef>
+                     <FileRef
+                        location = "group:x86_64.swiftmodule">
+                     </FileRef>
+                  </Group>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Parser">
+         </FileRef>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+         <FileRef
+            location = "group:Modules">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Cocoalytics.swiftmodule"
+         name = "Cocoalytics.swiftmodule">
+         <FileRef
+            location = "group:x86_64.swiftdoc">
+         </FileRef>
+         <FileRef
+            location = "group:x86_64.swiftmodule">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:SwiftyToolz"
+         name = "SwiftyToolz">
+         <Group
+            location = "group:SwiftyToolz.framework"
+            name = "SwiftyToolz.framework">
+            <FileRef
+               location = "group:Resources">
+            </FileRef>
+            <Group
+               location = "group:Versions"
+               name = "Versions">
+               <Group
+                  location = "group:A"
+                  name = "A">
+                  <Group
+                     location = "group:Resources"
+                     name = "Resources">
+                     <FileRef
+                        location = "group:Info.plist">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Headers"
+                     name = "Headers">
+                     <FileRef
+                        location = "group:SwiftyToolz-Swift.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:SwiftyToolz-umbrella.h">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Modules"
+                     name = "Modules">
+                     <FileRef
+                        location = "group:module.modulemap">
+                     </FileRef>
+                     <Group
+                        location = "group:SwiftyToolz.swiftmodule"
+                        name = "SwiftyToolz.swiftmodule">
+                        <FileRef
+                           location = "group:x86_64.swiftdoc">
+                        </FileRef>
+                        <FileRef
+                           location = "group:x86_64.swiftmodule">
+                        </FileRef>
+                     </Group>
+                  </Group>
+                  <FileRef
+                     location = "group:SwiftyToolz">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:Current">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Headers">
+            </FileRef>
+            <FileRef
+               location = "group:Modules">
+            </FileRef>
+            <FileRef
+               location = "group:SwiftyToolz">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:SwiftObserver"
+         name = "SwiftObserver">
+         <Group
+            location = "group:SwiftObserver.framework"
+            name = "SwiftObserver.framework">
+            <FileRef
+               location = "group:Resources">
+            </FileRef>
+            <Group
+               location = "group:Versions"
+               name = "Versions">
+               <Group
+                  location = "group:A"
+                  name = "A">
+                  <Group
+                     location = "group:Resources"
+                     name = "Resources">
+                     <FileRef
+                        location = "group:Info.plist">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Headers"
+                     name = "Headers">
+                     <FileRef
+                        location = "group:SwiftObserver-Swift.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:SwiftObserver-umbrella.h">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:Modules"
+                     name = "Modules">
+                     <Group
+                        location = "group:SwiftObserver.swiftmodule"
+                        name = "SwiftObserver.swiftmodule">
+                        <FileRef
+                           location = "group:x86_64.swiftdoc">
+                        </FileRef>
+                        <FileRef
+                           location = "group:x86_64.swiftmodule">
+                        </FileRef>
+                     </Group>
+                     <FileRef
+                        location = "group:module.modulemap">
+                     </FileRef>
+                  </Group>
+                  <FileRef
+                     location = "group:SwiftObserver">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:Current">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Headers">
+            </FileRef>
+            <FileRef
+               location = "group:Modules">
+            </FileRef>
+            <FileRef
+               location = "group:SwiftObserver">
+            </FileRef>
+         </Group>
+      </Group>
+   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
