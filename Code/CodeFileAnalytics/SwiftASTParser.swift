@@ -8,16 +8,9 @@ func testSwiftAST(withFilePath filePath: String)
     {
         let sourceFile = try SourceReader.read(at: filePath)
         let parser = Parser(source: sourceFile)
-        let topLevelDecl = try parser.parse()
-        
-//        for stmt in topLevelDecl.statements
-//        {
-//            print(stmt.textDescription)
-//        }
-        
-        let visitor = TypeDeclarationReporter()
+        let fileSyntaxTree = try parser.parse()
 
-        _ = try visitor.traverse(topLevelDecl)
+        TopLevelTypeReporter().reportTopLevelTypes(fileSyntaxTree)
     }
     catch let error
     {
@@ -25,37 +18,32 @@ func testSwiftAST(withFilePath filePath: String)
     }
 }
 
-// TODO: don't report nested type declarations for now. only top-level ones.
-class TypeDeclarationReporter: ASTVisitor
+class TopLevelTypeReporter
 {
-    func visit(_ classDeclaration: ClassDeclaration) throws -> Bool
+    func reportTopLevelTypes(_ topLevelDecl: TopLevelDeclaration)
     {
-        report(type: classDeclaration.name)
-        return true
-    }
-    
-    func visit(_ enumDeclaration: EnumDeclaration) throws -> Bool
-    {
-        report(type: enumDeclaration.name)
-        return true
-    }
-    
-    func visit(_ protocolDeclaration: ProtocolDeclaration) throws -> Bool
-    {
-        report(type: protocolDeclaration.name)
-        return true
-    }
-    
-    func visit(_ structDeclaration: StructDeclaration) throws -> Bool
-    {
-        report(type: structDeclaration.name)
-        return true
-    }
-    
-    func visit(_ typeAliasDeclaration: TypealiasDeclaration) throws -> Bool
-    {
-        report(type: typeAliasDeclaration.name)
-        return true
+        for statement in topLevelDecl.statements
+        {
+            guard case let declaration as Declaration = statement else
+            {
+                return
+            }
+            
+            switch declaration
+            {
+            case let decl as ClassDeclaration:
+                report(type: decl.name)
+            case let decl as EnumDeclaration:
+                report(type: decl.name)
+            case let decl as ProtocolDeclaration:
+                report(type: decl.name)
+            case let decl as StructDeclaration:
+                report(type: decl.name)
+            case let decl as TypealiasDeclaration:
+                report(type: decl.name)
+            default: break
+            }
+        }
     }
     
     private func report(type identifier: Identifier)
