@@ -20,9 +20,9 @@ func testSwiftAST(withFileContent content: String)
 
 class TopLevelTypeReporter
 {
-    func reportTypes(in topLevelDecl: TopLevelDeclaration)
+    func reportTypes(in topLevelDeclaration: TopLevelDeclaration)
     {
-        for statement in topLevelDecl.statements
+        for statement in topLevelDeclaration.statements
         {
             guard case let declaration as Declaration = statement else
             {
