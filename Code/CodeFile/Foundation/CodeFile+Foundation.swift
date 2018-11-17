@@ -22,6 +22,8 @@ extension CodeFile
             return nil
         }
         
+        //print("Gonna parse \(file.lastPathComponent)")
+        
         testSwiftAST(withFileContent: code)
         
         self.init(pathInCodeFolder: relativeFilePath, content: code)
