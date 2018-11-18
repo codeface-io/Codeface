@@ -1,10 +1,10 @@
 import Foundation
 
-extension CodeFolder
+extension CodeFileAnalyticsStore
 {
     func loadFromLastFolder()
     {
-        guard let folder = CodeFolder.lastLoadedFolder else { return }
+        guard let folder = CodeFileAnalyticsStore.lastLoadedFolder else { return }
         
         load(from: folder)
     }
@@ -20,7 +20,7 @@ extension CodeFolder
                                         skipFolders: unwantedFolders)
         else { return }
         
-        CodeFolder.lastLoadedFolder = folder
+        CodeFileAnalyticsStore.lastLoadedFolder = folder
         
         CodeFileStore.shared.elements = files.compactMap
         {

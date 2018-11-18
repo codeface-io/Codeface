@@ -10,7 +10,7 @@ class CocoalyticsController: AppController
         
         window.contentViewController = viewController
         
-        CodeFolder.shared.loadFromLastFolder()
+        CodeFileAnalyticsStore.shared.loadFromLastFolder()
     }
     
     private let viewController = ViewController<CodeFolderView>()

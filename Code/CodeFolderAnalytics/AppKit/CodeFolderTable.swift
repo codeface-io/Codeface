@@ -20,7 +20,7 @@ class CodeFolderTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, 
         dataSource = self
         delegate = self
         
-        observe(CodeFolder.shared, select: .didModifyData)
+        observe(CodeFileAnalyticsStore.shared, select: .didModifyData)
         {
             [weak self] in self?.reloadData()
         }
@@ -34,7 +34,7 @@ class CodeFolderTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, 
     
     func numberOfRows(in tableView: NSTableView) -> Int
     {
-        return CodeFolder.shared.folderAnalytics.count
+        return CodeFileAnalyticsStore.shared.elements.count
     }
     
     func tableView(_ tableView: NSTableView,
@@ -43,7 +43,7 @@ class CodeFolderTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, 
     {
         guard let column = tableColumn else { return nil }
         
-        let analytics = CodeFolder.shared.folderAnalytics[row]
+        let analytics = CodeFileAnalyticsStore.shared.elements[row]
         
         switch column.identifier
         {
@@ -80,7 +80,7 @@ class CodeFolderTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, 
             
             if old == nil || old?.ascending != new.ascending
             {
-                let store = CodeFolder.shared
+                let store = CodeFileAnalyticsStore.shared
                 
                 switch key
                 {

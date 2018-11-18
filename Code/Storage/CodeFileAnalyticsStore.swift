@@ -1,16 +1,22 @@
 import SwiftObserver
 
-class CodeFolder: Observable
+class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, Observable
 {
-    static let shared = CodeFolder()
+    static let shared = CodeFileAnalyticsStore()
     
-    private init() {}
+    private override init() {}
     
     func set(analytics: [CodeFileAnalytics], path: String)
     {
         self.path = path
-        self.folderAnalytics = analytics
-        self.folderAnalytics.sort(by: .linesOfCode, ascending: false)
+        
+        set(elements: analytics)
+    }
+    
+    func set(elements: [CodeFileAnalytics])
+    {
+        self.elements = elements
+        self.elements.sort(by: .linesOfCode, ascending: false)
         
         updateTotalLinesOfCode()
         
@@ -20,7 +26,7 @@ class CodeFolder: Observable
     func sort(by dimension: CodeFileAnalytics.SortDimension,
               ascending: Bool)
     {
-        folderAnalytics.sort(by: dimension, ascending: ascending)
+        elements.sort(by: dimension, ascending: ascending)
         send(.didModifyData)
     }
     
@@ -28,7 +34,7 @@ class CodeFolder: Observable
     {
         totalLinesOfCode = 0
         
-        for fileAnalytics in folderAnalytics
+        for fileAnalytics in elements
         {
             totalLinesOfCode += fileAnalytics.linesOfCode
         }
@@ -36,7 +42,6 @@ class CodeFolder: Observable
     
     private(set) var path = ""
     private(set) var totalLinesOfCode = 0
-    private(set) var folderAnalytics = [CodeFileAnalytics]()
     
     var latestUpdate = Event.didNothing
     

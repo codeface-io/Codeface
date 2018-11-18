@@ -12,7 +12,7 @@ class CodeFolderSummaryView: NSView, Observer
         
         folderPathLabel.alignment = .right
         
-        observe(CodeFolder.shared, select: .didModifyData)
+        observe(CodeFileAnalyticsStore.shared, select: .didModifyData)
         {
             [weak self] in self?.storeDidModifyData()
         }
@@ -20,10 +20,10 @@ class CodeFolderSummaryView: NSView, Observer
     
     private func storeDidModifyData()
     {
-        let store = CodeFolder.shared
+        let store = CodeFileAnalyticsStore.shared
         
         folderPathLabel.stringValue = "\(store.path)"
-        numbersLabel.stringValue = "\(store.totalLinesOfCode) lines of code in \(store.folderAnalytics.count) Swift files"
+        numbersLabel.stringValue = "\(store.totalLinesOfCode) lines of code in \(store.elements.count) Swift files"
     }
     
     private func layoutSubviews()

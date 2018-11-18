@@ -14,20 +14,20 @@ class CocoalyticsMenu: MainMenu
     
     override func validateItem(with id: String) -> Bool
     {
-        return id != reloadID || CodeFolder.lastLoadedFolder != nil
+        return id != reloadID || CodeFileAnalyticsStore.lastLoadedFolder != nil
     }
     
     private lazy var topItems: [NSMenuItem] =
     [
         makeItem("Reload", key: "r", id: reloadID)
         {
-            CodeFolder.shared.loadFromLastFolder()
+            CodeFileAnalyticsStore.shared.loadFromLastFolder()
         },
         makeItem("Load Code Folder...", key: "l")
         {
             FolderSelectionPanel().selectFolder
             {
-                folder in CodeFolder.shared.load(from: folder)
+                folder in CodeFileAnalyticsStore.shared.load(from: folder)
             }
         },
         NSMenuItem.separator()
