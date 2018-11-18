@@ -4,28 +4,14 @@ extension CodeFileAnalyticsStore
 {
     func loadFromLastFolder()
     {
-        guard let folder = CodeFileAnalyticsStore.lastLoadedFolder else { return }
+        guard let folder = CodeFolder.lastURL else { return }
         
         load(from: folder)
     }
     
     func load(from folder: URL)
     {
-        let manager = FileManager.default
-        
-        let unwantedFolders = ["Pods", "Carthage", "Example%20Projects"]
-        
-        guard let files = manager.files(inDirectory: folder,
-                                        extension: "swift",
-                                        skipFolders: unwantedFolders)
-        else { return }
-        
-        CodeFileAnalyticsStore.lastLoadedFolder = folder
-        
-        CodeFileStore.shared.elements = files.compactMap
-        {
-            CodeFile(file: $0, folder: folder)
-        }
+        CodeFileStore.shared.elements = CodeFolder(url: folder).loadFiles() ?? []
         
         let analyzer = CodeFileAnalyzer(typeRetriever: SwiftASTTypeRetriever())
         
@@ -33,12 +19,4 @@ extension CodeFileAnalyticsStore
         
         set(elements: analytics)
     }
-
-    static var lastLoadedFolder: URL?
-    {
-        get { return UserDefaults.standard.url(forKey: folderKey) }
-        set { UserDefaults.standard.set(newValue, forKey: folderKey) }
-    }
-    
-    private static let folderKey = "UserDefaultsKeyFolderURL"
 }

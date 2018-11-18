@@ -14,7 +14,7 @@ class CocoalyticsMenu: MainMenu
     
     override func validateItem(with id: String) -> Bool
     {
-        return id != reloadID || CodeFileAnalyticsStore.lastLoadedFolder != nil
+        return id != reloadID || CodeFolder.lastURL != nil
     }
     
     private lazy var topItems: [NSMenuItem] =
