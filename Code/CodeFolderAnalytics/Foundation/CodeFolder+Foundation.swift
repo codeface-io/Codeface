@@ -24,7 +24,7 @@ extension CodeFolder
         
         let codeFiles = files.compactMap { CodeFile(file: $0, folder: folder) }
         
-        let analyzer = CodeFileAnalyzer(typeRetriever: SwiftASTCodeAnalyzer())
+        let analyzer = CodeFileAnalyzer(typeRetriever: SwiftASTTypeRetriever())
         
         let analytics = analyzer.analyze(codeFiles)
         
