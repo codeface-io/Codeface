@@ -24,7 +24,14 @@ extension CodeFolder
         
         let analytics: [CodeFileAnalytics] = files.compactMap
         {
-            return CodeFileAnalytics(file: $0, folder: folder)
+            guard let codeFile = CodeFile(file: $0, folder: folder) else
+            {
+                return nil
+            }
+            
+            let loc = codeFile.content.numberOfLines
+            
+            return CodeFileAnalytics(file: codeFile, loc: loc)
         }
         
         set(analytics: analytics, path: folder.path)

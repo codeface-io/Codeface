@@ -10,24 +10,12 @@ func warningColor(for linesOfCode: Int) -> Color.System
 
 struct CodeFileAnalytics
 {
-    init(file: CodeFile)
+    init(file: CodeFile, loc: Int)
     {
         self.file = file
-        self.linesOfCode = file.content.numberOfLines
+        self.linesOfCode = loc
     }
     
     let file: CodeFile
     let linesOfCode: Int
-}
-
-extension String
-{
-    var numberOfLines: Int
-    {
-        var result = 0
-        
-        enumerateLines { _, _ in result += 1 }
-        
-        return result
-    }
 }
