@@ -1,5 +1,5 @@
 protocol TypeRetriever
 {
-    func namesOfDeclaredTypes(in code: String) -> [String]?
-    func namesOfReferencedTypes(in code: String) -> [String]?
+    func topLevelTypes(in code: String) -> [String]?
+    func referencedTypes(in code: String) -> [String]?
 }

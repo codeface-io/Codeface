@@ -6,7 +6,7 @@ class SwiftASTTypeRetriever: TypeRetriever
 {
     // MARK: - Retrieve Type Declarations
     
-    func namesOfDeclaredTypes(in code: String) -> [String]?
+    func topLevelTypes(in code: String) -> [String]?
     {
         let parser = Parser(source: SourceFile(content: code))
         
@@ -53,7 +53,7 @@ class SwiftASTTypeRetriever: TypeRetriever
     
     // MARK: - Retrieve Type References
     
-    func namesOfReferencedTypes(in code: String) -> [String]?
+    func referencedTypes(in code: String) -> [String]?
     {
         return TypeReferenceReporter().namesOfReferencedTypes(in: code)
     }

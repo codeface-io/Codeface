@@ -10,7 +10,7 @@ class CodeFileAnalyzer
         return codeFiles.map
         {
             let loc = $0.content.numberOfLines
-            let topLevelTypes = typeRetriever.namesOfDeclaredTypes(in: $0.content)
+            let topLevelTypes = typeRetriever.topLevelTypes(in: $0.content)
             
             return CodeFileAnalytics(file: $0,
                                      loc: loc,
