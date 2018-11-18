@@ -1,4 +1,4 @@
-struct CodeFileAnalytics
+class CodeFileAnalytics
 {
     init(file: CodeFile, loc: Int, topLevelTypes: [String])
     {
