@@ -4,7 +4,7 @@ import GetLaid
 import SwiftObserver
 import SwiftyToolz
 
-class CodeFolderTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
+class AnalyticsTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, Observer
 {
     // MARK: - Life Cycle
     

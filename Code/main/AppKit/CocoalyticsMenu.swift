@@ -21,13 +21,13 @@ class CocoalyticsMenu: MainMenu
     [
         makeItem("Reload", key: "r", id: reloadID)
         {
-            CodeFileAnalyticsStore.shared.loadFromLastFolder()
+            Loading.loadFromLastFolder()
         },
         makeItem("Load Code Folder...", key: "l")
         {
             FolderSelectionPanel().selectFolder
             {
-                folder in CodeFileAnalyticsStore.shared.load(from: folder)
+                folder in Loading.load(from: folder)
             }
         },
         NSMenuItem.separator()

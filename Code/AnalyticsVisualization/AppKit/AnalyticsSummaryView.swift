@@ -2,7 +2,7 @@ import AppKit
 import UIToolz
 import SwiftObserver
 
-class CodeFolderSummaryView: NSView, Observer
+class AnalyticsSummaryView: NSView, Observer
 {
     override init(frame frameRect: NSRect)
     {
