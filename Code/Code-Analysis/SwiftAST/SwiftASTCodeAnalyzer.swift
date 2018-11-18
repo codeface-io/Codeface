@@ -2,7 +2,7 @@ import AST
 import Parser
 import Source
 
-class SwiftASTCodeAnalyzer: CodeAnalyzer
+class SwiftASTCodeAnalyzer: TypeRetriever
 {
     // MARK: - Retrieve Type Declarations
     

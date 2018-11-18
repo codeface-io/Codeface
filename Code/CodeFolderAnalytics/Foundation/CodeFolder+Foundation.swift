@@ -22,17 +22,11 @@ extension CodeFolder
         
         CodeFolder.lastLoadedFolder = folder
         
-        let analytics: [CodeFileAnalytics] = files.compactMap
-        {
-            guard let codeFile = CodeFile(file: $0, folder: folder) else
-            {
-                return nil
-            }
-            
-            let loc = codeFile.content.numberOfLines
-            
-            return CodeFileAnalytics(file: codeFile, loc: loc)
-        }
+        let codeFiles = files.compactMap { CodeFile(file: $0, folder: folder) }
+        
+        let analyzer = CodeFileAnalyzer(typeRetriever: SwiftASTCodeAnalyzer())
+        
+        let analytics = analyzer.analyze(codeFiles)
         
         set(analytics: analytics, path: folder.path)
     }

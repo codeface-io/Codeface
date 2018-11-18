@@ -17,8 +17,9 @@
 		9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E245218F5A1200339F55 /* CodeFile.swift */; };
 		9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */; };
 		9E76E24D218F6A6A00339F55 /* CodeFolder+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E24C218F6A6A00339F55 /* CodeFolder+Foundation.swift */; };
-		9E84B4B821A1D8C100F006DD /* CodeAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4B721A1D8C100F006DD /* CodeAnalyzer.swift */; };
+		9E84B4B821A1D8C100F006DD /* TypeRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4B721A1D8C100F006DD /* TypeRetriever.swift */; };
 		9E84B4BC21A1E90200F006DD /* FileMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BB21A1E89E00F006DD /* FileMetrics.swift */; };
+		9E84B4BE21A1E9E100F006DD /* CodeFileAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BD21A1E9E100F006DD /* CodeFileAnalyzer.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CocoalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */; };
 		9E9849D0219F265400AFE752 /* Pods_Cocoalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */; };
@@ -91,8 +92,9 @@
 		9E76E245218F5A1200339F55 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
 		9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFile+Foundation.swift"; sourceTree = "<group>"; };
 		9E76E24C218F6A6A00339F55 /* CodeFolder+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+Foundation.swift"; sourceTree = "<group>"; };
-		9E84B4B721A1D8C100F006DD /* CodeAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeAnalyzer.swift; sourceTree = "<group>"; };
+		9E84B4B721A1D8C100F006DD /* TypeRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeRetriever.swift; sourceTree = "<group>"; };
 		9E84B4BB21A1E89E00F006DD /* FileMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetrics.swift; sourceTree = "<group>"; };
+		9E84B4BD21A1E9E100F006DD /* CodeFileAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeFileAnalyzer.swift; path = SwiftAST/CodeFileAnalyzer.swift; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Cocoalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E95A70D218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -224,7 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				9E84B4B921A1D9C700F006DD /* SwiftAST */,
-				9E84B4B721A1D8C100F006DD /* CodeAnalyzer.swift */,
+				9E84B4BD21A1E9E100F006DD /* CodeFileAnalyzer.swift */,
+				9E84B4B721A1D8C100F006DD /* TypeRetriever.swift */,
 			);
 			path = "Code-Analysis";
 			sourceTree = "<group>";
@@ -519,7 +522,8 @@
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
 				9E007288218E250E0094BD1C /* CocoalyticsMenu.swift in Sources */,
 				9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */,
-				9E84B4B821A1D8C100F006DD /* CodeAnalyzer.swift in Sources */,
+				9E84B4B821A1D8C100F006DD /* TypeRetriever.swift in Sources */,
+				9E84B4BE21A1E9E100F006DD /* CodeFileAnalyzer.swift in Sources */,
 				9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */,
 				9E007285218E250E0094BD1C /* CodeFolder.swift in Sources */,
 				9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */,
