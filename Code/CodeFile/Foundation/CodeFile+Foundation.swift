@@ -3,7 +3,7 @@ import SwiftObserver
 
 extension CodeFile
 {
-    init?(file: URL, folder: URL)
+    convenience init?(file: URL, folder: URL)
     {
         let filePath = file.absoluteString
         let folderPath = folder.absoluteString
@@ -22,6 +22,6 @@ extension CodeFile
             return nil
         }
         
-        self.init(pathInCodeFolder: relativeFilePath, content: code)
+        self.init(relativePath: relativeFilePath, content: code)
     }
 }

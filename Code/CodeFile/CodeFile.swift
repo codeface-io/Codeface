@@ -1,5 +1,11 @@
-struct CodeFile
+class CodeFile
 {
+    init(relativePath: String, content: String)
+    {
+        self.pathInCodeFolder = relativePath
+        self.content = content
+    }
+    
     let pathInCodeFolder: String
-    var content: String
+    let content: String
 }
