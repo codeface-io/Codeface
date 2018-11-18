@@ -7,7 +7,7 @@ class CodeFileAnalyzer
     
     func analyze(_ codeFiles: [CodeFile]) -> [CodeFileAnalytics]
     {
-        return codeFiles.map
+        let analytics: [CodeFileAnalytics] = codeFiles.map
         {
             let loc = $0.content.numberOfLines
             let topLevelTypes = typeRetriever.topLevelTypes(in: $0.content)
@@ -16,6 +16,8 @@ class CodeFileAnalyzer
                                      loc: loc,
                                      topLevelTypes: topLevelTypes ?? [])
         }
+        
+        return analytics
     }
     
     var typeRetriever: TypeRetriever
