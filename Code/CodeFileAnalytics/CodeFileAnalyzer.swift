@@ -17,7 +17,34 @@ class CodeFileAnalyzer
                                      topLevelTypes: topLevelTypes ?? [])
         }
         
+        updateFileDependencies(in: analytics)
+        
         return analytics
+    }
+    
+    private func updateFileDependencies(in analytics: [CodeFileAnalytics])
+    {
+        var fileAnalyticsByDeclaredType = [String : CodeFileAnalytics]()
+        
+        for fileAnalytics in analytics
+        {
+            for declaredType in fileAnalytics.topLevelTypes
+            {
+                fileAnalyticsByDeclaredType[declaredType] = fileAnalytics
+            }
+        }
+        
+        for fileAnalytics in analytics
+        {
+            let file = fileAnalytics.file
+            
+            let referencedTypes = typeRetriever.referencedTypes(in: file.content)
+            
+            fileAnalytics.dependencies = referencedTypes?.compactMap
+            {
+                fileAnalyticsByDeclaredType[$0]
+            } ?? []
+        }
     }
     
     var typeRetriever: TypeRetriever

@@ -12,5 +12,5 @@ class CodeFileAnalytics
     
     let linesOfCode: Int
     let topLevelTypes: [String]
-    var referencedTypes: [String]?
+    var dependencies: [CodeFileAnalytics]?
 }
