@@ -21,6 +21,8 @@
 		9E84B4BC21A1E90200F006DD /* FileMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BB21A1E89E00F006DD /* FileMetrics.swift */; };
 		9E84B4C021A1EEE200F006DD /* SwiftASTTypeRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BF21A1EEE200F006DD /* SwiftASTTypeRetriever.swift */; };
 		9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */; };
+		9E84B4C521A1F1C500F006DD /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C421A1F1C500F006DD /* Store.swift */; };
+		9E84B4C721A1F39300F006DD /* CodeFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C621A1F39300F006DD /* CodeFileStore.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CocoalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */; };
 		9E9849D0219F265400AFE752 /* Pods_Cocoalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */; };
@@ -96,6 +98,8 @@
 		9E84B4BB21A1E89E00F006DD /* FileMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetrics.swift; sourceTree = "<group>"; };
 		9E84B4BF21A1EEE200F006DD /* SwiftASTTypeRetriever.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftASTTypeRetriever.swift; sourceTree = "<group>"; };
 		9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFileAnalyzer.swift; sourceTree = "<group>"; };
+		9E84B4C421A1F1C500F006DD /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		9E84B4C621A1F39300F006DD /* CodeFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileStore.swift; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Cocoalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E95A70D218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 				9EB8BA59218E2AD3007ED4E7 /* AppKit */,
 				9E84B4BA21A1E86F00F006DD /* VisualizationModel */,
 				9E76E24B218F64D000339F55 /* CodeFolderAnalytics */,
+				9E84B4C321A1F16500F006DD /* Storage */,
 				9E84B4B621A1D7D700F006DD /* CodeFileAnalytics */,
 				9E76E244218F59E700339F55 /* CodeFile */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
@@ -200,6 +205,7 @@
 				9EB8BA65218E456C007ED4E7 /* AppKit */,
 				9E76E24E218F6CE700339F55 /* Foundation */,
 				9E00727E218E250E0094BD1C /* CodeFolder.swift */,
+				9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */,
 			);
 			path = CodeFolderAnalytics;
 			sourceTree = "<group>";
@@ -218,7 +224,6 @@
 				9E84B4B921A1D9C700F006DD /* SwiftAST */,
 				9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */,
 				9E84B4B721A1D8C100F006DD /* TypeRetriever.swift */,
-				9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */,
 				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
 			);
 			path = CodeFileAnalytics;
@@ -238,6 +243,14 @@
 				9E84B4BB21A1E89E00F006DD /* FileMetrics.swift */,
 			);
 			path = VisualizationModel;
+			sourceTree = "<group>";
+		};
+		9E84B4C321A1F16500F006DD /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				9E84B4C621A1F39300F006DD /* CodeFileStore.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		9E95A6FA218C73C7009A58A9 = {
@@ -328,6 +341,7 @@
 			children = (
 				9EA5A8B2218EE9A2004902F7 /* AppKit */,
 				9EA5A8B3218EE9B9004902F7 /* Foundation */,
+				9E84B4C421A1F1C500F006DD /* Store.swift */,
 			);
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
@@ -511,11 +525,13 @@
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				9E007287218E250E0094BD1C /* main.swift in Sources */,
 				9E007283218E250E0094BD1C /* CocoalyticsController.swift in Sources */,
+				9E84B4C721A1F39300F006DD /* CodeFileStore.swift in Sources */,
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
 				9E007288218E250E0094BD1C /* CocoalyticsMenu.swift in Sources */,
 				9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */,
 				9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */,
 				9E84B4B821A1D8C100F006DD /* TypeRetriever.swift in Sources */,
+				9E84B4C521A1F1C500F006DD /* Store.swift in Sources */,
 				9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */,
 				9E007285218E250E0094BD1C /* CodeFolder.swift in Sources */,
 				9E84B4C021A1EEE200F006DD /* SwiftASTTypeRetriever.swift in Sources */,

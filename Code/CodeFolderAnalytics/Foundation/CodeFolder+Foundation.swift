@@ -22,11 +22,14 @@ extension CodeFolder
         
         CodeFolder.lastLoadedFolder = folder
         
-        let codeFiles = files.compactMap { CodeFile(file: $0, folder: folder) }
+        CodeFileStore.shared.elements = files.compactMap
+        {
+            CodeFile(file: $0, folder: folder)
+        }
         
         let analyzer = CodeFileAnalyzer(typeRetriever: SwiftASTTypeRetriever())
         
-        let analytics = analyzer.analyze(codeFiles)
+        let analytics = analyzer.analyze(CodeFileStore.shared.elements)
         
         set(analytics: analytics, path: folder.path)
     }
