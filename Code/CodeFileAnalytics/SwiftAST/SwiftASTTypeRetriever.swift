@@ -100,8 +100,16 @@ class TypeReferenceReporter: ASTVisitor
     {
         for req in decl.genericWhereClause?.requirementList ?? []
         {
-            // TODO: manually extract potential types from req.description
-            result.append(req.description)
+            let desc = req.description.replacingOccurrences(of: " ", with: "")
+            
+            if let possibleType = desc.components(separatedBy: "==").last
+            {
+                result.append(possibleType)
+            }
+            else
+            {
+                print("couldn't detect type in generic where clause requirement: \(req.description)")
+            }
         }
 
         for typeName in decl.type.names
