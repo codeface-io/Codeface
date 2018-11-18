@@ -48,7 +48,7 @@ class CodeFolderTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, 
         switch column.identifier
         {
         case fileColumnID:
-            return Label(text: analytics.file.pathInCodeFolder)
+            return Label(text: analytics.file.relativePath)
             
         case linesColumnID:
             let loc = analytics.linesOfCode

@@ -2,10 +2,10 @@ class CodeFile
 {
     init(relativePath: String, content: String)
     {
-        self.pathInCodeFolder = relativePath
+        self.relativePath = relativePath
         self.content = content
     }
     
-    let pathInCodeFolder: String
+    let relativePath: String
     let content: String
 }
