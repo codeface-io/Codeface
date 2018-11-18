@@ -18,6 +18,7 @@
 		9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */; };
 		9E76E24D218F6A6A00339F55 /* CodeFolder+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E24C218F6A6A00339F55 /* CodeFolder+Foundation.swift */; };
 		9E84B4B821A1D8C100F006DD /* CodeAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4B721A1D8C100F006DD /* CodeAnalyzer.swift */; };
+		9E84B4BC21A1E90200F006DD /* FileMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BB21A1E89E00F006DD /* FileMetrics.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CocoalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */; };
 		9E9849D0219F265400AFE752 /* Pods_Cocoalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */; };
@@ -91,6 +92,7 @@
 		9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFile+Foundation.swift"; sourceTree = "<group>"; };
 		9E76E24C218F6A6A00339F55 /* CodeFolder+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+Foundation.swift"; sourceTree = "<group>"; };
 		9E84B4B721A1D8C100F006DD /* CodeAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeAnalyzer.swift; sourceTree = "<group>"; };
+		9E84B4BB21A1E89E00F006DD /* FileMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetrics.swift; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Cocoalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E95A70D218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				9EB8BA59218E2AD3007ED4E7 /* AppKit */,
+				9E84B4BA21A1E86F00F006DD /* VisualizationModel */,
 				9E76E24B218F64D000339F55 /* CodeFolderAnalytics */,
 				9E84B4B621A1D7D700F006DD /* Code-Analysis */,
 				9E76E24A218F608800339F55 /* CodeFileAnalytics */,
@@ -232,6 +235,14 @@
 				9EAA3D12219E18B100129239 /* SwiftASTCodeAnalyzer.swift */,
 			);
 			path = SwiftAST;
+			sourceTree = "<group>";
+		};
+		9E84B4BA21A1E86F00F006DD /* VisualizationModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E84B4BB21A1E89E00F006DD /* FileMetrics.swift */,
+			);
+			path = VisualizationModel;
 			sourceTree = "<group>";
 		};
 		9E95A6FA218C73C7009A58A9 = {
@@ -496,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E007284218E250E0094BD1C /* CodeFolderTable.swift in Sources */,
+				9E84B4BC21A1E90200F006DD /* FileMetrics.swift in Sources */,
 				9EA5A8B5218EEB7E004902F7 /* CodeFolderSummaryView.swift in Sources */,
 				9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */,
 				9E76E24D218F6A6A00339F55 /* CodeFolder+Foundation.swift in Sources */,
