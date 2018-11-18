@@ -31,7 +31,7 @@ extension CodeFileAnalyticsStore
         
         let analytics = analyzer.analyze(CodeFileStore.shared.elements)
         
-        set(analytics: analytics, path: folder.path)
+        set(elements: analytics)
     }
 
     static var lastLoadedFolder: URL?

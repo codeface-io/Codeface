@@ -2,16 +2,13 @@ import SwiftObserver
 
 class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, Observable
 {
+    // MARK: - Singleton Instance
+    
     static let shared = CodeFileAnalyticsStore()
     
     private override init() {}
     
-    func set(analytics: [CodeFileAnalytics], path: String)
-    {
-        self.path = path
-        
-        set(elements: analytics)
-    }
+    // MARK: - Analytics Elements
     
     func set(elements: [CodeFileAnalytics])
     {
@@ -23,12 +20,16 @@ class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, Observable
         send(.didModifyData)
     }
     
+    // MARK: - Sorting
+    
     func sort(by dimension: CodeFileAnalytics.SortDimension,
               ascending: Bool)
     {
         elements.sort(by: dimension, ascending: ascending)
         send(.didModifyData)
     }
+    
+    // MARK: - Total Lines Of Code
     
     private func updateTotalLinesOfCode()
     {
@@ -39,9 +40,10 @@ class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, Observable
             totalLinesOfCode += fileAnalytics.linesOfCode
         }
     }
-    
-    private(set) var path = ""
+
     private(set) var totalLinesOfCode = 0
+    
+    // MARK: - Observability
     
     var latestUpdate = Event.didNothing
     

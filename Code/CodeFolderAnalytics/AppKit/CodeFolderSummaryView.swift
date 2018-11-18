@@ -21,8 +21,9 @@ class CodeFolderSummaryView: NSView, Observer
     private func storeDidModifyData()
     {
         let store = CodeFileAnalyticsStore.shared
+        let folderPath = CodeFileAnalyticsStore.lastLoadedFolder?.path ?? ""
         
-        folderPathLabel.stringValue = "\(store.path)"
+        folderPathLabel.stringValue = "\(folderPath)"
         numbersLabel.stringValue = "\(store.totalLinesOfCode) lines of code in \(store.elements.count) Swift files"
     }
     
