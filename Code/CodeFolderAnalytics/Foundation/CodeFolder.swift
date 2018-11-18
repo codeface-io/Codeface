@@ -13,9 +13,9 @@ class CodeFolder
         
         let unwantedFolders = ["Pods", "Carthage", "Example%20Projects"]
         
-        guard let files = manager.files(inDirectory: url,
-                                        extension: "swift",
-                                        skipFolders: unwantedFolders)
+        guard let fileURLs = manager.files(inDirectory: url,
+                                           extension: "swift",
+                                           skipFolders: unwantedFolders)
         else
         {
             return nil
@@ -23,7 +23,7 @@ class CodeFolder
         
         CodeFolder.lastURL = url
         
-        return files.compactMap { CodeFile(file: $0, folder: url) }
+        return fileURLs.compactMap { CodeFile(file: $0, folder: url) }
     }
     
     let url: URL
