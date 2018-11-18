@@ -169,8 +169,7 @@
 				9EB8BA59218E2AD3007ED4E7 /* AppKit */,
 				9E84B4BA21A1E86F00F006DD /* VisualizationModel */,
 				9E76E24B218F64D000339F55 /* CodeFolderAnalytics */,
-				9E84B4B621A1D7D700F006DD /* Code-Analysis */,
-				9E76E24A218F608800339F55 /* CodeFileAnalytics */,
+				9E84B4B621A1D7D700F006DD /* CodeFileAnalytics */,
 				9E76E244218F59E700339F55 /* CodeFile */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 			);
@@ -195,15 +194,6 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
-		9E76E24A218F608800339F55 /* CodeFileAnalytics */ = {
-			isa = PBXGroup;
-			children = (
-				9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */,
-				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
-			);
-			path = CodeFileAnalytics;
-			sourceTree = "<group>";
-		};
 		9E76E24B218F64D000339F55 /* CodeFolderAnalytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,14 +212,16 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
-		9E84B4B621A1D7D700F006DD /* Code-Analysis */ = {
+		9E84B4B621A1D7D700F006DD /* CodeFileAnalytics */ = {
 			isa = PBXGroup;
 			children = (
 				9E84B4B921A1D9C700F006DD /* SwiftAST */,
 				9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */,
 				9E84B4B721A1D8C100F006DD /* TypeRetriever.swift */,
+				9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */,
+				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
 			);
-			path = "Code-Analysis";
+			path = CodeFileAnalytics;
 			sourceTree = "<group>";
 		};
 		9E84B4B921A1D9C700F006DD /* SwiftAST */ = {
