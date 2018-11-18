@@ -6,7 +6,7 @@ class SwiftASTTypeRetriever: TypeRetriever
 {
     // MARK: - Retrieve Type Declarations
     
-    func topLevelTypes(in code: String) -> [String]?
+    func topLevelTypes(in code: String) -> Set<String>?
     {
         let parser = Parser(source: SourceFile(content: code))
         
@@ -14,10 +14,7 @@ class SwiftASTTypeRetriever: TypeRetriever
         {
             let syntaxTree = try parser.parse()
             
-            return topLevelTypeDeclarations(in: syntaxTree).compactMap
-            {
-                $0.string
-            }
+            return topLevelTypeDeclarations(in: syntaxTree)
         }
         catch let error
         {
@@ -26,34 +23,40 @@ class SwiftASTTypeRetriever: TypeRetriever
         }
     }
     
-    func topLevelTypeDeclarations(in syntaxTree: TopLevelDeclaration) -> [Identifier]
+    func topLevelTypeDeclarations(in syntaxTree: TopLevelDeclaration) -> Set<String>
     {
-        var result = [Identifier]()
+        var result = Set<String>()
         
         for statement in syntaxTree.statements
         {
-            guard case let declaration as Declaration = statement else
+            guard case let declaration as Declaration = statement,
+                let identifierString = typeIdentifier(from: declaration)?.string else
             {
                 continue
             }
             
-            switch declaration
-            {
-            case let decl as ClassDeclaration: result.append(decl.name)
-            case let decl as EnumDeclaration: result.append(decl.name)
-            case let decl as ProtocolDeclaration: result.append(decl.name)
-            case let decl as StructDeclaration: result.append(decl.name)
-            case let decl as TypealiasDeclaration: result.append(decl.name)
-            default: break
-            }
+            result.insert(identifierString)
         }
         
         return result
     }
     
+    private func typeIdentifier(from declaration: Declaration) -> Identifier?
+    {
+        switch declaration
+        {
+        case let decl as ClassDeclaration: return decl.name
+        case let decl as EnumDeclaration: return decl.name
+        case let decl as ProtocolDeclaration: return decl.name
+        case let decl as StructDeclaration: return decl.name
+        case let decl as TypealiasDeclaration: return decl.name
+        default: return nil
+        }
+    }
+    
     // MARK: - Retrieve Type References
     
-    func referencedTypes(in code: String) -> [String]?
+    func referencedTypes(in code: String) -> Set<String>?
     {
         return TypeReferenceReporter().namesOfReferencedTypes(in: code)
     }
@@ -62,7 +65,7 @@ class SwiftASTTypeRetriever: TypeRetriever
 // TODO: report top level types for nested types
 class TypeReferenceReporter: ASTVisitor
 {
-    func namesOfReferencedTypes(in code: String) -> [String]?
+    func namesOfReferencedTypes(in code: String) -> Set<String>?
     {
         let parser = Parser(source: SourceFile(content: code))
         
@@ -104,7 +107,7 @@ class TypeReferenceReporter: ASTVisitor
             
             if let possibleType = desc.components(separatedBy: "==").last
             {
-                result.append(possibleType)
+                result.insert(possibleType)
             }
             else
             {
@@ -132,7 +135,8 @@ class TypeReferenceReporter: ASTVisitor
                 for argument in typeName.genericArgumentClause?.argumentList ?? []
                 {
                     // TODO: manually extract potential types from argument.description
-                    result.append(argument.description)
+                    print(argument.description)
+                    result.insert(argument.description)
                 }
             }
         }
@@ -144,10 +148,23 @@ class TypeReferenceReporter: ASTVisitor
     {
         for initializer in constant.initializerList
         {
-            if let expressionString = initializer.initializerExpression?.description
+            if let expr = initializer.initializerExpression?.description
             {
                 // TODO: manually extract potential types from expressionString
-                result.append(expressionString)
+                
+                var components = expr.components(separatedBy: .punctuationCharacters)
+                
+                components = components.compactMap
+                {
+                    let component = $0.replacingOccurrences(of: " ", with: "")
+                    
+                    return component.count > 0 ? component : nil
+                }
+                
+                for component in components
+                {
+                    result.insert(component)
+                }
             }
         }
 
@@ -159,13 +176,13 @@ class TypeReferenceReporter: ASTVisitor
         if let type = decl.signature.result?.type
         {
             // TODO: manually extract potential type
-            result.append(type.description)
+            result.insert(type.description)
         }
 
         for param in decl.signature.parameterList
         {
             // TODO: manually extract potential type
-            result.append(param.typeAnnotation.type.description)
+            result.insert(param.typeAnnotation.type.description)
         }
 
         return true
@@ -175,11 +192,11 @@ class TypeReferenceReporter: ASTVisitor
     {
         if let string = identifier.string
         {
-            result.append(string)
+            result.insert(string)
         }
     }
     
-    private var result = [String]()
+    private var result = Set<String>()
 }
 
 extension Identifier

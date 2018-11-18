@@ -10,11 +10,11 @@ class CodeFileAnalyzer
         let analytics: [CodeFileAnalytics] = codeFiles.map
         {
             let loc = $0.content.numberOfLines
-            let topLevelTypes = typeRetriever.topLevelTypes(in: $0.content)
+            let topLevelTypes = Array(typeRetriever.topLevelTypes(in: $0.content) ?? [])
             
             return CodeFileAnalytics(file: $0,
                                      loc: loc,
-                                     topLevelTypes: topLevelTypes ?? [])
+                                     topLevelTypes: topLevelTypes)
         }
         
         updateFileDependencies(in: analytics)
@@ -40,10 +40,16 @@ class CodeFileAnalyzer
             
             let referencedTypes = typeRetriever.referencedTypes(in: file.content)
             
-            fileAnalytics.dependencies = referencedTypes?.compactMap
+            let dependencies: [CodeFileAnalytics] = referencedTypes?.compactMap
             {
-                fileAnalyticsByDeclaredType[$0]
+                let dependency = fileAnalyticsByDeclaredType[$0]
+                
+                guard fileAnalytics !== dependency else { return nil }
+                
+                return dependency
             } ?? []
+            
+            fileAnalytics.dependencies = Set(dependencies)
         }
     }
     

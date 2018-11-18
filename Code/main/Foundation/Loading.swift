@@ -22,6 +22,11 @@ class Loading
         
         let analytics = analyzer.analyze(CodeFileStore.shared.elements)
         
+        for fileAnalytics in analytics
+        {
+            fileAnalytics.printDebug()
+        }
+        
         CodeFileAnalyticsStore.shared.set(elements: analytics)
     }
 }
