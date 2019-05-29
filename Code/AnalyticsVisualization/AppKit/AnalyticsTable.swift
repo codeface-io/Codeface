@@ -20,7 +20,7 @@ class AnalyticsTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, O
         dataSource = self
         delegate = self
         
-        observe(CodeFileAnalyticsStore.shared, select: .didModifyData)
+        observe(CodeFileAnalyticsStore.shared).select(.didModifyData)
         {
             [weak self] in self?.reloadData()
         }
@@ -28,7 +28,7 @@ class AnalyticsTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, O
     
     required init?(coder: NSCoder) { fatalError() }
     
-    deinit { stopAllObserving() }
+    deinit { stopObserving() }
     
     // MARK: - Content
     

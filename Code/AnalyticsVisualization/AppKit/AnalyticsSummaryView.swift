@@ -12,7 +12,7 @@ class AnalyticsSummaryView: NSView, Observer
         
         folderPathLabel.alignment = .right
         
-        observe(CodeFileAnalyticsStore.shared, select: .didModifyData)
+        observe(CodeFileAnalyticsStore.shared).select(.didModifyData)
         {
             [weak self] in self?.storeDidModifyData()
         }

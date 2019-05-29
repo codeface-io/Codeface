@@ -4,12 +4,12 @@ platform :osx, '10.11'
 
 target 'Cocoalytics' do
 
-    pod 'GetLaid', :path=> '../../Frameworks/GetLaid'
-    pod 'UIObserver', :path=> '../../Frameworks/UIObserver'
-    pod 'UIToolz', :path=> '../../Frameworks/UIToolz'
-    pod 'FoundationToolz', :path=> '../../Frameworks/FoundationToolz'
-    pod 'SwiftObserver', :path=> '../../Frameworks/SwiftObserver'
-    pod 'SwiftyToolz', :path=> '../../Frameworks/SwiftyToolz'
+    pod 'GetLaid', :path=> '../../GetLaid'
+    pod 'UIObserver', :path=> '../../UIObserver'
+    pod 'UIToolz', :path=> '../../UIToolz'
+    pod 'FoundationToolz', :path=> '../../FoundationToolz'
+    pod 'SwiftObserver', :path=> '../../SwiftObserver'
+    pod 'SwiftyToolz', :path=> '../../SwiftyToolz'
 
 end
 

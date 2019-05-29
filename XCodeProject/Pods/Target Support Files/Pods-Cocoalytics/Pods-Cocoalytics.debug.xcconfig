@@ -1,0 +1,11 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/FoundationToolz" "${PODS_CONFIGURATION_BUILD_DIR}/GetLaid" "${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftObserver" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyToolz" "${PODS_CONFIGURATION_BUILD_DIR}/UIObserver" "${PODS_CONFIGURATION_BUILD_DIR}/UIToolz"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/FoundationToolz/FoundationToolz.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/GetLaid/GetLaid.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift/Reachability.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftObserver/SwiftObserver.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyToolz/SwiftyToolz.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/UIObserver/UIObserver.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/UIToolz/UIToolz.framework/Headers"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'
+OTHER_LDFLAGS = $(inherited) -framework "FoundationToolz" -framework "GetLaid" -framework "Reachability" -framework "SwiftObserver" -framework "SwiftyToolz" -framework "SystemConfiguration" -framework "UIObserver" -framework "UIToolz"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods

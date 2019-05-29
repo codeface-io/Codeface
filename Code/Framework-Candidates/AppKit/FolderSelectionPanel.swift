@@ -1,5 +1,6 @@
 import AppKit
 import SwiftObserver
+import SwiftyToolz
 
 class FolderSelectionPanel: NSOpenPanel
 {
