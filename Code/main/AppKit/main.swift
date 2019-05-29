@@ -1,1 +1,1 @@
-let controller = CocoalyticsController()
+let controller = CodefaceController()

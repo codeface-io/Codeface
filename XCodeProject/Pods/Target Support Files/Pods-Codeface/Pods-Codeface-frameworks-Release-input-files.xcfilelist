@@ -1,4 +1,4 @@
-${PODS_ROOT}/Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics-frameworks.sh
+${PODS_ROOT}/Target Support Files/Pods-Codeface/Pods-Codeface-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/FoundationToolz/FoundationToolz.framework
 ${BUILT_PRODUCTS_DIR}/GetLaid/GetLaid.framework
 ${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework

@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_CocoalyticsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_CocoalyticsVersionString[];
+FOUNDATION_EXPORT double Pods_CodefaceVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_CodefaceVersionString[];
 

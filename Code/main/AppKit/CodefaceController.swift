@@ -1,8 +1,8 @@
 import UIToolz
 
-class CocoalyticsController: AppController
+class CodefaceController: AppController
 {
-    init() { super.init(withMainMenu: CocoalyticsMenu()) }
+    init() { super.init(withMainMenu: CodefaceMenu()) }
     
     override func applicationDidFinishLaunching(_ aNotification: Notification)
     {

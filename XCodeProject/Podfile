@@ -2,7 +2,7 @@ use_frameworks!
 
 platform :osx, '10.11'
 
-target 'Cocoalytics' do
+target 'Codeface' do
 
     pod 'GetLaid', :path=> '../../GetLaid'
     pod 'UIObserver', :path=> '../../UIObserver'

@@ -1,15 +1,15 @@
 //
-//  CocoalyticsTests.swift
-//  CocoalyticsTests
+//  CodefaceTests.swift
+//  CodefaceTests
 //
 //  Created by Sebastian ******** on 02.11.18.
 //  Copyright © 2018 Flowtoolz. All rights reserved.
 //
 
 import XCTest
-@testable import Cocoalytics
+@testable import Codeface
 
-class CocoalyticsTests: XCTestCase {
+class CodefaceTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

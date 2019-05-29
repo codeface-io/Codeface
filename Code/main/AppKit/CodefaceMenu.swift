@@ -1,7 +1,7 @@
 import AppKit
 import UIToolz
 
-class CocoalyticsMenu: MainMenu
+class CodefaceMenu: MainMenu
 {
     override init()
     {

@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86EA7878C5806D03A977442C /* Pods_Codeface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C35351245BE5E93A5D259D /* Pods_Codeface.framework */; };
 		9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727B218E250E0094BD1C /* AnalyticsView.swift */; };
-		9E007283218E250E0094BD1C /* CocoalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CocoalyticsController.swift */; };
+		9E007283218E250E0094BD1C /* CodefaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceController.swift */; };
 		9E007284218E250E0094BD1C /* AnalyticsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727D218E250E0094BD1C /* AnalyticsTable.swift */; };
 		9E007285218E250E0094BD1C /* CodeFileAnalyticsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727E218E250E0094BD1C /* CodeFileAnalyticsStore.swift */; };
 		9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */; };
 		9E007287218E250E0094BD1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007280218E250E0094BD1C /* main.swift */; };
-		9E007288218E250E0094BD1C /* CocoalyticsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007281218E250E0094BD1C /* CocoalyticsMenu.swift */; };
+		9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007281218E250E0094BD1C /* CodefaceMenu.swift */; };
+		9E278411229ECF09006ACB18 /* CodefaceSPM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2783F5229ECECA006ACB18 /* CodefaceSPM.framework */; };
 		9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E245218F5A1200339F55 /* CodeFile.swift */; };
 		9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */; };
 		9E76E24D218F6A6A00339F55 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E24C218F6A6A00339F55 /* Loading.swift */; };
@@ -25,8 +27,7 @@
 		9E84B4C721A1F39300F006DD /* CodeFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C621A1F39300F006DD /* CodeFileStore.swift */; };
 		9E84B4C921A2044F00F006DD /* CodeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C821A2044F00F006DD /* CodeFolder.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
-		9E95A718218C73CA009A58A9 /* CocoalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */; };
-		9E9849D0219F265400AFE752 /* Pods_Cocoalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */; };
+		9E95A718218C73CA009A58A9 /* CodefaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CodefaceTests.swift */; };
 		9EA5A8B5218EEB7E004902F7 /* AnalyticsSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B4218EEB7E004902F7 /* AnalyticsSummaryView.swift */; };
 		9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */; };
 		9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */; };
@@ -35,65 +36,65 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9E406F22229EC98C003F066E /* PBXContainerItemProxy */ = {
+		9E2783F0229ECECA006ACB18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+			containerPortal = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "swift-ast::AST::Product";
 			remoteInfo = AST;
 		};
-		9E406F24229EC98C003F066E /* PBXContainerItemProxy */ = {
+		9E2783F2229ECECA006ACB18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+			containerPortal = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "bocho::Bocho::Product";
 			remoteInfo = Bocho;
 		};
-		9E406F26229EC98C003F066E /* PBXContainerItemProxy */ = {
+		9E2783F4229ECECA006ACB18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+			containerPortal = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "CodefaceSPM::CodefaceSPM::Product";
 			remoteInfo = CodefaceSPM;
 		};
-		9E406F28229EC98C003F066E /* PBXContainerItemProxy */ = {
+		9E2783F6229ECECA006ACB18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+			containerPortal = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "CodefaceSPM::CodefaceSPMTests::Product";
 			remoteInfo = CodefaceSPMTests;
 		};
-		9E406F2A229EC98C003F066E /* PBXContainerItemProxy */ = {
+		9E2783F8229ECECA006ACB18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+			containerPortal = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "swift-ast::Diagnostic::Product";
 			remoteInfo = Diagnostic;
 		};
-		9E406F2C229EC98C003F066E /* PBXContainerItemProxy */ = {
+		9E2783FA229ECECA006ACB18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+			containerPortal = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "swift-ast::Lexer::Product";
 			remoteInfo = Lexer;
 		};
-		9E406F2E229EC98C003F066E /* PBXContainerItemProxy */ = {
+		9E2783FC229ECECA006ACB18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+			containerPortal = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "swift-ast::Parser::Product";
 			remoteInfo = Parser;
 		};
-		9E406F30229EC98C003F066E /* PBXContainerItemProxy */ = {
+		9E2783FE229ECECA006ACB18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+			containerPortal = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "swift-ast::Sema::Product";
 			remoteInfo = Sema;
 		};
-		9E406F32229EC98C003F066E /* PBXContainerItemProxy */ = {
+		9E278400229ECECA006ACB18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+			containerPortal = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "swift-ast::Source::Product";
 			remoteInfo = Source;
@@ -123,15 +124,16 @@
 /* Begin PBXFileReference section */
 		151086E6A4D2CFBA5F0A6FF9 /* Pods-Cocoalytics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocoalytics.release.xcconfig"; path = "Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics.release.xcconfig"; sourceTree = "<group>"; };
 		408DED073DAF22DAF444DC63 /* Pods-Cocoalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocoalytics.debug.xcconfig"; path = "Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics.debug.xcconfig"; sourceTree = "<group>"; };
-		75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cocoalytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42C35351245BE5E93A5D259D /* Pods_Codeface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Codeface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E00727B218E250E0094BD1C /* AnalyticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
-		9E00727C218E250E0094BD1C /* CocoalyticsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoalyticsController.swift; sourceTree = "<group>"; };
+		9E00727C218E250E0094BD1C /* CodefaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceController.swift; sourceTree = "<group>"; };
 		9E00727D218E250E0094BD1C /* AnalyticsTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsTable.swift; sourceTree = "<group>"; };
 		9E00727E218E250E0094BD1C /* CodeFileAnalyticsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFileAnalyticsStore.swift; sourceTree = "<group>"; };
 		9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderSelectionPanel.swift; sourceTree = "<group>"; };
 		9E007280218E250E0094BD1C /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		9E007281218E250E0094BD1C /* CocoalyticsMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoalyticsMenu.swift; sourceTree = "<group>"; };
-		9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodefaceSPM.xcodeproj; path = CodefaceSPM/CodefaceSPM.xcodeproj; sourceTree = "<group>"; };
+		9E007281218E250E0094BD1C /* CodefaceMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceMenu.swift; sourceTree = "<group>"; };
+		9E27839C229ECDF1006ACB18 /* Codeface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codeface.entitlements; sourceTree = "<group>"; };
+		9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodefaceSPM.xcodeproj; path = CodefaceSPM/CodefaceSPM.xcodeproj; sourceTree = "<group>"; };
 		9E76E245218F5A1200339F55 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
 		9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFile+Foundation.swift"; sourceTree = "<group>"; };
 		9E76E24C218F6A6A00339F55 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
@@ -142,19 +144,19 @@
 		9E84B4C421A1F1C500F006DD /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		9E84B4C621A1F39300F006DD /* CodeFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileStore.swift; sourceTree = "<group>"; };
 		9E84B4C821A2044F00F006DD /* CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolder.swift; sourceTree = "<group>"; };
-		9E95A703218C73C7009A58A9 /* Cocoalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E95A703218C73C7009A58A9 /* Codeface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeface.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E95A70D218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E95A70E218C73CA009A58A9 /* Cocoalytics.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cocoalytics.entitlements; sourceTree = "<group>"; };
-		9E95A713218C73CA009A58A9 /* CocoalyticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoalyticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoalyticsTests.swift; sourceTree = "<group>"; };
+		9E95A713218C73CA009A58A9 /* CodefaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodefaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E95A717218C73CA009A58A9 /* CodefaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceTests.swift; sourceTree = "<group>"; };
 		9E95A719218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EA5A8B4218EEB7E004902F7 /* AnalyticsSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsSummaryView.swift; sourceTree = "<group>"; };
 		9EA5A8B6218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileAnalytics+Sorting.swift"; sourceTree = "<group>"; };
-		9EAA3D10219E17FD00129239 /* SPM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileAnalytics.swift; sourceTree = "<group>"; };
 		9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+LoadingFiles.swift"; sourceTree = "<group>"; };
 		9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+NSTableColumn.swift"; sourceTree = "<group>"; };
+		DA9F944DF347C4FAE1D2C1C5 /* Pods-Codeface.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Codeface.debug.xcconfig"; path = "Target Support Files/Pods-Codeface/Pods-Codeface.debug.xcconfig"; sourceTree = "<group>"; };
+		F1054BBE81E8B80472726223 /* Pods-Codeface.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Codeface.release.xcconfig"; path = "Target Support Files/Pods-Codeface/Pods-Codeface.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +164,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E9849D0219F265400AFE752 /* Pods_Cocoalytics.framework in Frameworks */,
+				9E278411229ECF09006ACB18 /* CodefaceSPM.framework in Frameworks */,
+				86EA7878C5806D03A977442C /* Pods_Codeface.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +184,8 @@
 			children = (
 				408DED073DAF22DAF444DC63 /* Pods-Cocoalytics.debug.xcconfig */,
 				151086E6A4D2CFBA5F0A6FF9 /* Pods-Cocoalytics.release.xcconfig */,
+				DA9F944DF347C4FAE1D2C1C5 /* Pods-Codeface.debug.xcconfig */,
+				F1054BBE81E8B80472726223 /* Pods-Codeface.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -188,8 +193,7 @@
 		6C237E29F3EEF33999E8B256 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9EAA3D10219E17FD00129239 /* SPM.framework */,
-				75E697CAA9F53F92ACF80D7D /* Pods_Cocoalytics.framework */,
+				42C35351245BE5E93A5D259D /* Pods_Codeface.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -208,18 +212,18 @@
 			path = ../Code;
 			sourceTree = "<group>";
 		};
-		9E406EF9229EC98C003F066E /* Products */ = {
+		9E2783C7229ECEC9006ACB18 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9E406F23229EC98C003F066E /* AST.framework */,
-				9E406F25229EC98C003F066E /* Bocho.framework */,
-				9E406F27229EC98C003F066E /* CodefaceSPM.framework */,
-				9E406F29229EC98C003F066E /* CodefaceSPMTests.xctest */,
-				9E406F2B229EC98C003F066E /* Diagnostic.framework */,
-				9E406F2D229EC98C003F066E /* Lexer.framework */,
-				9E406F2F229EC98C003F066E /* Parser.framework */,
-				9E406F31229EC98C003F066E /* Sema.framework */,
-				9E406F33229EC98C003F066E /* Source.framework */,
+				9E2783F1229ECECA006ACB18 /* AST.framework */,
+				9E2783F3229ECECA006ACB18 /* Bocho.framework */,
+				9E2783F5229ECECA006ACB18 /* CodefaceSPM.framework */,
+				9E2783F7229ECECA006ACB18 /* CodefaceSPMTests.xctest */,
+				9E2783F9229ECECA006ACB18 /* Diagnostic.framework */,
+				9E2783FB229ECECA006ACB18 /* Lexer.framework */,
+				9E2783FD229ECECA006ACB18 /* Parser.framework */,
+				9E2783FF229ECECA006ACB18 /* Sema.framework */,
+				9E278401229ECECA006ACB18 /* Source.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,10 +312,10 @@
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
-				9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */,
+				9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */,
 				9E00727A218E250E0094BD1C /* Code */,
-				9E95A705218C73C7009A58A9 /* Cocoalytics */,
-				9E95A716218C73CA009A58A9 /* CocoalyticsTests */,
+				9E95A705218C73C7009A58A9 /* Codeface */,
+				9E95A716218C73CA009A58A9 /* CodefaceTests */,
 				9E95A704218C73C7009A58A9 /* Products */,
 				6A3B359FF834E3A86C457C58 /* Pods */,
 				6C237E29F3EEF33999E8B256 /* Frameworks */,
@@ -321,29 +325,29 @@
 		9E95A704218C73C7009A58A9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9E95A703218C73C7009A58A9 /* Cocoalytics.app */,
-				9E95A713218C73CA009A58A9 /* CocoalyticsTests.xctest */,
+				9E95A703218C73C7009A58A9 /* Codeface.app */,
+				9E95A713218C73CA009A58A9 /* CodefaceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9E95A705218C73C7009A58A9 /* Cocoalytics */ = {
+		9E95A705218C73C7009A58A9 /* Codeface */ = {
 			isa = PBXGroup;
 			children = (
+				9E27839C229ECDF1006ACB18 /* Codeface.entitlements */,
 				9E95A708218C73CA009A58A9 /* Assets.xcassets */,
 				9E95A70D218C73CA009A58A9 /* Info.plist */,
-				9E95A70E218C73CA009A58A9 /* Cocoalytics.entitlements */,
 			);
-			path = Cocoalytics;
+			path = Codeface;
 			sourceTree = "<group>";
 		};
-		9E95A716218C73CA009A58A9 /* CocoalyticsTests */ = {
+		9E95A716218C73CA009A58A9 /* CodefaceTests */ = {
 			isa = PBXGroup;
 			children = (
-				9E95A717218C73CA009A58A9 /* CocoalyticsTests.swift */,
+				9E95A717218C73CA009A58A9 /* CodefaceTests.swift */,
 				9E95A719218C73CA009A58A9 /* Info.plist */,
 			);
-			path = CocoalyticsTests;
+			path = CodefaceTests;
 			sourceTree = "<group>";
 		};
 		9EA5A8B2218EE9A2004902F7 /* AppKit */ = {
@@ -367,8 +371,8 @@
 			isa = PBXGroup;
 			children = (
 				9E007280218E250E0094BD1C /* main.swift */,
-				9E00727C218E250E0094BD1C /* CocoalyticsController.swift */,
-				9E007281218E250E0094BD1C /* CocoalyticsMenu.swift */,
+				9E00727C218E250E0094BD1C /* CodefaceController.swift */,
+				9E007281218E250E0094BD1C /* CodefaceMenu.swift */,
 			);
 			path = AppKit;
 			sourceTree = "<group>";
@@ -396,9 +400,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9E95A702218C73C7009A58A9 /* Cocoalytics */ = {
+		9E95A702218C73C7009A58A9 /* Codeface */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9E95A71C218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "Cocoalytics" */;
+			buildConfigurationList = 9E95A71C218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "Codeface" */;
 			buildPhases = (
 				7F7AC665F8A7A330F12DFBB8 /* [CP] Check Pods Manifest.lock */,
 				9E95A6FF218C73C7009A58A9 /* Sources */,
@@ -411,14 +415,14 @@
 			);
 			dependencies = (
 			);
-			name = Cocoalytics;
+			name = Codeface;
 			productName = Cocoalytics;
-			productReference = 9E95A703218C73C7009A58A9 /* Cocoalytics.app */;
+			productReference = 9E95A703218C73C7009A58A9 /* Codeface.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9E95A712218C73CA009A58A9 /* CocoalyticsTests */ = {
+		9E95A712218C73CA009A58A9 /* CodefaceTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9E95A71F218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "CocoalyticsTests" */;
+			buildConfigurationList = 9E95A71F218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "CodefaceTests" */;
 			buildPhases = (
 				9E95A70F218C73CA009A58A9 /* Sources */,
 				9E95A710218C73CA009A58A9 /* Frameworks */,
@@ -429,9 +433,9 @@
 			dependencies = (
 				9E95A715218C73CA009A58A9 /* PBXTargetDependency */,
 			);
-			name = CocoalyticsTests;
+			name = CodefaceTests;
 			productName = CocoalyticsTests;
-			productReference = 9E95A713218C73CA009A58A9 /* CocoalyticsTests.xctest */;
+			productReference = 9E95A713218C73CA009A58A9 /* CodefaceTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -453,7 +457,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9E95A6FE218C73C7009A58A9 /* Build configuration list for PBXProject "Cocoalytics" */;
+			buildConfigurationList = 9E95A6FE218C73C7009A58A9 /* Build configuration list for PBXProject "Codeface" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -466,80 +470,80 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 9E406EF9229EC98C003F066E /* Products */;
-					ProjectRef = 9E406EF8229EC98C003F066E /* CodefaceSPM.xcodeproj */;
+					ProductGroup = 9E2783C7229ECEC9006ACB18 /* Products */;
+					ProjectRef = 9E2783C6229ECEC9006ACB18 /* CodefaceSPM.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
-				9E95A702218C73C7009A58A9 /* Cocoalytics */,
-				9E95A712218C73CA009A58A9 /* CocoalyticsTests */,
+				9E95A702218C73C7009A58A9 /* Codeface */,
+				9E95A712218C73CA009A58A9 /* CodefaceTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9E406F23229EC98C003F066E /* AST.framework */ = {
+		9E2783F1229ECECA006ACB18 /* AST.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AST.framework;
-			remoteRef = 9E406F22229EC98C003F066E /* PBXContainerItemProxy */;
+			remoteRef = 9E2783F0229ECECA006ACB18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9E406F25229EC98C003F066E /* Bocho.framework */ = {
+		9E2783F3229ECECA006ACB18 /* Bocho.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Bocho.framework;
-			remoteRef = 9E406F24229EC98C003F066E /* PBXContainerItemProxy */;
+			remoteRef = 9E2783F2229ECECA006ACB18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9E406F27229EC98C003F066E /* CodefaceSPM.framework */ = {
+		9E2783F5229ECECA006ACB18 /* CodefaceSPM.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CodefaceSPM.framework;
-			remoteRef = 9E406F26229EC98C003F066E /* PBXContainerItemProxy */;
+			remoteRef = 9E2783F4229ECECA006ACB18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9E406F29229EC98C003F066E /* CodefaceSPMTests.xctest */ = {
+		9E2783F7229ECECA006ACB18 /* CodefaceSPMTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = file;
 			path = CodefaceSPMTests.xctest;
-			remoteRef = 9E406F28229EC98C003F066E /* PBXContainerItemProxy */;
+			remoteRef = 9E2783F6229ECECA006ACB18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9E406F2B229EC98C003F066E /* Diagnostic.framework */ = {
+		9E2783F9229ECECA006ACB18 /* Diagnostic.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Diagnostic.framework;
-			remoteRef = 9E406F2A229EC98C003F066E /* PBXContainerItemProxy */;
+			remoteRef = 9E2783F8229ECECA006ACB18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9E406F2D229EC98C003F066E /* Lexer.framework */ = {
+		9E2783FB229ECECA006ACB18 /* Lexer.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Lexer.framework;
-			remoteRef = 9E406F2C229EC98C003F066E /* PBXContainerItemProxy */;
+			remoteRef = 9E2783FA229ECECA006ACB18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9E406F2F229EC98C003F066E /* Parser.framework */ = {
+		9E2783FD229ECECA006ACB18 /* Parser.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Parser.framework;
-			remoteRef = 9E406F2E229EC98C003F066E /* PBXContainerItemProxy */;
+			remoteRef = 9E2783FC229ECECA006ACB18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9E406F31229EC98C003F066E /* Sema.framework */ = {
+		9E2783FF229ECECA006ACB18 /* Sema.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Sema.framework;
-			remoteRef = 9E406F30229EC98C003F066E /* PBXContainerItemProxy */;
+			remoteRef = 9E2783FE229ECECA006ACB18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9E406F33229EC98C003F066E /* Source.framework */ = {
+		9E278401229ECECA006ACB18 /* Source.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Source.framework;
-			remoteRef = 9E406F32229EC98C003F066E /* PBXContainerItemProxy */;
+			remoteRef = 9E278400229ECECA006ACB18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -578,7 +582,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Cocoalytics-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Codeface-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -591,15 +595,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Codeface/Pods-Codeface-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Codeface/Pods-Codeface-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Codeface/Pods-Codeface-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -618,10 +622,10 @@
 				9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				9E007287218E250E0094BD1C /* main.swift in Sources */,
-				9E007283218E250E0094BD1C /* CocoalyticsController.swift in Sources */,
+				9E007283218E250E0094BD1C /* CodefaceController.swift in Sources */,
 				9E84B4C721A1F39300F006DD /* CodeFileStore.swift in Sources */,
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
-				9E007288218E250E0094BD1C /* CocoalyticsMenu.swift in Sources */,
+				9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */,
 				9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */,
 				9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */,
 				9E84B4B821A1D8C100F006DD /* TypeRetriever.swift in Sources */,
@@ -638,7 +642,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E95A718218C73CA009A58A9 /* CocoalyticsTests.swift in Sources */,
+				9E95A718218C73CA009A58A9 /* CodefaceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,7 +651,7 @@
 /* Begin PBXTargetDependency section */
 		9E95A715218C73CA009A58A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9E95A702218C73C7009A58A9 /* Cocoalytics */;
+			target = 9E95A702218C73C7009A58A9 /* Codeface */;
 			targetProxy = 9E95A714218C73CA009A58A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -770,19 +774,19 @@
 		};
 		9E95A71D218C73CA009A58A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 408DED073DAF22DAF444DC63 /* Pods-Cocoalytics.debug.xcconfig */;
+			baseConfigurationReference = DA9F944DF347C4FAE1D2C1C5 /* Pods-Codeface.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Cocoalytics/Cocoalytics.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Codeface/Codeface.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
-				INFOPLIST_FILE = Cocoalytics/Info.plist;
+				INFOPLIST_FILE = Codeface/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.Cocoalytics;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.codeface;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -790,19 +794,19 @@
 		};
 		9E95A71E218C73CA009A58A9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 151086E6A4D2CFBA5F0A6FF9 /* Pods-Cocoalytics.release.xcconfig */;
+			baseConfigurationReference = F1054BBE81E8B80472726223 /* Pods-Codeface.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Cocoalytics/Cocoalytics.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Codeface/Codeface.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
-				INFOPLIST_FILE = Cocoalytics/Info.plist;
+				INFOPLIST_FILE = Codeface/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.Cocoalytics;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.codeface;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -816,16 +820,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
-				INFOPLIST_FILE = CocoalyticsTests/Info.plist;
+				INFOPLIST_FILE = CodefaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.CocoalyticsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.CodefaceTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cocoalytics.app/Contents/MacOS/Cocoalytics";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Codeface.app/Contents/MacOS/Codeface";
 			};
 			name = Debug;
 		};
@@ -837,23 +841,23 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
-				INFOPLIST_FILE = CocoalyticsTests/Info.plist;
+				INFOPLIST_FILE = CodefaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.CocoalyticsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.CodefaceTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cocoalytics.app/Contents/MacOS/Cocoalytics";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Codeface.app/Contents/MacOS/Codeface";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9E95A6FE218C73C7009A58A9 /* Build configuration list for PBXProject "Cocoalytics" */ = {
+		9E95A6FE218C73C7009A58A9 /* Build configuration list for PBXProject "Codeface" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9E95A71A218C73CA009A58A9 /* Debug */,
@@ -862,7 +866,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9E95A71C218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "Cocoalytics" */ = {
+		9E95A71C218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "Codeface" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9E95A71D218C73CA009A58A9 /* Debug */,
@@ -871,7 +875,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9E95A71F218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "CocoalyticsTests" */ = {
+		9E95A71F218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "CodefaceTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9E95A720218C73CA009A58A9 /* Debug */,
