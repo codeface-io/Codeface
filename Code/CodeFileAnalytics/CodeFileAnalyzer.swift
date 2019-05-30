@@ -7,17 +7,22 @@ class CodeFileAnalyzer
     
     func analyze(_ codeFiles: [CodeFile]) -> [CodeFileAnalytics]
     {
+        let generateTypeDependencyGraph = false
+        
         let analytics: [CodeFileAnalytics] = codeFiles.map
         {
             let loc = $0.content.numberOfLines
-            let topLevelTypes = Array(typeRetriever.topLevelTypes(in: $0.content) ?? [])
+            
+            let topLevelTypes: [String] = generateTypeDependencyGraph ? Array(typeRetriever.topLevelTypes(in: $0.content) ?? []) : []
             
             return CodeFileAnalytics(file: $0,
                                      loc: loc,
                                      topLevelTypes: topLevelTypes)
         }
         
-        updateFileDependencies(in: analytics)
+        if generateTypeDependencyGraph {
+            updateFileDependencies(in: analytics)
+        }
         
         return analytics
     }
