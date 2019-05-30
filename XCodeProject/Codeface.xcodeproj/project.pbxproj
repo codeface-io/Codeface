@@ -19,6 +19,14 @@
 		9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E245218F5A1200339F55 /* CodeFile.swift */; };
 		9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */; };
 		9E76E24D218F6A6A00339F55 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E24C218F6A6A00339F55 /* Loading.swift */; };
+		9E839AF2229FEDD70049EA62 /* CodefaceSPM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2783F5229ECECA006ACB18 /* CodefaceSPM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E839AF3229FEE640049EA62 /* Diagnostic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2783F9229ECECA006ACB18 /* Diagnostic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E839AF4229FEE640049EA62 /* AST.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2783F1229ECECA006ACB18 /* AST.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E839AF5229FEE640049EA62 /* Source.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E278401229ECECA006ACB18 /* Source.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E839AF6229FEE640049EA62 /* Lexer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2783FB229ECECA006ACB18 /* Lexer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E839AF7229FEE640049EA62 /* Bocho.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2783F3229ECECA006ACB18 /* Bocho.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E839AF8229FEE640049EA62 /* Sema.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2783FF229ECECA006ACB18 /* Sema.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E839AF9229FEE640049EA62 /* Parser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2783FD229ECECA006ACB18 /* Parser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E84B4B821A1D8C100F006DD /* TypeRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4B721A1D8C100F006DD /* TypeRetriever.swift */; };
 		9E84B4BC21A1E90200F006DD /* FileMetricsVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BB21A1E89E00F006DD /* FileMetricsVisualization.swift */; };
 		9E84B4C021A1EEE200F006DD /* SwiftASTTypeRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BF21A1EEE200F006DD /* SwiftASTTypeRetriever.swift */; };
@@ -115,6 +123,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9E839AF3229FEE640049EA62 /* Diagnostic.framework in Embed Frameworks */,
+				9E839AF4229FEE640049EA62 /* AST.framework in Embed Frameworks */,
+				9E839AF5229FEE640049EA62 /* Source.framework in Embed Frameworks */,
+				9E839AF6229FEE640049EA62 /* Lexer.framework in Embed Frameworks */,
+				9E839AF7229FEE640049EA62 /* Bocho.framework in Embed Frameworks */,
+				9E839AF8229FEE640049EA62 /* Sema.framework in Embed Frameworks */,
+				9E839AF9229FEE640049EA62 /* Parser.framework in Embed Frameworks */,
+				9E839AF2229FEDD70049EA62 /* CodefaceSPM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
