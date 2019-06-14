@@ -48,7 +48,9 @@ class AnalyticsTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, O
         switch column.identifier
         {
         case fileColumnID:
-            return Label(text: analytics.file.relativePath)
+            let relativePath = analytics.file.relativePath
+            let readablePath = relativePath.removingPercentEncoding ?? relativePath
+            return Label(text: readablePath)
             
         case linesColumnID:
             let loc = analytics.linesOfCode
