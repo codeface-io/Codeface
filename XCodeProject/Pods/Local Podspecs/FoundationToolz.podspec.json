@@ -1,6 +1,6 @@
 {
   "name": "FoundationToolz",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "summary": "Reusable Foundation Tools",
   "description": "Some Reusable Tools Based on the Foundation Framework",
   "homepage": "http://flowtoolz.com",
@@ -10,18 +10,21 @@
   },
   "source": {
     "git": "https://github.com/flowtoolz/FoundationToolz.git",
-    "tag": "1.0.1"
+    "tag": "1.0.4"
   },
   "requires_arc": true,
   "swift_versions": "5.0",
   "platforms": {
-    "ios": "9.0",
-    "osx": "10.10",
-    "tvos": "9.0"
+    "ios": "11.0",
+    "osx": "10.12",
+    "tvos": "11.0"
   },
   "dependencies": {
     "ReachabilitySwift": [
       "~> 4.3.0"
+    ],
+    "SwiftyToolz": [
+      "~> 1.5"
     ]
   },
   "source_files": "Code/**/*.swift",

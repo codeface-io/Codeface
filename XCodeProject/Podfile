@@ -1,6 +1,6 @@
 use_frameworks!
 
-platform :osx, '10.11'
+platform :osx, '10.12'
 
 target 'Codeface' do
 
@@ -9,14 +9,14 @@ target 'Codeface' do
     pod 'UIToolz', :path=> '../../UIToolz'
     pod 'FoundationToolz', :path=> '../../FoundationToolz'
     pod 'SwiftObserver', :path=> '../../SwiftObserver'
-    pod 'SwiftyToolz', :path=> '../../SwiftyToolz'
+    pod 'SwiftyToolz', :path=> '../../SwiftyToolz'\
 
 end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
-            config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.11'
+            config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.12'
         end
     end
 end

@@ -1,11 +1,12 @@
 PODS:
-  - FoundationToolz (1.0.1):
+  - FoundationToolz (1.0.4):
     - ReachabilitySwift (~> 4.3.0)
-  - GetLaid (1.5.0)
+    - SwiftyToolz (~> 1.5)
+  - GetLaid (1.6.0)
   - ReachabilitySwift (4.3.1)
   - SwiftObserver (5.1.0):
-    - SwiftyToolz (~> 1.5.0)
-  - SwiftyToolz (1.5.0)
+    - SwiftyToolz (~> 1.5)
+  - SwiftyToolz (1.5.2)
   - UIObserver (0.2.3):
     - SwiftObserver (~> 5.0)
   - UIToolz (1.1.1):
@@ -23,7 +24,7 @@ DEPENDENCIES:
   - UIToolz (from `../../UIToolz`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - ReachabilitySwift
 
 EXTERNAL SOURCES:
@@ -41,14 +42,14 @@ EXTERNAL SOURCES:
     :path: "../../UIToolz"
 
 SPEC CHECKSUMS:
-  FoundationToolz: f57e9c2a2829923c15127094cd657977de69b3e0
-  GetLaid: b4307101460342a4976cd897be934cf32170e4cf
+  FoundationToolz: 51894a074c2b80540097bb1e2e25cbfc7a7085ac
+  GetLaid: 37e99591500bb3334a55b29f742dc2a4bdf3c325
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
-  SwiftObserver: 5d76af03364406e7540cab3a8c62c2258dd0ad65
-  SwiftyToolz: c408741ce36408fb7cab44954c8ffaa61df895ce
-  UIObserver: 812ae58703c4c5a362e65ae0588ce9987502e5e2
-  UIToolz: 48f5efe97c02c29dd08ae1b2270f43c503957ad6
+  SwiftObserver: 8df6b21e7f32f46ec0d37f7022b70ad62e297064
+  SwiftyToolz: 63d64ac2deb633759682e167c1dc0bb227ce780d
+  UIObserver: 29f793f867cd28cd238b11081732515764213e13
+  UIToolz: 8787fe678aec107a129e5f57f4a4c583beeac074
 
-PODFILE CHECKSUM: e1de1495b40b2a0e13f6206f23c0045097f9f80e
+PODFILE CHECKSUM: 16a24aa339b2a1775babdec8516df33617a92010
 
-COCOAPODS: 1.7.0
+COCOAPODS: 1.8.4

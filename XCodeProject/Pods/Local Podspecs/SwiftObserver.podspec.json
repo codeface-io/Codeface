@@ -16,13 +16,13 @@
   "swift_versions": "5.0",
   "platforms": {
     "ios": "9.0",
-    "osx": "10.10",
+    "osx": "10.12",
     "tvos": "9.0"
   },
   "source_files": "Code/**/*.swift",
   "dependencies": {
     "SwiftyToolz": [
-      "~> 1.5.0"
+      "~> 1.5"
     ]
   },
   "swift_version": "5.0"

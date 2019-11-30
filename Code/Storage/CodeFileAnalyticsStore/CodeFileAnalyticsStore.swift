@@ -1,6 +1,6 @@
 import SwiftObserver
 
-class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, CustomObservable
+class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, Observable
 {
     // MARK: - Singleton Instance
     
@@ -45,7 +45,6 @@ class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, CustomObservable
     
     // MARK: - Observability
     
-    let messenger = Messenger(Event.didNothing)
-    typealias Message = Event
+    let messenger = Messenger<Event>()
     enum Event { case didNothing, didModifyData }
 }
