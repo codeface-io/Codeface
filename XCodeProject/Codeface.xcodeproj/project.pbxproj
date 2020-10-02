@@ -10,7 +10,7 @@
 		86EA7878C5806D03A977442C /* Pods_Codeface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C35351245BE5E93A5D259D /* Pods_Codeface.framework */; };
 		962F1D882392DD780090D456 /* SwiftAST+Tooling in Frameworks */ = {isa = PBXBuildFile; productRef = 962F1D872392DD780090D456 /* SwiftAST+Tooling */; };
 		9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727B218E250E0094BD1C /* AnalyticsView.swift */; };
-		9E007283218E250E0094BD1C /* CodefaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceController.swift */; };
+		9E007283218E250E0094BD1C /* CodefaceAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceAppController.swift */; };
 		9E007284218E250E0094BD1C /* AnalyticsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727D218E250E0094BD1C /* AnalyticsTable.swift */; };
 		9E007285218E250E0094BD1C /* CodeFileAnalyticsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727E218E250E0094BD1C /* CodeFileAnalyticsStore.swift */; };
 		9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */; };
@@ -63,7 +63,7 @@
 		408DED073DAF22DAF444DC63 /* Pods-Cocoalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocoalytics.debug.xcconfig"; path = "Target Support Files/Pods-Cocoalytics/Pods-Cocoalytics.debug.xcconfig"; sourceTree = "<group>"; };
 		42C35351245BE5E93A5D259D /* Pods_Codeface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Codeface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E00727B218E250E0094BD1C /* AnalyticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
-		9E00727C218E250E0094BD1C /* CodefaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceController.swift; sourceTree = "<group>"; };
+		9E00727C218E250E0094BD1C /* CodefaceAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceAppController.swift; sourceTree = "<group>"; };
 		9E00727D218E250E0094BD1C /* AnalyticsTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsTable.swift; sourceTree = "<group>"; };
 		9E00727E218E250E0094BD1C /* CodeFileAnalyticsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFileAnalyticsStore.swift; sourceTree = "<group>"; };
 		9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderSelectionPanel.swift; sourceTree = "<group>"; };
@@ -290,7 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				9E007280218E250E0094BD1C /* main.swift */,
-				9E00727C218E250E0094BD1C /* CodefaceController.swift */,
+				9E00727C218E250E0094BD1C /* CodefaceAppController.swift */,
 				9E007281218E250E0094BD1C /* CodefaceMenu.swift */,
 			);
 			path = AppKit;
@@ -477,7 +477,7 @@
 				9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				9E007287218E250E0094BD1C /* main.swift in Sources */,
-				9E007283218E250E0094BD1C /* CodefaceController.swift in Sources */,
+				9E007283218E250E0094BD1C /* CodefaceAppController.swift in Sources */,
 				9E84B4C721A1F39300F006DD /* CodeFileStore.swift in Sources */,
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
 				9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */,

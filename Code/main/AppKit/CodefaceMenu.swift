@@ -6,7 +6,6 @@ class CodefaceMenu: MainMenu
     override init()
     {
         super.init()
-        
         appMenu.insert(topItems, at: 0)
     }
     
