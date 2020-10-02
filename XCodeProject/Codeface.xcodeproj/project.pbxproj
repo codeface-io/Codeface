@@ -13,7 +13,6 @@
 		9E007283218E250E0094BD1C /* CodefaceAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceAppController.swift */; };
 		9E007284218E250E0094BD1C /* AnalyticsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727D218E250E0094BD1C /* AnalyticsTable.swift */; };
 		9E007285218E250E0094BD1C /* CodeFileAnalyticsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727E218E250E0094BD1C /* CodeFileAnalyticsStore.swift */; };
-		9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */; };
 		9E007287218E250E0094BD1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007280218E250E0094BD1C /* main.swift */; };
 		9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007281218E250E0094BD1C /* CodefaceMenu.swift */; };
 		9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E245218F5A1200339F55 /* CodeFile.swift */; };
@@ -66,7 +65,6 @@
 		9E00727C218E250E0094BD1C /* CodefaceAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceAppController.swift; sourceTree = "<group>"; };
 		9E00727D218E250E0094BD1C /* AnalyticsTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsTable.swift; sourceTree = "<group>"; };
 		9E00727E218E250E0094BD1C /* CodeFileAnalyticsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFileAnalyticsStore.swift; sourceTree = "<group>"; };
-		9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderSelectionPanel.swift; sourceTree = "<group>"; };
 		9E007280218E250E0094BD1C /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		9E007281218E250E0094BD1C /* CodefaceMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceMenu.swift; sourceTree = "<group>"; };
 		9E27839C229ECDF1006ACB18 /* Codeface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codeface.entitlements; sourceTree = "<group>"; };
@@ -272,7 +270,6 @@
 		9EA5A8B2218EE9A2004902F7 /* AppKit */ = {
 			isa = PBXGroup;
 			children = (
-				9E00727F218E250E0094BD1C /* FolderSelectionPanel.swift */,
 				9EB8BA5E218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift */,
 			);
 			path = AppKit;
@@ -482,7 +479,6 @@
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
 				9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */,
 				9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */,
-				9E007286218E250E0094BD1C /* FolderSelectionPanel.swift in Sources */,
 				9E84B4B821A1D8C100F006DD /* TypeRetriever.swift in Sources */,
 				9E84B4C521A1F1C500F006DD /* Store.swift in Sources */,
 				9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */,
