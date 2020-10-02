@@ -1,13 +1,13 @@
 import UIToolz
 import AppKit
 
+@main
 class CodefaceAppController: AppController
 {
-    init()
-    {
-        super.init(appView: AnalyticsView(), appMenu: CodefaceMenu())
-        startApp()
-    }
+    static func main() { instance.startApp() }
+    
+    private static let instance = CodefaceAppController(appView: AnalyticsView(),
+                                                        appMenu: CodefaceMenu())
     
     override func applicationDidFinishLaunching(_ aNotification: Notification)
     {

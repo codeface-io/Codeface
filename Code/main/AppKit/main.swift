@@ -1,1 +1,0 @@
-let appController = CodefaceAppController()
