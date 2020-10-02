@@ -1,5 +1,6 @@
 import AppKit
 import UIToolz
+import GetLaid
 
 class AnalyticsView: LayerBackedView
 {
@@ -14,10 +15,9 @@ class AnalyticsView: LayerBackedView
     
     private func layoutViews()
     {
-        summary.constrainToParentExcludingBottom()
-        
-        table.constrainToParentExcludingTop()
-        table.constrain(below: summary)
+        summary >> allButBottom
+        table >> allButTop
+        table.top >> summary.bottom
     }
     
     private lazy var summary = addForAutoLayout(AnalyticsSummaryView())

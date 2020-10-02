@@ -2,17 +2,17 @@ PODS:
   - FoundationToolz (1.0.4):
     - ReachabilitySwift (~> 4.3.0)
     - SwiftyToolz (~> 1.5)
-  - GetLaid (1.6.0)
+  - GetLaid (3.0.3)
   - ReachabilitySwift (4.3.1)
-  - SwiftObserver (5.1.0):
+  - SwiftObserver (6.0.0):
     - SwiftyToolz (~> 1.5)
-  - SwiftyToolz (1.5.2)
+  - SwiftyToolz (1.5.5)
   - UIObserver (0.2.3):
-    - SwiftObserver (~> 5.0)
+    - SwiftObserver (~> 6.0)
   - UIToolz (1.1.1):
     - FoundationToolz
     - GetLaid
-    - SwiftObserver (~> 5.0)
+    - SwiftObserver (~> 6.0)
     - SwiftyToolz (~> 1.4)
 
 DEPENDENCIES:
@@ -43,13 +43,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FoundationToolz: 51894a074c2b80540097bb1e2e25cbfc7a7085ac
-  GetLaid: 37e99591500bb3334a55b29f742dc2a4bdf3c325
+  GetLaid: 748a46cdb69828d1930536c587f05364fe21678c
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
-  SwiftObserver: 8df6b21e7f32f46ec0d37f7022b70ad62e297064
-  SwiftyToolz: 63d64ac2deb633759682e167c1dc0bb227ce780d
-  UIObserver: 29f793f867cd28cd238b11081732515764213e13
-  UIToolz: 8787fe678aec107a129e5f57f4a4c583beeac074
+  SwiftObserver: 83c86aa7d33cc4c6937feeff45b0345369728385
+  SwiftyToolz: b5e40f70d14f872a30083e25076f4bb2304b593a
+  UIObserver: 83c5abdc5d73e0574c81ee2463a45f19393d1955
+  UIToolz: c2c610b8ae02a7ab24a05b36e7d3e2a5318e9434
 
 PODFILE CHECKSUM: 16a24aa339b2a1775babdec8516df33617a92010
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3

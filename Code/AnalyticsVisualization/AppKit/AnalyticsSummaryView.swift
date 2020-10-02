@@ -1,5 +1,6 @@
-import AppKit
 import UIToolz
+import GetLaid
+import AppKit
 import SwiftObserver
 
 class AnalyticsSummaryView: NSView, Observer
@@ -29,14 +30,16 @@ class AnalyticsSummaryView: NSView, Observer
     
     private func layoutSubviews()
     {
-        numbersLabel.constrainToParentExcludingRight(inset: 10)
-        folderPathLabel.constrainToParentExcludingLeft(inset: 10)
-        folderPathLabel.constrain(toTheRightOf: numbersLabel, gap: 10)
-        folderPathLabel.constrainWidth(to: numbersLabel)
+        numbersLabel >> allButRight(topOffset: 10, leftOffset: 10, bottomOffset: -10)
+        folderPathLabel >> allButLeft(topOffset: 10, bottomOffset: -10, rightOffset: -10)
+        folderPathLabel.left >> numbersLabel.right.offset(10)
+        folderPathLabel.width >> numbersLabel
     }
     
     required init?(coder decoder: NSCoder) { fatalError() }
     
     private lazy var numbersLabel = addForAutoLayout(Label())
     private lazy var folderPathLabel = addForAutoLayout(Label())
+    
+    let receiver = Receiver()
 }

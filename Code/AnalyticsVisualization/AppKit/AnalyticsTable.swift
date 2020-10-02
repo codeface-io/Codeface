@@ -98,4 +98,6 @@ class AnalyticsTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, O
     
     private let fileColumnID = UIItemID(rawValue: "File")
     private let linesColumnID = UIItemID(rawValue: "Lines of Code")
+    
+    let receiver = Receiver()
 }

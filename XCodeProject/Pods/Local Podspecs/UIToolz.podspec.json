@@ -36,7 +36,7 @@
 
     ],
     "SwiftObserver": [
-      "~> 5.0"
+      "~> 6.0"
     ],
     "SwiftyToolz": [
       "~> 1.4"
