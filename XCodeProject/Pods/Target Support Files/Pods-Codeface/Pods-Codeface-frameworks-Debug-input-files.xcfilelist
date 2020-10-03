@@ -1,8 +1,0 @@
-${PODS_ROOT}/Target Support Files/Pods-Codeface/Pods-Codeface-frameworks.sh
-${BUILT_PRODUCTS_DIR}/FoundationToolz/FoundationToolz.framework
-${BUILT_PRODUCTS_DIR}/GetLaid/GetLaid.framework
-${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework
-${BUILT_PRODUCTS_DIR}/SwiftObserver/SwiftObserver.framework
-${BUILT_PRODUCTS_DIR}/SwiftyToolz/SwiftyToolz.framework
-${BUILT_PRODUCTS_DIR}/UIObserver/UIObserver.framework
-${BUILT_PRODUCTS_DIR}/UIToolz/UIToolz.framework

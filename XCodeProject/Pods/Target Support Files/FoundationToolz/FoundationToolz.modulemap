@@ -1,6 +1,0 @@
-framework module FoundationToolz {
-  umbrella header "FoundationToolz-umbrella.h"
-
-  export *
-  module * { export * }
-}

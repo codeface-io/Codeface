@@ -1,0 +1,70 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "FoundationToolz",
+        "repositoryURL": "https://github.com/flowtoolz/FoundationToolz.git",
+        "state": {
+          "branch": "master",
+          "revision": "f2055afe1ed63483e7ea2f05dbc85c8054083535",
+          "version": null
+        }
+      },
+      {
+        "package": "GetLaid",
+        "repositoryURL": "https://github.com/flowtoolz/GetLaid.git",
+        "state": {
+          "branch": "master",
+          "revision": "0a68303fcead0d8db1bf404e8b8bd141751495fb",
+          "version": null
+        }
+      },
+      {
+        "package": "Reachability",
+        "repositoryURL": "https://github.com/ashleymills/Reachability.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "6c8652a8ea35a64cf36367d07b3d6e5e6a24b272",
+          "version": "4.3.1"
+        }
+      },
+      {
+        "package": "swift-ast",
+        "repositoryURL": "https://github.com/yanagiba/swift-ast",
+        "state": {
+          "branch": null,
+          "revision": "e8507d78b32dbd33ea5ea975bbbc82b7613870a1",
+          "version": "0.19.9"
+        }
+      },
+      {
+        "package": "SwiftObserver",
+        "repositoryURL": "https://github.com/flowtoolz/SwiftObserver.git",
+        "state": {
+          "branch": "master",
+          "revision": "9ddfddd69b49315188d9d21f35b33cd997c0b992",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftyToolz",
+        "repositoryURL": "https://github.com/flowtoolz/SwiftyToolz.git",
+        "state": {
+          "branch": "master",
+          "revision": "d52664f70d7514a97ba99fa3e50ca060a5915768",
+          "version": null
+        }
+      },
+      {
+        "package": "UIToolz",
+        "repositoryURL": "https://github.com/flowtoolz/UIToolz.git",
+        "state": {
+          "branch": "master",
+          "revision": "3967e776851cf32e88e7663e5449f1a9fc76bad5",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,6 +1,0 @@
-framework module GetLaid {
-  umbrella header "GetLaid-umbrella.h"
-
-  export *
-  module * { export * }
-}
