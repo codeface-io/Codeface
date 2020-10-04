@@ -61,6 +61,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		96898AEE252A10D5007AB9FB /* UIToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = UIToolz; path = ../../UIToolz; sourceTree = "<group>"; };
+		96898AF1252A1164007AB9FB /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
+		96898AF3252A1167007AB9FB /* SwiftObserver */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftObserver; path = ../../SwiftObserver; sourceTree = "<group>"; };
+		96898AF5252A116F007AB9FB /* GetLaid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GetLaid; path = ../../GetLaid; sourceTree = "<group>"; };
+		96898AF7252A1172007AB9FB /* FoundationToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FoundationToolz; path = ../../FoundationToolz; sourceTree = "<group>"; };
 		9E00727B218E250E0094BD1C /* AnalyticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceAppController.swift; sourceTree = "<group>"; };
 		9E00727D218E250E0094BD1C /* AnalyticsTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsTable.swift; sourceTree = "<group>"; };
@@ -114,6 +119,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96898AED252A10C8007AB9FB /* Local Packages */ = {
+			isa = PBXGroup;
+			children = (
+				96898AEE252A10D5007AB9FB /* UIToolz */,
+				96898AF5252A116F007AB9FB /* GetLaid */,
+				96898AF7252A1172007AB9FB /* FoundationToolz */,
+				96898AF3252A1167007AB9FB /* SwiftObserver */,
+				96898AF1252A1164007AB9FB /* SwiftyToolz */,
+			);
+			name = "Local Packages";
+			sourceTree = "<group>";
+		};
 		9E00727A218E250E0094BD1C /* Code */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				9E00727A218E250E0094BD1C /* Code */,
+				96898AED252A10C8007AB9FB /* Local Packages */,
 				9E95A705218C73C7009A58A9 /* Codeface */,
 				9E95A716218C73CA009A58A9 /* CodefaceTests */,
 				9E95A704218C73C7009A58A9 /* Products */,
