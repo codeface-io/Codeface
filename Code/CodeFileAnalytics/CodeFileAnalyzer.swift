@@ -1,28 +1,24 @@
 class CodeFileAnalyzer
 {
-    init(typeRetriever: TypeRetriever)
+    init(typeRetriever: TypeRetriever?)
     {
         self.typeRetriever = typeRetriever
     }
     
     func analyze(_ codeFiles: [CodeFile]) -> [CodeFileAnalytics]
     {
-        let generateTypeDependencyGraph = false
-        
         let analytics: [CodeFileAnalytics] = codeFiles.map
         {
             let loc = $0.content.numberOfLines
             
-            let topLevelTypes: [String] = generateTypeDependencyGraph ? Array(typeRetriever.topLevelTypes(in: $0.content) ?? []) : []
+            let topLevelTypes: [String] = Array(typeRetriever?.topLevelTypes(in: $0.content) ?? [])
             
             return CodeFileAnalytics(file: $0,
                                      loc: loc,
                                      topLevelTypes: topLevelTypes)
         }
         
-        if generateTypeDependencyGraph {
-            updateFileDependencies(in: analytics)
-        }
+        //updateFileDependencies(in: analytics)
         
         return analytics
     }
@@ -43,7 +39,7 @@ class CodeFileAnalyzer
         {
             let file = fileAnalytics.file
             
-            let referencedTypes = typeRetriever.referencedTypes(in: file.content)
+            let referencedTypes = typeRetriever?.referencedTypes(in: file.content)
             
             let dependencies: [CodeFileAnalytics] = referencedTypes?.compactMap
             {
@@ -58,7 +54,7 @@ class CodeFileAnalyzer
         }
     }
     
-    var typeRetriever: TypeRetriever
+    var typeRetriever: TypeRetriever?
 }
 
 extension String

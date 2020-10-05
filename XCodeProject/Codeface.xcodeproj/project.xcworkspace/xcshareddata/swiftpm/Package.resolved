@@ -38,15 +38,6 @@
         }
       },
       {
-        "package": "swift-ast",
-        "repositoryURL": "https://github.com/yanagiba/swift-ast",
-        "state": {
-          "branch": null,
-          "revision": "e8507d78b32dbd33ea5ea975bbbc82b7613870a1",
-          "version": "0.19.9"
-        }
-      },
-      {
         "package": "swift-driver",
         "repositoryURL": "https://github.com/apple/swift-driver.git",
         "state": {

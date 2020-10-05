@@ -18,7 +18,7 @@ class Loading
         
         CodeFileStore.shared.elements = codeFiles
         
-        let analyzer = CodeFileAnalyzer(typeRetriever: SwiftASTTypeRetriever())
+        let analyzer = CodeFileAnalyzer(typeRetriever: nil)
         
         let analytics = analyzer.analyze(CodeFileStore.shared.elements)
         
