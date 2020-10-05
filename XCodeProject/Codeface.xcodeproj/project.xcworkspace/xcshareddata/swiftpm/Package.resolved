@@ -2,20 +2,11 @@
   "object": {
     "pins": [
       {
-        "package": "FoundationToolz",
-        "repositoryURL": "https://github.com/flowtoolz/FoundationToolz.git",
+        "package": "IndexStoreDB",
+        "repositoryURL": "https://github.com/apple/indexstore-db.git",
         "state": {
-          "branch": "master",
-          "revision": "f2055afe1ed63483e7ea2f05dbc85c8054083535",
-          "version": null
-        }
-      },
-      {
-        "package": "GetLaid",
-        "repositoryURL": "https://github.com/flowtoolz/GetLaid.git",
-        "state": {
-          "branch": "master",
-          "revision": "0a68303fcead0d8db1bf404e8b8bd141751495fb",
+          "branch": "main",
+          "revision": "3e06a397fb0e3b49949d69372d6b9ac3fc152e15",
           "version": null
         }
       },
@@ -29,6 +20,24 @@
         }
       },
       {
+        "package": "SourceKitLSP",
+        "repositoryURL": "https://github.com/apple/sourcekit-lsp",
+        "state": {
+          "branch": "main",
+          "revision": "c49849bd5c4ab57564f1a519c31b5a2b12fea727",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
+        "state": {
+          "branch": null,
+          "revision": "92646c0cdbaca076c8d3d0207891785b3379cbff",
+          "version": "0.3.1"
+        }
+      },
+      {
         "package": "swift-ast",
         "repositoryURL": "https://github.com/yanagiba/swift-ast",
         "state": {
@@ -38,30 +47,48 @@
         }
       },
       {
-        "package": "SwiftObserver",
-        "repositoryURL": "https://github.com/flowtoolz/SwiftObserver.git",
+        "package": "swift-driver",
+        "repositoryURL": "https://github.com/apple/swift-driver.git",
         "state": {
-          "branch": "master",
-          "revision": "9ddfddd69b49315188d9d21f35b33cd997c0b992",
+          "branch": "main",
+          "revision": "f1f8bf385256377fc802a0189f1a06149678c9f1",
           "version": null
         }
       },
       {
-        "package": "SwiftyToolz",
-        "repositoryURL": "https://github.com/flowtoolz/SwiftyToolz.git",
+        "package": "llbuild",
+        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
         "state": {
-          "branch": "master",
-          "revision": "d52664f70d7514a97ba99fa3e50ca060a5915768",
+          "branch": "main",
+          "revision": "8bf47bbacac034fb8bab489aef86de9247574959",
           "version": null
         }
       },
       {
-        "package": "UIToolz",
-        "repositoryURL": "https://github.com/flowtoolz/UIToolz.git",
+        "package": "SwiftPM",
+        "repositoryURL": "https://github.com/apple/swift-package-manager.git",
         "state": {
-          "branch": "master",
-          "revision": "3967e776851cf32e88e7663e5449f1a9fc76bad5",
+          "branch": "main",
+          "revision": "c0fe9c67805324d0b5373d6378fd85aa23d101c1",
           "version": null
+        }
+      },
+      {
+        "package": "swift-tools-support-core",
+        "repositoryURL": "https://github.com/apple/swift-tools-support-core.git",
+        "state": {
+          "branch": "main",
+          "revision": "cf5db868eeed2f41ddf1d7ac9b202b5738d67dc1",
+          "version": null
+        }
+      },
+      {
+        "package": "Yams",
+        "repositoryURL": "https://github.com/jpsim/Yams.git",
+        "state": {
+          "branch": null,
+          "revision": "88caa2e6fffdbef2e91c2022d038576062042907",
+          "version": "4.0.0"
         }
       }
     ]
