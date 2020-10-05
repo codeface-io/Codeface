@@ -1,5 +1,6 @@
 import AppKit
 import UIToolz
+import SwiftyToolz
 
 class CodefaceMenu: MainMenu
 {
@@ -24,12 +25,16 @@ class CodefaceMenu: MainMenu
         },
         makeItem("Load Code Folder...", key: "l")
         {
-            FolderSelectionPanel().selectFolder
+            FileSelectionPanel().selectFolder
             {
                 folder in Loading.load(from: folder)
             }
         },
-        NSMenuItem.separator()
+        makeItem("Launch Swift Language Server ...")
+        {
+            SwiftLanguageServer.instance.start()
+        },
+        .separator()
     ]
     
     private let reloadID = "reload"
