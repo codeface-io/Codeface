@@ -12,8 +12,6 @@
 		9656A6A625287F3600D4CF26 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A525287F3600D4CF26 /* FoundationToolz */; };
 		9656A6A925287F5300D4CF26 /* GetLaid in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A825287F5300D4CF26 /* GetLaid */; };
 		9656A6AC25287F7E00D4CF26 /* UIToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6AB25287F7E00D4CF26 /* UIToolz */; };
-		966443A7252B2394005430B4 /* _SourceKitLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 966443A6252B2394005430B4 /* _SourceKitLSP */; };
-		966443A8252B2394005430B4 /* _SourceKitLSP in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 966443A6252B2394005430B4 /* _SourceKitLSP */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9686BA0E252A28A600C09166 /* SwiftLanguageServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686BA0D252A28A600C09166 /* SwiftLanguageServer.swift */; };
 		9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727B218E250E0094BD1C /* AnalyticsView.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceAppController.swift */; };
@@ -55,7 +53,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				966443A8252B2394005430B4 /* _SourceKitLSP in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,7 +99,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				966443A7252B2394005430B4 /* _SourceKitLSP in Frameworks */,
 				9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */,
 				9656A6A625287F3600D4CF26 /* FoundationToolz in Frameworks */,
 				9656A6A925287F5300D4CF26 /* GetLaid in Frameworks */,
@@ -327,7 +323,6 @@
 				9656A6A525287F3600D4CF26 /* FoundationToolz */,
 				9656A6A825287F5300D4CF26 /* GetLaid */,
 				9656A6AB25287F7E00D4CF26 /* UIToolz */,
-				966443A6252B2394005430B4 /* _SourceKitLSP */,
 			);
 			productName = Cocoalytics;
 			productReference = 9E95A703218C73C7009A58A9 /* Codeface.app */;
@@ -387,7 +382,6 @@
 				9656A6A425287F3600D4CF26 /* XCRemoteSwiftPackageReference "FoundationToolz" */,
 				9656A6A725287F5300D4CF26 /* XCRemoteSwiftPackageReference "GetLaid" */,
 				9656A6AA25287F7E00D4CF26 /* XCRemoteSwiftPackageReference "UIToolz" */,
-				966443A5252B2394005430B4 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */,
 			);
 			productRefGroup = 9E95A704218C73C7009A58A9 /* Products */;
 			projectDirPath = "";
@@ -736,14 +730,6 @@
 				kind = branch;
 			};
 		};
-		966443A5252B2394005430B4 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/sourcekit-lsp";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -771,11 +757,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9656A6AA25287F7E00D4CF26 /* XCRemoteSwiftPackageReference "UIToolz" */;
 			productName = UIToolz;
-		};
-		966443A6252B2394005430B4 /* _SourceKitLSP */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 966443A5252B2394005430B4 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */;
-			productName = _SourceKitLSP;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
