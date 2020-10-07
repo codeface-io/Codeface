@@ -14,6 +14,6 @@ class CodefaceAppController: AppController
         super.applicationDidFinishLaunching(aNotification)
         Loading.loadFromLastFolder()
         
-        SwiftLanguageServer.instance.start()
+        SwiftLanguageServerController.instance.start()
     }
 }

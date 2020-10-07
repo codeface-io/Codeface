@@ -32,7 +32,12 @@ class CodefaceMenu: MainMenu
         },
         makeItem("Launch Swift Language Server ...")
         {
-            SwiftLanguageServer.instance.start()
+//            FileSelectionPanel().selectFile
+//            {
+//                file in
+//
+//                SwiftLanguageServerController.instance.start(sourcekitLSPExecutable: file)
+//            }
         },
         .separator()
     ]

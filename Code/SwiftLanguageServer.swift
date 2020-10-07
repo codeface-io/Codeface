@@ -1,29 +1,38 @@
-import SourceKitLSP
+import FoundationToolz
 import Foundation
 import SwiftyToolz
 
-class SwiftLanguageServer
+class SwiftLanguageServerController
 {
-    static let instance = SwiftLanguageServer()
-    
+    static let instance = SwiftLanguageServerController()
     private init() {}
     
     func start()
     {
+        guard let url = URL(string: "http://127.0.0.1:8080") else { return }
         
-        // "xcrun --toolchain swift sourcekit-lsp"
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = "My LSP Request".data(using: .utf8)
         
-        let shellCommand = Process()
-        shellCommand.executableURL = URL(fileURLWithPath: "/usr/bin/perl")
-        shellCommand.arguments = ["--help"]//  --toolchain swift sourcekit-lsp"]
-
-        do
-        {
-            try shellCommand.run()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { return }
+            error.forSome { print($0.localizedDescription) }
+            print(String(data: data, encoding: .utf8) ?? "Error: couldn't decode data")
         }
-        catch
-        {
-            log(error: error.localizedDescription)
-        }
+        
+        task.resume()
     }
 }
+
+/*
+Content-Type: "application/vscode-jsonrpc; charset=utf-8"\r\n
+\r\n
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "initialize",
+    "params": {
+    }
+}
+*/
