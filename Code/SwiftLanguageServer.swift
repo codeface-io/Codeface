@@ -11,6 +11,8 @@ class SwiftLanguageServerController
     {
         setupWebSocket()
         sendTestMessageToWebsocket()
+        sendTestMessageToWebsocket()
+//        testHTTPEndpoint()
     }
     
     // MARK: - WebSocket
@@ -23,7 +25,6 @@ class SwiftLanguageServerController
         }
         
         let testData = createTestMessageData()
-        print("gonna send test data of \(testData.count) bytes ...")
         
         websocket.send(.data(testData))
         {
@@ -53,52 +54,51 @@ class SwiftLanguageServerController
     
     func setupWebSocket()
     {
-        guard let url = URL(string: "ws://127.0.0.1:8080") else
+        let url = languageServiceURLWebSocket + "api/swift"
+        websocket = URLSession.shared.webSocketTask(with: url)
+        observeWebSocket()
+        websocket?.resume()
+    }
+    
+    func observeWebSocket() {
+        waitForAnotherMessageFromWebSocketRecursively()
+    }
+    
+    func waitForAnotherMessageFromWebSocketRecursively() {
+        websocket?.receive
         {
-            log(error: "could not create url for websocket")
-            return
-        }
-        
-        let task = URLSession.shared.webSocketTask(with: url)
-        
-        task.receive
-        {
-            result in
+            [weak self] result in
             
             switch result
             {
             case .success(let response):
                 switch response
                 {
-                case .data(let dataMessage):
-                    log(String(data: dataMessage,
-                               encoding: .utf8) ?? "error decoding data message")
-                case .string(let stringMessage):
-                    log(stringMessage)
+                case .data(let messageData):
+                    let messageString = String(data: messageData,
+                                               encoding: .utf8) ?? "error decoding message"
+                    log("received data from websocket:\n\(messageString)")
+                case .string(let messageString):
+                    log("received string from websocket:\n\(messageString)")
                 @unknown default:
                     log(error: "unknown response type")
                 }
+                self?.waitForAnotherMessageFromWebSocketRecursively()
             case .failure(let error):
                 log(error: error.localizedDescription)
             }
         }
-        
-        task.resume()
-        
-        websocket = task
     }
     
     private var websocket: URLSessionWebSocketTask?
     
-    // MARK: - REST
+    // MARK: - HTTP
     
     func testHTTPEndpoint()
     {
-        guard let url = URL(string: "http://127.0.0.1:8080") else { return }
+        let url = languageServiceURLHTTP + "dashboard/swift"
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = "My LSP Request".data(using: .utf8)
+        let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { return }
@@ -108,4 +108,7 @@ class SwiftLanguageServerController
         
         task.resume()
     }
+    
+    let languageServiceURLHTTP = URL(string: "http://127.0.0.1:8080/languageservice")!
+    let languageServiceURLWebSocket = URL(string: "ws://127.0.0.1:8080/languageservice")!
 }
