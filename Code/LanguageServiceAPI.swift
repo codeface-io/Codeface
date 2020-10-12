@@ -5,7 +5,7 @@ struct LanguageServiceAPI
 {
     struct Languages
     {
-        static func get(handleResult: @escaping (Result<[String], Error>) -> Void)
+        static func get(handleResult: @escaping (Result<[String], URL.RequestError>) -> Void)
         {
             languages.get([String].self, handleResult: handleResult)
         }
