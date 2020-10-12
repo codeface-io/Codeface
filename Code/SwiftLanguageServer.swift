@@ -10,9 +10,9 @@ class SwiftLanguageServerController
     func start()
     {
         setupWebSocket()
-        sendTestMessageToWebsocket()
-        sendTestMessageToWebsocket()
-//        testHTTPEndpoint()
+//        sendTestMessageToWebsocket()
+//        sendTestMessageToWebsocket()
+        requestAvailableLanguages()
     }
     
     // MARK: - WebSocket
@@ -54,7 +54,7 @@ class SwiftLanguageServerController
     
     func setupWebSocket()
     {
-        let url = languageServiceURLWebSocket + "api/swift"
+        let url = LanguageServiceAPI.websocket(forLanguage: "swift")
         websocket = URLSession.shared.webSocketTask(with: url)
         observeWebSocket()
         websocket?.resume()
@@ -94,21 +94,13 @@ class SwiftLanguageServerController
     
     // MARK: - HTTP
     
-    func testHTTPEndpoint()
+    func requestAvailableLanguages()
     {
-        let url = languageServiceURLHTTP + "dashboard/swift"
-        
-        let request = URLRequest(url: url)
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else { return }
-            error.forSome { print($0.localizedDescription) }
-            log(String(data: data, encoding: .utf8) ?? "Error: couldn't decode data")
+        LanguageServiceAPI.Languages.get() { result in
+            switch result {
+            case .success(let languages): log("Available languages: \(languages)")
+            case .failure(let error): log(error)
+            }
         }
-        
-        task.resume()
     }
-    
-    let languageServiceURLHTTP = URL(string: "http://127.0.0.1:8080/languageservice")!
-    let languageServiceURLWebSocket = URL(string: "ws://127.0.0.1:8080/languageservice")!
 }
