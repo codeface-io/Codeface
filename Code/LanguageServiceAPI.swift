@@ -13,14 +13,40 @@ struct LanguageServiceAPI
         private static let languages = languageServiceAPI + "languages"
     }
     
-    static func websocket(forLanguage lang: String) -> URL
+    struct Language
     {
-        let apiString = languageServiceAPI.absoluteString
-        let wsAPIString = apiString.replacingOccurrences(of: defaultScheme, with: "ws://")
-        return URL(string: wsAPIString)! + lang
+        struct Name
+        {
+            init(_ languageName: String)
+            {
+                self.languageName = language + languageName
+            }
+            
+            func get(handleResult: @escaping (Result<String, URL.RequestError>) -> Void)
+            {
+                languageName.get(String.self, handleResult: handleResult)
+            }
+            
+            func post(_ value : String,
+                      handleError: @escaping (URL.RequestError?) -> Void)
+            {
+                languageName.post(value, handleError: handleError)
+            }
+            
+            func webSocket(receiveData: @escaping (Data) -> Void,
+                           receiveText: @escaping (String) -> Void,
+                           receiveError: @escaping (Error) -> Void) -> WebSocket?
+            {
+                (languageName + "websocket").webSocket(receiveData: receiveData,
+                                                        receiveText: receiveText,
+                                                        receiveError: receiveError)
+            }
+            
+            private let languageName: URL
+        }
+        
+        private static let language = languageServiceAPI + "language"
     }
     
-    private static let languageServiceAPI = URL(string: defaultScheme + root)!
-    private static let root = "127.0.0.1:8080/languageservice/api"
-    private static let defaultScheme = "http://"
+    private static let languageServiceAPI = URL(string: "http://127.0.0.1:8080/languageservice/api")!
 }
