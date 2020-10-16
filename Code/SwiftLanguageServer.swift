@@ -1,6 +1,8 @@
 import FoundationToolz
 import Foundation
 import SwiftyToolz
+import LanguageServerProtocol
+import LanguageServerProtocolJSONRPC
 
 class SwiftLanguageServerController
 {
@@ -9,9 +11,14 @@ class SwiftLanguageServerController
     
     func start()
     {
+        let test = InitializeRequest(rootURI: nil,
+                                     capabilities: ClientCapabilities(workspace: nil,
+                                                                      textDocument: nil),
+                                     workspaceFolders: nil)
+        print(test.encode()?.utf8String ?? "shit")
+        
         setupWebSocket()
         sendTestMessageToWebsocket()
-//        sendTestMessageToWebsocket()
 //        requestAvailableLanguages()
     }
     
