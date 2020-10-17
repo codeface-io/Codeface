@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/apple/sourcekit-lsp",
         "state": {
           "branch": "main",
-          "revision": "4a199a88b5499e9ef2563b0243db0c8f095d83a0",
+          "revision": "7a36a51014263cc153cdebd2209185c17fae96b1",
           "version": null
         }
       },
@@ -42,7 +42,7 @@
         "repositoryURL": "https://github.com/apple/swift-driver.git",
         "state": {
           "branch": "main",
-          "revision": "d4b91be51688e7ad369d90483006b0333070ca3e",
+          "revision": "9bb7cbe0dea8891e56c227f29bf58447fdc2a0a0",
           "version": null
         }
       },

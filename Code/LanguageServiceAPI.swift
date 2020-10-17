@@ -7,10 +7,10 @@ struct LanguageServiceAPI
     {
         static func get(handleResult: @escaping (Result<[String], URL.RequestError>) -> Void)
         {
-            languages.get([String].self, handleResult: handleResult)
+            url.get([String].self, handleResult: handleResult)
         }
         
-        private static let languages = languageServiceAPI + "languages"
+        private static let url = LanguageServiceAPI.url + "languages"
     }
     
     struct Language
@@ -19,34 +19,34 @@ struct LanguageServiceAPI
         {
             init(_ languageName: String)
             {
-                self.languageName = language + languageName
+                url = Language.url + languageName
             }
             
             func get(handleResult: @escaping (Result<String, URL.RequestError>) -> Void)
             {
-                languageName.get(String.self, handleResult: handleResult)
+                url.get(String.self, handleResult: handleResult)
             }
             
             func post(_ value : String,
                       handleError: @escaping (URL.RequestError?) -> Void)
             {
-                languageName.post(value, handleError: handleError)
+                url.post(value, handleError: handleError)
             }
             
             func webSocket(receiveData: @escaping (Data) -> Void,
                            receiveText: @escaping (String) -> Void,
-                           receiveError: @escaping (Error) -> Void) -> WebSocket?
+                           receiveError: @escaping (WebSocket, Error) -> Void) throws -> WebSocket
             {
-                (languageName + "websocket").webSocket(receiveData: receiveData,
-                                                        receiveText: receiveText,
-                                                        receiveError: receiveError)
+                try (url + "websocket").webSocket(receiveData: receiveData,
+                                                  receiveText: receiveText,
+                                                  receiveError: receiveError)
             }
             
-            private let languageName: URL
+            private let url: URL
         }
         
-        private static let language = languageServiceAPI + "language"
+        private static let url = LanguageServiceAPI.url + "language"
     }
     
-    private static let languageServiceAPI = URL(string: "http://127.0.0.1:8080/languageservice/api")!
+    private static let url = URL(string: "http://127.0.0.1:8080/languageservice/api")!
 }
