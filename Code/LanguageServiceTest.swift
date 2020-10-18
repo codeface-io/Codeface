@@ -46,14 +46,14 @@ class LanguageServiceTest
         
         webSocket.didReceiveErrorOutput =
         {
-            errorOutput in log(error: "Error output form language server:\n\(errorOutput)")
+            errorOutput in log(error: "Error output from language server:\n\(errorOutput)")
         }
         
         let message = LSP.Message.request(.init(id: .string(UUID().uuidString),
                                                 method: "initialize",
                                                 params: ["capabilities" : JSONObject()]))
         
-        webSocket.send(message: try message.jsonObject().data())
+        try webSocket.send(message)
     }
     
     // MARK: - HTTP
