@@ -51,7 +51,7 @@ class LanguageServiceTest
         
         let message = LSP.Message.request(.init(id: .string(UUID().uuidString),
                                                 method: "initialize",
-                                                params: ["capabilities" : JSONObject()]))
+                                                params: ["capabilities": JSONObject()]))
         
         try webSocket.send(message)
     }
@@ -60,8 +60,12 @@ class LanguageServiceTest
     
     private static func requestAvailableLanguages()
     {
-        LanguageServiceAPI.Languages.get() { result in
-            switch result {
+        LanguageServiceAPI.Languages.get()
+        {
+            result in
+            
+            switch result
+            {
             case .success(let languages): log("Available languages: \(languages)")
             case .failure(let error): log(error)
             }
