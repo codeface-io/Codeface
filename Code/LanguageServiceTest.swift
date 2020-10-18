@@ -31,6 +31,9 @@ class LanguageServiceTest
             {
             case .success(let resultValue):
                 log("response id: \(response.id)\nresponse result:\n\(resultValue)")
+                if (resultValue as? JSONObject)?["capabilities"] != nil {
+                    try? webSocket.send(.request(.docSymbol()))
+                }
             case .failure(let error):
                 log(error)
             }
