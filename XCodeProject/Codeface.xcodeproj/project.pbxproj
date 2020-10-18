@@ -14,7 +14,7 @@
 		9656A6A625287F3600D4CF26 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A525287F3600D4CF26 /* FoundationToolz */; };
 		9656A6A925287F5300D4CF26 /* GetLaid in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A825287F5300D4CF26 /* GetLaid */; };
 		9656A6AC25287F7E00D4CF26 /* UIToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6AB25287F7E00D4CF26 /* UIToolz */; };
-		9678DA6B253B42CC002BF645 /* WebSocket+LSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678DA6A253B42CC002BF645 /* WebSocket+LSP.swift */; };
+		9678DA6B253B42CC002BF645 /* LSPWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678DA6A253B42CC002BF645 /* LSPWebSocket.swift */; };
 		9686BA0E252A28A600C09166 /* LanguageServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686BA0D252A28A600C09166 /* LanguageServiceTest.swift */; };
 		969884142533DC6800DD1F94 /* LanguageServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969884132533DC6800DD1F94 /* LanguageServiceAPI.swift */; };
 		9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727B218E250E0094BD1C /* AnalyticsView.swift */; };
@@ -65,7 +65,7 @@
 
 /* Begin PBXFileReference section */
 		96013700253B8A5A00D003D6 /* LSP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSP.swift; sourceTree = "<group>"; };
-		9678DA6A253B42CC002BF645 /* WebSocket+LSP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WebSocket+LSP.swift"; sourceTree = "<group>"; };
+		9678DA6A253B42CC002BF645 /* LSPWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPWebSocket.swift; sourceTree = "<group>"; };
 		9686BA0D252A28A600C09166 /* LanguageServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageServiceTest.swift; sourceTree = "<group>"; };
 		96898AEE252A10D5007AB9FB /* UIToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = UIToolz; path = ../../UIToolz; sourceTree = "<group>"; };
 		96898AF1252A1164007AB9FB /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
@@ -125,6 +125,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		962D8285253C6D1B0016E1D1 /* Language Service */ = {
+			isa = PBXGroup;
+			children = (
+				969884132533DC6800DD1F94 /* LanguageServiceAPI.swift */,
+				9678DA6A253B42CC002BF645 /* LSPWebSocket.swift */,
+				96013700253B8A5A00D003D6 /* LSP.swift */,
+			);
+			path = "Language Service";
+			sourceTree = "<group>";
+		};
 		96898AED252A10C8007AB9FB /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,9 +156,7 @@
 				9E84B4B621A1D7D700F006DD /* CodeFileAnalytics */,
 				9E76E245218F5A1200339F55 /* CodeFile.swift */,
 				9686BA0D252A28A600C09166 /* LanguageServiceTest.swift */,
-				9678DA6A253B42CC002BF645 /* WebSocket+LSP.swift */,
-				96013700253B8A5A00D003D6 /* LSP.swift */,
-				969884132533DC6800DD1F94 /* LanguageServiceAPI.swift */,
+				962D8285253C6D1B0016E1D1 /* Language Service */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 			);
 			name = Code;
@@ -436,7 +444,7 @@
 				9E76E24D218F6A6A00339F55 /* Loading.swift in Sources */,
 				9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */,
 				9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */,
-				9678DA6B253B42CC002BF645 /* WebSocket+LSP.swift in Sources */,
+				9678DA6B253B42CC002BF645 /* LSPWebSocket.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceAppController.swift in Sources */,
 				969884142533DC6800DD1F94 /* LanguageServiceAPI.swift in Sources */,
