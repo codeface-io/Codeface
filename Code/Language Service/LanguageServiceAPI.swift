@@ -33,9 +33,9 @@ struct LanguageServiceAPI
                 url.post(value, handleError: handleError)
             }
             
-            func makeWebSocket() throws -> LSPWebSocket
+            func makeWebSocket() throws -> WebSocket
             {
-                try LSPWebSocket(webSocket: (url + "websocket").webSocket())
+                try (url + "websocket").webSocket()
             }
             
             private let url: URL

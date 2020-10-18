@@ -10,7 +10,8 @@ class LanguageServiceTest
     {
         do
         {
-            webSocket = try LanguageServiceAPI.Language.Name("swift").makeWebSocket()
+            let swiftEndpoint = LanguageServiceAPI.Language.Name("swift")
+            webSocket = try LSPWebSocket(webSocket: swiftEndpoint.makeWebSocket())
             webSocket.forSome { test(with: $0) }
         }
         catch { log(error) }

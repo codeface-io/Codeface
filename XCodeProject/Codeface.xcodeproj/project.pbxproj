@@ -126,9 +126,9 @@
 		962D8285253C6D1B0016E1D1 /* Language Service */ = {
 			isa = PBXGroup;
 			children = (
-				969884132533DC6800DD1F94 /* LanguageServiceAPI.swift */,
 				9678DA6A253B42CC002BF645 /* LSPWebSocket.swift */,
 				96013700253B8A5A00D003D6 /* LSP.swift */,
+				969884132533DC6800DD1F94 /* LanguageServiceAPI.swift */,
 			);
 			path = "Language Service";
 			sourceTree = "<group>";
