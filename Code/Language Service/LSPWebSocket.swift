@@ -33,7 +33,7 @@ class LSPWebSocket
         do
         {
             let messageData = try LSP.extractContent(fromFrame: lspFrame)
-            let message = try LSP.Message(json: messageData.jsonObject())
+            let message = try LSP.Message(json: JSONObject(messageData))
             
             switch message
             {
@@ -54,9 +54,11 @@ class LSPWebSocket
     
     // MARK: - Send
     
-    func send(messageData: Data)
+    func send(message: Data)
     {
-        webSocket.send(LSP.makeFrame(withContent: messageData))
+        log("Gonna send message:\n\(message.utf8String!)")
+        
+        webSocket.send(LSP.makeFrame(withContent: message))
         {
             $0.forSome { log($0) }
         }

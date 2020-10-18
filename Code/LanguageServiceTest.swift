@@ -12,7 +12,7 @@ class LanguageServiceTest
         {
             let swiftEndpoint = LanguageServiceAPI.Language.Name("swift")
             webSocket = try LSPWebSocket(webSocket: swiftEndpoint.makeWebSocket())
-            webSocket.forSome { test(with: $0) }
+            try webSocket.forSome { try test(with: $0) }
         }
         catch { log(error) }
     }
@@ -21,7 +21,7 @@ class LanguageServiceTest
     
     // MARK: - Websocket
     
-    private static func test(with webSocket: LSPWebSocket)
+    private static func test(with webSocket: LSPWebSocket) throws
     {
         webSocket.didReceiveResponse =
         {
@@ -39,25 +39,11 @@ class LanguageServiceTest
             log("notification params: \(notification.params.debugDescription)")
         }
         
-        let messageData = makeInitializationMessage().data!
-        log("Gonna send message:\n" + messageData.utf8String!)
-        webSocket.send(messageData: messageData)
-    }
-    
-    private static func makeInitializationMessage() -> String {
-        """
-        {
-          "jsonrpc" : "2.0",
-          "method" : "initialize",
-          "id" : "9D76FD43-E7EE-4BE4-8D49-05C01A7F98B9",
-          "params" : {
-            "trace" : "off",
-            "capabilities" : {
-
-            }
-          }
-        }
-        """
+        let message = LSP.Message.request(.init(id: .string(UUID().uuidString),
+                                                method: "initialize",
+                                                params: ["capabilities" : JSONObject()]))
+        
+        webSocket.send(message: try message.jsonObject().data())
     }
     
     // MARK: - HTTP
