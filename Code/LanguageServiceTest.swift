@@ -44,6 +44,11 @@ class LanguageServiceTest
             log("notification params: \(notification.params.debugDescription)")
         }
         
+        webSocket.didReceiveErrorOutput =
+        {
+            errorOutput in log(error: "Error output form language server:\n\(errorOutput)")
+        }
+        
         let message = LSP.Message.request(.init(id: .string(UUID().uuidString),
                                                 method: "initialize",
                                                 params: ["capabilities" : JSONObject()]))

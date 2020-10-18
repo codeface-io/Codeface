@@ -17,7 +17,7 @@ class LSPWebSocket
         
         webSocket.didReceiveText =
         {
-            [weak self] text in self?.didReceiveText(text)
+            [weak self] text in self?.didReceiveErrorOutput(text)
         }
         
         webSocket.didReceiveError =
@@ -50,7 +50,7 @@ class LSPWebSocket
     
     var didReceiveResponse: (LSP.Message.Response) -> Void = { _ in }
     var didReceiveNotification: (LSP.Message.Notification) -> Void = { _ in }
-    var didReceiveText: (String) -> Void = { _ in }
+    var didReceiveErrorOutput: (String) -> Void = { _ in }
     
     // MARK: - Send
     
