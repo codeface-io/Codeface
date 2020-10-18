@@ -1,8 +1,6 @@
 import FoundationToolz
 import Foundation
 import SwiftyToolz
-import LanguageServerProtocol
-import LanguageServerProtocolJSONRPC
 
 class LanguageServiceTest
 {
@@ -28,6 +26,7 @@ class LanguageServiceTest
         {
             response in
             
+            log("response id:\n\(response.id)")
             log("response result:\n\(response.result)")
         }
         
@@ -39,17 +38,25 @@ class LanguageServiceTest
             log("notification params: \(notification.params.debugDescription)")
         }
         
-        let message = makeInitializationMessage()
-        log("Gonna send message:\n" + message.encode()!.utf8String!)
-        webSocket.send(lspMessage: message)
+        let messageData = makeInitializationMessage().data!
+        log("Gonna send message:\n" + messageData.utf8String!)
+        webSocket.send(messageData: messageData)
     }
     
-    private static func makeInitializationMessage() -> JSONRPCMessage {
-        let request = InitializeRequest(rootURI: nil,
-                                        capabilities: ClientCapabilities(workspace: nil,
-                                                                         textDocument: nil),
-                                        workspaceFolders: nil)
-        return JSONRPCMessage.request(request, id: .string(UUID().uuidString))
+    private static func makeInitializationMessage() -> String {
+        """
+        {
+          "jsonrpc" : "2.0",
+          "method" : "initialize",
+          "id" : "9D76FD43-E7EE-4BE4-8D49-05C01A7F98B9",
+          "params" : {
+            "trace" : "off",
+            "capabilities" : {
+
+            }
+          }
+        }
+        """
     }
     
     // MARK: - HTTP

@@ -2,84 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "IndexStoreDB",
-        "repositoryURL": "https://github.com/apple/indexstore-db.git",
-        "state": {
-          "branch": "main",
-          "revision": "3e06a397fb0e3b49949d69372d6b9ac3fc152e15",
-          "version": null
-        }
-      },
-      {
         "package": "Reachability",
         "repositoryURL": "https://github.com/ashleymills/Reachability.swift.git",
         "state": {
           "branch": null,
           "revision": "6c8652a8ea35a64cf36367d07b3d6e5e6a24b272",
           "version": "4.3.1"
-        }
-      },
-      {
-        "package": "SourceKitLSP",
-        "repositoryURL": "https://github.com/apple/sourcekit-lsp",
-        "state": {
-          "branch": "main",
-          "revision": "7a36a51014263cc153cdebd2209185c17fae96b1",
-          "version": null
-        }
-      },
-      {
-        "package": "swift-argument-parser",
-        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
-        "state": {
-          "branch": null,
-          "revision": "92646c0cdbaca076c8d3d0207891785b3379cbff",
-          "version": "0.3.1"
-        }
-      },
-      {
-        "package": "swift-driver",
-        "repositoryURL": "https://github.com/apple/swift-driver.git",
-        "state": {
-          "branch": "main",
-          "revision": "9bb7cbe0dea8891e56c227f29bf58447fdc2a0a0",
-          "version": null
-        }
-      },
-      {
-        "package": "llbuild",
-        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
-        "state": {
-          "branch": "main",
-          "revision": "5b5421a12fea9c5ec63fd9a797c05f7aebd8142b",
-          "version": null
-        }
-      },
-      {
-        "package": "SwiftPM",
-        "repositoryURL": "https://github.com/apple/swift-package-manager.git",
-        "state": {
-          "branch": "main",
-          "revision": "88d251668ba80f0b6dc02c2064754bd84bfce58a",
-          "version": null
-        }
-      },
-      {
-        "package": "swift-tools-support-core",
-        "repositoryURL": "https://github.com/apple/swift-tools-support-core.git",
-        "state": {
-          "branch": "main",
-          "revision": "243beea77d20db46647a3de4765c96e2c801c7c7",
-          "version": null
-        }
-      },
-      {
-        "package": "Yams",
-        "repositoryURL": "https://github.com/jpsim/Yams.git",
-        "state": {
-          "branch": null,
-          "revision": "88caa2e6fffdbef2e91c2022d038576062042907",
-          "version": "4.0.0"
         }
       }
     ]

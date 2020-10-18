@@ -159,18 +159,34 @@ struct LSP
     
     static func extractContent(fromFrame frame: Data) throws -> Data
     {
-        guard let separatorIndex = frame.firstIndex(of: [13, 10, 13, 10]) else
+        guard let contentIndex = indexOfContent(in: frame) else
         {
-            throw "Invalid LSP Frame: No header/content separator"
-        }
-        
-        let contentIndex = separatorIndex + 4
-        
-        guard contentIndex < frame.count else
-        {
-            throw "Invalid LSP Frame: No content part"
+            throw "Invalid LSP Frame"
         }
         
         return frame[contentIndex...]
+    }
+    
+    private static func indexOfContent(in frame: Data) -> Int?
+    {
+        let separatorLength = 4
+        
+        guard frame.count > separatorLength else { return nil }
+        
+        let lastIndex = frame.count - 1
+        let lastSearchIndex = lastIndex - separatorLength
+        
+        for index in 0 ... lastSearchIndex
+        {
+            if frame[index] == 13,
+               frame[index + 1] == 10,
+               frame[index + 2] == 13,
+               frame[index + 3] == 10
+            {
+                return index + separatorLength
+            }
+        }
+        
+        return nil
     }
 }

@@ -54,9 +54,9 @@ class LSPWebSocket
     
     // MARK: - Send
     
-    func send<LSPMessage: Encodable>(lspMessage: LSPMessage)
+    func send(messageData: Data)
     {
-        webSocket.send(LSP.makeFrame(withContent: lspMessage.encode()!))
+        webSocket.send(LSP.makeFrame(withContent: messageData))
         {
             $0.forSome { log($0) }
         }
