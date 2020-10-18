@@ -27,8 +27,13 @@ class LanguageServiceTest
         {
             response in
             
-            log("response id:\n\(response.id)")
-            log("response result:\n\(response.result)")
+            switch response.result
+            {
+            case .success(let resultValue):
+                log("response id: \(response.id)\nresponse result:\n\(resultValue)")
+            case .failure(let error):
+                log(error)
+            }
         }
         
         webSocket.didReceiveNotification =

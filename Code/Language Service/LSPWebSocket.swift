@@ -33,7 +33,7 @@ class LSPWebSocket
         do
         {
             let messageData = try LSP.extractContent(fromFrame: lspFrame)
-            let message = try LSP.Message(json: JSONObject(messageData))
+            let message = try LSP.Message(JSONObject(messageData))
             
             switch message
             {

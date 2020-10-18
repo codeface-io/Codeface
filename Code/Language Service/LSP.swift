@@ -5,7 +5,7 @@ struct LSP
 {
     enum Message
     {
-        init(json: JSONObject) throws
+        init(_ json: JSONObject) throws
         {
             if let nullableID = Message.getID(from: json) // request or response
             {
@@ -13,9 +13,10 @@ struct LSP
                 {
                     self = .response(.init(id: nullableID, result: .success(result)))
                 }
-                else if let _ = try? json.obj("error") // error response
+                else if let errorJSON = try? json.obj("error") // error response
                 {
-                    self = .response(.init(id: nullableID, result: .failure(Response.ResponseError())))
+                    let error = try Response.Error(errorJSON)
+                    self = .response(.init(id: nullableID, result: .failure(error)))
                 }
                 else // request
                 {
@@ -61,10 +62,10 @@ struct LSP
                 json["id"] = response.id.json
                 switch response.result
                 {
-                case .success(let anyResult):
-                    json["result"] = anyResult
-                case .failure(_):
-                    json["error"] = JSONObject()
+                case .success(let resultJSON):
+                    json["result"] = resultJSON
+                case .failure(let error):
+                    json["error"] = error.jsonObject()
                 }
             case .notification(let notification):
                 json["method"] = notification.method
@@ -92,7 +93,7 @@ struct LSP
 
         struct Response
         {
-            init(id: NullableID, result: Result<JSON, ResponseError>)
+            init(id: NullableID, result: Result<JSON, Error>)
             {
                 self.id = id
                 self.result = result
@@ -100,11 +101,36 @@ struct LSP
             
             let id: NullableID
             
-            let result: Result<JSON, ResponseError>
+            let result: Result<JSON, Error>
             
-            struct ResponseError: Error
+            struct Error: Swift.Error, CustomStringConvertible, ReadableErrorConvertible
             {
+                init(_ json: JSONObject) throws
+                {
+                    code = try json.int("code")
+                    message = try json.str("message")
+                    data = json["data"]
+                }
                 
+                func jsonObject() -> JSONObject
+                {
+                    var object: JSONObject = ["code": code, "message": message]
+                    if let data = data { object["data"] = data }
+                    return object
+                }
+                
+                var readableMessage: String { description }
+                
+                var description: String
+                {
+                    var errorString = "LSP Error: \(message) (code \(code))"
+                    data.forSome { errorString += " data:\n\($0)" }
+                    return errorString
+                }
+                
+                let code: Int
+                let message: String
+                let data: JSON?
             }
         }
 
@@ -122,8 +148,17 @@ struct LSP
             let params: JSON?
         }
         
-        enum NullableID
+        enum NullableID: CustomStringConvertible
         {
+            var description: String
+            {
+                switch self
+                {
+                case .value(let id): return id.description
+                case .null: return NSNull().description
+                }
+            }
+            
             var json: JSON
             {
                 switch self
@@ -136,8 +171,17 @@ struct LSP
             case value(ID), null
         }
 
-        enum ID
+        enum ID: CustomStringConvertible
         {
+            var description: String
+            {
+                switch self
+                {
+                case .string(let string): return string.description
+                case .int(let int): return int.description
+                }
+            }
+            
             var json: JSON
             {
                 switch self
