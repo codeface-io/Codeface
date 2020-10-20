@@ -4,17 +4,22 @@ import SwiftyToolz
 
 extension LSP.Message.Request
 {
+    static func workspaceSymbol() -> Self
+    {
+        .init(id: .string("test: workspace symbol"), method: "workspace/symbol", params: ["query": ""])
+    }
+    
     static func docSymbol() -> Self
     {
         let file = URL(fileURLWithPath: "/Users/seb/Desktop/GitHub Repos/SwiftLSPClient/SwiftLSPClient/LanguageServer.swift")
         let params: JSONObject = ["textDocument": ["uri": file.absoluteString]]
             
-        return .init(method: "textDocument/documentSymbol", params: params)
+        return .init(id: .string("test: doc symbol"), method: "textDocument/documentSymbol", params: params)
     }
     
     static func initialize() -> Self
     {
-        let codeFolderPath = "/Users/seb/Desktop/GitHub Repos/SwiftLSPClient"
+        let codeFolderPath = "/Users/seb/Desktop/GitHub Repos/LanguageServiceHost"
         let codeFolder = URL(fileURLWithPath: codeFolderPath, isDirectory: true)
         
         let params: JSONObject =
@@ -25,7 +30,7 @@ extension LSP.Message.Request
                 [
                     "documentSymbol": //DocumentSymbolClientCapabilities;
                     [
-                        "dynamicRegistration": true,
+//                        "dynamicRegistration": true,
                         "hierarchicalDocumentSymbolSupport": true
                     ]
                 ],
@@ -33,7 +38,7 @@ extension LSP.Message.Request
             "rootUri": codeFolder.absoluteString //NSNull() //
         ]
         
-        return .init(method: "initialize", params: params)
+        return .init(id: .string("test: initialize"), method: "initialize", params: params)
     }
 }
 

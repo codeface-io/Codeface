@@ -10,7 +10,7 @@ class LanguageServiceTest
     {
         do
         {
-            let swiftEndpoint = LanguageServiceAPI.Language.Name("swift")
+            let swiftEndpoint = LSPServiceAPI.Language.Name("swift")
             webSocket = try LSPWebSocket(webSocket: swiftEndpoint.makeWebSocket())
             try webSocket.forSome { try test(with: $0) }
         }
@@ -27,12 +27,22 @@ class LanguageServiceTest
         {
             response in
             
+            log("got response for: " + response.id.description)
+            
             switch response.result
             {
             case .success(let resultValue):
-                log("response id: \(response.id)\nresponse result:\n\(resultValue)")
-                if (resultValue as? JSONObject)?["capabilities"] != nil {
-                    try? webSocket.send(.request(.docSymbol()))
+                switch response.id.description
+                {
+                case "test: initialize":
+                    try? webSocket.send(.notification(.initialized))
+                    try? webSocket.send(.request(.workspaceSymbol()))
+                case "test: workspace symbol":
+                    log("\(resultValue)")
+                case "test: doc symbol":
+                    log("\(resultValue)")
+                default:
+                    log(error: "wtf")
                 }
             case .failure(let error):
                 log(error)
@@ -43,8 +53,7 @@ class LanguageServiceTest
         {
             notification in
             
-            log("notification method: " + notification.method)
-            log("notification params: \(notification.params.debugDescription)")
+            log("notification: method: " + notification.method + ", params:\n" + notification.params.debugDescription)
         }
         
         webSocket.didReceiveErrorOutput =
@@ -59,7 +68,7 @@ class LanguageServiceTest
     
     private static func requestAvailableLanguages()
     {
-        LanguageServiceAPI.Languages.get()
+        LSPServiceAPI.Languages.get()
         {
             result in
             

@@ -30,6 +30,7 @@ class LSPWebSocket
     
     private func process(lspFrame: Data)
     {
+        log("received LSP frame: \(lspFrame.utf8String!)")
         do
         {
             let messageData = try LSP.extractContent(fromFrame: lspFrame)

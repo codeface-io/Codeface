@@ -1,7 +1,7 @@
 import FoundationToolz
 import Foundation
 
-struct LanguageServiceAPI
+struct LSPServiceAPI
 {
     struct Languages
     {
@@ -10,7 +10,7 @@ struct LanguageServiceAPI
             url.get([String].self, handleResult: handleResult)
         }
         
-        private static let url = LanguageServiceAPI.url + "languages"
+        private static let url = LSPServiceAPI.url + "languages"
     }
     
     struct Language
@@ -41,8 +41,8 @@ struct LanguageServiceAPI
             private let url: URL
         }
         
-        private static let url = LanguageServiceAPI.url + "language"
+        private static let url = LSPServiceAPI.url + "language"
     }
     
-    private static let url = URL(string: "http://127.0.0.1:8080/languageservice/api")!
+    private static let url = URL(string: "http://127.0.0.1:8080/lspservice/api")!
 }
