@@ -33,12 +33,14 @@ class LSPServiceTest
             case .success(let resultValue):
                 switch response.id.description
                 {
-                case "test: initialize":
-                    try? webSocket.send(.notification(.initialized))
-                    try? webSocket.send(.request(.workspaceSymbol()))
-                case "test: workspace symbol":
+                case "initialize": break
+//                    try? webSocket.send(.notification(.initialized))
+//                    try? webSocket.send(.request(.openDoc()))
+                case "workspace/symbol":
                     log("\(resultValue)")
-                case "test: doc symbol":
+                case "testDocument/documentSymbol":
+                    log("\(resultValue)")
+                case "textDocument/didOpen":
                     log("\(resultValue)")
                 default:
                     log(error: "wtf")

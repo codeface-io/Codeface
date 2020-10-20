@@ -12,7 +12,7 @@ class LSPWebSocket
         
         webSocket.didReceiveData =
         {
-            [weak self] data in self?.process(lspPacket: data)
+            [weak self] data in self?.process(packet: data)
         }
         
         webSocket.didReceiveText =
@@ -28,13 +28,11 @@ class LSPWebSocket
     
     // MARK: - Receive
     
-    private func process(lspPacket: Data)
+    private func process(packet: Data)
     {
-        log("received LSP frame: \(lspPacket.utf8String!)")
         do
         {
-            let messageData = try LSP.getMessageData(fromPacket: lspPacket)
-            let message = try LSP.Message(JSONObject(messageData))
+            let message = try LSP.Message(packet: packet)
             
             switch message
             {
@@ -57,11 +55,7 @@ class LSPWebSocket
     
     func send(_ message: LSP.Message) throws
     {
-        let messageData = try message.jsonObject().data()
-        
-        log("Gonna send message:\n\(messageData.utf8String!)")
-        
-        webSocket.send(LSP.makePacket(withMessageData: messageData))
+        try webSocket.send(message.packet())
         {
             $0.forSome { log($0) }
         }

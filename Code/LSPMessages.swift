@@ -4,25 +4,44 @@ import SwiftyToolz
 
 extension LSP.Message.Request
 {
-    static func workspaceSymbol() -> Self
-    {
-        .init(id: .string("test: workspace symbol"), method: "workspace/symbol", params: ["query": ""])
-    }
-    
-    static func docSymbol() -> Self
+    static func openDoc() throws -> Self
     {
         let file = URL(fileURLWithPath: "/Users/seb/Desktop/GitHub Repos/SwiftLSPClient/SwiftLSPClient/LanguageServer.swift")
-        let params: JSONObject = ["textDocument": ["uri": file.absoluteString]]
-            
-        return .init(id: .string("test: doc symbol"), method: "textDocument/documentSymbol", params: params)
+        
+        let params: [String: Any] =
+        [
+            "textDocument": // TextDocumentItem
+            [
+                "uri": file.absoluteString, // DocumentUri;
+                "languageId": "swift",
+                "version": 1,
+                "text": (try? String(contentsOf: file, encoding: .utf8))!
+            ]
+        ]
+        
+        return .init(method: "textDocument/didOpen", params: try JSON(params))
     }
     
-    static func initialize() -> Self
+    static func workspaceSymbol(query: String = "") throws -> Self
     {
-        let codeFolderPath = "/Users/seb/Desktop/GitHub Repos/LanguageServiceHost"
+        .init(method: "workspace/symbol", params: try JSON(["query": query]))
+    }
+    
+    static func docSymbol() throws -> Self
+    {
+        let file = URL(fileURLWithPath: "/Users/seb/Desktop/GitHub Repos/SwiftLSPClient/SwiftLSPClient/LanguageServer.swift")
+        
+        let params = ["textDocument": ["uri": file.absoluteString]]
+        
+        return .init(method: "textDocument/documentSymbol", params: try JSON(params))
+    }
+    
+    static func initialize() throws -> Self
+    {
+        let codeFolderPath = "/Users/seb/Desktop/GitHub Repos/sourcekit-lsp Fork"
         let codeFolder = URL(fileURLWithPath: codeFolderPath, isDirectory: true)
         
-        let params: JSONObject =
+        let params: [String: Any] =
         [
             "capabilities": // ClientCapabilities
             [
@@ -30,7 +49,6 @@ extension LSP.Message.Request
                 [
                     "documentSymbol": //DocumentSymbolClientCapabilities;
                     [
-//                        "dynamicRegistration": true,
                         "hierarchicalDocumentSymbolSupport": true
                     ]
                 ],
@@ -38,7 +56,7 @@ extension LSP.Message.Request
             "rootUri": codeFolder.absoluteString //NSNull() //
         ]
         
-        return .init(id: .string("test: initialize"), method: "initialize", params: params)
+        return .init(method: "initialize", params: try JSON(params))
     }
 }
 
@@ -46,6 +64,6 @@ extension LSP.Message.Notification
 {
     static var initialized: Self
     {
-        .init(method: "initialized", params: JSONObject())
+        .init(method: "initialized", params: .dictionary([:]))
     }
 }
