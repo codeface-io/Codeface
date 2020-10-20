@@ -14,6 +14,6 @@ class CodefaceAppController: AppController
         super.applicationDidFinishLaunching(aNotification)
         Loading.loadFromLastFolder()
         
-        LanguageServiceTest.start()
+        LSPServiceTest.start()
     }
 }

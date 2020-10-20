@@ -2,7 +2,7 @@ import FoundationToolz
 import Foundation
 import SwiftyToolz
 
-class LanguageServiceTest
+class LSPServiceTest
 {
     private init() {}
     
@@ -10,8 +10,7 @@ class LanguageServiceTest
     {
         do
         {
-            let swiftEndpoint = LSPServiceAPI.Language.Name("swift")
-            webSocket = try LSPWebSocket(webSocket: swiftEndpoint.makeWebSocket())
+            webSocket = try LSPServiceAPI.Language.Name("swift").makeLSPWebSocket()
             try webSocket.forSome { try test(with: $0) }
         }
         catch { log(error) }
