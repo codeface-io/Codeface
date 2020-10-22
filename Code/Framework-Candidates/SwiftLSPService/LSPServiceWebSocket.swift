@@ -2,7 +2,7 @@ import FoundationToolz
 import Foundation
 import SwiftyToolz
 
-class LSPWebSocket
+class LSPServiceWebSocket: LSPServerConnection
 {
     // MARK: - Initialize
     
@@ -17,7 +17,7 @@ class LSPWebSocket
         
         webSocket.didReceiveText =
         {
-            [weak self] text in self?.didReceiveErrorOutput(text)
+            [weak self] text in self?.serverDidSendErrorOutput(text)
         }
         
         webSocket.didReceiveError =
@@ -37,8 +37,8 @@ class LSPWebSocket
             switch message
             {
             case .request(_): throw "Received request from LSP server"
-            case .response(let response): didReceiveResponse(response)
-            case .notification(let notification): didReceiveNotification(notification)
+            case .response(let response): serverDidSendResponse(response)
+            case .notification(let notification): serverDidSendNotification(notification)
             }
         }
         catch
@@ -47,14 +47,16 @@ class LSPWebSocket
         }
     }
     
-    var didReceiveResponse: (LSP.Message.Response) -> Void = { _ in }
-    var didReceiveNotification: (LSP.Message.Notification) -> Void = { _ in }
-    var didReceiveErrorOutput: (String) -> Void = { _ in }
+    var serverDidSendResponse: (LSP.Message.Response) -> Void = { _ in }
+    var serverDidSendNotification: (LSP.Message.Notification) -> Void = { _ in }
+    var serverDidSendErrorOutput: (String) -> Void = { _ in }
     
     // MARK: - Send
     
     func send(_ message: LSP.Message) throws
     {
+        let messageDebugString = (try? message.data())?.utf8String ?? "Error getting message debug string"
+        log("Will send message: \(messageDebugString)")
         try webSocket.send(message.packet())
         {
             $0.forSome { log($0) }

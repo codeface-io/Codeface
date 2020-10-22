@@ -33,7 +33,7 @@ struct LSPServiceAPI
                 url.post(value, handleError: handleError)
             }
             
-            func makeWebSocket() throws -> WebSocket
+            func connectToWebSocket() throws -> WebSocket
             {
                 try (url + "websocket").webSocket()
             }

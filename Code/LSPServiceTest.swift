@@ -10,59 +10,91 @@ class LSPServiceTest
     {
         do
         {
-            webSocket = try LSPServiceAPI.Language.Name("swift").makeLSPWebSocket()
-            try webSocket.forSome { try test(with: $0) }
+            connection = try LSPServiceAPI.Language.Name("swift").connectToLSPServer()
+            try connection.forSome { try test(with: $0) }
         }
         catch { log(error) }
     }
     
-    private static var webSocket: LSPWebSocket?
+    private static var connection: LSPServerAsyncConnection?
     
     // MARK: - Websocket
     
-    private static func test(with webSocket: LSPWebSocket) throws
+    private static func test(with connection: LSPServerAsyncConnection) throws
     {
-        webSocket.didReceiveResponse =
+        connection.serverDidSendNotification =
         {
-            response in
+            notification in
+
+            log("got notification: " + notification.method + "\nparams: " + (notification.params?.description ?? "nil"))
+        }
+
+        connection.serverDidSendErrorOutput =
+        {
+            errorOutput in log(error: "Error output from language server:\n\(errorOutput)")
+        }
+        
+        connection.serverDidSendError = { log($0) }
+        
+        let codeFolderPath = "/Users/seb/Desktop/TestProject"
+        let codeFolder = URL(fileURLWithPath: codeFolderPath, isDirectory: true)
+        
+        let capabilities: [String: Any] =
+        [
+            "textDocument": // TextDocumentClientCapabilities;
+            [
+                "documentSymbol": //DocumentSymbolClientCapabilities;
+                [
+                    "hierarchicalDocumentSymbolSupport": true
+                ]
+            ]
+        ]
+        
+        try connection.request(.initialize(folder: codeFolder,
+                                        capabilities: JSON(capabilities)))
+        {
+            result in
             
-            log("got response for: " + response.id.description)
-            
-            switch response.result
+            switch result
             {
-            case .success(let resultValue):
-                switch response.id.description
+            case .success(let serverCapabilities):
+                log(serverCapabilities.description)
+                
+                let file = URL(fileURLWithPath: "/Users/seb/Desktop/TestProject/Sources/TestProject/TestProject.swift")
+                
+                let document: JSONObjectDictionary =
+                [
+                    "uri": file.absoluteString, // DocumentUri;
+                    "languageId": "swift",
+                    "version": 1,
+                    "text": fileContent
+                ]
+                
+                do
                 {
-                case "initialize": break
-//                    try? webSocket.send(.notification(.initialized))
-//                    try? webSocket.send(.request(.openDoc()))
-                case "workspace/symbol":
-                    log("\(resultValue)")
-                case "testDocument/documentSymbol":
-                    log("\(resultValue)")
-                case "textDocument/didOpen":
-                    log("\(resultValue)")
-                default:
-                    log(error: "wtf")
+                    try connection.notify(.initialized)
+                    try connection.notify(.didOpen(doc: JSON(document)))
+                    try connection.request(.docSymbol(file: file))
+                    {
+                        result in
+                        
+                        switch result
+                        {
+                        case .success(let symbols):
+                            log("doc symbols: \(symbols)")
+                        case .failure(let error):
+                            log(error)
+                        }
+                    }
+                }
+                catch
+                {
+                    log(error)
                 }
             case .failure(let error):
                 log(error)
             }
         }
-        
-        webSocket.didReceiveNotification =
-        {
-            notification in
-            
-            log("notification: method: " + notification.method + ", params:\n" + notification.params.debugDescription)
-        }
-        
-        webSocket.didReceiveErrorOutput =
-        {
-            errorOutput in log(error: "Error output from language server:\n\(errorOutput)")
-        }
-        
-        try webSocket.send(.request(.initialize()))
     }
     
     // MARK: - HTTP
@@ -81,3 +113,10 @@ class LSPServiceTest
         }
     }
 }
+
+let fileContent = #"""
+struct TestProject {
+    var text = "Hello, World!"
+}
+
+"""#
