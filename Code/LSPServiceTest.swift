@@ -16,9 +16,9 @@ class LSPServiceTest
         catch { log(error) }
     }
     
-    private static var connection: LSP.ServerConnection?
+    // MARK: - Server Connection
     
-    // MARK: - Websocket
+    private static var connection: LSP.ServerConnection?
     
     private static func test(with connection: LSP.ServerConnection) throws
     {
@@ -39,19 +39,7 @@ class LSPServiceTest
         let codeFolderPath = "/Users/seb/Desktop/TestProject"
         let codeFolder = URL(fileURLWithPath: codeFolderPath, isDirectory: true)
         
-        let capabilities: [String: Any] =
-        [
-            "textDocument": // TextDocumentClientCapabilities;
-            [
-                "documentSymbol": //DocumentSymbolClientCapabilities;
-                [
-                    "hierarchicalDocumentSymbolSupport": true
-                ]
-            ]
-        ]
-        
-        try connection.request(.initialize(folder: codeFolder,
-                                           capabilities: JSON(capabilities)))
+        try connection.request(.initialize(folder: codeFolder))
         {
             result in
             
@@ -74,14 +62,15 @@ class LSPServiceTest
                 {
                     try connection.notify(.initialized)
                     try connection.notify(.didOpen(doc: JSON(document)))
-                    try connection.request(.docSymbol(file: file))
+                    try connection.request(.docSymbols(inFile: file),
+                                           as: [LSPDocumentSymbol].self)
                     {
                         result in
-                        
+                    
                         switch result
                         {
                         case .success(let symbols):
-                            log("doc symbols: \(symbols)")
+                            print(symbols.first?.name ?? "nil")
                         case .failure(let error):
                             log(error)
                         }
