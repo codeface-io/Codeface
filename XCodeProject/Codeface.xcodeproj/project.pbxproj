@@ -16,7 +16,7 @@
 		9686BA0E252A28A600C09166 /* LSPServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686BA0D252A28A600C09166 /* LSPServiceTest.swift */; };
 		969884142533DC6800DD1F94 /* LSPServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969884132533DC6800DD1F94 /* LSPServiceAPI.swift */; };
 		96C51CE5253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C51CE4253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift */; };
-		96EBF48925423F2F002F3C53 /* LSPServiceAPI+LSPServerAsyncConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerAsyncConnection.swift */; };
+		96EBF48925423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift */; };
 		9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727B218E250E0094BD1C /* AnalyticsView.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceAppController.swift */; };
 		9E007284218E250E0094BD1C /* AnalyticsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727D218E250E0094BD1C /* AnalyticsTable.swift */; };
@@ -73,7 +73,7 @@
 		96898AF7252A1172007AB9FB /* FoundationToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FoundationToolz; path = ../../FoundationToolz; sourceTree = "<group>"; };
 		969884132533DC6800DD1F94 /* LSPServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceAPI.swift; sourceTree = "<group>"; };
 		96C51CE4253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPServiceAPI+LSPServiceWebSocket.swift"; sourceTree = "<group>"; };
-		96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerAsyncConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPServiceAPI+LSPServerAsyncConnection.swift"; sourceTree = "<group>"; };
+		96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPServiceAPI+LSPServerConnection.swift"; sourceTree = "<group>"; };
 		9E00727B218E250E0094BD1C /* AnalyticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceAppController.swift; sourceTree = "<group>"; };
 		9E00727D218E250E0094BD1C /* AnalyticsTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsTable.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		962D8285253C6D1B0016E1D1 /* SwiftLSPService */ = {
 			isa = PBXGroup;
 			children = (
-				96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerAsyncConnection.swift */,
+				96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift */,
 				96C51CE4253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift */,
 				9678DA6A253B42CC002BF645 /* LSPServiceWebSocket.swift */,
 				969884132533DC6800DD1F94 /* LSPServiceAPI.swift */,
@@ -440,7 +440,7 @@
 				9E84B4BC21A1E90200F006DD /* FileMetricsVisualization.swift in Sources */,
 				9EA5A8B5218EEB7E004902F7 /* AnalyticsSummaryView.swift in Sources */,
 				9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */,
-				96EBF48925423F2F002F3C53 /* LSPServiceAPI+LSPServerAsyncConnection.swift in Sources */,
+				96EBF48925423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift in Sources */,
 				9E76E24D218F6A6A00339F55 /* Loading.swift in Sources */,
 				9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */,
 				9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */,

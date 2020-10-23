@@ -51,7 +51,7 @@ class LSPServiceTest
         ]
         
         try connection.request(.initialize(folder: codeFolder,
-                                        capabilities: JSON(capabilities)))
+                                           capabilities: JSON(capabilities)))
         {
             result in
             
