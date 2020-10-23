@@ -2,8 +2,8 @@ import FoundationToolz
 
 extension LSPServiceAPI.Language.Name
 {
-    func connectToLSPServer() throws -> LSPServerAsyncConnection
+    func connectToLSPServer() throws -> LSP.ServerConnection
     {
-        try LSPServerAsyncConnection(connection: connectToLSPWebSocket())
+        try LSP.ServerConnection(synchronousConnection: connectToLSPWebSocket())
     }
 }

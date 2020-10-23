@@ -16,11 +16,11 @@ class LSPServiceTest
         catch { log(error) }
     }
     
-    private static var connection: LSPServerAsyncConnection?
+    private static var connection: LSP.ServerConnection?
     
     // MARK: - Websocket
     
-    private static func test(with connection: LSPServerAsyncConnection) throws
+    private static func test(with connection: LSP.ServerConnection) throws
     {
         connection.serverDidSendNotification =
         {
@@ -62,7 +62,7 @@ class LSPServiceTest
                 
                 let file = URL(fileURLWithPath: "/Users/seb/Desktop/TestProject/Sources/TestProject/TestProject.swift")
                 
-                let document: JSONObjectDictionary =
+                let document: [String: JSONObject] =
                 [
                     "uri": file.absoluteString, // DocumentUri;
                     "languageId": "swift",

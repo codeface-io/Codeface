@@ -2,7 +2,7 @@ import FoundationToolz
 import Foundation
 import SwiftyToolz
 
-class LSPServiceWebSocket: LSPServerConnection
+class LSPServiceWebSocket: SynchronousLSPServerConnection
 {
     // MARK: - Initialize
     
@@ -55,8 +55,8 @@ class LSPServiceWebSocket: LSPServerConnection
     
     func send(_ message: LSP.Message) throws
     {
-        let messageDebugString = (try? message.data())?.utf8String ?? "Error getting message debug string"
-        log("Will send message: \(messageDebugString)")
+        log("Will send message: \(message)")
+        
         try webSocket.send(message.packet())
         {
             $0.forSome { log($0) }
