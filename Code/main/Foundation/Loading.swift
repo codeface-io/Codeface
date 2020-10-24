@@ -2,21 +2,25 @@ import Foundation
 
 class Loading
 {
-    static func loadFromLastFolder()
+    static func loadFiles(fromNewFolder newFolder: URL)
     {
-        guard let url = CodeFolder.lastURL else { return }
-        
-        load(from: url)
+        if let files = CodeFileLoading.loadFiles(fromNewFolder: newFolder)
+        {
+            load(files: files)
+        }
     }
     
-    static func load(from folder: URL)
+    static func loadFilesFromLastFolder()
     {
-        guard let codeFiles = CodeFolder(url: folder).loadFiles() else
+        if let files = CodeFileLoading.loadFilesFromLastFolder()
         {
-            return
+            load(files: files)
         }
-        
-        CodeFileStore.shared.elements = codeFiles
+    }
+    
+    static func load(files: [CodeFile])
+    {
+        CodeFileStore.shared.elements = files
         
         let analyzer = CodeFileAnalyzer()
         

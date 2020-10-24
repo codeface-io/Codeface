@@ -29,7 +29,7 @@
 		9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */; };
 		9E84B4C521A1F1C500F006DD /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C421A1F1C500F006DD /* Store.swift */; };
 		9E84B4C721A1F39300F006DD /* CodeFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C621A1F39300F006DD /* CodeFileStore.swift */; };
-		9E84B4C921A2044F00F006DD /* CodeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C821A2044F00F006DD /* CodeFolder.swift */; };
+		9E84B4C921A2044F00F006DD /* CodeFileLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C821A2044F00F006DD /* CodeFileLoading.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CodefaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CodefaceTests.swift */; };
 		9EA5A8B5218EEB7E004902F7 /* AnalyticsSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B4218EEB7E004902F7 /* AnalyticsSummaryView.swift */; };
@@ -86,7 +86,7 @@
 		9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFileAnalyzer.swift; sourceTree = "<group>"; };
 		9E84B4C421A1F1C500F006DD /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		9E84B4C621A1F39300F006DD /* CodeFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileStore.swift; sourceTree = "<group>"; };
-		9E84B4C821A2044F00F006DD /* CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolder.swift; sourceTree = "<group>"; };
+		9E84B4C821A2044F00F006DD /* CodeFileLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileLoading.swift; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Codeface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeface.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E95A70D218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 		9E84B4CA21A2082B00F006DD /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				9E84B4C821A2044F00F006DD /* CodeFolder.swift */,
+				9E84B4C821A2044F00F006DD /* CodeFileLoading.swift */,
 				9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */,
 			);
 			path = Foundation;
@@ -452,7 +452,7 @@
 				9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */,
 				9E84B4C521A1F1C500F006DD /* Store.swift in Sources */,
 				9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */,
-				9E84B4C921A2044F00F006DD /* CodeFolder.swift in Sources */,
+				9E84B4C921A2044F00F006DD /* CodeFileLoading.swift in Sources */,
 				9E007285218E250E0094BD1C /* CodeFileAnalyticsStore.swift in Sources */,
 				9686BA0E252A28A600C09166 /* LSPServiceTest.swift in Sources */,
 				9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */,

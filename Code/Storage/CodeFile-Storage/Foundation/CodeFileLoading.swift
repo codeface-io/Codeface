@@ -43,7 +43,7 @@ class CodeFileLoading
         return codeFiles
     }
     
-    static var lastFolder: URL?
+    private(set) static var lastFolder: URL?
     {
         get
         {
