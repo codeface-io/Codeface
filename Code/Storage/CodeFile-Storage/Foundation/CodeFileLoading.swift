@@ -24,6 +24,8 @@ class CodeFileLoading
             return nil
         }
         
+        defer { folder.stopAccessingSecurityScopedResource() }
+        
         let manager = FileManager.default
         
         let unwantedFolders = ["Pods", "Carthage", "Example%20Projects"]
@@ -36,11 +38,7 @@ class CodeFileLoading
             return nil
         }
         
-        let codeFiles = fileURLs.compactMap { CodeFile(file: $0, folder: folder) }
-        
-        folder.stopAccessingSecurityScopedResource()
-        
-        return codeFiles
+        return fileURLs.compactMap { CodeFile(file: $0, folder: folder) }
     }
     
     private(set) static var lastFolder: URL?
