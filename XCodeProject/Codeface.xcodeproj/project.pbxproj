@@ -12,6 +12,7 @@
 		9656A6A625287F3600D4CF26 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A525287F3600D4CF26 /* FoundationToolz */; };
 		9656A6A925287F5300D4CF26 /* GetLaid in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A825287F5300D4CF26 /* GetLaid */; };
 		9656A6AC25287F7E00D4CF26 /* UIToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6AB25287F7E00D4CF26 /* UIToolz */; };
+		966D58142544A3520016C8D0 /* ProjectFolder+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D58132544A3520016C8D0 /* ProjectFolder+Foundation.swift */; };
 		9678DA6B253B42CC002BF645 /* LSPServiceWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678DA6A253B42CC002BF645 /* LSPServiceWebSocket.swift */; };
 		9686BA0E252A28A600C09166 /* LSPServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686BA0D252A28A600C09166 /* LSPServiceTest.swift */; };
 		969884142533DC6800DD1F94 /* LSPServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969884132533DC6800DD1F94 /* LSPServiceAPI.swift */; };
@@ -22,14 +23,11 @@
 		9E007284218E250E0094BD1C /* AnalyticsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727D218E250E0094BD1C /* AnalyticsTable.swift */; };
 		9E007285218E250E0094BD1C /* CodeFileAnalyticsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727E218E250E0094BD1C /* CodeFileAnalyticsStore.swift */; };
 		9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E007281218E250E0094BD1C /* CodefaceMenu.swift */; };
-		9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E245218F5A1200339F55 /* CodeFile.swift */; };
-		9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */; };
 		9E76E24D218F6A6A00339F55 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E24C218F6A6A00339F55 /* Loading.swift */; };
 		9E84B4BC21A1E90200F006DD /* FileMetricsVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BB21A1E89E00F006DD /* FileMetricsVisualization.swift */; };
 		9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */; };
 		9E84B4C521A1F1C500F006DD /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C421A1F1C500F006DD /* Store.swift */; };
-		9E84B4C721A1F39300F006DD /* CodeFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C621A1F39300F006DD /* CodeFileStore.swift */; };
-		9E84B4C921A2044F00F006DD /* CodeFileLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C821A2044F00F006DD /* CodeFileLoading.swift */; };
+		9E84B4C721A1F39300F006DD /* ProjectFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C621A1F39300F006DD /* ProjectFolder.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CodefaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CodefaceTests.swift */; };
 		9EA5A8B5218EEB7E004902F7 /* AnalyticsSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5A8B4218EEB7E004902F7 /* AnalyticsSummaryView.swift */; };
@@ -63,6 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		966D58132544A3520016C8D0 /* ProjectFolder+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectFolder+Foundation.swift"; sourceTree = "<group>"; };
 		9678DA6A253B42CC002BF645 /* LSPServiceWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceWebSocket.swift; sourceTree = "<group>"; };
 		9686BA0D252A28A600C09166 /* LSPServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceTest.swift; sourceTree = "<group>"; };
 		96898AEE252A10D5007AB9FB /* UIToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = UIToolz; path = ../../UIToolz; sourceTree = "<group>"; };
@@ -79,14 +78,11 @@
 		9E00727E218E250E0094BD1C /* CodeFileAnalyticsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFileAnalyticsStore.swift; sourceTree = "<group>"; };
 		9E007281218E250E0094BD1C /* CodefaceMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceMenu.swift; sourceTree = "<group>"; };
 		9E27839C229ECDF1006ACB18 /* Codeface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codeface.entitlements; sourceTree = "<group>"; };
-		9E76E245218F5A1200339F55 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
-		9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFile+Foundation.swift"; sourceTree = "<group>"; };
 		9E76E24C218F6A6A00339F55 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		9E84B4BB21A1E89E00F006DD /* FileMetricsVisualization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetricsVisualization.swift; sourceTree = "<group>"; };
 		9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFileAnalyzer.swift; sourceTree = "<group>"; };
 		9E84B4C421A1F1C500F006DD /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		9E84B4C621A1F39300F006DD /* CodeFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileStore.swift; sourceTree = "<group>"; };
-		9E84B4C821A2044F00F006DD /* CodeFileLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileLoading.swift; sourceTree = "<group>"; };
+		9E84B4C621A1F39300F006DD /* ProjectFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFolder.swift; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Codeface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeface.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E95A70D218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,6 +130,15 @@
 			path = SwiftLSPService;
 			sourceTree = "<group>";
 		};
+		962EA5FD254491180091C533 /* Raw Project Folder Data */ = {
+			isa = PBXGroup;
+			children = (
+				966D58132544A3520016C8D0 /* ProjectFolder+Foundation.swift */,
+				9E84B4C621A1F39300F006DD /* ProjectFolder.swift */,
+			);
+			path = "Raw Project Folder Data";
+			sourceTree = "<group>";
+		};
 		96898AED252A10C8007AB9FB /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,9 +156,8 @@
 			children = (
 				9E84B4CC21A20DDE00F006DD /* main */,
 				9E84B4BA21A1E86F00F006DD /* AnalyticsVisualization */,
-				9E84B4CB21A20B6F00F006DD /* Storage */,
 				9E84B4B621A1D7D700F006DD /* CodeFileAnalytics */,
-				9E76E245218F5A1200339F55 /* CodeFile.swift */,
+				962EA5FD254491180091C533 /* Raw Project Folder Data */,
 				9686BA0D252A28A600C09166 /* LSPServiceTest.swift */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 			);
@@ -181,6 +185,7 @@
 		9E84B4B621A1D7D700F006DD /* CodeFileAnalytics */ = {
 			isa = PBXGroup;
 			children = (
+				9E76E24B218F64D000339F55 /* CodeFileAnalyticsStore */,
 				9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */,
 				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
 			);
@@ -194,33 +199,6 @@
 				9E84B4BB21A1E89E00F006DD /* FileMetricsVisualization.swift */,
 			);
 			path = AnalyticsVisualization;
-			sourceTree = "<group>";
-		};
-		9E84B4C321A1F16500F006DD /* CodeFile-Storage */ = {
-			isa = PBXGroup;
-			children = (
-				9E84B4CA21A2082B00F006DD /* Foundation */,
-				9E84B4C621A1F39300F006DD /* CodeFileStore.swift */,
-			);
-			path = "CodeFile-Storage";
-			sourceTree = "<group>";
-		};
-		9E84B4CA21A2082B00F006DD /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				9E84B4C821A2044F00F006DD /* CodeFileLoading.swift */,
-				9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		9E84B4CB21A20B6F00F006DD /* Storage */ = {
-			isa = PBXGroup;
-			children = (
-				9E76E24B218F64D000339F55 /* CodeFileAnalyticsStore */,
-				9E84B4C321A1F16500F006DD /* CodeFile-Storage */,
-			);
-			path = Storage;
 			sourceTree = "<group>";
 		};
 		9E84B4CC21A20DDE00F006DD /* main */ = {
@@ -438,24 +416,22 @@
 				9EA5A8B5218EEB7E004902F7 /* AnalyticsSummaryView.swift in Sources */,
 				9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */,
 				96EBF48925423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift in Sources */,
+				966D58142544A3520016C8D0 /* ProjectFolder+Foundation.swift in Sources */,
 				9E76E24D218F6A6A00339F55 /* Loading.swift in Sources */,
 				9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */,
-				9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */,
 				9678DA6B253B42CC002BF645 /* LSPServiceWebSocket.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceAppController.swift in Sources */,
 				969884142533DC6800DD1F94 /* LSPServiceAPI.swift in Sources */,
 				96C51CE5253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift in Sources */,
-				9E84B4C721A1F39300F006DD /* CodeFileStore.swift in Sources */,
+				9E84B4C721A1F39300F006DD /* ProjectFolder.swift in Sources */,
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
 				9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */,
 				9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */,
 				9E84B4C521A1F1C500F006DD /* Store.swift in Sources */,
 				9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */,
-				9E84B4C921A2044F00F006DD /* CodeFileLoading.swift in Sources */,
 				9E007285218E250E0094BD1C /* CodeFileAnalyticsStore.swift in Sources */,
 				9686BA0E252A28A600C09166 /* LSPServiceTest.swift in Sources */,
-				9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

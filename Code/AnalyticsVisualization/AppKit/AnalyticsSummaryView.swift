@@ -22,7 +22,7 @@ class AnalyticsSummaryView: NSView, Observer
     private func storeDidModifyData()
     {
         let store = CodeFileAnalyticsStore.shared
-        let folderPath = CodeFileLoading.lastFolder?.path ?? ""
+        let folderPath = Loading.lastFolder?.path ?? ""
         
         folderPathLabel.stringValue = "\(folderPath)"
         numbersLabel.stringValue = "\(store.totalLinesOfCode) lines of code in \(store.elements.count) Swift files"

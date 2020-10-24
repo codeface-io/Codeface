@@ -46,5 +46,5 @@ class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, Observable
     // MARK: - Observability
     
     let messenger = Messenger<Event>()
-    enum Event { case didNothing, didModifyData }
+    enum Event { case didModifyData }
 }

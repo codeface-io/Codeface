@@ -12,7 +12,7 @@ class CodefaceAppController: AppController
     override func applicationDidFinishLaunching(_ aNotification: Notification)
     {
         super.applicationDidFinishLaunching(aNotification)
-        Loading.loadFilesFromLastFolder()
+        Loading.loadLastOpenFolder()
         
         LSPServiceTest.start()
     }

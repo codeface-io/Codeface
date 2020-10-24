@@ -1,8 +1,8 @@
 class CodeFileAnalyzer
 {
-    func analyze(_ codeFiles: [CodeFile]) -> [CodeFileAnalytics]
+    func analyze(_ projectFolder: ProjectFolder) -> [CodeFileAnalytics]
     {
-        codeFiles.map
+        projectFolder.codeFiles.map
         {
             CodeFileAnalytics(file: $0, loc: $0.content.numberOfLines)
         }

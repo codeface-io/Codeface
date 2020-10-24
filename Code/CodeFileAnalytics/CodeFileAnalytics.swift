@@ -4,22 +4,15 @@ class CodeFileAnalytics: Hashable
 {
     // MARK: - Initializer
     
-    init(file: CodeFile, loc: Int)
+    init(file: ProjectFolder.CodeFile, loc: Int)
     {
         self.file = file
         self.linesOfCode = loc
     }
     
-    // MARK: - Debug
-    
-    func printDebug()
-    {
-        print(file.debugName)
-    }
-    
     // MARK: - Data
     
-    let file: CodeFile
+    let file: ProjectFolder.CodeFile
     let linesOfCode: Int
     
     // MARK: - Hashable
