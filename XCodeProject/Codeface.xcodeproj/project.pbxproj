@@ -25,7 +25,6 @@
 		9E76E246218F5A1200339F55 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E245218F5A1200339F55 /* CodeFile.swift */; };
 		9E76E249218F5A5000339F55 /* CodeFile+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */; };
 		9E76E24D218F6A6A00339F55 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E24C218F6A6A00339F55 /* Loading.swift */; };
-		9E84B4B821A1D8C100F006DD /* TypeRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4B721A1D8C100F006DD /* TypeRetriever.swift */; };
 		9E84B4BC21A1E90200F006DD /* FileMetricsVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BB21A1E89E00F006DD /* FileMetricsVisualization.swift */; };
 		9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */; };
 		9E84B4C521A1F1C500F006DD /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4C421A1F1C500F006DD /* Store.swift */; };
@@ -83,7 +82,6 @@
 		9E76E245218F5A1200339F55 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
 		9E76E248218F5A5000339F55 /* CodeFile+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFile+Foundation.swift"; sourceTree = "<group>"; };
 		9E76E24C218F6A6A00339F55 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
-		9E84B4B721A1D8C100F006DD /* TypeRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeRetriever.swift; sourceTree = "<group>"; };
 		9E84B4BB21A1E89E00F006DD /* FileMetricsVisualization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetricsVisualization.swift; sourceTree = "<group>"; };
 		9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFileAnalyzer.swift; sourceTree = "<group>"; };
 		9E84B4C421A1F1C500F006DD /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				9E84B4C121A1EF2D00F006DD /* CodeFileAnalyzer.swift */,
-				9E84B4B721A1D8C100F006DD /* TypeRetriever.swift */,
 				9EB8BA57218E28E9007ED4E7 /* CodeFileAnalytics.swift */,
 			);
 			path = CodeFileAnalytics;
@@ -453,7 +450,6 @@
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
 				9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */,
 				9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */,
-				9E84B4B821A1D8C100F006DD /* TypeRetriever.swift in Sources */,
 				9E84B4C521A1F1C500F006DD /* Store.swift in Sources */,
 				9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */,
 				9E84B4C921A2044F00F006DD /* CodeFolder.swift in Sources */,

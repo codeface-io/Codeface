@@ -4,12 +4,10 @@ class CodeFileAnalytics: Hashable
 {
     // MARK: - Initializer
     
-    init(file: CodeFile, loc: Int, topLevelTypes: [String])
+    init(file: CodeFile, loc: Int)
     {
         self.file = file
-        
         self.linesOfCode = loc
-        self.topLevelTypes = topLevelTypes
     }
     
     // MARK: - Debug
@@ -17,20 +15,12 @@ class CodeFileAnalytics: Hashable
     func printDebug()
     {
         print(file.debugName)
-        
-        for dependency in dependencies ?? []
-        {
-            print(" -> " + dependency.file.debugName)
-        }
     }
     
     // MARK: - Data
     
     let file: CodeFile
-    
     let linesOfCode: Int
-    let topLevelTypes: [String]
-    var dependencies: Set<CodeFileAnalytics>?
     
     // MARK: - Hashable
     

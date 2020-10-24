@@ -18,14 +18,9 @@ class Loading
         
         CodeFileStore.shared.elements = codeFiles
         
-        let analyzer = CodeFileAnalyzer(typeRetriever: nil)
+        let analyzer = CodeFileAnalyzer()
         
         let analytics = analyzer.analyze(CodeFileStore.shared.elements)
-        
-        for fileAnalytics in analytics
-        {
-            fileAnalytics.printDebug()
-        }
         
         CodeFileAnalyticsStore.shared.set(elements: analytics)
     }
