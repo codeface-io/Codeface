@@ -2,34 +2,39 @@ import Foundation
 
 extension FileManager
 {
-    func files(inDirectory directoryURL: URL,
-               extension fileExtension: String,
+    func files(inDirectory directory: URL,
+               flat: Bool = false,
                skipFolders: [String] = []) -> [URL]?
     {
-        let options: DirectoryEnumerationOptions =
+        var options: DirectoryEnumerationOptions =
         [
             .skipsHiddenFiles,
             .skipsPackageDescendants
         ]
         
-        let urlEnumerator = enumerator(at: directoryURL,
-                                       includingPropertiesForKeys: nil,
-                                       options: options,
-                                       errorHandler: nil)
-        
-        return urlEnumerator?.compactMap
+        if flat
         {
-            guard let fileURL = $0 as? URL,
-                fileURL.pathExtension == fileExtension else { return nil }
+            options.insert(.skipsSubdirectoryDescendants)
+        }
+        
+        return enumerator(at: directory,
+                          includingPropertiesForKeys: [.isDirectoryKey],
+                          options: options,
+                          errorHandler: nil)?
+        .compactMap
+        {
+            $0 as? URL
+        }
+        .filter
+        {
+            let pathComponents = Set($0.pathComponents)
             
-            let urlString = fileURL.absoluteString
-            
-            for unwantedFolder in skipFolders
+            for folderToSkip in skipFolders
             {
-                if urlString.contains(unwantedFolder) { return nil }
+                if pathComponents.contains(folderToSkip) { return false }
             }
             
-            return fileURL
+            return true
         }
     }
 }

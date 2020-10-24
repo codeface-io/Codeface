@@ -1,5 +1,6 @@
 import UIToolz
 import AppKit
+import SwiftyToolz
 
 @main
 class CodefaceAppController: AppController
@@ -12,8 +13,13 @@ class CodefaceAppController: AppController
     override func applicationDidFinishLaunching(_ aNotification: Notification)
     {
         super.applicationDidFinishLaunching(aNotification)
-        Loading.loadLastOpenFolder()
         
-        LSPServiceTest.start()
+        do
+        {
+            try Loading.loadLastOpenFolder()
+        }
+        catch { log(error) }
+        
+//        LSPServiceTest.start()
     }
 }

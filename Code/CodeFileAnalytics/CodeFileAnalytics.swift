@@ -4,7 +4,7 @@ class CodeFileAnalytics: Hashable
 {
     // MARK: - Initializer
     
-    init(file: ProjectFolder.CodeFile, loc: Int)
+    init(file: CodeFolder.CodeFile, loc: Int)
     {
         self.file = file
         self.linesOfCode = loc
@@ -12,7 +12,7 @@ class CodeFileAnalytics: Hashable
     
     // MARK: - Data
     
-    let file: ProjectFolder.CodeFile
+    let file: CodeFolder.CodeFile
     let linesOfCode: Int
     
     // MARK: - Hashable

@@ -21,13 +21,15 @@ class CodefaceMenu: MainMenu
     [
         makeItem("Reload", key: "r", id: reloadID)
         {
-            Loading.loadLastOpenFolder()
+            do { try Loading.loadLastOpenFolder() }
+            catch { log(error) }
         },
         makeItem("Load Code Folder...", key: "l")
         {
             FileSelectionPanel().selectFolder
             {
-                folder in Loading.load(newFolder: folder)
+                do { try Loading.load(newFolder: $0) }
+                catch { log(error) }
             }
         },
         makeItem("Launch Swift Language Server ...")

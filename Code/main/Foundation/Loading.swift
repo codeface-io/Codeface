@@ -3,26 +3,36 @@ import SwiftyToolz
 
 class Loading
 {
-    static func load(newFolder: URL)
+    static func load(newFolder: URL) throws
     {
-        do
+        guard newFolder.startAccessingSecurityScopedResource() else
         {
-            load(try ProjectFolder(newFolder))
-            lastFolder = newFolder
+            throw "Couldn't access security scoped folder"
         }
-        catch { log(error) }
+        
+        defer { newFolder.stopAccessingSecurityScopedResource() }
+        
+        load(try CodeFolder(newFolder))
+        lastFolder = newFolder
     }
     
-    static func loadLastOpenFolder()
+    static func loadLastOpenFolder() throws
     {
         guard let lastFolder = lastFolder else { return }
-        do { load(try ProjectFolder(lastFolder)) }
-        catch { log(error) }
+        
+        guard lastFolder.startAccessingSecurityScopedResource() else
+        {
+            throw "Couldn't access security scoped folder"
+        }
+        
+        defer { lastFolder.stopAccessingSecurityScopedResource() }
+        
+        load(try CodeFolder(lastFolder))
     }
     
-    private static func load(_ projectFolder: ProjectFolder)
+    private static func load(_ codeFolder: CodeFolder)
     {
-        let analytics = CodeFileAnalyzer().analyze(projectFolder)
+        let analytics = CodeFileAnalyzer().analyze(codeFolder)
         CodeFileAnalyticsStore.shared.set(elements: analytics)
     }
     

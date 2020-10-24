@@ -1,11 +1,20 @@
 class CodeFileAnalyzer
 {
-    func analyze(_ projectFolder: ProjectFolder) -> [CodeFileAnalytics]
+    func analyze(_ codeFolder: CodeFolder) -> [CodeFileAnalytics]
     {
-        projectFolder.codeFiles.map
+        var result = [CodeFileAnalytics]()
+        
+        result += codeFolder.files.map
         {
             CodeFileAnalytics(file: $0, loc: $0.content.numberOfLines)
         }
+        
+        for subfolder in codeFolder.subfolders
+        {
+            result += analyze(subfolder)
+        }
+        
+        return result
     }
 }
 

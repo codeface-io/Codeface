@@ -17,7 +17,7 @@ extension Array where Element == CodeFileAnalytics
     
     private mutating func sortByFilePath(ascending: Bool)
     {
-        sort { ($0.file.relativePath < $1.file.relativePath) == ascending }
+        sort { ($0.file.path < $1.file.path) == ascending }
     }
 }
 
