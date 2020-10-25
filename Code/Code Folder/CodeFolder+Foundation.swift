@@ -31,7 +31,7 @@ extension CodeFolder
                 let codeFile = try CodeFile(url)
                 codeFiles.append(codeFile)
                 
-                codeFileSymbolProvider?.symbols(forFilePath: codeFile.path)
+                projectInspector?.symbols(forFilePath: codeFile.path)
                 {
                     if let symbols = try? $0.get()
                     {

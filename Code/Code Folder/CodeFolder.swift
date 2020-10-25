@@ -1,10 +1,9 @@
-var codeFileSymbolProvider: CodeFileSymbolProvider?
+var projectInspector: ProjectInspector?
 
-protocol CodeFileSymbolProvider
+protocol ProjectInspector
 {
-    func setProjectFolder(path: String)
     func symbols(forFilePath filePath: String,
-                 handleResult: (Result<[CodeFolder.CodeFile.Symbol], Error>) -> Void)
+                 handleResult: @escaping (Result<[CodeFolder.CodeFile.Symbol], Error>) -> Void)
 }
 
 class CodeFolder
