@@ -13,6 +13,16 @@ struct LSPServiceAPI
         private static let url = LSPServiceAPI.url + "languages"
     }
     
+    struct ProcessID
+    {
+        static func get(handleResult: @escaping (Result<Int, URL.RequestError>) -> Void)
+        {
+            url.get(Int.self, handleResult: handleResult)
+        }
+        
+        private static let url = LSPServiceAPI.url + "processID"
+    }
+    
     struct Language
     {
         struct Name

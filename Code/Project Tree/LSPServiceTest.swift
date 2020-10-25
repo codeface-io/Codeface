@@ -8,19 +8,28 @@ class LSPServiceTest
     
     static func start()
     {
-        do
+        LSPServiceAPI.ProcessID.get()
         {
-            connection = try LSPServiceAPI.Language.Name("swift").connectToLSPServer()
-            try connection.forSome { try test(with: $0) }
+            do
+            {
+                let processID = try $0.get()
+                let swiftConnection = try LSPServiceAPI.Language.Name("swift").connectToLSPServer()
+                connection = swiftConnection
+                try test(with: swiftConnection, lspServiceProcessID: processID)
+            }
+            catch
+            {
+                log(error)
+            }
         }
-        catch { log(error) }
     }
     
     // MARK: - Server Connection
     
     private static var connection: LSP.ServerConnection?
     
-    private static func test(with connection: LSP.ServerConnection) throws
+    private static func test(with connection: LSP.ServerConnection,
+                             lspServiceProcessID: Int) throws
     {
         connection.serverDidSendNotification =
         {
@@ -39,7 +48,8 @@ class LSPServiceTest
         let codeFolderPath = "/Users/seb/Desktop/TestProject"
         let codeFolder = URL(fileURLWithPath: codeFolderPath, isDirectory: true)
         
-        try connection.request(.initialize(folder: codeFolder))
+        try connection.request(.initialize(folder: codeFolder,
+                                           clientProcessID: lspServiceProcessID))
         {
             result in
             
