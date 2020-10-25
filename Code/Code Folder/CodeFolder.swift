@@ -1,3 +1,12 @@
+var codeFileSymbolProvider: CodeFileSymbolProvider?
+
+protocol CodeFileSymbolProvider
+{
+    func setProjectFolder(path: String)
+    func symbols(forFilePath filePath: String,
+                 handleResult: (Result<[CodeFolder.CodeFile.Symbol], Error>) -> Void)
+}
+
 class CodeFolder
 {
     init(name: String,
@@ -28,5 +37,13 @@ class CodeFolder
         let name: String
         let path: String
         let content: String
+        var symbols: [Symbol] = []
+        
+        struct Symbol // corresponds to LSP document symbol
+        {
+            let name: String
+            let kind: Int
+            let subsymbols: [Self]
+        }
     }
 }

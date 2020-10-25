@@ -1,3 +1,4 @@
+import FoundationToolz
 import Foundation
 import SwiftyToolz
 
@@ -27,7 +28,16 @@ extension CodeFolder
             }
             else if url.pathExtension == "swift"
             {
-                codeFiles.append(try .init(url))
+                let codeFile = try CodeFile(url)
+                codeFiles.append(codeFile)
+                
+                codeFileSymbolProvider?.symbols(forFilePath: codeFile.path)
+                {
+                    if let symbols = try? $0.get()
+                    {
+                        codeFile.symbols = symbols
+                    }
+                }
             }
         }
         
