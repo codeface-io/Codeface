@@ -1,7 +1,8 @@
 import FoundationToolz
 import Foundation
 import SwiftyToolz
-
+import Combine
+/*
 class LSPServiceTest
 {
     private init() {}
@@ -112,11 +113,12 @@ class LSPServiceTest
         }
     }
 }
-
+*/
 class LSPProjectInspector: ProjectInspector
 {
     init(language: String, projectFolder: URL) throws
     {
+        
         self.language = language
         self.projectFolder = projectFolder
         serverConnection = try LSPServiceAPI.Language.Name(language).connectToLSPServer()
@@ -136,79 +138,135 @@ class LSPProjectInspector: ProjectInspector
         serverConnection.serverDidSendError = { log($0) }
     }
     
-    private func initializeServer()
+    func symbols(for codeFile: CodeFolder.CodeFile,
+                 handleResult: @escaping (Result<[CodeFolder.CodeFile.Symbol], Error>) -> Void)
     {
-        LSPServiceAPI.ProcessID.get()
+        ensureServerIsInitialized
         {
             [weak self] in
             
-            do { try self?.initializeServer(withClientProcessID: $0.get()) }
-            catch { log(error) }
+            guard let self = self else { return }
+            
+            let file = URL(fileURLWithPath: codeFile.path)
+            
+            do
+            {
+                log("About to read \(codeFile.path)")
+                let document: [String: JSONObject] =
+                [
+                    "uri": file.absoluteString, // DocumentUri;
+                    "languageId": self.language, // TODO: make enum for LSP language keys, and struct for this document
+                    "version": 1,
+                    "text": codeFile.content
+                ]
+                
+                try self.serverConnection.notify(.didOpen(doc: JSON(document)))
+                try self.serverConnection.request(.docSymbols(inFile: file),
+                                                  as: [LSPDocumentSymbol].self)
+                {
+                    result in
+                
+                    switch result
+                    {
+                    case .success(let lspSymbols):
+                        let symbols = lspSymbols.map(\.codeFileSymbol)
+                        handleResult(.success(symbols))
+                    case .failure(let error):
+                        handleResult(.failure(error))
+                    }
+                }
+            }
+            catch
+            {
+                handleResult(.failure(error))
+            }
         }
     }
     
-    private func initializeServer(withClientProcessID processID: Int) throws
+    // MARK: - Initializing the Language Server
+    
+    private func ensureServerIsInitialized(then execute: @escaping () -> Void)
+    {
+        if serverIsInitialized { return execute() }
+        
+        subscribers += severIsBeingInitialized.done
+        {
+            switch $0
+            {
+            case .success: execute()
+            case .failure(let error): log(error)
+            }
+        }
+    }
+    
+    private lazy var severIsBeingInitialized: Future<Void, Error> = initializeServer()
+    
+    private func initializeServer() -> Future<Void, Error>
+    {
+        Future
+        {
+            promise in
+            
+            LSPServiceAPI.ProcessID.get()
+            {
+                [weak self] in
+                
+                guard let self = self else
+                {
+                    promise(.failure("\(Self.self) was deallocated"))
+                    return
+                }
+                
+                do
+                {
+                    try self.initializeServer(withClientProcessID: try $0.get(),
+                                              promise: promise)
+                }
+                catch
+                {
+                    promise(.failure(error))
+                }
+            }
+        }
+    }
+    
+    private func initializeServer(withClientProcessID processID: Int,
+                                  promise: @escaping Future<Void, Error>.Promise) throws
     {
         try serverConnection.request(.initialize(folder: projectFolder,
                                                  clientProcessID: processID))
         {
             [weak self] result in
             
+            guard let self = self else
+            {
+                promise(.failure("\(Self.self) was deallocated"))
+                return
+            }
+            
             do
             {
                 let serverCapabilities = try result.get()
                 log(serverCapabilities.description)
-                try self?.serverConnection.notify(.initialized)
-                self?.serverIsInitialized = true
+                try self.serverConnection.notify(.initialized)
+                self.serverIsInitialized = true
+                promise(.success(()))
             }
             catch
             {
-                log(error)
+                promise(.failure(error))
             }
         }
     }
     
-    func symbols(forFilePath filePath: String,
-                 handleResult: @escaping (Result<[CodeFolder.CodeFile.Symbol], Error>) -> Void)
-    {
-        let file = URL(fileURLWithPath: filePath)
-        
-        do
-        {
-            let document: [String: JSONObject] =
-            [
-                "uri": file.absoluteString, // DocumentUri;
-                "languageId": language, // TODO: make enum for LSP language keys, and struct for this document
-                "version": 1,
-                "text": try String(contentsOf: file, encoding: .utf8)
-            ]
-            
-            try serverConnection.notify(.didOpen(doc: JSON(document)))
-            try serverConnection.request(.docSymbols(inFile: file),
-                                         as: [LSPDocumentSymbol].self)
-            {
-                result in
-            
-                switch result
-                {
-                case .success(let lspSymbols):
-                    let symbols = lspSymbols.map { $0.codeFileSymbol }
-                    handleResult(.success(symbols))
-                case .failure(let error):
-                    handleResult(.failure(error))
-                }
-            }
-        }
-        catch
-        {
-            handleResult(.failure(error))
-        }
-    }
+    private var serverIsInitialized = false
+    
+    // MARK: - Basic Configuration
     
     private let language: String
     private let projectFolder: URL
     private let serverConnection: LSP.ServerConnection
-    private var serverIsInitialized = false
+    private var subscribers = [AnyCancellable]()
 }
 
 extension LSPDocumentSymbol
@@ -217,7 +275,7 @@ extension LSPDocumentSymbol
     {
         .init(name: name,
               kind: kind, // TODO: make enum for both: CodeFolder.CodeFile.Symbol and LSPDocumentSymbol
-              subsymbols: children.map({ $0.codeFileSymbol }))
+              subsymbols: children.map(\.codeFileSymbol))
     }
 }
 
@@ -227,3 +285,22 @@ struct TestProject {
 }
 
 """#
+
+extension Future
+{
+    func done(_ promise: @escaping Promise) -> AnyCancellable
+    {
+        sink
+        {
+            switch $0
+            {
+            case .failure(let error): promise(.failure(error))
+            case .finished: break
+            }
+        }
+        receiveValue:
+        {
+            promise(.success($0))
+        }
+    }
+}

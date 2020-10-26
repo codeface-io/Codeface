@@ -2,7 +2,7 @@ var projectInspector: ProjectInspector?
 
 protocol ProjectInspector
 {
-    func symbols(forFilePath filePath: String,
+    func symbols(for codeFile: CodeFolder.CodeFile,
                  handleResult: @escaping (Result<[CodeFolder.CodeFile.Symbol], Error>) -> Void)
 }
 

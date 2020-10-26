@@ -31,12 +31,21 @@ extension CodeFolder
                 let codeFile = try CodeFile(url)
                 codeFiles.append(codeFile)
                 
-                projectInspector?.symbols(forFilePath: codeFile.path)
+                if let projectInspector = projectInspector
                 {
-                    if let symbols = try? $0.get()
+                    projectInspector.symbols(for: codeFile)
                     {
-                        codeFile.symbols = symbols
+                        do
+                        {
+                            let symbols = try $0.get()
+                            codeFile.symbols = symbols
+                        }
+                        catch { log(error) }
                     }
+                }
+                else
+                {
+                    log(error: "No \(ProjectInspector.self) is set")
                 }
             }
         }

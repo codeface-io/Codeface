@@ -12,7 +12,7 @@ class Loading
         
         defer { newFolder.stopAccessingSecurityScopedResource() }
         
-        load(try CodeFolder(newFolder))
+        try load(newFolder)
         lastFolder = newFolder
     }
     
@@ -27,12 +27,14 @@ class Loading
         
         defer { lastFolder.stopAccessingSecurityScopedResource() }
         
-        load(try CodeFolder(lastFolder))
+        try load(lastFolder)
     }
     
-    private static func load(_ codeFolder: CodeFolder)
+    private static func load(_ projectFolder: URL) throws
     {
-        let analytics = CodeFileAnalyzer().analyze(codeFolder)
+        projectInspector = try LSPProjectInspector(language: "swift",
+                                                   projectFolder: projectFolder)
+        let analytics = CodeFileAnalyzer().analyze(try CodeFolder(projectFolder))
         CodeFileAnalyticsStore.shared.set(elements: analytics)
     }
     
