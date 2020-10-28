@@ -17,7 +17,7 @@ extension CodeFolder
             throw "Couldn't get file URLs from folder"
         }
         
-        var codeFiles = [CodeFile]()
+        var codeFiles = [File]()
         var subfolders = [CodeFolder]()
         
         for url in urls
@@ -28,7 +28,7 @@ extension CodeFolder
             }
             else if url.pathExtension == "swift"
             {
-                let codeFile = try CodeFile(url)
+                let codeFile = try File(url)
                 codeFiles.append(codeFile)
                 
                 if let projectInspector = projectInspector
@@ -53,7 +53,7 @@ extension CodeFolder
     }
 }
 
-extension CodeFolder.CodeFile
+extension CodeFolder.File
 {
     convenience init(_ file: URL) throws
     {

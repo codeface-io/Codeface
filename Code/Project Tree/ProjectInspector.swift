@@ -5,5 +5,5 @@ var projectInspector: ProjectInspector?
 
 protocol ProjectInspector
 {
-    func symbols(for codeFile: CodeFolder.CodeFile) -> Promise<Result<[LSPDocumentSymbol], Error>>
+    func symbols(for codeFile: CodeFolder.File) -> Promise<Result<[LSPDocumentSymbol], Error>>
 }

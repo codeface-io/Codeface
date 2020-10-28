@@ -4,7 +4,7 @@ class CodeFolder
 {
     init(name: String,
          path: String,
-         files: [CodeFile],
+         files: [File],
          subfolders: [CodeFolder])
     {
         self.name = name
@@ -15,10 +15,10 @@ class CodeFolder
     
     let name: String
     let path: String
-    let files: [CodeFile]
+    let files: [File]
     let subfolders: [CodeFolder]
     
-    class CodeFile
+    class File
     {
         init(name: String, path: String, content: String)
         {

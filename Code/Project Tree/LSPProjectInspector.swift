@@ -21,7 +21,7 @@ class LSPProjectInspector: ProjectInspector
         serverConnection.serverDidSendError = { log($0) }
     }
     
-    func symbols(for codeFile: CodeFolder.CodeFile) -> Promise<Result<[LSPDocumentSymbol], Error>>
+    func symbols(for codeFile: CodeFolder.File) -> Promise<Result<[LSPDocumentSymbol], Error>>
     {
         Promise
         {

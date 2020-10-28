@@ -9,7 +9,7 @@ class SymbolCache
         self.inspector = inspector
     }
     
-    func symbols(for codeFile: CodeFolder.CodeFile) -> SymbolPromise
+    func symbols(for codeFile: CodeFolder.File) -> SymbolPromise
     {
         Promise
         {
