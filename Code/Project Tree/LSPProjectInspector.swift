@@ -70,7 +70,7 @@ class LSPProjectInspector: ProjectInspector
     
     private func ensureServerIsInitialized(then execute: @escaping () -> Void)
     {
-        initialization.done
+        initializationPromise.whenFulfilled
         {
             switch $0
             {
@@ -80,39 +80,35 @@ class LSPProjectInspector: ProjectInspector
         }
     }
     
-    private lazy var initialization = initializeServer()
+    private lazy var initializationPromise = initializeServer()
     
     private func initializeServer() -> Promise<Result<Void, Error>>
     {
-        let promise = Promise<Result<Void, Error>>()
-        
-        LSPServiceAPI.ProcessID.get()
+        Promise
         {
-            [weak self] in
+            promise in
             
-            guard let self = self else
+            LSPServiceAPI.ProcessID.get().whenFulfilled
             {
+                [weak self] result in
                 
-                promise.send(.failure("\(Self.self) was deallocated"))
-                return
-            }
-            
-            do
-            {
-                self.initializeServer(withClientProcessID: try $0.get(),
-                                      promise: promise)
-            }
-            catch
-            {
-                promise.send(.failure(error))
+                do
+                {
+                    guard let self = self else { throw "\(Self.self) died" }
+                    
+                    self.initializeServer(withClientProcessID: try result.get(),
+                                          fulfill: promise)
+                }
+                catch
+                {
+                    promise.fulfill(.failure(error))
+                }
             }
         }
-        
-        return promise
     }
     
     private func initializeServer(withClientProcessID processID: Int,
-                                  promise: Promise<Result<Void, Error>>)
+                                  fulfill promise: Promise<Result<Void, Error>>)
     {
         do
         {
@@ -121,26 +117,21 @@ class LSPProjectInspector: ProjectInspector
             {
                 [weak self] _ in
                 
-                guard let self = self else
-                {
-                    promise.send(.failure("\(Self.self) was deallocated"))
-                    return
-                }
-                
                 do
                 {
+                    guard let self = self else { throw "\(Self.self) died" }
                     try self.serverConnection.notify(.initialized)
-                    promise.send(.success(()))
+                    promise.fulfill(.success(()))
                 }
                 catch
                 {
-                    promise.send(.failure(error))
+                    promise.fulfill(.failure(error))
                 }
             }
         }
         catch
         {
-            promise.send(.failure(error))
+            promise.fulfill(.failure(error))
         }
     }
     

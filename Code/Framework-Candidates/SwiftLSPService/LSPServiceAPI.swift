@@ -1,13 +1,14 @@
 import FoundationToolz
 import Foundation
+import SwiftObserver
 
 struct LSPServiceAPI
 {
     struct Languages
     {
-        static func get(handleResult: @escaping (Result<[String], URL.RequestError>) -> Void)
+        static func get() -> Promise<Result<[String], URL.RequestError>>
         {
-            url.get([String].self, handleResult: handleResult)
+            Promise { url.get([String].self, handleResult: $0.fulfill) }
         }
         
         private static let url = LSPServiceAPI.url + "languages"
@@ -15,9 +16,9 @@ struct LSPServiceAPI
     
     struct ProcessID
     {
-        static func get(handleResult: @escaping (Result<Int, URL.RequestError>) -> Void)
+        static func get() -> Promise<Result<Int, URL.RequestError>>
         {
-            url.get(Int.self, handleResult: handleResult)
+            Promise { url.get(Int.self, handleResult: $0.fulfill) }
         }
         
         private static let url = LSPServiceAPI.url + "processID"
@@ -32,15 +33,14 @@ struct LSPServiceAPI
                 url = Language.url + languageName
             }
             
-            func get(handleResult: @escaping (Result<String, URL.RequestError>) -> Void)
+            func get() -> Promise<Result<String, URL.RequestError>>
             {
-                url.get(String.self, handleResult: handleResult)
+                Promise { url.get(String.self, handleResult: $0.fulfill) }
             }
             
-            func post(_ value : String,
-                      handleError: @escaping (URL.RequestError?) -> Void)
+            func post(_ value: String) -> Promise<Result<Void, URL.RequestError>>
             {
-                url.post(value, handleError: handleError)
+                Promise { url.post(value, handleResult: $0.fulfill) }
             }
             
             func connectToWebSocket() throws -> WebSocket
