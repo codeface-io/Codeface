@@ -16,7 +16,8 @@
 		966D58262544D0BC0016C8D0 /* CodeFolder+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */; };
 		966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */; };
 		9678DA6B253B42CC002BF645 /* LSPServiceWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678DA6A253B42CC002BF645 /* LSPServiceWebSocket.swift */; };
-		9686BA0E252A28A600C09166 /* LSPServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686BA0D252A28A600C09166 /* LSPServiceTest.swift */; };
+		967CA9EB2548B6C80044E79C /* ProjectInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967CA9EA2548B6C80044E79C /* ProjectInspector.swift */; };
+		9686BA0E252A28A600C09166 /* LSPProjectInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */; };
 		969884142533DC6800DD1F94 /* LSPServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969884132533DC6800DD1F94 /* LSPServiceAPI.swift */; };
 		96C51CE5253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C51CE4253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift */; };
 		96EBF48925423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift */; };
@@ -66,7 +67,8 @@
 		966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+Foundation.swift"; sourceTree = "<group>"; };
 		966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+CustomstringConvertible.swift"; sourceTree = "<group>"; };
 		9678DA6A253B42CC002BF645 /* LSPServiceWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceWebSocket.swift; sourceTree = "<group>"; };
-		9686BA0D252A28A600C09166 /* LSPServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceTest.swift; sourceTree = "<group>"; };
+		967CA9EA2548B6C80044E79C /* ProjectInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectInspector.swift; sourceTree = "<group>"; };
+		9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPProjectInspector.swift; sourceTree = "<group>"; };
 		96898AEE252A10D5007AB9FB /* UIToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = UIToolz; path = ../../UIToolz; sourceTree = "<group>"; };
 		96898AF1252A1164007AB9FB /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
 		96898AF3252A1167007AB9FB /* SwiftObserver */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftObserver; path = ../../SwiftObserver; sourceTree = "<group>"; };
@@ -135,9 +137,6 @@
 		962EA5FD254491180091C533 /* Code Folder */ = {
 			isa = PBXGroup;
 			children = (
-				966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */,
-				966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */,
-				966D581C2544A9490016C8D0 /* CodeFolder.swift */,
 			);
 			path = "Code Folder";
 			sourceTree = "<group>";
@@ -145,7 +144,11 @@
 		966D581B2544A8EC0016C8D0 /* Project Tree */ = {
 			isa = PBXGroup;
 			children = (
-				9686BA0D252A28A600C09166 /* LSPServiceTest.swift */,
+				9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */,
+				967CA9EA2548B6C80044E79C /* ProjectInspector.swift */,
+				966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */,
+				966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */,
+				966D581C2544A9490016C8D0 /* CodeFolder.swift */,
 			);
 			path = "Project Tree";
 			sourceTree = "<group>";
@@ -438,12 +441,13 @@
 				966D581D2544A9490016C8D0 /* CodeFolder.swift in Sources */,
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
 				9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */,
+				967CA9EB2548B6C80044E79C /* ProjectInspector.swift in Sources */,
 				966D58262544D0BC0016C8D0 /* CodeFolder+Foundation.swift in Sources */,
 				9E84B4C221A1EF2D00F006DD /* CodeFileAnalyzer.swift in Sources */,
 				9E84B4C521A1F1C500F006DD /* Store.swift in Sources */,
 				9EA5A8B7218EFA90004902F7 /* CodeFileAnalytics+Sorting.swift in Sources */,
 				9E007285218E250E0094BD1C /* CodeFileAnalyticsStore.swift in Sources */,
-				9686BA0E252A28A600C09166 /* LSPServiceTest.swift in Sources */,
+				9686BA0E252A28A600C09166 /* LSPProjectInspector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
