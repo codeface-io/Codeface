@@ -62,20 +62,3 @@ extension CodeFolder.CodeFile
                   content: try String(contentsOf: file, encoding: .utf8))
     }
 }
-
-extension URL
-{
-    var isDirectory: Bool
-    {
-        do
-        {
-            if let result = try resourceValues(forKeys: [.isDirectoryKey]).isDirectory
-            {
-                return result
-            }
-        }
-        catch { log(error) }
-        
-        return hasDirectoryPath
-    }
-}

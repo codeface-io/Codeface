@@ -1,4 +1,4 @@
-import FoundationToolz
+import FoundationToolz // for LSPDocumentSymbol for now
 
 class CodeFolder
 {
