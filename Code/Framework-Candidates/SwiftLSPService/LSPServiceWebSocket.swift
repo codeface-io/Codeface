@@ -54,9 +54,7 @@ class LSPServiceWebSocket: SynchronousLSPServerConnection
     // MARK: - Send
     
     func send(_ message: LSP.Message) throws
-    {
-        log("Will send message: \(message)")
-        
+    {   
         try webSocket.send(message.packet())
         {
             $0.forSome { log($0) }
