@@ -33,13 +33,9 @@ extension CodeFolder
                 
                 if let projectInspector = projectInspector
                 {
-                    projectInspector.symbols(for: codeFile)
+                    projectInspector.symbols(for: codeFile).whenFulfilled
                     {
-                        do
-                        {
-                            let symbols = try $0.get()
-                            codeFile.symbols = symbols
-                        }
+                        do { codeFile.symbols = try $0.get() }
                         catch { log(error) }
                     }
                 }

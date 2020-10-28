@@ -2,7 +2,6 @@ import FoundationToolz
 import Foundation
 import SwiftObserver
 import SwiftyToolz
-import Combine
 
 class LSPProjectInspector: ProjectInspector
 {
@@ -22,63 +21,57 @@ class LSPProjectInspector: ProjectInspector
         serverConnection.serverDidSendError = { log($0) }
     }
     
-    func symbols(for codeFile: CodeFolder.CodeFile,
-                 handleResult: @escaping (Result<[CodeFolder.CodeFile.Symbol], Error>) -> Void)
+    func symbols(for codeFile: CodeFolder.CodeFile) -> Promise<Result<[CodeFolder.CodeFile.Symbol], Error>>
     {
-        ensureServerIsInitialized
+        Promise
         {
-            [weak self] in
+            promise in
             
-            guard let self = self else { return }
-            
-            let file = URL(fileURLWithPath: codeFile.path)
-            
-            do
+            initializationPromise.whenFulfilled
             {
-                let document: [String: JSONObject] =
-                [
-                    "uri": file.absoluteString, // DocumentUri;
-                    "languageId": self.language, // TODO: make enum for LSP language keys, and struct for this document
-                    "version": 1,
-                    "text": codeFile.content
-                ]
-                
-                try self.serverConnection.notify(.didOpen(doc: JSON(document)))
-                try self.serverConnection.request(.docSymbols(inFile: file),
-                                                  as: [LSPDocumentSymbol].self)
+                [weak self] initializationResult in
+
+                do
                 {
-                    result in
-                
-                    switch result
+                    guard let self = self else { throw "\(Self.self) died" }
+                    
+                    _ = try initializationResult.get()
+                    
+                    let file = URL(fileURLWithPath: codeFile.path)
+                    
+                    let document: [String: JSONObject] =
+                    [
+                        "uri": file.absoluteString, // DocumentUri;
+                        "languageId": self.language, // TODO: make enum for LSP language keys, and struct for this document
+                        "version": 1,
+                        "text": codeFile.content
+                    ]
+                    
+                    try self.serverConnection.notify(.didOpen(doc: JSON(document)))
+                    try self.serverConnection.request(.docSymbols(inFile: file),
+                                                      as: [LSPDocumentSymbol].self)
                     {
-                    case .success(let lspSymbols):
-                        let symbols = lspSymbols.map(\.codeFileSymbol)
-                        handleResult(.success(symbols))
-                    case .failure(let error):
-                        handleResult(.failure(error))
+                        do
+                        {
+                            let lspSymbols = try $0.get()
+                            promise.fulfill(.success(lspSymbols.map(\.codeFileSymbol)))
+                        }
+                        catch
+                        {
+                            promise.fulfill(.failure(error))
+                        }
                     }
                 }
-            }
-            catch
-            {
-                handleResult(.failure(error))
+                catch
+                {
+                    promise.fulfill(.failure(error))
+                }
             }
         }
+        
     }
     
     // MARK: - Initializing the Language Server
-    
-    private func ensureServerIsInitialized(then execute: @escaping () -> Void)
-    {
-        initializationPromise.whenFulfilled
-        {
-            switch $0
-            {
-            case .success: execute()
-            case .failure(let error): log(error)
-            }
-        }
-    }
     
     private lazy var initializationPromise = initializeServer()
     
@@ -140,7 +133,6 @@ class LSPProjectInspector: ProjectInspector
     private let language: String
     private let projectFolder: URL
     private let serverConnection: LSP.ServerConnection
-    private var subscribers = [AnyCancellable]()
 }
 
 extension LSPDocumentSymbol

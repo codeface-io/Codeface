@@ -1,7 +1,8 @@
+import SwiftObserver
+
 var projectInspector: ProjectInspector?
 
 protocol ProjectInspector
 {
-    func symbols(for codeFile: CodeFolder.CodeFile,
-                 handleResult: @escaping (Result<[CodeFolder.CodeFile.Symbol], Error>) -> Void)
+    func symbols(for codeFile: CodeFolder.CodeFile) -> Promise<Result<[CodeFolder.CodeFile.Symbol], Error>>
 }
