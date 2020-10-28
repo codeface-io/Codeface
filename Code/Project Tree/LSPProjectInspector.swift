@@ -21,7 +21,7 @@ class LSPProjectInspector: ProjectInspector
         serverConnection.serverDidSendError = { log($0) }
     }
     
-    func symbols(for codeFile: CodeFolder.CodeFile) -> Promise<Result<[CodeFolder.CodeFile.Symbol], Error>>
+    func symbols(for codeFile: CodeFolder.CodeFile) -> Promise<Result<[LSPDocumentSymbol], Error>>
     {
         Promise
         {
@@ -48,18 +48,12 @@ class LSPProjectInspector: ProjectInspector
                     ]
                     
                     try self.serverConnection.notify(.didOpen(doc: JSON(document)))
+                    
                     try self.serverConnection.request(.docSymbols(inFile: file),
                                                       as: [LSPDocumentSymbol].self)
                     {
-                        do
-                        {
-                            let lspSymbols = try $0.get()
-                            promise.fulfill(.success(lspSymbols.map(\.codeFileSymbol)))
-                        }
-                        catch
-                        {
-                            promise.fulfill(.failure(error))
-                        }
+                        do { promise.fulfill(.success(try $0.get())) }
+                        catch { promise.fulfill(.failure(error)) }
                     }
                 }
                 catch
@@ -133,14 +127,4 @@ class LSPProjectInspector: ProjectInspector
     private let language: String
     private let projectFolder: URL
     private let serverConnection: LSP.ServerConnection
-}
-
-extension LSPDocumentSymbol
-{
-    var codeFileSymbol: CodeFolder.CodeFile.Symbol
-    {
-        .init(name: name,
-              kind: kind, // TODO: make enum for both: CodeFolder.CodeFile.Symbol and LSPDocumentSymbol
-              subsymbols: children.map(\.codeFileSymbol))
-    }
 }

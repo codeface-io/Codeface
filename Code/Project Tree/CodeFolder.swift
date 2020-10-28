@@ -1,3 +1,5 @@
+import FoundationToolz
+
 class CodeFolder
 {
     init(name: String,
@@ -28,13 +30,6 @@ class CodeFolder
         let name: String
         let path: String
         let content: String
-        var symbols: [Symbol] = []
-        
-        struct Symbol // corresponds to LSP document symbol
-        {
-            let name: String
-            let kind: Int
-            let subsymbols: [Self]
-        }
+        var symbols: [LSPDocumentSymbol] = []
     }
 }
