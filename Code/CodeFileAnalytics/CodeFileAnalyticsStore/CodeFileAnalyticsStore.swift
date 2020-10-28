@@ -1,12 +1,12 @@
 import SwiftObserver
 
-class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, Observable
+class CodeFileAnalyticsStore: Observable
 {
     // MARK: - Singleton Instance
     
     static let shared = CodeFileAnalyticsStore()
     
-    private override init() {}
+    private init() {}
     
     // MARK: - Analytics Elements
     
@@ -47,4 +47,8 @@ class CodeFileAnalyticsStore: Store<CodeFileAnalytics>, Observable
     
     let messenger = Messenger<Event>()
     enum Event { case didModifyData }
+    
+    // MARK: - Elements
+    
+    private(set) var elements = [CodeFileAnalytics]()
 }
