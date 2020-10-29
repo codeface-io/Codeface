@@ -1,3 +1,4 @@
+import SwiftLSP
 import FoundationToolz
 
 extension LSPServiceAPI.Language.Name

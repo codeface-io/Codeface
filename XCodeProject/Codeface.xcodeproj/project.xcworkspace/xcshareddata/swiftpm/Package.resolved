@@ -2,12 +2,30 @@
   "object": {
     "pins": [
       {
+        "package": "FoundationToolz",
+        "repositoryURL": "https://github.com/flowtoolz/FoundationToolz.git",
+        "state": {
+          "branch": "master",
+          "revision": "78622e6c08b3cab238b8e35ec9b3f6efde724432",
+          "version": null
+        }
+      },
+      {
         "package": "Reachability",
         "repositoryURL": "https://github.com/ashleymills/Reachability.swift.git",
         "state": {
           "branch": null,
           "revision": "6c8652a8ea35a64cf36367d07b3d6e5e6a24b272",
           "version": "4.3.1"
+        }
+      },
+      {
+        "package": "SwiftLSP",
+        "repositoryURL": "https://github.com/flowtoolz/SwiftLSP",
+        "state": {
+          "branch": "master",
+          "revision": "e7a69c412021d49524e79987b8b14cf45e80d9d6",
+          "version": null
         }
       }
     ]
