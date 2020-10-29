@@ -16,7 +16,7 @@ class CodefaceAppController: AppController
     {
         super.applicationDidFinishLaunching(aNotification)
 
-        do { try Loading.loadLastOpenFolder() }
+        do { try Project.loadLastOpenFolder() }
         catch { log(error) }
     }
 }

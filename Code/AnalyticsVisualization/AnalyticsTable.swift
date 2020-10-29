@@ -20,30 +20,30 @@ class AnalyticsTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, O
         dataSource = self
         delegate = self
         
-        observe(CodeFileAnalyticsStore.shared).select(.didModifyData)
-        {
-            [weak self] in self?.reloadData()
-        }
+        observeProjectClassMessenger()
+        observeAnalyticsStoreIfExisting()
     }
     
-    required init?(coder: NSCoder) { fatalError() }
-    
-    deinit { stopObserving() }
+    required init?(coder: NSCoder) { nil }
     
     // MARK: - Content
     
     func numberOfRows(in tableView: NSTableView) -> Int
     {
-        return CodeFileAnalyticsStore.shared.elements.count
+        return Project.active?.analyticsStore.elements.count ?? 0
     }
     
     func tableView(_ tableView: NSTableView,
                    viewFor tableColumn: NSTableColumn?,
                    row: Int) -> NSView?
     {
-        guard let column = tableColumn else { return nil }
-        
-        let analytics = CodeFileAnalyticsStore.shared.elements[row]
+        guard
+            let column = tableColumn,
+            let analytics = Project.active?.analyticsStore.elements[row]
+        else
+        {
+            return nil
+        }
         
         switch column.identifier
         {
@@ -61,13 +61,16 @@ class AnalyticsTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, O
             
             return label
             
-        default: return nil
+        default:
+            return nil
         }
     }
     
     func tableView(_ tableView: NSTableView,
                    sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor])
     {
+        guard let analyticsStore = Project.active?.analyticsStore else { return }
+        
         for new in sortDescriptors
         {
             guard let key = new.key else
@@ -80,14 +83,12 @@ class AnalyticsTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, O
             
             if old == nil || old?.ascending != new.ascending
             {
-                let store = CodeFileAnalyticsStore.shared
-                
                 switch key
                 {
                 case linesColumnID.rawValue:
-                    store.sort(by: .linesOfCode, ascending: new.ascending)
+                    analyticsStore.sort(by: .linesOfCode, ascending: new.ascending)
                 case fileColumnID.rawValue:
-                    store.sort(by: .filePath, ascending: new.ascending)
+                    analyticsStore.sort(by: .filePath, ascending: new.ascending)
                 default: break
                 }
             }
@@ -96,6 +97,33 @@ class AnalyticsTable: NSTableView, NSTableViewDataSource, NSTableViewDelegate, O
     
     private let fileColumnID = UIItemID(rawValue: "File")
     private let linesColumnID = UIItemID(rawValue: "Lines of Code")
+    
+    // MARK: - Observe Project
+    
+    private func observeProjectClassMessenger()
+    {
+        observe(Project.messenger)
+        {
+            if case .didSetActiveProject = $0
+            {
+                self.observeAnalyticsStoreIfExisting()
+                self.reloadData()
+            }
+        }
+    }
+    
+    private func observeAnalyticsStoreIfExisting()
+    {
+        (Project.active?.analyticsStore).forSome { observe(analyticsStore: $0) }
+    }
+    
+    private func observe(analyticsStore store: CodeFileAnalyticsStore)
+    {
+        observe(store).select(.didModifyData)
+        {
+            [weak self] in self?.reloadData()
+        }
+    }
     
     let receiver = Receiver()
 }

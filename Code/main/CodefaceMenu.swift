@@ -14,32 +14,23 @@ class CodefaceMenu: MainMenu
     
     override func validateItem(with id: String) -> Bool
     {
-        return id != reloadID || Loading.lastFolder != nil
+        return id != reloadID || Project.active != nil
     }
     
     private lazy var topItems: [NSMenuItem] =
     [
         makeItem("Reload", key: "r", id: reloadID)
         {
-            do { try Loading.loadLastOpenFolder() }
+            do { try Project.loadLastOpenFolder() }
             catch { log(error) }
         },
         makeItem("Load Code Folder...", key: "l")
         {
             FileSelectionPanel().selectFolder
             {
-                do { try Loading.load(newFolder: $0) }
+                do { try Project.load(newFolder: $0) }
                 catch { log(error) }
             }
-        },
-        makeItem("Launch Swift Language Server ...")
-        {
-//            FileSelectionPanel().selectFile
-//            {
-//                file in
-//
-//                SwiftLanguageServerController.instance.start(sourcekitLSPExecutable: file)
-//            }
         },
         .separator()
     ]

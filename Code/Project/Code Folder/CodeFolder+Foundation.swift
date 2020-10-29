@@ -28,21 +28,7 @@ extension CodeFolder
             }
             else if url.pathExtension == "swift"
             {
-                let codeFile = try File(url)
-                codeFiles.append(codeFile)
-                
-                if let projectInspector = projectInspector
-                {
-                    projectInspector.symbols(for: codeFile).whenFulfilled
-                    {
-                        do { codeFile.symbols = try $0.get() }
-                        catch { log(error) }
-                    }
-                }
-                else
-                {
-                    log(error: "No \(ProjectInspector.self) is set")
-                }
+                codeFiles.append(try File(url))
             }
         }
         

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftyToolz
 
-class Loading
+extension Project
 {
     static func load(newFolder: URL) throws
     {
@@ -30,16 +30,15 @@ class Loading
         try load(lastFolder)
     }
     
-    private static func load(_ projectFolder: URL) throws
+    private static func load(_ folder: URL) throws
     {
-        projectInspector = try LSPProjectInspector(language: "swift",
-                                                   projectFolder: projectFolder)
-        let analytics = CodeFileAnalyzer().analyze(try CodeFolder(projectFolder))
-        CodeFileAnalyticsStore.shared.set(elements: analytics)
+        let inspector = try LSPProjectInspector(language: "swift", folder: folder)
+        
+        Project.active = try Project(folder: folder, inspector: inspector)
     }
     
     // TODO: make this bookmarked URL reusable via property wrapper???
-    private(set) static var lastFolder: URL?
+    private static var lastFolder: URL?
     {
         get
         {

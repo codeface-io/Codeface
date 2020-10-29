@@ -5,10 +5,10 @@ import SwiftyToolz
 
 class LSPProjectInspector: ProjectInspector
 {
-    init(language: String, projectFolder: URL) throws
+    init(language: String, folder: URL) throws
     {
         self.language = language
-        self.projectFolder = projectFolder
+        self.rootFolder = folder
         serverConnection = try LSPServiceAPI.Language.Name(language).connectToLSPServer()
         
         serverConnection.serverDidSendNotification = { _ in }
@@ -99,7 +99,7 @@ class LSPProjectInspector: ProjectInspector
     {
         do
         {
-            try serverConnection.request(.initialize(folder: projectFolder,
+            try serverConnection.request(.initialize(folder: rootFolder,
                                                      clientProcessID: processID))
             {
                 [weak self] _ in
@@ -125,6 +125,6 @@ class LSPProjectInspector: ProjectInspector
     // MARK: - Basic Configuration
     
     private let language: String
-    private let projectFolder: URL
+    private let rootFolder: URL
     private let serverConnection: LSP.ServerConnection
 }

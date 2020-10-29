@@ -2,12 +2,6 @@ import SwiftObserver
 
 class CodeFileAnalyticsStore: Observable
 {
-    // MARK: - Singleton Instance
-    
-    static let shared = CodeFileAnalyticsStore()
-    
-    private init() {}
-    
     // MARK: - Analytics Elements
     
     func set(elements: [CodeFileAnalytics])

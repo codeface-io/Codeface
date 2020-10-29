@@ -30,6 +30,5 @@ class CodeFolder
         let name: String
         let path: String
         let content: String
-        var symbols: [LSPDocumentSymbol] = []
     }
 }
