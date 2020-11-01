@@ -2,14 +2,12 @@ import UIToolz
 import AppKit
 import SwiftyToolz
 
-import SwiftObserver
-
 @main
 class CodefaceAppController: AppController
 {
     static func main() { instance.startApp() }
     
-    private static let instance = CodefaceAppController(appView: AnalyticsView(),
+    private static let instance = CodefaceAppController(appView: CodefaceView(),
                                                         appMenu: CodefaceMenu())
     
     override func applicationDidFinishLaunching(_ aNotification: Notification)
