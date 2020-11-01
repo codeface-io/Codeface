@@ -24,9 +24,12 @@ struct ContentView: View
     {
         NavigationView
         {
-            List(model.folders, id: \.path, children: \.subfolders)
+            List(viewModel.artifacts, id: \.id, children: \.children)
             {
-                item in Text(item.name)
+                artifact in
+                
+                Image(systemName: systemName(for: artifact.kind))
+                Text(artifact.displayName)
             }
             .listStyle(SidebarListStyle())
             
@@ -34,31 +37,74 @@ struct ContentView: View
         }
     }
     
-    @ObservedObject private var model = Model()
-    
-    private class Model: ObservableObject, Observer
+    private func systemName(for articactKind: CodeArtifact.Kind) -> String
     {
-        init()
+        switch articactKind
         {
-            observe(Project.messenger)
+        case .folder: return "folder"
+        case .file: return "doc"
+        }
+    }
+    
+    @ObservedObject private var viewModel = ContentViewModel()
+}
+
+private class ContentViewModel: ObservableObject, Observer
+{
+    init()
+    {
+        observe(Project.messenger)
+        {
+            switch $0
             {
-                switch $0
+            case .didSetActiveProject(let activeProject):
+                if let activeProject = activeProject
                 {
-                case .didSetActiveProject(let activeProject):
-                    if let activeProject = activeProject
-                    {
-                        self.folders = [activeProject.rootFolder]
-                    }
-                    else
-                    {
-                        self.folders = []
-                    }
+                    self.artifacts = [CodeArtifact(folder: activeProject.rootFolder)]
+                }
+                else
+                {
+                    self.artifacts = []
                 }
             }
         }
-        
-        @Published var folders = [CodeFolder]()
-        
-        let receiver = Receiver()
     }
+    
+    @Published var artifacts = [CodeArtifact]()
+    
+    let receiver = Receiver()
+}
+ 
+class CodeArtifact
+{
+    convenience init(folder: CodeFolder)
+    {
+        var childArtifacts = [CodeArtifact]()
+        
+        childArtifacts += folder.files.map(CodeArtifact.init)
+        childArtifacts += folder.subfolders.map(CodeArtifact.init)
+        
+        self.init(displayName: folder.name,
+                  kind: .folder,
+                  children: childArtifacts.isEmpty ? nil : childArtifacts)
+    }
+    
+    convenience init(codeFile: CodeFolder.File)
+    {
+        self.init(displayName: codeFile.name, kind: .file)
+    }
+    
+    init(displayName: String, kind: Kind, children: [CodeArtifact]? = nil)
+    {
+        self.displayName = displayName
+        self.kind = kind
+        self.children = children
+    }
+    
+    let id = UUID().uuidString
+    let displayName: String
+    let kind: Kind
+    let children: [CodeArtifact]?
+    
+    enum Kind { case folder, file }
 }

@@ -14,7 +14,7 @@ extension CodeFolder: CustomStringConvertible
             result += "\n" + prefix + "    " + file.name
         }
         
-        for folder in subfolders ?? []
+        for folder in subfolders
         {
             result += "\n" + folder.description(withPrefix: prefix + "    ")
         }

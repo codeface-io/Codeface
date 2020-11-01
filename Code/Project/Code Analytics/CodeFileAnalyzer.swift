@@ -9,7 +9,7 @@ class CodeFileAnalyzer
             CodeFileAnalytics(file: $0, loc: $0.content.numberOfLines)
         }
         
-        for subfolder in codeFolder.subfolders ?? []
+        for subfolder in codeFolder.subfolders
         {
             result += analyze(subfolder)
         }
