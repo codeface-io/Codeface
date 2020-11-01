@@ -16,7 +16,7 @@ class CodeFolder
     let name: String
     let path: String
     let files: [File]
-    let subfolders: [CodeFolder]
+    let subfolders: [CodeFolder]?
     
     class File
     {

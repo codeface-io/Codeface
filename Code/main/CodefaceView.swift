@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftObserver
 
 class CodefaceView: NSHostingView<ContentView>
 {
@@ -23,42 +24,41 @@ struct ContentView: View
     {
         NavigationView
         {
-            List([data], children: \.children)
+            List(model.folders, id: \.path, children: \.subfolders)
             {
-                item in Text(item.description)
+                item in Text(item.name)
             }
             .listStyle(SidebarListStyle())
             
             Text("Huhu")
         }
     }
-}
-
-struct FileItem: Hashable, Identifiable, CustomStringConvertible {
-    var id: Self { self }
-    var name: String
-    var children: [FileItem]? = nil
-    var description: String {
-        switch children {
-        case nil:
-            return "📄 \(name)"
-        case .some(let children):
-            return children.isEmpty ? "📂 \(name)" : "📁 \(name)"
+    
+    @ObservedObject private var model = Model()
+    
+    private class Model: ObservableObject, Observer
+    {
+        init()
+        {
+            observe(Project.messenger)
+            {
+                switch $0
+                {
+                case .didSetActiveProject(let activeProject):
+                    if let activeProject = activeProject
+                    {
+                        self.folders = [activeProject.rootFolder]
+                    }
+                    else
+                    {
+                        self.folders = []
+                    }
+                }
+            }
         }
+        
+        @Published var folders = [CodeFolder]()
+        
+        let receiver = Receiver()
     }
 }
-
-let data =
-  FileItem(name: "users", children:
-    [FileItem(name: "user1234", children:
-      [FileItem(name: "Photos", children:
-        [FileItem(name: "photo001.jpg"),
-         FileItem(name: "photo002.jpg")]),
-       FileItem(name: "Movies", children:
-         [FileItem(name: "movie001.mp4")]),
-          FileItem(name: "Documents", children: [])
-      ]),
-     FileItem(name: "newuser", children:
-       [FileItem(name: "Documents", children: [])
-       ])
-    ])
