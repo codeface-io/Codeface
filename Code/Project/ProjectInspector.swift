@@ -4,5 +4,7 @@ import SwiftObserver
 
 protocol ProjectInspector
 {
-    func symbols(for codeFile: CodeFolder.File) -> Promise<Result<[LSPDocumentSymbol], Error>>
+    func symbols(for codeFile: CodeFolder.File) -> SymbolPromise
 }
+
+typealias SymbolPromise = Promise<Result<[LSPDocumentSymbol], Error>>

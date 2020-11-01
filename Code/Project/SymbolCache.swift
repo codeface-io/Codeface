@@ -29,8 +29,6 @@ class SymbolCache
         }
     }
     
-    typealias SymbolPromise = Promise<Result<[LSPDocumentSymbol], Error>>
-    
     private let inspector: ProjectInspector
     private var symbolsByFilePath = [String: [LSPDocumentSymbol]]()
 }

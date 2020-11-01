@@ -24,7 +24,7 @@ extension CodeFolder
         {
             if url.isDirectory
             {
-                subfolders.append(try .init(url))
+                subfolders.append(try CodeFolder(url))
             }
             else if url.pathExtension == "swift"
             {

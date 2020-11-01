@@ -21,10 +21,14 @@ struct ContentView: View
 {
     var body: some View
     {
-        NavigationView {
-            List([data], children: \.children) { item in
-                Text(item.description)
-            }.listStyle(SidebarListStyle())
+        NavigationView
+        {
+            List([data], children: \.children)
+            {
+                item in Text(item.description)
+            }
+            .listStyle(SidebarListStyle())
+            
             Text("Huhu")
         }
     }
