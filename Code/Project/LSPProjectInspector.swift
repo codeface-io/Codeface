@@ -28,7 +28,7 @@ class LSPProjectInspector: ProjectInspector
         {
             promise in
             
-            initializationPromise.whenFulfilled
+            initializationResult.whenCached
             {
                 [weak self] initializationResult in
 
@@ -68,7 +68,7 @@ class LSPProjectInspector: ProjectInspector
     
     // MARK: - Initializing the Language Server
     
-    private lazy var initializationPromise = initializeServer()
+    private lazy var initializationResult = initializeServer().cache()
     
     private func initializeServer() -> Promise<Result<Void, Error>>
     {
@@ -76,7 +76,7 @@ class LSPProjectInspector: ProjectInspector
         {
             promise in
             
-            LSPServiceAPI.ProcessID.get().whenFulfilled
+            LSPServiceAPI.ProcessID.get().observed
             {
                 [weak self] result in
                 

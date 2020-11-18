@@ -21,7 +21,7 @@ class SymbolCache
                 return promise.fulfill(.success(symbols))
             }
             
-            inspector.symbols(for: codeFile).whenFulfilled
+            inspector.symbols(for: codeFile).observed
             {
                 do    { promise.fulfill(.success(try $0.get())) }
                 catch { promise.fulfill(.failure(error)) }
