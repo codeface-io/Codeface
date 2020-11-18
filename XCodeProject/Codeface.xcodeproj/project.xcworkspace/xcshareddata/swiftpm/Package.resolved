@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/flowtoolz/FoundationToolz.git",
         "state": {
           "branch": "master",
-          "revision": "78622e6c08b3cab238b8e35ec9b3f6efde724432",
+          "revision": "e33bbb77c675fa1d7317d869683ccab2ff14b426",
           "version": null
         }
       },
@@ -24,7 +24,34 @@
         "repositoryURL": "https://github.com/flowtoolz/SwiftLSP",
         "state": {
           "branch": "master",
-          "revision": "e7a69c412021d49524e79987b8b14cf45e80d9d6",
+          "revision": "be95c3d6e7a579afa61224092ad3fda4312f2e06",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftObserver",
+        "repositoryURL": "https://github.com/flowtoolz/SwiftObserver.git",
+        "state": {
+          "branch": "master",
+          "revision": "9c546a53ae6fb8da9970730fa2c933a1766c3e65",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftyToolz",
+        "repositoryURL": "https://github.com/flowtoolz/SwiftyToolz.git",
+        "state": {
+          "branch": "master",
+          "revision": "2f44332e2ce4ef88c3af0ad4ccfcdd614cffc1e3",
+          "version": null
+        }
+      },
+      {
+        "package": "UIToolz",
+        "repositoryURL": "https://github.com/flowtoolz/UIToolz.git",
+        "state": {
+          "branch": "master",
+          "revision": "e8e80e1c1ae49b4a616673d53a8a3684fe71919a",
           "version": null
         }
       }

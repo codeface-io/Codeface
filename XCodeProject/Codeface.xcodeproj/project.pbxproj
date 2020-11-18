@@ -73,9 +73,6 @@
 		9678DA6A253B42CC002BF645 /* LSPServiceWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceWebSocket.swift; sourceTree = "<group>"; };
 		967CA9EA2548B6C80044E79C /* ProjectInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectInspector.swift; sourceTree = "<group>"; };
 		9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPProjectInspector.swift; sourceTree = "<group>"; };
-		96898AEE252A10D5007AB9FB /* UIToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = UIToolz; path = ../../UIToolz; sourceTree = "<group>"; };
-		96898AF1252A1164007AB9FB /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
-		96898AF3252A1167007AB9FB /* SwiftObserver */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftObserver; path = ../../SwiftObserver; sourceTree = "<group>"; };
 		96898AF5252A116F007AB9FB /* GetLaid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GetLaid; path = ../../GetLaid; sourceTree = "<group>"; };
 		969884132533DC6800DD1F94 /* LSPServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceAPI.swift; sourceTree = "<group>"; };
 		96A3A399254A375600AE4146 /* SymbolCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolCache.swift; sourceTree = "<group>"; };
@@ -156,10 +153,7 @@
 		96898AED252A10C8007AB9FB /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
-				96898AEE252A10D5007AB9FB /* UIToolz */,
 				96898AF5252A116F007AB9FB /* GetLaid */,
-				96898AF3252A1167007AB9FB /* SwiftObserver */,
-				96898AF1252A1164007AB9FB /* SwiftyToolz */,
 			);
 			name = "Local Packages";
 			sourceTree = "<group>";
