@@ -23,8 +23,20 @@ class SymbolCache
             
             inspector.symbols(for: codeFile).observed
             {
-                do    { promise.fulfill(.success(try $0.get())) }
-                catch { promise.fulfill(.failure(error)) }
+                [weak self] in
+                
+                guard let self = self else { return }
+                
+                do
+                {
+                    let symbols = try $0.get()
+                    self.symbolsByFilePath[codeFile.path] = symbols
+                    promise.fulfill(.success(symbols))
+                }
+                catch
+                {
+                    promise.fulfill(.failure(error))
+                }
             }
         }
     }
