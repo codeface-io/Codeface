@@ -63,7 +63,6 @@ class LSPProjectInspector: ProjectInspector
                 }
             }
         }
-        
     }
     
     // MARK: - Initializing the Language Server

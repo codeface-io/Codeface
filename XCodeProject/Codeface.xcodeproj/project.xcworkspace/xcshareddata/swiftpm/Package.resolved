@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/flowtoolz/FoundationToolz.git",
         "state": {
           "branch": "master",
-          "revision": "e33bbb77c675fa1d7317d869683ccab2ff14b426",
+          "revision": "a66ee3d836f811a4ad54b6338f4971b08607e195",
           "version": null
         }
       },
@@ -33,7 +33,7 @@
         "repositoryURL": "https://github.com/flowtoolz/SwiftObserver.git",
         "state": {
           "branch": "master",
-          "revision": "9c546a53ae6fb8da9970730fa2c933a1766c3e65",
+          "revision": "969b4ad17da0f7f66af69bcc16359aed4ee9f27d",
           "version": null
         }
       },
@@ -42,7 +42,7 @@
         "repositoryURL": "https://github.com/flowtoolz/SwiftyToolz.git",
         "state": {
           "branch": "master",
-          "revision": "2f44332e2ce4ef88c3af0ad4ccfcdd614cffc1e3",
+          "revision": "87e8655f5ad7c520527f58b2548a37ad0bfc1cc7",
           "version": null
         }
       },
@@ -51,7 +51,7 @@
         "repositoryURL": "https://github.com/flowtoolz/UIToolz.git",
         "state": {
           "branch": "master",
-          "revision": "e8e80e1c1ae49b4a616673d53a8a3684fe71919a",
+          "revision": "710f2361628636a68fbe00b9d5248c04902787f1",
           "version": null
         }
       }

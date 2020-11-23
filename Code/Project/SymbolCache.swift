@@ -12,32 +12,19 @@ class SymbolCache
     
     func symbols(for codeFile: CodeFolder.File) -> SymbolPromise
     {
-        Promise
+        if let symbols = symbolsByFilePath[codeFile.path]
         {
-            promise in
-            
-            if let symbols = symbolsByFilePath[codeFile.path]
-            {
-                return promise.fulfill(.success(symbols))
-            }
-            
-            inspector.symbols(for: codeFile).observed
-            {
-                [weak self] in
-                
-                guard let self = self else { return }
-                
-                do
-                {
-                    let symbols = try $0.get()
-                    self.symbolsByFilePath[codeFile.path] = symbols
-                    promise.fulfill(.success(symbols))
-                }
-                catch
-                {
-                    promise.fulfill(.failure(error))
-                }
-            }
+            return .fulfilled(symbols)
+        }
+        
+        return promise
+        {
+            inspector.symbols(for: codeFile)
+        }
+        .mapSuccess
+        {
+            self.symbolsByFilePath[codeFile.path] = $0
+            return $0
         }
     }
     
