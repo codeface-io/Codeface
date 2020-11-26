@@ -1,5 +1,3 @@
-import FoundationToolz // for LSPDocumentSymbol for now
-
 class CodeFolder
 {
     init(name: String,

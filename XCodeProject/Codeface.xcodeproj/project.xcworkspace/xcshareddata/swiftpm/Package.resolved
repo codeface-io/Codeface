@@ -24,16 +24,7 @@
         "repositoryURL": "https://github.com/flowtoolz/SwiftLSP",
         "state": {
           "branch": "master",
-          "revision": "be95c3d6e7a579afa61224092ad3fda4312f2e06",
-          "version": null
-        }
-      },
-      {
-        "package": "SwiftObserver",
-        "repositoryURL": "https://github.com/flowtoolz/SwiftObserver.git",
-        "state": {
-          "branch": "master",
-          "revision": "969b4ad17da0f7f66af69bcc16359aed4ee9f27d",
+          "revision": "ad02f2164439390685bfb4a332cd608af03914f7",
           "version": null
         }
       },

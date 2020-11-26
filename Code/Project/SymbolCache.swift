@@ -2,6 +2,7 @@ import SwiftLSP
 import FoundationToolz
 import Foundation
 import SwiftObserver
+import SwiftyToolz
 
 class SymbolCache
 {
@@ -21,10 +22,13 @@ class SymbolCache
         {
             inspector.symbols(for: codeFile)
         }
-        .mapSuccess
+        .whenSucceeded
         {
             self.symbolsByFilePath[codeFile.path] = $0
-            return $0
+        }
+        failed:
+        {
+            log($0)
         }
     }
     
