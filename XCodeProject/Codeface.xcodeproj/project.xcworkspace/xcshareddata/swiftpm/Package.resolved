@@ -20,15 +20,6 @@
         }
       },
       {
-        "package": "SwiftLSP",
-        "repositoryURL": "https://github.com/flowtoolz/SwiftLSP",
-        "state": {
-          "branch": "master",
-          "revision": "ad02f2164439390685bfb4a332cd608af03914f7",
-          "version": null
-        }
-      },
-      {
         "package": "SwiftyToolz",
         "repositoryURL": "https://github.com/flowtoolz/SwiftyToolz.git",
         "state": {

@@ -75,6 +75,7 @@
 		9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPProjectInspector.swift; sourceTree = "<group>"; };
 		96898AF5252A116F007AB9FB /* GetLaid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GetLaid; path = ../../GetLaid; sourceTree = "<group>"; };
 		969884132533DC6800DD1F94 /* LSPServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceAPI.swift; sourceTree = "<group>"; };
+		96A378432576D001003A4ECB /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
 		96A3A399254A375600AE4146 /* SymbolCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolCache.swift; sourceTree = "<group>"; };
 		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		96A83103257021BE0002478C /* SwiftObserver */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftObserver; path = ../../SwiftObserver; sourceTree = "<group>"; };
@@ -154,6 +155,7 @@
 		96898AED252A10C8007AB9FB /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				96A378432576D001003A4ECB /* SwiftLSP */,
 				96A83103257021BE0002478C /* SwiftObserver */,
 				96898AF5252A116F007AB9FB /* GetLaid */,
 			);

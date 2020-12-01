@@ -33,7 +33,7 @@ class LSPServiceWebSocket: SynchronousLSPServerConnection
     {
         do
         {
-            let message = try LSP.Message(packet: packet)
+            let message = try LSP.Message(packet)
             
             switch message
             {
@@ -56,7 +56,7 @@ class LSPServiceWebSocket: SynchronousLSPServerConnection
     
     func sendToServer(_ message: LSP.Message) throws
     {   
-        webSocket.send(try message.packet())
+        webSocket.send(try message.packet().data)
         {
             $0.forSome { log($0) }
         }
