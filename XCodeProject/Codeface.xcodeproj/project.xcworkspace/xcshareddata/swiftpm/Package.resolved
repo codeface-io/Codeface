@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "LSPServiceAPI",
+        "repositoryURL": "https://github.com/flowtoolz/LSPServiceAPI.git",
+        "state": {
+          "branch": "master",
+          "revision": "3db5bd0cbae175cd1398a7de1132952ad864e428",
+          "version": null
+        }
+      },
+      {
         "package": "Reachability",
         "repositoryURL": "https://github.com/ashleymills/Reachability.swift.git",
         "state": {

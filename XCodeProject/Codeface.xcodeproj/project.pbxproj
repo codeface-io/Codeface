@@ -16,15 +16,12 @@
 		966D581D2544A9490016C8D0 /* CodeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D581C2544A9490016C8D0 /* CodeFolder.swift */; };
 		966D58262544D0BC0016C8D0 /* CodeFolder+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */; };
 		966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */; };
-		9678DA6B253B42CC002BF645 /* LSPServiceWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678DA6A253B42CC002BF645 /* LSPServiceWebSocket.swift */; };
 		967CA9EB2548B6C80044E79C /* ProjectInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967CA9EA2548B6C80044E79C /* ProjectInspector.swift */; };
 		9686BA0E252A28A600C09166 /* LSPProjectInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */; };
-		969884142533DC6800DD1F94 /* LSPServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969884132533DC6800DD1F94 /* LSPServiceAPI.swift */; };
 		96A3A39A254A375600AE4146 /* SymbolCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3A399254A375600AE4146 /* SymbolCache.swift */; };
 		96A3A39F254A3B8400AE4146 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3A39E254A3B8400AE4146 /* Project.swift */; };
 		96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96A3A3AB254A621900AE4146 /* SwiftLSP */; };
-		96C51CE5253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C51CE4253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift */; };
-		96EBF48925423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift */; };
+		96F0DA1426A49D5800136F07 /* LSPServiceAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 96F0DA1326A49D5800136F07 /* LSPServiceAPI */; };
 		9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727B218E250E0094BD1C /* AnalyticsView.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceAppController.swift */; };
 		9E007284218E250E0094BD1C /* AnalyticsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727D218E250E0094BD1C /* AnalyticsTable.swift */; };
@@ -70,17 +67,14 @@
 		966D581C2544A9490016C8D0 /* CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolder.swift; sourceTree = "<group>"; };
 		966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+Foundation.swift"; sourceTree = "<group>"; };
 		966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+CustomstringConvertible.swift"; sourceTree = "<group>"; };
-		9678DA6A253B42CC002BF645 /* LSPServiceWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceWebSocket.swift; sourceTree = "<group>"; };
 		967CA9EA2548B6C80044E79C /* ProjectInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectInspector.swift; sourceTree = "<group>"; };
 		9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPProjectInspector.swift; sourceTree = "<group>"; };
 		96898AF5252A116F007AB9FB /* GetLaid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GetLaid; path = ../../GetLaid; sourceTree = "<group>"; };
-		969884132533DC6800DD1F94 /* LSPServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceAPI.swift; sourceTree = "<group>"; };
 		96A378432576D001003A4ECB /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
 		96A3A399254A375600AE4146 /* SymbolCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolCache.swift; sourceTree = "<group>"; };
 		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		96A83103257021BE0002478C /* SwiftObserver */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftObserver; path = ../../SwiftObserver; sourceTree = "<group>"; };
-		96C51CE4253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPServiceAPI+LSPServiceWebSocket.swift"; sourceTree = "<group>"; };
-		96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPServiceAPI+LSPServerConnection.swift"; sourceTree = "<group>"; };
+		96F0DA1526A49D6600136F07 /* LSPServiceAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LSPServiceAPI; path = ../../LSPServiceAPI; sourceTree = "<group>"; };
 		9E00727B218E250E0094BD1C /* AnalyticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceAppController.swift; sourceTree = "<group>"; };
 		9E00727D218E250E0094BD1C /* AnalyticsTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsTable.swift; sourceTree = "<group>"; };
@@ -109,6 +103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */,
+				96F0DA1426A49D5800136F07 /* LSPServiceAPI in Frameworks */,
 				9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */,
 				9656A6A625287F3600D4CF26 /* FoundationToolz in Frameworks */,
 				9656A6A925287F5300D4CF26 /* GetLaid in Frameworks */,
@@ -127,17 +122,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		962D8285253C6D1B0016E1D1 /* SwiftLSPService */ = {
-			isa = PBXGroup;
-			children = (
-				96EBF48825423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift */,
-				96C51CE4253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift */,
-				9678DA6A253B42CC002BF645 /* LSPServiceWebSocket.swift */,
-				969884132533DC6800DD1F94 /* LSPServiceAPI.swift */,
-			);
-			path = SwiftLSPService;
-			sourceTree = "<group>";
-		};
 		966D581B2544A8EC0016C8D0 /* Project */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +139,7 @@
 		96898AED252A10C8007AB9FB /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				96F0DA1526A49D6600136F07 /* LSPServiceAPI */,
 				96A378432576D001003A4ECB /* SwiftLSP */,
 				96A83103257021BE0002478C /* SwiftObserver */,
 				96898AF5252A116F007AB9FB /* GetLaid */,
@@ -283,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				9EA5A8B2218EE9A2004902F7 /* AppKit */,
-				962D8285253C6D1B0016E1D1 /* SwiftLSPService */,
 				9EA5A8B3218EE9B9004902F7 /* Foundation */,
 			);
 			path = "Framework-Candidates";
@@ -313,6 +297,7 @@
 				9656A6A825287F5300D4CF26 /* GetLaid */,
 				9656A6AB25287F7E00D4CF26 /* UIToolz */,
 				96A3A3AB254A621900AE4146 /* SwiftLSP */,
+				96F0DA1326A49D5800136F07 /* LSPServiceAPI */,
 			);
 			productName = Cocoalytics;
 			productReference = 9E95A703218C73C7009A58A9 /* Codeface.app */;
@@ -373,6 +358,7 @@
 				9656A6A725287F5300D4CF26 /* XCRemoteSwiftPackageReference "GetLaid" */,
 				9656A6AA25287F7E00D4CF26 /* XCRemoteSwiftPackageReference "UIToolz" */,
 				96A3A3AA254A621900AE4146 /* XCRemoteSwiftPackageReference "SwiftLSP" */,
+				96F0DA1226A49D5800136F07 /* XCRemoteSwiftPackageReference "LSPServiceAPI" */,
 			);
 			productRefGroup = 9E95A704218C73C7009A58A9 /* Products */;
 			projectDirPath = "";
@@ -413,14 +399,10 @@
 				9EA5A8B5218EEB7E004902F7 /* AnalyticsSummaryView.swift in Sources */,
 				9EB8BA58218E28E9007ED4E7 /* CodeFileAnalytics.swift in Sources */,
 				966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */,
-				96EBF48925423F2F002F3C53 /* LSPServiceAPI+LSPServerConnection.swift in Sources */,
 				9E76E24D218F6A6A00339F55 /* Project+Loading.swift in Sources */,
 				9E007282218E250E0094BD1C /* AnalyticsView.swift in Sources */,
-				9678DA6B253B42CC002BF645 /* LSPServiceWebSocket.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceAppController.swift in Sources */,
-				969884142533DC6800DD1F94 /* LSPServiceAPI.swift in Sources */,
-				96C51CE5253F2F2C00588EFB /* LSPServiceAPI+LSPServiceWebSocket.swift in Sources */,
 				966D581D2544A9490016C8D0 /* CodeFolder.swift in Sources */,
 				9EB8BA5F218E2D3A007ED4E7 /* NSTableView+NSTableColumn.swift in Sources */,
 				9E007288218E250E0094BD1C /* CodefaceMenu.swift in Sources */,
@@ -734,6 +716,14 @@
 				kind = branch;
 			};
 		};
+		96F0DA1226A49D5800136F07 /* XCRemoteSwiftPackageReference "LSPServiceAPI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/flowtoolz/LSPServiceAPI.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -766,6 +756,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 96A3A3AA254A621900AE4146 /* XCRemoteSwiftPackageReference "SwiftLSP" */;
 			productName = SwiftLSP;
+		};
+		96F0DA1326A49D5800136F07 /* LSPServiceAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96F0DA1226A49D5800136F07 /* XCRemoteSwiftPackageReference "LSPServiceAPI" */;
+			productName = LSPServiceAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
