@@ -1,4 +1,4 @@
-import LSPServiceAPI
+import LSPServiceKit
 import SwiftLSP
 import FoundationToolz
 import Foundation
@@ -20,7 +20,7 @@ class LSPProjectInspector: ProjectInspector
             errorOutput in log(error: "Language server: \(errorOutput)")
         }
         
-        serverConnection.serverDidSendError = { log($0) }
+        serverConnection.serverDidSendErrorResult = { log($0) }
     }
     
     func symbols(for codeFile: CodeFolder.File) -> SymbolPromise
@@ -107,5 +107,5 @@ class LSPProjectInspector: ProjectInspector
     
     private let language: String
     private let rootFolder: URL
-    private let serverConnection: LSP.ServerConnection
+    private let serverConnection: LSP.ServerCommunicationHandler
 }

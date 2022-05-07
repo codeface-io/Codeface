@@ -1,6 +1,6 @@
 import SwiftObserver
 
-class CodeFileAnalyticsStore: Observable
+class CodeFileAnalyticsStore: ObservableObject
 {
     // MARK: - Analytics Elements
     

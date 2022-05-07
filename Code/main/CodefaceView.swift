@@ -49,7 +49,7 @@ struct ContentView: View
     @ObservedObject private var viewModel = ContentViewModel()
 }
 
-private class ContentViewModel: ObservableObject, Observer
+private class ContentViewModel: SwiftUI.ObservableObject, Observer
 {
     init()
     {
