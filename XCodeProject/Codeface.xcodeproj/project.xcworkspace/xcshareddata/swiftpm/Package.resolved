@@ -1,52 +1,68 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "FoundationToolz",
-        "repositoryURL": "https://github.com/flowtoolz/FoundationToolz.git",
-        "state": {
-          "branch": "master",
-          "revision": "a66ee3d836f811a4ad54b6338f4971b08607e195",
-          "version": null
-        }
-      },
-      {
-        "package": "LSPServiceAPI",
-        "repositoryURL": "https://github.com/flowtoolz/LSPServiceAPI.git",
-        "state": {
-          "branch": "master",
-          "revision": "3db5bd0cbae175cd1398a7de1132952ad864e428",
-          "version": null
-        }
-      },
-      {
-        "package": "Reachability",
-        "repositoryURL": "https://github.com/ashleymills/Reachability.swift.git",
-        "state": {
-          "branch": null,
-          "revision": "6c8652a8ea35a64cf36367d07b3d6e5e6a24b272",
-          "version": "4.3.1"
-        }
-      },
-      {
-        "package": "SwiftyToolz",
-        "repositoryURL": "https://github.com/flowtoolz/SwiftyToolz.git",
-        "state": {
-          "branch": "master",
-          "revision": "87e8655f5ad7c520527f58b2548a37ad0bfc1cc7",
-          "version": null
-        }
-      },
-      {
-        "package": "UIToolz",
-        "repositoryURL": "https://github.com/flowtoolz/UIToolz.git",
-        "state": {
-          "branch": "master",
-          "revision": "710f2361628636a68fbe00b9d5248c04902787f1",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "foundationtoolz",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flowtoolz/FoundationToolz.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "304015fdac7fbfef7561943fd29c5cca92aa4628"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "getlaid",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flowtoolz/GetLaid.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "a4ee1ab503cb52122fe30694d6317a6717f8e23e"
+      }
+    },
+    {
+      "identity" : "lspservicekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flowtoolz/LSPServiceKit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "89c819f191f6f28580b060af31bd59f880dca821"
+      }
+    },
+    {
+      "identity" : "swiftlsp",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flowtoolz/SwiftLSP",
+      "state" : {
+        "branch" : "master",
+        "revision" : "d420278a73570b33a181b766c655b249a27a9bd6"
+      }
+    },
+    {
+      "identity" : "swiftobserver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flowtoolz/SwiftObserver.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "117be38a979df343834fdb742261721ff60c6ff0"
+      }
+    },
+    {
+      "identity" : "swiftytoolz",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flowtoolz/SwiftyToolz.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "521943ebefb0bbfa98c5b4538fbd9357524c0c8d"
+      }
+    },
+    {
+      "identity" : "uitoolz",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flowtoolz/UIToolz.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "c4d9c1de2cbcc8bb1f527bd86979bbd84c8c77e4"
+      }
+    }
+  ],
+  "version" : 2
 }
