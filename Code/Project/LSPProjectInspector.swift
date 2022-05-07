@@ -11,16 +11,16 @@ class LSPProjectInspector: ProjectInspector
     {
         self.language = language
         self.rootFolder = folder
-        serverConnection = try LSPServiceAPI.Language.Name(language).connectToLSPServer()
+        serverHandler = try LSPService.api.language(language).connectToLSPServer()
         
-        serverConnection.serverDidSendNotification = { _ in }
+        serverHandler.serverDidSendNotification = { _ in }
 
-        serverConnection.serverDidSendErrorOutput =
+        serverHandler.serverDidSendErrorOutput =
         {
             errorOutput in log(error: "Language server: \(errorOutput)")
         }
         
-        serverConnection.serverDidSendErrorResult = { log($0) }
+        serverHandler.serverDidSendErrorResult = { log($0) }
     }
     
     func symbols(for codeFile: CodeFolder.File) -> SymbolPromise
@@ -41,7 +41,7 @@ class LSPProjectInspector: ProjectInspector
                 "text": codeFile.content
             ]
             
-            try self.serverConnection.notify(.didOpen(doc: JSON(document)))
+            try self.serverHandler.notify(.didOpen(doc: JSON(document)))
             
             return Promise
             {
@@ -49,7 +49,7 @@ class LSPProjectInspector: ProjectInspector
             
                 do
                 {
-                    try self.serverConnection.request(.docSymbols(inFile: file),
+                    try self.serverHandler.request(.docSymbols(inFile: file),
                                                       as: [LSPDocumentSymbol].self)
                     {
                         do { promise.fulfill(try $0.get()) }
@@ -69,7 +69,7 @@ class LSPProjectInspector: ProjectInspector
     {
         promise
         {
-            LSPServiceAPI.ProcessID.get()
+            LSPService.api.processID.get()
         }
         .onSuccess
         {
@@ -85,7 +85,7 @@ class LSPProjectInspector: ProjectInspector
             
             do
             {
-                try serverConnection.request(.initialize(folder: rootFolder,
+                try serverHandler.request(.initialize(folder: rootFolder,
                                                          clientProcessID: id))
                 {
                     [weak self] _ in
@@ -93,7 +93,7 @@ class LSPProjectInspector: ProjectInspector
                     do
                     {
                         guard let self = self else { throw "\(Self.self) died" }
-                        try self.serverConnection.notify(.initialized)
+                        try self.serverHandler.notify(.initialized)
                         promise.fulfill(())
                     }
                     catch { promise.fulfill(error) }
@@ -107,5 +107,5 @@ class LSPProjectInspector: ProjectInspector
     
     private let language: String
     private let rootFolder: URL
-    private let serverConnection: LSP.ServerCommunicationHandler
+    private let serverHandler: LSP.ServerCommunicationHandler
 }
