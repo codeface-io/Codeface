@@ -46,3 +46,4 @@ class CodeFileAnalyticsStore: ObservableObject
     
     private(set) var elements = [CodeFileAnalytics]()
 }
+

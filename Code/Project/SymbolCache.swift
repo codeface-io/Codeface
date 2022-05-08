@@ -11,7 +11,7 @@ class SymbolCache
         self.inspector = inspector
     }
     
-    func symbols(for codeFile: CodeFolder.File) -> SymbolPromise
+    func symbols(for codeFile: CodeFile) -> SymbolPromise
     {
         if let symbols = symbolsByFilePath[codeFile.path]
         {

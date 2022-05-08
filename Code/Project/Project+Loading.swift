@@ -3,7 +3,9 @@ import SwiftyToolz
 
 extension Project
 {
-    static func load(newFolder: URL) throws
+    static func load(newFolder: URL,
+                     language: String,
+                     codeFileEnding: String) throws
     {
         guard newFolder.startAccessingSecurityScopedResource() else
         {
@@ -12,12 +14,17 @@ extension Project
         
         defer { newFolder.stopAccessingSecurityScopedResource() }
         
-        try load(newFolder)
+        try load(newFolder,
+                 language: language,
+                 codeFileEnding: codeFileEnding)
+        
         lastFolder = newFolder
     }
     
-    static func loadLastOpenFolder() throws
+    static func loadLastOpenFolder(language: String,
+                                   codeFileEnding: String) throws
     {
+        // TODO: persist whole project config including language and code file endings
         guard let lastFolder = lastFolder else { return }
         
         guard lastFolder.startAccessingSecurityScopedResource() else
@@ -27,14 +34,20 @@ extension Project
         
         defer { lastFolder.stopAccessingSecurityScopedResource() }
         
-        try load(lastFolder)
+        try load(lastFolder,
+                 language: language,
+                 codeFileEnding: codeFileEnding)
     }
     
-    private static func load(_ folder: URL) throws
+    private static func load(_ folder: URL,
+                             language: String,
+                             codeFileEnding: String) throws
     {
-        let inspector = try LSPProjectInspector(language: "swift", folder: folder)
+        Project.active = try Project(folder: folder,
+                                     language: language,
+                                     codeFileEnding: codeFileEnding)
         
-        Project.active = try Project(folder: folder, inspector: inspector)
+        try Project.active?.startAnalysis()
     }
     
     // TODO: make this bookmarked URL reusable via property wrapper???

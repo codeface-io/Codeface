@@ -23,7 +23,7 @@ class LSPProjectInspector
         serverHandler.serverDidSendErrorResult = { log($0) }
     }
     
-    func symbols(for codeFile: CodeFolder.File) -> SymbolPromise
+    func symbols(for codeFile: CodeFile) -> SymbolPromise
     {
         promise
         {

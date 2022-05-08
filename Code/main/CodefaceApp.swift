@@ -11,7 +11,7 @@ struct CodefaceApp: App {
             ContentView()
         }.commands {
             CommandGroup(replacing: .newItem) {
-                Button("Load Code Folder...") {
+                Button("Load Swift Package...") {
                     isPresented = true
                 }
                 .keyboardShortcut("l")
@@ -25,7 +25,9 @@ struct CodefaceApp: App {
                     case .success(let urls):
                         urls.first.forSome {
                             do {
-                                try Project.load(newFolder: $0)
+                                try Project.load(newFolder: $0,
+                                                 language: "swift",
+                                                 codeFileEnding: "swift")
                             }
                             catch {
                                 log(error)
@@ -37,8 +39,9 @@ struct CodefaceApp: App {
                     
                 })
                 
-                Button("Reload") {
-                    do { try Project.loadLastOpenFolder() }
+                Button("Reload Swift Package") {
+                    do { try Project.loadLastOpenFolder(language: "swift",
+                                                        codeFileEnding: "swift") }
                     catch { log(error) }
                 }
                 .keyboardShortcut("r")
