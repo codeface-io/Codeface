@@ -5,7 +5,7 @@ import Foundation
 import SwiftObserver
 import SwiftyToolz
 
-class LSPProjectInspector: ProjectInspector
+class LSPProjectInspector
 {
     init(language: String, folder: URL) throws
     {
@@ -109,3 +109,5 @@ class LSPProjectInspector: ProjectInspector
     private let rootFolder: URL
     private let serverHandler: LSP.ServerCommunicationHandler
 }
+
+typealias SymbolPromise = ResultPromise<[LSPDocumentSymbol]>

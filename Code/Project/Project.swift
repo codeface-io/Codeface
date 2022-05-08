@@ -16,7 +16,7 @@ class Project
     
     // MARK: - Initialization
     
-    init(folder: URL, inspector: ProjectInspector) throws
+    init(folder: URL, inspector: LSPProjectInspector) throws
     {
         rootFolder = try CodeFolder(folder)
         self.inspector = inspector
@@ -28,6 +28,6 @@ class Project
     
     let analyticsStore = CodeFileAnalyticsStore()
     let symbolCache: SymbolCache
-    let inspector: ProjectInspector
+    let inspector: LSPProjectInspector
     let rootFolder: CodeFolder
 }

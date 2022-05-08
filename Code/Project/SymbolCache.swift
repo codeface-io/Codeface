@@ -6,7 +6,7 @@ import SwiftyToolz
 
 class SymbolCache
 {
-    init(inspector: ProjectInspector)
+    init(inspector: LSPProjectInspector)
     {
         self.inspector = inspector
     }
@@ -32,6 +32,6 @@ class SymbolCache
         }
     }
     
-    private let inspector: ProjectInspector
+    private let inspector: LSPProjectInspector
     private var symbolsByFilePath = [String: [LSPDocumentSymbol]]()
 }
