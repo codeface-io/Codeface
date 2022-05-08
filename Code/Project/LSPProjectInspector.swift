@@ -50,7 +50,7 @@ class LSPProjectInspector: ProjectInspector
                 do
                 {
                     try self.serverHandler.request(.docSymbols(inFile: file),
-                                                      as: [LSPDocumentSymbol].self)
+                                                   as: [LSPDocumentSymbol].self)
                     {
                         do { promise.fulfill(try $0.get()) }
                         catch { promise.fulfill(error) }
@@ -86,7 +86,7 @@ class LSPProjectInspector: ProjectInspector
             do
             {
                 try serverHandler.request(.initialize(folder: rootFolder,
-                                                         clientProcessID: id))
+                                                      clientProcessID: id))
                 {
                     [weak self] _ in
                     

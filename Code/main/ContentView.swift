@@ -1,15 +1,6 @@
 import SwiftUI
 import SwiftObserver
 
-class CodefaceView: NSHostingView<ContentView>
-{
-    init() { super.init(rootView: ContentView()) }
-    
-    required init(rootView: ContentView) { super.init(rootView: rootView) }
-    
-    @objc required dynamic init?(coder aDecoder: NSCoder) { nil }
-}
-
 struct Preview: PreviewProvider
 {
     static var previews: some View
