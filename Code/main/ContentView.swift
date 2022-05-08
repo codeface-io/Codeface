@@ -37,7 +37,7 @@ struct ContentView: View
         }
     }
     
-    @ObservedObject private var viewModel = ContentViewModel()
+    @StateObject private var viewModel = ContentViewModel()
 }
 
 private class ContentViewModel: SwiftUI.ObservableObject, Observer
