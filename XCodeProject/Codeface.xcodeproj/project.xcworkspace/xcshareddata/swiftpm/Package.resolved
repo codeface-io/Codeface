@@ -10,21 +10,12 @@
       }
     },
     {
-      "identity" : "getlaid",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/flowtoolz/GetLaid.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "a4ee1ab503cb52122fe30694d6317a6717f8e23e"
-      }
-    },
-    {
       "identity" : "lspservicekit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/flowtoolz/LSPServiceKit",
       "state" : {
         "branch" : "master",
-        "revision" : "89c819f191f6f28580b060af31bd59f880dca821"
+        "revision" : "211ac232f6ca9a1e3eca2cf4ef19af9cc24d2bba"
       }
     },
     {
@@ -52,15 +43,6 @@
       "state" : {
         "branch" : "master",
         "revision" : "521943ebefb0bbfa98c5b4538fbd9357524c0c8d"
-      }
-    },
-    {
-      "identity" : "uitoolz",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/flowtoolz/UIToolz.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "c4d9c1de2cbcc8bb1f527bd86979bbd84c8c77e4"
       }
     }
   ],
