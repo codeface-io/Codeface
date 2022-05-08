@@ -11,25 +11,18 @@ class SymbolCache
         self.inspector = inspector
     }
     
-    func symbols(for codeFile: CodeFile) -> SymbolPromise
+    func symbols(for codeFile: CodeFile) async throws -> [LSPDocumentSymbol]
     {
         if let symbols = symbolsByFilePath[codeFile.path]
         {
-            return .fulfilled(symbols)
+            return symbols
         }
         
-        return promise
-        {
-            inspector.symbols(for: codeFile)
-        }
-        .whenSucceeded
-        {
-            self.symbolsByFilePath[codeFile.path] = $0
-        }
-        failed:
-        {
-            log($0)
-        }
+        let symbols = try await inspector.symbols(for: codeFile)
+        
+        symbolsByFilePath[codeFile.path] = symbols
+        
+        return symbols
     }
     
     private let inspector: LSPProjectInspector

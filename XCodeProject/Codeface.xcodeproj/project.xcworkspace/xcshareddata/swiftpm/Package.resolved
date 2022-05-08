@@ -6,7 +6,7 @@
       "location" : "https://github.com/flowtoolz/FoundationToolz.git",
       "state" : {
         "branch" : "master",
-        "revision" : "304015fdac7fbfef7561943fd29c5cca92aa4628"
+        "revision" : "9b44fcc4e11013be5ac2aa8ea426acc8fb4129b8"
       }
     },
     {
@@ -15,7 +15,7 @@
       "location" : "https://github.com/flowtoolz/LSPServiceKit",
       "state" : {
         "branch" : "master",
-        "revision" : "856851dae7c08530d7bc073cf49c8cb8a251eb2a"
+        "revision" : "c4cd09880f6aa44f3fbde1ff883bbd8bd0f328f7"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/flowtoolz/SwiftLSP",
       "state" : {
         "branch" : "master",
-        "revision" : "d420278a73570b33a181b766c655b249a27a9bd6"
+        "revision" : "7dbd5977cc8bdc6b36d467080a48fa572b8bef54"
       }
     },
     {
