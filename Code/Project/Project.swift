@@ -51,16 +51,16 @@ class Project
             
             rootFolder = newRootFolder
             
+            rootFolderArtifact = CodeArtifact(codeFolder: newRootFolder)
+            
 //            if !isInitialized
 //            {
 //                try await initializeServer()
 //            }
+                        
+            // TODO: retrieve symbols and use them to complete the artifact tree
             
-            // TODO: retrieve symbols from symbol cache and use them to complete the artifact tree
-            
-            rootFolderArtifact = CodeArtifact(folder: newRootFolder)
-            
-            analyticsStore.set(elements: CodeFileAnalyzer().analyze(newRootFolder))
+            rootFolderArtifact?.generateMetricsRecursively()
             
             Self.messenger.send(.didCompleteAnalysis(self))
         }
@@ -73,8 +73,6 @@ class Project
     
     // general artifact tree with dependencies and metrics
     var rootFolderArtifact: CodeArtifact?
-    
-    let analyticsStore = CodeFileAnalyticsStore()
     
     // MARK: - Class Based Observability
     
