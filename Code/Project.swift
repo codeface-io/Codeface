@@ -13,20 +13,16 @@ class Project
     
     // MARK: - Initialization
     
-    init(folder: URL,
-         language: String,
-         codeFileEnding: String) throws
+    init(description: Description) throws
     {
-        guard FileManager.default.itemExists(folder) else
+        guard FileManager.default.itemExists(description.rootFolder) else
         {
-            throw "Folder does not exist: " + folder.absoluteString
+            throw "Project folder does not exist: " + description.rootFolder.absoluteString
         }
         
-        self.rootFolderURL = folder
-        self.language = language
-        self.codeFileEnding = codeFileEnding
+        self.description = description
         
-        server = try Self.createServer(language: language)
+        server = try Self.createServer(language: description.language)
     }
     
     // MARK: - Data Analysis
@@ -35,8 +31,8 @@ class Project
     {
         Task
         {
-            let newRootFolder = try CodeFolder(rootFolderURL,
-                                               codeFileEnding: codeFileEnding)
+            let newRootFolder = try CodeFolder(description.rootFolder,
+                                               codeFileEndings: description.codeFileEndings)
             
             rootFolder = newRootFolder
             
@@ -90,7 +86,7 @@ class Project
     {
         let processID = try await LSPService.api.processID.get()
         
-        let result = try await server.request(.initialize(folder: rootFolderURL,
+        let result = try await server.request(.initialize(folder: description.rootFolder,
                                                           clientProcessID: processID))
         
         switch result
@@ -108,9 +104,14 @@ class Project
     
     private let server: LSP.ServerCommunicationHandler
     
-    // MARK: - Basic Configuration
+    // MARK: - Description
     
-    private let rootFolderURL: URL
-    private let language: String
-    private let codeFileEnding: String
+    private let description: Description
+    
+    struct Description
+    {
+        let rootFolder: URL
+        let language: String
+        let codeFileEndings: [String]
+    }
 }

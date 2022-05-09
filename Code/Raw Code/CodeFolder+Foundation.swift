@@ -4,7 +4,7 @@ import SwiftyToolz
 
 extension CodeFolder
 {
-    convenience init(_ folder: URL, codeFileEnding: String) throws
+    convenience init(_ folder: URL, codeFileEndings: [String]) throws
     {
         let fm = FileManager.default
         
@@ -24,9 +24,10 @@ extension CodeFolder
         {
             if url.isDirectory
             {
-                subfolders.append(try CodeFolder(url, codeFileEnding: codeFileEnding))
+                subfolders.append(try CodeFolder(url,
+                                                 codeFileEndings: codeFileEndings))
             }
-            else if url.pathExtension == codeFileEnding
+            else if codeFileEndings.contains(url.pathExtension)
             {
                 codeFiles.append(try CodeFile(url))
             }

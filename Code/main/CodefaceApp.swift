@@ -23,13 +23,18 @@ struct CodefaceApp: App {
                     switch result {
                         
                     case .success(let urls):
-                        urls.first.forSome {
-                            do {
-                                try Project.load(newFolder: $0,
-                                                 language: "swift",
-                                                 codeFileEnding: "swift")
+                        urls.first.forSome
+                        {
+                            let description = Project.Description(rootFolder: $0,
+                                                                  language: "swift",
+                                                                  codeFileEndings: ["swift"])
+                            
+                            do
+                            {
+                                try Project.loadNewProject(description: description)
                             }
-                            catch {
+                            catch
+                            {
                                 log(error)
                             }
                         }
@@ -40,8 +45,11 @@ struct CodefaceApp: App {
                 })
                 
                 Button("Reload Swift Package") {
-                    do { try Project.loadLastOpenFolder(language: "swift",
-                                                        codeFileEnding: "swift") }
+                    do
+                    {
+                        try Project.loadLastProject(language: "swift",
+                                                    codeFileEndings: ["swift"])
+                    }
                     catch { log(error) }
                 }
                 .keyboardShortcut("r")

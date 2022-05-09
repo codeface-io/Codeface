@@ -3,28 +3,24 @@ import SwiftyToolz
 
 extension Project
 {
-    static func load(newFolder: URL,
-                     language: String,
-                     codeFileEnding: String) throws
+    static func loadNewProject(description: Description) throws
     {
-        guard newFolder.startAccessingSecurityScopedResource() else
+        guard description.rootFolder.startAccessingSecurityScopedResource() else
         {
             throw "Couldn't access security scoped folder"
         }
         
-        defer { newFolder.stopAccessingSecurityScopedResource() }
+        defer { description.rootFolder.stopAccessingSecurityScopedResource() }
         
-        try load(newFolder,
-                 language: language,
-                 codeFileEnding: codeFileEnding)
+        try loadProject(description: description)
         
-        lastFolder = newFolder
+        lastFolder = description.rootFolder
     }
     
-    static func loadLastOpenFolder(language: String,
-                                   codeFileEnding: String) throws
+    static func loadLastProject(language: String,
+                                codeFileEndings: [String]) throws
     {
-        // TODO: persist whole project config including language and code file endings
+        // TODO: persist whole project description
         guard let lastFolder = lastFolder else { return }
         
         guard lastFolder.startAccessingSecurityScopedResource() else
@@ -34,23 +30,18 @@ extension Project
         
         defer { lastFolder.stopAccessingSecurityScopedResource() }
         
-        try load(lastFolder,
-                 language: language,
-                 codeFileEnding: codeFileEnding)
+        try loadProject(description: .init(rootFolder: lastFolder,
+                                           language: language,
+                                           codeFileEndings: codeFileEndings))
     }
     
-    private static func load(_ folder: URL,
-                             language: String,
-                             codeFileEnding: String) throws
+    private static func loadProject(description: Description) throws
     {
-        Project.active = try Project(folder: folder,
-                                     language: language,
-                                     codeFileEnding: codeFileEnding)
+        Project.active = try Project(description: description)
         
         try Project.active?.startAnalysis()
     }
     
-    // TODO: make this bookmarked URL reusable via property wrapper???
     private static var lastFolder: URL?
     {
         get
@@ -97,11 +88,11 @@ extension Project
             
             do
             {
-                let bookmark = try newURL.bookmarkData(options: .withSecurityScope,
+                let bookmarkData = try newURL.bookmarkData(options: .withSecurityScope,
                                                        includingResourceValuesForKeys: nil,
                                                        relativeTo: nil)
                 
-                UserDefaults.standard.set(bookmark, forKey: bookmarkKey)
+                UserDefaults.standard.set(bookmarkData, forKey: bookmarkKey)
             }
             catch
             {
