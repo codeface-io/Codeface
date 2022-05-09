@@ -8,13 +8,13 @@ extension CodeArtifact
         switch kind {
         case .folder:
             var loc = 0
-            for child in (children ?? []) {
+            for child in (parts ?? []) {
                 child.generateMetricsRecursively()
                 loc += child.metrics?.linesOfCode ?? 0
             }
             metrics = .init(linesOfCode: loc)
             
-            children?.sort { $0.metrics?.linesOfCode ?? 0 > $1.metrics?.linesOfCode ?? 0 }
+            parts?.sort { $0.metrics?.linesOfCode ?? 0 > $1.metrics?.linesOfCode ?? 0 }
             
         case .file(let codeFile):
             metrics = .init(linesOfCode: codeFile.content.numberOfLines)
@@ -50,30 +50,43 @@ extension CodeArtifact: Hashable
     }
 }
 
-class CodeArtifact: Identifiable
+extension CodeArtifact
+{
+    convenience init(lspDocSymbol: LSPDocumentSymbol)
+    {
+        self.init(displayName: lspDocSymbol.name,
+                  kind: .symbol(lspDocSymbol),
+                  parts: lspDocSymbol.children.map(CodeArtifact.init))
+    }
+}
+
+extension CodeArtifact
 {
     convenience init(codeFolder: CodeFolder)
     {
-        var childArtifacts = [CodeArtifact]()
+        var parts = [CodeArtifact]()
         
-        childArtifacts += codeFolder.files.map(CodeArtifact.init)
-        childArtifacts += codeFolder.subfolders.map(CodeArtifact.init)
+        parts += codeFolder.files.map(CodeArtifact.init)
+        parts += codeFolder.subfolders.map(CodeArtifact.init)
         
         self.init(displayName: codeFolder.name,
                   kind: .folder(codeFolder),
-                  children: childArtifacts.isEmpty ? nil : childArtifacts)
+                  parts: parts)
     }
     
     convenience init(codeFile: CodeFile)
     {
         self.init(displayName: codeFile.name, kind: .file(codeFile))
     }
-    
-    init(displayName: String, kind: Kind, children: [CodeArtifact]? = nil)
+}
+
+class CodeArtifact: Identifiable
+{
+    init(displayName: String, kind: Kind, parts: [CodeArtifact] = [])
     {
         self.displayName = displayName
         self.kind = kind
-        self.children = children
+        self.parts = parts
     }
     
     let id = UUID().uuidString
@@ -83,7 +96,7 @@ class CodeArtifact: Identifiable
     let kind: Kind
     enum Kind { case folder(CodeFolder), file(CodeFile), symbol(LSPDocumentSymbol) }
     
-    var children: [CodeArtifact]?
+    var parts: [CodeArtifact]?
     
     var metrics: Metrics?
     

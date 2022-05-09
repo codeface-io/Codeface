@@ -36,16 +36,19 @@ class Project
             
             rootFolder = newRootFolder
             
-            rootFolderArtifact = CodeArtifact(codeFolder: newRootFolder)
+            let newRootFolderArtifact = CodeArtifact(codeFolder: newRootFolder)
             
-//            if !isInitialized
-//            {
-//                try await initializeServer()
-//            }
-                        
-            // TODO: retrieve symbols and use them to complete the artifact tree
+            rootFolderArtifact = newRootFolderArtifact
             
-            rootFolderArtifact?.generateMetricsRecursively()
+            if !serverIsInitialized
+            {
+                try await initializeServer()
+            }
+            
+            try await newRootFolderArtifact.reloadDocumentSymbols(from: server,
+                                                                  language: description.language)
+            
+            newRootFolderArtifact.generateMetricsRecursively()
             
             Self.messenger.send(.didCompleteAnalysis(self))
         }
@@ -113,5 +116,36 @@ class Project
         let rootFolder: URL
         let language: String
         let codeFileEndings: [String]
+    }
+}
+
+extension CodeArtifact
+{
+    func reloadDocumentSymbols(from server: LSP.ServerCommunicationHandler,
+                               language: String) async throws
+    {
+        switch kind
+        {
+        case .file(let codeFile):
+            let symbols = try await server.symbols(for: codeFile, language: language)
+            
+            var newParts = [CodeArtifact]()
+            
+            for symbol in symbols
+            {
+                newParts += CodeArtifact(lspDocSymbol: symbol)
+            }
+            
+            parts = newParts
+            
+        case .folder:
+            for part in (parts ?? [])
+            {
+                try await part.reloadDocumentSymbols(from: server, language: language)
+            }
+            
+        case .symbol:
+            break
+        }
     }
 }

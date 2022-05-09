@@ -17,7 +17,7 @@ struct ContentView: View
         NavigationView
         {
             List(viewModel.artifacts,
-                 children: \.children,
+                 children: \.parts,
                  selection: $selectedArtifact)
             {
                 artifact in
@@ -45,10 +45,14 @@ struct ContentView: View
                     Text(artifact.displayName)
                         .fixedSize()
                     Spacer()
-                    Text("\(artifact.metrics?.linesOfCode ?? 0)")
-                        .fixedSize()
-                        .foregroundColor(locColor(for: artifact))
-                        .font(.system(.title3, design: .monospaced))
+                    
+                    if let loc = artifact.metrics?.linesOfCode
+                    {
+                        Text("\(loc)")
+                            .fixedSize()
+                            .foregroundColor(locColor(for: artifact))
+                            .font(.system(.title3, design: .monospaced))
+                    }
                 }
             }
             .listStyle(.sidebar)
