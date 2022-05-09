@@ -30,17 +30,30 @@ struct ContentView: View
                 {
                     Image(systemName: systemName(for: artifact.kind))
                     Text(artifact.displayName)
+                        .fixedSize()
+                    Spacer()
+                    Text("\(artifact.metrics?.linesOfCode ?? 0)")
+                        .fixedSize()
+                        .foregroundColor(locColor(for: artifact))
+                        .font(.system(.title3, design: .monospaced))
                 }
             }
             .listStyle(.sidebar)
         }
     }
     
-    @State var selectedArtifact: CodeArtifact?
+    private func locColor(for artifact: CodeArtifact) -> Color {
+        switch artifact.kind {
+        case .file:
+            return warningColor(for: artifact.metrics?.linesOfCode ?? 0)
+        default:
+            return .secondary
+        }
+    }
     
-    private func systemName(for articactKind: CodeArtifact.Kind) -> String
+    private func systemName(for artifactKind: CodeArtifact.Kind) -> String
     {
-        switch articactKind
+        switch artifactKind
         {
         case .folder: return "folder"
         case .file: return "doc"
@@ -49,4 +62,5 @@ struct ContentView: View
     }
     
     @StateObject private var viewModel = ContentViewModel()
+    @State var selectedArtifact: CodeArtifact?
 }

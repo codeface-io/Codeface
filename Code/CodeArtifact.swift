@@ -13,6 +13,9 @@ extension CodeArtifact
                 loc += child.metrics?.linesOfCode ?? 0
             }
             metrics = .init(linesOfCode: loc)
+            
+            children?.sort { $0.metrics?.linesOfCode ?? 0 > $1.metrics?.linesOfCode ?? 0 }
+            
         case .file(let codeFile):
             metrics = .init(linesOfCode: codeFile.content.numberOfLines)
         case .symbol:
@@ -80,7 +83,7 @@ class CodeArtifact: Identifiable
     let kind: Kind
     enum Kind { case folder(CodeFolder), file(CodeFile), symbol(LSPDocumentSymbol) }
     
-    let children: [CodeArtifact]?
+    var children: [CodeArtifact]?
     
     var metrics: Metrics?
     
