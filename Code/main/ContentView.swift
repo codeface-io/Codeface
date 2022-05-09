@@ -41,7 +41,8 @@ struct ContentView: View
                 label:
                 {
                     Image(systemName: systemName(for: artifact.kind))
-                        .foregroundColor(Color(NSColor.secondaryLabelColor))
+                        .foregroundColor(symbolColor(for: artifact.kind))
+                    
                     Text(artifact.displayName)
                         .fixedSize()
                     Spacer()
@@ -65,6 +66,16 @@ struct ContentView: View
             return warningColor(for: artifact.metrics?.linesOfCode ?? 0)
         default:
             return Color(NSColor.systemGray)
+        }
+    }
+    
+    private func symbolColor(for artifactKind: CodeArtifact.Kind) -> Color
+    {
+        switch artifactKind
+        {
+        case .folder: return Color(NSColor.secondaryLabelColor)
+        case .file: return .white
+        case .symbol: return Color(NSColor.systemPurple)
         }
     }
     
