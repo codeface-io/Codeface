@@ -61,7 +61,6 @@
 		966D581C2544A9490016C8D0 /* CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolder.swift; sourceTree = "<group>"; };
 		966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+Foundation.swift"; sourceTree = "<group>"; };
 		966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+CustomstringConvertible.swift"; sourceTree = "<group>"; };
-		9688B5482829AF2A00FD914F /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
 		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		96D6B0F428282D69009E6C42 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
 		96D6B0F628283335009E6C42 /* CodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifact.swift; sourceTree = "<group>"; };
@@ -140,7 +139,6 @@
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
-				9688B5482829AF2A00FD914F /* SwiftLSP */,
 				9E00727A218E250E0094BD1C /* Code */,
 				9E95A705218C73C7009A58A9 /* Codeface */,
 				9E95A716218C73CA009A58A9 /* CodefaceTests */,
