@@ -13,6 +13,8 @@
 		96446C1A2829343600B347EF /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C192829343600B347EF /* ContentViewModel.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
 		9656A6A225287F2000D4CF26 /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A125287F2000D4CF26 /* SwiftObserver */; };
+		965F76DC2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */; };
+		965F76DE2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F76DD2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift */; };
 		966D581D2544A9490016C8D0 /* CodeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D581C2544A9490016C8D0 /* CodeFolder.swift */; };
 		966D58262544D0BC0016C8D0 /* CodeFolder+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */; };
 		966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */; };
@@ -54,6 +56,8 @@
 		964308A4254B7B070026E56C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		96446C172829339800B347EF /* LSP.ServerCommunicationHandler+CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSP.ServerCommunicationHandler+CodeFile.swift"; sourceTree = "<group>"; };
 		96446C192829343600B347EF /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeArtifact+BuildTreeFromInputs.swift"; sourceTree = "<group>"; };
+		965F76DD2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeArtifact+GenerateMetrics.swift"; sourceTree = "<group>"; };
 		966D581C2544A9490016C8D0 /* CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolder.swift; sourceTree = "<group>"; };
 		966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+Foundation.swift"; sourceTree = "<group>"; };
 		966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+CustomstringConvertible.swift"; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				9E84B4CC21A20DDE00F006DD /* main */,
 				9E76E24C218F6A6A00339F55 /* Project+Loading.swift */,
 				96A3A39E254A3B8400AE4146 /* Project.swift */,
+				965F76DD2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift */,
+				965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */,
 				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
 				96446C172829339800B347EF /* LSP.ServerCommunicationHandler+CodeFile.swift */,
 				96A3A39C254A3B2800AE4146 /* Raw Code */,
@@ -302,10 +308,12 @@
 			files = (
 				96446C1A2829343600B347EF /* ContentViewModel.swift in Sources */,
 				966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */,
+				965F76DC2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift in Sources */,
 				96446C182829339800B347EF /* LSP.ServerCommunicationHandler+CodeFile.swift in Sources */,
 				96D6B0F528282D69009E6C42 /* CodeFile.swift in Sources */,
 				9E76E24D218F6A6A00339F55 /* Project+Loading.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
+				965F76DE2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
 				96D6B0F728283335009E6C42 /* CodeArtifact.swift in Sources */,
 				966D581D2544A9490016C8D0 /* CodeFolder.swift in Sources */,

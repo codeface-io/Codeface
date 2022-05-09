@@ -75,7 +75,12 @@ class Project
     {
         let server = try LSPService.api.language(language).connectToLSPServer()
         
-        server.serverDidSendNotification = { _ in }
+        server.serverDidSendNotification =
+        {
+            notification in
+            
+//            log("Server sent notification:\n\(notification.method)\n\(notification.params?.description ?? "nil params")")
+        }
 
         server.serverDidSendErrorOutput =
         {
@@ -119,33 +124,3 @@ class Project
     }
 }
 
-extension CodeArtifact
-{
-    func reloadDocumentSymbols(from server: LSP.ServerCommunicationHandler,
-                               language: String) async throws
-    {
-        switch kind
-        {
-        case .file(let codeFile):
-            let symbols = try await server.symbols(for: codeFile, language: language)
-            
-            var newParts = [CodeArtifact]()
-            
-            for symbol in symbols
-            {
-                newParts += CodeArtifact(lspDocSymbol: symbol)
-            }
-            
-            parts = newParts
-            
-        case .folder:
-            for part in (parts ?? [])
-            {
-                try await part.reloadDocumentSymbols(from: server, language: language)
-            }
-            
-        case .symbol:
-            break
-        }
-    }
-}
