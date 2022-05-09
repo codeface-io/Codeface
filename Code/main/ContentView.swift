@@ -24,7 +24,13 @@ struct ContentView: View
                 NavigationLink(tag: artifact,
                                selection: $selectedArtifact)
                 {
-                    Text(artifact.displayName)
+                    switch artifact.kind {
+                    case .file(let codeFile):
+                        TextEditor(text: .constant(codeFile.content))
+                            .font(.system(.body, design: .monospaced))
+                    default:
+                        Text(artifact.displayName)
+                    }
                 }
                 label:
                 {
