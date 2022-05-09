@@ -26,8 +26,8 @@ class ContentViewModel: SwiftUI.ObservableObject, Observer
 
 func warningColor(for linesOfCode: Int) -> SwiftUI.Color
 {
-    if linesOfCode < 100 { return .green }
-    else if linesOfCode < 200 { return .yellow }
-    else if linesOfCode < 300 { return .orange }
-    else { return .red }
+    if linesOfCode < 100 { return Color(NSColor.systemGreen) }
+    else if linesOfCode < 200 { return Color(NSColor.systemYellow) }
+    else if linesOfCode < 300 { return Color(NSColor.systemOrange) }
+    else { return Color(NSColor.systemRed) }
 }

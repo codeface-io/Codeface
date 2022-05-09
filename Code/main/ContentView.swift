@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import SwiftObserver
 
 struct Preview: PreviewProvider
@@ -35,6 +36,7 @@ struct ContentView: View
                 label:
                 {
                     Image(systemName: systemName(for: artifact.kind))
+                        .foregroundColor(Color(NSColor.secondaryLabelColor))
                     Text(artifact.displayName)
                         .fixedSize()
                     Spacer()
@@ -53,7 +55,7 @@ struct ContentView: View
         case .file:
             return warningColor(for: artifact.metrics?.linesOfCode ?? 0)
         default:
-            return .secondary
+            return Color(NSColor.systemGray)
         }
     }
     
@@ -61,9 +63,9 @@ struct ContentView: View
     {
         switch artifactKind
         {
-        case .folder: return "folder"
-        case .file: return "doc"
-        case .symbol: return "chevron.left.forwardslash.chevron.right"
+        case .folder: return "folder.fill"
+        case .file: return "doc.fill"
+        case .symbol: return "c.square.fill"
         }
     }
     
