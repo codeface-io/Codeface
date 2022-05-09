@@ -9,20 +9,19 @@
 /* Begin PBXBuildFile section */
 		962952B32826898000DC8620 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 962952B22826898000DC8620 /* LSPServiceKit */; };
 		964308A5254B7B070026E56C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964308A4254B7B070026E56C /* ContentView.swift */; };
+		96446C182829339800B347EF /* LSP.ServerCommunicationHandler+CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C172829339800B347EF /* LSP.ServerCommunicationHandler+CodeFile.swift */; };
+		96446C1A2829343600B347EF /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C192829343600B347EF /* ContentViewModel.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
 		9656A6A225287F2000D4CF26 /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A125287F2000D4CF26 /* SwiftObserver */; };
 		966D581D2544A9490016C8D0 /* CodeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D581C2544A9490016C8D0 /* CodeFolder.swift */; };
 		966D58262544D0BC0016C8D0 /* CodeFolder+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */; };
 		966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */; };
-		9686BA0E252A28A600C09166 /* LSPProjectInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */; };
-		96A3A39A254A375600AE4146 /* SymbolCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3A399254A375600AE4146 /* SymbolCache.swift */; };
 		96A3A39F254A3B8400AE4146 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3A39E254A3B8400AE4146 /* Project.swift */; };
 		96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96A3A3AB254A621900AE4146 /* SwiftLSP */; };
 		96D6B0F528282D69009E6C42 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6B0F428282D69009E6C42 /* CodeFile.swift */; };
 		96D6B0F728283335009E6C42 /* CodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6B0F628283335009E6C42 /* CodeArtifact.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceApp.swift */; };
 		9E76E24D218F6A6A00339F55 /* Project+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76E24C218F6A6A00339F55 /* Project+Loading.swift */; };
-		9E84B4BC21A1E90200F006DD /* LOCWarningColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84B4BB21A1E89E00F006DD /* LOCWarningColor.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CodefaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CodefaceTests.swift */; };
 		9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */; };
@@ -53,18 +52,17 @@
 
 /* Begin PBXFileReference section */
 		964308A4254B7B070026E56C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		96446C172829339800B347EF /* LSP.ServerCommunicationHandler+CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSP.ServerCommunicationHandler+CodeFile.swift"; sourceTree = "<group>"; };
+		96446C192829343600B347EF /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		966D581C2544A9490016C8D0 /* CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolder.swift; sourceTree = "<group>"; };
 		966D58252544D0BC0016C8D0 /* CodeFolder+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+Foundation.swift"; sourceTree = "<group>"; };
 		966D58292544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+CustomstringConvertible.swift"; sourceTree = "<group>"; };
-		9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPProjectInspector.swift; sourceTree = "<group>"; };
-		96A3A399254A375600AE4146 /* SymbolCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolCache.swift; sourceTree = "<group>"; };
 		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		96D6B0F428282D69009E6C42 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
 		96D6B0F628283335009E6C42 /* CodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifact.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceApp.swift; sourceTree = "<group>"; };
 		9E27839C229ECDF1006ACB18 /* Codeface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codeface.entitlements; sourceTree = "<group>"; };
 		9E76E24C218F6A6A00339F55 /* Project+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+Loading.swift"; sourceTree = "<group>"; };
-		9E84B4BB21A1E89E00F006DD /* LOCWarningColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LOCWarningColor.swift; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Codeface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeface.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E95A708218C73CA009A58A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E95A70D218C73CA009A58A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,18 +94,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		966D581B2544A8EC0016C8D0 /* Project */ = {
-			isa = PBXGroup;
-			children = (
-				9E76E24C218F6A6A00339F55 /* Project+Loading.swift */,
-				96A3A39E254A3B8400AE4146 /* Project.swift */,
-				96A3A399254A375600AE4146 /* SymbolCache.swift */,
-				9686BA0D252A28A600C09166 /* LSPProjectInspector.swift */,
-				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
-			);
-			path = Project;
-			sourceTree = "<group>";
-		};
 		96A3A39C254A3B2800AE4146 /* Raw Code */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,8 +109,10 @@
 			isa = PBXGroup;
 			children = (
 				9E84B4CC21A20DDE00F006DD /* main */,
-				9E84B4BB21A1E89E00F006DD /* LOCWarningColor.swift */,
-				966D581B2544A8EC0016C8D0 /* Project */,
+				9E76E24C218F6A6A00339F55 /* Project+Loading.swift */,
+				96A3A39E254A3B8400AE4146 /* Project.swift */,
+				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
+				96446C172829339800B347EF /* LSP.ServerCommunicationHandler+CodeFile.swift */,
 				96A3A39C254A3B2800AE4146 /* Raw Code */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 			);
@@ -137,6 +125,7 @@
 			children = (
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
 				964308A4254B7B070026E56C /* ContentView.swift */,
+				96446C192829343600B347EF /* ContentViewModel.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -309,9 +298,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E84B4BC21A1E90200F006DD /* LOCWarningColor.swift in Sources */,
-				96A3A39A254A375600AE4146 /* SymbolCache.swift in Sources */,
+				96446C1A2829343600B347EF /* ContentViewModel.swift in Sources */,
 				966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */,
+				96446C182829339800B347EF /* LSP.ServerCommunicationHandler+CodeFile.swift in Sources */,
 				96D6B0F528282D69009E6C42 /* CodeFile.swift in Sources */,
 				9E76E24D218F6A6A00339F55 /* Project+Loading.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
@@ -320,7 +309,6 @@
 				966D581D2544A9490016C8D0 /* CodeFolder.swift in Sources */,
 				964308A5254B7B070026E56C /* ContentView.swift in Sources */,
 				966D58262544D0BC0016C8D0 /* CodeFolder+Foundation.swift in Sources */,
-				9686BA0E252A28A600C09166 /* LSPProjectInspector.swift in Sources */,
 				96A3A39F254A3B8400AE4146 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

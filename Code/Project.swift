@@ -1,5 +1,6 @@
 import LSPServiceKit
 import SwiftLSP
+import FoundationToolz
 import Foundation
 import SwiftObserver
 import SwiftyToolz
@@ -22,25 +23,13 @@ class Project
         }
         
         self.rootFolderURL = folder
+        self.language = language
         self.codeFileEnding = codeFileEnding
         
-        server = try LSPService.api.language(language).connectToLSPServer()
-        
-        server.serverDidSendNotification = { _ in }
-
-        server.serverDidSendErrorOutput =
-        {
-            errorOutput in log(error: "Language server: \(errorOutput)")
-        }
-        
-        server.serverDidSendErrorResult = { log($0) }
-        
-        self.symbolCache = SymbolCache(inspector: try LSPProjectInspector(server: server,
-                                                                          language: language,
-                                                                          folder: folder))
+        server = try Self.createServer(language: language)
     }
     
-    // MARK: - Data Processing
+    // MARK: - Data Analysis
     
     func startAnalysis() throws
     {
@@ -66,12 +55,10 @@ class Project
         }
     }
     
-    // MARK: - Data Processing Results
-    
-    // raw directories and files
+    // raw input: directories and files
     var rootFolder: CodeFolder?
     
-    // general artifact tree with dependencies and metrics
+    // analysis results: artifact tree, dependencies, metrics
     var rootFolderArtifact: CodeArtifact?
     
     // MARK: - Class Based Observability
@@ -85,31 +72,45 @@ class Project
     
     // MARK: - Language Server
     
+    private static func createServer(language: String) throws -> LSP.ServerCommunicationHandler
+    {
+        let server = try LSPService.api.language(language).connectToLSPServer()
+        
+        server.serverDidSendNotification = { _ in }
+
+        server.serverDidSendErrorOutput =
+        {
+            errorOutput in log(error: "Language server: \(errorOutput)")
+        }
+        
+        return server
+    }
+    
     private func initializeServer() async throws
     {
         let processID = try await LSPService.api.processID.get()
         
-        let initializationResult = try await server.request(.initialize(folder: rootFolderURL,
-                                                                        clientProcessID: processID))
+        let result = try await server.request(.initialize(folder: rootFolderURL,
+                                                          clientProcessID: processID))
         
-        switch initializationResult
+        switch result
         {
         case .success(let resultJSON):
             print(resultJSON.description)
             try server.notify(.initialized)
-            isInitialized = true
+            serverIsInitialized = true
         case .failure(let error):
             throw error
         }
     }
     
-    private var isInitialized = false
+    private var serverIsInitialized = false
     
     private let server: LSP.ServerCommunicationHandler
     
     // MARK: - Basic Configuration
     
     private let rootFolderURL: URL
+    private let language: String
     private let codeFileEnding: String
-    private let symbolCache: SymbolCache // retrieves symbols async on demand
 }

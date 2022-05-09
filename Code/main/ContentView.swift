@@ -40,25 +40,3 @@ struct ContentView: View
     
     @StateObject private var viewModel = ContentViewModel()
 }
-
-private class ContentViewModel: SwiftUI.ObservableObject, Observer
-{
-    init()
-    {
-        observe(Project.messenger)
-        {
-            switch $0
-            {
-            case .didCompleteAnalysis(let project):
-                if project === Project.active,
-                    let rootFolderArtifact = project.rootFolderArtifact {
-                    self.artifacts = [rootFolderArtifact]
-                }
-            }
-        }
-    }
-    
-    @Published var artifacts = [CodeArtifact]()
-    
-    let receiver = Receiver()
-}
