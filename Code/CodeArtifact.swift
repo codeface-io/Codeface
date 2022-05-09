@@ -33,7 +33,21 @@ extension String
     }
 }
 
-class CodeArtifact
+extension CodeArtifact: Hashable
+{
+    static func == (lhs: CodeArtifact, rhs: CodeArtifact) -> Bool
+    {
+        // TODO: implement true equality instead of identity
+        lhs === rhs
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(id)
+    }
+}
+
+class CodeArtifact: Identifiable
 {
     convenience init(codeFolder: CodeFolder)
     {

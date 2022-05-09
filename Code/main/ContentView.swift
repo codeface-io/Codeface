@@ -15,18 +15,28 @@ struct ContentView: View
     {
         NavigationView
         {
-            List(viewModel.artifacts, id: \.id, children: \.children)
+            List(viewModel.artifacts,
+                 children: \.children,
+                 selection: $selectedArtifact)
             {
                 artifact in
                 
-                Image(systemName: systemName(for: artifact.kind))
-                Text(artifact.displayName)
+                NavigationLink(tag: artifact,
+                               selection: $selectedArtifact)
+                {
+                    Text(artifact.displayName)
+                }
+                label:
+                {
+                    Image(systemName: systemName(for: artifact.kind))
+                    Text(artifact.displayName)
+                }
             }
-            .listStyle(SidebarListStyle())
-            
-            Text("Huhu")
+            .listStyle(.sidebar)
         }
     }
+    
+    @State var selectedArtifact: CodeArtifact?
     
     private func systemName(for articactKind: CodeArtifact.Kind) -> String
     {
