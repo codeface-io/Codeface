@@ -28,14 +28,18 @@ struct ContentView: View
                 {
                     Group
                     {
-                        switch artifact.kind
-                        {
-                        case .file(let codeFile):
-                            TextEditor(text: .constant(codeFile.content))
-                                .font(.system(.body, design: .monospaced))
-                        default:
-                            Text(artifact.displayName)
-                        }
+                        
+                        ArtifactContentView(artifact: artifact)
+                            .padding(.top)
+                        
+//                        switch artifact.kind
+//                        {
+//                        case .file(let codeFile):
+//                            TextEditor(text: .constant(codeFile.content))
+//                                .font(.system(.body, design: .monospaced))
+//                        default:
+//                            Text(artifact.displayName)
+//                        }
                     }
                     .navigationTitle(artifact.displayName)
                 }
@@ -69,86 +73,6 @@ struct ContentView: View
             return warningColor(for: artifact.metrics?.linesOfCode ?? 0)
         default:
             return Color(NSColor.systemGray)
-        }
-    }
-    
-    private func iconColor(for artifactKind: CodeArtifact.Kind) -> Color
-    {
-        switch artifactKind
-        {
-        case .folder: return Color(NSColor.secondaryLabelColor)
-        case .file: return .white
-        case .symbol(let symbol): return iconColor(for: symbol)
-        }
-    }
-    
-    private func iconColor(for symbol: LSPDocumentSymbol) -> Color
-    {
-        guard let symbolKind = symbol.symbolKind else
-        {
-            return Color(NSColor.secondaryLabelColor)
-        }
-        
-        switch symbolKind
-        {
-        case .File, .Module, .Package:
-            return .white
-        case .Class, .Interface, .Struct, .Enum:
-            return Color(NSColor.systemPurple)
-        case .Namespace:
-            return Color(NSColor.systemOrange)
-        case .Method, .Constructor, .Function:
-            return Color(NSColor.systemBlue)
-        case .Property, .Field, .EnumMember:
-            return Color(NSColor.systemTeal)
-        case .Variable, .Constant:
-            return Color(NSColor.systemPink)
-        case .String:
-            return Color(NSColor.systemRed)
-        case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .Operator, .TypeParameter:
-            return Color(NSColor.secondaryLabelColor)
-        }
-    }
-    
-    private func systemImageName(for artifactKind: CodeArtifact.Kind) -> String
-    {
-        switch artifactKind
-        {
-        case .folder: return "folder.fill"
-        case .file: return "doc.fill"
-        case .symbol(let symbol): return iconSystemImageName(for: symbol)
-        }
-    }
-    
-    private func iconSystemImageName(for symbol: LSPDocumentSymbol) -> String
-    {
-        guard let symbolKind = symbol.symbolKind else
-        {
-            return "questionmark.square.fill"
-        }
-        
-        switch symbolKind
-        {
-        case .File:
-            return "doc.fill"
-        case .Module, .Package:
-            return "shippingbox.fill"
-        case .Class, .Interface, .Struct, .Enum:
-            return "t.square.fill"
-        case .Namespace:
-            return "x.square.fill"
-        case .Method, .Constructor, .Function:
-            return "f.square.fill"
-        case .Property, .Field, .EnumMember:
-            return "p.square.fill"
-        case .Variable:
-            return "v.square.fill"
-        case .Constant:
-            return "c.square.fill"
-        case .String:
-            return "s.square.fill"
-        case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .Operator, .TypeParameter:
-            return "square.fill"
         }
     }
     
