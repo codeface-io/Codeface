@@ -1,6 +1,19 @@
 import SwiftLSP
 import Foundation
 
+extension CodeArtifact
+{
+    func numberOfSymbols() -> Int
+    {
+        (parts ?? []).reduce(into: isSymbol ? 1 : 0)
+        {
+            num, part in num += part.numberOfSymbols()
+        }
+    }
+    
+    var isSymbol: Bool { if case .symbol = kind { return true } else { return false } }
+}
+
 extension CodeArtifact: Hashable
 {
     static func == (lhs: CodeArtifact, rhs: CodeArtifact) -> Bool
