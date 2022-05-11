@@ -6,19 +6,31 @@ extension CodeArtifact
         {
         case .folder:
             var loc = 0
-            for child in (parts ?? [])
+            for part in (parts ?? [])
             {
-                child.generateMetricsRecursively()
-                loc += child.metrics?.linesOfCode ?? 0
+                part.generateMetricsRecursively()
+                loc += part.metrics?.linesOfCode ?? 0
             }
-            metrics = .init(linesOfCode: loc)
             parts?.sort { $0.metrics?.linesOfCode ?? 0 > $1.metrics?.linesOfCode ?? 0 }
-        
+            
+            metrics = .init(linesOfCode: loc)
+            
         case .file(let codeFile):
+            for part in (parts ?? [])
+            {
+                part.generateMetricsRecursively()
+            }
+            
             metrics = .init(linesOfCode: codeFile.content.numberOfLines)
         
-        case .symbol:
-            break
+        case .symbol(let symbol):
+            for part in (parts ?? [])
+            {
+                part.generateMetricsRecursively()
+            }
+            
+            let loc = (symbol.range.end.line - symbol.range.start.line) + 1
+            metrics = .init(linesOfCode: Int(loc))
         }
     }
 }
