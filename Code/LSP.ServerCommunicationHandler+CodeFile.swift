@@ -20,16 +20,6 @@ extension LSP.ServerCommunicationHandler
         
         try notify(.didOpen(doc: JSON(document)))
             
-        let result = try await request(.docSymbols(inFile: file),
-                                       as: [LSPDocumentSymbol].self)
-        
-        switch result
-        {
-        case .success(let symbols):
-            return symbols
-        case .failure(let errorResult):
-            log(error: errorResult.description)
-            throw errorResult
-        }
+        return try await request(.docSymbols(inFile: file))
     }
 }
