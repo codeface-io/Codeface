@@ -49,6 +49,7 @@ class Project
                                                                   language: description.language)
             
             newRootFolderArtifact.generateMetricsRecursively()
+            newRootFolderArtifact.sortPartsRecursively()
             
             Self.messenger.send(.didCompleteAnalysis(self))
         }

@@ -1,6 +1,7 @@
 import SwiftLSP
 import Foundation
 
+/// debug
 extension CodeArtifact
 {
     func numberOfSymbols() -> Int
@@ -14,6 +15,17 @@ extension CodeArtifact
     var isSymbol: Bool { if case .symbol = kind { return true } else { return false } }
 }
 
+/// helpers
+extension CodeArtifact
+{
+    var symbol: LSPDocumentSymbol?
+    {
+        guard case .symbol(let symbol) = kind else { return nil }
+        return symbol
+    }
+}
+
+/// hashable
 extension CodeArtifact: Hashable
 {
     static func == (lhs: CodeArtifact, rhs: CodeArtifact) -> Bool
@@ -28,6 +40,7 @@ extension CodeArtifact: Hashable
     }
 }
 
+/// type
 class CodeArtifact: Identifiable
 {
     init(displayName: String, kind: Kind, parts: [CodeArtifact]? = nil)
