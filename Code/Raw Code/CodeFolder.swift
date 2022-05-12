@@ -1,3 +1,9 @@
+extension CodeFolder {
+    static var dummy: CodeFolder {
+        .init(name: "dummy folder", path: "", files: [], subfolders: [])
+    }
+}
+
 class CodeFolder
 {
     init(name: String,

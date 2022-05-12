@@ -1,6 +1,31 @@
 import SwiftUI
 import SwiftLSP
 
+struct ArtifactViewPreview: PreviewProvider
+{
+    static var previews: some View
+    {
+        ArtifactView(artifact: .dummy)
+            .previewDisplayName("ArtifactView")
+    }
+}
+
+extension CodeArtifact {
+    static var dummy: CodeArtifact {
+        .init(displayName: "Root Folder", kind: .folder(.dummy), parts: [
+            CodeArtifact(displayName: "Subfolder 1", kind: .folder(.dummy)),
+            CodeArtifact(displayName: "Subfolder 2", kind: .folder(.dummy), parts: [
+                CodeArtifact(displayName: "Subfolder 5", kind: .folder(.dummy)),
+                CodeArtifact(displayName: "Subfolder 6", kind: .folder(.dummy)),
+                CodeArtifact(displayName: "File 1", kind: .file(.dummy)),
+                CodeArtifact(displayName: "File 2", kind: .file(.dummy))
+            ]),
+            CodeArtifact(displayName: "Subfolder 3", kind: .folder(.dummy)),
+            CodeArtifact(displayName: "Subfolder 4", kind: .folder(.dummy))
+        ])
+    }
+}
+
 struct ArtifactView: View
 {
     var body: some View
@@ -9,56 +34,96 @@ struct ArtifactView: View
         {
             geo in
             
-            if geo.size.height >= 30
+            if let parts = artifact.parts,
+               !parts.isEmpty,
+               viewSize(available: geo.size.height,
+                        numberOfViews: parts.count,
+                        spacing: 20) >= 20
             {
-                VStack(alignment: .leading, spacing: 0)
+                ZStack
                 {
-                    HStack
-                    {
-                        Image(systemName: systemImageName(for: artifact.kind))
-                            .foregroundColor(iconColor(for: artifact.kind))
-                        Text(artifact.displayName)
+                    ForEach(0 ... parts.count - 1, id: \.self) { index in
+                        VStack(alignment: .leading, spacing: 0)
+                        {
+                            HStack
+                            {
+                                Image(systemName: systemImageName(for: parts[index].kind))
+                                    .foregroundColor(iconColor(for: parts[index].kind))
+                                Text(parts[index].displayName)
+                                Spacer()
+                            }
+                            .padding()
+                            
+                            GeometryReader
+                            {
+                                contentSpaceGeometry in
+                                
+                                if contentSpaceGeometry.size.height >= 20
+                                {
+                                    ArtifactView(artifact: parts[index])
+                                        .padding([.leading, .trailing, .bottom])
+                                }
+                            }
+                        }
+                        .frame(width: geo.size.width,
+                               height: viewSize(available: geo.size.height,
+                                                numberOfViews: parts.count,
+                                                spacing: 20))
+                        .background(Rectangle().fill(bgColor(for: artifact.kind)).cornerRadius(5)
+                            .shadow(color: .black, radius: 10, x: 0, y: 5))
+                        .position(x: geo.size.width / 2,
+                                  y: viewCenter(ofView: index,
+                                                available: geo.size.height,
+                                                numberOfViews: parts.count,
+                                                spacing: 20))
                     }
-                    .padding()
-                    
-                    ArtifactContentView(artifact: artifact)
                 }
-                .frame(width: geo.size.width, height: geo.size.height, alignment: .leading)
+                .frame(width: geo.size.width,
+                       height: geo.size.height)
                 .clipped()
-                .background(Rectangle().fill(bgColor(for: artifact.kind)).cornerRadius(5)
-                    .shadow(color: .black, radius: 10, x: 0, y: 5))
+                .drawingGroup()
             }
         }
+    }
+    
+    func viewCenter(ofView index: Int, available: Double, numberOfViews: Int, spacing: Double) -> Double
+    {
+        let size = viewSize(available: available, numberOfViews: numberOfViews, spacing: spacing)
+        return (Double(index) * spacing) + (Double(index) * size) + (size / 2)
+    }
+    
+    func viewSize(available: Double, numberOfViews: Int, spacing: Double) -> Double
+    {
+        (available - (Double(numberOfViews - 1) * spacing)) / Double(numberOfViews)
     }
     
     @State var artifact: CodeArtifact
 }
 
-struct ArtifactContentView: View
+/// how to draw an arrow: https://stackoverflow.com/questions/48625763/how-to-draw-a-directional-arrow-head
+extension Line
 {
-    var body: some View
+    var animatableData: AnimatablePair<CGPoint.AnimatableData, CGPoint.AnimatableData>
     {
-        GeometryReader
+        get { AnimatablePair(start.animatableData, end.animatableData) }
+        set { (start.animatableData, end.animatableData) = (newValue.first, newValue.second) }
+    }
+}
+
+struct Line: Shape
+{
+    func path(in rect: CGRect) -> Path
+    {
+        Path
         {
-            geo in
+            p in
             
-            if geo.size.height >= 30, let parts = artifact.parts
-            {
-                VStack(alignment: .leading)
-                {
-                    ForEach(parts.indices, id: \.self)
-                    {
-                        index in
-                        
-                        ArtifactView(artifact: parts[index])
-                    }
-                }
-                .padding([.leading, .trailing, .bottom])
-            }
+            p.move(to: start)
+            p.addLine(to: end)
         }
     }
     
-    @State var artifact: CodeArtifact
+    var start, end: CGPoint
 }
 
 func bgColor(for artifactKind: CodeArtifact.Kind) -> Color

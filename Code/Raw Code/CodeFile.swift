@@ -1,3 +1,9 @@
+extension CodeFile {
+    static var dummy: CodeFile {
+        .init(name: "dummy file", path: "", content: "")
+    }
+}
+
 class CodeFile
 {
     init(name: String, path: String, content: String)
