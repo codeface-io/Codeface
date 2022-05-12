@@ -48,6 +48,9 @@ struct ArtifactView: View
                                 Image(systemName: systemImageName(for: parts[index].kind))
                                     .foregroundColor(iconColor(for: parts[index].kind))
                                 Text(parts[index].displayName)
+                                    .lineLimit(1)
+                                    .font(.system(parts[index].isSymbol ? .body : .title3,
+                                                  design: parts[index].isSymbol ? .monospaced : .default))
                                 Spacer()
                             }
                             .padding()
