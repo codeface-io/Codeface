@@ -36,9 +36,7 @@ struct ArtifactView: View
             
             if let parts = artifact.parts,
                !parts.isEmpty,
-               viewSize(available: geo.size.height,
-                        numberOfViews: parts.count,
-                        spacing: 20) >= 20
+               artifact.preparePartsForLayout(inScopeOfSize: geo.size)
             {
                 ZStack
                 {
@@ -65,17 +63,12 @@ struct ArtifactView: View
                                 }
                             }
                         }
-                        .frame(width: geo.size.width,
-                               height: viewSize(available: geo.size.height,
-                                                numberOfViews: parts.count,
-                                                spacing: 20))
+                        .frame(width: parts[index].layout.width,
+                               height: parts[index].layout.height)
                         .background(Rectangle().fill(bgColor(for: artifact.kind)).cornerRadius(5)
                             .shadow(color: .black, radius: 10, x: 0, y: 5))
-                        .position(x: geo.size.width / 2,
-                                  y: viewCenter(ofView: index,
-                                                available: geo.size.height,
-                                                numberOfViews: parts.count,
-                                                spacing: 20))
+                        .position(x: parts[index].layout.centerX,
+                                  y: parts[index].layout.centerY)
                     }
                 }
                 .frame(width: geo.size.width,
@@ -86,18 +79,46 @@ struct ArtifactView: View
         }
     }
     
-    func viewCenter(ofView index: Int, available: Double, numberOfViews: Int, spacing: Double) -> Double
+    @State var artifact: CodeArtifact
+}
+
+extension CodeArtifact
+{
+    @discardableResult
+    func preparePartsForLayout(inScopeOfSize scopeSize: CGSize) -> Bool
     {
-        let size = viewSize(available: available, numberOfViews: numberOfViews, spacing: spacing)
-        return (Double(index) * spacing) + (Double(index) * size) + (size / 2)
+        guard let parts = parts else { return false }
+        
+        let partHeight = viewSize(available: scopeSize.height,
+                                  numberOfViews: parts.count,
+                                  spacing: 20)
+        
+        guard partHeight >= 20 else { return false }
+        
+        for index in 0 ..< parts.count
+        {
+            let part = parts[index]
+            
+            part.layout = .init(width: scopeSize.width,
+                                height: partHeight,
+                                centerX: scopeSize.width / 2,
+                                centerY: viewCenter(ofView: index,
+                                                    viewSize: partHeight,
+                                                    spacing: 20))
+        }
+        
+        return true
+    }
+    
+    func viewCenter(ofView index: Int, viewSize: Double, spacing: Double) -> Double
+    {
+        return (Double(index) * spacing) + (Double(index) * viewSize) + (viewSize / 2)
     }
     
     func viewSize(available: Double, numberOfViews: Int, spacing: Double) -> Double
     {
         (available - (Double(numberOfViews - 1) * spacing)) / Double(numberOfViews)
     }
-    
-    @State var artifact: CodeArtifact
 }
 
 /// how to draw an arrow: https://stackoverflow.com/questions/48625763/how-to-draw-a-directional-arrow-head

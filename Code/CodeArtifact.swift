@@ -65,4 +65,14 @@ class CodeArtifact: Identifiable
     {
         let linesOfCode: Int
     }
+    
+    var layout = Layout(width: 100, height: 50, centerX: 50, centerY: 25)
+    
+    struct Layout
+    {
+        let width: Double
+        let height: Double
+        let centerX: Double
+        let centerY: Double
+    }
 }
