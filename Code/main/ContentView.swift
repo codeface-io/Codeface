@@ -28,7 +28,6 @@ struct ContentView: View
                 {
                     Group
                     {
-                        
                         ArtifactContentView(artifact: artifact)
                             .padding(.top)
                         
@@ -64,6 +63,8 @@ struct ContentView: View
                 }
             }
             .listStyle(.sidebar)
+            
+            TestView()
         }
     }
     
@@ -87,4 +88,76 @@ extension Font.Design {
         default: return .default
         }
     }
+}
+
+/// how to draw an arrow: https://stackoverflow.com/questions/48625763/how-to-draw-a-directional-arrow-head
+struct TestView: View {
+    var body: some View {
+        GeometryReader { geo in
+            
+            ZStack {
+                Line(start: .init(x: geo.size.width * point1.x,
+                                  y: geo.size.height * point1.y),
+                     end: .init(x: geo.size.width * point2.x,
+                                y: geo.size.height * point2.y))
+                .stroke(lineWidth: 2)
+                .foregroundColor(isHovering ? .red : Color(NSColor.darkGray))
+                
+                Text("Click On Me!")
+                    .padding()
+                    .background(isHovering ? .red : Color(NSColor.darkGray))
+                    .onHover { sth in
+                        isHovering = sth
+                    }
+                    .position(x: geo.size.width * point1.x,
+                              y: geo.size.height * point1.y)
+                    .onTapGesture {
+                        point1.x = .random(in: 0 ... 1)
+                        point1.y = .random(in: 0 ... 1)
+                    }
+                
+                Text("Click On Me!")
+                    .padding()
+                    .background(isHovering ? .red : Color(NSColor.darkGray))
+                    .onHover { sth in
+                        isHovering = sth
+                    }
+                    .position(x: geo.size.width * point2.x,
+                              y: geo.size.height * point2.y)
+                    .onTapGesture {
+                        point2.x = .random(in: 0 ... 1)
+                        point2.y = .random(in: 0 ... 1)
+                    }
+            }
+            .frame(width: geo.size.width,
+                   height: geo.size.height)
+            .animation(.easeInOut, value: point1)
+            .animation(.easeInOut, value: point2)
+            .drawingGroup()
+        }
+    }
+    
+    @State var point1 = CGPoint(x: 0.33, y: 0.5)
+    @State var point2 = CGPoint(x: 0.66, y: 0.25)
+    
+    @State var isHovering = false
+}
+
+extension Line {
+    var animatableData: AnimatablePair<CGPoint.AnimatableData, CGPoint.AnimatableData> {
+        get { AnimatablePair(start.animatableData, end.animatableData) }
+        set { (start.animatableData, end.animatableData) = (newValue.first, newValue.second) }
+    }
+}
+
+struct Line: Shape {
+
+    func path(in rect: CGRect) -> Path {
+        Path { p in
+            p.move(to: start)
+            p.addLine(to: end)
+        }
+    }
+    
+    var start, end: CGPoint
 }
