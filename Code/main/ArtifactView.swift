@@ -74,6 +74,7 @@ struct ArtifactView: View
                 .frame(width: geo.size.width,
                        height: geo.size.height)
                 .clipped()
+                .animation(.easeInOut(duration: 1), value: geo.size)
                 .drawingGroup()
             }
         }
@@ -87,37 +88,80 @@ extension CodeArtifact
     @discardableResult
     func preparePartsForLayout(inScopeOfSize scopeSize: CGSize) -> Bool
     {
-        guard let parts = parts else { return false }
+        guard let parts = parts, !parts.isEmpty else { return false }
         
-        let partHeight = viewSize(available: scopeSize.height,
-                                  numberOfViews: parts.count,
-                                  spacing: 20)
+        let availableSpacePerPart = Int(scopeSize.width * scopeSize.height) / parts.count
         
-        guard partHeight >= 20 else { return false }
+        guard availableSpacePerPart >= 5000 else { return false }
         
-        for index in 0 ..< parts.count
-        {
-            let part = parts[index]
-            
-            part.layout = .init(width: scopeSize.width,
-                                height: partHeight,
-                                centerX: scopeSize.width / 2,
-                                centerY: viewCenter(ofView: index,
-                                                    viewSize: partHeight,
-                                                    spacing: 20))
-        }
+        prepare(parts: parts,
+                forLayoutInRect: .init(x: 0,
+                                       y: 0,
+                                       width: scopeSize.width,
+                                       height: scopeSize.height))
         
         return true
     }
     
-    func viewCenter(ofView index: Int, viewSize: Double, spacing: Double) -> Double
+    private func prepare(parts: [CodeArtifact],
+                         forLayoutInRect availableRect: CGRect)
     {
-        return (Double(index) * spacing) + (Double(index) * viewSize) + (viewSize / 2)
+        if parts.isEmpty { return }
+        
+        if parts.count == 1
+        {
+            let part = parts[0]
+            
+            part.layout = .init(width: availableRect.width,
+                                height: availableRect.height,
+                                centerX: availableRect.midX,
+                                centerY: availableRect.midY)
+            
+            return
+        }
+        
+        let lastIndexOfFirstHalf = (parts.count - 1) / 2
+        
+        let partsA = Array(parts[0 ... lastIndexOfFirstHalf])
+        let partsB = Array(parts[lastIndexOfFirstHalf + 1 ..< parts.count])
+        
+        let (rectA, rectB) = split(availableRect,
+                                   vertically: availableRect.width / availableRect.height > 3)
+        
+        prepare(parts: partsA, forLayoutInRect: rectA)
+        prepare(parts: partsB, forLayoutInRect: rectB)
     }
     
-    func viewSize(available: Double, numberOfViews: Int, spacing: Double) -> Double
+    func split(_ rect: CGRect, vertically: Bool) -> (CGRect, CGRect)
     {
-        (available - (Double(numberOfViews - 1) * spacing)) / Double(numberOfViews)
+        if vertically
+        {
+            let rectA = CGRect(x: rect.minX,
+                               y: rect.minY,
+                               width: (rect.width / 2) - 10,
+                               height: rect.height)
+            
+            let rectB = CGRect(x: (rect.minX + rect.width / 2) + 10,
+                               y: rect.minY,
+                               width: (rect.width / 2) - 10,
+                               height: rect.height)
+            
+            return (rectA, rectB)
+        }
+        else
+        {
+            let rectA = CGRect(x: rect.minX,
+                               y: rect.minY,
+                               width: rect.width,
+                               height: (rect.height / 2) - 10)
+            
+            let rectB = CGRect(x: rect.minX,
+                               y: (rect.minY + rect.height / 2) + 10,
+                               width: rect.width,
+                               height: (rect.height / 2) - 10)
+            
+            return (rectA, rectB)
+        }
     }
 }
 
