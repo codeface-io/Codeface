@@ -94,22 +94,26 @@ extension CodeArtifact
         
         guard availableSpacePerPart >= 5000 else { return false }
         
-        prepare(parts: parts,
-                forLayoutInRect: .init(x: 0,
-                                       y: 0,
-                                       width: scopeSize.width,
-                                       height: scopeSize.height))
-        
-        return true
+        return prepare(parts: parts,
+                       forLayoutInRect: .init(x: 0,
+                                              y: 0,
+                                              width: scopeSize.width,
+                                              height: scopeSize.height))
     }
     
     private func prepare(parts: [CodeArtifact],
-                         forLayoutInRect availableRect: CGRect)
+                         forLayoutInRect availableRect: CGRect) -> Bool
     {
-        if parts.isEmpty { return }
+        if parts.isEmpty { return false }
+        
+        let minWidth: Double = 100
+        let minHeight: Double = 30
         
         if parts.count == 1
         {
+            guard availableRect.width >= minWidth,
+                    availableRect.height >= minHeight else { return false }
+            
             let part = parts[0]
             
             part.layout = .init(width: availableRect.width,
@@ -117,7 +121,7 @@ extension CodeArtifact
                                 centerX: availableRect.midX,
                                 centerY: availableRect.midY)
             
-            return
+            return true
         }
         
         let lastIndexOfFirstHalf = (parts.count - 1) / 2
@@ -125,40 +129,87 @@ extension CodeArtifact
         let partsA = Array(parts[0 ... lastIndexOfFirstHalf])
         let partsB = Array(parts[lastIndexOfFirstHalf + 1 ..< parts.count])
         
-        let (rectA, rectB) = split(availableRect,
-                                   vertically: availableRect.width / availableRect.height > 3)
+        let locA = partsA.reduce(0) {
+            $0 + ($1.metrics?.linesOfCode ?? 0)
+        }
         
-        prepare(parts: partsA, forLayoutInRect: rectA)
-        prepare(parts: partsB, forLayoutInRect: rectB)
+        let locB = partsB.reduce(0) {
+            $0 + ($1.metrics?.linesOfCode ?? 0)
+        }
+        
+        let fractionOfA = Double(locA) / Double(locA + locB)
+        
+        guard let (rectA, rectB) = split(availableRect,
+                                         firstFraction: fractionOfA,
+                                         minWidth: minWidth,
+                                         minHeight: minHeight) else { return false }
+        
+        return prepare(parts: partsA, forLayoutInRect: rectA)
+            && prepare(parts: partsB, forLayoutInRect: rectB)
     }
     
-    func split(_ rect: CGRect, vertically: Bool) -> (CGRect, CGRect)
+    func split(_ rect: CGRect,
+               firstFraction: Double,
+               minWidth: Double,
+               minHeight: Double) -> (CGRect, CGRect)?
     {
-        if vertically
+        if rect.width / rect.height > 3
         {
+            if 2 * minWidth + 20 > rect.width { return nil }
+            
+            var widthA = (rect.width - 20) * firstFraction
+            var widthB = (rect.width - widthA) - 20
+            
+            if widthA < minWidth
+            {
+                widthA = minWidth
+                widthB = (rect.width - minWidth) - 20
+            }
+            else if widthB < minWidth
+            {
+                widthB = minWidth
+                widthA = (rect.width - minWidth) - 20
+            }
+            
             let rectA = CGRect(x: rect.minX,
                                y: rect.minY,
-                               width: (rect.width / 2) - 10,
+                               width: widthA,
                                height: rect.height)
             
-            let rectB = CGRect(x: (rect.minX + rect.width / 2) + 10,
+            let rectB = CGRect(x: (rect.minX + widthA) + 20,
                                y: rect.minY,
-                               width: (rect.width / 2) - 10,
+                               width: widthB,
                                height: rect.height)
             
             return (rectA, rectB)
         }
         else
         {
+            if 2 * minHeight + 20 > rect.height { return nil }
+            
+            var heightA = (rect.height - 20) * firstFraction
+            var heightB = (rect.height - heightA) - 20
+            
+            if heightA < minHeight
+            {
+                heightA = minHeight
+                heightB = (rect.height - minHeight) - 20
+            }
+            else if heightB < minHeight
+            {
+                heightB = minHeight
+                heightA = (rect.height - minHeight) - 20
+            }
+            
             let rectA = CGRect(x: rect.minX,
                                y: rect.minY,
                                width: rect.width,
-                               height: (rect.height / 2) - 10)
+                               height: heightA)
             
             let rectB = CGRect(x: rect.minX,
-                               y: (rect.minY + rect.height / 2) + 10,
+                               y: (rect.minY + heightA) + 20,
                                width: rect.width,
-                               height: (rect.height / 2) - 10)
+                               height: heightB)
             
             return (rectA, rectB)
         }
