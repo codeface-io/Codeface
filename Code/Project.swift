@@ -40,10 +40,7 @@ class Project
             
             rootFolderArtifact = newRootFolderArtifact
             
-            if !serverIsInitialized
-            {
-                try await initializeServer()
-            }
+            try await serverInitialization.assumeSuccess()
             
             try await newRootFolderArtifact.reloadDocumentSymbols(from: server,
                                                                   language: description.language)
@@ -91,25 +88,20 @@ class Project
         return server
     }
     
-    private func initializeServer() async throws
+    private lazy var serverInitialization = initializeServer()
+    
+    private func initializeServer() -> Task<Void, Error>
     {
-        let processID = try await LSPService.api.processID.get()
-        
-        let result = try await server.request(.initialize(folder: description.rootFolder,
-                                                          clientProcessID: processID))
-        
-        switch result
+        Task
         {
-        case .success(let resultJSON):
-            print(resultJSON.description)
+            let processID = try await LSPService.api.processID.get()
+            
+            _ = try await server.request(.initialize(folder: description.rootFolder,
+                                                     clientProcessID: processID))
+            
             try server.notify(.initialized)
-            serverIsInitialized = true
-        case .failure(let error):
-            throw error
         }
     }
-    
-    private var serverIsInitialized = false
     
     private let server: LSP.ServerCommunicationHandler
     
@@ -125,3 +117,7 @@ class Project
     }
 }
 
+extension Task where Success == Void
+{
+    func assumeSuccess() async throws { try await value }
+}
