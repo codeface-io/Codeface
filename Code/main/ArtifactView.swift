@@ -53,16 +53,17 @@ struct ArtifactView: View
                                                   design: .for(parts[index])))
                                 Spacer()
                             }
-                            .padding()
+                            .padding(CodeArtifact.Layout.padding)
                             
                             GeometryReader
                             {
                                 contentSpaceGeometry in
                                 
-                                if contentSpaceGeometry.size.height >= 20
+                                if contentSpaceGeometry.size.height >= CodeArtifact.Layout.minHeight
                                 {
                                     ArtifactView(artifact: parts[index])
-                                        .padding([.leading, .trailing, .bottom])
+                                        .padding([.leading, .trailing, .bottom],
+                                                 CodeArtifact.Layout.padding)
                                 }
                             }
                         }
@@ -83,6 +84,13 @@ struct ArtifactView: View
     }
     
     @State var artifact: CodeArtifact
+}
+
+extension CodeArtifact.Layout
+{
+    static var padding: Double = 16
+    static var minWidth: Double = 100
+    static var minHeight: Double = 30
 }
 
 extension CodeArtifact
@@ -108,13 +116,10 @@ extension CodeArtifact
     {
         if parts.isEmpty { return false }
         
-        let minWidth: Double = 100
-        let minHeight: Double = 30
-        
         if parts.count == 1
         {
-            guard availableRect.width >= minWidth,
-                    availableRect.height >= minHeight else { return false }
+            guard availableRect.width >= CodeArtifact.Layout.minWidth,
+                  availableRect.height >= CodeArtifact.Layout.minHeight else { return false }
             
             let part = parts[0]
             
@@ -134,9 +139,7 @@ extension CodeArtifact
         let fractionOfA = Double(locA) / Double(locA + locB)
         
         guard let (rectA, rectB) = split(availableRect,
-                                         firstFraction: fractionOfA,
-                                         minWidth: minWidth,
-                                         minHeight: minHeight) else { return false }
+                                         firstFraction: fractionOfA) else { return false }
         
         return prepare(parts: partsA, forLayoutIn: rectA)
             && prepare(parts: partsB, forLayoutIn: rectB)
@@ -167,26 +170,27 @@ extension CodeArtifact
     }
     
     func split(_ rect: CGRect,
-               firstFraction: Double,
-               minWidth: Double,
-               minHeight: Double) -> (CGRect, CGRect)?
+               firstFraction: Double) -> (CGRect, CGRect)?
     {
         if rect.width / rect.height > 2
         {
-            if 2 * minWidth + 20 > rect.width { return nil }
-            
-            var widthA = (rect.width - 20) * firstFraction
-            var widthB = (rect.width - widthA) - 20
-            
-            if widthA < minWidth
+            if 2 * CodeArtifact.Layout.minWidth + CodeArtifact.Layout.padding > rect.width
             {
-                widthA = minWidth
-                widthB = (rect.width - minWidth) - 20
+                return nil
             }
-            else if widthB < minWidth
+            
+            var widthA = (rect.width - CodeArtifact.Layout.padding) * firstFraction
+            var widthB = (rect.width - widthA) - CodeArtifact.Layout.padding
+            
+            if widthA < CodeArtifact.Layout.minWidth
             {
-                widthB = minWidth
-                widthA = (rect.width - minWidth) - 20
+                widthA = CodeArtifact.Layout.minWidth
+                widthB = (rect.width - CodeArtifact.Layout.minWidth) - CodeArtifact.Layout.padding
+            }
+            else if widthB < CodeArtifact.Layout.minWidth
+            {
+                widthB = CodeArtifact.Layout.minWidth
+                widthA = (rect.width - CodeArtifact.Layout.minWidth) - CodeArtifact.Layout.padding
             }
             
             let rectA = CGRect(x: rect.minX,
@@ -194,7 +198,7 @@ extension CodeArtifact
                                width: widthA,
                                height: rect.height)
             
-            let rectB = CGRect(x: (rect.minX + widthA) + 20,
+            let rectB = CGRect(x: (rect.minX + widthA) + CodeArtifact.Layout.padding,
                                y: rect.minY,
                                width: widthB,
                                height: rect.height)
@@ -203,20 +207,23 @@ extension CodeArtifact
         }
         else
         {
-            if 2 * minHeight + 20 > rect.height { return nil }
-            
-            var heightA = (rect.height - 20) * firstFraction
-            var heightB = (rect.height - heightA) - 20
-            
-            if heightA < minHeight
+            if 2 * CodeArtifact.Layout.minHeight + CodeArtifact.Layout.padding > rect.height
             {
-                heightA = minHeight
-                heightB = (rect.height - minHeight) - 20
+                return nil
             }
-            else if heightB < minHeight
+            
+            var heightA = (rect.height - CodeArtifact.Layout.padding) * firstFraction
+            var heightB = (rect.height - heightA) - CodeArtifact.Layout.padding
+            
+            if heightA < CodeArtifact.Layout.minHeight
             {
-                heightB = minHeight
-                heightA = (rect.height - minHeight) - 20
+                heightA = CodeArtifact.Layout.minHeight
+                heightB = (rect.height - CodeArtifact.Layout.minHeight) - CodeArtifact.Layout.padding
+            }
+            else if heightB < CodeArtifact.Layout.minHeight
+            {
+                heightB = CodeArtifact.Layout.minHeight
+                heightA = (rect.height - CodeArtifact.Layout.minHeight) - CodeArtifact.Layout.padding
             }
             
             let rectA = CGRect(x: rect.minX,
@@ -225,7 +232,7 @@ extension CodeArtifact
                                height: heightA)
             
             let rectB = CGRect(x: rect.minX,
-                               y: (rect.minY + heightA) + 20,
+                               y: (rect.minY + heightA) + CodeArtifact.Layout.padding,
                                width: rect.width,
                                height: heightB)
             

@@ -29,7 +29,7 @@ struct ContentView: View
                     Group
                     {
                         ArtifactView(artifact: artifact)
-                            .padding()
+                            .padding(CodeArtifact.Layout.padding)
                         
 //                            TextEditor(text: .constant(codeFile.content))
 //                                .font(.system(.body, design: .monospaced))
