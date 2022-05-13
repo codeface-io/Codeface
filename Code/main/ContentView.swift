@@ -38,25 +38,27 @@ struct ContentView: View
                 }
                 label:
                 {
-                    Image(systemName: systemImageName(for: artifact.kind))
-                        .foregroundColor(iconColor(for: artifact.kind))
-                    
-                    Text(artifact.displayName)
-                        .fixedSize()
-                        .font(.system(.title3, design: .for(artifact)))
-                    
-                    Spacer()
-                    
-                    if let loc = artifact.metrics?.linesOfCode
+                    HStack
                     {
-                        Text("\(loc)")
-                            .fixedSize()
-                            .foregroundColor(locColor(for: artifact))
-                            .font(.system(.title3, design: .monospaced))
+                        Image(systemName: systemImageName(for: artifact.kind))
+                            .foregroundColor(iconColor(for: artifact.kind))
+                        
+                        Text(artifact.displayName)
+                            .font(.system(.title3, design: .for(artifact)))
+                        
+                        Spacer()
+                        
+                        if let loc = artifact.metrics?.linesOfCode
+                        {
+                            Text("\(loc)")
+                                .foregroundColor(locColor(for: artifact))
+                                .font(.system(.title3, design: .monospaced))
+                        }
                     }
                 }
             }
             .listStyle(.sidebar)
+            .searchable(text: $searchTerm)
         }
     }
     
@@ -69,6 +71,7 @@ struct ContentView: View
         }
     }
     
+    @State var searchTerm = ""
     @StateObject private var viewModel = ContentViewModel()
     @State var selectedArtifact: CodeArtifact?
 }

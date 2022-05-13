@@ -50,7 +50,7 @@ struct ArtifactView: View
                                 Text(parts[index].displayName)
                                     .lineLimit(1)
                                     .font(.system(parts[index].isSymbol ? .body : .title3,
-                                                  design: parts[index].isSymbol ? .monospaced : .default))
+                                                  design: .for(parts[index])))
                                 Spacer()
                             }
                             .padding()
@@ -76,7 +76,6 @@ struct ArtifactView: View
                 }
                 .frame(width: geo.size.width,
                        height: geo.size.height)
-                .clipped()
                 .animation(.easeInOut(duration: 1), value: geo.size)
                 .drawingGroup()
             }
@@ -156,7 +155,7 @@ extension CodeArtifact
                minWidth: Double,
                minHeight: Double) -> (CGRect, CGRect)?
     {
-        if rect.width / rect.height > 3
+        if rect.width / rect.height > 2
         {
             if 2 * minWidth + 20 > rect.width { return nil }
             
