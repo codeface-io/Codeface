@@ -97,14 +97,14 @@ extension CodeArtifact
         guard availableSpacePerPart >= 5000 else { return false }
         
         return prepare(parts: parts,
-                       forLayoutInRect: .init(x: 0,
-                                              y: 0,
-                                              width: scopeSize.width,
-                                              height: scopeSize.height))
+                       forLayoutIn: .init(x: 0,
+                                          y: 0,
+                                          width: scopeSize.width,
+                                          height: scopeSize.height))
     }
     
     private func prepare(parts: [CodeArtifact],
-                         forLayoutInRect availableRect: CGRect) -> Bool
+                         forLayoutIn availableRect: CGRect) -> Bool
     {
         if parts.isEmpty { return false }
         
@@ -126,18 +126,10 @@ extension CodeArtifact
             return true
         }
         
-        let lastIndexOfFirstHalf = (parts.count - 1) / 2
+        let (partsA, partsB) = split(parts)
         
-        let partsA = Array(parts[0 ... lastIndexOfFirstHalf])
-        let partsB = Array(parts[lastIndexOfFirstHalf + 1 ..< parts.count])
-        
-        let locA = partsA.reduce(0) {
-            $0 + ($1.metrics?.linesOfCode ?? 0)
-        }
-        
-        let locB = partsB.reduce(0) {
-            $0 + ($1.metrics?.linesOfCode ?? 0)
-        }
+        let locA = partsA.reduce(0) { $0 + ($1.metrics?.linesOfCode ?? 0) }
+        let locB = partsB.reduce(0) { $0 + ($1.metrics?.linesOfCode ?? 0) }
         
         let fractionOfA = Double(locA) / Double(locA + locB)
         
@@ -146,8 +138,32 @@ extension CodeArtifact
                                          minWidth: minWidth,
                                          minHeight: minHeight) else { return false }
         
-        return prepare(parts: partsA, forLayoutInRect: rectA)
-            && prepare(parts: partsB, forLayoutInRect: rectB)
+        return prepare(parts: partsA, forLayoutIn: rectA)
+            && prepare(parts: partsB, forLayoutIn: rectB)
+    }
+    
+    func split(_ parts: [CodeArtifact]) -> ([CodeArtifact], [CodeArtifact])
+    {
+        let halfTotalLOC = (parts.reduce(0) { $0 + ($1.metrics?.linesOfCode ?? 0) }) / 2
+        
+        var sumOfLOC = 0
+        var minDifferenceToHalfTotalLOC = Int.max
+        var optimalEndIndexForPartsA = 0
+        
+        for index in 0 ..< parts.count
+        {
+            let part = parts[index]
+            sumOfLOC += part.metrics?.linesOfCode ?? 0
+            let differenceToHalfTotalLOC = abs(halfTotalLOC - sumOfLOC)
+            if differenceToHalfTotalLOC < minDifferenceToHalfTotalLOC
+            {
+                minDifferenceToHalfTotalLOC = differenceToHalfTotalLOC
+                optimalEndIndexForPartsA = index
+            }
+        }
+        
+        return (Array(parts[0 ... optimalEndIndexForPartsA]),
+                Array(parts[optimalEndIndexForPartsA + 1 ..< parts.count]))
     }
     
     func split(_ rect: CGRect,
