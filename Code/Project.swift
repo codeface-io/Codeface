@@ -20,9 +20,10 @@ class Project
             throw "Project folder does not exist: " + description.rootFolder.absoluteString
         }
         
-        self.description = description
+        projectDescription = description
         
         server = try Self.createServer(language: description.language)
+        serverInitialization = Self.initialize(server, for: description)
     }
     
     // MARK: - Data Analysis
@@ -31,8 +32,8 @@ class Project
     {
         Task
         {
-            let newRootFolder = try CodeFolder(description.rootFolder,
-                                               codeFileEndings: description.codeFileEndings)
+            let newRootFolder = try CodeFolder(projectDescription.rootFolder,
+                                               codeFileEndings: projectDescription.codeFileEndings)
             
             rootFolder = newRootFolder
             
@@ -43,7 +44,7 @@ class Project
             try await serverInitialization.assumeSuccess()
             
             try await newRootFolderArtifact.reloadDocumentSymbols(from: server,
-                                                                  language: description.language)
+                                                                  language: projectDescription.language)
             
             newRootFolderArtifact.generateMetricsRecursively()
             newRootFolderArtifact.sortPartsRecursively()
@@ -88,26 +89,27 @@ class Project
         return server
     }
     
-    private lazy var serverInitialization = initializeServer()
-    
-    private func initializeServer() -> Task<Void, Error>
+    private static func initialize(_ server: LSP.ServerCommunicationHandler,
+                                   for project: Description) -> Task<Void, Error>
     {
         Task
         {
             let processID = try await LSPService.api.processID.get()
             
-            _ = try await server.request(.initialize(folder: description.rootFolder,
+            _ = try await server.request(.initialize(folder: project.rootFolder,
                                                      clientProcessID: processID))
             
             try server.notify(.initialized)
         }
     }
     
+    private var serverInitialization: Task<Void, Error>
+    
     private let server: LSP.ServerCommunicationHandler
     
     // MARK: - Description
     
-    private let description: Description
+    private let projectDescription: Description
     
     struct Description
     {
