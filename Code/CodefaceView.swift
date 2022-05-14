@@ -39,22 +39,24 @@ struct CodefaceView: View
                 }
                 label:
                 {
-                    HStack
+                    Label
                     {
-                        Image(systemName: systemImageName(for: artifact.kind))
-                            .foregroundColor(iconColor(for: artifact.kind))
-                        
                         Text(artifact.displayName)
                             .font(.system(.title3, design: .for(artifact)))
                         
-                        Spacer()
-                        
                         if let loc = artifact.metrics?.linesOfCode
                         {
+                            Spacer()
+                            
                             Text("\(loc)")
                                 .foregroundColor(locColor(for: artifact))
                                 .font(.system(.title3, design: .monospaced))
                         }
+                    }
+                    icon:
+                    {
+                        Image(systemName: systemImageName(for: artifact.kind))
+                            .accentColor(iconColor(for: artifact.kind))
                     }
                 }
             }
