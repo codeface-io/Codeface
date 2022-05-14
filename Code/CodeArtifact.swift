@@ -1,6 +1,21 @@
 import SwiftLSP
 import Foundation
 
+
+/// display
+extension CodeArtifact
+{
+    var secondaryDisplayName: String
+    {
+        switch kind
+        {
+        case .folder: return "Folder"
+        case .file: return "File"
+        case .symbol(let symbol): return symbol.kindName
+        }
+    }
+}
+
 /// debug
 extension CodeArtifact
 {

@@ -35,6 +35,7 @@ struct CodefaceView: View
 //                                .font(.system(.body, design: .monospaced))
                     }
                     .navigationTitle(artifact.displayName)
+                    .navigationSubtitle(artifact.secondaryDisplayName)
                 }
                 label:
                 {
