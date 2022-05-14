@@ -1,23 +1,6 @@
 extension CodeArtifact
 {
-    func sortPartsRecursively()
-    {
-        for part in (parts ?? [])
-        {
-            part.sortPartsRecursively()
-        }
-        
-        switch kind
-        {
-        case .folder:
-            parts?.sort { $0.metrics?.linesOfCode ?? 0 > $1.metrics?.linesOfCode ?? 0 }
-            
-        case .file, .symbol:
-            parts?.sort { $0.symbol?.range.start.line ?? 0 < $1.symbol?.range.start.line ?? 0 }
-        }
-    }
-    
-    func generateMetricsRecursively()
+    func generateMetrics()
     {
         switch kind
         {
@@ -25,7 +8,7 @@ extension CodeArtifact
             var loc = 0
             for part in (parts ?? [])
             {
-                part.generateMetricsRecursively()
+                part.generateMetrics()
                 loc += part.metrics?.linesOfCode ?? 0
             }
             
@@ -34,7 +17,7 @@ extension CodeArtifact
         case .file(let codeFile):
             for part in (parts ?? [])
             {
-                part.generateMetricsRecursively()
+                part.generateMetrics()
             }
             
             metrics = .init(linesOfCode: codeFile.content.numberOfLines)
@@ -42,7 +25,7 @@ extension CodeArtifact
         case .symbol(let symbol):
             for part in (parts ?? [])
             {
-                part.generateMetricsRecursively()
+                part.generateMetrics()
             }
             
             let loc = (symbol.range.end.line - symbol.range.start.line) + 1

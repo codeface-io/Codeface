@@ -7,13 +7,18 @@ import SwiftyToolz
 
 class Project
 {
-    // MARK: - Active Instance
+    // MARK: - Shared Instance
     
-    static var active: Project?
+    static func initSharedInstance(with description: Description) throws
+    {
+        shared = try Project(description: description)
+    }
+    
+    private(set) static var shared: Project?
     
     // MARK: - Initialization
     
-    init(description: Description) throws
+    private init(description: Description) throws
     {
         guard FileManager.default.itemExists(description.rootFolder) else
         {
@@ -32,31 +37,43 @@ class Project
     {
         Task
         {
-            let newRootFolder = try CodeFolder(projectDescription.rootFolder,
-                                               codeFileEndings: projectDescription.codeFileEndings)
+            let rootFolder = try createRootFolder()
             
-            rootFolder = newRootFolder
-            
-            let newRootFolderArtifact = CodeArtifact(codeFolder: newRootFolder)
-            
-            rootFolderArtifact = newRootFolderArtifact
+            let rootArtifact = CodeArtifact(codeFolder: rootFolder)
             
             try await serverInitialization.assumeSuccess()
             
-            try await newRootFolderArtifact.reloadDocumentSymbols(from: server)
+            try await rootArtifact.addSymbolArtifacts(using: server)
+            rootArtifact.generateMetrics()
+            rootArtifact.sort()
             
-            newRootFolderArtifact.generateMetricsRecursively()
-            newRootFolderArtifact.sortPartsRecursively()
+            let result = AnalysisResult(rootFolder: rootFolder,
+                                        rootArtifact: rootArtifact)
             
-            Self.messenger.send(.didCompleteAnalysis(self))
+            analysisResult = result
+            
+            Self.messenger.send(.didCompleteAnalysis(result))
         }
     }
     
-    // raw input: directories and files
-    var rootFolder: CodeFolder?
+    private func createRootFolder() throws -> CodeFolder
+    {
+        try projectDescription.rootFolder.mapSecurityScoped
+        {
+            try CodeFolder($0, codeFileEndings: projectDescription.codeFileEndings)
+        }
+    }
     
-    // analysis results: artifact tree, dependencies, metrics
-    var rootFolderArtifact: CodeArtifact?
+    var analysisResult: AnalysisResult?
+    
+    struct AnalysisResult
+    {
+        // file system hierarchy: relevant directories and files
+        var rootFolder: CodeFolder
+        
+        // artifact hierarchy: each artifact with dependencies, metrics, order
+        var rootArtifact: CodeArtifact
+    }
     
     // MARK: - Class Based Observability
     
@@ -64,7 +81,7 @@ class Project
     
     enum ClassEvent
     {
-        case didCompleteAnalysis(Project)
+        case didCompleteAnalysis(AnalysisResult)
     }
     
     // MARK: - Language Server

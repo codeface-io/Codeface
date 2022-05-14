@@ -5,15 +5,10 @@ extension Project
 {
     static func loadNewProject(description: Description) throws
     {
-        guard description.rootFolder.startAccessingSecurityScopedResource() else
-        {
-            throw "Couldn't access security scoped folder"
-        }
+        try initSharedInstance(with: description)
         
-        defer { description.rootFolder.stopAccessingSecurityScopedResource() }
-        
-        try loadProject(description: description)
-        
+        try shared?.startAnalysis()
+
         lastFolder = description.rootFolder
     }
     
@@ -23,23 +18,11 @@ extension Project
         // TODO: persist whole project description
         guard let lastFolder = lastFolder else { return }
         
-        guard lastFolder.startAccessingSecurityScopedResource() else
-        {
-            throw "Couldn't access security scoped folder"
-        }
-        
-        defer { lastFolder.stopAccessingSecurityScopedResource() }
-        
-        try loadProject(description: .init(rootFolder: lastFolder,
+        try initSharedInstance(with: .init(rootFolder: lastFolder,
                                            language: language,
                                            codeFileEndings: codeFileEndings))
-    }
-    
-    private static func loadProject(description: Description) throws
-    {
-        Project.active = try Project(description: description)
         
-        try Project.active?.startAnalysis()
+        try shared?.startAnalysis()
     }
     
     private static var lastFolder: URL?

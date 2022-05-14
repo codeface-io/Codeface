@@ -10,11 +10,8 @@ class ContentViewModel: SwiftUI.ObservableObject, Observer
         {
             switch $0
             {
-            case .didCompleteAnalysis(let project):
-                if project === Project.active,
-                    let rootFolderArtifact = project.rootFolderArtifact {
-                    self.artifacts = [rootFolderArtifact]
-                }
+            case .didCompleteAnalysis(let analysisResult):
+                self.artifacts = [analysisResult.rootArtifact]
             }
         }
     }

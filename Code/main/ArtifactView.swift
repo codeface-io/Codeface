@@ -69,7 +69,9 @@ struct ArtifactView: View
                         }
                         .frame(width: parts[index].layout.width,
                                height: parts[index].layout.height)
-                        .background(Rectangle().fill(bgColor(for: artifact.kind)).cornerRadius(5)
+                        .background(Rectangle()
+                            .fill(bgColor(for: artifact.kind))
+                            .cornerRadius(5)
                             .shadow(color: .black, radius: 10, x: 0, y: 5))
                         .position(x: parts[index].layout.centerX,
                                   y: parts[index].layout.centerY)

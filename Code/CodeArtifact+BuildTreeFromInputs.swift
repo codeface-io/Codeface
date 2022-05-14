@@ -2,7 +2,7 @@ import SwiftLSP
 
 extension CodeArtifact
 {
-    func reloadDocumentSymbols(from server: LSP.ServerCommunicationHandler) async throws
+    func addSymbolArtifacts(using server: LSP.ServerCommunicationHandler) async throws
     {
         switch kind
         {
@@ -14,7 +14,7 @@ extension CodeArtifact
         case .folder:
             for part in (parts ?? [])
             {
-                try await part.reloadDocumentSymbols(from: server)
+                try await part.addSymbolArtifacts(using: server)
             }
             
         case .symbol:
