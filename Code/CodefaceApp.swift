@@ -44,6 +44,8 @@ struct CodefaceApp: App
         }
         .commands
         {
+            SidebarCommands()
+            
             CommandGroup(replacing: .newItem)
             {
                 Button("Load Swift Package...")

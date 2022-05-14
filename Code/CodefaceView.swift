@@ -59,6 +59,16 @@ struct CodefaceView: View
             }
             .listStyle(.sidebar)
             .searchable(text: $searchTerm)
+            .toolbar
+            {
+                ToolbarItem(placement: .confirmationAction)
+                {
+                    Button(action: toggleSidebar)
+                    {
+                        Image(systemName: "sidebar.leading")
+                    }
+                }
+            }
         }
     }
     
@@ -74,6 +84,14 @@ struct CodefaceView: View
     @State var searchTerm = ""
     @StateObject private var viewModel = ArtifactViewModel()
     @State var selectedArtifact: CodeArtifact?
+}
+
+private func toggleSidebar()
+{
+    // https://stackoverflow.com/questions/61771591/toggle-sidebar-in-swiftui-navigationview-on-macos
+    NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)),
+                     to: nil,
+                     from: nil)
 }
 
 extension Font.Design {
