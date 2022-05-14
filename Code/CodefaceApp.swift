@@ -3,21 +3,44 @@ import FoundationToolz
 import SwiftyToolz
 
 @main
-struct CodefaceApp: App {
+struct CodefaceApp: App
+{
+    // MARK: - Initialize
     
-    // TODO: after launch: try Project.loadLastOpenFolder()
+    init()
+    {
+        if persistedProjectConfigData != nil
+        {
+            do { try loadLastProject() }
+            catch { log(error) }
+        }
+    }
     
-    // MARK: - Persist Project Configuration
+    // MARK: - Create Body
     
-    var body: some Scene {
-        Settings {
+    var body: some Scene
+    {
+        Settings
+        {
             Text("Settings View Placeholder")
                 .padding()
         }
         
         WindowGroup
         {
-            ContentView()
+            CodefaceView()
+        }
+        .onChange(of: scenePhase)
+        {
+            phase in
+            
+            switch phase
+            {
+            case .background: break
+            case .active: break
+            case .inactive: break
+            @unknown default: break
+            }
         }
         .commands
         {
@@ -50,21 +73,14 @@ struct CodefaceApp: App {
                                                            language: "swift",
                                                            codeFileEndings: ["swift"])
                         
-                        try Project.initSharedInstance(with: config)
-                        try Project.shared?.startAnalysis()
-                        
-                        try persist(lastProjectConfig: config)
+                        try loadNewProject(with: config)
                     }
                     catch { log(error) }
                 })
                 
                 Button("Reload Last Project")
                 {
-                    do
-                    {
-                        try Project.initSharedInstance(with: loadProjectConfig())
-                        try Project.shared?.startAnalysis()
-                    }
+                    do { try loadLastProject() }
                     catch { log(error) }
                 }
                 .keyboardShortcut("r")
@@ -74,10 +90,30 @@ struct CodefaceApp: App {
     }
     
     @State var isPresented = false
+    @Environment(\.scenePhase) var scenePhase
+    
+    // MARK: - Load Project
+    
+    private func loadNewProject(with config: Project.Configuration) throws
+    {
+        try loadProject(with: config)
+        try persist(projectConfig: config)
+    }
+    
+    private func loadLastProject() throws
+    {
+        try loadProject(with: loadProjectConfig())
+    }
+    
+    private func loadProject(with config: Project.Configuration) throws
+    {
+        try Project.initSharedInstance(with: config)
+        try Project.shared?.startAnalysis()
+    }
     
     // MARK: - Persist Project Configuration
     
-    func persist(lastProjectConfig config: Project.Configuration) throws
+    func persist(projectConfig config: Project.Configuration) throws
     {
         let bookmarkData = try config.folder.bookmarkData(options: .withSecurityScope,
                                                           includingResourceValuesForKeys: nil,

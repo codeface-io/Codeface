@@ -3,15 +3,15 @@ import AppKit
 import SwiftObserver
 import SwiftLSP
 
-struct ContentViewPreview: PreviewProvider
+struct CodefaceViewPreview: PreviewProvider
 {
     static var previews: some View
     {
-        ContentView().previewDisplayName("ContentView")
+        CodefaceView().previewDisplayName("CodefaceView")
     }
 }
 
-struct ContentView: View
+struct CodefaceView: View
 {
     var body: some View
     {
@@ -72,7 +72,7 @@ struct ContentView: View
     }
     
     @State var searchTerm = ""
-    @StateObject private var viewModel = ContentViewModel()
+    @StateObject private var viewModel = ArtifactViewModel()
     @State var selectedArtifact: CodeArtifact?
 }
 
@@ -83,4 +83,12 @@ extension Font.Design {
         default: return .default
         }
     }
+}
+
+func warningColor(for linesOfCode: Int) -> SwiftUI.Color
+{
+    if linesOfCode < 100 { return Color(NSColor.systemGreen) }
+    else if linesOfCode < 200 { return Color(NSColor.systemYellow) }
+    else if linesOfCode < 300 { return Color(NSColor.systemOrange) }
+    else { return Color(NSColor.systemRed) }
 }
