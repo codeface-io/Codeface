@@ -9,26 +9,26 @@ class Project
 {
     // MARK: - Shared Instance
     
-    static func initSharedInstance(with description: Description) throws
+    static func initSharedInstance(with config: Configuration) throws
     {
-        shared = try Project(description: description)
+        shared = try Project(config: config)
     }
     
     private(set) static var shared: Project?
     
     // MARK: - Initialization
     
-    private init(description: Description) throws
+    private init(config: Configuration) throws
     {
-        guard FileManager.default.itemExists(description.rootFolder) else
+        guard FileManager.default.itemExists(config.folder) else
         {
-            throw "Project folder does not exist: " + description.rootFolder.absoluteString
+            throw "Project folder does not exist: " + config.folder.absoluteString
         }
         
-        projectDescription = description
+        self.config = config
         
-        server = try Self.createServer(language: description.language)
-        serverInitialization = Self.initialize(server, for: description)
+        server = try Self.createServer(language: config.language)
+        serverInitialization = Self.initialize(server, for: config)
     }
     
     // MARK: - Data Analysis
@@ -58,9 +58,9 @@ class Project
     
     private func createRootFolder() throws -> CodeFolder
     {
-        try projectDescription.rootFolder.mapSecurityScoped
+        try config.folder.mapSecurityScoped
         {
-            try CodeFolder($0, codeFileEndings: projectDescription.codeFileEndings)
+            try CodeFolder($0, codeFileEndings: config.codeFileEndings)
         }
     }
     
@@ -106,13 +106,13 @@ class Project
     }
     
     private static func initialize(_ server: LSP.ServerCommunicationHandler,
-                                   for project: Description) -> Task<Void, Error>
+                                   for project: Configuration) -> Task<Void, Error>
     {
         Task
         {
             let processID = try await LSPService.api.processID.get()
             
-            let _ = try await server.request(.initialize(folder: project.rootFolder,
+            let _ = try await server.request(.initialize(folder: project.folder,
                                                          clientProcessID: processID))
             
 //            try log(initializeResult: initializeResult)
@@ -125,13 +125,20 @@ class Project
     
     private let server: LSP.ServerCommunicationHandler
     
-    // MARK: - Description
+    // MARK: - Configuration
     
-    private let projectDescription: Description
-    
-    struct Description
+    struct PersistedConfiguration: Codable
     {
-        let rootFolder: URL
+        var folderBookmarkData: Data
+        let language: String
+        let codeFileEndings: [String]
+    }
+    
+    private let config: Configuration
+    
+    struct Configuration
+    {
+        let folder: URL
         let language: String
         let codeFileEndings: [String]
     }
