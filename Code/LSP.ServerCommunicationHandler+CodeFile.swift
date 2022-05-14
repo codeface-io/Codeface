@@ -5,8 +5,7 @@ import SwiftyToolz
 
 extension LSP.ServerCommunicationHandler
 {
-    func symbols(for codeFile: CodeFile,
-                 language: String) async throws -> [LSPDocumentSymbol]
+    func symbols(for codeFile: CodeFile) async throws -> [LSPDocumentSymbol]
     {
         let file = URL(fileURLWithPath: codeFile.path)
         

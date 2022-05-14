@@ -43,8 +43,7 @@ class Project
             
             try await serverInitialization.assumeSuccess()
             
-            try await newRootFolderArtifact.reloadDocumentSymbols(from: server,
-                                                                  language: projectDescription.language)
+            try await newRootFolderArtifact.reloadDocumentSymbols(from: server)
             
             newRootFolderArtifact.generateMetricsRecursively()
             newRootFolderArtifact.sortPartsRecursively()

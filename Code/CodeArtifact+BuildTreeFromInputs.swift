@@ -2,22 +2,19 @@ import SwiftLSP
 
 extension CodeArtifact
 {
-    func reloadDocumentSymbols(from server: LSP.ServerCommunicationHandler,
-                               language: String) async throws
+    func reloadDocumentSymbols(from server: LSP.ServerCommunicationHandler) async throws
     {
         switch kind
         {
         case .file(let codeFile):
-            let symbols = try await server.symbols(for: codeFile,
-                                                   language: language)
+            let symbols = try await server.symbols(for: codeFile)
             if symbols.isEmpty { parts = nil }
             else { parts = symbols.map(CodeArtifact.init) }
             
         case .folder:
             for part in (parts ?? [])
             {
-                try await part.reloadDocumentSymbols(from: server,
-                                                     language: language)
+                try await part.reloadDocumentSymbols(from: server)
             }
             
         case .symbol:
