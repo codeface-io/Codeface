@@ -19,6 +19,6 @@ extension LSP.ServerCommunicationHandler
         
         try notify(.didOpen(doc: JSON(document)))
             
-        return try await request(.docSymbols(inFile: file))
+        return try await requestDocumentSymbols(inFile: file)
     }
 }
