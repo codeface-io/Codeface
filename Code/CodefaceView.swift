@@ -40,7 +40,8 @@ struct CodefaceView: View
                         }
                         else
                         {
-                            ArtifactView(artifact: artifact)
+                            ArtifactContentView(artifact: artifact)
+                                .drawingGroup()
                                 .padding(CodeArtifact.Layout.padding)
                         }
                     }

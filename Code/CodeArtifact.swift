@@ -56,7 +56,7 @@ extension CodeArtifact: Hashable
 
 /// type
 @MainActor
-class CodeArtifact: Identifiable
+class CodeArtifact: Identifiable, ObservableObject
 {
     init(displayName: String, kind: Kind, parts: [CodeArtifact]? = nil)
     {
@@ -81,9 +81,9 @@ class CodeArtifact: Identifiable
         let linesOfCode: Int
     }
     
-    var layout = Layout(width: 100, height: 50, centerX: 50, centerY: 25)
+    @Published var layout = Layout(width: 100, height: 50, centerX: 50, centerY: 25)
     
-    struct Layout
+    struct Layout: Equatable
     {
         let width: Double
         let height: Double

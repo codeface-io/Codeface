@@ -5,7 +5,7 @@ struct ArtifactViewPreview: PreviewProvider
 {
     static var previews: some View
     {
-        ArtifactView(artifact: .dummy)
+        ArtifactContentView(artifact: .dummy)
             .previewDisplayName("ArtifactView")
     }
 }
@@ -26,7 +26,7 @@ extension CodeArtifact {
     }
 }
 
-struct ArtifactView: View
+struct ArtifactContentView: View
 {
     var body: some View
     {
@@ -44,56 +44,69 @@ struct ArtifactView: View
                     {
                         index in
                         
-                        VStack(alignment: .leading, spacing: 0)
-                        {
-                            HStack
-                            {
-                                Image(systemName: systemImageName(for: parts[index].kind))
-                                    .foregroundColor(iconColor(for: parts[index].kind))
-                                
-                                if parts[index].layout.width > 90
-                                {
-                                    Text(parts[index].displayName)
-                                        .lineLimit(1)
-                                    Spacer()
-                                }
-                            }
-                            .font(.system(size: parts[index].fontSize,
-                                          weight: .medium,
-                                          design: .for(parts[index])))
-                            .padding(CodeArtifact.Layout.padding)
-                            
-                            GeometryReader
-                            {
-                                contentSpaceGeometry in
-                                
-                                if contentSpaceGeometry.size.height >= CodeArtifact.Layout.minHeight
-                                {
-                                    ArtifactView(artifact: parts[index])
-                                        .padding([.leading, .trailing, .bottom],
-                                                 CodeArtifact.Layout.padding)
-                                }
-                            }
-                        }
-                        .frame(width: parts[index].layout.width,
-                               height: parts[index].layout.height)
-                        .background(Rectangle()
-                            .fill(bgColor(for: artifact.kind))
-                            .cornerRadius(5)
-                            .shadow(color: .black, radius: 10, x: 0, y: 5))
-                        .position(x: parts[index].layout.centerX,
-                                  y: parts[index].layout.centerY)
+                        ArtifactView(artifact: parts[index])
                     }
                 }
                 .frame(width: geo.size.width,
                        height: geo.size.height)
-                .animation(.easeInOut(duration: 1), value: geo.size)
-                .drawingGroup()
             }
         }
     }
     
     @State var artifact: CodeArtifact
+}
+
+struct ArtifactView: View
+{
+    var body: some View
+    {
+        VStack(alignment: .leading, spacing: 0)
+        {
+            HStack
+            {
+                Image(systemName: systemImageName(for: artifact.kind))
+                    .foregroundColor(iconColor(for: artifact.kind))
+                
+                if artifact.layout.width > 90
+                {
+                    Text(artifact.displayName)
+                        .lineLimit(1)
+                    Spacer()
+                }
+            }
+            .font(.system(size: artifact.fontSize,
+                          weight: .medium,
+                          design: .for(artifact)))
+            .padding(CodeArtifact.Layout.padding)
+            
+            GeometryReader
+            {
+                contentSpaceGeometry in
+                
+                if contentSpaceGeometry.size.height >= CodeArtifact.Layout.minHeight
+                {
+                    ArtifactContentView(artifact: artifact)
+                        .padding([.leading, .trailing, .bottom],
+                                 CodeArtifact.Layout.padding)
+                }
+            }
+        }
+        .frame(width: artifact.layout.width,
+               height: artifact.layout.height)
+        .background(RoundedRectangle(cornerRadius: 5)
+            .fill(bgColor(for: artifact.kind))
+            .shadow(color: .black, radius: 10, x: 0, y: 5)
+            .overlay(RoundedRectangle(cornerRadius: 5)
+                .strokeBorder(isHovering ? Color.accentColor : Color.clear,
+                              antialiased: true)))
+        .onHover { isHovering = $0 }
+        .position(x: artifact.layout.centerX,
+                  y: artifact.layout.centerY)
+        .animation(.easeInOut(duration: 1), value: artifact.layout)
+    }
+    
+    @ObservedObject var artifact: CodeArtifact
+    @State var isHovering: Bool = false
 }
 
 extension CodeArtifact.Layout
