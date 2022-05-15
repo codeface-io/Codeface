@@ -1,7 +1,6 @@
 import SwiftLSP
 import Foundation
 
-
 /// display
 extension CodeArtifact
 {
