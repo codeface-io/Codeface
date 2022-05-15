@@ -27,8 +27,9 @@ class Project
         
         self.config = config
         
-        server = try Self.createServer(language: config.language)
-        serverInitialization = Self.initialize(server, for: config)
+        let createdServer = try Self.createServer(language: config.language)
+        server = createdServer
+        serverInitialization = Self.initialize(createdServer, for: config)
     }
     
     // MARK: - Data Analysis
@@ -41,9 +42,12 @@ class Project
             
             let rootArtifact = CodeArtifact(codeFolder: rootFolder)
             
-            try await serverInitialization.assumeSuccess()
+            if let server = server, let serverInitialization = serverInitialization
+            {
+                try await serverInitialization.assumeSuccess()
+                try await rootArtifact.addSymbolArtifacts(using: server)
+            }
             
-            try await rootArtifact.addSymbolArtifacts(using: server)
             rootArtifact.generateMetrics()
             rootArtifact.sort()
             
@@ -121,9 +125,8 @@ class Project
         }
     }
     
-    private var serverInitialization: Task<Void, Error>
-    
-    private let server: LSP.ServerCommunicationHandler
+    private var serverInitialization: Task<Void, Error>? = nil
+    private var server: LSP.ServerCommunicationHandler? = nil
     
     // MARK: - Configuration
     
