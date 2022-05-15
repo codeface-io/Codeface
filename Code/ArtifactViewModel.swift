@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftObserver
 import SwiftyToolz
 
+@MainActor
 class ArtifactViewModel: SwiftUI.ObservableObject, Observer
 {
     init()

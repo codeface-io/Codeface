@@ -13,6 +13,11 @@ struct CodefaceViewPreview: PreviewProvider
 
 struct CodefaceView: View
 {
+    init()
+    {
+        _viewModel = StateObject(wrappedValue: ArtifactViewModel())
+    }
+    
     var body: some View
     {
         NavigationView
@@ -64,7 +69,7 @@ struct CodefaceView: View
     }
     
     @State var searchTerm = ""
-    @StateObject private var viewModel = ArtifactViewModel()
+    @StateObject private var viewModel: ArtifactViewModel
     @State var selectedArtifact: CodeArtifact?
 }
 
