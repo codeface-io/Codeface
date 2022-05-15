@@ -40,7 +40,10 @@ struct ArtifactView: View
             {
                 ZStack
                 {
-                    ForEach(0 ... parts.count - 1, id: \.self) { index in
+                    ForEach(0 ... parts.count - 1, id: \.self)
+                    {
+                        index in
+                        
                         VStack(alignment: .leading, spacing: 0)
                         {
                             HStack
@@ -49,10 +52,11 @@ struct ArtifactView: View
                                     .foregroundColor(iconColor(for: parts[index].kind))
                                 Text(parts[index].displayName)
                                     .lineLimit(1)
-                                    .font(.system(parts[index].isSymbol ? .body : .title3,
-                                                  design: .for(parts[index])))
                                 Spacer()
                             }
+                            .font(.system(size: parts[index].fontSize,
+                                          weight: .medium,
+                                          design: .for(parts[index])))
                             .padding(CodeArtifact.Layout.padding)
                             
                             GeometryReader
@@ -97,6 +101,11 @@ extension CodeArtifact.Layout
 
 extension CodeArtifact
 {
+    var fontSize: Double
+    {
+        1.2 * sqrt(sqrt(layout.height * layout.width))
+    }
+    
     @discardableResult
     func preparePartsForLayout(inScopeOfSize scopeSize: CGSize) -> Bool
     {
