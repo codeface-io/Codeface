@@ -65,7 +65,12 @@ class Project
     {
         try config.folder.mapSecurityScoped
         {
-            try CodeFolder($0, codeFileEndings: config.codeFileEndings)
+            guard let codeFolder = try CodeFolder($0, codeFileEndings: config.codeFileEndings) else
+            {
+                throw "Project folder contains no code files with the specified file endings\nFolder: \($0.absoluteString)\nFile endings: \(config.codeFileEndings)"
+            }
+            
+            return codeFolder
         }
     }
     

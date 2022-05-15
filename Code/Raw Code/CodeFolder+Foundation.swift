@@ -4,15 +4,13 @@ import SwiftyToolz
 
 extension CodeFolder
 {
-    init(_ folder: URL, codeFileEndings: [String]) throws
+    init?(_ folderURL: URL, codeFileEndings: [String]) throws
     {
         let fm = FileManager.default
         
-        let unwantedFolders = ["Pods", "Carthage", "Example%20Projects"]
-        
-        guard let urls = fm.files(inDirectory: folder,
+        guard let urls = fm.files(inDirectory: folderURL,
                                   flat: true,
-                                  skipFolders: unwantedFolders) else
+                                  skipFolders: []) else
         {
             throw "Couldn't get file URLs from folder"
         }
@@ -20,21 +18,29 @@ extension CodeFolder
         var codeFiles = [CodeFile]()
         var subfolders = [CodeFolder]()
         
+        var hasAtLeastOneCodeFile = false
+        
         for url in urls
         {
             if url.isDirectory
             {
-                subfolders.append(try CodeFolder(url,
-                                                 codeFileEndings: codeFileEndings))
+                if let folder = try CodeFolder(url, codeFileEndings: codeFileEndings)
+                {
+                    subfolders.append(folder)
+                    hasAtLeastOneCodeFile = true
+                }
             }
             else if codeFileEndings.contains(url.pathExtension)
             {
                 codeFiles.append(try CodeFile(url))
+                hasAtLeastOneCodeFile = true
             }
         }
         
-        self.init(name: folder.lastPathComponent,
-                  path: folder.absoluteString,
+        if !hasAtLeastOneCodeFile { return nil }
+        
+        self.init(name: folderURL.lastPathComponent,
+                  path: folderURL.absoluteString,
                   files: codeFiles,
                   subfolders: subfolders)
     }
