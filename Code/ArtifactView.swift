@@ -50,9 +50,13 @@ struct ArtifactView: View
                             {
                                 Image(systemName: systemImageName(for: parts[index].kind))
                                     .foregroundColor(iconColor(for: parts[index].kind))
-                                Text(parts[index].displayName)
-                                    .lineLimit(1)
-                                Spacer()
+                                
+                                if parts[index].layout.width > 90
+                                {
+                                    Text(parts[index].displayName)
+                                        .lineLimit(1)
+                                    Spacer()
+                                }
                             }
                             .font(.system(size: parts[index].fontSize,
                                           weight: .medium,
@@ -95,7 +99,7 @@ struct ArtifactView: View
 extension CodeArtifact.Layout
 {
     static var padding: Double = 16
-    static var minWidth: Double = 100
+    static var minWidth: Double = 30
     static var minHeight: Double = 30
 }
 
@@ -149,8 +153,10 @@ extension CodeArtifact
         
         let fractionOfA = Double(locA) / Double(locA + locB)
         
-        guard let (rectA, rectB) = split(availableRect,
-                                         firstFraction: fractionOfA) else { return false }
+        guard let (rectA, rectB) = split(availableRect, firstFraction: fractionOfA) else
+        {
+            return false
+        }
         
         return prepare(parts: partsA, forLayoutIn: rectA)
             && prepare(parts: partsB, forLayoutIn: rectB)
@@ -183,72 +189,90 @@ extension CodeArtifact
     func split(_ rect: CGRect,
                firstFraction: Double) -> (CGRect, CGRect)?
     {
-        if rect.width / rect.height > 2
+        let rectIsSmall = min(rect.width, rect.height) <= CodeArtifact.Layout.minWidth * 5
+        let rectAspectRatio = rect.width / rect.height
+        let tryLeftRightSplitFirst = rectAspectRatio > (rectIsSmall ? 4 : 2)
+        
+        if tryLeftRightSplitFirst
         {
-            if 2 * CodeArtifact.Layout.minWidth + CodeArtifact.Layout.padding > rect.width
-            {
-                return nil
-            }
+            let result = splitIntoLeftAndRight(rect, firstFraction: firstFraction)
             
-            var widthA = (rect.width - CodeArtifact.Layout.padding) * firstFraction
-            var widthB = (rect.width - widthA) - CodeArtifact.Layout.padding
-            
-            if widthA < CodeArtifact.Layout.minWidth
-            {
-                widthA = CodeArtifact.Layout.minWidth
-                widthB = (rect.width - CodeArtifact.Layout.minWidth) - CodeArtifact.Layout.padding
-            }
-            else if widthB < CodeArtifact.Layout.minWidth
-            {
-                widthB = CodeArtifact.Layout.minWidth
-                widthA = (rect.width - CodeArtifact.Layout.minWidth) - CodeArtifact.Layout.padding
-            }
-            
-            let rectA = CGRect(x: rect.minX,
-                               y: rect.minY,
-                               width: widthA,
-                               height: rect.height)
-            
-            let rectB = CGRect(x: (rect.minX + widthA) + CodeArtifact.Layout.padding,
-                               y: rect.minY,
-                               width: widthB,
-                               height: rect.height)
-            
-            return (rectA, rectB)
+            return result ?? splitIntoTopAndBottom(rect, firstFraction: firstFraction)
         }
         else
         {
-            if 2 * CodeArtifact.Layout.minHeight + CodeArtifact.Layout.padding > rect.height
-            {
-                return nil
-            }
+            let result = splitIntoTopAndBottom(rect, firstFraction: firstFraction)
             
-            var heightA = (rect.height - CodeArtifact.Layout.padding) * firstFraction
-            var heightB = (rect.height - heightA) - CodeArtifact.Layout.padding
-            
-            if heightA < CodeArtifact.Layout.minHeight
-            {
-                heightA = CodeArtifact.Layout.minHeight
-                heightB = (rect.height - CodeArtifact.Layout.minHeight) - CodeArtifact.Layout.padding
-            }
-            else if heightB < CodeArtifact.Layout.minHeight
-            {
-                heightB = CodeArtifact.Layout.minHeight
-                heightA = (rect.height - CodeArtifact.Layout.minHeight) - CodeArtifact.Layout.padding
-            }
-            
-            let rectA = CGRect(x: rect.minX,
-                               y: rect.minY,
-                               width: rect.width,
-                               height: heightA)
-            
-            let rectB = CGRect(x: rect.minX,
-                               y: (rect.minY + heightA) + CodeArtifact.Layout.padding,
-                               width: rect.width,
-                               height: heightB)
-            
-            return (rectA, rectB)
+            return result ?? splitIntoLeftAndRight(rect, firstFraction: firstFraction)
         }
+    }
+    
+    func splitIntoLeftAndRight(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
+    {
+        if 2 * CodeArtifact.Layout.minWidth + CodeArtifact.Layout.padding > rect.width
+        {
+            return nil
+        }
+        
+        var widthA = (rect.width - CodeArtifact.Layout.padding) * firstFraction
+        var widthB = (rect.width - widthA) - CodeArtifact.Layout.padding
+        
+        if widthA < CodeArtifact.Layout.minWidth
+        {
+            widthA = CodeArtifact.Layout.minWidth
+            widthB = (rect.width - CodeArtifact.Layout.minWidth) - CodeArtifact.Layout.padding
+        }
+        else if widthB < CodeArtifact.Layout.minWidth
+        {
+            widthB = CodeArtifact.Layout.minWidth
+            widthA = (rect.width - CodeArtifact.Layout.minWidth) - CodeArtifact.Layout.padding
+        }
+        
+        let rectA = CGRect(x: rect.minX,
+                           y: rect.minY,
+                           width: widthA,
+                           height: rect.height)
+        
+        let rectB = CGRect(x: (rect.minX + widthA) + CodeArtifact.Layout.padding,
+                           y: rect.minY,
+                           width: widthB,
+                           height: rect.height)
+        
+        return (rectA, rectB)
+    }
+    
+    func splitIntoTopAndBottom(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
+    {
+        if 2 * CodeArtifact.Layout.minHeight + CodeArtifact.Layout.padding > rect.height
+        {
+            return nil
+        }
+        
+        var heightA = (rect.height - CodeArtifact.Layout.padding) * firstFraction
+        var heightB = (rect.height - heightA) - CodeArtifact.Layout.padding
+        
+        if heightA < CodeArtifact.Layout.minHeight
+        {
+            heightA = CodeArtifact.Layout.minHeight
+            heightB = (rect.height - CodeArtifact.Layout.minHeight) - CodeArtifact.Layout.padding
+        }
+        else if heightB < CodeArtifact.Layout.minHeight
+        {
+            heightB = CodeArtifact.Layout.minHeight
+            heightA = (rect.height - CodeArtifact.Layout.minHeight) - CodeArtifact.Layout.padding
+        }
+        
+        let rectA = CGRect(x: rect.minX,
+                           y: rect.minY,
+                           width: rect.width,
+                           height: heightA)
+        
+        let rectB = CGRect(x: rect.minX,
+                           y: (rect.minY + heightA) + CodeArtifact.Layout.padding,
+                           width: rect.width,
+                           height: heightB)
+
+        return (rectA, rectB)
     }
 }
 
