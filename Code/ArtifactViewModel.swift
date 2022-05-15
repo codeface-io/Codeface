@@ -6,6 +6,11 @@ class ArtifactViewModel: SwiftUI.ObservableObject, Observer
 {
     init()
     {
+        if let rootArtifact = Project.shared?.analysisResult?.rootArtifact
+        {
+            self.artifacts = [rootArtifact]
+        }
+        
         observe(Project.messenger)
         {
             switch $0
