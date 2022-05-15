@@ -124,9 +124,8 @@ struct CodefaceApp: App
                                                           includingResourceValuesForKeys: nil,
                                                           relativeTo: nil)
         
-        let persistedConfig = Project.PersistedConfiguration(folderBookmarkData: bookmarkData,
-                                                             language: config.language,
-                                                             codeFileEndings: config.codeFileEndings)
+        let persistedConfig = PersistedProjectConfiguration(folderBookmarkData: bookmarkData,
+                                                            configuration: config)
         
         persistedProjectConfigData = try persistedConfig.encode() as Data
     }
@@ -138,26 +137,32 @@ struct CodefaceApp: App
             throw "Found no persisted project configuration"
         }
         
-        var persistedProjectConfig = try Project.PersistedConfiguration(jsonData: configData)
+        var persistedConfig = try PersistedProjectConfiguration(jsonData: configData)
         
         var bookMarkIsStale = false
         
-        let folder = try URL(resolvingBookmarkData: persistedProjectConfig.folderBookmarkData,
+        let folder = try URL(resolvingBookmarkData: persistedConfig.folderBookmarkData,
                              options: .withSecurityScope,
                              relativeTo: nil,
                              bookmarkDataIsStale: &bookMarkIsStale)
         
+        persistedConfig.configuration.folder = folder
+        
         if bookMarkIsStale
         {
-            persistedProjectConfig.folderBookmarkData = try folder.bookmarkData()
+            persistedConfig.folderBookmarkData = try folder.bookmarkData()
             
-            persistedProjectConfigData = try persistedProjectConfig.encode() as Data
+            persistedProjectConfigData = try persistedConfig.encode() as Data
         }
         
-        return Project.Configuration(folder: folder,
-                                     language: persistedProjectConfig.language,
-                                     codeFileEndings: persistedProjectConfig.codeFileEndings)
+        return persistedConfig.configuration
     }
     
     @AppStorage("persistedProjectConfigData") var persistedProjectConfigData: Data?
+}
+
+struct PersistedProjectConfiguration: Codable
+{
+    var folderBookmarkData: Data
+    var configuration: Project.Configuration
 }

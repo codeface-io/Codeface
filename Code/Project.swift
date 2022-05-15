@@ -136,18 +136,11 @@ class Project
     
     // MARK: - Configuration
     
-    struct PersistedConfiguration: Codable
-    {
-        var folderBookmarkData: Data
-        let language: String
-        let codeFileEndings: [String]
-    }
-    
     private let config: Configuration
     
-    struct Configuration
+    struct Configuration: Codable
     {
-        let folder: URL
+        var folder: URL
         let language: String
         let codeFileEndings: [String]
     }
