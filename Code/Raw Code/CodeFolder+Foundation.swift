@@ -6,42 +6,36 @@ extension CodeFolder
 {
     init?(_ folderURL: URL, codeFileEndings: [String]) throws
     {
-        let fm = FileManager.default
+        let fileManager = FileManager.default
         
-        guard let urls = fm.files(inDirectory: folderURL,
-                                  flat: true,
-                                  skipFolders: []) else
+        guard let urls = fileManager.files(inDirectory: folderURL, flat: true) else
         {
             throw "Couldn't get file URLs from folder"
         }
         
-        var codeFiles = [CodeFile]()
+        var files = [CodeFile]()
         var subfolders = [CodeFolder]()
-        
-        var hasAtLeastOneCodeFile = false
         
         for url in urls
         {
             if url.isDirectory
             {
-                if let folder = try CodeFolder(url, codeFileEndings: codeFileEndings)
+                if let subfolder = try CodeFolder(url, codeFileEndings: codeFileEndings)
                 {
-                    subfolders.append(folder)
-                    hasAtLeastOneCodeFile = true
+                    subfolders += subfolder
                 }
             }
             else if codeFileEndings.contains(url.pathExtension)
             {
-                codeFiles.append(try CodeFile(url))
-                hasAtLeastOneCodeFile = true
+                files += try CodeFile(url)
             }
         }
         
-        if !hasAtLeastOneCodeFile { return nil }
+        if files.count + subfolders.count == 0 { return nil }
         
         self.init(name: folderURL.lastPathComponent,
                   path: folderURL.absoluteString,
-                  files: codeFiles,
+                  files: files,
                   subfolders: subfolders)
     }
 }
