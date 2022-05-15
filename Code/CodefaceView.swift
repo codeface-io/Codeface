@@ -28,27 +28,29 @@ struct CodefaceView: View
             {
                 artifact in
                 
-                NavigationLink(tag: artifact,
-                               selection: $selectedArtifact)
+                NavigationLink(tag: artifact, selection: $selectedArtifact)
                 {
-                    Group
-                    {
-                        if let fileContent = artifact.fileContentToShow
-                        {
-                            TextEditor(text: .constant(fileContent))
-                                .font(.system(.body, design: .monospaced))
-                        }
-                        else
-                        {
-                            ArtifactContentView(artifact: artifact)
-                                .drawingGroup()
-                                .padding(CodeArtifact.Layout.padding)
-                        }
-                    }
-                    .navigationTitle(artifact.displayName)
-                    .navigationSubtitle(artifact.secondaryDisplayName)
+                    ArtifactContentView(artifact: artifact)
+                        .drawingGroup()
+                        .padding(CodeArtifact.Layout.padding)
+
+                        .navigationTitle(artifact.displayName)
+                        .navigationSubtitle(artifact.secondaryDisplayName)
+//                        .toolbar
+//                        {
+//                            ToolbarItem(placement: .cancellationAction)
+//                            {
+//                                Button
+//                                {
+//
+//                                } label:
+//                                {
+//                                    Image(systemName: "sidebar.trailing")
+//                                }
+//                            }
+//                        }
                 }
-                label:
+            label:
                 {
                     SidebarLabel(artifact: artifact,
                                  isSelected: artifact === selectedArtifact)
@@ -65,6 +67,15 @@ struct CodefaceView: View
                     }
                 }
             }
+
+//            Label("Select a code artifact from the list",
+//                  systemImage: "arrow.left")
+//                .padding()
+//                .font(.system(.title))
+//
+//            TextEditor(text: .constant(selectedArtifact?.fileContentToShow ?? ""))
+//                .font(.system(.body, design: .monospaced))
+//                .frame(minWidth: 100)
         }
         .searchable(text: $searchTerm)
     }
@@ -78,7 +89,7 @@ extension CodeArtifact
 {
     var fileContentToShow: String?
     {
-        if case .file(let file) = kind, parts?.isEmpty ?? true
+        if case .file(let file) = kind
         {
             return file.content
         }
@@ -97,17 +108,17 @@ struct SidebarLabel: View
         {
             Text(artifact.displayName)
                 .font(.system(.title3, design: .for(artifact)))
-
+            
             if let loc = artifact.metrics?.linesOfCode
             {
                 Spacer()
-
+                
                 Text("\(loc)")
                     .foregroundColor(isSelected ? .primary : artifact.locColor())
                     .font(.system(.title3, design: .monospaced))
             }
         }
-        icon:
+    icon:
         {
             Image(systemName: systemImageName(for: artifact.kind))
                 .accentColor(iconColor(for: artifact.kind))
