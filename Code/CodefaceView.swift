@@ -102,7 +102,7 @@ struct SidebarLabel: View
                 Spacer()
 
                 Text("\(loc)")
-                    .foregroundColor(isSelected ? .primary : locColor(for: artifact))
+                    .foregroundColor(isSelected ? .primary : artifact.locColor())
                     .font(.system(.title3, design: .monospaced))
             }
         }
@@ -116,10 +116,17 @@ struct SidebarLabel: View
     @State var artifact: CodeArtifact
     let isSelected: Bool
     
-    private func locColor(for artifact: CodeArtifact) -> Color {
-        switch artifact.kind {
+    
+}
+
+extension CodeArtifact
+{
+    func locColor() -> Color
+    {
+        switch kind
+        {
         case .file:
-            return warningColor(for: artifact.metrics?.linesOfCode ?? 0)
+            return warningColor(for: metrics?.linesOfCode ?? 0)
         default:
             return Color(NSColor.systemGray)
         }

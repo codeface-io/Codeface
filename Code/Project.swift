@@ -5,6 +5,7 @@ import Foundation
 import SwiftObserver
 import SwiftyToolz
 
+@MainActor
 class Project
 {
     // MARK: - Shared Instance

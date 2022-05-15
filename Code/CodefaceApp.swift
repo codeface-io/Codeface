@@ -96,17 +96,20 @@ struct CodefaceApp: App
     
     // MARK: - Load Project
     
+    @MainActor
     private func loadNewProject(with config: Project.Configuration) throws
     {
         try loadProject(with: config)
         try persist(projectConfig: config)
     }
     
+    @MainActor
     private func loadLastProject() throws
     {
         try loadProject(with: loadProjectConfig())
     }
     
+    @MainActor
     private func loadProject(with config: Project.Configuration) throws
     {
         try Project.initSharedInstance(with: config)

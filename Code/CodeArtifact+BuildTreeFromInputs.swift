@@ -1,4 +1,5 @@
 import SwiftLSP
+import SwiftyToolz
 
 extension CodeArtifact
 {
@@ -8,8 +9,14 @@ extension CodeArtifact
         {
         case .file(let codeFile):
             let symbols = try await server.symbols(for: codeFile)
-            if symbols.isEmpty { parts = nil }
-            else { parts = symbols.map(CodeArtifact.init) }
+            if symbols.isEmpty
+            {
+                parts = nil
+            }
+            else
+            {
+                parts = symbols.map({ CodeArtifact(lspDocSymbol: $0) })
+            }
             
         case .folder:
             for part in (parts ?? [])
@@ -29,7 +36,7 @@ extension CodeArtifact
     {
         self.init(displayName: lspDocSymbol.name,
                   kind: .symbol(lspDocSymbol),
-                  parts: lspDocSymbol.children.map(CodeArtifact.init))
+                  parts: lspDocSymbol.children.map({ CodeArtifact(lspDocSymbol: $0) }))
     }
 }
 
@@ -39,8 +46,8 @@ extension CodeArtifact
     {
         var parts = [CodeArtifact]()
         
-        parts += codeFolder.files.map(CodeArtifact.init)
-        parts += codeFolder.subfolders.map(CodeArtifact.init)
+        parts += codeFolder.files.map { CodeArtifact(codeFile: $0) }
+        parts += codeFolder.subfolders.map { CodeArtifact(codeFolder: $0) }
         
         self.init(displayName: codeFolder.name,
                   kind: .folder(codeFolder),

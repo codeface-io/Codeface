@@ -4,7 +4,7 @@ import SwiftyToolz
 
 extension CodeFolder
 {
-    convenience init(_ folder: URL, codeFileEndings: [String]) throws
+    init(_ folder: URL, codeFileEndings: [String]) throws
     {
         let fm = FileManager.default
         
@@ -42,7 +42,7 @@ extension CodeFolder
 
 extension CodeFile
 {
-    convenience init(_ file: URL) throws
+    init(_ file: URL) throws
     {
         self.init(name: file.lastPathComponent,
                   path: file.absoluteString,

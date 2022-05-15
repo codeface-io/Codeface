@@ -55,6 +55,7 @@ extension CodeArtifact: Hashable
 }
 
 /// type
+@MainActor
 class CodeArtifact: Identifiable
 {
     init(displayName: String, kind: Kind, parts: [CodeArtifact]? = nil)

@@ -1,10 +1,12 @@
-extension CodeFolder {
-    static var dummy: CodeFolder {
+extension CodeFolder
+{
+    static var dummy: CodeFolder
+    {
         .init(name: "dummy folder", path: "", files: [], subfolders: [])
     }
 }
 
-class CodeFolder
+struct CodeFolder
 {
     init(name: String,
          path: String,
