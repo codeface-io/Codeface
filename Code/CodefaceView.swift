@@ -30,25 +30,25 @@ struct CodefaceView: View
                 
                 NavigationLink(tag: artifact, selection: $selectedArtifact)
                 {
-                    ArtifactContentView(artifact: artifact)
-                        .drawingGroup()
-                        .padding(CodeArtifact.Layout.padding)
-
-                        .navigationTitle(artifact.displayName)
-                        .navigationSubtitle(artifact.secondaryDisplayName)
-//                        .toolbar
-//                        {
-//                            ToolbarItem(placement: .cancellationAction)
-//                            {
-//                                Button
-//                                {
-//
-//                                } label:
-//                                {
-//                                    Image(systemName: "sidebar.trailing")
-//                                }
-//                            }
-//                        }
+                    Group
+                    {
+                        switch mode
+                        {
+                        case .treeMap:
+                            ArtifactContentView(artifact: artifact)
+                                .drawingGroup()
+                                .padding(CodeArtifact.Layout.padding)
+                        case .code:
+                            TextEditor(text: .constant(artifact.fileContentToShow ?? ""))
+                                .font(.system(.body, design: .monospaced))
+                        }
+                    }
+                    .toolbar
+                    {
+                        DisplayModePicker(mode: $mode)
+                    }
+                    .navigationTitle(artifact.displayName)
+                    .navigationSubtitle(artifact.secondaryDisplayName)
                 }
             label:
                 {
@@ -68,14 +68,10 @@ struct CodefaceView: View
                 }
             }
 
-//            Label("Select a code artifact from the list",
-//                  systemImage: "arrow.left")
-//                .padding()
-//                .font(.system(.title))
-//
-//            TextEditor(text: .constant(selectedArtifact?.fileContentToShow ?? ""))
-//                .font(.system(.body, design: .monospaced))
-//                .frame(minWidth: 100)
+            Label("Select a code artifact from the list",
+                  systemImage: "arrow.left")
+                .padding()
+                .font(.system(.title))
         }
         .searchable(text: $searchTerm)
     }
@@ -83,6 +79,48 @@ struct CodefaceView: View
     @State var searchTerm = ""
     @StateObject private var viewModel: ArtifactViewModel
     @State var selectedArtifact: CodeArtifact?
+    @SceneStorage("viewMode") private var mode: ViewMode = .treeMap
+}
+
+struct DisplayModePicker: View
+{
+    var body: some View
+    {
+        Picker("Display Mode", selection: $mode)
+        {
+            ForEach(ViewMode.allCases) { $0.label }
+        }
+        .pickerStyle(.segmented)
+    }
+    
+    @Binding var mode: ViewMode
+}
+
+extension ViewMode
+{
+    var label: some View
+    {
+        let content = labelContent
+        return Label(content.name, systemImage: content.systemImage)
+    }
+    
+    var labelContent: (name: String, systemImage: String)
+    {
+        switch self
+        {
+        case .treeMap:
+            return ("Tree Map", "rectangle.3.group")
+        case .code:
+            return ("Code", "chevron.left.forwardslash.chevron.right")
+        }
+    }
+}
+
+enum ViewMode: String, CaseIterable, Identifiable
+{
+    var id: Self { self }
+    
+    case treeMap, code
 }
 
 extension CodeArtifact
