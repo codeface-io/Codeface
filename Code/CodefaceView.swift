@@ -166,7 +166,7 @@ struct SidebarLabel: View
                 
                 Text("\(loc)")
                     .foregroundColor(isSelected ? .primary : artifact.locColor())
-                    .font(.system(.title3, design: .monospaced))
+                    .font(.system(.title3, design: .default))
             }
         }
     icon:
