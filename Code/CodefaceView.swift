@@ -37,7 +37,8 @@ struct CodefaceView: View
                         switch displayMode
                         {
                         case .treeMap:
-                            ArtifactContentView(artifact: artifact)
+                            ArtifactContentView(artifact: artifact,
+                                                searchTerm: $searchTerm)
                                 .drawingGroup()
                                 .padding(CodeArtifact.Layout.padding)
                         case .code:

@@ -1,6 +1,48 @@
 import SwiftLSP
 import Foundation
 
+/// search
+extension CodeArtifact
+{
+    func contains(searchTerm: String) -> Bool
+    {
+        if searchTerm == "" { return true }
+        
+        switch kind
+        {
+        case .folder(let folder):
+            if folder.name.contains(searchTerm)
+            {
+                return true
+            }
+            
+        case .file(let codeFile):
+            if codeFile.name.contains(searchTerm)
+                || codeFile.content.contains(searchTerm)
+            {
+                return true
+            }
+        
+        case .symbol(let symbol):
+            if symbol.lspDocumentSymbol.name.contains(searchTerm)
+                || symbol.code.contains(searchTerm)
+            {
+                return true
+            }
+        }
+        
+        for part in (parts ?? [])
+        {
+            if part.contains(searchTerm: searchTerm)
+            {
+                return true
+            }
+        }
+        
+        return false
+    }
+}
+
 /// display
 extension CodeArtifact
 {

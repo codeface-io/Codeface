@@ -5,7 +5,8 @@ struct ArtifactViewPreview: PreviewProvider
 {
     static var previews: some View
     {
-        ArtifactContentView(artifact: .dummy)
+        ArtifactContentView(artifact: .dummy,
+                            searchTerm: .constant(""))
             .previewDisplayName("ArtifactView")
     }
 }
@@ -40,9 +41,9 @@ struct ArtifactContentView: View
             {
                 ZStack
                 {
-                    ForEach(parts)
+                    ForEach(parts.filter({ $0.contains(searchTerm: searchTerm) }))
                     {
-                        ArtifactView(artifact: $0)
+                        ArtifactView(artifact: $0, searchTerm: $searchTerm)
                     }
                 }
                 .frame(width: geo.size.width,
@@ -52,6 +53,7 @@ struct ArtifactContentView: View
     }
     
     @State var artifact: CodeArtifact
+    @Binding var searchTerm: String
 }
 
 struct ArtifactView: View
@@ -83,7 +85,7 @@ struct ArtifactView: View
                 
                 if contentSpaceGeometry.size.height >= CodeArtifact.Layout.minHeight
                 {
-                    ArtifactContentView(artifact: artifact)
+                    ArtifactContentView(artifact: artifact, searchTerm: $searchTerm)
                         .padding([.leading, .trailing, .bottom],
                                  CodeArtifact.Layout.padding)
                 }
@@ -104,6 +106,7 @@ struct ArtifactView: View
     
     @ObservedObject var artifact: CodeArtifact
     @State var isHovering: Bool = false
+    @Binding var searchTerm: String
 }
 
 extension CodeArtifact.Layout
