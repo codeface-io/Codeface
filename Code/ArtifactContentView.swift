@@ -5,8 +5,7 @@ struct ArtifactViewPreview: PreviewProvider
 {
     static var previews: some View
     {
-        ArtifactContentView(artifact: .dummy,
-                            searchTerm: .constant(""))
+        ArtifactContentView(artifact: .dummy, filterBySearchTerm: true)
             .previewDisplayName("ArtifactView")
     }
 }
@@ -41,9 +40,10 @@ struct ArtifactContentView: View
             {
                 ZStack
                 {
-                    ForEach(parts.filter({ $0.contains(searchTerm: searchTerm) }))
+                    ForEach(parts.filter({ $0.containsSearchTerm || !filterBySearchTerm }))
                     {
-                        ArtifactView(artifact: $0, searchTerm: $searchTerm)
+                        ArtifactView(artifact: $0,
+                                     filterBySearchTerm: filterBySearchTerm && !$0.containsSearchTermRegardlessOfParts)
                     }
                 }
                 .frame(width: geo.size.width,
@@ -52,8 +52,8 @@ struct ArtifactContentView: View
         }
     }
     
-    @State var artifact: CodeArtifact
-    @Binding var searchTerm: String
+    @ObservedObject var artifact: CodeArtifact
+    let filterBySearchTerm: Bool
 }
 
 struct ArtifactView: View
@@ -85,7 +85,7 @@ struct ArtifactView: View
                 
                 if contentSpaceGeometry.size.height >= CodeArtifact.Layout.minHeight
                 {
-                    ArtifactContentView(artifact: artifact, searchTerm: $searchTerm)
+                    ArtifactContentView(artifact: artifact, filterBySearchTerm: filterBySearchTerm)
                         .padding([.leading, .trailing, .bottom],
                                  CodeArtifact.Layout.padding)
                 }
@@ -105,8 +105,8 @@ struct ArtifactView: View
     }
     
     @ObservedObject var artifact: CodeArtifact
+    let filterBySearchTerm: Bool
     @State var isHovering: Bool = false
-    @Binding var searchTerm: String
 }
 
 extension CodeArtifact.Layout

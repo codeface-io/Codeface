@@ -8,7 +8,7 @@ extension CodeFolder
     {
         let fileManager = FileManager.default
         
-        guard let urls = fileManager.files(inDirectory: folderURL, flat: true) else
+        guard let urls = fileManager.items(inDirectory: folderURL, recursive: false) else
         {
             throw "Couldn't get file URLs from folder"
         }
@@ -44,8 +44,10 @@ extension CodeFile
 {
     init(_ file: URL) throws
     {
+        let content = try String(contentsOf: file, encoding: .utf8)
+        
         self.init(name: file.lastPathComponent,
                   path: file.absoluteString,
-                  content: try String(contentsOf: file, encoding: .utf8))
+                  lines: content.components(separatedBy: .newlines))
     }
 }

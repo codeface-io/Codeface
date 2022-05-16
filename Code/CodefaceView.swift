@@ -38,7 +38,7 @@ struct CodefaceView: View
                         {
                         case .treeMap:
                             ArtifactContentView(artifact: artifact,
-                                                searchTerm: $searchTerm)
+                                                filterBySearchTerm: !artifact.containsSearchTermRegardlessOfParts)
                                 .drawingGroup()
                                 .padding(CodeArtifact.Layout.padding)
                         case .code:
@@ -89,10 +89,9 @@ struct CodefaceView: View
                 .padding()
                 .font(.system(.title))
         }
-        .searchable(text: $searchTerm)
+        .searchable(text: $viewModel.searchTerm)
     }
     
-    @State var searchTerm = ""
     @StateObject private var viewModel: CodeArtifactViewModel
     @State var selectedArtifact: CodeArtifact?
     @Binding var displayMode: DisplayMode
@@ -146,7 +145,7 @@ extension CodeArtifact
         switch kind
         {
         case .folder: return nil
-        case .file(let file): return file.content
+        case .file(let file): return file.lines.joined(separator: "\n")
         case .symbol(let symbol): return symbol.code
         }
     }

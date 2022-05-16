@@ -15,9 +15,8 @@ extension CodeArtifact
             }
             else
             {
-                let codeFileLines = codeFile.content.components(separatedBy: .newlines)
                 parts = symbols.map({ CodeArtifact(lspDocSymbol: $0,
-                                                   codeFileLines: codeFileLines) })
+                                                   codeFileLines: codeFile.lines) })
             }
             
         case .folder:

@@ -14,7 +14,7 @@ extension LSP.ServerCommunicationHandler
             "uri": file.absoluteString, // DocumentUri;
             "languageId": language, // TODO: make enum for LSP language keys, and struct for this document
             "version": 1,
-            "text": codeFile.content
+            "text": codeFile.lines.joined(separator: "\n")
         ]
         
         try notify(.didOpen(doc: JSON(document)))

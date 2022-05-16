@@ -1,47 +1,134 @@
 import SwiftLSP
 import Foundation
+import SwiftyToolz
 
 /// search
 extension CodeArtifact
 {
-    func contains(searchTerm: String) -> Bool
+    @discardableResult
+    func updateFilter(withSearchTerm searchTerm: String) -> Bool
     {
-        if searchTerm == "" { return true }
+        containsSearchTermRegardlessOfParts = false
+        partsContainsSearchTerm = false
+        
+        if searchTerm == ""
+        {
+            containsSearchTermRegardlessOfParts = true
+            partsContainsSearchTerm = true
+            
+            for part in (parts ?? [])
+            {
+                part.updateFilter(withSearchTerm: searchTerm)
+            }
+            
+            self.searchTerm = searchTerm
+            
+            return true
+        }
         
         switch kind
         {
         case .folder(let folder):
             if folder.name.contains(searchTerm)
             {
-                return true
+                containsSearchTermRegardlessOfParts = true
             }
             
         case .file(let codeFile):
+            // regular search
             if codeFile.name.contains(searchTerm)
-                || codeFile.content.contains(searchTerm)
             {
-                return true
+                containsSearchTermRegardlessOfParts = true
             }
-        
+            
+            // search in code, then assign these matches recursively to parts
+            var allMatches = [Int]()
+            
+            for lineIndex in 0 ..< codeFile.lines.count
+            {
+                if codeFile.lines[lineIndex].contains(searchTerm)
+                {
+                    allMatches += lineIndex
+                }
+            }
+            
+            assign(searchMatches: allMatches)
+            
         case .symbol(let symbol):
             if symbol.lspDocumentSymbol.name.contains(searchTerm)
-                || symbol.code.contains(searchTerm)
             {
-                return true
+                containsSearchTermRegardlessOfParts = true
             }
         }
         
         for part in (parts ?? [])
         {
-            if part.contains(searchTerm: searchTerm)
+            if part.updateFilter(withSearchTerm: searchTerm)
             {
-                return true
+                partsContainsSearchTerm = true
             }
         }
         
-        return false
+        self.searchTerm = searchTerm
+        
+        return containsSearchTerm
+    }
+    
+    @discardableResult
+    private func assign(searchMatches: [Int]) -> [Int]
+    {
+        switch kind
+        {
+        case .file, .symbol:
+            var matchesWithoutParts = [Int]()
+            
+            if let parts = parts, !parts.isEmpty
+            {
+                for part in parts
+                {
+                    matchesWithoutParts += part.assign(searchMatches: searchMatches)
+                }
+                
+                matchesWithoutParts = Array(Set(matchesWithoutParts))
+                
+                if matchesWithoutParts.count < searchMatches.count
+                {
+                    partsContainsSearchTerm = true
+                }
+            }
+            else
+            {
+                matchesWithoutParts = searchMatches
+            }
+            
+            let matchesNotInSelf = matchesWithoutParts.filter
+            {
+                !contains(line: $0)
+            }
+            
+            if matchesNotInSelf.count < matchesWithoutParts.count
+            {
+                containsSearchTermRegardlessOfParts = true
+            }
+            
+            return matchesNotInSelf
+            
+        case .folder: return []
+        }
+    }
+    
+    func contains(line: Int) -> Bool
+    {
+        switch kind
+        {
+        case.folder: return false
+        case.file(let file): return file.lines.count > line
+        case .symbol(let symbol): return symbol.contains(line: line)
+        }
     }
 }
+
+
 
 /// display
 extension CodeArtifact
@@ -132,4 +219,16 @@ class CodeArtifact: Identifiable, ObservableObject
         let centerX: Double
         let centerY: Double
     }
+    
+    // search filter
+    
+    @Published var searchTerm = ""
+    
+    var containsSearchTerm: Bool
+    {
+        partsContainsSearchTerm || containsSearchTermRegardlessOfParts
+    }
+    
+    var partsContainsSearchTerm = true
+    var containsSearchTermRegardlessOfParts = true
 }

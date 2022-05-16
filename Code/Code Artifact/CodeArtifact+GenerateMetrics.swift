@@ -20,7 +20,7 @@ extension CodeArtifact
                 part.generateMetrics()
             }
             
-            metrics = .init(linesOfCode: codeFile.content.numberOfLines)
+            metrics = .init(linesOfCode: codeFile.lines.count)
         
         case .symbol(let symbol):
             for part in (parts ?? [])
@@ -33,15 +33,5 @@ extension CodeArtifact
             let loc = (lspSymbol.range.end.line - lspSymbol.range.start.line) + 1
             metrics = .init(linesOfCode: Int(loc))
         }
-    }
-}
-
-extension String
-{
-    var numberOfLines: Int
-    {
-        var result = 0
-        enumerateLines { _, _ in result += 1 }
-        return result
     }
 }

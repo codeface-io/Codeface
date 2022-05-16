@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import SwiftObserver
 import SwiftyToolz
 
@@ -20,9 +21,22 @@ class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
                 self.artifacts = [analysisResult.rootArtifact]
             }
         }
+        
+        observations += $searchTerm.sink
+        {
+            searchTerm in
+
+            for artifact in self.artifacts
+            {
+                artifact.updateFilter(withSearchTerm: searchTerm)
+            }
+        }
     }
     
     @Published var artifacts = [CodeArtifact]()
+    @Published var searchTerm = ""
     
     let receiver = Receiver()
+    
+    private var observations = [AnyCancellable]()
 }
