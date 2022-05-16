@@ -346,19 +346,17 @@ func iconColor(for symbol: LSPDocumentSymbol) -> Color
     {
     case .File, .Module, .Package:
         return .white
-    case .Class, .Interface, .Struct, .Enum:
+    case .Class, .Interface, .Struct:
         return Color(NSColor.systemPurple)
-    case .Namespace:
+    case .Namespace, .Enum:
         return Color(NSColor.systemOrange)
-    case .Method, .Constructor, .Function:
+    case .Method, .Constructor:
         return Color(NSColor.systemBlue)
     case .Property, .Field, .EnumMember:
         return Color(NSColor.systemTeal)
-    case .Variable, .Constant:
-        return Color(NSColor.systemPink)
-    case .String:
-        return Color(NSColor.systemRed)
-    case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .Operator, .TypeParameter:
+    case .Variable, .Constant, .Function, .Operator:
+        return Color(NSColor.systemGreen)
+    case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .TypeParameter, .String:
         return Color(NSColor.secondaryLabelColor)
     }
 }
@@ -386,21 +384,16 @@ func iconSystemImageName(for symbol: LSPDocumentSymbol) -> String
         return "doc.fill"
     case .Module, .Package:
         return "shippingbox.fill"
-    case .Class, .Interface, .Struct, .Enum:
-        return "t.square.fill"
-    case .Namespace:
-        return "x.square.fill"
-    case .Method, .Constructor, .Function:
-        return "f.square.fill"
-    case .Property, .Field, .EnumMember:
-        return "p.square.fill"
-    case .Variable:
-        return "v.square.fill"
-    case .Constant:
-        return "c.square.fill"
-    case .String:
-        return "s.square.fill"
-    case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .Operator, .TypeParameter:
+    case .Null:
         return "square.fill"
+    default:
+        if let firstCharacter = symbolKind.name.first?.lowercased()
+        {
+            return firstCharacter + ".square.fill"
+        }
+        else
+        {
+            return "questionmark.square.fill"
+        }
     }
 }
