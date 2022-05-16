@@ -40,11 +40,9 @@ struct ArtifactContentView: View
             {
                 ZStack
                 {
-                    ForEach(0 ... parts.count - 1, id: \.self)
+                    ForEach(parts)
                     {
-                        index in
-                        
-                        ArtifactView(artifact: parts[index])
+                        ArtifactView(artifact: $0)
                     }
                 }
                 .frame(width: geo.size.width,
