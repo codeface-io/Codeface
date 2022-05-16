@@ -77,12 +77,9 @@ struct CodefaceView: View
             .listStyle(.sidebar)
             .toolbar
             {
-                ToolbarItem(placement: .confirmationAction)
+                Button(action: toggleSidebar)
                 {
-                    Button(action: toggleSidebar)
-                    {
-                        Image(systemName: "sidebar.leading")
-                    }
+                    Image(systemName: "sidebar.leading")
                 }
             }
 
