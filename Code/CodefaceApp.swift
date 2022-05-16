@@ -28,7 +28,7 @@ struct CodefaceApp: App
         
         WindowGroup
         {
-            CodefaceView()
+            CodefaceView(displayMode: $displayMode)
         }
         .onChange(of: scenePhase)
         {
@@ -45,6 +45,19 @@ struct CodefaceApp: App
         .commands
         {
             SidebarCommands()
+            
+            CommandGroup(after: .sidebar)
+            {
+                Button("Switch View Mode")
+                {
+                    switch displayMode
+                    {
+                    case .code: displayMode = .treeMap
+                    case .treeMap: displayMode = .code
+                    }
+                }
+                .keyboardShortcut(.space, modifiers: .shift)
+            }
             
             CommandGroup(replacing: .newItem)
             {
@@ -93,6 +106,7 @@ struct CodefaceApp: App
     
     @State var isPresented = false
     @Environment(\.scenePhase) var scenePhase
+    @State private var displayMode: DisplayMode = .treeMap
     
     // MARK: - Load Project
     

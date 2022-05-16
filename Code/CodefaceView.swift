@@ -7,15 +7,17 @@ struct CodefaceViewPreview: PreviewProvider
 {
     static var previews: some View
     {
-        CodefaceView().previewDisplayName("CodefaceView")
+        CodefaceView(displayMode: .constant(.treeMap))
+            .previewDisplayName("CodefaceView")
     }
 }
 
 struct CodefaceView: View
 {
-    init()
+    init(displayMode: Binding<DisplayMode>)
     {
         _viewModel = StateObject(wrappedValue: CodeArtifactViewModel())
+        _displayMode = displayMode
     }
     
     var body: some View
@@ -32,7 +34,7 @@ struct CodefaceView: View
                 {
                     Group
                     {
-                        switch mode
+                        switch displayMode
                         {
                         case .treeMap:
                             ArtifactContentView(artifact: artifact)
@@ -61,7 +63,7 @@ struct CodefaceView: View
                     }
                     .toolbar
                     {
-                        DisplayModePicker(mode: $mode)
+                        DisplayModePicker(displayMode: $displayMode)
                     }
                     .navigationTitle(artifact.displayName)
                     .navigationSubtitle(artifact.secondaryDisplayName)
@@ -95,24 +97,24 @@ struct CodefaceView: View
     @State var searchTerm = ""
     @StateObject private var viewModel: CodeArtifactViewModel
     @State var selectedArtifact: CodeArtifact?
-    @SceneStorage("viewMode") private var mode: ViewMode = .treeMap
+    @Binding var displayMode: DisplayMode
 }
 
 struct DisplayModePicker: View
 {
     var body: some View
     {
-        Picker("Display Mode", selection: $mode)
+        Picker("Display Mode", selection: $displayMode)
         {
-            ForEach(ViewMode.allCases) { $0.label }
+            ForEach(DisplayMode.allCases) { $0.label }
         }
         .pickerStyle(.segmented)
     }
     
-    @Binding var mode: ViewMode
+    @Binding var displayMode: DisplayMode
 }
 
-extension ViewMode
+extension DisplayMode
 {
     var label: some View
     {
@@ -132,7 +134,7 @@ extension ViewMode
     }
 }
 
-enum ViewMode: String, CaseIterable, Identifiable
+enum DisplayMode: String, CaseIterable, Identifiable
 {
     var id: Self { self }
     
