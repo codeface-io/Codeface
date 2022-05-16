@@ -191,7 +191,6 @@
 		9EA5A8B3218EE9B9004902F7 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -199,6 +198,7 @@
 		9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */ = {
 			isa = PBXGroup;
 			children = (
+				9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */,
 				9EA5A8B3218EE9B9004902F7 /* Foundation */,
 			);
 			path = "Framework-Candidates";
