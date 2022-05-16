@@ -15,7 +15,7 @@ struct CodefaceView: View
 {
     init()
     {
-        _viewModel = StateObject(wrappedValue: ArtifactViewModel())
+        _viewModel = StateObject(wrappedValue: CodeArtifactViewModel())
     }
     
     var body: some View
@@ -39,8 +39,24 @@ struct CodefaceView: View
                                 .drawingGroup()
                                 .padding(CodeArtifact.Layout.padding)
                         case .code:
-                            TextEditor(text: .constant(artifact.fileContentToShow ?? ""))
-                                .font(.system(.body, design: .monospaced))
+                            if let code = artifact.codeContent
+                            {
+                                TextEditor(text: .constant(code))
+                                    .font(.system(.body, design: .monospaced))
+                            }
+                            else
+                            {
+                                VStack
+                                {
+                                    Label(artifact.displayName,
+                                          systemImage: systemImageName(for: artifact.kind))
+                                        .font(.system(.title))
+                                    
+                                    Text("Select a contained file or symbol to show their code.")
+                                        .padding(.top)
+                                }
+                                .padding(CodeArtifact.Layout.padding)
+                            }
                         }
                     }
                     .toolbar
@@ -77,7 +93,7 @@ struct CodefaceView: View
     }
     
     @State var searchTerm = ""
-    @StateObject private var viewModel: ArtifactViewModel
+    @StateObject private var viewModel: CodeArtifactViewModel
     @State var selectedArtifact: CodeArtifact?
     @SceneStorage("viewMode") private var mode: ViewMode = .treeMap
 }
@@ -125,15 +141,13 @@ enum ViewMode: String, CaseIterable, Identifiable
 
 extension CodeArtifact
 {
-    var fileContentToShow: String?
+    var codeContent: String?
     {
-        if case .file(let file) = kind
+        switch kind
         {
-            return file.content
-        }
-        else
-        {
-            return nil
+        case .folder: return nil
+        case .file(let file): return file.content
+        case .symbol(let symbol): return symbol.code
         }
     }
 }

@@ -15,7 +15,9 @@ extension CodeArtifact
             }
             else
             {
-                parts = symbols.map({ CodeArtifact(lspDocSymbol: $0) })
+                let codeFileLines = codeFile.content.components(separatedBy: .newlines)
+                parts = symbols.map({ CodeArtifact(lspDocSymbol: $0,
+                                                   codeFileLines: codeFileLines) })
             }
             
         case .folder:
@@ -32,11 +34,16 @@ extension CodeArtifact
 
 extension CodeArtifact
 {
-    convenience init(lspDocSymbol: LSPDocumentSymbol)
+    convenience init(lspDocSymbol: LSPDocumentSymbol, codeFileLines: [String])
     {
+        let symbolLines = codeFileLines[lspDocSymbol.range.start.line ... lspDocSymbol.range.end.line]
+        let symbolCode = symbolLines.joined(separator: "\n")
+        
         self.init(displayName: lspDocSymbol.name,
-                  kind: .symbol(lspDocSymbol),
-                  parts: lspDocSymbol.children.map({ CodeArtifact(lspDocSymbol: $0) }))
+                  kind: .symbol(CodeSymbol(lspDocumentSymbol: lspDocSymbol,
+                                           code: symbolCode)),
+                  parts: lspDocSymbol.children.map({ CodeArtifact(lspDocSymbol: $0,
+                                                                  codeFileLines: codeFileLines) }))
     }
 }
 

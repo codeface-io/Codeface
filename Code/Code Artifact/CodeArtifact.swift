@@ -10,7 +10,7 @@ extension CodeArtifact
         {
         case .folder: return "Folder"
         case .file: return "File"
-        case .symbol(let symbol): return symbol.kindName
+        case .symbol(let symbol): return symbol.lspDocumentSymbol.kindName
         }
     }
 }
@@ -35,7 +35,7 @@ extension CodeArtifact
     var symbol: LSPDocumentSymbol?
     {
         guard case .symbol(let symbol) = kind else { return nil }
-        return symbol
+        return symbol.lspDocumentSymbol
     }
 }
 
@@ -70,7 +70,7 @@ class CodeArtifact: Identifiable, ObservableObject
     let displayName: String
     
     let kind: Kind
-    enum Kind { case folder(CodeFolder), file(CodeFile), symbol(LSPDocumentSymbol) }
+    enum Kind { case folder(CodeFolder), file(CodeFile), symbol(CodeSymbol) }
     
     var parts: [CodeArtifact]?
     

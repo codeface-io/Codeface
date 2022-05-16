@@ -3,7 +3,7 @@ import SwiftObserver
 import SwiftyToolz
 
 @MainActor
-class ArtifactViewModel: SwiftUI.ObservableObject, Observer
+class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
 {
     init()
     {

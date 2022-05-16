@@ -28,7 +28,9 @@ extension CodeArtifact
                 part.generateMetrics()
             }
             
-            let loc = (symbol.range.end.line - symbol.range.start.line) + 1
+            let lspSymbol = symbol.lspDocumentSymbol
+            
+            let loc = (lspSymbol.range.end.line - lspSymbol.range.start.line) + 1
             metrics = .init(linesOfCode: Int(loc))
         }
     }

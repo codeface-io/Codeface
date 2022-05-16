@@ -331,7 +331,7 @@ func iconColor(for artifactKind: CodeArtifact.Kind) -> Color
     {
     case .folder: return Color(NSColor.secondaryLabelColor)
     case .file: return .white
-    case .symbol(let symbol): return iconColor(for: symbol)
+    case .symbol(let symbol): return iconColor(for: symbol.lspDocumentSymbol)
     }
 }
 
@@ -369,7 +369,7 @@ func systemImageName(for artifactKind: CodeArtifact.Kind) -> String
     {
     case .folder: return "folder.fill"
     case .file: return "doc.fill"
-    case .symbol(let symbol): return iconSystemImageName(for: symbol)
+    case .symbol(let symbol): return iconSystemImageName(for: symbol.lspDocumentSymbol)
     }
 }
 
