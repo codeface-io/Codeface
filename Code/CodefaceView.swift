@@ -172,7 +172,7 @@ struct SidebarLabel: View
     icon:
         {
             Image(systemName: systemImageName(for: artifact.kind))
-                .accentColor(iconColor(for: artifact.kind))
+                .foregroundColor(isSelected ? .primary : iconColor(for: artifact.kind))
         }
     }
     

@@ -95,7 +95,6 @@ struct ArtifactView: View
                height: artifact.layout.height)
         .background(RoundedRectangle(cornerRadius: 5)
             .fill(bgColor(for: artifact.kind))
-            .shadow(color: .black, radius: 10, x: 0, y: 5)
             .overlay(RoundedRectangle(cornerRadius: 5)
                 .strokeBorder(isHovering ? Color.accentColor : Color.clear,
                               antialiased: true)))
