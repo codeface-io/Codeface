@@ -6,7 +6,7 @@ import SwiftyToolz
 extension CodeArtifact
 {
     @discardableResult
-    func updateFilter(withSearchTerm searchTerm: String) -> Bool
+    func updateSearchResults(withSearchTerm searchTerm: String) -> Bool
     {
         containsSearchTermRegardlessOfParts = false
         partsContainsSearchTerm = false
@@ -18,10 +18,8 @@ extension CodeArtifact
             
             for part in (parts ?? [])
             {
-                part.updateFilter(withSearchTerm: searchTerm)
+                part.updateSearchResults(withSearchTerm: searchTerm)
             }
-            
-            self.searchTerm = searchTerm
             
             return true
         }
@@ -63,13 +61,11 @@ extension CodeArtifact
         
         for part in (parts ?? [])
         {
-            if part.updateFilter(withSearchTerm: searchTerm)
+            if part.updateSearchResults(withSearchTerm: searchTerm)
             {
                 partsContainsSearchTerm = true
             }
         }
-        
-        self.searchTerm = searchTerm
         
         return containsSearchTerm
     }
@@ -124,6 +120,28 @@ extension CodeArtifact
         case.folder: return false
         case.file(let file): return file.lines.count > line
         case .symbol(let symbol): return symbol.contains(line: line)
+        }
+    }
+    
+    func updateSearchFilter(allPass: Bool)
+    {
+        if allPass || containsSearchTermRegardlessOfParts
+        {
+            passesSearchFilter = true
+            
+            for part in (parts ?? [])
+            {
+                part.updateSearchFilter(allPass: true)
+            }
+            
+            return
+        }
+        
+        passesSearchFilter = containsSearchTerm
+        
+        for part in (parts ?? [])
+        {
+            part.updateSearchFilter(allPass: false)
         }
     }
 }
@@ -222,7 +240,7 @@ class CodeArtifact: Identifiable, ObservableObject
     
     // search filter
     
-    @Published var searchTerm = ""
+    @Published var passesSearchFilter = true
     
     var containsSearchTerm: Bool
     {

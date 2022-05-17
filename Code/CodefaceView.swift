@@ -37,8 +37,7 @@ struct CodefaceView: View
                         switch displayMode
                         {
                         case .treeMap:
-                            ArtifactContentView(artifact: artifact,
-                                                filterBySearchTerm: !artifact.containsSearchTermRegardlessOfParts)
+                            ArtifactContentView(artifact: artifact)
                                 .drawingGroup()
                                 .padding(CodeArtifact.Layout.padding)
                         case .code:
@@ -89,9 +88,19 @@ struct CodefaceView: View
                 .padding()
                 .font(.system(.title))
         }
-        .searchable(text: $viewModel.searchTerm)
+        .searchable(text: $searchTerm)
+        .onChange(of: searchTerm)
+        {
+            newSearchTerm in
+            
+            withAnimation(.easeInOut)
+            {
+                viewModel.userTyped(searchTerm: newSearchTerm)
+            }
+        }
     }
     
+    @State var searchTerm = ""
     @StateObject private var viewModel: CodeArtifactViewModel
     @State var selectedArtifact: CodeArtifact?
     @Binding var displayMode: DisplayMode

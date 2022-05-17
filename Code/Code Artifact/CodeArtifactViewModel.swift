@@ -22,21 +22,18 @@ class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
             }
         }
         
-        observations += $searchTerm.sink
+    }
+    
+    func userTyped(searchTerm: String)
+    {
+        for artifact in artifacts
         {
-            searchTerm in
-
-            for artifact in self.artifacts
-            {
-                artifact.updateFilter(withSearchTerm: searchTerm)
-            }
+            artifact.updateSearchResults(withSearchTerm: searchTerm)
+            artifact.updateSearchFilter(allPass: false)
         }
     }
     
     @Published var artifacts = [CodeArtifact]()
-    @Published var searchTerm = ""
     
     let receiver = Receiver()
-    
-    private var observations = [AnyCancellable]()
 }
