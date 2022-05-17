@@ -96,7 +96,17 @@ struct ArtifactView: View
             .overlay(RoundedRectangle(cornerRadius: 5)
                 .strokeBorder(isHovering ? Color.accentColor : Color.clear,
                               antialiased: true)))
-        .onHover { isHovering = $0 }
+        .onHover
+        {
+            if $0
+            {
+                isHovering = true
+            }
+            else
+            {
+                withAnimation(.easeInOut) { self.isHovering = false }
+            }
+        }
         .position(x: artifact.layout.centerX,
                   y: artifact.layout.centerY)
         .animation(.easeInOut(duration: 1), value: artifact.layout)
