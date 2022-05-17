@@ -122,10 +122,10 @@ class Project
         {
             let processID = try await LSPService.api.processID.get()
             
-            let _ = try await server.request(.initialize(folder: project.folder,
+            let initializeResult = try await server.request(.initialize(folder: project.folder,
                                                          clientProcessID: processID))
             
-//            try log(initializeResult: initializeResult)
+            try log(initializeResult: initializeResult)
             
             try server.notify(.initialized)
         }

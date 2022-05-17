@@ -8,16 +8,29 @@ extension CodeArtifact
         switch kind
         {
         case .file(let codeFile):
-            let symbols = try await server.symbols(for: codeFile)
-            if symbols.isEmpty
+            let lspSymbols = try await server.symbols(for: codeFile)
+            
+            guard !lspSymbols.isEmpty else
             {
                 parts = nil
+                break
             }
-            else
+            
+            var newParts = [CodeArtifact]()
+            
+            for lspSymbol in lspSymbols
             {
-                parts = symbols.map({ CodeArtifact(lspDocSymbol: $0,
-                                                   codeFileLines: codeFile.lines) })
+                let references = try await server.request(.references(for: lspSymbol,
+                                                                      inFileAtPath: codeFile.path))
+                
+                SwiftyToolz.log("References:\n\(references.description)")
+                
+                newParts += CodeArtifact(lspDocSymbol: lspSymbol,
+                                         codeFileLines: codeFile.lines)
             }
+            
+            parts = newParts
+            
             
         case .folder:
             for part in (parts ?? [])

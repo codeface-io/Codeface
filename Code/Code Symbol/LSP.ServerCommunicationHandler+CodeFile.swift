@@ -7,11 +7,11 @@ extension LSP.ServerCommunicationHandler
 {
     func symbols(for codeFile: CodeFile) async throws -> [LSPDocumentSymbol]
     {
-        let file = URL(fileURLWithPath: codeFile.path)
+        let uri: LSPDocumentUri = URL(fileURLWithPath: codeFile.path).absoluteString
         
         let document: [String: JSONObject] =
         [
-            "uri": file.absoluteString, // DocumentUri;
+            "uri": uri, // DocumentUri;
             "languageId": language, // TODO: make enum for LSP language keys, and struct for this document
             "version": 1,
             "text": codeFile.lines.joined(separator: "\n")
@@ -19,6 +19,6 @@ extension LSP.ServerCommunicationHandler
         
         try notify(.didOpen(doc: JSON(document)))
             
-        return try await requestDocumentSymbols(inFile: file)
+        return try await requestDocumentSymbols(inFile: uri)
     }
 }
