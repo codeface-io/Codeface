@@ -11,8 +11,8 @@ extension LSP.ServerCommunicationHandler
         
         let document: [String: JSONObject] =
         [
-            "uri": uri, // DocumentUri;
-            "languageId": language, // TODO: make enum for LSP language keys, and struct for this document
+            "uri": uri,
+            "languageId": language,
             "version": 1,
             "text": codeFile.lines.joined(separator: "\n")
         ]

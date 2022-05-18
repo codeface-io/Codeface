@@ -109,7 +109,7 @@ class Project
 
         server.serverDidSendErrorOutput =
         {
-            errorOutput in log(error: "Language server: \(errorOutput)")
+            errorOutput in log("💬 Language server sent string output:\n\(errorOutput)")
         }
         
         return server

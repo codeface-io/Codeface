@@ -39,7 +39,7 @@ struct CodefaceView: View
                         case .treeMap:
                             ArtifactContentView(artifact: artifact)
                                 .drawingGroup()
-                                .padding(CodeArtifact.Layout.padding)
+                                .padding(CodeArtifact.LayoutModel.padding)
                         case .code:
                             if let code = artifact.codeContent
                             {
@@ -50,14 +50,17 @@ struct CodefaceView: View
                             {
                                 VStack
                                 {
-                                    Label(artifact.displayName,
-                                          systemImage: systemImageName(for: artifact.kind))
-                                        .font(.system(.title))
+                                    Label {
+                                        Text(artifact.name)
+                                    } icon: {
+                                        ArtifactIcon(artifact: artifact, isSelected: false)
+                                    }
+                                    .font(.system(.title))
                                     
                                     Text("Select a contained file or symbol to show their code.")
                                         .padding(.top)
                                 }
-                                .padding(CodeArtifact.Layout.padding)
+                                .padding(CodeArtifact.LayoutModel.padding)
                             }
                         }
                     }
@@ -65,8 +68,8 @@ struct CodefaceView: View
                     {
                         DisplayModePicker(displayMode: $displayMode)
                     }
-                    .navigationTitle(artifact.displayName)
-                    .navigationSubtitle(artifact.secondaryDisplayName)
+                    .navigationTitle(artifact.name)
+                    .navigationSubtitle(artifact.kindName)
                 }
             label:
                 {
@@ -164,9 +167,8 @@ struct SidebarLabel: View
 {
     var body: some View
     {
-        Label
-        {
-            Text(artifact.displayName)
+        Label {
+            Text(artifact.name)
                 .font(.system(.title3, design: .for(artifact)))
             
             if let loc = artifact.metrics?.linesOfCode
@@ -177,18 +179,13 @@ struct SidebarLabel: View
                     .foregroundColor(isSelected ? .primary : artifact.locColor())
                     .font(.system(.title3, design: .default))
             }
-        }
-    icon:
-        {
-            Image(systemName: systemImageName(for: artifact.kind))
-                .foregroundColor(isSelected ? .primary : iconColor(for: artifact.kind))
+        } icon: {
+            ArtifactIcon(artifact: artifact, isSelected: isSelected)
         }
     }
     
     @State var artifact: CodeArtifact
     let isSelected: Bool
-    
-    
 }
 
 extension CodeArtifact
