@@ -4,7 +4,7 @@ extension CodeArtifact
 {
     func sort()
     {
-        for part in (parts ?? [])
+        for part in parts
         {
             part.sort()
         }
@@ -12,10 +12,10 @@ extension CodeArtifact
         switch kind
         {
         case .folder:
-            parts?.sort { $0.linesOfCode > $1.linesOfCode }
+            parts.sort { $0.linesOfCode > $1.linesOfCode }
             
         case .file, .symbol:
-            parts?.sort { $0.symbolPositionInFile < $1.symbolPositionInFile }
+            parts.sort { $0.symbolPositionInFile < $1.symbolPositionInFile }
         }
     }
 }

@@ -38,13 +38,13 @@ class CodeArtifact: Identifiable, ObservableObject
     
     // Mark: - Basics
     
-    init(kind: Kind, parts: [CodeArtifact]? = nil)
+    init(kind: Kind, parts: [CodeArtifact] = [])
     {
         self.kind = kind
-        self.parts = (parts?.isEmpty ?? true) ? nil : parts
+        self.parts = parts
     }
     
-    var parts: [CodeArtifact]?
+    var parts = [CodeArtifact]()
     
     let kind: Kind
     enum Kind { case folder(CodeFolder), file(CodeFile), symbol(CodeSymbol) }

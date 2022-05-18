@@ -6,7 +6,7 @@ extension CodeArtifact
         {
         case .folder:
             var loc = 0
-            for part in (parts ?? [])
+            for part in parts
             {
                 part.generateMetrics()
                 loc += part.metrics?.linesOfCode ?? 0
@@ -15,7 +15,7 @@ extension CodeArtifact
             metrics = .init(linesOfCode: loc)
             
         case .file(let codeFile):
-            for part in (parts ?? [])
+            for part in parts
             {
                 part.generateMetrics()
             }
@@ -23,7 +23,7 @@ extension CodeArtifact
             metrics = .init(linesOfCode: codeFile.lines.count)
         
         case .symbol(let symbol):
-            for part in (parts ?? [])
+            for part in parts
             {
                 part.generateMetrics()
             }

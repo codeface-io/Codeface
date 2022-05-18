@@ -12,7 +12,7 @@ extension CodeArtifact
             
             guard !lspSymbols.isEmpty else
             {
-                parts = nil
+                parts = []
                 break
             }
             
@@ -33,7 +33,7 @@ extension CodeArtifact
             
             
         case .folder:
-            for part in (parts ?? [])
+            for part in parts
             {
                 try await part.addSymbolArtifacts(using: server)
             }

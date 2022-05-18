@@ -19,4 +19,14 @@ extension CodeArtifact
         case .symbol(let symbol): return symbol.lspDocumentSymbol.kindName
         }
     }
+    
+    var code: String?
+    {
+        switch kind
+        {
+        case .folder: return nil
+        case .file(let file): return file.lines.joined(separator: "\n")
+        case .symbol(let symbol): return symbol.code
+        }
+    }
 }

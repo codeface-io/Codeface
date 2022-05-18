@@ -10,7 +10,7 @@ extension CodeArtifact
     @discardableResult
     func preparePartsForLayout(inScopeOfSize scopeSize: CGSize) -> Bool
     {
-        guard let parts = parts, !parts.isEmpty else { return false }
+        guard !parts.isEmpty else { return false }
         
         let availableSpacePerPart = Int(scopeSize.width * scopeSize.height) / parts.count
         

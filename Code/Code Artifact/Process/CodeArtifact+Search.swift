@@ -13,7 +13,7 @@ extension CodeArtifact
             containsSearchTermRegardlessOfParts = true
             partsContainsSearchTerm = true
             
-            for part in (parts ?? [])
+            for part in parts
             {
                 part.updateSearchResults(withSearchTerm: searchTerm)
             }
@@ -56,7 +56,7 @@ extension CodeArtifact
             }
         }
         
-        for part in (parts ?? [])
+        for part in parts
         {
             if part.updateSearchResults(withSearchTerm: searchTerm)
             {
@@ -75,7 +75,7 @@ extension CodeArtifact
         case .file, .symbol:
             var matchesWithoutParts = [Int]()
             
-            if let parts = parts, !parts.isEmpty
+            if !parts.isEmpty
             {
                 for part in parts
                 {
@@ -126,7 +126,7 @@ extension CodeArtifact
         {
             passesSearchFilter = true
             
-            for part in (parts ?? [])
+            for part in parts
             {
                 part.updateSearchFilter(allPass: true)
             }
@@ -136,7 +136,7 @@ extension CodeArtifact
         
         passesSearchFilter = containsSearchTerm
         
-        for part in (parts ?? [])
+        for part in parts
         {
             part.updateSearchFilter(allPass: false)
         }

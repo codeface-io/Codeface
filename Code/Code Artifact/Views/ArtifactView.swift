@@ -61,3 +61,15 @@ struct ArtifactView: View
     @ObservedObject var artifact: CodeArtifact
     @State var isHovering: Bool = false
 }
+
+extension Font.Design
+{
+    static func `for`(_ artifact: CodeArtifact) -> Font.Design
+    {
+        switch artifact.kind
+        {
+        case .symbol: return .monospaced
+        default: return .default
+        }
+    }
+}
