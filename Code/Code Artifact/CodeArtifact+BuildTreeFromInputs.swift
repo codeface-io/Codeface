@@ -20,17 +20,21 @@ extension CodeArtifact
             
             for lspSymbol in lspSymbols
             {
-                let references = try await server.request(.references(for: lspSymbol,
-                                                                      inFileAtPath: codeFile.path))
-                
-                SwiftyToolz.log("References:\n\(references.description)")
+                do {
+                    
+                    let references = try await server.request(.references(for: lspSymbol,
+                                                                          inFileAtPath: codeFile.path))
+                    
+                    SwiftyToolz.log("✅ References:\n\(references.description)")
+                } catch {
+                    SwiftyToolz.log(error)
+                }
                 
                 newParts += CodeArtifact(lspDocSymbol: lspSymbol,
                                          codeFileLines: codeFile.lines)
             }
             
             parts = newParts
-            
             
         case .folder:
             for part in parts
