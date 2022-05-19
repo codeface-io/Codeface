@@ -2,16 +2,47 @@ import SwiftyToolz
 
 extension CodeArtifact
 {
+    // MARK: - Filter
+    
+    var filteredParts: [CodeArtifact]
+    {
+        parts.filter { $0.passesSearchFilter }
+    }
+    
+    func updateSearchFilter(allPass: Bool)
+    {
+        if allPass || containsSearchTermRegardlessOfParts
+        {
+            passesSearchFilter = true
+            
+            for part in parts
+            {
+                part.updateSearchFilter(allPass: true)
+            }
+            
+            return
+        }
+        
+        passesSearchFilter = containsSearchTerm
+        
+        for part in parts
+        {
+            part.updateSearchFilter(allPass: false)
+        }
+    }
+    
+    // MARK: - Results
+    
     @discardableResult
     func updateSearchResults(withSearchTerm searchTerm: String) -> Bool
     {
         containsSearchTermRegardlessOfParts = false
-        partsContainsSearchTerm = false
+        partsContainSearchTerm = false
         
         if searchTerm == ""
         {
             containsSearchTermRegardlessOfParts = true
-            partsContainsSearchTerm = true
+            partsContainSearchTerm = true
             
             for part in parts
             {
@@ -60,7 +91,7 @@ extension CodeArtifact
         {
             if part.updateSearchResults(withSearchTerm: searchTerm)
             {
-                partsContainsSearchTerm = true
+                partsContainSearchTerm = true
             }
         }
         
@@ -86,7 +117,7 @@ extension CodeArtifact
                 
                 if matchesWithoutParts.count < searchMatches.count
                 {
-                    partsContainsSearchTerm = true
+                    partsContainSearchTerm = true
                 }
             }
             else
@@ -110,6 +141,11 @@ extension CodeArtifact
         }
     }
     
+    var containsSearchTerm: Bool
+    {
+        partsContainSearchTerm || containsSearchTermRegardlessOfParts
+    }
+    
     private func contains(line: Int) -> Bool
     {
         switch kind
@@ -117,28 +153,6 @@ extension CodeArtifact
         case.folder: return false
         case.file(let file): return file.lines.count > line
         case .symbol(let symbol): return symbol.contains(line: line)
-        }
-    }
-    
-    func updateSearchFilter(allPass: Bool)
-    {
-        if allPass || containsSearchTermRegardlessOfParts
-        {
-            passesSearchFilter = true
-            
-            for part in parts
-            {
-                part.updateSearchFilter(allPass: true)
-            }
-            
-            return
-        }
-        
-        passesSearchFilter = containsSearchTerm
-        
-        for part in parts
-        {
-            part.updateSearchFilter(allPass: false)
         }
     }
 }

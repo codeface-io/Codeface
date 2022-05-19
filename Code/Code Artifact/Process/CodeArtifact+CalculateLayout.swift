@@ -2,19 +2,10 @@ import Foundation
 
 extension CodeArtifact
 {
-    var fontSize: Double
-    {
-        1.2 * sqrt(sqrt(layoutModel.height * layoutModel.width))
-    }
-    
     @discardableResult
-    func preparePartsForLayout(inScopeOfSize scopeSize: CGSize) -> Bool
+    func updateLayoutOfParts(forScopeSize scopeSize: CGSize) -> Bool
     {
         guard !parts.isEmpty else { return false }
-        
-        let availableSpacePerPart = Int(scopeSize.width * scopeSize.height) / parts.count
-        
-        guard availableSpacePerPart >= 5000 else { return false }
         
         return prepare(parts: parts,
                        forLayoutIn: .init(x: 0,
@@ -175,6 +166,8 @@ extension CodeArtifact
 
 extension CodeArtifact.LayoutModel
 {
+    var fontSize: Double { 1.2 * sqrt(sqrt(height * width)) }
+    
     static var padding: Double = 16
     static var minWidth: Double = 30
     static var minHeight: Double = 30

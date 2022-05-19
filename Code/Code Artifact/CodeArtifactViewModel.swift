@@ -21,7 +21,6 @@ class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
                 self.artifacts = [analysisResult.rootArtifact]
             }
         }
-        
     }
     
     func userTyped(searchTerm: String)

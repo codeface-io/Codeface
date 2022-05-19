@@ -18,7 +18,7 @@ struct ArtifactView: View
                     Spacer()
                 }
             }
-            .font(.system(size: artifact.fontSize,
+            .font(.system(size: artifact.layoutModel.fontSize,
                           weight: .medium,
                           design: .for(artifact)))
             .padding(CodeArtifact.LayoutModel.padding)

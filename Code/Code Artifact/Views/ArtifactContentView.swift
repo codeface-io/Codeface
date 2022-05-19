@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftLSP
 
 struct ArtifactContentView: View
 {
@@ -7,21 +6,19 @@ struct ArtifactContentView: View
     {
         GeometryReader
         {
-            geo in
+            contentGeometry in
             
-            if let parts = artifact.parts,
-               !parts.isEmpty,
-               artifact.preparePartsForLayout(inScopeOfSize: geo.size)
+            if artifact.updateLayoutOfParts(forScopeSize: contentGeometry.size)
             {
                 ZStack
                 {
-                    ForEach(parts.filter({ $0.passesSearchFilter }))
+                    ForEach(artifact.filteredParts)
                     {
                         ArtifactView(artifact: $0)
                     }
                 }
-                .frame(width: geo.size.width,
-                       height: geo.size.height)
+                .frame(width: contentGeometry.size.width,
+                       height: contentGeometry.size.height)
             }
         }
     }

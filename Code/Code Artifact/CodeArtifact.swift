@@ -24,17 +24,12 @@ class CodeArtifact: Identifiable, ObservableObject
         let linesOfCode: Int
     }
     
-    // Mark: - Search Filter
+    // Mark: - Search
     
     @Published var passesSearchFilter = true
     
-    var containsSearchTerm: Bool
-    {
-        partsContainsSearchTerm || containsSearchTermRegardlessOfParts
-    }
-    
-    var partsContainsSearchTerm = true
     var containsSearchTermRegardlessOfParts = true
+    var partsContainSearchTerm = true
     
     // Mark: - Basics
     
