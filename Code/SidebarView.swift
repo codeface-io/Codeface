@@ -15,9 +15,11 @@ struct SidebarView: View
                     switch displayMode
                     {
                     case .treeMap:
-                        ArtifactContentView(artifact: artifact)
+                        ArtifactContentView(artifact: artifact,
+                                            ignoreSearchFilter: viewModel.isSearching)
                             .drawingGroup()
                             .padding(CodeArtifact.LayoutModel.padding)
+                            
                     case .code:
                         if let code = artifact.code
                         {
@@ -47,9 +49,31 @@ struct SidebarView: View
                 .toolbar
                 {
                     DisplayModePicker(displayMode: $displayMode)
+                   
+                    if let searchTerm = viewModel.appliedSearchTerm,
+                       !searchTerm.isEmpty
+                    {
+                        Button
+                        {
+                            withAnimation(.easeInOut)
+                            {
+                                viewModel.removeSearchFilter()
+                            }
+                        }
+                        label:
+                        {
+                            HStack
+                            {
+                                Text("Search Filter:")
+                                Text(searchTerm)
+                                    .foregroundColor(.accentColor)
+                                Image(systemName: "multiply")
+                            }
+                        }
+                    }
                 }
             }
-        label:
+            label:
             {
                 SidebarLabel(artifact: artifact,
                              isSelected: artifact === selectedArtifact)
@@ -63,7 +87,23 @@ struct SidebarView: View
                 Image(systemName: "sidebar.leading")
             }
         }
+        .onReceive(viewModel.$isSearching)
+        {
+            if !$0 { dismissSearch() }
+        }
+        .onChange(of: isSearching)
+        {
+            [isSearching] isSearchingNow in
+            
+            if !isSearching, isSearchingNow
+            {
+                viewModel.beginSearch()
+            }
+        }
     }
+    
+    @Environment(\.isSearching) var isSearching
+    @Environment(\.dismissSearch) var dismissSearch
     
     @ObservedObject var viewModel: CodeArtifactViewModel
     @Binding var displayMode: DisplayMode

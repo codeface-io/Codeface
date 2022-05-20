@@ -6,6 +6,8 @@ import SwiftyToolz
 @MainActor
 class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
 {
+    // MARK: - Initialize
+    
     init()
     {
         if let rootArtifact = Project.shared?.analysisResult?.rootArtifact
@@ -23,14 +25,49 @@ class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
         }
     }
     
-    func userTyped(searchTerm: String)
+    // MARK: - Search
+    
+    func removeSearchFilter()
+    {
+        updateArtifacts(withSearchTerm: "", allPass: true)
+        appliedSearchTerm = nil
+        isSearching = false
+    }
+    
+    func userChanged(searchTerm: String)
+    {
+        guard isSearching else { return }
+        
+        updateArtifacts(withSearchTerm: searchTerm, allPass: false)
+        
+        appliedSearchTerm = searchTerm
+    }
+    
+    private func updateArtifacts(withSearchTerm searchTerm: String,
+                                 allPass: Bool)
     {
         for artifact in artifacts
         {
             artifact.updateSearchResults(withSearchTerm: searchTerm)
-            artifact.updateSearchFilter(allPass: false)
+            artifact.updateSearchFilter(allPass: allPass)
         }
     }
+    
+    func beginSearch()
+    {
+        isSearching = true
+    }
+    
+    func submitSearch()
+    {
+        isSearching = false
+    }
+    
+    @Published var isSearching: Bool = false
+    
+    @Published var appliedSearchTerm: String?
+    
+    // MARK: - Basics
     
     @Published var artifacts = [CodeArtifact]()
     

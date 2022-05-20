@@ -17,23 +17,31 @@ struct CodefaceView: View
         {
             SidebarView(viewModel: viewModel,
                         displayMode: $displayMode)
+            .searchable(text: $searchTerm,
+                        placement: .toolbar)
+            .onSubmit(of: .search)
+            {
+                viewModel.submitSearch()
+            }
                 
             Label("Select a code artifact from the list",
                   systemImage: "arrow.left")
                 .padding()
                 .font(.system(.title))
         }
-        .searchable(text: $searchTerm)
+        .onReceive(viewModel.$isSearching)
+        {
+            if $0 { searchTerm = viewModel.appliedSearchTerm ?? "" }
+        }
         .onChange(of: searchTerm)
         {
             newSearchTerm in
             
             withAnimation(.easeInOut)
             {
-                viewModel.userTyped(searchTerm: newSearchTerm)
+                viewModel.userChanged(searchTerm: newSearchTerm)
             }
         }
-        
     }
     
     @State var searchTerm = ""

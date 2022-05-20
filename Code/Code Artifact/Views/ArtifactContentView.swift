@@ -8,13 +8,15 @@ struct ArtifactContentView: View
         {
             contentGeometry in
             
-            if artifact.updateLayoutOfParts(forScopeSize: contentGeometry.size)
+            if artifact.updateLayoutOfParts(forScopeSize: contentGeometry.size,
+                                            ignoreSearchFilter: ignoreSearchFilter)
             {
                 ZStack
                 {
                     ForEach(artifact.filteredParts)
                     {
-                        ArtifactView(artifact: $0)
+                        ArtifactView(artifact: $0,
+                                     ignoreSearchFilter: ignoreSearchFilter)
                     }
                 }
                 .frame(width: contentGeometry.size.width,
@@ -24,4 +26,5 @@ struct ArtifactContentView: View
     }
     
     @ObservedObject var artifact: CodeArtifact
+    let ignoreSearchFilter: Bool
 }

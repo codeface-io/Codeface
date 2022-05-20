@@ -36,9 +36,6 @@ extension CodeArtifact
     @discardableResult
     func updateSearchResults(withSearchTerm searchTerm: String) -> Bool
     {
-        containsSearchTermRegardlessOfParts = false
-        partsContainSearchTerm = false
-        
         if searchTerm == ""
         {
             containsSearchTermRegardlessOfParts = true
@@ -51,6 +48,9 @@ extension CodeArtifact
             
             return true
         }
+        
+        containsSearchTermRegardlessOfParts = false
+        partsContainSearchTerm = false
         
         switch kind
         {

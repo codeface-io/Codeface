@@ -3,11 +3,14 @@ import Foundation
 extension CodeArtifact
 {
     @discardableResult
-    func updateLayoutOfParts(forScopeSize scopeSize: CGSize) -> Bool
+    func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
+                             ignoreSearchFilter: Bool) -> Bool
     {
-        guard !parts.isEmpty else { return false }
+        let presentedParts = ignoreSearchFilter ? parts : filteredParts
         
-        return prepare(parts: parts,
+        guard !presentedParts.isEmpty else { return false }
+        
+        return prepare(parts: presentedParts,
                        forLayoutIn: .init(x: 0,
                                           y: 0,
                                           width: scopeSize.width,

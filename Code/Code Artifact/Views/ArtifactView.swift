@@ -29,7 +29,8 @@ struct ArtifactView: View
                 
                 if contentSpaceGeometry.size.height >= CodeArtifact.LayoutModel.minHeight
                 {
-                    ArtifactContentView(artifact: artifact)
+                    ArtifactContentView(artifact: artifact,
+                                        ignoreSearchFilter: ignoreSearchFilter)
                         .padding([.leading, .trailing, .bottom],
                                  CodeArtifact.LayoutModel.padding)
                 }
@@ -59,6 +60,7 @@ struct ArtifactView: View
     }
     
     @ObservedObject var artifact: CodeArtifact
+    let ignoreSearchFilter: Bool
     @State var isHovering: Bool = false
 }
 
