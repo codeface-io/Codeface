@@ -109,7 +109,7 @@ class Project
 
         server.serverDidSendErrorOutput =
         {
-            errorOutput in log("💬 Language server sent string output:\n\(errorOutput)")
+            errorOutput in log("💬 Language server sent error string:\n\(errorOutput)")
         }
         
         return server
@@ -123,7 +123,7 @@ class Project
             let processID = try await LSPService.api.processID.get()
             
             let initializeResult = try await server.request(.initialize(folder: project.folder,
-                                                         clientProcessID: processID))
+                                                                        clientProcessID: processID))
             
             try log(initializeResult: initializeResult)
             

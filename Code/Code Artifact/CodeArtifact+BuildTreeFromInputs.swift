@@ -7,10 +7,13 @@ extension CodeArtifact
     {
         switch kind
         {
-        case .file(let codeFile):
-            let lspSymbols = try await server.symbols(for: codeFile)
+        case .file(let file):
+            try server.notifyDidOpen(file.path,
+                                     containingText: file.lines.joined(separator: "\n"))
             
-            guard !lspSymbols.isEmpty else
+            let lspDocSymbols = try await server.requestSymbols(in: file.path)
+            
+            guard !lspDocSymbols.isEmpty else
             {
                 parts = []
                 break
@@ -18,20 +21,22 @@ extension CodeArtifact
             
             var newParts = [CodeArtifact]()
             
-            for lspSymbol in lspSymbols
+            for lspDocSymbol in lspDocSymbols
             {
-                do {
+                do {         
+                    let references = try await server.requestReferences(for: lspDocSymbol,
+                                                                        in: file.path)
                     
-                    let references = try await server.request(.references(for: lspSymbol,
-                                                                          inFileAtPath: codeFile.path))
-                    
-                    SwiftyToolz.log("✅ References:\n\(references.description)")
+                    if !references.isEmpty
+                    {
+                        SwiftyToolz.log("✅ References:\n\(references.description)")
+                    }
                 } catch {
                     SwiftyToolz.log(error)
                 }
                 
-                newParts += CodeArtifact(lspDocSymbol: lspSymbol,
-                                         codeFileLines: codeFile.lines)
+                newParts += CodeArtifact(lspDocSymbol: lspDocSymbol,
+                                         codeFileLines: file.lines)
             }
             
             parts = newParts
