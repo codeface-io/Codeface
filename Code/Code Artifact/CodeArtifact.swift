@@ -23,6 +23,8 @@ class CodeArtifact: Identifiable, ObservableObject
     {
         var linesOfCode: Int?
         var linesOfCodeWithoutParts: Int?
+        
+        var sizeRelativeToAllPartsInScope: Double?
     }
     
     // Mark: - Search

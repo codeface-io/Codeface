@@ -8,6 +8,11 @@ extension CodeArtifact
             
         let locOfParts = parts.reduce(0) { $0 + $1.linesOfCode }
         
+        parts.forEach
+        {
+            $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfParts)
+        }
+        
         var loc: Int
         
         switch kind
