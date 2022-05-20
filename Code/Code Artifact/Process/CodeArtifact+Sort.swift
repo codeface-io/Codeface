@@ -22,11 +22,6 @@ extension CodeArtifact
 
 extension CodeArtifact
 {
-    var linesOfCode: Int
-    {
-        metrics?.linesOfCode ?? 0
-    }
-    
     var symbolPositionInFile: Int
     {
         symbol?.positionInFile ?? .max

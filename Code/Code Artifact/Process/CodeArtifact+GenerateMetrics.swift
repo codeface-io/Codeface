@@ -1,37 +1,34 @@
+import SwiftyToolz
+
 extension CodeArtifact
 {
     func generateMetrics()
     {
+        parts.forEach { $0.generateMetrics() }
+            
+        let locOfParts = parts.reduce(0) { $0 + $1.linesOfCode }
+        
+        var loc: Int
+        
         switch kind
         {
         case .folder:
-            var loc = 0
-            for part in parts
-            {
-                part.generateMetrics()
-                loc += part.metrics?.linesOfCode ?? 0
-            }
-            
-            metrics = .init(linesOfCode: loc)
+            loc = locOfParts
             
         case .file(let codeFile):
-            for part in parts
-            {
-                part.generateMetrics()
-            }
-            
-            metrics = .init(linesOfCode: codeFile.lines.count)
+            loc = codeFile.lines.count
         
         case .symbol(let symbol):
-            for part in parts
-            {
-                part.generateMetrics()
-            }
-            
-            let lspSymbol = symbol.lspDocumentSymbol
-            
-            let loc = (lspSymbol.range.end.line - lspSymbol.range.start.line) + 1
-            metrics = .init(linesOfCode: Int(loc))
+            let range = symbol.lspDocumentSymbol.range
+            loc = (range.end.line - range.start.line) + 1
         }
+        
+        metrics.linesOfCode = loc
+        metrics.linesOfCodeWithoutParts = loc - locOfParts
+    }
+    
+    var linesOfCode: Int
+    {
+        metrics.linesOfCode ?? 0
     }
 }

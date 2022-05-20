@@ -36,8 +36,8 @@ extension CodeArtifact
         
         let (partsA, partsB) = split(parts)
         
-        let locA = partsA.reduce(0) { $0 + ($1.metrics?.linesOfCode ?? 0) }
-        let locB = partsB.reduce(0) { $0 + ($1.metrics?.linesOfCode ?? 0) }
+        let locA = partsA.reduce(0) { $0 + ($1.metrics.linesOfCode ?? 0) }
+        let locB = partsB.reduce(0) { $0 + ($1.metrics.linesOfCode ?? 0) }
         
         let fractionOfA = Double(locA) / Double(locA + locB)
         
@@ -52,7 +52,7 @@ extension CodeArtifact
     
     func split(_ parts: [CodeArtifact]) -> ([CodeArtifact], [CodeArtifact])
     {
-        let halfTotalLOC = (parts.reduce(0) { $0 + ($1.metrics?.linesOfCode ?? 0) }) / 2
+        let halfTotalLOC = (parts.reduce(0) { $0 + ($1.metrics.linesOfCode ?? 0) }) / 2
         
         var sumOfLOC = 0
         var minDifferenceToHalfTotalLOC = Int.max
@@ -61,7 +61,7 @@ extension CodeArtifact
         for index in 0 ..< parts.count
         {
             let part = parts[index]
-            sumOfLOC += part.metrics?.linesOfCode ?? 0
+            sumOfLOC += part.metrics.linesOfCode ?? 0
             let differenceToHalfTotalLOC = abs(halfTotalLOC - sumOfLOC)
             if differenceToHalfTotalLOC < minDifferenceToHalfTotalLOC
             {

@@ -17,11 +17,12 @@ class CodeArtifact: Identifiable, ObservableObject
     
     // Mark: - Metrics
     
-    var metrics: Metrics?
+    var metrics = Metrics()
     
     struct Metrics
     {
-        let linesOfCode: Int
+        var linesOfCode: Int?
+        var linesOfCodeWithoutParts: Int?
     }
     
     // Mark: - Search
