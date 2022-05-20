@@ -31,6 +31,7 @@ struct ArtifactView: View
                 if contentSpaceGeometry.size.height >= CodeArtifact.LayoutModel.minHeight
                 {
                     ArtifactContentView(artifact: artifact,
+                                        viewModel: viewModel,
                                         ignoreSearchFilter: ignoreSearchFilter)
                         .padding([.leading, .trailing, .bottom],
                                  CodeArtifact.LayoutModel.padding)
@@ -55,12 +56,17 @@ struct ArtifactView: View
                 withAnimation(.easeInOut) { self.isHovering = false }
             }
         }
+        .onTapGesture(count: 2)
+        {
+            viewModel.selectedArtifact = artifact
+        }
         .position(x: artifact.layoutModel.centerX,
                   y: artifact.layoutModel.centerY)
         .animation(.easeInOut(duration: 1), value: artifact.layoutModel)
     }
     
     @ObservedObject var artifact: CodeArtifact
+    let viewModel: CodeArtifactViewModel
     let ignoreSearchFilter: Bool
     @State var isHovering: Bool = false
 }

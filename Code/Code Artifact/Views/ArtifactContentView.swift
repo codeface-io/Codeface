@@ -16,6 +16,7 @@ struct ArtifactContentView: View
                     ForEach(artifact.filteredParts)
                     {
                         ArtifactView(artifact: $0,
+                                     viewModel: viewModel,
                                      ignoreSearchFilter: ignoreSearchFilter)
                     }
                 }
@@ -26,5 +27,6 @@ struct ArtifactContentView: View
     }
     
     @ObservedObject var artifact: CodeArtifact
+    let viewModel: CodeArtifactViewModel
     let ignoreSearchFilter: Bool
 }

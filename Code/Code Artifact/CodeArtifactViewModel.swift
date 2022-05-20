@@ -69,6 +69,8 @@ class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
     
     // MARK: - Basics
     
+    @Published var selectedArtifact: CodeArtifact?
+    
     @Published var artifacts = [CodeArtifact]()
     
     let receiver = Receiver()
