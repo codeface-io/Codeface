@@ -15,6 +15,7 @@ struct ArtifactView: View
                 {
                     Text(artifact.name)
                         .lineLimit(1)
+                        .foregroundColor(artifact.containsSearchTermRegardlessOfParts ?? false ? .accentColor : .primary)
                     Spacer()
                 }
             }

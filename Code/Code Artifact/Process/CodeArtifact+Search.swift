@@ -11,6 +11,19 @@ extension CodeArtifact
     
     func updateSearchFilter(allPass: Bool)
     {
+        guard let containsSearchTermRegardlessOfParts = containsSearchTermRegardlessOfParts,
+              let partsContainSearchTerm = partsContainSearchTerm else
+        {
+            passesSearchFilter = true
+            
+            for part in parts
+            {
+                part.updateSearchFilter(allPass: allPass)
+            }
+            
+            return
+        }
+        
         if allPass || containsSearchTermRegardlessOfParts
         {
             passesSearchFilter = true
@@ -23,7 +36,7 @@ extension CodeArtifact
             return
         }
         
-        passesSearchFilter = containsSearchTerm
+        passesSearchFilter = partsContainSearchTerm
         
         for part in parts
         {
@@ -38,8 +51,8 @@ extension CodeArtifact
     {
         if searchTerm == ""
         {
-            containsSearchTermRegardlessOfParts = true
-            partsContainSearchTerm = true
+            containsSearchTermRegardlessOfParts = nil
+            partsContainSearchTerm = nil
             
             for part in parts
             {
@@ -52,21 +65,30 @@ extension CodeArtifact
         containsSearchTermRegardlessOfParts = false
         partsContainSearchTerm = false
         
+        for part in parts
+        {
+            if part.updateSearchResults(withSearchTerm: searchTerm)
+            {
+                partsContainSearchTerm = true
+            }
+        }
+        
+        if name.contains(searchTerm)
+        {
+            containsSearchTermRegardlessOfParts = true
+        }
+        
+        if kindName.contains(searchTerm)
+        {
+            containsSearchTermRegardlessOfParts = true
+        }
+        
         switch kind
         {
-        case .folder(let folder):
-            if folder.name.contains(searchTerm)
-            {
-                containsSearchTermRegardlessOfParts = true
-            }
+        case .folder, .symbol:
+            break
             
         case .file(let codeFile):
-            // regular search
-            if codeFile.name.contains(searchTerm)
-            {
-                containsSearchTermRegardlessOfParts = true
-            }
-            
             // search in code, then assign these matches recursively to parts
             var allMatches = [Int]()
             
@@ -79,23 +101,9 @@ extension CodeArtifact
             }
             
             assign(searchMatches: allMatches)
-            
-        case .symbol(let symbol):
-            if symbol.lspDocumentSymbol.name.contains(searchTerm)
-            {
-                containsSearchTermRegardlessOfParts = true
-            }
         }
         
-        for part in parts
-        {
-            if part.updateSearchResults(withSearchTerm: searchTerm)
-            {
-                partsContainSearchTerm = true
-            }
-        }
-        
-        return containsSearchTerm
+        return partsContainSearchTerm ?? false || containsSearchTermRegardlessOfParts ?? false
     }
     
     @discardableResult
@@ -104,25 +112,16 @@ extension CodeArtifact
         switch kind
         {
         case .file, .symbol:
-            var matchesWithoutParts = [Int]()
+            var matchesWithoutParts = searchMatches
             
-            if !parts.isEmpty
+            for part in parts
             {
-                for part in parts
-                {
-                    matchesWithoutParts += part.assign(searchMatches: searchMatches)
-                }
-                
-                matchesWithoutParts = Array(Set(matchesWithoutParts))
-                
-                if matchesWithoutParts.count < searchMatches.count
-                {
-                    partsContainSearchTerm = true
-                }
+                matchesWithoutParts = part.assign(searchMatches: matchesWithoutParts)
             }
-            else
+            
+            if matchesWithoutParts.count < searchMatches.count
             {
-                matchesWithoutParts = searchMatches
+                partsContainSearchTerm = true
             }
             
             let matchesNotInSelf = matchesWithoutParts.filter
@@ -141,18 +140,13 @@ extension CodeArtifact
         }
     }
     
-    var containsSearchTerm: Bool
-    {
-        partsContainSearchTerm || containsSearchTermRegardlessOfParts
-    }
-    
     private func contains(line: Int) -> Bool
     {
         switch kind
         {
         case.folder: return false
         case.file(let file): return file.lines.count > line
-        case .symbol(let symbol): return symbol.contains(line: line)
+        case .symbol(let lspDocSymbol): return lspDocSymbol.contains(line: line)
         }
     }
 }

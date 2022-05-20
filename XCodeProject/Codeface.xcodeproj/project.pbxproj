@@ -165,10 +165,10 @@
 			isa = PBXGroup;
 			children = (
 				96E479CD28359C1900762FD7 /* CodeArtifact+CalculateLayout.swift */,
-				96E479D82835AC8B00762FD7 /* CodeArtifact+PresentTextually.swift */,
 				96B3A3A2282FEAF8002D7290 /* CodeArtifact+Sort.swift */,
 				965F76DD2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift */,
 				96E479CB28359ABA00762FD7 /* CodeArtifact+Search.swift */,
+				96E479D82835AC8B00762FD7 /* CodeArtifact+PresentTextually.swift */,
 			);
 			path = Process;
 			sourceTree = "<group>";

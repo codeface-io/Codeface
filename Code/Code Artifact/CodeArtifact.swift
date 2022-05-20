@@ -31,8 +31,8 @@ class CodeArtifact: Identifiable, ObservableObject
     
     @Published var passesSearchFilter = true
     
-    var containsSearchTermRegardlessOfParts = true
-    var partsContainSearchTerm = true
+    var containsSearchTermRegardlessOfParts: Bool?
+    var partsContainSearchTerm: Bool?
     
     // Mark: - Basics
     
