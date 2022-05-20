@@ -3,6 +3,23 @@ import Foundation
 @MainActor
 class CodeArtifact: Identifiable, ObservableObject
 {
+    func isRevealed() -> Bool
+    {
+        guard scope?.isExpanded ?? true else { return false }
+            
+        return scope?.isRevealed() ?? true
+    }
+    
+    
+    func reveal()
+    {
+        scope?.reveal()
+        
+        scope?.isExpanded = true
+    }
+    
+    @Published var isExpanded: Bool
+    
     // Mark: - Layout Model
     
     @Published var layoutModel = LayoutModel(width: 100, height: 50, centerX: 50, centerY: 25)
@@ -36,11 +53,18 @@ class CodeArtifact: Identifiable, ObservableObject
     
     // Mark: - Basics
     
-    init(kind: Kind, parts: [CodeArtifact] = [])
+    init(kind: Kind,
+         parts: [CodeArtifact] = [],
+         scope: CodeArtifact?)
     {
         self.kind = kind
         self.parts = parts
+        self.scope = scope
+        
+        isExpanded = scope == nil
     }
+    
+    weak var scope: CodeArtifact?
     
     var parts = [CodeArtifact]()
     

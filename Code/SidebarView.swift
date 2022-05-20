@@ -55,7 +55,7 @@ struct DisclosingRowView: View
         }
         else
         {
-            DisclosureGroup
+            DisclosureGroup(isExpanded: $artifact.isExpanded)
             {
                 ForEach(artifact.parts)
                 {
@@ -73,7 +73,7 @@ struct DisclosingRowView: View
         }
     }
     
-    let artifact: CodeArtifact
+    @ObservedObject var artifact: CodeArtifact
     @ObservedObject var viewModel: CodeArtifactViewModel
     @Binding var displayMode: DisplayMode
 }

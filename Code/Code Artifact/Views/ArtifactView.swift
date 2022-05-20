@@ -56,9 +56,13 @@ struct ArtifactView: View
                 withAnimation(.easeInOut) { self.isHovering = false }
             }
         }
-        .onTapGesture(count: 2)
+        .onTapGesture
         {
-            viewModel.selectedArtifact = artifact
+            if artifact.isRevealed() {
+                viewModel.selectedArtifact = artifact
+            } else {
+                artifact.reveal()
+            }
         }
         .position(x: artifact.layoutModel.centerX,
                   y: artifact.layoutModel.centerY)

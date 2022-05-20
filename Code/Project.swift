@@ -41,7 +41,7 @@ class Project
         {
             let rootFolder = try createRootFolder()
             
-            let rootArtifact = CodeArtifact(codeFolder: rootFolder)
+            let rootArtifact = CodeArtifact(codeFolder: rootFolder, scope: nil)
             
             if let server = server, let serverInitialization = serverInitialization
             {

@@ -36,7 +36,8 @@ extension CodeArtifact
                 }
                 
                 newParts += CodeArtifact(lspDocSymbol: lspDocSymbol,
-                                         codeFileLines: file.lines)
+                                         codeFileLines: file.lines,
+                                         scope: self)
             }
             
             parts = newParts
@@ -55,28 +56,38 @@ extension CodeArtifact
 
 extension CodeArtifact
 {
-    convenience init(lspDocSymbol: LSPDocumentSymbol, codeFileLines: [String])
+    convenience init(lspDocSymbol: LSPDocumentSymbol,
+                     codeFileLines: [String],
+                     scope: CodeArtifact?)
     {
         let symbolLines = codeFileLines[lspDocSymbol.range.start.line ... lspDocSymbol.range.end.line]
         let symbolCode = symbolLines.joined(separator: "\n")
         
         self.init(kind: .symbol(CodeSymbol(lspDocumentSymbol: lspDocSymbol,
                                            code: symbolCode)),
-                  parts: lspDocSymbol.children.map({ CodeArtifact(lspDocSymbol: $0,
-                                                                  codeFileLines: codeFileLines) }))
+                  scope: scope)
+                  
+        
+        self.parts = lspDocSymbol.children.map
+        {
+            CodeArtifact(lspDocSymbol: $0,
+                         codeFileLines: codeFileLines,
+                         scope: self)
+        }
     }
 }
 
 extension CodeArtifact
 {
-    convenience init(codeFolder: CodeFolder)
+    convenience init(codeFolder: CodeFolder, scope: CodeArtifact?)
     {
+        self.init(kind: .folder(codeFolder), scope: scope)
+        
         var parts = [CodeArtifact]()
         
-        parts += codeFolder.files.map { CodeArtifact(kind: .file($0)) }
-        parts += codeFolder.subfolders.map { CodeArtifact(codeFolder: $0) }
+        parts += codeFolder.files.map { CodeArtifact(kind: .file($0), scope: self) }
+        parts += codeFolder.subfolders.map { CodeArtifact(codeFolder: $0, scope: self) }
         
-        self.init(kind: .folder(codeFolder),
-                  parts: parts)
+        self.parts = parts
     }
 }
