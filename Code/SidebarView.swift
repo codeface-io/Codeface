@@ -74,5 +74,5 @@ struct SidebarView: View
 private extension CodeArtifact
 {
     /// SwiftUI needs this optional
-    var children: [CodeArtifact]? { .some(parts) }
+    var children: [CodeArtifact]? { parts.isEmpty ? nil : parts }
 }
