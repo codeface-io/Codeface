@@ -45,6 +45,17 @@ struct SidebarView: View
 
 struct DisclosingRowView: View
 {
+    internal init(artifact: CodeArtifact,
+                  viewModel: CodeArtifactViewModel,
+                  displayMode: Binding<DisplayMode>)
+    {
+        self.artifact = artifact
+        self.viewModel = viewModel
+        self._displayMode = displayMode
+        
+        isExpanded = artifact.isExpanded
+    }
+    
     var body: some View
     {
         if artifact.parts.isEmpty
@@ -55,7 +66,7 @@ struct DisclosingRowView: View
         }
         else
         {
-            DisclosureGroup(isExpanded: $artifact.isExpanded)
+            DisclosureGroup(isExpanded: $isExpanded)
             {
                 ForEach(artifact.parts)
                 {
@@ -70,10 +81,13 @@ struct DisclosingRowView: View
                         viewModel: viewModel,
                         displayMode: $displayMode)
             }
+            .onReceive(artifact.$isExpanded) { isExpanded = $0 }
         }
     }
     
-    @ObservedObject var artifact: CodeArtifact
+    @State var isExpanded = false
+    
+    let artifact: CodeArtifact
     @ObservedObject var viewModel: CodeArtifactViewModel
     @Binding var displayMode: DisplayMode
 }
