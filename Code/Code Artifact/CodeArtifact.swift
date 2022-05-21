@@ -22,7 +22,11 @@ class CodeArtifact: Identifiable, ObservableObject
     
     // Mark: - Layout Model
     
-    @Published var layoutModel = LayoutModel(width: 100, height: 50, centerX: 50, centerY: 25)
+    
+    @Published var frameInScopeContent = LayoutModel(width: 100, height: 50, centerX: 50, centerY: 25)
+    
+    var showsContent = true
+    var contentFrame: CGRect = .zero
     
     struct LayoutModel: Equatable
     {

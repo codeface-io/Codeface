@@ -5,41 +5,40 @@ struct ArtifactView: View
 {
     var body: some View
     {
-        VStack(alignment: .leading, spacing: 0)
+        ZStack
         {
             HStack
             {
-                ArtifactIcon(artifact: artifact, isSelected: false)
-                
-                if artifact.layoutModel.width > 90
-                {
-                    Text(artifact.name)
+                Label {
+                    Text(artifact.frameInScopeContent.width > 90 ? artifact.name : "")
                         .lineLimit(1)
                         .foregroundColor(artifact.containsSearchTermRegardlessOfParts ?? false ? .accentColor : .primary)
-                    Spacer()
+                        .opacity(artifact.frameInScopeContent.width > 90 ? 1 : 0)      
+                } icon: {
+                    ArtifactIcon(artifact: artifact, isSelected: false)
                 }
+                Spacer()
             }
-            .font(.system(size: artifact.layoutModel.fontSize,
+            .font(.system(size: artifact.frameInScopeContent.fontSize,
                           weight: .medium,
                           design: .for(artifact)))
-            .padding(CodeArtifact.LayoutModel.padding)
+            .frame(width: artifact.frameInScopeContent.width - 2 * CodeArtifact.LayoutModel.padding,
+                   height: artifact.showsContent ? artifact.contentFrame.minY : artifact.frameInScopeContent.fontSize)
+            .position(x: artifact.frameInScopeContent.width / 2,
+                      y: min(CodeArtifact.LayoutModel.padding + artifact.frameInScopeContent.fontSize / 2, artifact.frameInScopeContent.height / 2))
             
-            GeometryReader
-            {
-                contentSpaceGeometry in
-                
-                if contentSpaceGeometry.size.height >= CodeArtifact.LayoutModel.minHeight
-                {
-                    ArtifactContentView(artifact: artifact,
-                                        viewModel: viewModel,
-                                        ignoreSearchFilter: ignoreSearchFilter)
-                        .padding([.leading, .trailing, .bottom],
-                                 CodeArtifact.LayoutModel.padding)
-                }
-            }
+            ArtifactContentView(artifact: artifact,
+                                viewModel: viewModel,
+                                ignoreSearchFilter: ignoreSearchFilter)
+            .frame(width: artifact.contentFrame.width,
+                   height: artifact.contentFrame.height)
+            .position(x: artifact.contentFrame.midX,
+                      y: artifact.contentFrame.midY)
+            .opacity(artifact.showsContent ? 1.0 : 0)
+            
         }
-        .frame(width: artifact.layoutModel.width,
-               height: artifact.layoutModel.height)
+        .frame(width: artifact.frameInScopeContent.width,
+               height: artifact.frameInScopeContent.height)
         .background(RoundedRectangle(cornerRadius: 5)
             .fill(Color.primary.opacity(0.1))
             .overlay(RoundedRectangle(cornerRadius: 5)
@@ -64,9 +63,9 @@ struct ArtifactView: View
                 artifact.reveal()
             }
         }
-        .position(x: artifact.layoutModel.centerX,
-                  y: artifact.layoutModel.centerY)
-        .animation(.easeInOut(duration: 1), value: artifact.layoutModel)
+        .position(x: artifact.frameInScopeContent.centerX,
+                  y: artifact.frameInScopeContent.centerY)
+//        .animation(.easeInOut(duration: 3), value: artifact.layoutModel)
     }
     
     @ObservedObject var artifact: CodeArtifact

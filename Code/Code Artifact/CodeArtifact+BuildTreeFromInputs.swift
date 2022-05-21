@@ -27,10 +27,7 @@ extension CodeArtifact
                     let references = try await server.requestReferences(for: lspDocSymbol,
                                                                         in: file.path)
                     
-                    if !references.isEmpty
-                    {
-                        SwiftyToolz.log("✅ References:\n\(references.description)")
-                    }
+                    SwiftyToolz.log("✅ References:\n\(references.description)")
                 } catch {
                     SwiftyToolz.log(error)
                 }

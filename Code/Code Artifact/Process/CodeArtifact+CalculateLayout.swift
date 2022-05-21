@@ -2,41 +2,87 @@ import Foundation
 
 extension CodeArtifact
 {
-    @discardableResult
     func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
-                             ignoreSearchFilter: Bool) -> Bool
+                             ignoreSearchFilter: Bool)
     {
         let presentedParts = ignoreSearchFilter ? parts : filteredParts
         
-        guard !presentedParts.isEmpty else { return false }
+        guard !presentedParts.isEmpty else
+        {
+            showsContent = false
+            return
+        }
         
-        return prepare(parts: presentedParts,
-                       forLayoutIn: .init(x: 0,
-                                          y: 0,
-                                          width: scopeSize.width,
-                                          height: scopeSize.height))
+        if prepare(parts: presentedParts,
+                   forLayoutIn: .init(x: 0,
+                                      y: 0,
+                                      width: scopeSize.width,
+                                      height: scopeSize.height),
+                   ignoreSearchFilter: ignoreSearchFilter)
+        {
+            showsContent = true
+        }
+        else
+        {
+            for part in presentedParts
+            {
+                prepare(parts: [part], forLayoutIn: .zero,
+                        ignoreSearchFilter: ignoreSearchFilter)
+            }
+            
+            showsContent = false
+        }
     }
     
+    @discardableResult
     private func prepare(parts: [CodeArtifact],
-                         forLayoutIn availableRect: CGRect) -> Bool
+                         forLayoutIn availableRect: CGRect,
+                         ignoreSearchFilter: Bool) -> Bool
     {
         if parts.isEmpty { return false }
         
+        // base case
         if parts.count == 1
         {
-            guard availableRect.width >= CodeArtifact.LayoutModel.minWidth,
-                  availableRect.height >= CodeArtifact.LayoutModel.minHeight else { return false }
-            
             let part = parts[0]
             
-            part.layoutModel = .init(width: availableRect.width,
-                                     height: availableRect.height,
-                                     centerX: availableRect.midX,
-                                     centerY: availableRect.midY)
+            part.frameInScopeContent = .init(width: availableRect.width,
+                                             height: availableRect.height,
+                                             centerX: availableRect.midX,
+                                             centerY: availableRect.midY)
+            
+            if availableRect.width > 100, availableRect.height > 100
+            {
+                let padding = CodeArtifact.LayoutModel.padding
+                let headerHeight = part.frameInScopeContent.fontSize + 2 * padding
+                
+                part.contentFrame = CGRect(x: padding,
+                                           y: headerHeight,
+                                           width: availableRect.width - (2 * padding),
+                                           height: (availableRect.height - padding) - headerHeight)
+                
+                part.updateLayoutOfParts(forScopeSize: part.contentFrame.size,
+                                         ignoreSearchFilter: ignoreSearchFilter)
+                
+                part.showsContent = true
+            }
+            else
+            {
+                part.contentFrame = .init(x: availableRect.width / 2,
+                                          y: availableRect.height / 2,
+                                          width: 5,
+                                          height: 5)
+                
+                part.updateLayoutOfParts(forScopeSize: part.contentFrame.size,
+                                         ignoreSearchFilter: ignoreSearchFilter)
+                
+                part.showsContent = false
+            }
             
             return true
         }
         
+        // tree map algorithm
         let (partsA, partsB) = split(parts)
         
         let locA = partsA.reduce(0) { $0 + $1.linesOfCode }
@@ -44,13 +90,15 @@ extension CodeArtifact
         
         let fractionA = Double(locA) / Double(locA + locB)
         
-        guard let (rectA, rectB) = split(availableRect, firstFraction: fractionA) else
-        {
-            return false
-        }
+        guard let (rectA, rectB) = split(availableRect, firstFraction: fractionA),
+              prepare(parts: partsA,
+                      forLayoutIn: rectA,
+                      ignoreSearchFilter: ignoreSearchFilter),
+              prepare(parts: partsB,
+                      forLayoutIn: rectB,
+                      ignoreSearchFilter: ignoreSearchFilter) else { return false }
         
-        return prepare(parts: partsA, forLayoutIn: rectA)
-            && prepare(parts: partsB, forLayoutIn: rectB)
+        return true
     }
     
     func split(_ parts: [CodeArtifact]) -> ([CodeArtifact], [CodeArtifact])

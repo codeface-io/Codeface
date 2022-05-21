@@ -8,21 +8,17 @@ struct ArtifactContentView: View
         {
             contentGeometry in
             
-            if artifact.updateLayoutOfParts(forScopeSize: contentGeometry.size,
-                                            ignoreSearchFilter: ignoreSearchFilter)
+            ZStack
             {
-                ZStack
+                ForEach(artifact.filteredParts)
                 {
-                    ForEach(artifact.filteredParts)
-                    {
-                        ArtifactView(artifact: $0,
-                                     viewModel: viewModel,
-                                     ignoreSearchFilter: ignoreSearchFilter)
-                    }
+                    ArtifactView(artifact: $0,
+                                 viewModel: viewModel,
+                                 ignoreSearchFilter: ignoreSearchFilter)
                 }
-                .frame(width: contentGeometry.size.width,
-                       height: contentGeometry.size.height)
             }
+            .frame(width: contentGeometry.size.width,
+                   height: contentGeometry.size.height)
         }
     }
     

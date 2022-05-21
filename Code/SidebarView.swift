@@ -103,10 +103,41 @@ struct RowView: View
                 switch displayMode
                 {
                 case .treeMap:
-                    ArtifactContentView(artifact: artifact,
-                                        viewModel: viewModel,
-                                        ignoreSearchFilter: viewModel.isSearching)
-                    .drawingGroup()
+                    GeometryReader
+                    {
+                        geo in
+                        
+                        ArtifactContentView(artifact: artifact,
+                                            viewModel: viewModel,
+                                            ignoreSearchFilter: viewModel.isSearching)
+                        .drawingGroup()
+                        .onChange(of: geo.size)
+                        {
+                            size in
+                            
+                            Task
+                            {
+                                withAnimation(.easeInOut(duration: 1))
+                                {
+                                    artifact.updateLayoutOfParts(forScopeSize: size,
+                                                                 ignoreSearchFilter: viewModel.isSearching)
+                                }
+                            }
+                        }
+                        .onReceive(viewModel.$isSearching)
+                        {
+                            _ in
+                            
+                            Task
+                            {
+                                withAnimation(.easeInOut(duration: 1))
+                                {
+                                    artifact.updateLayoutOfParts(forScopeSize: geo.size,
+                                                                 ignoreSearchFilter: viewModel.isSearching)
+                                }
+                            }
+                        }
+                    }
                     .padding(CodeArtifact.LayoutModel.padding)
                     
                 case .code:
@@ -165,7 +196,6 @@ struct RowView: View
             SidebarLabel(artifact: artifact,
                          isSelected: artifact === viewModel.selectedArtifact)
         }
-        
     }
     
     let artifact: CodeArtifact
