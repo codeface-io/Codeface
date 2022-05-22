@@ -13,25 +13,12 @@ extension CodeArtifact
             return
         }
         
-        if prepare(parts: presentedParts,
-                   forLayoutIn: .init(x: 0,
-                                      y: 0,
-                                      width: scopeSize.width,
-                                      height: scopeSize.height),
-                   ignoreSearchFilter: ignoreSearchFilter)
-        {
-            showsContent = true
-        }
-        else
-        {
-            for part in presentedParts
-            {
-                prepare(parts: [part], forLayoutIn: .zero,
-                        ignoreSearchFilter: ignoreSearchFilter)
-            }
-            
-            showsContent = false
-        }
+        showsContent = prepare(parts: presentedParts,
+                               forLayoutIn: .init(x: 0,
+                                                  y: 0,
+                                                  width: scopeSize.width,
+                                                  height: scopeSize.height),
+                               ignoreSearchFilter: ignoreSearchFilter)
     }
     
     @discardableResult
@@ -60,26 +47,20 @@ extension CodeArtifact
                                            y: headerHeight,
                                            width: availableRect.width - (2 * padding),
                                            height: (availableRect.height - padding) - headerHeight)
-                
-                part.updateLayoutOfParts(forScopeSize: part.contentFrame.size,
-                                         ignoreSearchFilter: ignoreSearchFilter)
-                
-                part.showsContent = true
             }
             else
             {
-                part.contentFrame = .init(x: availableRect.width / 2,
-                                          y: availableRect.height / 2,
-                                          width: 5,
-                                          height: 5)
-                
-                part.updateLayoutOfParts(forScopeSize: part.contentFrame.size,
-                                         ignoreSearchFilter: ignoreSearchFilter)
-                
-                part.showsContent = false
+                part.contentFrame = .init(x: (availableRect.width / 2) - 2,
+                                          y: (availableRect.height / 2) - 2,
+                                          width: 4,
+                                          height: 4)
             }
             
-            return true
+            part.updateLayoutOfParts(forScopeSize: part.contentFrame.size,
+                                     ignoreSearchFilter: ignoreSearchFilter)
+            
+            return availableRect.size.width >= CodeArtifact.LayoutModel.minWidth &&
+                availableRect.size.height >= CodeArtifact.LayoutModel.minHeight
         }
         
         // tree map algorithm
