@@ -71,15 +71,19 @@ extension CodeArtifact
         
         let fractionA = Double(locA) / Double(locA + locB)
         
-        guard let (rectA, rectB) = split(availableRect, firstFraction: fractionA),
-              prepare(parts: partsA,
-                      forLayoutIn: rectA,
-                      ignoreSearchFilter: ignoreSearchFilter),
-              prepare(parts: partsB,
-                      forLayoutIn: rectB,
-                      ignoreSearchFilter: ignoreSearchFilter) else { return false }
+        let properRectSplit = split(availableRect, firstFraction: fractionA)
         
-        return true
+        let rectSplitToUse = properRectSplit ?? forceSplit(availableRect)
+        
+        let successA = prepare(parts: partsA,
+                               forLayoutIn: rectSplitToUse.0,
+                               ignoreSearchFilter: ignoreSearchFilter)
+        
+        let successB = prepare(parts: partsB,
+                               forLayoutIn: rectSplitToUse.1,
+                               ignoreSearchFilter: ignoreSearchFilter)
+        
+        return properRectSplit != nil && successA && successB
     }
     
     func split(_ parts: [CodeArtifact]) -> ([CodeArtifact], [CodeArtifact])
@@ -124,6 +128,40 @@ extension CodeArtifact
             let result = splitIntoTopAndBottom(rect, firstFraction: firstFraction)
             
             return result ?? splitIntoLeftAndRight(rect, firstFraction: firstFraction)
+        }
+    }
+    
+    func forceSplit(_ rect: CGRect) -> (CGRect, CGRect)
+    {
+        if rect.width / rect.height > 1
+        {
+            let padding = rect.width > CodeArtifact.LayoutModel.padding ? CodeArtifact.LayoutModel.padding : 0
+            
+            let width = (rect.width - padding) / 2
+            
+            return (CGRect(x: rect.minX,
+                           y: rect.minY,
+                           width: width,
+                           height: rect.height),
+                    CGRect(x: rect.minX + width + padding,
+                           y: rect.minY,
+                           width: width,
+                           height: rect.height))
+        }
+        else
+        {
+            let padding = rect.height > CodeArtifact.LayoutModel.padding ? CodeArtifact.LayoutModel.padding : 0
+            
+            let height = (rect.height - padding) / 2
+            
+            return (CGRect(x: rect.minX,
+                           y: rect.minY,
+                           width: rect.width,
+                           height: height),
+                    CGRect(x: rect.minX,
+                           y: rect.minY + height + padding,
+                           width: rect.width,
+                           height: height))
         }
     }
     
