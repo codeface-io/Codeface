@@ -27,10 +27,6 @@ class Project
         }
         
         self.config = config
-        
-        let createdServer = try Self.createServer(language: config.language)
-        server = createdServer
-        serverInitialization = Self.initialize(createdServer, for: config)
     }
     
     // MARK: - Data Analysis
@@ -40,15 +36,8 @@ class Project
         Task
         {
             let rootFolder = try createRootFolder()
-            
             let rootArtifact = CodeArtifact(codeFolder: rootFolder, scope: nil)
-            
-            if let server = server, let serverInitialization = serverInitialization
-            {
-                try await serverInitialization.assumeSuccess()
-                try await rootArtifact.addSymbolArtifacts(using: server)
-            }
-            
+            await tryToAddSymbolArtifacts(to: rootArtifact)
             rootArtifact.generateMetrics()
             rootArtifact.sort()
             
@@ -74,6 +63,20 @@ class Project
         }
     }
     
+    private func tryToAddSymbolArtifacts(to artifact: CodeArtifact) async
+    {
+        do
+        {
+            let (server, initialization) = try getServerAndServerInitialization()
+            try await initialization.assumeSuccess()
+            try await artifact.addSymbolArtifacts(using: server)
+        }
+        catch
+        {
+            log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
+        }
+    }
+    
     var analysisResult: AnalysisResult?
     
     struct AnalysisResult
@@ -95,6 +98,22 @@ class Project
     }
     
     // MARK: - Language Server
+    
+    private func getServerAndServerInitialization() throws -> (LSP.ServerCommunicationHandler, Task<Void, Error>)
+    {
+        if let server = server, let initialization = serverInitialization
+        {
+            return (server, initialization)
+        }
+        
+        let createdServer = try Self.createServer(language: config.language)
+        server = createdServer
+        
+        let createdInitialization = Self.initialize(createdServer, for: config)
+        serverInitialization = createdInitialization
+        
+        return (createdServer, createdInitialization)
+    }
     
     private static func createServer(language: String) throws -> LSP.ServerCommunicationHandler
     {
