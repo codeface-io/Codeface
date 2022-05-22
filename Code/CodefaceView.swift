@@ -18,7 +18,8 @@ struct CodefaceView: View
             SidebarView(viewModel: viewModel,
                         displayMode: $displayMode)
             .searchable(text: $searchTerm,
-                        placement: .toolbar)
+                        placement: .toolbar,
+                        prompt: searchPrompt)
             .onSubmit(of: .search)
             {
                 viewModel.submitSearch()
@@ -42,6 +43,11 @@ struct CodefaceView: View
                 viewModel.userChanged(searchTerm: newSearchTerm)
             }
         }
+    }
+    
+    private var searchPrompt: String
+    {
+        "Search in \(viewModel.selectedArtifact?.name ?? "Selected Artifact")"
     }
     
     @State var searchTerm = ""
