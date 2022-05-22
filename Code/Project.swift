@@ -77,14 +77,14 @@ class Project
         }
     }
     
-    var analysisResult: AnalysisResult?
+    private(set) var analysisResult: AnalysisResult?
     
     struct AnalysisResult
     {
         // file system hierarchy: relevant directories and files
         var rootFolder: CodeFolder
         
-        // artifact hierarchy: each artifact with dependencies, metrics, order
+        // artifact hierarchy: each artifact with code content, kind, dependencies & metrics
         var rootArtifact: CodeArtifact
     }
     
