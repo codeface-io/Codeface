@@ -19,21 +19,21 @@ struct ArtifactView: View
                 }
                 Spacer()
             }
-            .font(.system(size: artifact.frameInScopeContent.fontSize,
+            .font(.system(size: artifact.fontSize,
                           weight: .medium,
                           design: .for(artifact)))
-            .frame(width: artifact.frameInScopeContent.width - 2 * CodeArtifact.LayoutModel.padding,
-                   height: artifact.showsContent ? artifact.contentFrame.minY : artifact.frameInScopeContent.fontSize)
+            .frame(width: artifact.frameInScopeContent.width - 2 * CodeArtifact.padding,
+                   height: artifact.showsContent ? artifact.contentFrame.y : artifact.fontSize)
             .position(x: artifact.frameInScopeContent.width / 2,
-                      y: min(CodeArtifact.LayoutModel.padding + artifact.frameInScopeContent.fontSize / 2, artifact.frameInScopeContent.height / 2))
+                      y: min(CodeArtifact.padding + artifact.fontSize / 2, artifact.frameInScopeContent.height / 2))
             
             ArtifactContentView(artifact: artifact,
                                 viewModel: viewModel,
                                 ignoreSearchFilter: ignoreSearchFilter)
             .frame(width: artifact.contentFrame.width,
                    height: artifact.contentFrame.height)
-            .position(x: artifact.contentFrame.midX,
-                      y: artifact.contentFrame.midY)
+            .position(x: artifact.contentFrame.centerX,
+                      y: artifact.contentFrame.centerY)
             .opacity(artifact.showsContent ? 1.0 : 0)
             
         }

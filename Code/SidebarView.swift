@@ -138,7 +138,7 @@ struct RowView: View
                             }
                         }
                     }
-                    .padding(CodeArtifact.LayoutModel.padding)
+                    .padding(CodeArtifact.padding)
                     
                 case .code:
                     if let code = artifact.code

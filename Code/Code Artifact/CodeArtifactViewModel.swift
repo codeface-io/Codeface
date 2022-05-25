@@ -12,6 +12,7 @@ class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
     {
         if let rootArtifact = Project.shared?.analysisResult?.rootArtifact
         {
+            rootArtifact.isExpanded = true
             self.artifacts = [rootArtifact]
         }
         
@@ -20,6 +21,7 @@ class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
             switch $0
             {
             case .didCompleteAnalysis(let analysisResult):
+                analysisResult.rootArtifact.isExpanded = true
                 self.artifacts = [analysisResult.rootArtifact]
             }
         }

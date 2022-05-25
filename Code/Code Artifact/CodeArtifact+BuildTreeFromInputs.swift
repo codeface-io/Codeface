@@ -74,7 +74,7 @@ extension CodeArtifact
             SwiftyToolz.log(error)
         }
         
-        self.parts = [CodeArtifact]()
+        parts = [CodeArtifact]()
         
         for childSymbol in lspDocSymbol.children
         {

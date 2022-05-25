@@ -33,20 +33,20 @@ extension CodeArtifact
         {
             let part = parts[0]
             
-            part.frameInScopeContent = .init(width: availableRect.width,
-                                             height: availableRect.height,
-                                             centerX: availableRect.midX,
-                                             centerY: availableRect.midY)
+            part.frameInScopeContent = .init(centerX: availableRect.midX,
+                                             centerY: availableRect.midY,
+                                             width: availableRect.width,
+                                             height: availableRect.height)
             
             if availableRect.width > 100, availableRect.height > 100
             {
-                let padding = CodeArtifact.LayoutModel.padding
-                let headerHeight = part.frameInScopeContent.fontSize + 2 * padding
+                let padding = CodeArtifact.padding
+                let headerHeight = part.fontSize + 2 * padding
                 
-                part.contentFrame = CGRect(x: padding,
-                                           y: headerHeight,
-                                           width: availableRect.width - (2 * padding),
-                                           height: (availableRect.height - padding) - headerHeight)
+                part.contentFrame = .init(x: padding,
+                                          y: headerHeight,
+                                          width: availableRect.width - (2 * padding),
+                                          height: (availableRect.height - padding) - headerHeight)
             }
             else
             {
@@ -56,11 +56,12 @@ extension CodeArtifact
                                           height: 4)
             }
             
-            part.updateLayoutOfParts(forScopeSize: part.contentFrame.size,
+            part.updateLayoutOfParts(forScopeSize: .init(width: part.contentFrame.width,
+                                                         height: part.contentFrame.height),
                                      ignoreSearchFilter: ignoreSearchFilter)
             
-            return availableRect.size.width >= CodeArtifact.LayoutModel.minWidth &&
-                availableRect.size.height >= CodeArtifact.LayoutModel.minHeight
+            return availableRect.size.width >= CodeArtifact.minWidth &&
+                availableRect.size.height >= CodeArtifact.minHeight
         }
         
         // tree map algorithm
@@ -113,7 +114,7 @@ extension CodeArtifact
     func split(_ rect: CGRect,
                firstFraction: Double) -> (CGRect, CGRect)?
     {
-        let rectIsSmall = min(rect.width, rect.height) <= CodeArtifact.LayoutModel.minWidth * 5
+        let rectIsSmall = min(rect.width, rect.height) <= CodeArtifact.minWidth * 5
         let rectAspectRatio = rect.width / rect.height
         let tryLeftRightSplitFirst = rectAspectRatio > (rectIsSmall ? 4 : 2)
         
@@ -135,7 +136,7 @@ extension CodeArtifact
     {
         if rect.width / rect.height > 1
         {
-            let padding = rect.width > CodeArtifact.LayoutModel.padding ? CodeArtifact.LayoutModel.padding : 0
+            let padding = rect.width > CodeArtifact.padding ? CodeArtifact.padding : 0
             
             let width = (rect.width - padding) / 2
             
@@ -150,7 +151,7 @@ extension CodeArtifact
         }
         else
         {
-            let padding = rect.height > CodeArtifact.LayoutModel.padding ? CodeArtifact.LayoutModel.padding : 0
+            let padding = rect.height > CodeArtifact.padding ? CodeArtifact.padding : 0
             
             let height = (rect.height - padding) / 2
             
@@ -167,23 +168,23 @@ extension CodeArtifact
     
     func splitIntoLeftAndRight(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
     {
-        if 2 * CodeArtifact.LayoutModel.minWidth + CodeArtifact.LayoutModel.padding > rect.width
+        if 2 * CodeArtifact.minWidth + CodeArtifact.padding > rect.width
         {
             return nil
         }
         
-        var widthA = (rect.width - CodeArtifact.LayoutModel.padding) * firstFraction
-        var widthB = (rect.width - widthA) - CodeArtifact.LayoutModel.padding
+        var widthA = (rect.width - CodeArtifact.padding) * firstFraction
+        var widthB = (rect.width - widthA) - CodeArtifact.padding
         
-        if widthA < CodeArtifact.LayoutModel.minWidth
+        if widthA < CodeArtifact.minWidth
         {
-            widthA = CodeArtifact.LayoutModel.minWidth
-            widthB = (rect.width - CodeArtifact.LayoutModel.minWidth) - CodeArtifact.LayoutModel.padding
+            widthA = CodeArtifact.minWidth
+            widthB = (rect.width - CodeArtifact.minWidth) - CodeArtifact.padding
         }
-        else if widthB < CodeArtifact.LayoutModel.minWidth
+        else if widthB < CodeArtifact.minWidth
         {
-            widthB = CodeArtifact.LayoutModel.minWidth
-            widthA = (rect.width - CodeArtifact.LayoutModel.minWidth) - CodeArtifact.LayoutModel.padding
+            widthB = CodeArtifact.minWidth
+            widthA = (rect.width - CodeArtifact.minWidth) - CodeArtifact.padding
         }
         
         let rectA = CGRect(x: rect.minX,
@@ -191,7 +192,7 @@ extension CodeArtifact
                            width: widthA,
                            height: rect.height)
         
-        let rectB = CGRect(x: (rect.minX + widthA) + CodeArtifact.LayoutModel.padding,
+        let rectB = CGRect(x: (rect.minX + widthA) + CodeArtifact.padding,
                            y: rect.minY,
                            width: widthB,
                            height: rect.height)
@@ -201,23 +202,23 @@ extension CodeArtifact
     
     func splitIntoTopAndBottom(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
     {
-        if 2 * CodeArtifact.LayoutModel.minHeight + CodeArtifact.LayoutModel.padding > rect.height
+        if 2 * CodeArtifact.minHeight + CodeArtifact.padding > rect.height
         {
             return nil
         }
         
-        var heightA = (rect.height - CodeArtifact.LayoutModel.padding) * firstFraction
-        var heightB = (rect.height - heightA) - CodeArtifact.LayoutModel.padding
+        var heightA = (rect.height - CodeArtifact.padding) * firstFraction
+        var heightB = (rect.height - heightA) - CodeArtifact.padding
         
-        if heightA < CodeArtifact.LayoutModel.minHeight
+        if heightA < CodeArtifact.minHeight
         {
-            heightA = CodeArtifact.LayoutModel.minHeight
-            heightB = (rect.height - CodeArtifact.LayoutModel.minHeight) - CodeArtifact.LayoutModel.padding
+            heightA = CodeArtifact.minHeight
+            heightB = (rect.height - CodeArtifact.minHeight) - CodeArtifact.padding
         }
-        else if heightB < CodeArtifact.LayoutModel.minHeight
+        else if heightB < CodeArtifact.minHeight
         {
-            heightB = CodeArtifact.LayoutModel.minHeight
-            heightA = (rect.height - CodeArtifact.LayoutModel.minHeight) - CodeArtifact.LayoutModel.padding
+            heightB = CodeArtifact.minHeight
+            heightA = (rect.height - CodeArtifact.minHeight) - CodeArtifact.padding
         }
         
         let rectA = CGRect(x: rect.minX,
@@ -226,7 +227,7 @@ extension CodeArtifact
                            height: heightA)
         
         let rectB = CGRect(x: rect.minX,
-                           y: (rect.minY + heightA) + CodeArtifact.LayoutModel.padding,
+                           y: (rect.minY + heightA) + CodeArtifact.padding,
                            width: rect.width,
                            height: heightB)
 
@@ -234,9 +235,12 @@ extension CodeArtifact
     }
 }
 
-extension CodeArtifact.LayoutModel
+extension CodeArtifact
 {
-    var fontSize: Double { 1.2 * sqrt(sqrt(height * width)) }
+    var fontSize: Double
+    {
+        1.2 * sqrt(sqrt(frameInScopeContent.height * frameInScopeContent.width))
+    }
     
     static var padding: Double = 16
     static var minWidth: Double = 30
