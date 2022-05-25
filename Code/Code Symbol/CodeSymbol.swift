@@ -12,5 +12,6 @@ extension CodeSymbol
 struct CodeSymbol
 {
     let lspDocumentSymbol: LSPDocumentSymbol
+    let references: [LSPLocation]
     let code: String
 }

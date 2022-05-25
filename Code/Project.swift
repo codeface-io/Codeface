@@ -128,7 +128,7 @@ class Project
 
         server.serverDidSendErrorOutput =
         {
-            errorOutput in log("💬 Language server sent error string:\n\(errorOutput)")
+            _ in // log(warning: "Language server sent error string:\n\($0)")
         }
         
         return server
@@ -141,10 +141,10 @@ class Project
         {
             let processID = try await LSPService.api.processID.get()
             
-            let initializeResult = try await server.request(.initialize(folder: project.folder,
+            let _ = try await server.request(.initialize(folder: project.folder,
                                                                         clientProcessID: processID))
             
-            try log(initializeResult: initializeResult)
+//            try log(initializeResult: initializeResult)
             
             try server.notify(.initialized)
         }

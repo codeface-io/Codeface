@@ -13,24 +13,16 @@ extension CodeArtifact
             
             let lspDocSymbols = try await server.requestSymbols(in: file.path)
             
-            guard !lspDocSymbols.isEmpty else
-            {
-                parts = []
-                break
-            }
-            
-            var newParts = [CodeArtifact]()
+            parts = [CodeArtifact]()
             
             for lspDocSymbol in lspDocSymbols
             {   
-                newParts += await CodeArtifact(lspDocSymbol: lspDocSymbol,
+                parts += await CodeArtifact(lspDocSymbol: lspDocSymbol,
                                                codeFileLines: file.lines,
                                                scope: self,
                                                file: file.path,
                                                server: server)
             }
-            
-            parts = newParts
             
         case .folder:
             for part in parts
@@ -52,28 +44,19 @@ extension CodeArtifact
                      file: LSPDocumentUri,
                      server: LSP.ServerCommunicationHandler) async
     {
-        let symbolLines = codeFileLines[lspDocSymbol.range.start.line ... lspDocSymbol.range.end.line]
-        let symbolCode = symbolLines.joined(separator: "\n")
+        let references = await server.requestReferencesLoggingError(for: lspDocSymbol,
+                                                                    in: file)
         
-        self.init(kind: .symbol(CodeSymbol(lspDocumentSymbol: lspDocSymbol,
-                                           code: symbolCode)),
-                  scope: scope)
+        let codeLines = codeFileLines[lspDocSymbol.range.start.line ... lspDocSymbol.range.end.line]
+        let code = codeLines.joined(separator: "\n")
         
-        do
-        {
-            let references = try await  server.requestReferences(for: lspDocSymbol,
-                                                                 in: file)
-            
-            if !references.isEmpty
-            {
-                SwiftyToolz.log("✅ References:\n\(references.description)")
-            }
-        }
-        catch
-        {
-            SwiftyToolz.log(error)
-        }
+        let codeSymbol = CodeSymbol(lspDocumentSymbol: lspDocSymbol,
+                                    references: references,
+                                    code: code)
         
+        self.init(kind: .symbol(codeSymbol), scope: scope)
+        
+        /// create parts recursively
         parts = [CodeArtifact]()
         
         for childSymbol in lspDocSymbol.children
@@ -83,6 +66,24 @@ extension CodeArtifact
                                         scope: self,
                                         file: file,
                                         server: server)
+        }
+    }
+}
+
+/// to be more failure tolerant (create artifact anyway when references request fails)
+private extension LSP.ServerCommunicationHandler
+{
+    func requestReferencesLoggingError(for symbol: LSPDocumentSymbol,
+                                       in document: LSPDocumentUri) async -> [LSPLocation]
+    {
+        do
+        {
+            return try await requestReferences(for: symbol, in: document)
+        }
+        catch
+        {
+            log(error)
+            return []
         }
     }
 }
