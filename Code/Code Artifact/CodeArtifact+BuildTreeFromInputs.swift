@@ -16,12 +16,12 @@ extension CodeArtifact
             parts = [CodeArtifact]()
             
             for lspDocSymbol in lspDocSymbols
-            {   
+            {
                 parts += await CodeArtifact(lspDocSymbol: lspDocSymbol,
-                                               codeFileLines: file.lines,
-                                               scope: self,
-                                               file: file.path,
-                                               server: server)
+                                            codeFileLines: file.lines,
+                                            scope: self,
+                                            file: file.path,
+                                            server: server)
             }
             
         case .folder:

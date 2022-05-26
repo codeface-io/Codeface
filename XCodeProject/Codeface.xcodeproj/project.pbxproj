@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9605BE1B283FE80000016910 /* LSPServiceHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605BE1A283FE80000016910 /* LSPServiceHint.swift */; };
 		962952B32826898000DC8620 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 962952B22826898000DC8620 /* LSPServiceKit */; };
 		964308A5254B7B070026E56C /* CodefaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964308A4254B7B070026E56C /* CodefaceView.swift */; };
 		96446C1A2829343600B347EF /* CodeArtifactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C192829343600B347EF /* CodeArtifactViewModel.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9605BE1A283FE80000016910 /* LSPServiceHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceHint.swift; sourceTree = "<group>"; };
 		964308A4254B7B070026E56C /* CodefaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceView.swift; sourceTree = "<group>"; };
 		96446C192829343600B347EF /* CodeArtifactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifactViewModel.swift; sourceTree = "<group>"; };
 		965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeArtifact+BuildTreeFromInputs.swift"; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
+				9605BE1A283FE80000016910 /* LSPServiceHint.swift */,
 				964308A4254B7B070026E56C /* CodefaceView.swift */,
 				96E479DE2835B88E00762FD7 /* SidebarView.swift */,
 				96E479DC2835B36C00762FD7 /* SidebarLabel.swift */,
@@ -359,6 +362,7 @@
 				966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */,
 				965F76DC2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift in Sources */,
 				96D6B0F528282D69009E6C42 /* CodeFile.swift in Sources */,
+				9605BE1B283FE80000016910 /* LSPServiceHint.swift in Sources */,
 				96B3A3A3282FEAF8002D7290 /* CodeArtifact+Sort.swift in Sources */,
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				965F76DE2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift in Sources */,

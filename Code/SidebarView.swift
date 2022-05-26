@@ -180,14 +180,14 @@ struct RowView: View
                             viewModel.removeSearchFilter()
                         }
                     }
-                label:
+                    label:
                     {
                         HStack
                         {
                             Text("Search Filter:")
                             Text(searchTerm)
                                 .foregroundColor(.accentColor)
-                            Image(systemName: "multiply")
+                            Image(systemName: "xmark")
                         }
                     }
                 }

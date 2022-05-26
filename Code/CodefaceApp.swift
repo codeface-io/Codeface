@@ -20,15 +20,16 @@ struct CodefaceApp: App
     
     var body: some Scene
     {
-        Settings
-        {
-            Text("Settings View Placeholder")
-                .padding()
-        }
-        
         WindowGroup
         {
-            CodefaceView(displayMode: $displayMode)
+            ZStack
+            {
+                CodefaceView(displayMode: $displayMode)
+                
+                if isPresentingLSPServiceHint {
+                    LSPServiceHint(isBeingPresented: $isPresentingLSPServiceHint)
+                }
+            }
         }
         .onChange(of: scenePhase)
         {
@@ -46,7 +47,7 @@ struct CodefaceApp: App
         {
             SidebarCommands()
             
-            CommandGroup(after: .sidebar)
+            CommandGroup(before: .sidebar)
             {
                 Button("Switch View Mode")
                 {
@@ -57,6 +58,22 @@ struct CodefaceApp: App
                     }
                 }
                 .keyboardShortcut(.space, modifiers: .shift)
+                
+                // TODO: only show when we haven't loaded symbols etc.
+                Button("Show Symbols, Dependencies etc. ...")
+                {
+                    isPresentingLSPServiceHint = true
+                }
+                
+                Divider()
+            }
+            
+            CommandGroup(after: .help)
+            {
+                Button("How to see Symbols, Dependencies etc. ...")
+                {
+                    isPresentingLSPServiceHint = true
+                }
             }
             
             CommandGroup(replacing: .newItem)
@@ -104,6 +121,7 @@ struct CodefaceApp: App
         }
     }
     
+    @State var isPresentingLSPServiceHint = false
     @State var isPresented = false
     @Environment(\.scenePhase) var scenePhase
     @State private var displayMode: DisplayMode = .treeMap

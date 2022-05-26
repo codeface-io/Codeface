@@ -2,6 +2,8 @@ import SwiftLSP
 
 extension CodeSymbol
 {
+    static var kindNames: [String] { LSPDocumentSymbol.kindNames }
+    
     func contains(line: Int) -> Bool
     {
         line >= lspDocumentSymbol.range.start.line

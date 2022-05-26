@@ -4,7 +4,8 @@ struct SidebarLabel: View
 {
     var body: some View
     {
-        Label {
+        Label
+        {
             Text(artifact.name)
                 .font(.system(.title3, design: .for(artifact)))
             
@@ -16,7 +17,9 @@ struct SidebarLabel: View
                     .foregroundColor(isSelected ? .primary : .linesOfCode(for: artifact))
                     .font(.system(.title3, design: .default))
             }
-        } icon: {
+        }
+        icon:
+        {
             ArtifactIcon(artifact: artifact, isSelected: isSelected)
         }
     }

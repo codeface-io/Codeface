@@ -52,7 +52,7 @@ private extension Color
     }
 }
 
-private func iconSystemImageName(for artifactKind: CodeArtifact.Kind) -> String
+func iconSystemImageName(for artifactKind: CodeArtifact.Kind) -> String
 {
     switch artifactKind
     {
