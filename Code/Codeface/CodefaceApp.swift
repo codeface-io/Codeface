@@ -5,18 +5,6 @@ import SwiftyToolz
 @main
 struct CodefaceApp: App
 {
-    // MARK: - Initialize
-    
-    init()
-    {
-        // FIXME: this doesn't work anymore
-        if persistedProjectConfigData != nil
-        {
-            do { try loadLastProject() }
-            catch { log(error) }
-        }
-    }
-    
     // MARK: - Create Body
     
     var body: some Scene
@@ -32,19 +20,21 @@ struct CodefaceApp: App
                     LSPServiceHint(isBeingPresented: $isPresentingLSPServiceHint)
                 }
             }
-        }
-        .onChange(of: scenePhase)
-        {
-            phase in
-            
-            // FIXME: this never gets called
-            
-            switch phase
+            .onChange(of: scenePhase)
             {
-            case .background: break
-            case .active: break
-            case .inactive: break
-            @unknown default: break
+                switch $0
+                {
+                case .background: break
+                case .active:
+                    if persistedProjectConfigData != nil,
+                        codeface.activeProject == nil
+                    {
+                        do { try loadLastProject() }
+                        catch { log(error) }
+                    }
+                case .inactive: break
+                @unknown default: break
+                }
             }
         }
         .commands

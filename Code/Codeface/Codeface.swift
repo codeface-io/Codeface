@@ -58,7 +58,6 @@ class Codeface: SwiftUI.ObservableObject, Observer
         {
             $0.rootArtifact.isExpanded = true
             self.artifacts = [$0.rootArtifact]
-//            self.objectWillChange.send()
         }
         
         self.activeProject = activeProject
