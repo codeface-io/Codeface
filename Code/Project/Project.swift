@@ -32,8 +32,7 @@ class Project
             rootArtifact.generateMetrics()
             rootArtifact.sort()
             
-            analysisResult = .init(rootFolder: rootFolder,
-                                   rootArtifact: rootArtifact)
+            self.rootArtifact = rootArtifact
         }
     }
     
@@ -64,16 +63,8 @@ class Project
         }
     }
     
-    @Observable private(set) var analysisResult: AnalysisResult?
-    
-    struct AnalysisResult: Equatable
-    {
-        // file system hierarchy: relevant directories and files
-        var rootFolder: CodeFolder
-        
-        // artifact hierarchy: each artifact with code content, kind, dependencies & metrics
-        var rootArtifact: CodeArtifact
-    }
+    // artifact hierarchy: each artifact with code content, kind, dependencies & metrics
+    @Observable private(set) var rootArtifact: CodeArtifact?
     
     // MARK: - Language Server
     

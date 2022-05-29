@@ -13,8 +13,7 @@ struct CodefaceApp: App
         {
             ZStack
             {
-                CodefaceView(viewModel: codeface,
-                             displayMode: $displayMode)
+                CodefaceView(viewModel: codeface)
                 
                 if isPresentingLSPServiceHint {
                     LSPServiceHint(isBeingPresented: $isPresentingLSPServiceHint)
@@ -45,10 +44,10 @@ struct CodefaceApp: App
             {
                 Button("Switch View Mode")
                 {
-                    switch displayMode
+                    switch codeface.displayMode
                     {
-                    case .code: displayMode = .treeMap
-                    case .treeMap: displayMode = .code
+                    case .code: codeface.displayMode = .treeMap
+                    case .treeMap: codeface.displayMode = .code
                     }
                 }
                 .keyboardShortcut(.space, modifiers: .shift)
@@ -118,30 +117,23 @@ struct CodefaceApp: App
     @State var isPresentingLSPServiceHint = false
     @State var isPresented = false
     @Environment(\.scenePhase) var scenePhase
-    @State private var displayMode: DisplayMode = .treeMap
     
-    @StateObject private var codeface = Codeface()
-    
-    // MARK: - Load Project
+    // MARK: - Codeface
     
     @MainActor
     private func loadNewProject(with config: Project.Configuration) throws
     {
-        try loadProject(with: config)
+        try codeface.setAndAnalyzeActiveProject(with: config)
         try persist(projectConfig: config)
     }
     
     @MainActor
     private func loadLastProject() throws
     {
-        try loadProject(with: loadProjectConfig())
+        try codeface.setAndAnalyzeActiveProject(with: loadProjectConfig())
     }
     
-    @MainActor
-    private func loadProject(with config: Project.Configuration) throws
-    {
-        codeface.set(activeProject: try Project(config: config))
-    }
+    @StateObject private var codeface = Codeface()
     
     // MARK: - Persist Project Configuration
     

@@ -9,8 +9,7 @@ struct CodefaceView: View
     {
         NavigationView
         {
-            SidebarView(viewModel: viewModel,
-                        displayMode: $displayMode)
+            SidebarView(viewModel: viewModel)
             .searchable(text: $searchTerm,
                         placement: .toolbar,
                         prompt: searchPrompt)
@@ -47,5 +46,4 @@ struct CodefaceView: View
     @State var searchTerm = ""
     
     @ObservedObject var viewModel: Codeface
-    @Binding var displayMode: DisplayMode
 }

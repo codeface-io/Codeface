@@ -10,8 +10,7 @@ struct SidebarView: View
             artifact in
             
             DisclosingRowView(artifact: artifact,
-                              viewModel: viewModel,
-                              displayMode: $displayMode)
+                              viewModel: viewModel)
         }
         .listStyle(.sidebar)
         .toolbar
@@ -40,18 +39,15 @@ struct SidebarView: View
     @Environment(\.dismissSearch) var dismissSearch
     
     @ObservedObject var viewModel: Codeface
-    @Binding var displayMode: DisplayMode
 }
 
 struct DisclosingRowView: View
 {
     internal init(artifact: CodeArtifact,
-                  viewModel: Codeface,
-                  displayMode: Binding<DisplayMode>)
+                  viewModel: Codeface)
     {
         self.artifact = artifact
         self.viewModel = viewModel
-        self._displayMode = displayMode
         
         isExpanded = artifact.isExpanded
     }
@@ -61,8 +57,7 @@ struct DisclosingRowView: View
         if artifact.parts.isEmpty
         {
             RowView(artifact: artifact,
-                    viewModel: viewModel,
-                    displayMode: $displayMode)
+                    viewModel: viewModel)
         }
         else
         {
@@ -71,15 +66,13 @@ struct DisclosingRowView: View
                 ForEach(artifact.parts)
                 {
                     DisclosingRowView(artifact: $0,
-                                      viewModel: viewModel,
-                                      displayMode: $displayMode)
+                                      viewModel: viewModel)
                 }
             }
             label:
             {
                 RowView(artifact: artifact,
-                        viewModel: viewModel,
-                        displayMode: $displayMode)
+                        viewModel: viewModel)
             }
             .onReceive(artifact.$isExpanded) { isExpanded = $0 }
         }
@@ -89,7 +82,6 @@ struct DisclosingRowView: View
     
     let artifact: CodeArtifact
     @ObservedObject var viewModel: Codeface
-    @Binding var displayMode: DisplayMode
 }
 
 struct RowView: View
@@ -100,7 +92,7 @@ struct RowView: View
         {
             Group
             {
-                switch displayMode
+                switch viewModel.displayMode
                 {
                 case .treeMap:
                     GeometryReader
@@ -168,7 +160,7 @@ struct RowView: View
             .navigationSubtitle(artifact.kindName)
             .toolbar
             {
-                DisplayModePicker(displayMode: $displayMode)
+                DisplayModePicker(displayMode: $viewModel.displayMode)
                 
                 if let searchTerm = viewModel.appliedSearchTerm,
                    !searchTerm.isEmpty
@@ -200,5 +192,18 @@ struct RowView: View
     
     let artifact: CodeArtifact
     @ObservedObject var viewModel: Codeface
-    @Binding var displayMode: DisplayMode
+}
+
+extension CodeArtifact: Hashable
+{
+    nonisolated static func == (lhs: CodeArtifact, rhs: CodeArtifact) -> Bool
+    {
+        // TODO: implement true equality instead of identity
+        lhs === rhs
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(id)
+    }
 }
