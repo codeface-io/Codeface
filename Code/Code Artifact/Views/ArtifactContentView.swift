@@ -23,6 +23,6 @@ struct ArtifactContentView: View
     }
     
     @ObservedObject var artifact: CodeArtifact
-    let viewModel: CodeArtifactViewModel
+    let viewModel: Codeface
     let ignoreSearchFilter: Bool
 }

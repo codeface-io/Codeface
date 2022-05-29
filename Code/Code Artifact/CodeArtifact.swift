@@ -88,7 +88,7 @@ class CodeArtifact: Identifiable, ObservableObject
     
     let kind: Kind
     
-    enum Kind { case folder(CodeFolder), file(CodeFile), symbol(CodeSymbol) }
+    enum Kind { case folder(URL), file(CodeFile), symbol(CodeSymbol) }
     
     let id = UUID().uuidString
 }

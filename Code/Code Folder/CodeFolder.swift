@@ -6,7 +6,7 @@ extension CodeFolder
     }
 }
 
-struct CodeFolder
+struct CodeFolder: Equatable
 {
     init(name: String,
          path: String,

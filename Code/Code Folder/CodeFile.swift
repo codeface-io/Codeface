@@ -6,7 +6,7 @@ extension CodeFile
     }
 }
 
-struct CodeFile
+struct CodeFile: Equatable
 {
     init(name: String, path: String, lines: [String])
     {

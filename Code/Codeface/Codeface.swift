@@ -4,29 +4,8 @@ import SwiftObserver
 import SwiftyToolz
 
 @MainActor
-class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
+class Codeface: SwiftUI.ObservableObject, Observer
 {
-    // MARK: - Initialize
-    
-    init()
-    {
-        if let rootArtifact = Project.shared?.analysisResult?.rootArtifact
-        {
-            rootArtifact.isExpanded = true
-            self.artifacts = [rootArtifact]
-        }
-        
-        observe(Project.messenger)
-        {
-            switch $0
-            {
-            case .didCompleteAnalysis(let analysisResult):
-                analysisResult.rootArtifact.isExpanded = true
-                self.artifacts = [analysisResult.rootArtifact]
-            }
-        }
-    }
-    
     // MARK: - Search
     
     func removeSearchFilter()
@@ -69,18 +48,55 @@ class CodeArtifactViewModel: SwiftUI.ObservableObject, Observer
     
     @Published var appliedSearchTerm: String?
     
-    // MARK: - Basics
+    // MARK: - Active Project
+    
+    func set(activeProject: Project)
+    {
+        stopObserving(self.activeProject?.$analysisResult)
+        
+        observe(activeProject.$analysisResult).new().unwrap()
+        {
+            $0.rootArtifact.isExpanded = true
+            self.artifacts = [$0.rootArtifact]
+//            self.objectWillChange.send()
+        }
+        
+        self.activeProject = activeProject
+        
+        if let rootArtifact = activeProject.analysisResult?.rootArtifact
+        {
+            rootArtifact.isExpanded = true
+            self.artifacts = [rootArtifact]
+        }
+        else
+        {
+            self.artifacts = []
+        }
+        
+        do
+        {
+            try activeProject.startAnalysis()
+        }
+        catch
+        {
+            log(error)
+        }
+    }
     
     @Published var selectedArtifact: CodeArtifact?
     
-    @Published var artifacts = [CodeArtifact]()
+    @Published private(set) var artifacts = [CodeArtifact]()
+    
+    private(set) var activeProject: Project?
+    
+    // MARK: - Observer
     
     let receiver = Receiver()
 }
 
 extension CodeArtifact: Hashable
 {
-    static func == (lhs: CodeArtifact, rhs: CodeArtifact) -> Bool
+    nonisolated static func == (lhs: CodeArtifact, rhs: CodeArtifact) -> Bool
     {
         // TODO: implement true equality instead of identity
         lhs === rhs

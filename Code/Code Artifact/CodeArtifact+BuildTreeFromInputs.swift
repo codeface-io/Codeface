@@ -1,4 +1,5 @@
 import SwiftLSP
+import Foundation
 import SwiftyToolz
 
 extension CodeArtifact
@@ -92,7 +93,7 @@ extension CodeArtifact
 {
     convenience init(codeFolder: CodeFolder, scope: CodeArtifact?)
     {
-        self.init(kind: .folder(codeFolder), scope: scope)
+        self.init(kind: .folder(URL(fileURLWithPath: codeFolder.path)), scope: scope)
         
         var parts = [CodeArtifact]()
         

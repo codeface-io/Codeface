@@ -4,7 +4,7 @@ extension CodeArtifact
     {
         switch kind
         {
-        case .folder(let folder): return folder.name
+        case .folder(let folderURL): return folderURL.lastPathComponent
         case .file(let file): return file.name
         case .symbol(let symbol): return symbol.lspDocumentSymbol.name
         }

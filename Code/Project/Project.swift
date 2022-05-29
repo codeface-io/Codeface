@@ -8,18 +8,9 @@ import SwiftyToolz
 @MainActor
 class Project
 {
-    // MARK: - Shared Instance
-    
-    static func initSharedInstance(with config: Configuration) throws
-    {
-        shared = try Project(config: config)
-    }
-    
-    private(set) static var shared: Project?
-    
     // MARK: - Initialization
     
-    private init(config: Configuration) throws
+    init(config: Configuration) throws
     {
         guard FileManager.default.itemExists(config.folder) else
         {
@@ -41,12 +32,8 @@ class Project
             rootArtifact.generateMetrics()
             rootArtifact.sort()
             
-            let result = AnalysisResult(rootFolder: rootFolder,
-                                        rootArtifact: rootArtifact)
-            
-            analysisResult = result
-            
-            Self.messenger.send(.didCompleteAnalysis(result))
+            analysisResult = .init(rootFolder: rootFolder,
+                                   rootArtifact: rootArtifact)
         }
     }
     
@@ -77,24 +64,15 @@ class Project
         }
     }
     
-    private(set) var analysisResult: AnalysisResult?
+    @Observable private(set) var analysisResult: AnalysisResult?
     
-    struct AnalysisResult
+    struct AnalysisResult: Equatable
     {
         // file system hierarchy: relevant directories and files
         var rootFolder: CodeFolder
         
         // artifact hierarchy: each artifact with code content, kind, dependencies & metrics
         var rootArtifact: CodeArtifact
-    }
-    
-    // MARK: - Class Based Observability
-    
-    static let messenger = Messenger<ClassEvent>()
-    
-    enum ClassEvent
-    {
-        case didCompleteAnalysis(AnalysisResult)
     }
     
     // MARK: - Language Server

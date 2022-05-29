@@ -10,7 +10,7 @@
 		9605BE1B283FE80000016910 /* LSPServiceHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605BE1A283FE80000016910 /* LSPServiceHint.swift */; };
 		962952B32826898000DC8620 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 962952B22826898000DC8620 /* LSPServiceKit */; };
 		964308A5254B7B070026E56C /* CodefaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964308A4254B7B070026E56C /* CodefaceView.swift */; };
-		96446C1A2829343600B347EF /* CodeArtifactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C192829343600B347EF /* CodeArtifactViewModel.swift */; };
+		96446C1A2829343600B347EF /* Codeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C192829343600B347EF /* Codeface.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
 		9656A6A225287F2000D4CF26 /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A125287F2000D4CF26 /* SwiftObserver */; };
 		965F76DC2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */; };
@@ -67,7 +67,7 @@
 /* Begin PBXFileReference section */
 		9605BE1A283FE80000016910 /* LSPServiceHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceHint.swift; sourceTree = "<group>"; };
 		964308A4254B7B070026E56C /* CodefaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceView.swift; sourceTree = "<group>"; };
-		96446C192829343600B347EF /* CodeArtifactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifactViewModel.swift; sourceTree = "<group>"; };
+		96446C192829343600B347EF /* Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codeface.swift; sourceTree = "<group>"; };
 		965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeArtifact+BuildTreeFromInputs.swift"; sourceTree = "<group>"; };
 		965F76DD2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeArtifact+GenerateMetrics.swift"; sourceTree = "<group>"; };
 		966D581C2544A9490016C8D0 /* CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolder.swift; sourceTree = "<group>"; };
@@ -134,12 +134,19 @@
 			isa = PBXGroup;
 			children = (
 				96E479D52835A53200762FD7 /* Views */,
-				96446C192829343600B347EF /* CodeArtifactViewModel.swift */,
 				96E479D72835A58800762FD7 /* Visualization Pipeline */,
 				965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */,
 				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
 			);
 			path = "Code Artifact";
+			sourceTree = "<group>";
+		};
+		9686773D28423ECF00CE57D3 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				96A3A39E254A3B8400AE4146 /* Project.swift */,
+			);
+			path = Project;
 			sourceTree = "<group>";
 		};
 		96A3A39C254A3B2800AE4146 /* Code Folder */ = {
@@ -175,16 +182,33 @@
 			path = "Visualization Pipeline";
 			sourceTree = "<group>";
 		};
-		9E00727A218E250E0094BD1C /* Code */ = {
+		96E863D12844125500BCCE66 /* Codeface */ = {
 			isa = PBXGroup;
 			children = (
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
-				9605BE1A283FE80000016910 /* LSPServiceHint.swift */,
+				96E863D22844125F00BCCE66 /* Views */,
+				96E479DA2835B33600762FD7 /* DisplayMode.swift */,
+				96446C192829343600B347EF /* Codeface.swift */,
+			);
+			path = Codeface;
+			sourceTree = "<group>";
+		};
+		96E863D22844125F00BCCE66 /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				964308A4254B7B070026E56C /* CodefaceView.swift */,
+				9605BE1A283FE80000016910 /* LSPServiceHint.swift */,
 				96E479DE2835B88E00762FD7 /* SidebarView.swift */,
 				96E479DC2835B36C00762FD7 /* SidebarLabel.swift */,
-				96E479DA2835B33600762FD7 /* DisplayMode.swift */,
-				96A3A39E254A3B8400AE4146 /* Project.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9E00727A218E250E0094BD1C /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				96E863D12844125500BCCE66 /* Codeface */,
+				9686773D28423ECF00CE57D3 /* Project */,
 				96865149283272D900087D80 /* Code Artifact */,
 				968651482832728100087D80 /* Code Symbol */,
 				96A3A39C254A3B2800AE4146 /* Code Folder */,
@@ -357,7 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */,
-				96446C1A2829343600B347EF /* CodeArtifactViewModel.swift in Sources */,
+				96446C1A2829343600B347EF /* Codeface.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */,
 				965F76DC2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift in Sources */,

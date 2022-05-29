@@ -39,14 +39,14 @@ struct SidebarView: View
     @Environment(\.isSearching) var isSearching
     @Environment(\.dismissSearch) var dismissSearch
     
-    @ObservedObject var viewModel: CodeArtifactViewModel
+    @ObservedObject var viewModel: Codeface
     @Binding var displayMode: DisplayMode
 }
 
 struct DisclosingRowView: View
 {
     internal init(artifact: CodeArtifact,
-                  viewModel: CodeArtifactViewModel,
+                  viewModel: Codeface,
                   displayMode: Binding<DisplayMode>)
     {
         self.artifact = artifact
@@ -88,7 +88,7 @@ struct DisclosingRowView: View
     @State var isExpanded = false
     
     let artifact: CodeArtifact
-    @ObservedObject var viewModel: CodeArtifactViewModel
+    @ObservedObject var viewModel: Codeface
     @Binding var displayMode: DisplayMode
 }
 
@@ -199,6 +199,6 @@ struct RowView: View
     }
     
     let artifact: CodeArtifact
-    @ObservedObject var viewModel: CodeArtifactViewModel
+    @ObservedObject var viewModel: Codeface
     @Binding var displayMode: DisplayMode
 }

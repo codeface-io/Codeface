@@ -5,12 +5,6 @@ import SwiftLSP
 
 struct CodefaceView: View
 {
-    init(displayMode: Binding<DisplayMode>)
-    {
-        _viewModel = StateObject(wrappedValue: CodeArtifactViewModel())
-        _displayMode = displayMode
-    }
-    
     var body: some View
     {
         NavigationView
@@ -51,7 +45,7 @@ struct CodefaceView: View
     }
     
     @State var searchTerm = ""
-    @StateObject private var viewModel: CodeArtifactViewModel
     
+    @ObservedObject var viewModel: Codeface
     @Binding var displayMode: DisplayMode
 }

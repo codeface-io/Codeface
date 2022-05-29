@@ -9,6 +9,7 @@ struct CodefaceApp: App
     
     init()
     {
+        // FIXME: this doesn't work anymore
         if persistedProjectConfigData != nil
         {
             do { try loadLastProject() }
@@ -24,7 +25,8 @@ struct CodefaceApp: App
         {
             ZStack
             {
-                CodefaceView(displayMode: $displayMode)
+                CodefaceView(viewModel: codeface,
+                             displayMode: $displayMode)
                 
                 if isPresentingLSPServiceHint {
                     LSPServiceHint(isBeingPresented: $isPresentingLSPServiceHint)
@@ -34,6 +36,8 @@ struct CodefaceApp: App
         .onChange(of: scenePhase)
         {
             phase in
+            
+            // FIXME: this never gets called
             
             switch phase
             {
@@ -126,6 +130,8 @@ struct CodefaceApp: App
     @Environment(\.scenePhase) var scenePhase
     @State private var displayMode: DisplayMode = .treeMap
     
+    @StateObject private var codeface = Codeface()
+    
     // MARK: - Load Project
     
     @MainActor
@@ -144,8 +150,7 @@ struct CodefaceApp: App
     @MainActor
     private func loadProject(with config: Project.Configuration) throws
     {
-        try Project.initSharedInstance(with: config)
-        try Project.shared?.startAnalysis()
+        codeface.set(activeProject: try Project(config: config))
     }
     
     // MARK: - Persist Project Configuration

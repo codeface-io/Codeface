@@ -26,11 +26,12 @@ struct LSPServiceHint: View
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
             
-            Text("LSPService can provide symbols (like classes and functions) plus all dependencies between them.\nThis enables finer granularity and the visualization of actual architecture.\nLSPService is open source and free.")
+            Text("LSPService can retrieve symbols (like classes and functions) plus the dependencies between them,\noffering Codeface finer granularity and data about actual architecture.\nLSPService is open source and free.")
                 .multilineTextAlignment(.center)
                 .lineSpacing(5)
                 .padding(.bottom)
             
+            // TODO: provide light and dark mode version
             Image("LSPService_Promo_Screenshot")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
