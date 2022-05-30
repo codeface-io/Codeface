@@ -1,12 +1,9 @@
 import SwiftUI
-import FoundationToolz
 import SwiftyToolz
 
 @main
 struct CodefaceApp: App
 {
-    // MARK: - Create Body
-    
     var body: some Scene
     {
         WindowGroup
@@ -15,7 +12,8 @@ struct CodefaceApp: App
             {
                 CodefaceView(viewModel: codeface)
                 
-                if isPresentingLSPServiceHint {
+                if isPresentingLSPServiceHint
+                {
                     LSPServiceHint(isBeingPresented: $isPresentingLSPServiceHint)
                 }
             }
@@ -24,13 +22,7 @@ struct CodefaceApp: App
                 switch $0
                 {
                 case .background: break
-                case .active:
-                    if persistedProjectConfigData != nil,
-                        codeface.activeProject == nil
-                    {
-                        do { try loadLastProject() }
-                        catch { log(error) }
-                    }
+                case .active: codeface.didBecomeActive()
                 case .inactive: break
                 @unknown default: break
                 }
@@ -73,17 +65,17 @@ struct CodefaceApp: App
             {
                 Button("Load Swift Package...")
                 {
-                    isPresented = true
+                    isPresentingFileImporter = true
                 }
                 .keyboardShortcut("l")
-                .fileImporter(isPresented: $isPresented,
+                .fileImporter(isPresented: $isPresentingFileImporter,
                               allowedContentTypes: [.directory],
                               allowsMultipleSelection: false,
                               onCompletion:
                 {
                     result in
                     
-                    isPresented = false
+                    isPresentingFileImporter = false
                     
                     do
                     {
@@ -98,90 +90,24 @@ struct CodefaceApp: App
                                                            language: "swift",
                                                            codeFileEndings: ["swift"])
                         
-                        try loadNewProject(with: config)
+                        codeface.loadNewActiveProject(with: config)
                     }
                     catch { log(error) }
                 })
                 
                 Button("Reload Last Project")
                 {
-                    do { try loadLastProject() }
-                    catch { log(error) }
+                    codeface.loadLastActiveProject()
                 }
                 .keyboardShortcut("r")
-                .disabled(persistedProjectConfigData == nil)
+                .disabled(!ProjectConfigPersister.hasPersistedLastProjectConfig)
             }
         }
     }
     
     @State var isPresentingLSPServiceHint = false
-    @State var isPresented = false
+    @State var isPresentingFileImporter = false
     @Environment(\.scenePhase) var scenePhase
     
-    // MARK: - Codeface
-    
-    @MainActor
-    private func loadNewProject(with config: Project.Configuration) throws
-    {
-        try codeface.setAndAnalyzeActiveProject(with: config)
-        try persist(projectConfig: config)
-    }
-    
-    @MainActor
-    private func loadLastProject() throws
-    {
-        try codeface.setAndAnalyzeActiveProject(with: loadProjectConfig())
-    }
-    
     @StateObject private var codeface = Codeface()
-    
-    // MARK: - Persist Project Configuration
-    
-    func persist(projectConfig config: Project.Configuration) throws
-    {
-        let bookmarkData = try config.folder.bookmarkData(options: .withSecurityScope,
-                                                          includingResourceValuesForKeys: nil,
-                                                          relativeTo: nil)
-        
-        let persistedConfig = PersistedProjectConfiguration(folderBookmarkData: bookmarkData,
-                                                            configuration: config)
-        
-        persistedProjectConfigData = try persistedConfig.encode() as Data
-    }
-    
-    func loadProjectConfig() throws -> Project.Configuration
-    {
-        guard let configData = persistedProjectConfigData else
-        {
-            throw "Found no persisted project configuration"
-        }
-        
-        var persistedConfig = try PersistedProjectConfiguration(jsonData: configData)
-        
-        var bookMarkIsStale = false
-        
-        let folder = try URL(resolvingBookmarkData: persistedConfig.folderBookmarkData,
-                             options: .withSecurityScope,
-                             relativeTo: nil,
-                             bookmarkDataIsStale: &bookMarkIsStale)
-        
-        persistedConfig.configuration.folder = folder
-        
-        if bookMarkIsStale
-        {
-            persistedConfig.folderBookmarkData = try folder.bookmarkData()
-            
-            persistedProjectConfigData = try persistedConfig.encode() as Data
-        }
-        
-        return persistedConfig.configuration
-    }
-    
-    @AppStorage("persistedProjectConfigData") var persistedProjectConfigData: Data?
-}
-
-struct PersistedProjectConfiguration: Codable
-{
-    var folderBookmarkData: Data
-    var configuration: Project.Configuration
 }

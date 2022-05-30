@@ -1,3 +1,4 @@
+import Foundation
 import Combine
 import SwiftObserver
 import SwiftyToolz
@@ -5,6 +6,16 @@ import SwiftyToolz
 @MainActor
 class Codeface: Combine.ObservableObject, Observer
 {
+    // MARK: - Life Cycle
+    
+    func didBecomeActive()
+    {
+        if ProjectConfigPersister.hasPersistedLastProjectConfig, activeProject == nil
+        {
+            loadLastActiveProject()
+        }
+    }
+    
     // MARK: - Search
     
     func removeSearchFilter()
@@ -52,7 +63,26 @@ class Codeface: Combine.ObservableObject, Observer
     
     // MARK: - Active Project
     
-    func setAndAnalyzeActiveProject(with config: Project.Configuration) throws
+    func loadNewActiveProject(with config: Project.Configuration)
+    {
+        do
+        {
+            try setAndAnalyzeActiveProject(with: config)
+            try ProjectConfigPersister.persist(projectConfig: config)
+        }
+        catch { log(error) }
+    }
+    
+    func loadLastActiveProject()
+    {
+        do
+        {
+            try setAndAnalyzeActiveProject(with: ProjectConfigPersister.loadProjectConfig())
+        }
+        catch { log(error) }
+    }
+    
+    private func setAndAnalyzeActiveProject(with config: Project.Configuration) throws
     {
         set(activeProject: try Project(config: config))
         try activeProject?.startAnalysis()

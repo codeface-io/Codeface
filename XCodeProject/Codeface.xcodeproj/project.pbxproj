@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9605BE1B283FE80000016910 /* LSPServiceHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605BE1A283FE80000016910 /* LSPServiceHint.swift */; };
 		962952B32826898000DC8620 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 962952B22826898000DC8620 /* LSPServiceKit */; };
+		96309ECF2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */; };
+		96309ED12844EE0C00B0F9C5 /* ProjectConfigPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */; };
 		964308A5254B7B070026E56C /* CodefaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964308A4254B7B070026E56C /* CodefaceView.swift */; };
 		96446C1A2829343600B347EF /* Codeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C192829343600B347EF /* Codeface.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
@@ -67,6 +69,8 @@
 
 /* Begin PBXFileReference section */
 		9605BE1A283FE80000016910 /* LSPServiceHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceHint.swift; sourceTree = "<group>"; };
+		96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+PropertyWrapper.swift"; sourceTree = "<group>"; };
+		96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectConfigPersister.swift; sourceTree = "<group>"; };
 		964308A4254B7B070026E56C /* CodefaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceView.swift; sourceTree = "<group>"; };
 		96446C192829343600B347EF /* Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codeface.swift; sourceTree = "<group>"; };
 		965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeArtifact+BuildTreeFromInputs.swift"; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 		9686773D28423ECF00CE57D3 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */,
 				96A3A39E254A3B8400AE4146 /* Project.swift */,
 			);
 			path = Project;
@@ -273,6 +278,7 @@
 				9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */,
 				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
 				96E479E02835B92000762FD7 /* SwiftUI+Helpers.swift */,
+				96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */,
 			);
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
@@ -392,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */,
+				96309ECF2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift in Sources */,
 				96446C1A2829343600B347EF /* Codeface.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */,
@@ -402,6 +409,7 @@
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				96E863D42844335B00BCCE66 /* DisplayMode.swift in Sources */,
 				965F76DE2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift in Sources */,
+				96309ED12844EE0C00B0F9C5 /* ProjectConfigPersister.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
 				96D6B0F728283335009E6C42 /* CodeArtifact.swift in Sources */,
 				96E479DF2835B88E00762FD7 /* SidebarView.swift in Sources */,
