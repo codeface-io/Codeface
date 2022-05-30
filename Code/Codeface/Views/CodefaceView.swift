@@ -17,11 +17,12 @@ struct CodefaceView: View
             {
                 viewModel.submitSearch()
             }
-                
-            Label("Select a code artifact from the list", systemImage: "arrow.left")
-                .padding()
-                .font(.system(.title))
-                .foregroundColor(.secondary)
+            
+            Label("Select a code artifact from the list",
+                  systemImage: "arrow.left")
+            .padding()
+            .font(.system(.title))
+            .foregroundColor(.secondary)
         }
         .onReceive(viewModel.$isSearching)
         {

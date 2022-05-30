@@ -55,17 +55,8 @@ struct ArtifactView: View
                 withAnimation(.easeInOut) { self.isHovering = false }
             }
         }
-        .onTapGesture
-        {
-            if artifact.isRevealed() {
-                viewModel.selectedArtifact = artifact
-            } else {
-                artifact.reveal()
-            }
-        }
         .position(x: artifact.frameInScopeContent.centerX,
                   y: artifact.frameInScopeContent.centerY)
-//        .animation(.easeInOut(duration: 3), value: artifact.layoutModel)
     }
     
     @ObservedObject var artifact: CodeArtifact

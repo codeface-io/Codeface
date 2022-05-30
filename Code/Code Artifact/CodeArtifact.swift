@@ -5,20 +5,6 @@ class CodeArtifact: Identifiable, ObservableObject
 {
     // Mark: - Presentation Model
     
-    func isRevealed() -> Bool
-    {
-        guard scope?.isExpanded ?? true else { return false }
-        return scope?.isRevealed() ?? true
-    }
-    
-    func reveal()
-    {
-        scope?.reveal()
-        scope?.isExpanded = true
-    }
-    
-    @Published var isExpanded = false
-    
     @Published var frameInScopeContent = LayoutFrame.zero
     
     var showsContent = true

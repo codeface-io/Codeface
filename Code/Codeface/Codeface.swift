@@ -94,7 +94,6 @@ class Codeface: Combine.ObservableObject, Observer
         
         observe(activeProject.$rootArtifact).new().unwrap()
         {
-            $0.isExpanded = true
             self.artifacts = [$0]
         }
         
@@ -102,7 +101,6 @@ class Codeface: Combine.ObservableObject, Observer
         
         if let rootArtifact = activeProject.rootArtifact
         {
-            rootArtifact.isExpanded = true
             self.artifacts = [rootArtifact]
         }
         else

@@ -5,12 +5,12 @@ struct SidebarView: View
     var body: some View
     {
         List(viewModel.artifacts,
+             children: \.children,
              selection: $viewModel.selectedArtifact)
         {
             artifact in
             
-            DisclosingRowView(artifact: artifact,
-                              viewModel: viewModel)
+            RowView(artifact: artifact, viewModel: viewModel)
         }
         .listStyle(.sidebar)
         .toolbar
@@ -38,49 +38,6 @@ struct SidebarView: View
     @Environment(\.isSearching) var isSearching
     @Environment(\.dismissSearch) var dismissSearch
     
-    @ObservedObject var viewModel: Codeface
-}
-
-struct DisclosingRowView: View
-{
-    internal init(artifact: CodeArtifact,
-                  viewModel: Codeface)
-    {
-        self.artifact = artifact
-        self.viewModel = viewModel
-        
-        isExpanded = artifact.isExpanded
-    }
-    
-    var body: some View
-    {
-        if artifact.parts.isEmpty
-        {
-            RowView(artifact: artifact,
-                    viewModel: viewModel)
-        }
-        else
-        {
-            DisclosureGroup(isExpanded: $isExpanded)
-            {
-                ForEach(artifact.parts)
-                {
-                    DisclosingRowView(artifact: $0,
-                                      viewModel: viewModel)
-                }
-            }
-            label:
-            {
-                RowView(artifact: artifact,
-                        viewModel: viewModel)
-            }
-            .onReceive(artifact.$isExpanded) { isExpanded = $0 }
-        }
-    }
-    
-    @State var isExpanded = false
-    
-    let artifact: CodeArtifact
     @ObservedObject var viewModel: Codeface
 }
 
@@ -205,5 +162,13 @@ extension CodeArtifact: Hashable
     func hash(into hasher: inout Hasher)
     {
         hasher.combine(id)
+    }
+}
+
+extension CodeArtifact
+{
+    var children: [CodeArtifact]?
+    {
+        parts.isEmpty ? nil : parts
     }
 }
