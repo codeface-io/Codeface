@@ -5,6 +5,12 @@ class CodeArtifact: Identifiable, ObservableObject
 {
     // Mark: - Presentation Model
     
+    var showsName: Bool { frameInScopeContent.width - (2 * Self.padding + fontSize) >= 4 * fontSize }
+    
+    var collapseHorizontally: Bool { frameInScopeContent.width <= fontSize + (2 * Self.padding) }
+    
+    var collapseVertically: Bool { frameInScopeContent.height <= fontSize + (2 * Self.padding) }
+    
     @Published var frameInScopeContent = LayoutFrame.zero
     
     var showsContent = true

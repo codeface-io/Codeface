@@ -7,25 +7,26 @@ struct ArtifactView: View
     {
         ZStack
         {
-            HStack
+            HStack(alignment: .firstTextBaseline, spacing: 0)
             {
-                Label {
-                    Text(artifact.frameInScopeContent.width > 90 ? artifact.name : "")
-                        .lineLimit(1)
-                        .foregroundColor(artifact.containsSearchTermRegardlessOfParts ?? false ? .accentColor : .primary)
-                        .opacity(artifact.frameInScopeContent.width > 90 ? 1 : 0)      
-                } icon: {
-                    ArtifactIcon(artifact: artifact, isSelected: false)
+                ArtifactIcon(artifact: artifact, isSelected: false)
+                
+                Text(" " + artifact.name)
+                    .frame(width: artifact.collapseHorizontally ? 0 : nil)
+                    .opacity(artifact.showsName ? 1 : 0)
+                
+                if !artifact.collapseHorizontally
+                {
+                    Spacer()
                 }
-                Spacer()
             }
             .font(.system(size: artifact.fontSize,
                           weight: .medium,
                           design: .for(artifact)))
             .frame(width: artifact.frameInScopeContent.width - 2 * CodeArtifact.padding,
-                   height: artifact.showsContent ? artifact.contentFrame.y : artifact.fontSize)
+                   height: artifact.collapseVertically ? artifact.frameInScopeContent.height - 2 * CodeArtifact.padding : artifact.fontSize)
             .position(x: artifact.frameInScopeContent.width / 2,
-                      y: min(CodeArtifact.padding + artifact.fontSize / 2, artifact.frameInScopeContent.height / 2))
+                      y: artifact.collapseVertically ? artifact.frameInScopeContent.height / 2 : CodeArtifact.padding + artifact.fontSize / 2)
             
             ArtifactContentView(artifact: artifact,
                                 viewModel: viewModel,
