@@ -93,7 +93,7 @@ extension CodeArtifact
 {
     convenience init(codeFolder: CodeFolder, scope: CodeArtifact?)
     {
-        self.init(kind: .folder(URL(fileURLWithPath: codeFolder.path)), scope: scope)
+        self.init(kind: .folder(codeFolder.url), scope: scope)
         
         var parts = [CodeArtifact]()
         

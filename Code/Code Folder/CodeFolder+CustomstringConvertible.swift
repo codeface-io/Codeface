@@ -7,7 +7,7 @@ extension CodeFolder: CustomStringConvertible
     
     private func description(withPrefix prefix: String) -> String
     {
-        var result = prefix + name
+        var result = prefix + url.lastPathComponent
         
         for file in files
         {

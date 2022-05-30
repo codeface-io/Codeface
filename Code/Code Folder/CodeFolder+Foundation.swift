@@ -33,8 +33,7 @@ extension CodeFolder
         
         if files.count + subfolders.count == 0 { return nil }
         
-        self.init(name: folderURL.lastPathComponent,
-                  path: folderURL.absoluteString,
+        self.init(url: folderURL,
                   files: files,
                   subfolders: subfolders)
     }

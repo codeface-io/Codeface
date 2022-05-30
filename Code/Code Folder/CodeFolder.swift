@@ -1,26 +1,17 @@
-extension CodeFolder
-{
-    static var dummy: CodeFolder
-    {
-        .init(name: "dummy folder", path: "", files: [], subfolders: [])
-    }
-}
+import Foundation
 
 struct CodeFolder: Equatable
 {
-    init(name: String,
-         path: String,
+    init(url: URL,
          files: [CodeFile],
          subfolders: [CodeFolder])
     {
-        self.name = name
-        self.path = path
+        self.url = url
         self.files = files
         self.subfolders = subfolders
     }
     
-    let name: String
-    let path: String
+    let url: URL
     let files: [CodeFile]
     let subfolders: [CodeFolder]
 }
