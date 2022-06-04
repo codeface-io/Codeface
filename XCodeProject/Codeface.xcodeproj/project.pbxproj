@@ -38,6 +38,7 @@
 		96E479E12835B92000762FD7 /* SwiftUI+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479E02835B92000762FD7 /* SwiftUI+Helpers.swift */; };
 		96E863D42844335B00BCCE66 /* DisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E863D32844335B00BCCE66 /* DisplayMode.swift */; };
 		96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA394E282C2AF2002B033E /* ArtifactContentView.swift */; };
+		96FC8C3F284BEB9000AD7DD2 /* ProjectSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC8C3E284BEB9000AD7DD2 /* ProjectSelector.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceApp.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CodefaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CodefaceTests.swift */; };
@@ -95,6 +96,7 @@
 		96E479E02835B92000762FD7 /* SwiftUI+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Helpers.swift"; sourceTree = "<group>"; };
 		96E863D32844335B00BCCE66 /* DisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMode.swift; sourceTree = "<group>"; };
 		96EA394E282C2AF2002B033E /* ArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactContentView.swift; sourceTree = "<group>"; };
+		96FC8C3E284BEB9000AD7DD2 /* ProjectSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelector.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceApp.swift; sourceTree = "<group>"; };
 		9E27839C229ECDF1006ACB18 /* Codeface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codeface.entitlements; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Codeface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeface.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,7 @@
 		9686773D28423ECF00CE57D3 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				96FC8C3E284BEB9000AD7DD2 /* ProjectSelector.swift */,
 				96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */,
 				96A3A39E254A3B8400AE4146 /* Project.swift */,
 			);
@@ -403,6 +406,7 @@
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */,
 				965F76DC2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift in Sources */,
+				96FC8C3F284BEB9000AD7DD2 /* ProjectSelector.swift in Sources */,
 				96D6B0F528282D69009E6C42 /* CodeFile.swift in Sources */,
 				9605BE1B283FE80000016910 /* LSPServiceHint.swift in Sources */,
 				96B3A3A3282FEAF8002D7290 /* CodeArtifact+Sort.swift in Sources */,

@@ -27,6 +27,14 @@ struct CodefaceApp: App
                 @unknown default: break
                 }
             }
+            .sheet(isPresented: $isPresentingProjectSelector)
+            {
+                ProjectSelector(isBeingPresented: $isPresentingProjectSelector)
+                {
+                    codeface.loadNewActiveProject(with: $0)
+                }
+                .padding()
+            }
         }
         .commands
         {
@@ -63,11 +71,16 @@ struct CodefaceApp: App
             
             CommandGroup(replacing: .newItem)
             {
-                Button("Load Swift Package...")
+                Button("Load Code Base ...")
+                {
+                    isPresentingProjectSelector = true
+                }
+                .keyboardShortcut("n")
+                
+                Button("Load Swift Package ...")
                 {
                     isPresentingFileImporter = true
                 }
-                .keyboardShortcut("l")
                 .fileImporter(isPresented: $isPresentingFileImporter,
                               allowedContentTypes: [.directory],
                               allowsMultipleSelection: false,
@@ -87,7 +100,7 @@ struct CodefaceApp: App
                         }
                         
                         let config = Project.Configuration(folder: firstURL,
-                                                           language: "swift",
+                                                           language: "Swift",
                                                            codeFileEndings: ["swift"])
                         
                         codeface.loadNewActiveProject(with: config)
@@ -103,9 +116,11 @@ struct CodefaceApp: App
                 .disabled(!ProjectConfigPersister.hasPersistedLastProjectConfig)
             }
         }
+        
     }
     
     @State var isPresentingLSPServiceHint = false
+    @State var isPresentingProjectSelector = false
     @State var isPresentingFileImporter = false
     @Environment(\.scenePhase) var scenePhase
     

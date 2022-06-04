@@ -86,7 +86,7 @@ class Project
     
     private static func createServer(language: String) throws -> LSP.ServerCommunicationHandler
     {
-        let server = try LSPService.api.language(language).connectToLSPServer()
+        let server = try LSPService.api.language(language.lowercased()).connectToLSPServer()
         
         server.serverDidSendNotification =
         {
