@@ -4,34 +4,46 @@ struct SidebarView: View
 {
     var body: some View
     {
-        List(viewModel.artifacts,
-             children: \.children,
-             selection: $viewModel.selectedArtifact)
+        switch viewModel.analysisResult
         {
-            artifact in
-            
-            RowView(artifact: artifact, viewModel: viewModel)
-        }
-        .listStyle(.sidebar)
-        .toolbar
-        {
-            Button(action: toggleSidebar)
+        case .success(let rootArtifact):
+            List([rootArtifact],
+                 children: \.children,
+                 selection: $viewModel.selectedArtifact)
             {
-                Image(systemName: "sidebar.leading")
+                artifact in
+                
+                RowView(artifact: artifact, viewModel: viewModel)
             }
-        }
-        .onReceive(viewModel.$isSearching)
-        {
-            if !$0 { dismissSearch() }
-        }
-        .onChange(of: isSearching)
-        {
-            [isSearching] isSearchingNow in
-            
-            if !isSearching, isSearchingNow
+            .listStyle(.sidebar)
+            .toolbar
             {
-                viewModel.beginSearch()
+                Button(action: toggleSidebar)
+                {
+                    Image(systemName: "sidebar.leading")
+                }
             }
+            .onReceive(viewModel.$isSearching)
+            {
+                if !$0 { dismissSearch() }
+            }
+            .onChange(of: isSearching)
+            {
+                [isSearching] isSearchingNow in
+                
+                if !isSearching, isSearchingNow
+                {
+                    viewModel.beginSearch()
+                }
+            }
+        case .isAnalyzing:
+            ProgressView()
+                .progressViewStyle(.circular)
+        case .none:
+            Text("Load a project via the File menu")
+        case .failure(let errorMessage):
+            Text("An error occured during analysis: " + errorMessage)
+                .foregroundColor(Color(NSColor.systemRed))
         }
     }
     
@@ -59,7 +71,6 @@ struct RowView: View
                         ArtifactContentView(artifact: artifact,
                                             viewModel: viewModel,
                                             ignoreSearchFilter: viewModel.isSearching)
-                        .drawingGroup()
                         .onChange(of: geo.size)
                         {
                             size in
@@ -86,6 +97,7 @@ struct RowView: View
                                 }
                             }
                         }
+                        .drawingGroup()
                     }
                     .padding(CodeArtifact.padding)
                     

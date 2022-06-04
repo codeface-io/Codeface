@@ -9,13 +9,12 @@ struct SidebarLabel: View
             Text(artifact.name)
                 .font(.system(.title3, design: .for(artifact)))
             
-            if let loc = artifact.linesOfCode
+            if let loc = artifact.metrics.linesOfCode
             {
                 Spacer()
                 
                 Text("\(loc)")
                     .foregroundColor(isSelected ? .primary : .linesOfCode(for: artifact))
-                    .font(.system(.title3, design: .default))
             }
         }
         icon:

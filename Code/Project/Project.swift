@@ -26,13 +26,22 @@ class Project
     {
         Task
         {
-            let rootFolder = try createRootFolder()
-            let rootArtifact = CodeArtifact(codeFolder: rootFolder, scope: nil)
-            await tryToAddSymbolArtifacts(to: rootArtifact)
-            rootArtifact.generateMetrics()
-            rootArtifact.sort()
+            self.analysisResult = .isAnalyzing
             
-            self.rootArtifact = rootArtifact
+            do
+            {
+                let rootFolder = try createRootFolder()
+                let rootArtifact = CodeArtifact(codeFolder: rootFolder, scope: nil)
+                await tryToAddSymbolArtifacts(to: rootArtifact)
+                rootArtifact.generateMetrics()
+                rootArtifact.sort()
+                self.analysisResult = .success(rootArtifact)
+            }
+            catch
+            {
+                self.analysisResult = .failure(error.readable.message)
+                throw error
+            }
         }
     }
     
@@ -63,8 +72,28 @@ class Project
         }
     }
     
-    // artifact hierarchy: each artifact with code content, kind, dependencies & metrics
-    @Observable private(set) var rootArtifact: CodeArtifact?
+    @Observable private(set) var analysisResult: AnalysisResult = .none
+    
+    enum AnalysisResult: Equatable
+    {
+        static func == (lhs: Project.AnalysisResult, rhs: Project.AnalysisResult) -> Bool
+        {
+            if case .none = lhs, case .none = rhs { return true }
+            
+            if case .isAnalyzing = lhs, case .isAnalyzing = rhs { return true }
+            
+            if case .success(let artifact1) = lhs,
+                case .success(let artifact2) = rhs { return artifact1 == artifact2 }
+            
+            if case .failure(let message1) = lhs,
+                case .failure(let message2) = rhs { return message1 == message2 }
+            
+            return false
+        }
+        
+        // success: artifact hierarchy, each artifact with code content, kind, dependencies & metrics
+        case none, isAnalyzing, success(CodeArtifact), failure(String)
+    }
     
     // MARK: - Language Server
     

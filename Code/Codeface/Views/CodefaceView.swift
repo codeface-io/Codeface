@@ -18,11 +18,17 @@ struct CodefaceView: View
                 viewModel.submitSearch()
             }
             
-            Label("Select a code artifact from the list",
-                  systemImage: "arrow.left")
-            .padding()
-            .font(.system(.title))
-            .foregroundColor(.secondary)
+            switch viewModel.analysisResult
+            {
+            case .failure, .none, .isAnalyzing:
+                EmptyView()
+            case .success(let rootArtifact):
+                Label("Select a code artifact from \(rootArtifact.name)",
+                      systemImage: "arrow.left")
+                .padding()
+                .font(.system(.title))
+                .foregroundColor(.secondary)
+            }
         }
         .onReceive(viewModel.$isSearching)
         {
