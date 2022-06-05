@@ -24,10 +24,10 @@ class Project
     
     func startAnalysis() throws
     {
+        self.analysisState = .running
+        
         analysis = Task
         {
-            self.analysisState = .running
-            
             do
             {
                 let rootFolder = try createRootFolder()
@@ -144,6 +144,8 @@ class Project
             {
                 self.analysisState = .failed(error.readable.message)
             }
+            
+            // TODO: do we (why don't we?) need to nil the server after the websocket disconnected, so that the server gets recreated and the websocket connection reinstated??
         }
         
         return server
