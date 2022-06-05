@@ -6,7 +6,7 @@ struct SidebarView: View
     {
         switch viewModel.analysisResult
         {
-        case .success(let rootArtifact):
+        case .succeeded(let rootArtifact):
             List([rootArtifact],
                  children: \.children,
                  selection: $viewModel.selectedArtifact)
@@ -36,14 +36,16 @@ struct SidebarView: View
                     viewModel.beginSearch()
                 }
             }
-        case .isAnalyzing:
+        case .running:
             ProgressView()
                 .progressViewStyle(.circular)
-        case .none:
+        case .stopped:
             Text("Load a project via the File menu")
-        case .failure(let errorMessage):
-            Text("An error occured during analysis: " + errorMessage)
+                .padding()
+        case .failed(let errorMessage):
+            Text("An error occured during analysis:\n" + errorMessage)
                 .foregroundColor(Color(NSColor.systemRed))
+                .padding()
         }
     }
     

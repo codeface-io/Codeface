@@ -37,7 +37,7 @@ class Codeface: Combine.ObservableObject, Observer
     private func updateArtifacts(withSearchTerm searchTerm: String,
                                  allPass: Bool)
     {
-        if case .success(let rootArtifact) = analysisResult
+        if case .succeeded(let rootArtifact) = analysisResult
         {
             rootArtifact.updateSearchResults(withSearchTerm: searchTerm)
             rootArtifact.updateSearchFilter(allPass: allPass)
@@ -92,19 +92,19 @@ class Codeface: Combine.ObservableObject, Observer
     {
         selectedArtifact = nil
         
-        stopObserving(self.activeProject?.$analysisResult)
+        stopObserving(self.activeProject?.$analysisState)
         
-        observe(activeProject.$analysisResult).new()
+        observe(activeProject.$analysisState).new()
         {
             self.analysisResult = $0
         }
         
         self.activeProject = activeProject
-        self.analysisResult = activeProject.analysisResult
+        self.analysisResult = activeProject.analysisState
     }
     
     @Published var selectedArtifact: CodeArtifact?
-    @Published private(set) var analysisResult: Project.AnalysisResult = .none
+    @Published private(set) var analysisResult: Project.AnalysisState = .stopped
     private(set) var activeProject: Project?
     
     // MARK: - Observer

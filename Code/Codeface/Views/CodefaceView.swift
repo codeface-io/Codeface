@@ -20,9 +20,9 @@ struct CodefaceView: View
             
             switch viewModel.analysisResult
             {
-            case .failure, .none, .isAnalyzing:
+            case .failed, .stopped, .running:
                 EmptyView()
-            case .success(let rootArtifact):
+            case .succeeded(let rootArtifact):
                 Label("Select a code artifact from \(rootArtifact.name)",
                       systemImage: "arrow.left")
                 .padding()

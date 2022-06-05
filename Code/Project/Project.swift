@@ -24,9 +24,9 @@ class Project
     
     func startAnalysis() throws
     {
-        Task
+        analysis = Task
         {
-            self.analysisResult = .isAnalyzing
+            self.analysisState = .running
             
             do
             {
@@ -35,11 +35,11 @@ class Project
                 await tryToAddSymbolArtifacts(to: rootArtifact)
                 rootArtifact.generateMetrics()
                 rootArtifact.sort()
-                self.analysisResult = .success(rootArtifact)
+                self.analysisState = .succeeded(rootArtifact)
             }
             catch
             {
-                self.analysisResult = .failure(error.readable.message)
+                self.analysisState = .failed(error.readable.message)
                 throw error
             }
         }
@@ -72,27 +72,29 @@ class Project
         }
     }
     
-    @Observable private(set) var analysisResult: AnalysisResult = .none
+    private var analysis: Task<Void, Error>?
     
-    enum AnalysisResult: Equatable
+    @Observable private(set) var analysisState: AnalysisState = .stopped
+    
+    enum AnalysisState: Equatable
     {
-        static func == (lhs: Project.AnalysisResult, rhs: Project.AnalysisResult) -> Bool
+        static func == (lhs: Project.AnalysisState, rhs: Project.AnalysisState) -> Bool
         {
-            if case .none = lhs, case .none = rhs { return true }
+            if case .stopped = lhs, case .stopped = rhs { return true }
             
-            if case .isAnalyzing = lhs, case .isAnalyzing = rhs { return true }
+            if case .running = lhs, case .running = rhs { return true }
             
-            if case .success(let artifact1) = lhs,
-                case .success(let artifact2) = rhs { return artifact1 == artifact2 }
+            if case .succeeded(let artifact1) = lhs,
+                case .succeeded(let artifact2) = rhs { return artifact1 == artifact2 }
             
-            if case .failure(let message1) = lhs,
-                case .failure(let message2) = rhs { return message1 == message2 }
+            if case .failed(let message1) = lhs,
+                case .failed(let message2) = rhs { return message1 == message2 }
             
             return false
         }
         
         // success: artifact hierarchy, each artifact with code content, kind, dependencies & metrics
-        case none, isAnalyzing, success(CodeArtifact), failure(String)
+        case stopped, running, succeeded(CodeArtifact), failed(String)
     }
     
     // MARK: - Language Server
@@ -104,7 +106,7 @@ class Project
             return (server, initialization)
         }
         
-        let createdServer = try Self.createServer(language: config.language)
+        let createdServer = try createServer(language: config.language)
         server = createdServer
         
         let createdInitialization = Self.initialize(createdServer, for: config)
@@ -113,7 +115,7 @@ class Project
         return (createdServer, createdInitialization)
     }
     
-    private static func createServer(language: String) throws -> LSP.ServerCommunicationHandler
+    private func createServer(language: String) throws -> LSP.ServerCommunicationHandler
     {
         let server = try LSPService.api.language(language.lowercased()).connectToLSPServer()
         
@@ -127,6 +129,21 @@ class Project
         server.serverDidSendErrorOutput =
         {
             _ in // log(warning: "Language server sent error string:\n\($0)")
+        }
+        
+        server.connectionDidSendError =
+        {
+            error in
+            
+            log(error)
+            
+            self.analysis?.cancel()
+            self.analysis = nil
+            
+            if case .running = self.analysisState
+            {
+                self.analysisState = .failed(error.readable.message)
+            }
         }
         
         return server
