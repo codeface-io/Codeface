@@ -10,6 +10,10 @@ struct CodefaceApp: App
         {
             ZStack
             {
+//                NavigationSplitView(sidebar: { Text ("Sidebar") },
+//                                    content: { Text ("Content") },
+//                                    detail: { Text ("Detail") })
+                
                 CodefaceView(viewModel: codeface)
                 
                 if isPresentingLSPServiceHint

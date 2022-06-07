@@ -9,7 +9,7 @@ struct CodefaceView: View
     {
         NavigationView
         {
-            SidebarView(viewModel: viewModel)
+            Sidebar(viewModel: viewModel)
             .searchable(text: $searchTerm,
                         placement: .toolbar,
                         prompt: searchPrompt)
@@ -18,7 +18,7 @@ struct CodefaceView: View
                 viewModel.submitSearch()
             }
             
-            switch viewModel.analysisResult
+            switch viewModel.analysisState
             {
             case .failed, .stopped, .running:
                 EmptyView()
