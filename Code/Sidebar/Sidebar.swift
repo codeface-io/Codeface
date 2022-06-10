@@ -37,10 +37,20 @@ struct Sidebar: View
                 }
             }
         case .running:
-            ProgressView()
-                .progressViewStyle(.circular)
+            VStack {
+                ProgressView()
+                    .progressViewStyle(.circular)
+                
+                if let folderName = viewModel.activeProject?.config.folder.lastPathComponent {
+                    Text("Loading code base: " + folderName)
+                        .padding(.top)
+                }
+            }
+            .padding()
         case .stopped:
-            Text("Load a project via the File menu")
+            Text("Load a code base\nvia the File menu")
+                .multilineTextAlignment(.center)
+                .font(.title)
                 .padding()
         case .failed(let errorMessage):
             Text("An error occured during analysis:\n" + errorMessage)

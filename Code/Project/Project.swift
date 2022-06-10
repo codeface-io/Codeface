@@ -172,7 +172,7 @@ class Project
     
     // MARK: - Configuration
     
-    private let config: Configuration
+    let config: Configuration
     
     struct Configuration: Codable
     {
