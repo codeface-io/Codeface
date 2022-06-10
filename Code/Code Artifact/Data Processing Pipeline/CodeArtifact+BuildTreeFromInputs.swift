@@ -9,8 +9,7 @@ extension CodeArtifact
         switch kind
         {
         case .file(let file):
-            try server.notifyDidOpen(file.path,
-                                     containingText: file.lines.joined(separator: "\n"))
+            try await server.notifyDidOpen(file.path, containingText: file.code)
             
             let lspDocSymbols = try await server.requestSymbols(in: file.path)
             
@@ -45,8 +44,9 @@ extension CodeArtifact
                      file: LSPDocumentUri,
                      server: LSP.ServerCommunicationHandler) async
     {
-        let references = await server.requestReferencesLoggingError(for: lspDocSymbol,
-                                                                    in: file)
+        let references = [LSPLocation]()
+//        await server.requestReferencesLoggingError(for: lspDocSymbol,
+//                                                                    in: file)
         
         let codeLines = codeFileLines[lspDocSymbol.range.start.line ... lspDocSymbol.range.end.line]
         let code = codeLines.joined(separator: "\n")

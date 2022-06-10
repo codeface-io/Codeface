@@ -146,8 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				96E479D52835A53200762FD7 /* Views */,
-				96E479D72835A58800762FD7 /* Visualization Pipeline */,
-				965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */,
+				96E479D72835A58800762FD7 /* Data Processing Pipeline */,
 				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
 			);
 			path = "Code Artifact";
@@ -185,16 +184,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		96E479D72835A58800762FD7 /* Visualization Pipeline */ = {
+		96E479D72835A58800762FD7 /* Data Processing Pipeline */ = {
 			isa = PBXGroup;
 			children = (
 				96E479CD28359C1900762FD7 /* CodeArtifact+CalculateLayout.swift */,
 				96B3A3A2282FEAF8002D7290 /* CodeArtifact+Sort.swift */,
 				965F76DD2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift */,
 				96E479CB28359ABA00762FD7 /* CodeArtifact+Search.swift */,
+				965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */,
 				96E479D82835AC8B00762FD7 /* CodeArtifact+PresentTextually.swift */,
 			);
-			path = "Visualization Pipeline";
+			path = "Data Processing Pipeline";
 			sourceTree = "<group>";
 		};
 		96E863D12844125500BCCE66 /* Codeface */ = {

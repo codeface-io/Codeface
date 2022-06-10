@@ -163,7 +163,7 @@ class Project
             
 //            try log(initializeResult: initializeResult)
             
-            try server.notify(.initialized)
+            try await server.notify(.initialized)
         }
     }
     

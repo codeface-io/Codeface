@@ -25,8 +25,13 @@ extension CodeArtifact
         switch kind
         {
         case .folder: return nil
-        case .file(let file): return file.lines.joined(separator: "\n")
+        case .file(let file): return file.code
         case .symbol(let symbol): return symbol.code
         }
     }
+}
+
+extension CodeFile
+{
+    var code: String { lines.joined(separator: "\n") }
 }
