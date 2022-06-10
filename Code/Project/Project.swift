@@ -145,7 +145,7 @@ class Project
                 self.analysisState = .failed(error.readable.message)
             }
             
-            // TODO: do we (why don't we?) need to nil the server after the websocket disconnected, so that the server gets recreated and the websocket connection reinstated??
+            // TODO: do we (why don't we?) need to nil the server after the websocket sent an error, so that the server gets recreated and the websocket connection reinstated?? do we need to close the websocket connection?? ... maybe the LSPServerConnection protocol needs to expose more functions for handling the connection itself, like func closeConnection() and var connectionDidClose ...
         }
         
         return server
