@@ -128,7 +128,8 @@ class Project
 
         server.serverDidSendErrorOutput =
         {
-            _ in // log(warning: "Language server sent error string:\n\($0)")
+            _ in
+//            log("\(language.capitalized) language server sent message via stdErr:\n\($0)")
         }
         
         server.connection.didSendError =
