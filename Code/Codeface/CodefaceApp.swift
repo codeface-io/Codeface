@@ -8,16 +8,8 @@ struct CodefaceApp: App
     {
         WindowGroup
         {
-            ZStack
-            {
-                CodefaceView(viewModel: codeface)
-                
-                if isPresentingLSPServiceHint
-                {
-                    LSPServiceHint(isBeingPresented: $isPresentingLSPServiceHint)
-                }
-            }
-            .onChange(of: scenePhase)
+            CodefaceView(viewModel: codeface)
+                .onChange(of: scenePhase)
             {
                 switch $0
                 {
@@ -52,21 +44,14 @@ struct CodefaceApp: App
                 }
                 .keyboardShortcut(.space, modifiers: .shift)
                 
-                // TODO: only show when we haven't loaded symbols etc.
-                Button("Show Symbols, Dependencies etc. ...")
-                {
-                    isPresentingLSPServiceHint = true
-                }
-                
                 Divider()
             }
             
-            CommandGroup(after: .help)
+            CommandGroup(replacing: .help)
             {
-                Button("How to see Symbols, Dependencies etc. ...")
-                {
-                    isPresentingLSPServiceHint = true
-                }
+                // TODO: only show this option when the lspservice is not connected
+                Link("How to see Symbols, Dependencies etc.",
+                     destination: URL(string: "https://github.com/flowtoolz/LSPService")!)
             }
             
             CommandGroup(replacing: .newItem)
@@ -119,7 +104,6 @@ struct CodefaceApp: App
         
     }
     
-    @State var isPresentingLSPServiceHint = false
     @State var isPresentingProjectSelector = false
     @State var isPresentingFileImporter = false
     @Environment(\.scenePhase) var scenePhase
