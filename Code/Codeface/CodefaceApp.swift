@@ -51,7 +51,7 @@ struct CodefaceApp: App
             {
                 // TODO: only show this option when the lspservice is not connected
                 Link("How to see Symbols, Dependencies etc.",
-                     destination: URL(string: "https://github.com/flowtoolz/LSPService")!)
+                     destination: URL(string: "https://www.flowtoolz.com/codeface/lspservice")!)
             }
             
             CommandGroup(replacing: .newItem)
