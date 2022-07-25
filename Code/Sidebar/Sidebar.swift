@@ -42,7 +42,8 @@ struct Sidebar: View
                     .progressViewStyle(.circular)
                 
                 if let folderName = viewModel.activeProject?.config.folder.lastPathComponent {
-                    Text("Loading code base: " + folderName)
+                    Text("Loading code base:\n" + folderName)
+                        .multilineTextAlignment(.center)
                         .padding(.top)
                 }
             }
@@ -69,7 +70,6 @@ extension CodeArtifact: Hashable
 {
     nonisolated static func == (lhs: CodeArtifact, rhs: CodeArtifact) -> Bool
     {
-        // TODO: implement true equality instead of identity
         lhs === rhs
     }
     

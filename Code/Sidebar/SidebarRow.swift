@@ -19,7 +19,7 @@ struct SidebarRow: View
                             .font(.system(.title))
                             .padding(.bottom)
                             
-                            Text(artifact.name + " contains no symbols that could be detected.")
+                            Text(artifact.name + " contains no further symbols that could be detected.")
                         }
                         .foregroundColor(.secondary)
                         .padding()
