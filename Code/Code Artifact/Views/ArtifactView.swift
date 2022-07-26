@@ -12,35 +12,35 @@ struct ArtifactView: View
                 ArtifactIcon(artifact: artifact, isSelected: false)
                 
                 Text(" " + artifact.name)
-                    .frame(width: artifact.collapseHorizontally ? 0 : nil)
-                    .opacity(artifact.showsName ? 1 : 0)
+                    .frame(width: artifact.presentationModel.collapseHorizontally ? 0 : nil)
+                    .opacity(artifact.presentationModel.showsName ? 1 : 0)
                     .foregroundColor((artifact.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)
                 
-                if !artifact.collapseHorizontally
+                if !artifact.presentationModel.collapseHorizontally
                 {
                     Spacer()
                 }
             }
-            .font(.system(size: artifact.fontSize,
+            .font(.system(size: artifact.presentationModel.fontSize,
                           weight: .medium,
                           design: .for(artifact)))
-            .frame(width: artifact.frameInScopeContent.width - 2 * CodeArtifact.padding,
-                   height: artifact.collapseVertically ? artifact.frameInScopeContent.height - 2 * CodeArtifact.padding : artifact.fontSize)
-            .position(x: artifact.frameInScopeContent.width / 2,
-                      y: artifact.collapseVertically ? artifact.frameInScopeContent.height / 2 : CodeArtifact.padding + artifact.fontSize / 2)
+            .frame(width: artifact.presentationModel.frameInScopeContent.width - 2 * CodeArtifactPresentationModel.padding,
+                   height: artifact.presentationModel.collapseVertically ? artifact.presentationModel.frameInScopeContent.height - 2 * CodeArtifactPresentationModel.padding : artifact.presentationModel.fontSize)
+            .position(x: artifact.presentationModel.frameInScopeContent.width / 2,
+                      y: artifact.presentationModel.collapseVertically ? artifact.presentationModel.frameInScopeContent.height / 2 : CodeArtifactPresentationModel.padding + artifact.presentationModel.fontSize / 2)
             
             ArtifactContentView(artifact: artifact,
                                 viewModel: viewModel,
                                 ignoreSearchFilter: ignoreSearchFilter)
-            .frame(width: artifact.contentFrame.width,
-                   height: artifact.contentFrame.height)
-            .position(x: artifact.contentFrame.centerX,
-                      y: artifact.contentFrame.centerY)
-            .opacity(artifact.showsContent ? 1.0 : 0)
+            .frame(width: artifact.presentationModel.contentFrame.width,
+                   height: artifact.presentationModel.contentFrame.height)
+            .position(x: artifact.presentationModel.contentFrame.centerX,
+                      y: artifact.presentationModel.contentFrame.centerY)
+            .opacity(artifact.presentationModel.showsContent ? 1.0 : 0)
             
         }
-        .frame(width: artifact.frameInScopeContent.width,
-               height: artifact.frameInScopeContent.height)
+        .frame(width: artifact.presentationModel.frameInScopeContent.width,
+               height: artifact.presentationModel.frameInScopeContent.height)
         .background(RoundedRectangle(cornerRadius: 5)
             .fill(Color.primary.opacity(0.1))
             .overlay(RoundedRectangle(cornerRadius: 5)
@@ -57,8 +57,8 @@ struct ArtifactView: View
                 withAnimation(.easeInOut) { self.isHovering = false }
             }
         }
-        .position(x: artifact.frameInScopeContent.centerX,
-                  y: artifact.frameInScopeContent.centerY)
+        .position(x: artifact.presentationModel.frameInScopeContent.centerX,
+                  y: artifact.presentationModel.frameInScopeContent.centerY)
     }
     
     @ObservedObject var artifact: CodeArtifact

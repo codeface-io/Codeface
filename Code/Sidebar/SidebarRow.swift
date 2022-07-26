@@ -28,7 +28,7 @@ struct SidebarRow: View
                     {
                         RootArtifactContentView(artifact: artifact,
                                               viewModel: viewModel)
-                        .padding(CodeArtifact.padding)
+                        .padding(CodeArtifactPresentationModel.padding)
                     }
                 case .code:
                     if let code = artifact.code

@@ -9,16 +9,16 @@ extension CodeArtifact
         
         guard !presentedParts.isEmpty else
         {
-            showsContent = false
+            presentationModel.showsContent = false
             return
         }
         
-        showsContent = prepare(parts: presentedParts,
-                               forLayoutIn: .init(x: 0,
-                                                  y: 0,
-                                                  width: scopeSize.width,
-                                                  height: scopeSize.height),
-                               ignoreSearchFilter: ignoreSearchFilter)
+        presentationModel.showsContent = prepare(parts: presentedParts,
+                                                 forLayoutIn: .init(x: 0,
+                                                                    y: 0,
+                                                                    width: scopeSize.width,
+                                                                    height: scopeSize.height),
+                                                 ignoreSearchFilter: ignoreSearchFilter)
     }
     
     @discardableResult
@@ -33,35 +33,35 @@ extension CodeArtifact
         {
             let part = parts[0]
             
-            part.frameInScopeContent = .init(centerX: availableRect.midX,
-                                             centerY: availableRect.midY,
-                                             width: availableRect.width,
-                                             height: availableRect.height)
+            part.presentationModel.frameInScopeContent = .init(centerX: availableRect.midX,
+                                                               centerY: availableRect.midY,
+                                                               width: availableRect.width,
+                                                               height: availableRect.height)
             
             if availableRect.width > 100, availableRect.height > 100
             {
-                let padding = CodeArtifact.padding
-                let headerHeight = part.fontSize + 2 * padding
+                let padding = CodeArtifactPresentationModel.padding
+                let headerHeight = part.presentationModel.fontSize + 2 * padding
                 
-                part.contentFrame = .init(x: padding,
-                                          y: headerHeight,
-                                          width: availableRect.width - (2 * padding),
-                                          height: (availableRect.height - padding) - headerHeight)
+                part.presentationModel.contentFrame = .init(x: padding,
+                                                            y: headerHeight,
+                                                            width: availableRect.width - (2 * padding),
+                                                            height: (availableRect.height - padding) - headerHeight)
             }
             else
             {
-                part.contentFrame = .init(x: (availableRect.width / 2) - 2,
-                                          y: (availableRect.height / 2) - 2,
-                                          width: 4,
-                                          height: 4)
+                part.presentationModel.contentFrame = .init(x: (availableRect.width / 2) - 2,
+                                                            y: (availableRect.height / 2) - 2,
+                                                            width: 4,
+                                                            height: 4)
             }
             
-            part.updateLayoutOfParts(forScopeSize: .init(width: part.contentFrame.width,
-                                                         height: part.contentFrame.height),
+            part.updateLayoutOfParts(forScopeSize: .init(width: part.presentationModel.contentFrame.width,
+                                                         height: part.presentationModel.contentFrame.height),
                                      ignoreSearchFilter: ignoreSearchFilter)
             
-            return availableRect.size.width >= CodeArtifact.minWidth &&
-                availableRect.size.height >= CodeArtifact.minHeight
+            return availableRect.size.width >= CodeArtifactPresentationModel.minWidth &&
+            availableRect.size.height >= CodeArtifactPresentationModel.minHeight
         }
         
         // tree map algorithm
@@ -114,7 +114,7 @@ extension CodeArtifact
     func split(_ rect: CGRect,
                firstFraction: Double) -> (CGRect, CGRect)?
     {
-        let rectIsSmall = min(rect.width, rect.height) <= CodeArtifact.minWidth * 5
+        let rectIsSmall = min(rect.width, rect.height) <= CodeArtifactPresentationModel.minWidth * 5
         let rectAspectRatio = rect.width / rect.height
         let tryLeftRightSplitFirst = rectAspectRatio > (rectIsSmall ? 4 : 2)
         
@@ -136,7 +136,7 @@ extension CodeArtifact
     {
         if rect.width / rect.height > 1
         {
-            let padding = rect.width > CodeArtifact.padding ? CodeArtifact.padding : 0
+            let padding = rect.width > CodeArtifactPresentationModel.padding ? CodeArtifactPresentationModel.padding : 0
             
             let width = (rect.width - padding) / 2
             
@@ -151,7 +151,7 @@ extension CodeArtifact
         }
         else
         {
-            let padding = rect.height > CodeArtifact.padding ? CodeArtifact.padding : 0
+            let padding = rect.height > CodeArtifactPresentationModel.padding ? CodeArtifactPresentationModel.padding : 0
             
             let height = (rect.height - padding) / 2
             
@@ -168,23 +168,23 @@ extension CodeArtifact
     
     func splitIntoLeftAndRight(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
     {
-        if 2 * CodeArtifact.minWidth + CodeArtifact.padding > rect.width
+        if 2 * CodeArtifactPresentationModel.minWidth + CodeArtifactPresentationModel.padding > rect.width
         {
             return nil
         }
         
-        var widthA = (rect.width - CodeArtifact.padding) * firstFraction
-        var widthB = (rect.width - widthA) - CodeArtifact.padding
+        var widthA = (rect.width - CodeArtifactPresentationModel.padding) * firstFraction
+        var widthB = (rect.width - widthA) - CodeArtifactPresentationModel.padding
         
-        if widthA < CodeArtifact.minWidth
+        if widthA < CodeArtifactPresentationModel.minWidth
         {
-            widthA = CodeArtifact.minWidth
-            widthB = (rect.width - CodeArtifact.minWidth) - CodeArtifact.padding
+            widthA = CodeArtifactPresentationModel.minWidth
+            widthB = (rect.width - CodeArtifactPresentationModel.minWidth) - CodeArtifactPresentationModel.padding
         }
-        else if widthB < CodeArtifact.minWidth
+        else if widthB < CodeArtifactPresentationModel.minWidth
         {
-            widthB = CodeArtifact.minWidth
-            widthA = (rect.width - CodeArtifact.minWidth) - CodeArtifact.padding
+            widthB = CodeArtifactPresentationModel.minWidth
+            widthA = (rect.width - CodeArtifactPresentationModel.minWidth) - CodeArtifactPresentationModel.padding
         }
         
         let rectA = CGRect(x: rect.minX,
@@ -192,7 +192,7 @@ extension CodeArtifact
                            width: widthA,
                            height: rect.height)
         
-        let rectB = CGRect(x: (rect.minX + widthA) + CodeArtifact.padding,
+        let rectB = CGRect(x: (rect.minX + widthA) + CodeArtifactPresentationModel.padding,
                            y: rect.minY,
                            width: widthB,
                            height: rect.height)
@@ -202,23 +202,23 @@ extension CodeArtifact
     
     func splitIntoTopAndBottom(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
     {
-        if 2 * CodeArtifact.minHeight + CodeArtifact.padding > rect.height
+        if 2 * CodeArtifactPresentationModel.minHeight + CodeArtifactPresentationModel.padding > rect.height
         {
             return nil
         }
         
-        var heightA = (rect.height - CodeArtifact.padding) * firstFraction
-        var heightB = (rect.height - heightA) - CodeArtifact.padding
+        var heightA = (rect.height - CodeArtifactPresentationModel.padding) * firstFraction
+        var heightB = (rect.height - heightA) - CodeArtifactPresentationModel.padding
         
-        if heightA < CodeArtifact.minHeight
+        if heightA < CodeArtifactPresentationModel.minHeight
         {
-            heightA = CodeArtifact.minHeight
-            heightB = (rect.height - CodeArtifact.minHeight) - CodeArtifact.padding
+            heightA = CodeArtifactPresentationModel.minHeight
+            heightB = (rect.height - CodeArtifactPresentationModel.minHeight) - CodeArtifactPresentationModel.padding
         }
-        else if heightB < CodeArtifact.minHeight
+        else if heightB < CodeArtifactPresentationModel.minHeight
         {
-            heightB = CodeArtifact.minHeight
-            heightA = (rect.height - CodeArtifact.minHeight) - CodeArtifact.padding
+            heightB = CodeArtifactPresentationModel.minHeight
+            heightA = (rect.height - CodeArtifactPresentationModel.minHeight) - CodeArtifactPresentationModel.padding
         }
         
         let rectA = CGRect(x: rect.minX,
@@ -227,22 +227,10 @@ extension CodeArtifact
                            height: heightA)
         
         let rectB = CGRect(x: rect.minX,
-                           y: (rect.minY + heightA) + CodeArtifact.padding,
+                           y: (rect.minY + heightA) + CodeArtifactPresentationModel.padding,
                            width: rect.width,
                            height: heightB)
-
+        
         return (rectA, rectB)
     }
-}
-
-extension CodeArtifact
-{
-    var fontSize: Double
-    {
-        1.2 * sqrt(sqrt(frameInScopeContent.height * frameInScopeContent.width))
-    }
-    
-    static var padding: Double = 16
-    static var minWidth: Double = 30
-    static var minHeight: Double = 30
 }
