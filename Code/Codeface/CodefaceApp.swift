@@ -109,4 +109,6 @@ struct CodefaceApp: App
     @Environment(\.scenePhase) var scenePhase
     
     @StateObject private var codeface = Codeface()
+    
+    @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) private var appDelegate
 }
