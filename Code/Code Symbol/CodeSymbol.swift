@@ -11,7 +11,7 @@ extension CodeSymbol
     }
 }
 
-struct CodeSymbol
+struct CodeSymbol: Codable
 {
     let lspDocumentSymbol: LSPDocumentSymbol
     let references: [LSPLocation]

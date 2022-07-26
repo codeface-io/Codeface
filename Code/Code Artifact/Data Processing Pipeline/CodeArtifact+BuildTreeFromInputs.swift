@@ -11,6 +11,7 @@ extension CodeArtifact
         case .file(let file):
             try await server.notifyDidOpen(file.path, containingText: file.code)
             
+            // TODO: consider persisting this as a hashmap to accelerate development via an example data dump
             let lspDocSymbols = try await server.requestSymbols(in: file.path)
             
             parts = [CodeArtifact]()
