@@ -21,13 +21,13 @@ private extension Color
         {
         case .folder: return Color(NSColor.secondaryLabelColor)
         case .file: return .white
-        case .symbol(let symbol): return .icon(for: symbol.lspDocumentSymbol)
+        case .symbol(let symbol): return .icon(for: symbol.kind)
         }
     }
     
-    static func icon(for symbol: LSPDocumentSymbol) -> Color
+    static func icon(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> Color
     {
-        guard let symbolKind = symbol.symbolKind else
+        guard let symbolKind = symbolKind else
         {
             return Color(NSColor.secondaryLabelColor)
         }
@@ -58,13 +58,13 @@ func iconSystemImageName(for artifactKind: CodeArtifact.Kind) -> String
     {
     case .folder: return "folder.fill"
     case .file: return "doc.fill"
-    case .symbol(let symbol): return iconSystemImageName(for: symbol.lspDocumentSymbol)
+    case .symbol(let symbol): return iconSystemImageName(for: symbol.kind)
     }
 }
 
-private func iconSystemImageName(for symbol: LSPDocumentSymbol) -> String
+private func iconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String
 {
-    guard let symbolKind = symbol.symbolKind else
+    guard let symbolKind = symbolKind else
     {
         return "questionmark.square.fill"
     }

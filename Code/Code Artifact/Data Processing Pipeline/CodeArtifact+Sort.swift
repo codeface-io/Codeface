@@ -38,6 +38,6 @@ extension CodeSymbol
 {
     var positionInFile: Int
     {
-        lspDocumentSymbol.range.start.line
+        range.start.line
     }
 }

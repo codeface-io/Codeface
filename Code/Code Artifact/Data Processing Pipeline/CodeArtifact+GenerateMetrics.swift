@@ -24,7 +24,7 @@ extension CodeArtifact
             loc = codeFile.lines.count
         
         case .symbol(let symbol):
-            let range = symbol.lspDocumentSymbol.range
+            let range = symbol.range
             loc = (range.end.line - range.start.line) + 1
         }
         

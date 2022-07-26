@@ -52,7 +52,11 @@ extension CodeArtifact
         let codeLines = codeFileLines[lspDocSymbol.range.start.line ... lspDocSymbol.range.end.line]
         let code = codeLines.joined(separator: "\n")
         
-        let codeSymbol = CodeSymbol(lspDocumentSymbol: lspDocSymbol,
+        let symbolKind = LSPDocumentSymbol.SymbolKind(rawValue: lspDocSymbol.kind)
+        
+        let codeSymbol = CodeSymbol(name: lspDocSymbol.name,
+                                    kind: symbolKind,
+                                    range: lspDocSymbol.range,
                                     references: references,
                                     code: code)
         

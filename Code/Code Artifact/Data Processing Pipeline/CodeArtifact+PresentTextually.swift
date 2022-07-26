@@ -1,3 +1,5 @@
+import SwiftLSP
+
 extension CodeArtifact
 {
     var name: String
@@ -6,7 +8,7 @@ extension CodeArtifact
         {
         case .folder(let folderURL): return folderURL.lastPathComponent
         case .file(let file): return file.name
-        case .symbol(let symbol): return symbol.lspDocumentSymbol.name
+        case .symbol(let symbol): return symbol.name
         }
     }
     
@@ -16,7 +18,7 @@ extension CodeArtifact
         {
         case .folder: return "Folder"
         case .file: return "File"
-        case .symbol(let symbol): return symbol.lspDocumentSymbol.kindName
+        case .symbol(let symbol): return symbol.kindName
         }
     }
     
