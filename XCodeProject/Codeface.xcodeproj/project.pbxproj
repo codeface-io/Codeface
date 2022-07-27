@@ -33,7 +33,6 @@
 		96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CF28359C9900762FD7 /* AnimatableLine.swift */; };
 		96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479D128359CCE00762FD7 /* ArtifactView.swift */; };
 		96E479D42835A1DB00762FD7 /* ArtifactIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479D32835A1DB00762FD7 /* ArtifactIcon.swift */; };
-		96E479D92835AC8B00762FD7 /* CodeArtifact+PresentTextually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479D82835AC8B00762FD7 /* CodeArtifact+PresentTextually.swift */; };
 		96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479DA2835B33600762FD7 /* DisplayModePicker.swift */; };
 		96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479DC2835B36C00762FD7 /* SidebarLabel.swift */; };
 		96E479DF2835B88E00762FD7 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479DE2835B88E00762FD7 /* Sidebar.swift */; };
@@ -94,7 +93,6 @@
 		96E479CF28359C9900762FD7 /* AnimatableLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableLine.swift; sourceTree = "<group>"; };
 		96E479D128359CCE00762FD7 /* ArtifactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactView.swift; sourceTree = "<group>"; };
 		96E479D32835A1DB00762FD7 /* ArtifactIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactIcon.swift; sourceTree = "<group>"; };
-		96E479D82835AC8B00762FD7 /* CodeArtifact+PresentTextually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeArtifact+PresentTextually.swift"; sourceTree = "<group>"; };
 		96E479DA2835B33600762FD7 /* DisplayModePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayModePicker.swift; sourceTree = "<group>"; };
 		96E479DC2835B36C00762FD7 /* SidebarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarLabel.swift; sourceTree = "<group>"; };
 		96E479DE2835B88E00762FD7 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 				965F76DD2829D7A700FB1D4F /* CodeArtifact+GenerateMetrics.swift */,
 				96E479CB28359ABA00762FD7 /* CodeArtifact+Search.swift */,
 				965F76DB2829D69900FB1D4F /* CodeArtifact+BuildTreeFromInputs.swift */,
-				96E479D82835AC8B00762FD7 /* CodeArtifact+PresentTextually.swift */,
 			);
 			path = "Data Processing Pipeline";
 			sourceTree = "<group>";
@@ -426,7 +423,6 @@
 				96D6B0F728283335009E6C42 /* CodeArtifact.swift in Sources */,
 				96E479DF2835B88E00762FD7 /* Sidebar.swift in Sources */,
 				96E479CE28359C1900762FD7 /* CodeArtifact+CalculateLayout.swift in Sources */,
-				96E479D92835AC8B00762FD7 /* CodeArtifact+PresentTextually.swift in Sources */,
 				966D581D2544A9490016C8D0 /* CodeFolder.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,
 				96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */,

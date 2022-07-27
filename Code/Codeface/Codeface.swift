@@ -39,8 +39,9 @@ class Codeface: Combine.ObservableObject, Observer
     {
         if case .succeeded(let rootArtifact) = analysisState
         {
-            rootArtifact.updateSearchResults(withSearchTerm: searchTerm)
-            rootArtifact.updateSearchFilter(allPass: allPass)
+            // TODO: reproduce search ...
+//            rootArtifact.updateSearchResults(withSearchTerm: searchTerm)
+//            rootArtifact.updateSearchFilter(allPass: allPass)
         }
     }
     
@@ -103,7 +104,7 @@ class Codeface: Combine.ObservableObject, Observer
         self.analysisState = activeProject.analysisState
     }
     
-    @Published var selectedArtifact: CodeArtifact?
+    @Published var selectedArtifact: CodeArtifactPresentationModel?
     @Published private(set) var analysisState: Project.AnalysisState = .stopped
     private(set) var activeProject: Project?
     

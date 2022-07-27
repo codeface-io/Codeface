@@ -6,10 +6,10 @@ struct SidebarLabel: View
     {
         Label
         {
-            Text(artifact.name)
+            Text(artifact.codeArtifact.name)
                 .font(.system(.title3, design: .for(artifact)))
             
-            if let loc = artifact.metrics.linesOfCode
+            if let loc = artifact.codeArtifact.linesOfCode
             {
                 Spacer()
                 
@@ -23,22 +23,24 @@ struct SidebarLabel: View
         }
     }
     
-    @State var artifact: CodeArtifact
+    @State var artifact: CodeArtifactPresentationModel
     let isSelected: Bool
 }
 
 @MainActor
 private extension Color
 {
-    static func linesOfCode(for artifact: CodeArtifact) -> Color
+    static func linesOfCode(for artifact: CodeArtifactPresentationModel) -> Color
     {
-        switch artifact.kind
-        {
-        case .file:
-            return warningForFile(linesOfCode: artifact.linesOfCode)
-        default:
-            return Color(NSColor.systemGray)
-        }
+        // TODO: Reproduce coloring by lines of code for files ...
+        return Color(NSColor.systemGray)
+//        switch artifact.kind
+//        {
+//        case .file:
+//            return warningForFile(linesOfCode: artifact.linesOfCode)
+//        default:
+//            return Color(NSColor.systemGray)
+//        }
     }
     
     private static func warningForFile(linesOfCode: Int) -> Color

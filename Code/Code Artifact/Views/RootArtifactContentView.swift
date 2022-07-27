@@ -41,6 +41,6 @@ struct RootArtifactContentView: View
         }
     }
     
-    let artifact: CodeArtifact
+    let artifact: CodeArtifactPresentationModel
     @ObservedObject var viewModel: Codeface
 }

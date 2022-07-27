@@ -10,53 +10,12 @@ struct SidebarRow: View
             {
                 switch viewModel.displayMode
                 {
-                case .treeMap:
-                    if artifact.parts.isEmpty
-                    {
-                        VStack(alignment: .center)
-                        {
-                            Label("Empty Scope", systemImage: "xmark.rectangle")
-                            .font(.system(.title))
-                            .padding(.bottom)
-                            
-                            Text(artifact.name + " contains no further symbols that could be detected.")
-                        }
-                        .foregroundColor(.secondary)
-                        .padding()
-                    }
-                    else
-                    {
-                        RootArtifactContentView(artifact: artifact,
-                                              viewModel: viewModel)
-                        .padding(CodeArtifactPresentationModel.padding)
-                    }
-                case .code:
-                    if let code = artifact.code
-                    {
-                        TextEditor(text: .constant(code))
-                            .font(.system(.body, design: .monospaced))
-                    }
-                    else
-                    {
-                        VStack
-                        {
-                            Label {
-                                Text(artifact.name)
-                            } icon: {
-                                ArtifactIcon(artifact: artifact, isSelected: false)
-                            }
-                            .font(.system(.title))
-                            
-                            Text("Select a contained file or symbol to show their code.")
-                                .padding(.top)
-                        }
-                        .foregroundColor(.secondary)
-                        .padding()
-                    }
+                case .treeMap: TreeMap(artifact: artifact, viewModel: viewModel)
+                case .code: CodeView(artifact: artifact)
                 }
             }
-            .navigationTitle(artifact.name)
-            .navigationSubtitle(artifact.kindName)
+            .navigationTitle(artifact.codeArtifact.name)
+            .navigationSubtitle(artifact.codeArtifact.kindName)
             .toolbar
             {
                 DisplayModePicker(displayMode: $viewModel.displayMode)
@@ -89,6 +48,67 @@ struct SidebarRow: View
         }
     }
     
-    let artifact: CodeArtifact
+    let artifact: CodeArtifactPresentationModel
     @ObservedObject var viewModel: Codeface
+}
+
+
+struct TreeMap: View
+{
+    var body: some View
+    {
+        if artifact.children?.isEmpty ?? true
+        {
+            VStack(alignment: .center)
+            {
+                Label("Empty Scope", systemImage: "xmark.rectangle")
+                    .font(.system(.title))
+                    .padding(.bottom)
+                
+                Text(artifact.codeArtifact.name + " contains no further symbols that could be detected.")
+            }
+            .foregroundColor(.secondary)
+            .padding()
+        }
+        else
+        {
+            RootArtifactContentView(artifact: artifact,
+                                    viewModel: viewModel)
+            .padding(CodeArtifactPresentationModel.padding)
+        }
+    }
+    
+    let artifact: CodeArtifactPresentationModel
+    @ObservedObject var viewModel: Codeface
+}
+
+struct CodeView: View
+{
+    var body: some View
+    {
+        if let code = artifact.codeArtifact.code
+        {
+            TextEditor(text: .constant(code))
+                .font(.system(.body, design: .monospaced))
+        }
+        else
+        {
+            VStack
+            {
+                Label {
+                    Text(artifact.codeArtifact.name)
+                } icon: {
+                    ArtifactIcon(artifact: artifact, isSelected: false)
+                }
+                .font(.system(.title))
+                
+                Text("Select a contained file or symbol to show their code.")
+                    .padding(.top)
+            }
+            .foregroundColor(.secondary)
+            .padding()
+        }
+    }
+    
+    let artifact: CodeArtifactPresentationModel
 }

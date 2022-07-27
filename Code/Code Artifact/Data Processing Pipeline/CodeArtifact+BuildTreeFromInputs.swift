@@ -2,46 +2,50 @@ import SwiftLSP
 import Foundation
 import SwiftyToolz
 
-extension CodeArtifact
+extension CodeFolderArtifact
 {
     func addSymbolArtifacts(using server: LSP.ServerCommunicationHandler) async throws
     {
-        switch kind
+        for fileArtifact in files
         {
-        case .file(let file):
-            try await server.notifyDidOpen(file.path, containingText: file.code)
-            
-            // TODO: consider persisting this as a hashmap to accelerate development via an example data dump
-            let lspDocSymbols = try await server.requestSymbols(in: file.path)
-            
-            parts = [CodeArtifact]()
-            
-            for lspDocSymbol in lspDocSymbols
-            {
-                parts += await CodeArtifact(lspDocSymbol: lspDocSymbol,
-                                            codeFileLines: file.lines,
-                                            scope: self,
-                                            file: file.path,
-                                            server: server)
-            }
-            
-        case .folder:
-            for part in parts
-            {
-                try await part.addSymbolArtifacts(using: server)
-            }
-            
-        case .symbol:
-            break
+            try await fileArtifact.addSymbolArtifacts(using: server)
+        }
+        
+        for subfolderArtifact in subfolders
+        {
+            try await subfolderArtifact.addSymbolArtifacts(using: server)
         }
     }
 }
 
-extension CodeArtifact
+extension CodeFileArtifact
+{
+    func addSymbolArtifacts(using server: LSP.ServerCommunicationHandler) async throws
+    {
+        try await server.notifyDidOpen(codeFile.path,
+                                       containingText: codeFile.code)
+        
+        // TODO: consider persisting this as a hashmap to accelerate development via an example data dump
+        let lspDocSymbols = try await server.requestSymbols(in: codeFile.path)
+        
+        symbols = [CodeSymbolArtifact]()
+        
+        for lspDocSymbol in lspDocSymbols
+        {
+            symbols += await CodeSymbolArtifact(lspDocSymbol: lspDocSymbol,
+                                                codeFileLines: codeFile.lines,
+                                                scope: .file(self),
+                                                file: codeFile.path,
+                                                server: server)
+        }
+    }
+}
+
+extension CodeSymbolArtifact
 {
     convenience init(lspDocSymbol: LSPDocumentSymbol,
                      codeFileLines: [String],
-                     scope: CodeArtifact?,
+                     scope: Scope,
                      file: LSPDocumentUri,
                      server: LSP.ServerCommunicationHandler) async
     {
@@ -60,18 +64,18 @@ extension CodeArtifact
                                     references: references,
                                     code: code)
         
-        self.init(kind: .symbol(codeSymbol), scope: scope)
+        self.init(codeSymbol: codeSymbol, scope: scope)
         
-        /// create parts recursively
-        parts = [CodeArtifact]()
+        /// create subsymbols recursively
+        subSymbols = [CodeSymbolArtifact]()
         
-        for childSymbol in lspDocSymbol.children
+        for childLSPDocSymbol in lspDocSymbol.children
         {
-            await parts += CodeArtifact(lspDocSymbol: childSymbol,
-                                        codeFileLines: codeFileLines,
-                                        scope: self,
-                                        file: file,
-                                        server: server)
+            await subSymbols += CodeSymbolArtifact(lspDocSymbol: childLSPDocSymbol,
+                                                   codeFileLines: codeFileLines,
+                                                   scope: .symbol(self),
+                                                   file: file,
+                                                   server: server)
         }
     }
 }
@@ -91,20 +95,5 @@ private extension LSP.ServerCommunicationHandler
             log(error)
             return []
         }
-    }
-}
-
-extension CodeArtifact
-{
-    convenience init(codeFolder: CodeFolder, scope: CodeArtifact?)
-    {
-        self.init(kind: .folder(codeFolder.url), scope: scope)
-        
-        var parts = [CodeArtifact]()
-        
-        parts += codeFolder.files.map { CodeArtifact(kind: .file($0), scope: self) }
-        parts += codeFolder.subfolders.map { CodeArtifact(codeFolder: $0, scope: self) }
-        
-        self.parts = parts
     }
 }

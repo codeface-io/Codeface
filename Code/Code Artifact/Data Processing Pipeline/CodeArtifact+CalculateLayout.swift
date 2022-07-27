@@ -1,28 +1,28 @@
 import Foundation
 
-extension CodeArtifact
+extension CodeArtifactPresentationModel
 {
     func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
                              ignoreSearchFilter: Bool)
     {
-        let presentedParts = ignoreSearchFilter ? parts : filteredParts
+        let presentedParts = ignoreSearchFilter ? (children ?? []) : filteredParts
         
         guard !presentedParts.isEmpty else
         {
-            presentationModel.showsContent = false
+            showsContent = false
             return
         }
         
-        presentationModel.showsContent = prepare(parts: presentedParts,
-                                                 forLayoutIn: .init(x: 0,
-                                                                    y: 0,
-                                                                    width: scopeSize.width,
-                                                                    height: scopeSize.height),
-                                                 ignoreSearchFilter: ignoreSearchFilter)
+        showsContent = prepare(parts: presentedParts,
+                               forLayoutIn: .init(x: 0,
+                                                  y: 0,
+                                                  width: scopeSize.width,
+                                                  height: scopeSize.height),
+                               ignoreSearchFilter: ignoreSearchFilter)
     }
     
     @discardableResult
-    private func prepare(parts: [CodeArtifact],
+    private func prepare(parts: [CodeArtifactPresentationModel],
                          forLayoutIn availableRect: CGRect,
                          ignoreSearchFilter: Bool) -> Bool
     {
@@ -33,31 +33,31 @@ extension CodeArtifact
         {
             let part = parts[0]
             
-            part.presentationModel.frameInScopeContent = .init(centerX: availableRect.midX,
-                                                               centerY: availableRect.midY,
-                                                               width: availableRect.width,
-                                                               height: availableRect.height)
+            part.frameInScopeContent = .init(centerX: availableRect.midX,
+                                             centerY: availableRect.midY,
+                                             width: availableRect.width,
+                                             height: availableRect.height)
             
             if availableRect.width > 100, availableRect.height > 100
             {
                 let padding = CodeArtifactPresentationModel.padding
-                let headerHeight = part.presentationModel.fontSize + 2 * padding
+                let headerHeight = part.fontSize + 2 * padding
                 
-                part.presentationModel.contentFrame = .init(x: padding,
-                                                            y: headerHeight,
-                                                            width: availableRect.width - (2 * padding),
-                                                            height: (availableRect.height - padding) - headerHeight)
+                part.contentFrame = .init(x: padding,
+                                          y: headerHeight,
+                                          width: availableRect.width - (2 * padding),
+                                          height: (availableRect.height - padding) - headerHeight)
             }
             else
             {
-                part.presentationModel.contentFrame = .init(x: (availableRect.width / 2) - 2,
-                                                            y: (availableRect.height / 2) - 2,
-                                                            width: 4,
-                                                            height: 4)
+                part.contentFrame = .init(x: (availableRect.width / 2) - 2,
+                                          y: (availableRect.height / 2) - 2,
+                                          width: 4,
+                                          height: 4)
             }
             
-            part.updateLayoutOfParts(forScopeSize: .init(width: part.presentationModel.contentFrame.width,
-                                                         height: part.presentationModel.contentFrame.height),
+            part.updateLayoutOfParts(forScopeSize: .init(width: part.contentFrame.width,
+                                                         height: part.contentFrame.height),
                                      ignoreSearchFilter: ignoreSearchFilter)
             
             return availableRect.size.width >= CodeArtifactPresentationModel.minWidth &&
@@ -67,8 +67,8 @@ extension CodeArtifact
         // tree map algorithm
         let (partsA, partsB) = split(parts)
         
-        let locA = partsA.reduce(0) { $0 + $1.linesOfCode }
-        let locB = partsB.reduce(0) { $0 + $1.linesOfCode }
+        let locA = partsA.reduce(0) { $0 + $1.codeArtifact.linesOfCode }
+        let locB = partsB.reduce(0) { $0 + $1.codeArtifact.linesOfCode }
         
         let fractionA = Double(locA) / Double(locA + locB)
         
@@ -87,9 +87,9 @@ extension CodeArtifact
         return properRectSplit != nil && successA && successB
     }
     
-    func split(_ parts: [CodeArtifact]) -> ([CodeArtifact], [CodeArtifact])
+    func split(_ parts: [CodeArtifactPresentationModel]) -> ([CodeArtifactPresentationModel], [CodeArtifactPresentationModel])
     {
-        let halfTotalLOC = (parts.reduce(0) { $0 + $1.linesOfCode }) / 2
+        let halfTotalLOC = (parts.reduce(0) { $0 + $1.codeArtifact.linesOfCode }) / 2
         
         var partsALOC = 0
         var minDifferenceToHalfTotalLOC = Int.max
@@ -98,7 +98,7 @@ extension CodeArtifact
         for index in 0 ..< parts.count
         {
             let part = parts[index]
-            partsALOC += part.linesOfCode
+            partsALOC += part.codeArtifact.linesOfCode
             let differenceToHalfTotalLOC = abs(halfTotalLOC - partsALOC)
             if differenceToHalfTotalLOC < minDifferenceToHalfTotalLOC
             {

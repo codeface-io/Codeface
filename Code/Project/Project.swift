@@ -31,11 +31,13 @@ class Project
             do
             {
                 let rootFolder = try createRootFolder()
-                let rootArtifact = CodeArtifact(codeFolder: rootFolder, scope: nil)
+                let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder,
+                                                      scope: nil)
                 await tryToAddSymbolArtifacts(to: rootArtifact)
                 rootArtifact.generateMetrics()
                 rootArtifact.sort()
-                self.analysisState = .succeeded(rootArtifact)
+                let rootArtifactPresentation = CodeArtifactPresentationModel(codeArtifact: rootArtifact)
+                self.analysisState = .succeeded(rootArtifactPresentation)
             }
             catch
             {
@@ -58,7 +60,7 @@ class Project
         }
     }
     
-    private func tryToAddSymbolArtifacts(to artifact: CodeArtifact) async
+    private func tryToAddSymbolArtifacts(to artifact: CodeFolderArtifact) async
     {
         do
         {
@@ -78,23 +80,10 @@ class Project
     
     enum AnalysisState: Equatable
     {
-        static func == (lhs: Project.AnalysisState, rhs: Project.AnalysisState) -> Bool
-        {
-            if case .stopped = lhs, case .stopped = rhs { return true }
-            
-            if case .running = lhs, case .running = rhs { return true }
-            
-            if case .succeeded(let artifact1) = lhs,
-                case .succeeded(let artifact2) = rhs { return artifact1 == artifact2 }
-            
-            if case .failed(let message1) = lhs,
-                case .failed(let message2) = rhs { return message1 == message2 }
-            
-            return false
-        }
-        
-        // success: artifact hierarchy, each artifact with code content, kind, dependencies & metrics
-        case stopped, running, succeeded(CodeArtifact), failed(String)
+        case stopped,
+             running,
+             succeeded(CodeArtifactPresentationModel),
+             failed(String)
     }
     
     // MARK: - Language Server

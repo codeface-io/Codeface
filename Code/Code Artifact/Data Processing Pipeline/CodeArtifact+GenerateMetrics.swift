@@ -1,10 +1,11 @@
 import SwiftyToolz
 
-extension CodeArtifact
+extension CodeFolderArtifact
 {
     func generateMetrics()
     {
-        parts.forEach { $0.generateMetrics() }
+        subfolders.forEach { $0.generateMetrics() }
+        files.forEach { $0.generateMetrics() }
             
         let locOfParts = parts.reduce(0) { $0 + $1.linesOfCode }
         
@@ -13,25 +14,49 @@ extension CodeArtifact
             $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfParts)
         }
         
-        var loc: Int
-        
-        switch kind
-        {
-        case .folder:
-            loc = locOfParts
+        metrics.linesOfCode = locOfParts
+    }
+}
+
+extension CodeFileArtifact
+{
+    func generateMetrics()
+    {
+        symbols.forEach { $0.generateMetrics() }
             
-        case .file(let codeFile):
-            loc = codeFile.lines.count
+        let locOfAllSymbols = symbols.reduce(0) { $0 + $1.linesOfCode }
         
-        case .symbol(let symbol):
-            let range = symbol.range
-            loc = (range.end.line - range.start.line) + 1
+        symbols.forEach
+        {
+            $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfAllSymbols)
         }
         
-        metrics.linesOfCode = loc
-        metrics.linesOfCodeWithoutParts = loc - locOfParts
+        metrics.linesOfCode = codeFile.lines.count
     }
-    
+}
+
+extension CodeSymbolArtifact
+{
+    func generateMetrics()
+    {
+        subSymbols.forEach { $0.generateMetrics() }
+        
+        let locOfAllSubsymbols = subSymbols.reduce(0) { $0 + $1.linesOfCode }
+        
+        subSymbols.forEach
+        {
+            $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfAllSubsymbols)
+        }
+        
+        let range = codeSymbol.range
+        let loc = (range.end.line - range.start.line) + 1
+        
+        metrics.linesOfCode = loc
+    }
+}
+
+extension CodeArtifact
+{
     var linesOfCode: Int
     {
         metrics.linesOfCode ?? 0

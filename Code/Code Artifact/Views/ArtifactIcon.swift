@@ -5,24 +5,26 @@ struct ArtifactIcon: View
 {
     var body: some View
     {
-        Image(systemName: iconSystemImageName(for: artifact.kind))
-            .foregroundColor(isSelected ? .primary : .icon(for: artifact.kind))
+        Image(systemName: iconSystemImageName(for: artifact))
+            .foregroundColor(isSelected ? .primary : .icon(for: artifact))
     }
     
-    let artifact: CodeArtifact
+    let artifact: CodeArtifactPresentationModel
     let isSelected: Bool
 }
 
 private extension Color
 {
-    static func icon(for artifactKind: CodeArtifact.Kind) -> Color
+    static func icon(for artifactKind: CodeArtifactPresentationModel) -> Color
     {
-        switch artifactKind
-        {
-        case .folder: return Color(NSColor.secondaryLabelColor)
-        case .file: return .white
-        case .symbol(let symbol): return .icon(for: symbol.kind)
-        }
+        // TODO: reproduce coloring symbol by kind
+        return .white
+//        switch artifactKind
+//        {
+//        case .folder: return Color(NSColor.secondaryLabelColor)
+//        case .file: return .white
+//        case .symbol(let symbol): return .icon(for: symbol.kind)
+//        }
     }
     
     static func icon(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> Color
@@ -52,14 +54,16 @@ private extension Color
     }
 }
 
-func iconSystemImageName(for artifactKind: CodeArtifact.Kind) -> String
+func iconSystemImageName(for artifactKind: CodeArtifactPresentationModel) -> String
 {
-    switch artifactKind
-    {
-    case .folder: return "folder.fill"
-    case .file: return "doc.fill"
-    case .symbol(let symbol): return iconSystemImageName(for: symbol.kind)
-    }
+    // TODO: reproduce symbol selection by kind
+    return "doc.fill"
+//    switch artifactKind
+//    {
+//    case .folder: return "folder.fill"
+//    case .file: return "doc.fill"
+//    case .symbol(let symbol): return iconSystemImageName(for: symbol.kind)
+//    }
 }
 
 private func iconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String

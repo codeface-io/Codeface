@@ -66,23 +66,10 @@ struct Sidebar: View
     @ObservedObject var viewModel: Codeface
 }
 
-extension CodeArtifact: Hashable
+extension CodeArtifactPresentationModel: Hashable
 {
-    nonisolated static func == (lhs: CodeArtifact, rhs: CodeArtifact) -> Bool
-    {
-        lhs === rhs
-    }
-    
     func hash(into hasher: inout Hasher)
     {
         hasher.combine(id)
-    }
-}
-
-private extension CodeArtifact
-{
-    var children: [CodeArtifact]?
-    {
-        parts.isEmpty ? nil : parts
     }
 }

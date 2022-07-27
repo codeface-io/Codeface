@@ -22,8 +22,8 @@ struct CodefaceView: View
             {
             case .failed, .stopped, .running:
                 EmptyView()
-            case .succeeded(let rootArtifact):
-                Label("Select a code artifact from \(rootArtifact.name)",
+            case .succeeded(let rootArtifactPresentation):
+                Label("Select a code artifact from \(rootArtifactPresentation.codeArtifact.name)",
                       systemImage: "arrow.left")
                 .padding()
                 .font(.system(.title))
@@ -47,7 +47,7 @@ struct CodefaceView: View
     
     private var searchPrompt: String
     {
-        "Search in \(viewModel.selectedArtifact?.name ?? "Selected Artifact")"
+        "Search in \(viewModel.selectedArtifact?.codeArtifact.name ?? "Selected Artifact")"
     }
     
     @State var searchTerm = ""
