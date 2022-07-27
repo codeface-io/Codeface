@@ -23,7 +23,7 @@ struct ArtifactView: View
             }
             .font(.system(size: artifact.fontSize,
                           weight: .medium,
-                          design: .for(artifact)))
+                          design: artifact.fontDesign))
             .frame(width: artifact.frameInScopeContent.width - 2 * ArtifactViewModel.padding,
                    height: artifact.collapseVertically ? artifact.frameInScopeContent.height - 2 * ArtifactViewModel.padding : artifact.fontSize)
             .position(x: artifact.frameInScopeContent.width / 2,
@@ -65,18 +65,4 @@ struct ArtifactView: View
     let viewModel: Codeface
     let ignoreSearchFilter: Bool
     @State var isHovering: Bool = false
-}
-
-extension Font.Design
-{
-    static func `for`(_ artifact: ArtifactViewModel) -> Font.Design
-    {
-        // TODO: reproduce this ...
-        return .default
-//        switch artifact.kind
-//        {
-//        case .symbol: return .monospaced
-//        default: return .default
-//        }
-    }
 }

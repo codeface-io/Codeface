@@ -27,6 +27,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         
         iconSystemImageName = "folder.fill"
         iconFillColor = Color(NSColor.secondaryLabelColor)
+        fontDesign = .default
+        linesOfCodeColor = Color(NSColor.systemGray)
     }
     
     private init(fileArtifact: CodeFileArtifact)
@@ -41,6 +43,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         
         iconSystemImageName = "doc.fill"
         iconFillColor = .white
+        fontDesign = .default
+        linesOfCodeColor = locColorForFile(linesOfCode: fileArtifact.linesOfCode)
     }
     
     private init(symbolArtifact: CodeSymbolArtifact)
@@ -55,6 +59,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         
         self.iconSystemImageName = symbolIconSystemImageName(for: symbolArtifact.codeSymbol.kind)
         self.iconFillColor = symbolIconFillColor(for: symbolArtifact.codeSymbol.kind)
+        fontDesign = .monospaced
+        linesOfCodeColor = Color(NSColor.systemGray)
     }
     
     var showsName: Bool { frameInScopeContent.width - (2 * Self.padding + fontSize) >= 4 * fontSize }
@@ -112,6 +118,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     let iconSystemImageName: String
     let iconFillColor: Color
+    let fontDesign: Font.Design
+    let linesOfCodeColor: Color
     
     let codeArtifact: CodeArtifact
 }
@@ -167,4 +175,12 @@ private func symbolIconFillColor(for symbolKind: LSPDocumentSymbol.SymbolKind?) 
     case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .TypeParameter, .String:
         return Color(NSColor.secondaryLabelColor)
     }
+}
+
+private func locColorForFile(linesOfCode: Int) -> Color
+{
+    if linesOfCode < 100 { return Color(NSColor.systemGreen) }
+    else if linesOfCode < 200 { return Color(NSColor.systemYellow) }
+    else if linesOfCode < 300 { return Color(NSColor.systemOrange) }
+    else { return Color(NSColor.systemRed) }
 }
