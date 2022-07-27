@@ -23,14 +23,14 @@ struct SidebarLabel: View
         }
     }
     
-    @State var artifact: CodeArtifactPresentationModel
+    @State var artifact: ArtifactViewModel
     let isSelected: Bool
 }
 
 @MainActor
 private extension Color
 {
-    static func linesOfCode(for artifact: CodeArtifactPresentationModel) -> Color
+    static func linesOfCode(for artifact: ArtifactViewModel) -> Color
     {
         // TODO: Reproduce coloring by lines of code for files ...
         return Color(NSColor.systemGray)

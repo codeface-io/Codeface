@@ -9,13 +9,13 @@ struct ArtifactIcon: View
             .foregroundColor(isSelected ? .primary : .icon(for: artifact))
     }
     
-    let artifact: CodeArtifactPresentationModel
+    let artifact: ArtifactViewModel
     let isSelected: Bool
 }
 
 private extension Color
 {
-    static func icon(for artifactKind: CodeArtifactPresentationModel) -> Color
+    static func icon(for artifactKind: ArtifactViewModel) -> Color
     {
         // TODO: reproduce coloring symbol by kind
         return .white
@@ -54,7 +54,7 @@ private extension Color
     }
 }
 
-func iconSystemImageName(for artifactKind: CodeArtifactPresentationModel) -> String
+func iconSystemImageName(for artifactKind: ArtifactViewModel) -> String
 {
     // TODO: reproduce symbol selection by kind
     return "doc.fill"

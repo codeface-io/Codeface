@@ -1,10 +1,10 @@
 import SwiftyToolz
 
-extension CodeArtifactPresentationModel
+extension ArtifactViewModel
 {
     // MARK: - Filter
     
-    var filteredParts: [CodeArtifactPresentationModel]
+    var filteredParts: [ArtifactViewModel]
     {
         (children ?? []).filter { $0.codeArtifact.passesSearchFilter }
     }

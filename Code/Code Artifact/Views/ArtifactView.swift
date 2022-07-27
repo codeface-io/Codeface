@@ -24,10 +24,10 @@ struct ArtifactView: View
             .font(.system(size: artifact.fontSize,
                           weight: .medium,
                           design: .for(artifact)))
-            .frame(width: artifact.frameInScopeContent.width - 2 * CodeArtifactPresentationModel.padding,
-                   height: artifact.collapseVertically ? artifact.frameInScopeContent.height - 2 * CodeArtifactPresentationModel.padding : artifact.fontSize)
+            .frame(width: artifact.frameInScopeContent.width - 2 * ArtifactViewModel.padding,
+                   height: artifact.collapseVertically ? artifact.frameInScopeContent.height - 2 * ArtifactViewModel.padding : artifact.fontSize)
             .position(x: artifact.frameInScopeContent.width / 2,
-                      y: artifact.collapseVertically ? artifact.frameInScopeContent.height / 2 : CodeArtifactPresentationModel.padding + artifact.fontSize / 2)
+                      y: artifact.collapseVertically ? artifact.frameInScopeContent.height / 2 : ArtifactViewModel.padding + artifact.fontSize / 2)
             
             ArtifactContentView(artifact: artifact,
                                 viewModel: viewModel,
@@ -61,7 +61,7 @@ struct ArtifactView: View
                   y: artifact.frameInScopeContent.centerY)
     }
     
-    @ObservedObject var artifact: CodeArtifactPresentationModel
+    @ObservedObject var artifact: ArtifactViewModel
     let viewModel: Codeface
     let ignoreSearchFilter: Bool
     @State var isHovering: Bool = false
@@ -69,7 +69,7 @@ struct ArtifactView: View
 
 extension Font.Design
 {
-    static func `for`(_ artifact: CodeArtifactPresentationModel) -> Font.Design
+    static func `for`(_ artifact: ArtifactViewModel) -> Font.Design
     {
         // TODO: reproduce this ...
         return .default

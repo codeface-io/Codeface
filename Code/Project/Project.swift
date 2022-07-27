@@ -36,7 +36,7 @@ class Project
                 await tryToAddSymbolArtifacts(to: rootArtifact)
                 rootArtifact.generateMetrics()
                 rootArtifact.sort()
-                let rootArtifactPresentation = CodeArtifactPresentationModel(codeArtifact: rootArtifact)
+                let rootArtifactPresentation = ArtifactViewModel(folderArtifact: rootArtifact)
                 self.analysisState = .succeeded(rootArtifactPresentation)
             }
             catch
@@ -82,7 +82,7 @@ class Project
     {
         case stopped,
              running,
-             succeeded(CodeArtifactPresentationModel),
+             succeeded(ArtifactViewModel),
              failed(String)
     }
     

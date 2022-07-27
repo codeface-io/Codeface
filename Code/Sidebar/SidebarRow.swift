@@ -48,7 +48,7 @@ struct SidebarRow: View
         }
     }
     
-    let artifact: CodeArtifactPresentationModel
+    let artifact: ArtifactViewModel
     @ObservedObject var viewModel: Codeface
 }
 
@@ -74,11 +74,11 @@ struct TreeMap: View
         {
             RootArtifactContentView(artifact: artifact,
                                     viewModel: viewModel)
-            .padding(CodeArtifactPresentationModel.padding)
+            .padding(ArtifactViewModel.padding)
         }
     }
     
-    let artifact: CodeArtifactPresentationModel
+    let artifact: ArtifactViewModel
     @ObservedObject var viewModel: Codeface
 }
 
@@ -110,5 +110,5 @@ struct CodeView: View
         }
     }
     
-    let artifact: CodeArtifactPresentationModel
+    let artifact: ArtifactViewModel
 }

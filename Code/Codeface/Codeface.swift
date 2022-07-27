@@ -104,7 +104,7 @@ class Codeface: Combine.ObservableObject, Observer
         self.analysisState = activeProject.analysisState
     }
     
-    @Published var selectedArtifact: CodeArtifactPresentationModel?
+    @Published var selectedArtifact: ArtifactViewModel?
     @Published private(set) var analysisState: Project.AnalysisState = .stopped
     private(set) var activeProject: Project?
     

@@ -66,7 +66,7 @@ struct Sidebar: View
     @ObservedObject var viewModel: Codeface
 }
 
-extension CodeArtifactPresentationModel: Hashable
+extension ArtifactViewModel: Hashable
 {
     func hash(into hasher: inout Hasher)
     {

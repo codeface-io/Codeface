@@ -1,6 +1,6 @@
 import Foundation
 
-extension CodeArtifactPresentationModel
+extension ArtifactViewModel
 {
     func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
                              ignoreSearchFilter: Bool)
@@ -22,7 +22,7 @@ extension CodeArtifactPresentationModel
     }
     
     @discardableResult
-    private func prepare(parts: [CodeArtifactPresentationModel],
+    private func prepare(parts: [ArtifactViewModel],
                          forLayoutIn availableRect: CGRect,
                          ignoreSearchFilter: Bool) -> Bool
     {
@@ -40,7 +40,7 @@ extension CodeArtifactPresentationModel
             
             if availableRect.width > 100, availableRect.height > 100
             {
-                let padding = CodeArtifactPresentationModel.padding
+                let padding = ArtifactViewModel.padding
                 let headerHeight = part.fontSize + 2 * padding
                 
                 part.contentFrame = .init(x: padding,
@@ -60,8 +60,8 @@ extension CodeArtifactPresentationModel
                                                          height: part.contentFrame.height),
                                      ignoreSearchFilter: ignoreSearchFilter)
             
-            return availableRect.size.width >= CodeArtifactPresentationModel.minWidth &&
-            availableRect.size.height >= CodeArtifactPresentationModel.minHeight
+            return availableRect.size.width >= ArtifactViewModel.minWidth &&
+            availableRect.size.height >= ArtifactViewModel.minHeight
         }
         
         // tree map algorithm
@@ -87,7 +87,7 @@ extension CodeArtifactPresentationModel
         return properRectSplit != nil && successA && successB
     }
     
-    func split(_ parts: [CodeArtifactPresentationModel]) -> ([CodeArtifactPresentationModel], [CodeArtifactPresentationModel])
+    func split(_ parts: [ArtifactViewModel]) -> ([ArtifactViewModel], [ArtifactViewModel])
     {
         let halfTotalLOC = (parts.reduce(0) { $0 + $1.codeArtifact.linesOfCode }) / 2
         
@@ -114,7 +114,7 @@ extension CodeArtifactPresentationModel
     func split(_ rect: CGRect,
                firstFraction: Double) -> (CGRect, CGRect)?
     {
-        let rectIsSmall = min(rect.width, rect.height) <= CodeArtifactPresentationModel.minWidth * 5
+        let rectIsSmall = min(rect.width, rect.height) <= ArtifactViewModel.minWidth * 5
         let rectAspectRatio = rect.width / rect.height
         let tryLeftRightSplitFirst = rectAspectRatio > (rectIsSmall ? 4 : 2)
         
@@ -136,7 +136,7 @@ extension CodeArtifactPresentationModel
     {
         if rect.width / rect.height > 1
         {
-            let padding = rect.width > CodeArtifactPresentationModel.padding ? CodeArtifactPresentationModel.padding : 0
+            let padding = rect.width > ArtifactViewModel.padding ? ArtifactViewModel.padding : 0
             
             let width = (rect.width - padding) / 2
             
@@ -151,7 +151,7 @@ extension CodeArtifactPresentationModel
         }
         else
         {
-            let padding = rect.height > CodeArtifactPresentationModel.padding ? CodeArtifactPresentationModel.padding : 0
+            let padding = rect.height > ArtifactViewModel.padding ? ArtifactViewModel.padding : 0
             
             let height = (rect.height - padding) / 2
             
@@ -168,23 +168,23 @@ extension CodeArtifactPresentationModel
     
     func splitIntoLeftAndRight(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
     {
-        if 2 * CodeArtifactPresentationModel.minWidth + CodeArtifactPresentationModel.padding > rect.width
+        if 2 * ArtifactViewModel.minWidth + ArtifactViewModel.padding > rect.width
         {
             return nil
         }
         
-        var widthA = (rect.width - CodeArtifactPresentationModel.padding) * firstFraction
-        var widthB = (rect.width - widthA) - CodeArtifactPresentationModel.padding
+        var widthA = (rect.width - ArtifactViewModel.padding) * firstFraction
+        var widthB = (rect.width - widthA) - ArtifactViewModel.padding
         
-        if widthA < CodeArtifactPresentationModel.minWidth
+        if widthA < ArtifactViewModel.minWidth
         {
-            widthA = CodeArtifactPresentationModel.minWidth
-            widthB = (rect.width - CodeArtifactPresentationModel.minWidth) - CodeArtifactPresentationModel.padding
+            widthA = ArtifactViewModel.minWidth
+            widthB = (rect.width - ArtifactViewModel.minWidth) - ArtifactViewModel.padding
         }
-        else if widthB < CodeArtifactPresentationModel.minWidth
+        else if widthB < ArtifactViewModel.minWidth
         {
-            widthB = CodeArtifactPresentationModel.minWidth
-            widthA = (rect.width - CodeArtifactPresentationModel.minWidth) - CodeArtifactPresentationModel.padding
+            widthB = ArtifactViewModel.minWidth
+            widthA = (rect.width - ArtifactViewModel.minWidth) - ArtifactViewModel.padding
         }
         
         let rectA = CGRect(x: rect.minX,
@@ -192,7 +192,7 @@ extension CodeArtifactPresentationModel
                            width: widthA,
                            height: rect.height)
         
-        let rectB = CGRect(x: (rect.minX + widthA) + CodeArtifactPresentationModel.padding,
+        let rectB = CGRect(x: (rect.minX + widthA) + ArtifactViewModel.padding,
                            y: rect.minY,
                            width: widthB,
                            height: rect.height)
@@ -202,23 +202,23 @@ extension CodeArtifactPresentationModel
     
     func splitIntoTopAndBottom(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
     {
-        if 2 * CodeArtifactPresentationModel.minHeight + CodeArtifactPresentationModel.padding > rect.height
+        if 2 * ArtifactViewModel.minHeight + ArtifactViewModel.padding > rect.height
         {
             return nil
         }
         
-        var heightA = (rect.height - CodeArtifactPresentationModel.padding) * firstFraction
-        var heightB = (rect.height - heightA) - CodeArtifactPresentationModel.padding
+        var heightA = (rect.height - ArtifactViewModel.padding) * firstFraction
+        var heightB = (rect.height - heightA) - ArtifactViewModel.padding
         
-        if heightA < CodeArtifactPresentationModel.minHeight
+        if heightA < ArtifactViewModel.minHeight
         {
-            heightA = CodeArtifactPresentationModel.minHeight
-            heightB = (rect.height - CodeArtifactPresentationModel.minHeight) - CodeArtifactPresentationModel.padding
+            heightA = ArtifactViewModel.minHeight
+            heightB = (rect.height - ArtifactViewModel.minHeight) - ArtifactViewModel.padding
         }
-        else if heightB < CodeArtifactPresentationModel.minHeight
+        else if heightB < ArtifactViewModel.minHeight
         {
-            heightB = CodeArtifactPresentationModel.minHeight
-            heightA = (rect.height - CodeArtifactPresentationModel.minHeight) - CodeArtifactPresentationModel.padding
+            heightB = ArtifactViewModel.minHeight
+            heightA = (rect.height - ArtifactViewModel.minHeight) - ArtifactViewModel.padding
         }
         
         let rectA = CGRect(x: rect.minX,
@@ -227,7 +227,7 @@ extension CodeArtifactPresentationModel
                            height: heightA)
         
         let rectB = CGRect(x: rect.minX,
-                           y: (rect.minY + heightA) + CodeArtifactPresentationModel.padding,
+                           y: (rect.minY + heightA) + ArtifactViewModel.padding,
                            width: rect.width,
                            height: heightB)
         
