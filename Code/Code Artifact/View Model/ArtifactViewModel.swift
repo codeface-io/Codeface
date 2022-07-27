@@ -15,8 +15,6 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     init(folderArtifact: CodeFolderArtifact)
     {
-        self.codeArtifact = folderArtifact
-        
         // create child presentations for parts recursively
         self.parts = folderArtifact.subfolders.map
         {
@@ -31,12 +29,12 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         iconFillColor = Color(NSColor.secondaryLabelColor)
         fontDesign = .default
         linesOfCodeColor = Color(NSColor.systemGray)
+        
+        kind = .folder(folderArtifact)
     }
     
     private init(fileArtifact: CodeFileArtifact)
     {
-        self.codeArtifact = fileArtifact
-        
         // create child presentations for symbols recursively
         self.parts = fileArtifact.symbols.map
         {
@@ -47,12 +45,12 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         iconFillColor = .white
         fontDesign = .default
         linesOfCodeColor = locColorForFile(linesOfCode: fileArtifact.linesOfCode)
+        
+        kind = .file(fileArtifact)
     }
     
     private init(symbolArtifact: CodeSymbolArtifact)
     {
-        self.codeArtifact = symbolArtifact
-        
         // create child presentations for subsymbols recursively
         self.parts = symbolArtifact.subSymbols.map
         {
@@ -63,6 +61,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         self.iconFillColor = symbolIconFillColor(for: symbolArtifact.kind)
         fontDesign = .monospaced
         linesOfCodeColor = Color(NSColor.systemGray)
+        
+        kind = .symbol(symbolArtifact)
     }
     
     // Mark: - Search
@@ -134,7 +134,24 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     nonisolated var id: String { codeArtifact.id }
     
-    let codeArtifact: CodeArtifact
+    nonisolated var codeArtifact: any CodeArtifact
+    {
+        switch kind
+        {
+        case .file(let file): return file
+        case .folder(let folder): return folder
+        case .symbol(let symbol): return symbol
+        }
+    }
+    
+    let kind: Kind
+    
+    enum Kind
+    {
+        case folder(CodeFolderArtifact),
+             file(CodeFileArtifact),
+             symbol(CodeSymbolArtifact)
+    }
 }
 
 private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String

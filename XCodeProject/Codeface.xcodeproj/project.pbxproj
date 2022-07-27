@@ -38,7 +38,7 @@
 		96B9B0BD288FF03200C93A4E /* CodefaceAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */; };
 		96D6B0F528282D69009E6C42 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6B0F428282D69009E6C42 /* CodeFile.swift */; };
 		96D6B0F728283335009E6C42 /* CodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6B0F628283335009E6C42 /* CodeArtifact.swift */; };
-		96E479CC28359ABA00762FD7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CB28359ABA00762FD7 /* Search.swift */; };
+		96E479CC28359ABA00762FD7 /* ArtifactViewModel+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */; };
 		96E479CE28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CD28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift */; };
 		96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CF28359C9900762FD7 /* AnimatableLine.swift */; };
 		96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479D128359CCE00762FD7 /* ArtifactView.swift */; };
@@ -108,7 +108,7 @@
 		96C87382285495D300C9D39A /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
 		96D6B0F428282D69009E6C42 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
 		96D6B0F628283335009E6C42 /* CodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifact.swift; sourceTree = "<group>"; };
-		96E479CB28359ABA00762FD7 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+Search.swift"; sourceTree = "<group>"; };
 		96E479CD28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+CalculateLayout.swift"; sourceTree = "<group>"; };
 		96E479CF28359C9900762FD7 /* AnimatableLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableLine.swift; sourceTree = "<group>"; };
 		96E479D128359CCE00762FD7 /* ArtifactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactView.swift; sourceTree = "<group>"; };
@@ -191,7 +191,6 @@
 			children = (
 				96E479D52835A53200762FD7 /* Views */,
 				96E479D72835A58800762FD7 /* View Model */,
-				96E479CB28359ABA00762FD7 /* Search.swift */,
 				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
 				967EDB2428915A9800963A7E /* CodeFolderArtifact */,
 				967EDB2328915A8400963A7E /* CodeFileArtifact */,
@@ -237,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				96E479CD28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift */,
+				96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */,
 				967EDB1C2891579700963A7E /* ArtifactViewModel.swift */,
 			);
 			path = "View Model";
@@ -480,7 +480,7 @@
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,
 				96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */,
 				967EDB2C28915CB800963A7E /* CodeSymbolArtifact+Sort.swift in Sources */,
-				96E479CC28359ABA00762FD7 /* Search.swift in Sources */,
+				96E479CC28359ABA00762FD7 /* ArtifactViewModel+Search.swift in Sources */,
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
 				967EDB2828915B5500963A7E /* CodeFileArtifact+GenerateMetrics.swift in Sources */,
 				966D58262544D0BC0016C8D0 /* CodeFolder+Foundation.swift in Sources */,

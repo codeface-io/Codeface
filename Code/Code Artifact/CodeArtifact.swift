@@ -1,5 +1,16 @@
-extension CodeFolderArtifact: CodeArtifact {}
-extension CodeFileArtifact: CodeArtifact {}
+extension CodeFolderArtifact: CodeArtifact
+{
+    func contains(line: Int) -> Bool { false }
+}
+
+extension CodeFileArtifact: CodeArtifact
+{
+    func contains(line: Int) -> Bool
+    {
+       codeFile.lines.count > line
+    }
+}
+
 extension CodeSymbolArtifact: CodeArtifact {}
 
 extension CodeArtifact
@@ -12,7 +23,9 @@ extension CodeArtifact
 
 protocol CodeArtifact: AnyObject
 {
-    var metrics: Metrics { get set }
+    func contains(line: Int) -> Bool
+    
+    var metrics: Metrics { get }
     
     var name: String { get }
     var kindName: String { get }

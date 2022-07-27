@@ -37,11 +37,10 @@ class Codeface: Combine.ObservableObject, Observer
     private func updateArtifacts(withSearchTerm searchTerm: String,
                                  allPass: Bool)
     {
-        if case .succeeded(let rootArtifact) = analysisState
+        if case .succeeded(let rootViewModel) = analysisState
         {
-            // TODO: reproduce search ...
-//            rootArtifact.updateSearchResults(withSearchTerm: searchTerm)
-//            rootArtifact.updateSearchFilter(allPass: allPass)
+            rootViewModel.updateSearchResults(withSearchTerm: searchTerm)
+            rootViewModel.updateSearchFilter(allPass: allPass)
         }
     }
     
