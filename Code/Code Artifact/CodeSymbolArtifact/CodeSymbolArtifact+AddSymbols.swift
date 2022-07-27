@@ -33,7 +33,7 @@ extension CodeSymbolArtifact
         {
             await subSymbols += CodeSymbolArtifact(lspDocSymbol: childLSPDocSymbol,
                                                    codeFileLines: codeFileLines,
-                                                   scope: .symbol(self),
+                                                   scope: .symbol(Weak(self)),
                                                    file: file,
                                                    server: server)
         }

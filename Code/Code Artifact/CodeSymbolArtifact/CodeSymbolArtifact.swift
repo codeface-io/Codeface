@@ -1,5 +1,6 @@
-import Foundation
 import SwiftLSP
+import Foundation
+import SwiftyToolz
 
 extension CodeSymbolArtifact
 {
@@ -51,9 +52,8 @@ class CodeSymbolArtifact: Identifiable, ObservableObject
     
     enum Scope
     {
-        // TODO: scope reference ought to be weak
-        case file(CodeFileArtifact)
-        case symbol(CodeSymbolArtifact)
+        case file(Weak<CodeFileArtifact>)
+        case symbol(Weak<CodeSymbolArtifact>)
     }
     
     var subSymbols = [CodeSymbolArtifact]()
