@@ -19,13 +19,12 @@ extension CodeSymbolArtifact
         
         let symbolKind = LSPDocumentSymbol.SymbolKind(rawValue: lspDocSymbol.kind)
         
-        let codeSymbol = CodeSymbol(name: lspDocSymbol.name,
-                                    kind: symbolKind,
-                                    range: lspDocSymbol.range,
-                                    references: references,
-                                    code: code)
-        
-        self.init(codeSymbol: codeSymbol, scope: scope)
+        self.init(name: lspDocSymbol.name,
+                  kind: symbolKind,
+                  range: lspDocSymbol.range,
+                  references: references,
+                  code: code,
+                  scope: scope)
         
         /// create subsymbols recursively
         subSymbols = [CodeSymbolArtifact]()

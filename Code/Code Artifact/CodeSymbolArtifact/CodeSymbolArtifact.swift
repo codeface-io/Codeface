@@ -1,23 +1,43 @@
 import Foundation
+import SwiftLSP
+
+extension CodeSymbolArtifact
+{
+    static var kindNames: [String] { LSPDocumentSymbol.SymbolKind.names }
+    
+    func contains(line: Int) -> Bool
+    {
+        line >= range.start.line && line <= range.end.line
+    }
+}
 
 extension CodeSymbolArtifact
 {
     var positionInFile: Int
     {
-        codeSymbol.range.start.line
+        range.start.line
     }
     
-    var name: String { codeSymbol.name }
-    var kindName: String { codeSymbol.kindName }
-    var code: String? { codeSymbol.code }
+    var kindName: String { kind?.name ?? "Unknown Kind of Symbol" }
 }
 
 @MainActor
 class CodeSymbolArtifact: Identifiable, ObservableObject
 {
-    init(codeSymbol: CodeSymbol, scope: Scope)
+    // Mark: - Initialization
+    
+    init(name: String,
+         kind: LSPDocumentSymbol.SymbolKind?,
+         range: LSPRange,
+         references: [LSPLocation],
+         code: String,
+         scope: Scope)
     {
-        self.codeSymbol = codeSymbol
+        self.name = name
+        self.kind = kind
+        self.range = range
+        self.references = references
+        self.code = code
         self.scope = scope
     }
     
@@ -25,20 +45,13 @@ class CodeSymbolArtifact: Identifiable, ObservableObject
     
     var metrics = Metrics()
     
-    // Mark: - Search
-    
-    @Published var passesSearchFilter = true
-    
-    var containsSearchTermRegardlessOfParts: Bool?
-    var partsContainSearchTerm: Bool?
-    
     // Mark: - Tree Structure
     
-    // TODO: scope reference ought to be weak
     var scope: Scope
     
     enum Scope
     {
+        // TODO: scope reference ought to be weak
         case file(CodeFileArtifact)
         case symbol(CodeSymbolArtifact)
     }
@@ -48,5 +61,9 @@ class CodeSymbolArtifact: Identifiable, ObservableObject
     // Mark: - Basics
     
     let id = UUID().uuidString
-    let codeSymbol: CodeSymbol
+    let name: String
+    let kind: LSPDocumentSymbol.SymbolKind?
+    let range: LSPRange
+    let references: [LSPLocation]
+    let code: String?
 }

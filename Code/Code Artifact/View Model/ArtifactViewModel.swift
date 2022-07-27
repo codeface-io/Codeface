@@ -11,6 +11,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         lhs === rhs
     }
     
+    // Mark: - Initialization
+    
     init(folderArtifact: CodeFolderArtifact)
     {
         self.codeArtifact = folderArtifact
@@ -57,11 +59,20 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
             ArtifactViewModel(symbolArtifact: $0)
         }
         
-        self.iconSystemImageName = symbolIconSystemImageName(for: symbolArtifact.codeSymbol.kind)
-        self.iconFillColor = symbolIconFillColor(for: symbolArtifact.codeSymbol.kind)
+        self.iconSystemImageName = symbolIconSystemImageName(for: symbolArtifact.kind)
+        self.iconFillColor = symbolIconFillColor(for: symbolArtifact.kind)
         fontDesign = .monospaced
         linesOfCodeColor = Color(NSColor.systemGray)
     }
+    
+    // Mark: - Search
+    
+    @Published var passesSearchFilter = true
+    
+    var containsSearchTermRegardlessOfParts: Bool?
+    var partsContainSearchTerm: Bool?
+    
+    // Mark: - UI
     
     var showsName: Bool { frameInScopeContent.width - (2 * Self.padding + fontSize) >= 4 * fontSize }
     
@@ -112,14 +123,16 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         let height: Double
     }
     
-    let parts: [ArtifactViewModel]
-    
-    nonisolated var id: String { codeArtifact.id }
-    
     let iconSystemImageName: String
     let iconFillColor: Color
     let fontDesign: Font.Design
     let linesOfCodeColor: Color
+    
+    // Mark: - Basics
+    
+    let parts: [ArtifactViewModel]
+    
+    nonisolated var id: String { codeArtifact.id }
     
     let codeArtifact: CodeArtifact
 }

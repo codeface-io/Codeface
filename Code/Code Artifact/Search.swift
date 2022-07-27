@@ -6,7 +6,7 @@ extension ArtifactViewModel
     
     var filteredParts: [ArtifactViewModel]
     {
-        parts.filter { $0.codeArtifact.passesSearchFilter }
+        parts.filter { $0.passesSearchFilter }
     }
     
     func updateSearchFilter(allPass: Bool)

@@ -11,7 +11,6 @@ extension CodeSymbolArtifact
             $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfAllSubsymbols)
         }
         
-        let range = codeSymbol.range
         let loc = (range.end.line - range.start.line) + 1
         
         metrics.linesOfCode = loc

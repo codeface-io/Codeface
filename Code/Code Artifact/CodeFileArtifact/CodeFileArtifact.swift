@@ -13,13 +13,6 @@ class CodeFileArtifact: Identifiable, ObservableObject
     
     var metrics = Metrics()
     
-    // Mark: - Search
-    
-    @Published var passesSearchFilter = true
-    
-    var containsSearchTermRegardlessOfParts: Bool?
-    var partsContainSearchTerm: Bool?
-    
     // Mark: - Tree Structure
     
     weak var scope: CodeFolderArtifact?

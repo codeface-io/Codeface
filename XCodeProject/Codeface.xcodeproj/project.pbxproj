@@ -33,7 +33,6 @@
 		967EDB2C28915CB800963A7E /* CodeSymbolArtifact+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EDB2B28915CB800963A7E /* CodeSymbolArtifact+Sort.swift */; };
 		967EDB2E28915D2500963A7E /* CodeFileArtifact+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EDB2D28915D2500963A7E /* CodeFileArtifact+Sort.swift */; };
 		967EDB3028915D6E00963A7E /* CodeFolderArtifact+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EDB2F28915D6E00963A7E /* CodeFolderArtifact+Sort.swift */; };
-		968651472832725100087D80 /* CodeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968651462832725100087D80 /* CodeSymbol.swift */; };
 		96A3A39F254A3B8400AE4146 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3A39E254A3B8400AE4146 /* Project.swift */; };
 		96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96A3A3AB254A621900AE4146 /* SwiftLSP */; };
 		96B9B0BD288FF03200C93A4E /* CodefaceAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */; };
@@ -104,7 +103,6 @@
 		967EDB2B28915CB800963A7E /* CodeSymbolArtifact+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeSymbolArtifact+Sort.swift"; sourceTree = "<group>"; };
 		967EDB2D28915D2500963A7E /* CodeFileArtifact+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileArtifact+Sort.swift"; sourceTree = "<group>"; };
 		967EDB2F28915D6E00963A7E /* CodeFolderArtifact+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+Sort.swift"; sourceTree = "<group>"; };
-		968651462832725100087D80 /* CodeSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSymbol.swift; sourceTree = "<group>"; };
 		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceAppDelegate.swift; sourceTree = "<group>"; };
 		96C87382285495D300C9D39A /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
@@ -186,14 +184,6 @@
 				967EDB1A2891575400963A7E /* CodeFolderArtifact.swift */,
 			);
 			path = CodeFolderArtifact;
-			sourceTree = "<group>";
-		};
-		968651482832728100087D80 /* Code Symbol */ = {
-			isa = PBXGroup;
-			children = (
-				968651462832725100087D80 /* CodeSymbol.swift */,
-			);
-			path = "Code Symbol";
 			sourceTree = "<group>";
 		};
 		96865149283272D900087D80 /* Code Artifact */ = {
@@ -290,7 +280,6 @@
 				96E863D52844336400BCCE66 /* Display Mode */,
 				9686773D28423ECF00CE57D3 /* Project */,
 				96865149283272D900087D80 /* Code Artifact */,
-				968651482832728100087D80 /* Code Symbol */,
 				96A3A39C254A3B2800AE4146 /* Code Folder */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 			);
@@ -492,7 +481,6 @@
 				96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */,
 				967EDB2C28915CB800963A7E /* CodeSymbolArtifact+Sort.swift in Sources */,
 				96E479CC28359ABA00762FD7 /* Search.swift in Sources */,
-				968651472832725100087D80 /* CodeSymbol.swift in Sources */,
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
 				967EDB2828915B5500963A7E /* CodeFileArtifact+GenerateMetrics.swift in Sources */,
 				966D58262544D0BC0016C8D0 /* CodeFolder+Foundation.swift in Sources */,

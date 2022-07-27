@@ -14,7 +14,7 @@ struct ArtifactView: View
                 Text(" " + artifact.codeArtifact.name)
                     .frame(width: artifact.collapseHorizontally ? 0 : nil)
                     .opacity(artifact.showsName ? 1 : 0)
-                    .foregroundColor((artifact.codeArtifact.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)
+                    .foregroundColor((artifact.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)
                 
                 if !artifact.collapseHorizontally
                 {
