@@ -5,7 +5,7 @@ extension ArtifactViewModel
     func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
                              ignoreSearchFilter: Bool)
     {
-        let presentedParts = ignoreSearchFilter ? (children ?? []) : filteredParts
+        let presentedParts = ignoreSearchFilter ? parts : filteredParts
         
         guard !presentedParts.isEmpty else
         {

@@ -16,7 +16,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         self.codeArtifact = folderArtifact
         
         // create child presentations for parts recursively
-        self.children = folderArtifact.subfolders.map
+        self.parts = folderArtifact.subfolders.map
         {
             ArtifactViewModel(folderArtifact: $0)
         }
@@ -36,7 +36,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         self.codeArtifact = fileArtifact
         
         // create child presentations for symbols recursively
-        self.children = fileArtifact.symbols.map
+        self.parts = fileArtifact.symbols.map
         {
             ArtifactViewModel(symbolArtifact: $0)
         }
@@ -52,7 +52,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         self.codeArtifact = symbolArtifact
         
         // create child presentations for subsymbols recursively
-        self.children = symbolArtifact.subSymbols.map
+        self.parts = symbolArtifact.subSymbols.map
         {
             ArtifactViewModel(symbolArtifact: $0)
         }
@@ -112,7 +112,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         let height: Double
     }
     
-    let children: [ArtifactViewModel]?
+    let parts: [ArtifactViewModel]
     
     nonisolated var id: String { codeArtifact.id }
     

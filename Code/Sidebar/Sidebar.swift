@@ -73,3 +73,11 @@ extension ArtifactViewModel: Hashable
         hasher.combine(id)
     }
 }
+
+private extension ArtifactViewModel
+{
+    var children: [ArtifactViewModel]?
+    {
+        parts.isEmpty ? nil : parts
+    }
+}

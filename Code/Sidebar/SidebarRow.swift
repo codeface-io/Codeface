@@ -57,7 +57,7 @@ struct TreeMap: View
 {
     var body: some View
     {
-        if artifact.children?.isEmpty ?? true
+        if artifact.parts.isEmpty
         {
             VStack(alignment: .center)
             {
