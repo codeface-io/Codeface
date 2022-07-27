@@ -1,3 +1,4 @@
+import SwiftUI
 import SwiftLSP
 import Foundation
 
@@ -25,6 +26,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         }
         
         iconSystemImageName = "folder.fill"
+        iconFillColor = Color(NSColor.secondaryLabelColor)
     }
     
     private init(fileArtifact: CodeFileArtifact)
@@ -38,6 +40,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         }
         
         iconSystemImageName = "doc.fill"
+        iconFillColor = .white
     }
     
     private init(symbolArtifact: CodeSymbolArtifact)
@@ -51,6 +54,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         }
         
         self.iconSystemImageName = symbolIconSystemImageName(for: symbolArtifact.codeSymbol.kind)
+        self.iconFillColor = symbolIconFillColor(for: symbolArtifact.codeSymbol.kind)
     }
     
     var showsName: Bool { frameInScopeContent.width - (2 * Self.padding + fontSize) >= 4 * fontSize }
@@ -107,6 +111,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     nonisolated var id: String { codeArtifact.id }
     
     let iconSystemImageName: String
+    let iconFillColor: Color
     
     let codeArtifact: CodeArtifact
 }
@@ -135,5 +140,31 @@ private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolK
         {
             return "questionmark.square.fill"
         }
+    }
+}
+
+private func symbolIconFillColor(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> Color
+{
+    guard let symbolKind = symbolKind else
+    {
+        return Color(NSColor.secondaryLabelColor)
+    }
+    
+    switch symbolKind
+    {
+    case .File, .Module, .Package:
+        return .white
+    case .Class, .Interface, .Struct:
+        return Color(NSColor.systemPurple)
+    case .Namespace, .Enum:
+        return Color(NSColor.systemOrange)
+    case .Method, .Constructor:
+        return Color(NSColor.systemBlue)
+    case .Property, .Field, .EnumMember:
+        return Color(NSColor.systemTeal)
+    case .Variable, .Constant, .Function, .Operator:
+        return Color(NSColor.systemGreen)
+    case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .TypeParameter, .String:
+        return Color(NSColor.secondaryLabelColor)
     }
 }
