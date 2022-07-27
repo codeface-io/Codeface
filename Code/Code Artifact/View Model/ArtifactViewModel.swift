@@ -1,3 +1,4 @@
+import SwiftLSP
 import Foundation
 
 @MainActor
@@ -22,6 +23,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         {
             ArtifactViewModel(fileArtifact: $0)
         }
+        
+        iconSystemImageName = "folder.fill"
     }
     
     private init(fileArtifact: CodeFileArtifact)
@@ -33,6 +36,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         {
             ArtifactViewModel(symbolArtifact: $0)
         }
+        
+        iconSystemImageName = "doc.fill"
     }
     
     private init(symbolArtifact: CodeSymbolArtifact)
@@ -44,6 +49,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         {
             ArtifactViewModel(symbolArtifact: $0)
         }
+        
+        self.iconSystemImageName = symbolIconSystemImageName(for: symbolArtifact.codeSymbol.kind)
     }
     
     var showsName: Bool { frameInScopeContent.width - (2 * Self.padding + fontSize) >= 4 * fontSize }
@@ -99,5 +106,34 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     nonisolated var id: String { codeArtifact.id }
     
+    let iconSystemImageName: String
+    
     let codeArtifact: CodeArtifact
+}
+
+private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String
+{
+    guard let symbolKind = symbolKind else
+    {
+        return "questionmark.square.fill"
+    }
+    
+    switch symbolKind
+    {
+    case .File:
+        return "doc.fill"
+    case .Module, .Package:
+        return "shippingbox.fill"
+    case .Null:
+        return "square.fill"
+    default:
+        if let firstCharacter = symbolKind.name.first?.lowercased()
+        {
+            return firstCharacter + ".square.fill"
+        }
+        else
+        {
+            return "questionmark.square.fill"
+        }
+    }
 }

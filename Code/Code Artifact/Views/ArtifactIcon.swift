@@ -5,7 +5,7 @@ struct ArtifactIcon: View
 {
     var body: some View
     {
-        Image(systemName: iconSystemImageName(for: artifact))
+        Image(systemName: artifact.iconSystemImageName)
             .foregroundColor(isSelected ? .primary : .icon(for: artifact))
     }
     
@@ -50,45 +50,6 @@ private extension Color
             return Color(NSColor.systemGreen)
         case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .TypeParameter, .String:
             return Color(NSColor.secondaryLabelColor)
-        }
-    }
-}
-
-func iconSystemImageName(for artifactKind: ArtifactViewModel) -> String
-{
-    // TODO: reproduce symbol selection by kind
-    return "doc.fill"
-//    switch artifactKind
-//    {
-//    case .folder: return "folder.fill"
-//    case .file: return "doc.fill"
-//    case .symbol(let symbol): return iconSystemImageName(for: symbol.kind)
-//    }
-}
-
-private func iconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String
-{
-    guard let symbolKind = symbolKind else
-    {
-        return "questionmark.square.fill"
-    }
-    
-    switch symbolKind
-    {
-    case .File:
-        return "doc.fill"
-    case .Module, .Package:
-        return "shippingbox.fill"
-    case .Null:
-        return "square.fill"
-    default:
-        if let firstCharacter = symbolKind.name.first?.lowercased()
-        {
-            return firstCharacter + ".square.fill"
-        }
-        else
-        {
-            return "questionmark.square.fill"
         }
     }
 }
