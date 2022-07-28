@@ -13,5 +13,14 @@ extension CodeSymbolArtifact
         
         let refs = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
                                                       in: file)
+        
+        for referencingLocation in refs
+        {
+            // TODO: get the file artifact via hash map, then identify the symbol with the outgoing dependency ...
+            referencingLocation.uri // file containing the symbol with the outgoing dependency
+            referencingLocation.range // range (in the file) associated/overlapping with the symbol that depends on self (on this symbol)
+            
+            
+        }
     }
 }
