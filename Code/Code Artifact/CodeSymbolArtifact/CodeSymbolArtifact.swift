@@ -17,14 +17,14 @@ class CodeSymbolArtifact: Identifiable, ObservableObject
     init(name: String,
          kind: LSPDocumentSymbol.SymbolKind?,
          range: LSPRange,
-         references: [LSPLocation],
+         selectionRange: LSPRange,
          code: String,
          scope: Scope)
     {
         self.name = name
         self.kind = kind
         self.range = range
-        self.references = references
+        self.selectionRange = selectionRange
         self.code = code
         self.scope = scope
     }
@@ -52,6 +52,8 @@ class CodeSymbolArtifact: Identifiable, ObservableObject
     let name: String
     let kind: LSPDocumentSymbol.SymbolKind?
     let range: LSPRange
-    let references: [LSPLocation]
+    let selectionRange: LSPRange
     let code: String?
+    
+    var incomingDependencies = [CodeSymbolArtifact]()
 }

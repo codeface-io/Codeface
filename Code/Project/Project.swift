@@ -33,7 +33,19 @@ class Project
                 let rootFolder = try createRootFolder()
                 let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder,
                                                       scope: nil)
-                await tryToAddSymbolArtifacts(to: rootArtifact)
+                
+                do
+                {
+                    let (server, initialization) = try getServerAndServerInitialization()
+                    try await initialization.assumeSuccess()
+                    try await rootArtifact.addSymbolArtifacts(using: server)
+                    try await rootArtifact.addDependencies(using: server)
+                }
+                catch
+                {
+                    log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
+                }
+                
                 rootArtifact.generateMetrics()
                 rootArtifact.sort()
                 let rootArtifactPresentation = ArtifactViewModel(folderArtifact: rootArtifact)
@@ -57,20 +69,6 @@ class Project
             }
             
             return codeFolder
-        }
-    }
-    
-    private func tryToAddSymbolArtifacts(to artifact: CodeFolderArtifact) async
-    {
-        do
-        {
-            let (server, initialization) = try getServerAndServerInitialization()
-            try await initialization.assumeSuccess()
-            try await artifact.addSymbolArtifacts(using: server)
-        }
-        catch
-        {
-            log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
         }
     }
     
