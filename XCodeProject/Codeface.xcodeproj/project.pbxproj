@@ -40,6 +40,7 @@
 		96D1F8E52892AD5F001657E8 /* CodeSymbolArtifact+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D1F8E42892AD5F001657E8 /* CodeSymbolArtifact+AddDependencies.swift */; };
 		96D1F8E72892AD98001657E8 /* CodeFileArtifact+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D1F8E62892AD98001657E8 /* CodeFileArtifact+AddDependencies.swift */; };
 		96D1F8E92892ADCB001657E8 /* CodeFolderArtifact+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D1F8E82892ADCB001657E8 /* CodeFolderArtifact+AddDependencies.swift */; };
+		96D1F8ED2892CBEA001657E8 /* CodeFileArtifactHashmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D1F8EC2892CBEA001657E8 /* CodeFileArtifactHashmap.swift */; };
 		96D6B0F528282D69009E6C42 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6B0F428282D69009E6C42 /* CodeFile.swift */; };
 		96D6B0F728283335009E6C42 /* CodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6B0F628283335009E6C42 /* CodeArtifact.swift */; };
 		96E479CC28359ABA00762FD7 /* ArtifactViewModel+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */; };
@@ -114,6 +115,7 @@
 		96D1F8E42892AD5F001657E8 /* CodeSymbolArtifact+AddDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeSymbolArtifact+AddDependencies.swift"; sourceTree = "<group>"; };
 		96D1F8E62892AD98001657E8 /* CodeFileArtifact+AddDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileArtifact+AddDependencies.swift"; sourceTree = "<group>"; };
 		96D1F8E82892ADCB001657E8 /* CodeFolderArtifact+AddDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+AddDependencies.swift"; sourceTree = "<group>"; };
+		96D1F8EC2892CBEA001657E8 /* CodeFileArtifactHashmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileArtifactHashmap.swift; sourceTree = "<group>"; };
 		96D6B0F428282D69009E6C42 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
 		96D6B0F628283335009E6C42 /* CodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifact.swift; sourceTree = "<group>"; };
 		96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+Search.swift"; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				96D1F8E82892ADCB001657E8 /* CodeFolderArtifact+AddDependencies.swift */,
+				96D1F8EC2892CBEA001657E8 /* CodeFileArtifactHashmap.swift */,
 				96D1F8E62892AD98001657E8 /* CodeFileArtifact+AddDependencies.swift */,
 				96D1F8E42892AD5F001657E8 /* CodeSymbolArtifact+AddDependencies.swift */,
 			);
@@ -532,6 +535,7 @@
 				96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */,
 				967EDB15289156DB00963A7E /* Metrics.swift in Sources */,
 				96D1F8E52892AD5F001657E8 /* CodeSymbolArtifact+AddDependencies.swift in Sources */,
+				96D1F8ED2892CBEA001657E8 /* CodeFileArtifactHashmap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

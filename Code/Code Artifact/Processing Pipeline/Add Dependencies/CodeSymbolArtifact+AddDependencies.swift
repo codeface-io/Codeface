@@ -1,14 +1,17 @@
 import SwiftLSP
+import SwiftyToolz
 
 extension CodeSymbolArtifact
 {
     func addDependencies(enclosingFile file: LSPDocumentUri,
-                         using server: LSP.ServerCommunicationHandler) async throws
+                         hashMap: CodeFileArtifactHashmap,
+                         server: LSP.ServerCommunicationHandler) async throws
     {
         for subsymbol in subSymbols
         {
             try await subsymbol.addDependencies(enclosingFile: file,
-                                                using: server)
+                                                hashMap: hashMap,
+                                                server: server)
         }
         
         let refs = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
@@ -16,11 +19,14 @@ extension CodeSymbolArtifact
         
         for referencingLocation in refs
         {
-            // TODO: get the file artifact via hash map, then identify the symbol with the outgoing dependency ...
-            referencingLocation.uri // file containing the symbol with the outgoing dependency
+            guard let referencingFileArtifact = hashMap[referencingLocation.uri] else
+            {
+                log(warning: "Could not find file artifact for LSP document URI:\n\(referencingLocation.uri)")
+                continue
+            }
+            
+            // TODO: identify the symbol with the outgoing dependency (source symbol) ...
             referencingLocation.range // range (in the file) associated/overlapping with the symbol that depends on self (on this symbol)
-            
-            
         }
     }
 }
