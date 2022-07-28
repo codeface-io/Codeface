@@ -10,3 +10,11 @@ extension CodeSymbolArtifact
         subSymbols.sort { $0.positionInFile < $1.positionInFile }
     }
 }
+
+extension CodeSymbolArtifact
+{
+    var positionInFile: Int
+    {
+        range.start.line
+    }
+}

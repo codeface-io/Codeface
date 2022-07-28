@@ -1,18 +1,3 @@
-extension CodeFolderArtifact: CodeArtifact
-{
-    func contains(line: Int) -> Bool { false }
-}
-
-extension CodeFileArtifact: CodeArtifact
-{
-    func contains(line: Int) -> Bool
-    {
-       codeFile.lines.count > line
-    }
-}
-
-extension CodeSymbolArtifact: CodeArtifact {}
-
 extension CodeArtifact
 {
     var linesOfCode: Int
@@ -23,8 +8,6 @@ extension CodeArtifact
 
 protocol CodeArtifact: AnyObject
 {
-    func contains(line: Int) -> Bool
-    
     var metrics: Metrics { get }
     
     var name: String { get }

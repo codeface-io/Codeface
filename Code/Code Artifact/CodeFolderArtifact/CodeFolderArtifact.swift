@@ -1,5 +1,12 @@
 import Foundation
 
+extension CodeFolderArtifact: CodeArtifact
+{
+    var name: String { codeFolderURL.lastPathComponent }
+    var kindName: String { "Folder" }
+    var code: String? { nil }
+}
+
 @MainActor
 class CodeFolderArtifact: Identifiable, ObservableObject
 {
@@ -31,10 +38,6 @@ class CodeFolderArtifact: Identifiable, ObservableObject
     var files = [CodeFileArtifact]()
     
     // Mark: - Basics
-    
-    var name: String { codeFolderURL.lastPathComponent }
-    var kindName: String { "Folder" }
-    var code: String? { nil }
     
     let id = UUID().uuidString
     let codeFolderURL: URL

@@ -125,7 +125,7 @@ extension ArtifactViewModel
 
             let matchesNotInSelf = matchesWithoutParts.filter
             {
-                !codeArtifact.contains(line: $0)
+                !codeArtifact.contains(fileLine: $0)
             }
 
             if matchesNotInSelf.count < matchesWithoutParts.count

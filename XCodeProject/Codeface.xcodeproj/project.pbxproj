@@ -36,6 +36,7 @@
 		96A3A39F254A3B8400AE4146 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3A39E254A3B8400AE4146 /* Project.swift */; };
 		96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96A3A3AB254A621900AE4146 /* SwiftLSP */; };
 		96B9B0BD288FF03200C93A4E /* CodefaceAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */; };
+		96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D1F8E128928325001657E8 /* SearchableCodeArtifact.swift */; };
 		96D6B0F528282D69009E6C42 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6B0F428282D69009E6C42 /* CodeFile.swift */; };
 		96D6B0F728283335009E6C42 /* CodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6B0F628283335009E6C42 /* CodeArtifact.swift */; };
 		96E479CC28359ABA00762FD7 /* ArtifactViewModel+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */; };
@@ -106,6 +107,7 @@
 		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceAppDelegate.swift; sourceTree = "<group>"; };
 		96C87382285495D300C9D39A /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
+		96D1F8E128928325001657E8 /* SearchableCodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableCodeArtifact.swift; sourceTree = "<group>"; };
 		96D6B0F428282D69009E6C42 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
 		96D6B0F628283335009E6C42 /* CodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifact.swift; sourceTree = "<group>"; };
 		96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+Search.swift"; sourceTree = "<group>"; };
@@ -191,10 +193,10 @@
 			children = (
 				96E479D52835A53200762FD7 /* Views */,
 				96E479D72835A58800762FD7 /* View Model */,
-				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
 				967EDB2428915A9800963A7E /* CodeFolderArtifact */,
 				967EDB2328915A8400963A7E /* CodeFileArtifact */,
 				967EDB2228915A6B00963A7E /* CodeSymbolArtifact */,
+				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
 				967EDB14289156DB00963A7E /* Metrics.swift */,
 			);
 			path = "Code Artifact";
@@ -238,6 +240,7 @@
 				96E479CD28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift */,
 				96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */,
 				967EDB1C2891579700963A7E /* ArtifactViewModel.swift */,
+				96D1F8E128928325001657E8 /* SearchableCodeArtifact.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				966D581D2544A9490016C8D0 /* CodeFolder.swift in Sources */,
 				967EDB212891599900963A7E /* CodeFileArtifact+AddSymbols.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,
+				96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */,
 				96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */,
 				967EDB2C28915CB800963A7E /* CodeSymbolArtifact+Sort.swift in Sources */,
 				96E479CC28359ABA00762FD7 /* ArtifactViewModel+Search.swift in Sources */,

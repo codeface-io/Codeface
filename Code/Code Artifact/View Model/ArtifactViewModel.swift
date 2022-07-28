@@ -134,7 +134,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     nonisolated var id: String { codeArtifact.id }
     
-    nonisolated var codeArtifact: any CodeArtifact
+    nonisolated var codeArtifact: any SearchableCodeArtifact
     {
         switch kind
         {

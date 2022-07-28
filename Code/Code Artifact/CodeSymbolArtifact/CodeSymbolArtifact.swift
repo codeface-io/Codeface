@@ -2,22 +2,9 @@ import SwiftLSP
 import Foundation
 import SwiftyToolz
 
-extension CodeSymbolArtifact
+extension CodeSymbolArtifact: CodeArtifact
 {
     static var kindNames: [String] { LSPDocumentSymbol.SymbolKind.names }
-    
-    func contains(line: Int) -> Bool
-    {
-        line >= range.start.line && line <= range.end.line
-    }
-}
-
-extension CodeSymbolArtifact
-{
-    var positionInFile: Int
-    {
-        range.start.line
-    }
     
     var kindName: String { kind?.name ?? "Unknown Kind of Symbol" }
 }
