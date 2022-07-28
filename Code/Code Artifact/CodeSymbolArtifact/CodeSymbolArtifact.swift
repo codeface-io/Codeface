@@ -39,6 +39,7 @@ class CodeSymbolArtifact: Identifiable, ObservableObject
     
     enum Scope
     {
+        // TODO: these concrete type scopes create dependence cycles
         case file(Weak<CodeFileArtifact>)
         case symbol(Weak<CodeSymbolArtifact>)
     }
