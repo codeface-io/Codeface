@@ -161,37 +161,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		967EDB2228915A6B00963A7E /* CodeSymbolArtifact */ = {
+		967EDB2228915A6B00963A7E /* Add Symbols */ = {
 			isa = PBXGroup;
 			children = (
-				967EDB2B28915CB800963A7E /* CodeSymbolArtifact+Sort.swift */,
-				967EDB2528915B2300963A7E /* CodeSymbolArtifact+GenerateMetrics.swift */,
-				967EDB1E289158CC00963A7E /* CodeSymbolArtifact+AddSymbols.swift */,
-				967EDB162891570900963A7E /* CodeSymbolArtifact.swift */,
-			);
-			path = CodeSymbolArtifact;
-			sourceTree = "<group>";
-		};
-		967EDB2328915A8400963A7E /* CodeFileArtifact */ = {
-			isa = PBXGroup;
-			children = (
-				967EDB2D28915D2500963A7E /* CodeFileArtifact+Sort.swift */,
-				967EDB2728915B5500963A7E /* CodeFileArtifact+GenerateMetrics.swift */,
+				965F76DB2829D69900FB1D4F /* CodeFolderArtifact+AddSymbols.swift */,
 				967EDB202891599900963A7E /* CodeFileArtifact+AddSymbols.swift */,
-				967EDB182891573300963A7E /* CodeFileArtifact.swift */,
+				967EDB1E289158CC00963A7E /* CodeSymbolArtifact+AddSymbols.swift */,
 			);
-			path = CodeFileArtifact;
+			path = "Add Symbols";
 			sourceTree = "<group>";
 		};
-		967EDB2428915A9800963A7E /* CodeFolderArtifact */ = {
+		967EDB2328915A8400963A7E /* Generate Metrics */ = {
+			isa = PBXGroup;
+			children = (
+				967EDB2928915B8300963A7E /* CodeFolderArtifact+GenerateMetrics.swift */,
+				967EDB2728915B5500963A7E /* CodeFileArtifact+GenerateMetrics.swift */,
+				967EDB2528915B2300963A7E /* CodeSymbolArtifact+GenerateMetrics.swift */,
+			);
+			path = "Generate Metrics";
+			sourceTree = "<group>";
+		};
+		967EDB2428915A9800963A7E /* Sort */ = {
 			isa = PBXGroup;
 			children = (
 				967EDB2F28915D6E00963A7E /* CodeFolderArtifact+Sort.swift */,
-				967EDB2928915B8300963A7E /* CodeFolderArtifact+GenerateMetrics.swift */,
-				965F76DB2829D69900FB1D4F /* CodeFolderArtifact+AddSymbols.swift */,
-				967EDB1A2891575400963A7E /* CodeFolderArtifact.swift */,
+				967EDB2D28915D2500963A7E /* CodeFileArtifact+Sort.swift */,
+				967EDB2B28915CB800963A7E /* CodeSymbolArtifact+Sort.swift */,
 			);
-			path = CodeFolderArtifact;
+			path = Sort;
 			sourceTree = "<group>";
 		};
 		96865149283272D900087D80 /* Code Artifact */ = {
@@ -199,12 +196,8 @@
 			children = (
 				96E479D52835A53200762FD7 /* Views */,
 				96E479D72835A58800762FD7 /* View Model */,
-				96D1F8E32892AD2E001657E8 /* Add Dependencies */,
-				967EDB2428915A9800963A7E /* CodeFolderArtifact */,
-				967EDB2328915A8400963A7E /* CodeFileArtifact */,
-				967EDB2228915A6B00963A7E /* CodeSymbolArtifact */,
-				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
-				967EDB14289156DB00963A7E /* Metrics.swift */,
+				96D1F8EB2892B4D9001657E8 /* Processing Pipeline */,
+				96D1F8EA2892B4AA001657E8 /* Code Artifact Tree */,
 			);
 			path = "Code Artifact";
 			sourceTree = "<group>";
@@ -238,6 +231,29 @@
 				96D1F8E42892AD5F001657E8 /* CodeSymbolArtifact+AddDependencies.swift */,
 			);
 			path = "Add Dependencies";
+			sourceTree = "<group>";
+		};
+		96D1F8EA2892B4AA001657E8 /* Code Artifact Tree */ = {
+			isa = PBXGroup;
+			children = (
+				967EDB1A2891575400963A7E /* CodeFolderArtifact.swift */,
+				967EDB182891573300963A7E /* CodeFileArtifact.swift */,
+				967EDB162891570900963A7E /* CodeSymbolArtifact.swift */,
+				96D6B0F628283335009E6C42 /* CodeArtifact.swift */,
+				967EDB14289156DB00963A7E /* Metrics.swift */,
+			);
+			path = "Code Artifact Tree";
+			sourceTree = "<group>";
+		};
+		96D1F8EB2892B4D9001657E8 /* Processing Pipeline */ = {
+			isa = PBXGroup;
+			children = (
+				967EDB2428915A9800963A7E /* Sort */,
+				967EDB2328915A8400963A7E /* Generate Metrics */,
+				96D1F8E32892AD2E001657E8 /* Add Dependencies */,
+				967EDB2228915A6B00963A7E /* Add Symbols */,
+			);
+			path = "Processing Pipeline";
 			sourceTree = "<group>";
 		};
 		96E479D52835A53200762FD7 /* Views */ = {
