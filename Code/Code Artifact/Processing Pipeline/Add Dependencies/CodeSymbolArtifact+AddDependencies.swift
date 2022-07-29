@@ -92,18 +92,4 @@ extension CodeSymbolArtifact
         
         return self.range.contains(range) ? self : nil
     }
-    
-    func contains(_ otherSymbol: CodeSymbolArtifact) -> Bool
-    {
-        guard otherSymbol !== self else { return true }
-        
-        switch otherSymbol.scope
-        {
-        case .file:
-            return false
-        case .symbol(let weakOtherSymbolScope):
-            guard let otherSymbolScope = weakOtherSymbolScope.object else { return false }
-            return self === otherSymbolScope ? true : contains(otherSymbolScope)
-        }
-    }
 }

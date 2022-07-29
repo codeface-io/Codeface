@@ -10,7 +10,7 @@ extension CodeFileArtifact: CodeArtifact
 @MainActor
 class CodeFileArtifact: Identifiable, ObservableObject
 {
-    init(codeFile: CodeFile, scope: CodeFolderArtifact?)
+    init(codeFile: CodeFile, scope: CodeArtifact)
     {
         self.codeFile = codeFile
         self.scope = scope
@@ -22,7 +22,7 @@ class CodeFileArtifact: Identifiable, ObservableObject
     
     // Mark: - Tree Structure
     
-    weak var scope: CodeFolderArtifact?
+    weak var scope: CodeArtifact?
     
     var symbols = [CodeSymbolArtifact]()
     

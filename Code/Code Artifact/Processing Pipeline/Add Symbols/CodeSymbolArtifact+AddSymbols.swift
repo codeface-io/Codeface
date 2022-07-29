@@ -6,7 +6,7 @@ extension CodeSymbolArtifact
 {
     convenience init(lspDocSymbol: LSPDocumentSymbol,
                      codeFileLines: [String],
-                     scope: Scope,
+                     scope: CodeArtifact,
                      file: LSPDocumentUri,
                      server: LSP.ServerCommunicationHandler) async
     {
@@ -26,7 +26,7 @@ extension CodeSymbolArtifact
         {
             await subSymbols += CodeSymbolArtifact(lspDocSymbol: childLSPDocSymbol,
                                                    codeFileLines: codeFileLines,
-                                                   scope: .symbol(Weak(self)),
+                                                   scope: self,
                                                    file: file,
                                                    server: server)
         }

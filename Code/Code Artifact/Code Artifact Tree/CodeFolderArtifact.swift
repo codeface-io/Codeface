@@ -10,7 +10,7 @@ extension CodeFolderArtifact: CodeArtifact
 @MainActor
 class CodeFolderArtifact: Identifiable, ObservableObject
 {
-    init(codeFolder: CodeFolder, scope: CodeFolderArtifact?)
+    init(codeFolder: CodeFolder, scope: CodeArtifact?)
     {
         self.codeFolderURL = codeFolder.url
         self.scope = scope
@@ -32,7 +32,7 @@ class CodeFolderArtifact: Identifiable, ObservableObject
     
     // Mark: - Tree Structure
     
-    weak var scope: CodeFolderArtifact?
+    weak var scope: CodeArtifact?
     
     var subfolders = [CodeFolderArtifact]()
     var files = [CodeFileArtifact]()

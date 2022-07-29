@@ -18,7 +18,7 @@ extension CodeFileArtifact
         {
             symbols += await CodeSymbolArtifact(lspDocSymbol: lspDocSymbol,
                                                 codeFileLines: codeFile.lines,
-                                                scope: .file(Weak(self)),
+                                                scope: self,
                                                 file: codeFile.path,
                                                 server: server)
         }

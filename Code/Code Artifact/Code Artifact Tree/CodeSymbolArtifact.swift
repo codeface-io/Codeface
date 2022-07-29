@@ -19,7 +19,7 @@ class CodeSymbolArtifact: Identifiable, ObservableObject
          range: LSPRange,
          selectionRange: LSPRange,
          code: String,
-         scope: Scope)
+         scope: CodeArtifact)
     {
         self.name = name
         self.kind = kind
@@ -35,14 +35,7 @@ class CodeSymbolArtifact: Identifiable, ObservableObject
     
     // Mark: - Tree Structure
     
-    var scope: Scope
-    
-    enum Scope
-    {
-        // TODO: these concrete type scopes create dependence cycles
-        case file(Weak<CodeFileArtifact>)
-        case symbol(Weak<CodeSymbolArtifact>)
-    }
+    weak var scope: CodeArtifact?
     
     var subSymbols = [CodeSymbolArtifact]()
     
