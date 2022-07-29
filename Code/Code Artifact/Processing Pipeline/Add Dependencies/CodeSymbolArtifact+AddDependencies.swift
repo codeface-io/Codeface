@@ -41,15 +41,9 @@ extension CodeSymbolArtifact
                 continue
             }
             
-            guard referencingSymbolArtifact !== self else
-            {
-                // log(warning: "Found dependency of a symbol onto itself. Gonna ignore that")
-                continue
-            }
-            
             guard !referencingSymbolArtifact.contains(self) else
             {
-                // dependencies of containing symbols onto this one are already implicitly given by that containment (nesting)
+                // dependencies of containing symbols onto this one are already implicitly given by that containment (nesting) ... in this context, a symbol also contains itself
                 continue
             }
             
@@ -101,6 +95,8 @@ extension CodeSymbolArtifact
     
     func contains(_ otherSymbol: CodeSymbolArtifact) -> Bool
     {
+        guard otherSymbol !== self else { return true }
+        
         switch otherSymbol.scope
         {
         case .file:
