@@ -47,7 +47,11 @@ extension CodeSymbolArtifact
                 continue
             }
             
-            // TDOD: also filter out dependencies of symbols onto symbols they contain (at whatever recursion depth)
+            guard !referencingSymbolArtifact.contains(self) else
+            {
+                // dependencies of containing symbols onto this one are already implicitly given by that containment (nesting)
+                continue
+            }
             
             // TODO: further weirdness (?) of sourcekit-lsp: ist suggests that any usage of a type amounts to a reference to every extension of that type, which is simply not true ... it even suggests that different extensions of the same type are references of each other ... seems like it does not really find references of that specific symbol but just all references of the symbol's name (just string matching, no semantics) 🤦🏼‍♂️
             
@@ -94,6 +98,18 @@ extension CodeSymbolArtifact
         
         return self.range.contains(range) ? self : nil
     }
+    
+    func contains(_ otherSymbol: CodeSymbolArtifact) -> Bool
+    {
+        switch otherSymbol.scope
+        {
+        case .file:
+            return false
+        case .symbol(let weakOtherSymbolScope):
+            guard let otherSymbolScope = weakOtherSymbolScope.object else { return false }
+            return self === otherSymbolScope ? true : contains(otherSymbolScope)
+        }
+    }
 }
 
 extension LSPRange
@@ -111,3 +127,4 @@ extension LSPRange
         return true
     }
 }
+
