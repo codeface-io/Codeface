@@ -61,7 +61,7 @@ extension CodeSymbolArtifact
     }
 }
 
-extension CodeFileArtifact
+private extension CodeFileArtifact
 {
     func findSymbolArtifact(containing range: LSPRange) -> CodeSymbolArtifact?
     {
@@ -77,7 +77,7 @@ extension CodeFileArtifact
     }
 }
 
-extension CodeSymbolArtifact
+private extension CodeSymbolArtifact
 {
     func findSymbolArtifact(containing range: LSPRange) -> CodeSymbolArtifact?
     {
