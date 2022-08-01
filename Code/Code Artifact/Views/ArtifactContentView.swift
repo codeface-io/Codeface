@@ -66,9 +66,9 @@ extension ArtifactViewModel
 {
     func connectionPoint(to otherArtifact: ArtifactViewModel) -> CGPoint
     {
-        let x = otherArtifact.frameInScopeContent.x > frameInScopeContent.maxX ? frameInScopeContent.maxX : (otherArtifact.frameInScopeContent.maxX < frameInScopeContent.x ? frameInScopeContent.x : frameInScopeContent.centerX)
+        let x = otherArtifact.frameInScopeContent.centerX > frameInScopeContent.maxX ? frameInScopeContent.maxX : (otherArtifact.frameInScopeContent.centerX < frameInScopeContent.x ? frameInScopeContent.x : frameInScopeContent.centerX)
         
-        let y = otherArtifact.frameInScopeContent.y > frameInScopeContent.maxY ? frameInScopeContent.maxY : (otherArtifact.frameInScopeContent.maxY < frameInScopeContent.y ? frameInScopeContent.y : frameInScopeContent.centerY)
+        let y = otherArtifact.frameInScopeContent.centerY > frameInScopeContent.maxY ? frameInScopeContent.maxY : (otherArtifact.frameInScopeContent.centerY < frameInScopeContent.y ? frameInScopeContent.y : frameInScopeContent.centerY)
         
         return CGPoint(x: x, y: y)
     }
