@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		960730B42897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */; };
+		960730B628982F3C008F1D7C /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B528982F3C008F1D7C /* Arrow.swift */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
 		962952B32826898000DC8620 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 962952B22826898000DC8620 /* LSPServiceKit */; };
@@ -87,6 +88,7 @@
 
 /* Begin PBXFileReference section */
 		960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+AddDependencies.swift"; sourceTree = "<group>"; };
+		960730B528982F3C008F1D7C /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
 		96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+PropertyWrapper.swift"; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				9EB8BA5C218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift */,
+				960730B528982F3C008F1D7C /* Arrow.swift */,
 				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
 				96E479E02835B92000762FD7 /* SwiftUI+Helpers.swift */,
 				96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */,
@@ -510,6 +513,7 @@
 				9EB8BA5D218E2CB5007ED4E7 /* FileManager+LoadingFiles.swift in Sources */,
 				96E863D42844335B00BCCE66 /* DisplayMode.swift in Sources */,
 				967EDB2A28915B8300963A7E /* CodeFolderArtifact+GenerateMetrics.swift in Sources */,
+				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
 				967EDB192891573300963A7E /* CodeFileArtifact.swift in Sources */,
 				967EDB2628915B2300963A7E /* CodeSymbolArtifact+GenerateMetrics.swift in Sources */,
 				96309ED12844EE0C00B0F9C5 /* ProjectConfigPersister.swift in Sources */,

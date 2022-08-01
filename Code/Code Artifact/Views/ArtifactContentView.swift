@@ -20,22 +20,9 @@ struct ArtifactContentView: View
 
                         if dependentVM.codeArtifact.scope === partVM.codeArtifact.scope
                         {
-                            let originPoint = dependentVM.connectionPoint(to: partVM)
-                            let destinationPoint = partVM.connectionPoint(to: dependentVM)
-                            
-                            Line(from: originPoint, to: destinationPoint)
-                            .stroke()
-                            .foregroundColor(artifactVM.showsContent ? .secondary : .clear)
-                            
-                            Circle()
-                                .frame(width: 10, height: 10)
-                                .foregroundColor(.red)
-                                .position(originPoint)
-                            
-                            Circle()
-                                .frame(width: 10, height: 10)
-                                .foregroundColor(.green)
-                                .position(destinationPoint)
+                            Arrow(from: dependentVM.connectionPoint(to: partVM),
+                                  to: partVM.connectionPoint(to: dependentVM))
+                            .foregroundColor(artifactVM.showsContent ? .primary : .clear)
                         }
                     }
                 }
