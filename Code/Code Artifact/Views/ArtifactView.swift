@@ -29,9 +29,10 @@ struct ArtifactView: View
             .position(x: artifact.frameInScopeContent.width / 2,
                       y: artifact.collapseVertically ? artifact.frameInScopeContent.height / 2 : ArtifactViewModel.padding + artifact.fontSize / 2)
             
-            ArtifactContentView(artifact: artifact,
-                                viewModel: viewModel,
-                                ignoreSearchFilter: ignoreSearchFilter)
+            ArtifactContentView(artifactVM: artifact,
+                                codeface: viewModel,
+                                ignoreSearchFilter: ignoreSearchFilter,
+                                bgBrightness: bgBrightness)
             .frame(width: artifact.contentFrame.width,
                    height: artifact.contentFrame.height)
             .position(x: artifact.contentFrame.centerX,
@@ -42,9 +43,9 @@ struct ArtifactView: View
         .frame(width: artifact.frameInScopeContent.width,
                height: artifact.frameInScopeContent.height)
         .background(RoundedRectangle(cornerRadius: 5)
-            .fill(Color.primary.opacity(0.1))
+            .fill(Color(white: bgBrightness))
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(isHovering ? Color.accentColor : Color.clear,
+                .strokeBorder(isHovering ? Color.accentColor : .secondary.opacity(0.25),
                               antialiased: true)))
         .onHover
         {
@@ -65,4 +66,5 @@ struct ArtifactView: View
     let viewModel: Codeface
     let ignoreSearchFilter: Bool
     @State var isHovering: Bool = false
+    let bgBrightness: Double
 }

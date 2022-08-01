@@ -10,21 +10,34 @@ struct ArtifactContentView: View
             
             ZStack
             {
-                if artifact.filteredParts.count > 1
+                ForEach(artifactVM.filteredParts)
                 {
-                    Line(from: .init(x: artifact.filteredParts[0].frameInScopeContent.centerX,
-                                     y: artifact.filteredParts[0].frameInScopeContent.centerY),
-                         to: .init(x: artifact.filteredParts[1].frameInScopeContent.centerX,
-                                   y: artifact.filteredParts[1].frameInScopeContent.centerY))
-                    .stroke(lineWidth: 10)
-                    .foregroundColor(.black)
+                    partVM in
+                    
+                    ForEach(partVM.incomingDependencies)
+                    {
+                        dependentVM in
+
+                        if dependentVM.codeArtifact.scope === partVM.codeArtifact.scope
+                        {
+                            Line(from: .init(x: partVM.frameInScopeContent.centerX,
+                                             y: partVM.frameInScopeContent.centerY),
+                                 to: .init(x: dependentVM.frameInScopeContent.centerX,
+                                           y: dependentVM.frameInScopeContent.centerY))
+                            .stroke()
+                            .foregroundColor(artifactVM.showsContent ? .secondary : .clear)
+                        }
+                    }
                 }
                 
-                ForEach(artifact.filteredParts)
-                {   
-                    ArtifactView(artifact: $0,
-                                 viewModel: viewModel,
-                                 ignoreSearchFilter: ignoreSearchFilter)
+                ForEach(artifactVM.filteredParts)
+                {
+                    partVM in
+                    
+                    ArtifactView(artifact: partVM,
+                                 viewModel: codeface,
+                                 ignoreSearchFilter: ignoreSearchFilter,
+                                 bgBrightness: bgBrightness * 1.2)
                 }
             }
             .frame(width: contentGeometry.size.width,
@@ -32,7 +45,8 @@ struct ArtifactContentView: View
         }
     }
     
-    @ObservedObject var artifact: ArtifactViewModel
-    let viewModel: Codeface
+    @ObservedObject var artifactVM: ArtifactViewModel
+    let codeface: Codeface
     let ignoreSearchFilter: Bool
+    let bgBrightness: Double
 }

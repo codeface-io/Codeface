@@ -23,6 +23,8 @@ extension CodeSymbolArtifact
         let refs = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
                                                       in: file)
         
+//        print("found \(refs.count) referencing lsp locations for symbol artifact")
+        
         for referencingLocation in refs
         {
             guard let referencingFileArtifact = hashMap[referencingLocation.uri] else
@@ -49,15 +51,15 @@ extension CodeSymbolArtifact
             
             // TODO: further weirdness (?) of sourcekit-lsp: ist suggests that any usage of a type amounts to a reference to every extension of that type, which is simply not true ... it even suggests that different extensions of the same type are references of each other ... seems like it does not really find references of that specific symbol but just all references of the symbol's name (just string matching, no semantics) 🤦🏼‍♂️
             
-            /*
-            if referencingLocation.uri != file
-            {
-                print("found dependency between different files 🎉\nfrom \(referencingSymbolArtifact.name) of type \(referencingSymbolArtifact.kindName) on line \(referencingLocation.range.start.line) in \(referencingLocation.uri)\nonto \(name) of type \(kindName) on line \(positionInFile) in \(file)\n")
-            }
-             */
+//            if referencingLocation.uri != file
+//            {
+//                print("found dependency 🎉\nfrom \(referencingSymbolArtifact.name) of type \(referencingSymbolArtifact.kindName) on line \(referencingLocation.range.start.line) in \(referencingLocation.uri)\nonto \(name) of type \(kindName) on line \(positionInFile) in \(file)\n")
+//            }
             
             incomingDependencies += referencingSymbolArtifact
         }
+        
+//        print("did add \(incomingDependencies.count) incoming dependencies to symbol artifact")
     }
 }
 

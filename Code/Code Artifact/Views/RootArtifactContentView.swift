@@ -8,9 +8,10 @@ struct RootArtifactContentView: View
         {
             geo in
             
-            ArtifactContentView(artifact: artifact,
-                                viewModel: viewModel,
-                                ignoreSearchFilter: viewModel.isSearching)
+            ArtifactContentView(artifactVM: artifact,
+                                codeface: viewModel,
+                                ignoreSearchFilter: viewModel.isSearching,
+                                bgBrightness: 0.15)
             .onChange(of: geo.size)
             {
                 size in
