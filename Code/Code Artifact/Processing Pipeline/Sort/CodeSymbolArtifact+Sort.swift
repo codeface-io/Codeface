@@ -7,7 +7,27 @@ extension CodeSymbolArtifact
             subSymbol.sort()
         }
         
-        subSymbols.sort { $0.positionInFile < $1.positionInFile }
+        subSymbols.sort
+        {
+            a, b in
+            
+            let dependenciesBToA = a.incomingDependencies.filter
+            {
+                dependentSymbol in dependentSymbol === b
+            }.count
+            
+            let dependenciesAToB = b.incomingDependencies.filter
+            {
+                dependentSymbol in dependentSymbol === a
+            }.count
+            
+            if dependenciesAToB != dependenciesBToA
+            {
+                return dependenciesAToB > dependenciesBToA
+            }
+            
+            return a.incomingDependencies.count > b.incomingDependencies.count
+        }
     }
 }
 
