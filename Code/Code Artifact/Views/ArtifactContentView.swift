@@ -20,12 +20,22 @@ struct ArtifactContentView: View
 
                         if dependentVM.codeArtifact.scope === partVM.codeArtifact.scope
                         {
-                            Line(from: .init(x: partVM.frameInScopeContent.centerX,
-                                             y: partVM.frameInScopeContent.centerY),
-                                 to: .init(x: dependentVM.frameInScopeContent.centerX,
-                                           y: dependentVM.frameInScopeContent.centerY))
+                            let originPoint = dependentVM.connectionPoint(to: partVM)
+                            let destinationPoint = partVM.connectionPoint(to: dependentVM)
+                            
+                            Line(from: originPoint, to: destinationPoint)
                             .stroke()
                             .foregroundColor(artifactVM.showsContent ? .secondary : .clear)
+                            
+                            Circle()
+                                .frame(width: 10, height: 10)
+                                .foregroundColor(.red)
+                                .position(originPoint)
+                            
+                            Circle()
+                                .frame(width: 10, height: 10)
+                                .foregroundColor(.green)
+                                .position(destinationPoint)
                         }
                     }
                 }
@@ -50,4 +60,16 @@ struct ArtifactContentView: View
     let ignoreSearchFilter: Bool
     let bgBrightness: Double
     @Environment(\.colorScheme) var colorScheme
+}
+
+extension ArtifactViewModel
+{
+    func connectionPoint(to otherArtifact: ArtifactViewModel) -> CGPoint
+    {
+        let x = otherArtifact.frameInScopeContent.x > frameInScopeContent.maxX ? frameInScopeContent.maxX : (otherArtifact.frameInScopeContent.maxX < frameInScopeContent.x ? frameInScopeContent.x : frameInScopeContent.centerX)
+        
+        let y = otherArtifact.frameInScopeContent.y > frameInScopeContent.maxY ? frameInScopeContent.maxY : (otherArtifact.frameInScopeContent.maxY < frameInScopeContent.y ? frameInScopeContent.y : frameInScopeContent.centerY)
+        
+        return CGPoint(x: x, y: y)
+    }
 }

@@ -117,6 +117,9 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         var x: Double { centerX - width / 2 }
         var y: Double { centerY - height / 2 }
         
+        var maxX: Double { centerX + width / 2 }
+        var maxY: Double { centerY + height / 2 }
+        
         let centerX: Double
         let centerY: Double
         let width: Double
