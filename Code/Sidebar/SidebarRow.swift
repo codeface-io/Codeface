@@ -75,11 +75,13 @@ struct TreeMap: View
             RootArtifactContentView(artifact: artifact,
                                     viewModel: viewModel)
             .padding(ArtifactViewModel.padding)
+            .background(Color(white: colorScheme == .dark ? 0 : 0.6))
         }
     }
     
     let artifact: ArtifactViewModel
     @ObservedObject var viewModel: Codeface
+    @Environment(\.colorScheme) var colorScheme
 }
 
 struct CodeView: View

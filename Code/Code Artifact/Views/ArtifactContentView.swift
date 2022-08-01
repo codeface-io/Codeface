@@ -37,7 +37,7 @@ struct ArtifactContentView: View
                     ArtifactView(artifact: partVM,
                                  viewModel: codeface,
                                  ignoreSearchFilter: ignoreSearchFilter,
-                                 bgBrightness: bgBrightness * 1.2)
+                                 bgBrightness: min(bgBrightness + 0.1, 1))
                 }
             }
             .frame(width: contentGeometry.size.width,
@@ -49,4 +49,5 @@ struct ArtifactContentView: View
     let codeface: Codeface
     let ignoreSearchFilter: Bool
     let bgBrightness: Double
+    @Environment(\.colorScheme) var colorScheme
 }

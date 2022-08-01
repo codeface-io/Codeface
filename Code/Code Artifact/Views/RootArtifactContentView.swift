@@ -11,7 +11,7 @@ struct RootArtifactContentView: View
             ArtifactContentView(artifactVM: artifact,
                                 codeface: viewModel,
                                 ignoreSearchFilter: viewModel.isSearching,
-                                bgBrightness: 0.15)
+                                bgBrightness: colorScheme == .dark ? 0 : 0.6)
             .onChange(of: geo.size)
             {
                 size in
@@ -44,4 +44,5 @@ struct RootArtifactContentView: View
     
     let artifact: ArtifactViewModel
     @ObservedObject var viewModel: Codeface
+    @Environment(\.colorScheme) var colorScheme
 }

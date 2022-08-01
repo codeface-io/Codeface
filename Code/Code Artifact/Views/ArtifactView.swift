@@ -45,7 +45,7 @@ struct ArtifactView: View
         .background(RoundedRectangle(cornerRadius: 5)
             .fill(Color(white: bgBrightness))
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(isHovering ? Color.accentColor : .secondary.opacity(0.25),
+                .strokeBorder(isHovering ? Color.accentColor : .primary.opacity(0.25),
                               antialiased: true)))
         .onHover
         {
