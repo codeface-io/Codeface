@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960730B42897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
 		962952B32826898000DC8620 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 962952B22826898000DC8620 /* LSPServiceKit */; };
@@ -85,6 +86,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+AddDependencies.swift"; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
 		96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+PropertyWrapper.swift"; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			children = (
 				96E479CD28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift */,
 				96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */,
+				960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */,
 				967EDB1C2891579700963A7E /* ArtifactViewModel.swift */,
 				96D1F8E128928325001657E8 /* SearchableCodeArtifact.swift */,
 			);
@@ -496,6 +499,7 @@
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
 				96309ECF2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift in Sources */,
 				96446C1A2829343600B347EF /* Codeface.swift in Sources */,
+				960730B42897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift in Sources */,
 				967EDB3028915D6E00963A7E /* CodeFolderArtifact+Sort.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				966D582A2544D16D0016C8D0 /* CodeFolder+CustomstringConvertible.swift in Sources */,

@@ -34,22 +34,22 @@ class Project
                 let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder,
                                                       scope: nil)
                 
-                do
-                {
-                    let (server, initialization) = try getServerAndServerInitialization()
-                    try await initialization.assumeSuccess()
-                    try await rootArtifact.addSymbolArtifacts(using: server)
-                    try await rootArtifact.addDependencies(using: server)
-                }
-                catch
-                {
-                    log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
-                }
+//                do
+//                {
+//                    let (server, initialization) = try getServerAndServerInitialization()
+//                    try await initialization.assumeSuccess()
+//                    try await rootArtifact.addSymbolArtifacts(using: server)
+//                    try await rootArtifact.addDependencies(using: server)
+//                }
+//                catch
+//                {
+//                    log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
+//                }
                 
                 rootArtifact.generateMetrics()
                 rootArtifact.sort()
-                let rootArtifactPresentation = ArtifactViewModel(folderArtifact: rootArtifact)
-                self.analysisState = .succeeded(rootArtifactPresentation)
+                let rootVM = ArtifactViewModel(folderArtifact: rootArtifact).addDependencies()
+                self.analysisState = .succeeded(rootVM)
             }
             catch
             {

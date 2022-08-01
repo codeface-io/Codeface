@@ -130,6 +130,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     // Mark: - Basics
     
+    var incomingDependencies = [ArtifactViewModel]()
     let parts: [ArtifactViewModel]
     
     nonisolated var id: String { codeArtifact.id }

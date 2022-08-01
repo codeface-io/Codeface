@@ -1,3 +1,5 @@
+import SwiftyToolz
+
 extension CodeArtifact
 {
     var linesOfCode: Int
@@ -11,6 +13,12 @@ extension CodeArtifact
         guard let otherArtifactScope = otherArtifact.scope else { return false }
         return self === otherArtifactScope ? true : contains(otherArtifactScope)
     }
+}
+
+extension CodeArtifact
+{
+    var hash: Hash { SwiftyToolz.hashValue(self) }
+    typealias Hash = SwiftyToolz.HashValue
 }
 
 protocol CodeArtifact: AnyObject
