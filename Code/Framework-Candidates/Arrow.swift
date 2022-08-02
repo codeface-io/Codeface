@@ -12,9 +12,9 @@ struct Arrow: View
     
     var body: some View
     {
-        Line(from: a, to: b).stroke()
-        Line(from: c.0, to: b).stroke()
-        Line(from: c.1, to: b).stroke()
+        Line(from: a, to: b).stroke(lineWidth: 3)
+        Line(from: c.0, to: b).stroke(lineWidth: 3)
+        Line(from: c.1, to: b).stroke(lineWidth: 3)
     }
     
     let a, b: CGPoint

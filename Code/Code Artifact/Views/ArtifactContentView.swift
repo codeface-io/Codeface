@@ -14,6 +14,16 @@ struct ArtifactContentView: View
                 {
                     partVM in
                     
+                    ArtifactView(artifact: partVM,
+                                 viewModel: codeface,
+                                 ignoreSearchFilter: ignoreSearchFilter,
+                                 bgBrightness: min(bgBrightness + 0.1, 1))
+                }
+                
+                ForEach(artifactVM.filteredParts)
+                {
+                    partVM in
+                    
                     ForEach(partVM.incomingDependencies)
                     {
                         dependentVM in
@@ -22,19 +32,9 @@ struct ArtifactContentView: View
                         {
                             Arrow(from: dependentVM.connectionPoint(to: partVM),
                                   to: partVM.connectionPoint(to: dependentVM))
-                            .foregroundColor(artifactVM.showsContent ? .primary : .clear)
+                            .foregroundColor(artifactVM.showsContent ? .primary.opacity(0.33) : .clear)
                         }
                     }
-                }
-                
-                ForEach(artifactVM.filteredParts)
-                {
-                    partVM in
-                    
-                    ArtifactView(artifact: partVM,
-                                 viewModel: codeface,
-                                 ignoreSearchFilter: ignoreSearchFilter,
-                                 bgBrightness: min(bgBrightness + 0.1, 1))
                 }
             }
             .frame(width: contentGeometry.size.width,
