@@ -17,24 +17,7 @@ extension CodeFileArtifact
     func generateDependencyMetrics()
     {
         guard !symbols.isEmpty else { return }
-        
         symbols.forEach { $0.generateDependencyMetrics() }
-        
-        // find components within scope
-        let inScopeComponents = findComponents(in: symbols)
-        {
-            $0.incomingDependenciesScope + $0.outgoingDependenciesScope
-        }
-        
-        // write component numbers to symbol metrics
-        for componentNumber in inScopeComponents.indices
-        {
-            let component = inScopeComponents[componentNumber]
-            
-            for symbol in component
-            {
-                symbol.metrics.componentNumber = componentNumber
-            }
-        }
+        generateDependencyMetricsInScope(with: symbols)
     }
 }

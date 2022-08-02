@@ -21,24 +21,43 @@ extension CodeSymbolArtifact
     func generateDependencyMetrics()
     {
         guard !subSymbols.isEmpty else { return }
-        
         subSymbols.forEach { $0.generateDependencyMetrics() }
+        generateDependencyMetricsInScope(with: subSymbols)
+    }
+}
+
+@MainActor
+func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact])
+{
+    // find components within scope
+    let inScopeComponents = findComponents(in: symbols)
+    {
+        $0.incomingDependenciesScope + $0.outgoingDependenciesScope
+    }
+    
+    // sort components based on their external dependencies
+    var componentsAndDependencyDiff: [(SymbolSet, Int)] = inScopeComponents.map
+    {
+        component in
         
-        // find components within scope
-        let inScopeComponents = findComponents(in: subSymbols)
+        let componentDependencyDiffExternal = component.reduce(0)
         {
-            $0.incomingDependenciesScope + $0.outgoingDependenciesScope
+            $0 + $1.dependencyDifferenceExternal
         }
         
-        // write component numbers to subsymbol metrics
-        for componentNumber in inScopeComponents.indices
+        return (component, componentDependencyDiffExternal)
+    }
+    
+    componentsAndDependencyDiff.sort { $0.1 < $1.1 }
+    
+    // write component numbers to subsymbol metrics
+    for componentNumber in componentsAndDependencyDiff.indices
+    {
+        let component = componentsAndDependencyDiff[componentNumber].0
+        
+        for symbol in component
         {
-            let component = inScopeComponents[componentNumber]
-            
-            for symbol in component
-            {
-                symbol.metrics.componentNumber = componentNumber
-            }
+            symbol.metrics.componentNumber = componentNumber
         }
     }
 }
