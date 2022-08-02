@@ -1,3 +1,4 @@
+import CodefaceCore
 import SwiftyToolz
 
 extension ArtifactViewModel

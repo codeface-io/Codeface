@@ -1,3 +1,4 @@
+import CodefaceCore
 import SwiftyToolz
 
 extension CodeSymbolArtifact
@@ -110,12 +111,12 @@ typealias SymbolSet = Set<CodeSymbolArtifact>
 
 extension CodeSymbolArtifact: Hashable
 {
-    static func == (lhs: CodeSymbolArtifact, rhs: CodeSymbolArtifact) -> Bool
+    public static func == (lhs: CodeSymbolArtifact, rhs: CodeSymbolArtifact) -> Bool
     {
         lhs === rhs
     }
     
-    func hash(into hasher: inout Hasher)
+    public func hash(into hasher: inout Hasher)
     {
         hasher.combine(ObjectIdentifier(self))
     }

@@ -1,3 +1,5 @@
+import CodefaceCore
+
 extension CodeFolderArtifact: SearchableCodeArtifact
 {
     func contains(fileLine: Int) -> Bool { false }

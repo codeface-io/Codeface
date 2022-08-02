@@ -1,6 +1,6 @@
 extension CodeFolder: CustomStringConvertible
 {
-    var description: String
+    public var description: String
     {
         description(withPrefix: "")
     }

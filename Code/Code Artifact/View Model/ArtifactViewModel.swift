@@ -1,3 +1,4 @@
+import CodefaceCore
 import SwiftUI
 import SwiftLSP
 import Foundation

@@ -2,15 +2,15 @@ import Foundation
 
 extension CodeFolderArtifact: CodeArtifact
 {
-    var name: String { codeFolderURL.lastPathComponent }
-    var kindName: String { "Folder" }
-    var code: String? { nil }
+    public var name: String { codeFolderURL.lastPathComponent }
+    public var kindName: String { "Folder" }
+    public var code: String? { nil }
 }
 
 @MainActor
-class CodeFolderArtifact: Identifiable, ObservableObject
+public class CodeFolderArtifact: Identifiable, ObservableObject
 {
-    init(codeFolder: CodeFolder, scope: CodeArtifact?)
+    public init(codeFolder: CodeFolder, scope: CodeArtifact?)
     {
         self.codeFolderURL = codeFolder.url
         self.scope = scope
@@ -28,17 +28,17 @@ class CodeFolderArtifact: Identifiable, ObservableObject
     
     // Mark: - Metrics
     
-    var metrics = Metrics()
+    public var metrics = Metrics()
     
     // Mark: - Tree Structure
     
-    weak var scope: CodeArtifact?
+    public weak var scope: CodeArtifact?
     
-    var subfolders = [CodeFolderArtifact]()
-    var files = [CodeFileArtifact]()
+    public var subfolders = [CodeFolderArtifact]()
+    public var files = [CodeFileArtifact]()
     
     // Mark: - Basics
     
-    let id = UUID().uuidString
-    let codeFolderURL: URL
+    public let id = UUID().uuidString
+    public let codeFolderURL: URL
 }

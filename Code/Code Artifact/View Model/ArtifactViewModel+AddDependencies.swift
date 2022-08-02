@@ -1,3 +1,5 @@
+import CodefaceCore
+
 extension ArtifactViewModel
 {
     func addDependencies() -> ArtifactViewModel

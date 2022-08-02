@@ -1,3 +1,4 @@
+import CodefaceCore
 import SwiftUI
 import AppKit
 import SwiftObserver

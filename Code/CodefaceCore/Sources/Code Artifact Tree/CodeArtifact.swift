@@ -1,6 +1,6 @@
 import SwiftyToolz
 
-extension CodeArtifact
+public extension CodeArtifact
 {
     var linesOfCode: Int
     {
@@ -15,13 +15,13 @@ extension CodeArtifact
     }
 }
 
-extension CodeArtifact
+public extension CodeArtifact
 {
     var hash: Hash { SwiftyToolz.hashValue(self) }
     typealias Hash = SwiftyToolz.HashValue
 }
 
-protocol CodeArtifact: AnyObject
+public protocol CodeArtifact: AnyObject
 {
     var metrics: Metrics { get }
     

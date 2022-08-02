@@ -1,3 +1,4 @@
+import CodefaceCore
 import LSPServiceKit
 import SwiftLSP
 import FoundationToolz

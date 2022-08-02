@@ -1,3 +1,4 @@
+import CodefaceCore
 import Foundation
 
 extension ArtifactViewModel

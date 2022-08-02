@@ -1,3 +1,5 @@
+import CodefaceCore
+
 extension CodeFileArtifact
 {
     func generateSizeMetrics()
