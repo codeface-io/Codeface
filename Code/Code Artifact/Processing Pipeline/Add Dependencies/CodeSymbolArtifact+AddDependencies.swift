@@ -56,7 +56,18 @@ extension CodeSymbolArtifact
 //                print("found dependency 🎉\nfrom \(referencingSymbolArtifact.name) of type \(referencingSymbolArtifact.kindName) on line \(referencingLocation.range.start.line) in \(referencingLocation.uri)\nonto \(name) of type \(kindName) on line \(positionInFile) in \(file)\n")
 //            }
             
-            incomingDependencies += referencingSymbolArtifact
+            if scope === referencingSymbolArtifact.scope
+            {
+                // dependency within same scope (between siblings)
+                incomingDependenciesScope += referencingSymbolArtifact
+                referencingSymbolArtifact.outgoingDependenciesScope += self
+            }
+            else
+            {
+                // across different scopes
+                incomingDependenciesExternal += referencingSymbolArtifact
+                referencingSymbolArtifact.outgoingDependenciesExternal += self
+            }
         }
         
 //        print("did add \(incomingDependencies.count) incoming dependencies to symbol artifact")

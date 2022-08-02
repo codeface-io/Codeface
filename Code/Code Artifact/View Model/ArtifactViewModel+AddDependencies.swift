@@ -17,7 +17,7 @@ extension ArtifactViewModel
             
 //            print("found view model for symbol with \(symbol.incomingDependencies.count) incoming dependencies")
             
-            vm.incomingDependencies = symbol.incomingDependencies.compactMap
+            vm.incomingDependencies += symbol.incomingDependenciesScope.compactMap
             {
                 viewModelHashMap[$0.hash]
             }

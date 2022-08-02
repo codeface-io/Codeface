@@ -112,6 +112,7 @@
 		967EDB2B28915CB800963A7E /* CodeSymbolArtifact+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeSymbolArtifact+Sort.swift"; sourceTree = "<group>"; };
 		967EDB2D28915D2500963A7E /* CodeFileArtifact+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileArtifact+Sort.swift"; sourceTree = "<group>"; };
 		967EDB2F28915D6E00963A7E /* CodeFolderArtifact+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+Sort.swift"; sourceTree = "<group>"; };
+		969EF681289923CE00FC4238 /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
 		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceAppDelegate.swift; sourceTree = "<group>"; };
 		96C87382285495D300C9D39A /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
@@ -334,6 +335,7 @@
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
+				969EF681289923CE00FC4238 /* SwiftyToolz */,
 				96C87382285495D300C9D39A /* SwiftLSP */,
 				9E00727A218E250E0094BD1C /* Code */,
 				9E95A705218C73C7009A58A9 /* Codeface */,

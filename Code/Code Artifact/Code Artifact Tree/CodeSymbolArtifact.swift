@@ -48,5 +48,19 @@ class CodeSymbolArtifact: Identifiable, ObservableObject
     let selectionRange: LSPRange
     let code: String?
     
-    var incomingDependencies = [CodeSymbolArtifact]()
+    var dependencyDifferenceScope: Int
+    {
+        outgoingDependenciesScope.count - incomingDependenciesScope.count
+    }
+    
+    var incomingDependenciesScope = [CodeSymbolArtifact]()
+    var outgoingDependenciesScope = [CodeSymbolArtifact]()
+    
+    var dependencyDifferenceExternal: Int
+    {
+        outgoingDependenciesExternal.count - incomingDependenciesExternal.count
+    }
+    
+    var incomingDependenciesExternal = [CodeSymbolArtifact]()
+    var outgoingDependenciesExternal = [CodeSymbolArtifact]()
 }

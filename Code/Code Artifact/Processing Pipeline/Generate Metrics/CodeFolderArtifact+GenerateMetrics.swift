@@ -2,8 +2,14 @@ extension CodeFolderArtifact
 {
     func generateMetrics()
     {
-        subfolders.forEach { $0.generateMetrics() }
-        files.forEach { $0.generateMetrics() }
+        generateSizeMetrics()
+        generateDependencyMetrics()
+    }
+    
+    private func generateSizeMetrics()
+    {
+        subfolders.forEach { $0.generateSizeMetrics() }
+        files.forEach { $0.generateSizeMetrics() }
             
         let locOfSubfolders = subfolders.reduce(0) { $0 + $1.linesOfCode }
         let locOfFiles = files.reduce(0) { $0 + $1.linesOfCode }
@@ -20,5 +26,11 @@ extension CodeFolderArtifact
         }
         
         metrics.linesOfCode = locOfAllParts
+    }
+    
+    private func generateDependencyMetrics()
+    {
+        subfolders.forEach { $0.generateDependencyMetrics() }
+        files.forEach { $0.generateDependencyMetrics() }
     }
 }
