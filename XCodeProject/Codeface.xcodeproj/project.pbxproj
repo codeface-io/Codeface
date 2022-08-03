@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9606D887289A4549002B71E5 /* Xcode14Experiments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9606D886289A4549002B71E5 /* Xcode14Experiments.swift */; };
 		960730B42897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */; };
 		960730B628982F3C008F1D7C /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B528982F3C008F1D7C /* Arrow.swift */; };
 		961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 961AAD652899C553001CFF67 /* CodefaceCore */; };
@@ -78,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9606D886289A4549002B71E5 /* Xcode14Experiments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xcode14Experiments.swift; sourceTree = "<group>"; };
 		960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+AddDependencies.swift"; sourceTree = "<group>"; };
 		960730B528982F3C008F1D7C /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
 		961AAD632899C3E6001CFF67 /* CodefaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CodefaceCore; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */,
 				964308A4254B7B070026E56C /* CodefaceView.swift */,
 				96446C192829343600B347EF /* Codeface.swift */,
+				9606D886289A4549002B71E5 /* Xcode14Experiments.swift */,
 			);
 			path = Codeface;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
 				96309ECF2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift in Sources */,
 				96446C1A2829343600B347EF /* Codeface.swift in Sources */,
+				9606D887289A4549002B71E5 /* Xcode14Experiments.swift in Sources */,
 				960730B42897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift in Sources */,
 				967EDB3028915D6E00963A7E /* CodeFolderArtifact+Sort.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
