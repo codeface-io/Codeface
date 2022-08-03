@@ -1,9 +1,8 @@
-import CodefaceCore
 import SwiftLSP
 import Foundation
 import SwiftyToolz
 
-extension CodeFolderArtifact
+public extension CodeFolderArtifact
 {
     func addSymbolArtifacts(using server: LSP.ServerCommunicationHandler) async throws
     {

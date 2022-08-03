@@ -1,4 +1,3 @@
-import CodefaceCore
 import SwiftyToolz
 
 extension CodeSymbolArtifact

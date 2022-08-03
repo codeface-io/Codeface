@@ -1,7 +1,6 @@
-import CodefaceCore
 import SwiftLSP
 
-extension CodeFolderArtifact
+public extension CodeFolderArtifact
 {
     func addDependencies(using server: LSP.ServerCommunicationHandler) async throws
     {

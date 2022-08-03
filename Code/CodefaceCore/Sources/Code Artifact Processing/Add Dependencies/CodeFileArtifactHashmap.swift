@@ -1,4 +1,3 @@
-import CodefaceCore
 import SwiftLSP
 
 @MainActor

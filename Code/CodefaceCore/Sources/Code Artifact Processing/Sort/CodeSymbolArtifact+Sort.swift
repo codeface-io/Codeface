@@ -1,5 +1,3 @@
-import CodefaceCore
-
 extension CodeSymbolArtifact
 {
     func sort()

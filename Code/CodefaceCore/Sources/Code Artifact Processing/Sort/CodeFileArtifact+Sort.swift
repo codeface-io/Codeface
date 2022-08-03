@@ -1,5 +1,3 @@
-import CodefaceCore
-
 extension CodeFileArtifact
 {
     func sort()

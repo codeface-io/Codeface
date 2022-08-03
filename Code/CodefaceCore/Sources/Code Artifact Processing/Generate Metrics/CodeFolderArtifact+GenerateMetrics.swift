@@ -1,6 +1,4 @@
-import CodefaceCore
-
-extension CodeFolderArtifact
+public extension CodeFolderArtifact
 {
     func generateMetrics()
     {
