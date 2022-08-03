@@ -28,7 +28,7 @@ struct Arrow: View
         
         let f = simd_normalize(a - b) // normalized vector pointing from b to a
         
-        let length = 12.0 // length of the arrow head
+        let length = 16.0 // length of the arrow head
         
         let d = b + (f * length)
         

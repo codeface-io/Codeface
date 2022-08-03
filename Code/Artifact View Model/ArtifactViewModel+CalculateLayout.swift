@@ -68,12 +68,18 @@ extension ArtifactViewModel
         // tree map algorithm
         let (partsA, partsB) = split(parts)
         
+        let lastComponentA = partsA.last?.codeArtifact.metrics.componentNumber
+        let firstComponentB = partsB.first?.codeArtifact.metrics.componentNumber
+        let isSplitBetweenComponents = lastComponentA == nil || firstComponentB == nil || lastComponentA != firstComponentB
+        
         let locA = partsA.reduce(0) { $0 + $1.codeArtifact.linesOfCode }
         let locB = partsB.reduce(0) { $0 + $1.codeArtifact.linesOfCode }
         
         let fractionA = Double(locA) / Double(locA + locB)
         
-        let properRectSplit = split(availableRect, firstFraction: fractionA)
+        let properRectSplit = split(availableRect,
+                                    firstFraction: fractionA,
+                                    smallGap: isSplitBetweenComponents)
         
         let rectSplitToUse = properRectSplit ?? forceSplit(availableRect)
         
@@ -113,7 +119,8 @@ extension ArtifactViewModel
     }
     
     func split(_ rect: CGRect,
-               firstFraction: Double) -> (CGRect, CGRect)?
+               firstFraction: Double,
+               smallGap: Bool) -> (CGRect, CGRect)?
     {
         let rectIsSmall = min(rect.width, rect.height) <= ArtifactViewModel.minWidth * 5
         let rectAspectRatio = rect.width / rect.height
@@ -121,15 +128,23 @@ extension ArtifactViewModel
         
         if tryLeftRightSplitFirst
         {
-            let result = splitIntoLeftAndRight(rect, firstFraction: firstFraction)
+            let result = splitIntoLeftAndRight(rect,
+                                               firstFraction: firstFraction,
+                                               smallGap: smallGap)
             
-            return result ?? splitIntoTopAndBottom(rect, firstFraction: firstFraction)
+            return result ?? splitIntoTopAndBottom(rect,
+                                                   firstFraction: firstFraction,
+                                                   smallGap: smallGap)
         }
         else
         {
-            let result = splitIntoTopAndBottom(rect, firstFraction: firstFraction)
+            let result = splitIntoTopAndBottom(rect,
+                                               firstFraction: firstFraction,
+                                               smallGap: smallGap)
             
-            return result ?? splitIntoLeftAndRight(rect, firstFraction: firstFraction)
+            return result ?? splitIntoLeftAndRight(rect,
+                                                   firstFraction: firstFraction,
+                                                   smallGap: smallGap)
         }
     }
     
@@ -167,25 +182,29 @@ extension ArtifactViewModel
         }
     }
     
-    func splitIntoLeftAndRight(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
+    func splitIntoLeftAndRight(_ rect: CGRect,
+                               firstFraction: Double,
+                               smallGap: Bool) -> (CGRect, CGRect)?
     {
-        if 2 * ArtifactViewModel.minWidth + ArtifactViewModel.padding > rect.width
+        let gap = smallGap ? ArtifactViewModel.padding : regularGap
+        
+        if 2 * ArtifactViewModel.minWidth + gap > rect.width
         {
             return nil
         }
         
-        var widthA = (rect.width - ArtifactViewModel.padding) * firstFraction
-        var widthB = (rect.width - widthA) - ArtifactViewModel.padding
+        var widthA = (rect.width - gap) * firstFraction
+        var widthB = (rect.width - widthA) - gap
         
         if widthA < ArtifactViewModel.minWidth
         {
             widthA = ArtifactViewModel.minWidth
-            widthB = (rect.width - ArtifactViewModel.minWidth) - ArtifactViewModel.padding
+            widthB = (rect.width - ArtifactViewModel.minWidth) - gap
         }
         else if widthB < ArtifactViewModel.minWidth
         {
             widthB = ArtifactViewModel.minWidth
-            widthA = (rect.width - ArtifactViewModel.minWidth) - ArtifactViewModel.padding
+            widthA = (rect.width - ArtifactViewModel.minWidth) - gap
         }
         
         let rectA = CGRect(x: rect.minX,
@@ -193,7 +212,7 @@ extension ArtifactViewModel
                            width: widthA,
                            height: rect.height)
         
-        let rectB = CGRect(x: (rect.minX + widthA) + ArtifactViewModel.padding,
+        let rectB = CGRect(x: (rect.minX + widthA) + gap,
                            y: rect.minY,
                            width: widthB,
                            height: rect.height)
@@ -201,25 +220,29 @@ extension ArtifactViewModel
         return (rectA, rectB)
     }
     
-    func splitIntoTopAndBottom(_ rect: CGRect, firstFraction: Double) -> (CGRect, CGRect)?
+    func splitIntoTopAndBottom(_ rect: CGRect,
+                               firstFraction: Double,
+                               smallGap: Bool) -> (CGRect, CGRect)?
     {
-        if 2 * ArtifactViewModel.minHeight + ArtifactViewModel.padding > rect.height
+        let gap = smallGap ? ArtifactViewModel.padding : regularGap
+        
+        if 2 * ArtifactViewModel.minHeight + gap > rect.height
         {
             return nil
         }
         
-        var heightA = (rect.height - ArtifactViewModel.padding) * firstFraction
-        var heightB = (rect.height - heightA) - ArtifactViewModel.padding
+        var heightA = (rect.height - gap) * firstFraction
+        var heightB = (rect.height - heightA) - gap
         
         if heightA < ArtifactViewModel.minHeight
         {
             heightA = ArtifactViewModel.minHeight
-            heightB = (rect.height - ArtifactViewModel.minHeight) - ArtifactViewModel.padding
+            heightB = (rect.height - ArtifactViewModel.minHeight) - gap
         }
         else if heightB < ArtifactViewModel.minHeight
         {
             heightB = ArtifactViewModel.minHeight
-            heightA = (rect.height - ArtifactViewModel.minHeight) - ArtifactViewModel.padding
+            heightA = (rect.height - ArtifactViewModel.minHeight) - gap
         }
         
         let rectA = CGRect(x: rect.minX,
@@ -228,10 +251,12 @@ extension ArtifactViewModel
                            height: heightA)
         
         let rectB = CGRect(x: rect.minX,
-                           y: (rect.minY + heightA) + ArtifactViewModel.padding,
+                           y: (rect.minY + heightA) + gap,
                            width: rect.width,
                            height: heightB)
         
         return (rectA, rectB)
     }
+    
+    private var regularGap: Double { ArtifactViewModel.padding * 2 }
 }

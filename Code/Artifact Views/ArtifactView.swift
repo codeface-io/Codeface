@@ -9,39 +9,39 @@ struct ArtifactView: View
         {
             HStack(alignment: .firstTextBaseline, spacing: 0)
             {
-                ArtifactIcon(artifact: artifact, isSelected: false)
+                ArtifactIcon(artifact: artifactVM, isSelected: false)
                 
-                Text(" " + artifact.codeArtifact.name)
-                    .frame(width: artifact.collapseHorizontally ? 0 : nil)
-                    .opacity(artifact.showsName ? 1 : 0)
-                    .foregroundColor((artifact.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)
+                Text(" " + artifactVM.codeArtifact.name)
+                    .frame(width: artifactVM.collapseHorizontally ? 0 : nil)
+                    .opacity(artifactVM.showsName ? 1 : 0)
+                    .foregroundColor((artifactVM.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)
                 
-                if !artifact.collapseHorizontally
+                if !artifactVM.collapseHorizontally
                 {
                     Spacer()
                 }
             }
-            .font(.system(size: artifact.fontSize,
+            .font(.system(size: artifactVM.fontSize,
                           weight: .medium,
-                          design: artifact.fontDesign))
-            .frame(width: artifact.frameInScopeContent.width - 2 * ArtifactViewModel.padding,
-                   height: artifact.collapseVertically ? artifact.frameInScopeContent.height - 2 * ArtifactViewModel.padding : artifact.fontSize)
-            .position(x: artifact.frameInScopeContent.width / 2,
-                      y: artifact.collapseVertically ? artifact.frameInScopeContent.height / 2 : ArtifactViewModel.padding + artifact.fontSize / 2)
+                          design: artifactVM.fontDesign))
+            .frame(width: artifactVM.frameInScopeContent.width - 2 * ArtifactViewModel.padding,
+                   height: artifactVM.collapseVertically ? artifactVM.frameInScopeContent.height - 2 * ArtifactViewModel.padding : artifactVM.fontSize)
+            .position(x: artifactVM.frameInScopeContent.width / 2,
+                      y: artifactVM.collapseVertically ? artifactVM.frameInScopeContent.height / 2 : ArtifactViewModel.padding + artifactVM.fontSize / 2)
             
-            ArtifactContentView(artifactVM: artifact,
+            ArtifactContentView(artifactVM: artifactVM,
                                 codeface: viewModel,
                                 ignoreSearchFilter: ignoreSearchFilter,
                                 bgBrightness: bgBrightness)
-            .frame(width: artifact.contentFrame.width,
-                   height: artifact.contentFrame.height)
-            .position(x: artifact.contentFrame.centerX,
-                      y: artifact.contentFrame.centerY)
-            .opacity(artifact.showsContent ? 1.0 : 0)
+            .frame(width: artifactVM.contentFrame.width,
+                   height: artifactVM.contentFrame.height)
+            .position(x: artifactVM.contentFrame.centerX,
+                      y: artifactVM.contentFrame.centerY)
+            .opacity(artifactVM.showsContent ? 1.0 : 0)
             
         }
-        .frame(width: artifact.frameInScopeContent.width,
-               height: artifact.frameInScopeContent.height)
+        .frame(width: artifactVM.frameInScopeContent.width,
+               height: artifactVM.frameInScopeContent.height)
         .background(RoundedRectangle(cornerRadius: 5)
             .fill(Color(white: bgBrightness))
             .overlay(RoundedRectangle(cornerRadius: 5)
@@ -52,17 +52,22 @@ struct ArtifactView: View
             if $0
             {
                 isHovering = true
+                artifactVM.isInFocus = true
             }
             else
             {
-                withAnimation(.easeInOut) { self.isHovering = false }
+                withAnimation(.easeInOut)
+                {
+                    self.isHovering = false
+                    artifactVM.isInFocus = false
+                }
             }
         }
-        .position(x: artifact.frameInScopeContent.centerX,
-                  y: artifact.frameInScopeContent.centerY)
+        .position(x: artifactVM.frameInScopeContent.centerX,
+                  y: artifactVM.frameInScopeContent.centerY)
     }
     
-    @ObservedObject var artifact: ArtifactViewModel
+    @ObservedObject var artifactVM: ArtifactViewModel
     let viewModel: Codeface
     let ignoreSearchFilter: Bool
     @State var isHovering: Bool = false

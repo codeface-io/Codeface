@@ -1,6 +1,5 @@
 import SwiftUI
 
-/// how to draw an arrow: https://stackoverflow.com/questions/48625763/how-to-draw-a-directional-arrow-head
 struct Line: Shape
 {
     var animatableData: AnimatablePair<CGPoint.AnimatableData, CGPoint.AnimatableData>

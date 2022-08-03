@@ -75,6 +75,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     // Mark: - UI
     
+    @Published var isInFocus = false
+    
     var showsName: Bool { frameInScopeContent.width - (2 * Self.padding + fontSize) >= 4 * fontSize }
     
     var collapseHorizontally: Bool { frameInScopeContent.width <= fontSize + (2 * Self.padding) }
