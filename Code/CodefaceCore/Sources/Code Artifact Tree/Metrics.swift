@@ -7,6 +7,6 @@ public struct Metrics
     
     // MARK: - Dependency "Ranking"
     
-    public var numberOfAllIncomingDependenciesInScope: Int = 0
+    public var numberOfAllIncomingDependenciesInScope: Int?
     public var componentNumber: Int?
 }

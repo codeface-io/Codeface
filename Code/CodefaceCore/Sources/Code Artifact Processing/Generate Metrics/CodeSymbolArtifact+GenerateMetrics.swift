@@ -63,6 +63,33 @@ func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact])
 }
 
 @MainActor
+func generateNumberOfAncestors(inComponent component: SymbolSet)
+{
+    var nodesToVisit = component
+    
+    while !nodesToVisit.isEmpty
+    {
+        nodesToVisit.first?.calculateNumberOfAncestors(nodesToVisit: &nodesToVisit)
+    }
+}
+
+extension CodeSymbolArtifact
+{
+    @MainActor
+    func calculateNumberOfAncestors(nodesToVisit: inout SymbolSet)
+    {
+        if nodesToVisit.contains(self) { return } else { nodesToVisit -= self }
+        
+        metrics.numberOfAllIncomingDependenciesInScope = incomingDependenciesScope.reduce(Int(0))
+        {
+            $1.calculateNumberOfAncestors(nodesToVisit: &nodesToVisit)
+            
+            return $0 + 1 + ($1.metrics.numberOfAllIncomingDependenciesInScope ?? 0)
+        }
+    }
+}
+
+@MainActor
 func findComponents(in symbols: [CodeSymbolArtifact],
                     getNeighbours: (CodeSymbolArtifact) -> [CodeSymbolArtifact]) -> [SymbolSet]
 {

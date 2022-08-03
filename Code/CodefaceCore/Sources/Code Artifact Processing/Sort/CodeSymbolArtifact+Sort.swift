@@ -11,6 +11,7 @@ extension CodeSymbolArtifact
         {
             a, b in
             
+            // different components?
             if let componentNumA = a.metrics.componentNumber,
                let componentNumB = b.metrics.componentNumber,
                componentNumA != componentNumB
@@ -18,29 +19,22 @@ extension CodeSymbolArtifact
                 return componentNumA < componentNumB
             }
             
-            let dependenciesBToA = a.incomingDependenciesScope.filter
+            // different topological rank?
+            if let ancestorsA  = a.metrics.numberOfAllIncomingDependenciesInScope,
+               let ancestorsB  = b.metrics.numberOfAllIncomingDependenciesInScope,
+               ancestorsA != ancestorsB
             {
-                dependentSymbol in dependentSymbol === b
-            }.count
-            
-            let dependenciesAToB = b.incomingDependenciesScope.filter
-            {
-                dependentSymbol in dependentSymbol === a
-            }.count
-            
-            if dependenciesAToB != dependenciesBToA
-            {
-                return dependenciesAToB > dependenciesBToA
+                return ancestorsA < ancestorsB
             }
             
             if a.dependencyDifferenceScope != b.dependencyDifferenceScope
             {
-                return a.dependencyDifferenceScope < b.dependencyDifferenceScope
+                return a.dependencyDifferenceScope > b.dependencyDifferenceScope
             }
             
             if a.dependencyDifferenceExternal != b.dependencyDifferenceExternal
             {
-                return a.dependencyDifferenceExternal < b.dependencyDifferenceExternal
+                return a.dependencyDifferenceExternal > b.dependencyDifferenceExternal
             }
             
             return a.positionInFile < b.positionInFile
