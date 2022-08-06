@@ -16,12 +16,13 @@ struct ArtifactContentView: View
                     
                     ForEach(partVM.incomingDependencies)
                     {
-                        dependentVM in
+                        dependingVM in
 
-                        if dependentVM.codeArtifact.scope === partVM.codeArtifact.scope
+                        if dependingVM.codeArtifact.scope === partVM.codeArtifact.scope
                         {
-                            Arrow(from: dependentVM.connectionPoint(to: partVM),
-                                  to: partVM.connectionPoint(to: dependentVM))
+                            let arrowPoints = dependingVM.pointsForDependency(to: partVM)
+                            
+                            Arrow(from: arrowPoints.0, to: arrowPoints.1)
                             .stroke(style: .init(lineWidth: 3, lineCap: .round))
                             .foregroundColor(artifactVM.showsContent ? .primary.opacity(0.5) : .clear)
                         }
@@ -52,12 +53,44 @@ struct ArtifactContentView: View
 
 extension ArtifactViewModel
 {
-    func connectionPoint(to otherArtifact: ArtifactViewModel) -> CGPoint
+    func pointsForDependency(to otherArtifact: ArtifactViewModel) -> (CGPoint, CGPoint)
     {
-        let x = otherArtifact.frameInScopeContent.x > frameInScopeContent.maxX ? frameInScopeContent.maxX : (otherArtifact.frameInScopeContent.maxX < frameInScopeContent.x ? frameInScopeContent.x : (max(otherArtifact.frameInScopeContent.x, frameInScopeContent.x) + min(otherArtifact.frameInScopeContent.maxX, frameInScopeContent.maxX)) / 2)
+        let myFrame = frameInScopeContent
+        let otherFrame = otherArtifact.frameInScopeContent
         
-        let y = otherArtifact.frameInScopeContent.y > frameInScopeContent.maxY ? frameInScopeContent.maxY : (otherArtifact.frameInScopeContent.maxY < frameInScopeContent.y ? frameInScopeContent.y : (max(otherArtifact.frameInScopeContent.y, frameInScopeContent.y) + min(otherArtifact.frameInScopeContent.maxY, frameInScopeContent.maxY)) / 2)
+        let x1, y1, x2, y2: Double
         
-        return CGPoint(x: x, y: y)
+        // x-axis
+        if otherFrame.x > myFrame.maxX { // other is to the right
+            x1 = myFrame.maxX
+            x2 = otherFrame.x
+        } else if otherFrame.maxX < myFrame.x { // other is to the left
+            x1 = myFrame.x
+            x2 = otherFrame.maxX
+        } else { // other is horizontally overlapping (above or below)
+            x1 = pointOnLine(from: max(otherFrame.x, myFrame.x),
+                             to: min(otherFrame.maxX, myFrame.maxX))
+            x2 = x1
+        }
+        
+        // y-axis
+        if otherFrame.y > myFrame.maxY { // other is below
+            y1 = myFrame.maxY
+            y2 = otherFrame.y
+        } else if otherFrame.maxY < myFrame.x { // other is above
+            y1 = myFrame.y
+            y2 = otherFrame.maxY
+        } else { // other is vertically overlapping (to the left or right)
+            y1 = pointOnLine(from: max(otherFrame.y, myFrame.y),
+                             to: min(otherFrame.maxY, myFrame.maxY))
+            y2 = y1
+        }
+        
+        return (CGPoint(x: x1, y: y1), CGPoint(x: x2, y: y2))
+    }
+    
+    func pointOnLine(from a: Double, to b: Double) -> Double
+    {
+        a + ((b - a) * (0.25 + .random(in: 0 ... 0.5)))
     }
 }
