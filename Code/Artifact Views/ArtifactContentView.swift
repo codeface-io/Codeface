@@ -91,7 +91,7 @@ extension ArtifactViewModel
         if otherFrame.y > myFrame.maxY { // other is below
             y1 = myFrame.maxY
             y2 = otherFrame.y
-        } else if otherFrame.maxY < myFrame.x { // other is above
+        } else if otherFrame.maxY < myFrame.y { // other is above
             y1 = myFrame.y
             y2 = otherFrame.maxY
         } else { // other is vertically overlapping (to the left or right)
