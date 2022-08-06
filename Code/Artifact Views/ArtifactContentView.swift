@@ -22,7 +22,8 @@ struct ArtifactContentView: View
                         {
                             Arrow(from: dependentVM.connectionPoint(to: partVM),
                                   to: partVM.connectionPoint(to: dependentVM))
-                            .foregroundColor(artifactVM.showsContent ? .primary.opacity(0.33) : .clear)
+                            .stroke(style: .init(lineWidth: 3, lineCap: .round))
+                            .foregroundColor(artifactVM.showsContent ? .primary.opacity(0.5) : .clear)
                         }
                     }
                 }
