@@ -105,6 +105,6 @@ extension ArtifactViewModel
     
     func pointOnLine(from a: Double, to b: Double) -> Double
     {
-        a + ((b - a) * (0.25 + .random(in: 0 ... 0.5)))
+        a + ((b - a) * 0.5) // (0.25 + .random(in: 0 ... 0.5)))
     }
 }
