@@ -21,6 +21,9 @@ struct Arrow: Shape
 {
     init(from: CGPoint, to: CGPoint)
     {
+        self.from = from
+        self.to = to
+        
         (self.a, self.b) = Self.pathPointsAAndB(forArrowFrom: from,
                                                 to: to)
         
@@ -39,7 +42,7 @@ struct Arrow: Shape
         let normal = simd_normalize(toV - fromV)
         let reverseNormal = simd_normalize(fromV - toV)
         
-        return (CGPoint(fromV + normal * padding),
+        return (CGPoint(fromV + normal * 6.0),
                 CGPoint(toV + reverseNormal * padding))
     }
     
@@ -47,14 +50,19 @@ struct Arrow: Shape
     {
         get
         {
-            AnimatablePair(a.animatableData, b.animatableData)
+            AnimatablePair(from.animatableData, to.animatableData)
         }
         
         set
         {
-            a.animatableData = newValue.first
-            b.animatableData = newValue.second
-            c = Self.arrowHeadPoints(forArrowFrom: a, to: b)
+            from.animatableData = newValue.first
+            to.animatableData = newValue.second
+            
+            (a, b) = Self.pathPointsAAndB(forArrowFrom: from,
+                                          to: to)
+            
+            c = Self.arrowHeadPoints(forArrowFrom: self.a,
+                                     to: self.b)
         }
     }
 
@@ -70,9 +78,15 @@ struct Arrow: Shape
             p.addLine(to: c.1)
             p.move(to: b)
             p.addLine(to: a)
+            
+            p.addEllipse(in: .init(x: from.x - 6,
+                                   y: from.y - 6,
+                                   width: 12,
+                                   height: 12))
         }
     }
     
+    private var from, to: CGPoint
     private var a, b: CGPoint
     private var c: (CGPoint, CGPoint)
     
@@ -91,7 +105,7 @@ struct Arrow: Shape
         let f_orth_1 = Vector2D(-f.y, f.x) // 1st vector orthogonal to f
         let f_orth_2 = Vector2D(f.y, -f.x) // 2nd vector orthogonal to f
         
-        let width = 5.0 // half width of the arrow head
+        let width = 6.0 // half width of the arrow head
         
         let c_1 = d + (width * f_orth_1)
         let c_2 = d + (width * f_orth_2)

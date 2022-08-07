@@ -21,7 +21,7 @@ struct ArtifactContentView: View
                         if dependingVM.codeArtifact.scope === partVM.codeArtifact.scope
                         {
                             DependencyView(source: dependingVM, target: partVM)
-                                .opacity(artifactVM.showsContent ? 1 : 0)
+                            .opacity(artifactVM.showsContent ? 1 : 0)
                         }
                     }
                 }
@@ -55,8 +55,8 @@ struct DependencyView: View
         let arrowPoints = source.pointsForDependency(to: target)
         
         Arrow(from: arrowPoints.0, to: arrowPoints.1)
-        .stroke(style: .init(lineWidth: 3, lineCap: .round))
-        .foregroundColor(isHighlighted ? .accentColor : .primary.opacity(0.5))
+            .stroke(style: .init(lineWidth: 3, lineCap: .round))
+            .foregroundColor(isHighlighted ? .accentColor : .primary.opacity(0.5))
     }
     
     var isHighlighted: Bool { source.isInFocus || target.isInFocus }
