@@ -96,6 +96,8 @@ extension ArtifactViewModel
     
     func split(_ parts: [ArtifactViewModel]) -> ([ArtifactViewModel], [ArtifactViewModel])
     {
+        if parts.count == 2 { return ([parts[0]], [parts[1]]) }
+        
         let halfTotalLOC = (parts.reduce(0) { $0 + $1.codeArtifact.linesOfCode }) / 2
         
         var partsALOC = 0
