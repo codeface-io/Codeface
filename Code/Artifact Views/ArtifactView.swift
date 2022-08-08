@@ -71,7 +71,10 @@ struct ArtifactView: View
                 {
                     self.isHovering = false
                     artifactVM.isInFocus = false
-                    viewModel.statusBar.artifactVMStack.removeLast()
+                    if !viewModel.statusBar.artifactVMStack.isEmpty
+                    {
+                        viewModel.statusBar.artifactVMStack.removeLast()
+                    }
                 }
             }
         }
