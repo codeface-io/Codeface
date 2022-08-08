@@ -10,13 +10,7 @@ struct SidebarRow: View
             {
                 switch viewModel.displayMode
                 {
-                case .treeMap:
-                    VStack(spacing: 0)
-                    {
-                        StatusBarView(statusBar: viewModel.statusBar)
-                        
-                        TreeMap(artifact: artifact, viewModel: viewModel)
-                    }
+                case .treeMap: TreeMap(artifact: artifact, viewModel: viewModel)
                 case .code: CodeView(artifact: artifact)
                 }
             }
@@ -58,7 +52,6 @@ struct SidebarRow: View
     @ObservedObject var viewModel: Codeface
 }
 
-
 struct TreeMap: View
 {
     var body: some View
@@ -78,9 +71,13 @@ struct TreeMap: View
         }
         else
         {
-            RootArtifactContentView(artifact: artifact,
-                                    viewModel: viewModel)
-            .padding(ArtifactViewModel.padding)
+            VStack(spacing: 0)
+            {
+                StatusBarView(statusBar: viewModel.statusBar)
+                RootArtifactContentView(artifact: artifact,
+                                        viewModel: viewModel)
+                .padding(ArtifactViewModel.padding)
+            }
             .background(Color(white: colorScheme == .dark ? 0 : 0.6))
         }
     }
