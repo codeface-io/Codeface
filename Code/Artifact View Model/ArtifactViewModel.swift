@@ -42,8 +42,19 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
             ArtifactViewModel(symbolArtifact: $0)
         }
         
-        iconSystemImageName = "doc.fill"
-        iconFillColor = .white
+        if fileArtifact.codeFile.name.hasSuffix(".swift")
+        {
+            iconSystemImageName = "swift"
+            iconFillColor = Color(red: 251.0 / 255.0,
+                                  green: 139.0 / 255.0,
+                                  blue: 57.0 / 255.0)
+        }
+        else
+        {
+            iconSystemImageName = "doc.fill"
+            iconFillColor = .white
+        }
+            
         fontDesign = .default
         linesOfCodeColor = locColorForFile(linesOfCode: fileArtifact.linesOfCode)
         
