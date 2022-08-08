@@ -57,7 +57,7 @@ struct ArtifactView: View
             {
                 isHovering = true
                 artifactVM.isInFocus = true
-                viewModel.statusBar.artifactNameStack += artifactVM.codeArtifact.name
+                viewModel.statusBar.artifactVMStack += artifactVM
 //            "component: #\(artifactVM.codeArtifact.metrics.componentNumber ?? -1)  ancestors: \(artifactVM.codeArtifact.metrics.numberOfAllIncomingDependenciesInScope ?? -1) incoming: \(artifactVM.incomingDependencies.count)"
                 
 //                if case .symbol(let symbol) = artifactVM.kind
@@ -71,7 +71,7 @@ struct ArtifactView: View
                 {
                     self.isHovering = false
                     artifactVM.isInFocus = false
-                    viewModel.statusBar.artifactNameStack.removeLast()
+                    viewModel.statusBar.artifactVMStack.removeLast()
                 }
             }
         }

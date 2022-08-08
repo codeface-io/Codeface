@@ -4,8 +4,8 @@ class StatusBar: ObservableObject
 {
     var displayText: String
     {
-        artifactNameStack.joined(separator: " 〉")
+        artifactVMStack.map { $0.codeArtifact.name }.joined(separator: " 〉")
     }
     
-    @Published var artifactNameStack = [String]()
+    @Published var artifactVMStack = [ArtifactViewModel]()
 }
