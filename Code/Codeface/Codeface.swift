@@ -16,9 +16,9 @@ class Codeface: Combine.ObservableObject, Observer
         }
     }
     
-    // MARK: - Status Bar
+    // MARK: - Overview Bar
     
-    let statusBar = StatusBar()
+    let overviewBar = OverviewBar()
     
     // MARK: - Search
     

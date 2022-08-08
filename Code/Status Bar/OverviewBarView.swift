@@ -1,14 +1,14 @@
 import SwiftUI
 
-struct StatusBarView: View
+struct OverviewBarView: View
 {
     var body: some View
     {
         HStack(alignment: .firstTextBaseline, spacing: 0)
         {
-            ForEach(statusBar.artifactVMStack.indices, id: \.self)
+            ForEach(overviewBar.artifactVMStack.indices, id: \.self)
             {
-                let vm = statusBar.artifactVMStack[$0]
+                let vm = overviewBar.artifactVMStack[$0]
                 
                 if $0 > 0
                 {
@@ -30,6 +30,6 @@ struct StatusBarView: View
         .background(colorScheme == .dark ? Color(white: 0.08) : Color(NSColor.controlBackgroundColor))
     }
     
-    @ObservedObject var statusBar: StatusBar
+    @ObservedObject var overviewBar: OverviewBar
     @Environment(\.colorScheme) private var colorScheme
 }

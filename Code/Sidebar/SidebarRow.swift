@@ -73,7 +73,7 @@ struct TreeMap: View
         {
             VStack(spacing: 0)
             {
-                StatusBarView(statusBar: viewModel.statusBar)
+                OverviewBarView(overviewBar: viewModel.overviewBar)
                 RootArtifactContentView(artifact: artifact,
                                         viewModel: viewModel)
                 .padding(ArtifactViewModel.padding)
