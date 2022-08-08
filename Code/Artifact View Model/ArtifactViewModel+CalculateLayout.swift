@@ -1,5 +1,6 @@
 import CodefaceCore
 import Foundation
+import SwiftyToolz
 
 extension ArtifactViewModel
 {
@@ -98,6 +99,20 @@ extension ArtifactViewModel
     {
         if parts.count == 2 { return ([parts[0]], [parts[1]]) }
         
+        if parts.count < 2
+        {
+            log(error: "Tried to split \(parts.count) remaining parts for tree map")
+            return (parts, [])
+        }
+        
+        guard let firstPart = parts.first, let lastPart = parts.last else
+        {
+            log(error: "Could not get elements from part array \(parts)")
+            return (parts, [])
+        }
+        
+        let partsSpanMultipleComponents = firstPart.codeArtifact.metrics.componentNumber != lastPart.codeArtifact.metrics.componentNumber
+        
         let halfTotalLOC = (parts.reduce(0) { $0 + $1.codeArtifact.linesOfCode }) / 2
         
         var partsALOC = 0
@@ -106,6 +121,18 @@ extension ArtifactViewModel
         
         for index in 0 ..< parts.count
         {
+            // if parts span multiple components, we only cut between components
+            if partsSpanMultipleComponents
+            {
+                if index == parts.count - 1 { continue }
+                
+                let thisPartComponent = parts[index].codeArtifact.metrics.componentNumber
+                let nextPartComponent = parts[index + 1].codeArtifact.metrics.componentNumber
+                let indexIsEndOfComponent = thisPartComponent != nextPartComponent
+                
+                if !indexIsEndOfComponent { continue }
+            }
+            
             let part = parts[index]
             partsALOC += part.codeArtifact.linesOfCode
             let differenceToHalfTotalLOC = abs(halfTotalLOC - partsALOC)
