@@ -52,10 +52,10 @@ extension ArtifactViewModel
             }
             else
             {
-                part.contentFrame = .init(x: (availableRect.width / 2) - 2,
-                                          y: (availableRect.height / 2) - 2,
-                                          width: 4,
-                                          height: 4)
+                part.contentFrame = .init(x: availableRect.width / 2,
+                                          y: availableRect.height / 2,
+                                          width: 0,
+                                          height: 0)
             }
             
             part.updateLayoutOfParts(forScopeSize: .init(width: part.contentFrame.width,

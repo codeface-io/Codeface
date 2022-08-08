@@ -2,5 +2,10 @@ import Combine
 
 class StatusBar: ObservableObject
 {
-    @Published var text = "initial"
+    var displayText: String
+    {
+        artifactNameStack.joined(separator: " 〉")
+    }
+    
+    @Published var artifactNameStack = [String]()
 }

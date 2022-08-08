@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftLSP
+import SwiftyToolz
 
 struct ArtifactView: View
 {
@@ -32,7 +33,8 @@ struct ArtifactView: View
             ArtifactContentView(artifactVM: artifactVM,
                                 codeface: viewModel,
                                 ignoreSearchFilter: ignoreSearchFilter,
-                                bgBrightness: bgBrightness)
+                                bgBrightness: bgBrightness,
+                                isShownInScope: isShownInScope)
             .frame(width: artifactVM.contentFrame.width,
                    height: artifactVM.contentFrame.height)
             .position(x: artifactVM.contentFrame.centerX,
@@ -49,16 +51,19 @@ struct ArtifactView: View
                               antialiased: true)))
         .onHover
         {
+            guard isShownInScope else { return }
+            
             if $0
             {
                 isHovering = true
                 artifactVM.isInFocus = true
-                viewModel.statusBar.text = "\(artifactVM.codeArtifact.name) component: #\(artifactVM.codeArtifact.metrics.componentNumber ?? -1)  ancestors: \(artifactVM.codeArtifact.metrics.numberOfAllIncomingDependenciesInScope ?? -1) incoming: \(artifactVM.incomingDependencies.count)"
+                viewModel.statusBar.artifactNameStack += artifactVM.codeArtifact.name
+//            "component: #\(artifactVM.codeArtifact.metrics.componentNumber ?? -1)  ancestors: \(artifactVM.codeArtifact.metrics.numberOfAllIncomingDependenciesInScope ?? -1) incoming: \(artifactVM.incomingDependencies.count)"
                 
-                if case .symbol(let symbol) = artifactVM.kind
-                {
-                    viewModel.statusBar.text += " outgoing: \(symbol.outgoingDependenciesScope.count)"
-                }
+//                if case .symbol(let symbol) = artifactVM.kind
+//                {
+//                    viewModel.statusBar.text += " outgoing: \(symbol.outgoingDependenciesScope.count)"
+//                }
             }
             else
             {
@@ -66,7 +71,7 @@ struct ArtifactView: View
                 {
                     self.isHovering = false
                     artifactVM.isInFocus = false
-                    viewModel.statusBar.text = ""
+                    viewModel.statusBar.artifactNameStack.removeLast()
                 }
             }
         }
@@ -79,4 +84,5 @@ struct ArtifactView: View
     let ignoreSearchFilter: Bool
     @State var isHovering: Bool = false
     let bgBrightness: Double
+    let isShownInScope: Bool
 }

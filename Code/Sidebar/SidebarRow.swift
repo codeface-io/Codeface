@@ -13,9 +13,9 @@ struct SidebarRow: View
                 case .treeMap:
                     VStack(spacing: 0)
                     {
-                        TreeMap(artifact: artifact, viewModel: viewModel)
-                        
                         StatusBarView(statusBar: viewModel.statusBar)
+                        
+                        TreeMap(artifact: artifact, viewModel: viewModel)
                     }
                 case .code: CodeView(artifact: artifact)
                 }

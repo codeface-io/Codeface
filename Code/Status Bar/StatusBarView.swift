@@ -6,11 +6,14 @@ struct StatusBarView: View
     {
         HStack
         {
-            Text(statusBar.text).padding()
+            Text(statusBar.displayText)
+                .padding()
             Spacer()
         }
-        .frame(height: 30)
+        .frame(height: 29)
+        .background(colorScheme == .dark ? Color(white: 0.08) : Color(NSColor.controlBackgroundColor))
     }
     
     @ObservedObject var statusBar: StatusBar
+    @Environment(\.colorScheme) private var colorScheme
 }

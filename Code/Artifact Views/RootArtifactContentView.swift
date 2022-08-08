@@ -11,7 +11,8 @@ struct RootArtifactContentView: View
             ArtifactContentView(artifactVM: artifact,
                                 codeface: viewModel,
                                 ignoreSearchFilter: viewModel.isSearching,
-                                bgBrightness: colorScheme == .dark ? 0 : 0.6)
+                                bgBrightness: colorScheme == .dark ? 0 : 0.6,
+                                isShownInScope: artifact.showsContent)
             .onChange(of: geo.size)
             {
                 size in
