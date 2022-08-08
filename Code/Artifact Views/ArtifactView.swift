@@ -53,6 +53,7 @@ struct ArtifactView: View
             {
                 isHovering = true
                 artifactVM.isInFocus = true
+                viewModel.statusBarText = "\(artifactVM.codeArtifact.name) component: #\(artifactVM.codeArtifact.metrics.componentNumber ?? -1)  ancestors: \(artifactVM.codeArtifact.metrics.numberOfAllIncomingDependenciesInScope ?? -1)"
             }
             else
             {
@@ -60,6 +61,7 @@ struct ArtifactView: View
                 {
                     self.isHovering = false
                     artifactVM.isInFocus = false
+                    viewModel.statusBarText = ""
                 }
             }
         }

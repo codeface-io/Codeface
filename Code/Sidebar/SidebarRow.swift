@@ -10,7 +10,18 @@ struct SidebarRow: View
             {
                 switch viewModel.displayMode
                 {
-                case .treeMap: TreeMap(artifact: artifact, viewModel: viewModel)
+                case .treeMap:
+                    VStack(spacing: 0)
+                    {
+                        TreeMap(artifact: artifact, viewModel: viewModel)
+                        
+                        HStack
+                        {
+                            Text(viewModel.statusBarText)
+                                .padding()
+                            Spacer()
+                        }
+                    }
                 case .code: CodeView(artifact: artifact)
                 }
             }

@@ -16,6 +16,10 @@ class Codeface: Combine.ObservableObject, Observer
         }
     }
     
+    // MARK: - Status Bar
+    
+    @Published var statusBarText = ""
+    
     // MARK: - Search
     
     func removeSearchFilter()
