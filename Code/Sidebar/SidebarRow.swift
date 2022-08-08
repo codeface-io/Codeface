@@ -15,12 +15,7 @@ struct SidebarRow: View
                     {
                         TreeMap(artifact: artifact, viewModel: viewModel)
                         
-                        HStack
-                        {
-                            Text(viewModel.statusBarText)
-                                .padding()
-                            Spacer()
-                        }
+                        StatusBarView(statusBar: viewModel.statusBar)
                     }
                 case .code: CodeView(artifact: artifact)
                 }

@@ -18,7 +18,7 @@ class Codeface: Combine.ObservableObject, Observer
     
     // MARK: - Status Bar
     
-    @Published var statusBarText = ""
+    let statusBar = StatusBar()
     
     // MARK: - Search
     
