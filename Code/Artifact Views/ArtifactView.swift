@@ -7,27 +7,29 @@ struct ArtifactView: View
     {
         ZStack
         {
+            let extraSpaceForTitles = artifactVM.collapseHorizontally ? 0 : 10.0
+            
             HStack(alignment: .firstTextBaseline, spacing: 0)
             {
                 ArtifactIcon(artifact: artifactVM, isSelected: false)
                 
-                Text(" " + artifactVM.codeArtifact.name)
-                    .frame(width: artifactVM.collapseHorizontally ? 0 : nil)
-                    .opacity(artifactVM.showsName ? 1 : 0)
-                    .foregroundColor((artifactVM.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)
-                
                 if !artifactVM.collapseHorizontally
                 {
-                    Spacer()
+                    Text(artifactVM.codeArtifact.name)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .opacity(artifactVM.showsName ? 1 : 0)
+                        .foregroundColor((artifactVM.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)
+                        .padding(.leading, artifactVM.fontSize / 7)
                 }
             }
             .font(.system(size: artifactVM.fontSize,
                           weight: .medium,
                           design: artifactVM.fontDesign))
-            .frame(width: artifactVM.frameInScopeContent.width - 2 * ArtifactViewModel.padding,
+            .frame(width: artifactVM.frameInScopeContent.width - 2 * ArtifactViewModel.padding + extraSpaceForTitles,
                    height: artifactVM.collapseVertically ? artifactVM.frameInScopeContent.height - 2 * ArtifactViewModel.padding : artifactVM.fontSize)
-            .position(x: artifactVM.frameInScopeContent.width / 2,
+            .position(x: artifactVM.frameInScopeContent.width / 2 + (extraSpaceForTitles / 2),
                       y: artifactVM.collapseVertically ? artifactVM.frameInScopeContent.height / 2 : ArtifactViewModel.padding + artifactVM.fontSize / 2)
+            
             
             ArtifactContentView(artifactVM: artifactVM,
                                 codeface: viewModel,
@@ -53,7 +55,7 @@ struct ArtifactView: View
             {
                 isHovering = true
                 artifactVM.isInFocus = true
-                viewModel.statusBarText = "\(artifactVM.codeArtifact.name) component: #\(artifactVM.codeArtifact.metrics.componentNumber ?? -1)  ancestors: \(artifactVM.codeArtifact.metrics.numberOfAllIncomingDependenciesInScope ?? -1)"
+                viewModel.statusBarText = "\(artifactVM.codeArtifact.name) component: #\(artifactVM.codeArtifact.metrics.componentNumber ?? -1)  ancestors: \(artifactVM.codeArtifact.metrics.numberOfAllIncomingDependenciesInScope ?? -1) incoming: \(artifactVM.incomingDependencies.count)"
             }
             else
             {
