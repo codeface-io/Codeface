@@ -54,6 +54,11 @@ struct ArtifactView: View
                 isHovering = true
                 artifactVM.isInFocus = true
                 viewModel.statusBarText = "\(artifactVM.codeArtifact.name) component: #\(artifactVM.codeArtifact.metrics.componentNumber ?? -1)  ancestors: \(artifactVM.codeArtifact.metrics.numberOfAllIncomingDependenciesInScope ?? -1) incoming: \(artifactVM.incomingDependencies.count)"
+                
+                if case .symbol(let symbol) = artifactVM.kind
+                {
+                    viewModel.statusBarText += " outgoing: \(symbol.outgoingDependenciesScope.count)"
+                }
             }
             else
             {

@@ -14,14 +14,14 @@ struct ArtifactContentView: View
                 {
                     partVM in
                     
-                    ForEach(partVM.incomingDependencies)
+                    ForEach(partVM.incomingDependencies.indices, id: \.self)
                     {
-                        dependingVM in
+                        let dependingVM = partVM.incomingDependencies[$0]
 
                         if dependingVM.codeArtifact.scope === partVM.codeArtifact.scope
                         {
                             DependencyView(source: dependingVM, target: partVM)
-                            .opacity(artifactVM.showsContent ? 1 : 0)
+                                .opacity(artifactVM.showsContent ? 1 : 0)
                         }
                     }
                 }
