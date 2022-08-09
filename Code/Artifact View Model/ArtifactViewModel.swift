@@ -64,7 +64,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     private init(symbolArtifact: CodeSymbolArtifact)
     {
         // create child presentations for subsymbols recursively
-        self.parts = symbolArtifact.subSymbols.map
+        self.parts = symbolArtifact.subsymbols.map
         {
             ArtifactViewModel(symbolArtifact: $0)
         }

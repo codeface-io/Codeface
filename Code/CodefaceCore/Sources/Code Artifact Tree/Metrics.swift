@@ -9,4 +9,5 @@ public struct Metrics
     
     public var numberOfAllIncomingDependenciesInScope: Int?
     public var componentNumber: Int?
+    public var dependencyDifferenceScope: Int?
 }

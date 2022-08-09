@@ -4,11 +4,11 @@ extension CodeSymbolArtifact
 {
     func generateSizeMetrics()
     {
-        subSymbols.forEach { $0.generateSizeMetrics() }
+        subsymbols.forEach { $0.generateSizeMetrics() }
         
-        let locOfAllSubsymbols = subSymbols.reduce(0) { $0 + $1.linesOfCode }
+        let locOfAllSubsymbols = subsymbols.reduce(0) { $0 + $1.linesOfCode }
         
-        subSymbols.forEach
+        subsymbols.forEach
         {
             $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfAllSubsymbols)
         }
@@ -20,19 +20,22 @@ extension CodeSymbolArtifact
     
     func generateDependencyMetrics()
     {
-        guard !subSymbols.isEmpty else { return }
-        subSymbols.forEach { $0.generateDependencyMetrics() }
-        generateDependencyMetricsInScope(with: subSymbols)
+        guard !subsymbols.isEmpty else { return }
+        subsymbols.forEach { $0.generateDependencyMetrics() }
+        generateDependencyMetricsInScope(with: subsymbols,
+                                         dependencies: subsymbolDependencies)
     }
 }
 
 @MainActor
-func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact])
+func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact],
+                                      dependencies: Dependencies<CodeSymbolArtifact>)
 {
     // find components within scope
     let inScopeComponents = findComponents(in: symbols)
     {
-        $0.incomingInScope.sources + $0.outgoingInScope.targets
+        dependencies.outgoing(from: $0).map { $0.target }
+        + dependencies.ingoing(to: $0).map { $0.source }
     }
     
     // sort components based on their external dependencies
@@ -64,33 +67,46 @@ func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact])
     // generate node ancestor numbers for each component
     for component in inScopeComponents
     {
-        generateNumberOfAncestors(inComponent: component)
+        generateNumberOfAncestors(inComponent: component,
+                                  dependencies: dependencies)
+    }
+    
+    // write dependency difference
+    for symbol in symbols
+    {
+        symbol.metrics.dependencyDifferenceScope =
+            dependencies.outgoing(from: symbol).count
+            - dependencies.ingoing(to: symbol).count
     }
 }
 
 @MainActor
-func generateNumberOfAncestors(inComponent component: SymbolSet)
+func generateNumberOfAncestors(inComponent component: SymbolSet,
+                               dependencies: Dependencies<CodeSymbolArtifact>)
 {
     var nodesToVisit = component
     
     while !nodesToVisit.isEmpty
     {
-        nodesToVisit.first?.calculateNumberOfAncestors(nodesToVisit: &nodesToVisit)
+        nodesToVisit.first?.calculateNumberOfAncestors(nodesToVisit: &nodesToVisit,
+                                                       dependencies: dependencies)
     }
 }
 
 extension CodeSymbolArtifact
 {
     @MainActor
-    func calculateNumberOfAncestors(nodesToVisit: inout SymbolSet)
+    func calculateNumberOfAncestors(nodesToVisit: inout SymbolSet,
+                                    dependencies: Dependencies<CodeSymbolArtifact>)
     {
         if !nodesToVisit.contains(self) { return } else { nodesToVisit -= self }
         
-        let dependingSymbols = incomingInScope.sources
+        let dependingSymbols = dependencies.ingoing(to: self).map { $0.source }
         
         metrics.numberOfAllIncomingDependenciesInScope = dependingSymbols.reduce(Int(0))
         {
-            $1.calculateNumberOfAncestors(nodesToVisit: &nodesToVisit)
+            $1.calculateNumberOfAncestors(nodesToVisit: &nodesToVisit,
+                                          dependencies: dependencies)
             
             return $0 + 1 + ($1.metrics.numberOfAllIncomingDependenciesInScope ?? 0)
         }

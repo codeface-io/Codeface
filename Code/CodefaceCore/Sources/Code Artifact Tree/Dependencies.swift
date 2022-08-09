@@ -1,5 +1,19 @@
 public class Dependencies<CodeArtifactType: CodeArtifact>
 {
+    static var empty: Dependencies<CodeArtifactType> { Dependencies<CodeArtifactType>() }
+    
+    func add(_ otherDependencies: Dependencies<CodeArtifactType>)
+    {
+        hashMap.merge(otherDependencies.hashMap)
+        {
+            mine, other in
+            
+            mine.weight += other.weight
+            
+            return mine
+        }
+    }
+    
     func addDependence(from source: CodeArtifactType,
                        to target: CodeArtifactType)
     {
@@ -13,6 +27,18 @@ public class Dependencies<CodeArtifactType: CodeArtifact>
         {
             hashMap[dependencyID] = Dependency(source: source, target: target)
         }
+    }
+    
+    // TODO: hash by source for performance
+    func outgoing(from artifact: CodeArtifactType) -> [Dependency<CodeArtifactType>]
+    {
+        Array(hashMap.values.filter { $0.source === artifact })
+    }
+    
+    // TODO: hash by target for performance
+    func ingoing(to artifact: CodeArtifactType) -> [Dependency<CodeArtifactType>]
+    {
+        Array(hashMap.values.filter { $0.target === artifact })
     }
     
     public var all: [Dependency<CodeArtifactType>] { Array(hashMap.values) }

@@ -7,9 +7,18 @@ extension CodeFileArtifact
     {
         for symbol in symbols
         {
-            try await symbol.addDependencies(enclosingFile: codeFile.path,
-                                             hashMap: hashMap,
-                                             server: server)
+            try await symbol.addSubsymbolDependencies(enclosingFile: codeFile.path,
+                                                      hashMap: hashMap,
+                                                      server: server)
+        }
+        
+        for symbol in symbols
+        {
+            let incoming = try await symbol.getIncoming(enclosingFile: codeFile.path,
+                                                        hashMap: hashMap,
+                                                        server: server)
+            
+            symbolDependencies.add(incoming)
         }
     }
 }

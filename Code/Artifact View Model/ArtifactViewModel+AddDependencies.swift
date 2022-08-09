@@ -7,32 +7,42 @@ extension ArtifactViewModel
     {
         // make view model hash map
         var viewModelHashMap = [CodeArtifact.Hash : ArtifactViewModel]()
-        applyRecursively { viewModelHashMap[$0.codeArtifact.hash] = $0 }
+        
+        applyRecursively
+        {
+            viewModelHashMap[$0.codeArtifact.hash] = $0
+        }
         
         // connect view models for symbol dependencies
         applyRecursively
         {
             artifactVM in
             
-            for subVM in artifactVM.parts
+            guard let symbolDependencies = artifactVM.symbolDependencies else { return }
+            
+            for dependency in symbolDependencies.all
             {
-                guard case .symbol(let subsymbol) = subVM.kind else { return }
+                guard let sourceVM = viewModelHashMap[dependency.source.hash],
+                      let targetVM = viewModelHashMap[dependency.target.hash]
+                else { continue }
                 
-                for incomingDependency in subsymbol.incomingInScope.all
-                {
-                    let dependingSubsymbol = incomingDependency.source
-                    
-                    guard let dependingSubsymbolVM = viewModelHashMap[dependingSubsymbol.hash]
-                    else { continue }
-                    
-                    artifactVM.partDependencies += .init(sourcePart: dependingSubsymbolVM,
-                                                         targetPart: subVM,
-                                                         weight: incomingDependency.weight)
-                }
+                artifactVM.partDependencies += .init(sourcePart: sourceVM,
+                                                     targetPart: targetVM,
+                                                     weight: dependency.weight)
             }
         }
         
         return self
+    }
+    
+    private var symbolDependencies: Dependencies<CodeSymbolArtifact>?
+    {
+        switch kind
+        {
+        case .symbol(let symbol): return symbol.subsymbolDependencies
+        case .file(let file): return file.symbolDependencies
+        case .folder: return nil
+        }
     }
 
     func applyRecursively(action: (ArtifactViewModel) -> Void)

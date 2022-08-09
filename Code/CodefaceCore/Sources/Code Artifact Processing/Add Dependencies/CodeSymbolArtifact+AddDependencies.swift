@@ -3,27 +3,43 @@ import SwiftyToolz
 
 extension CodeSymbolArtifact
 {
-    func addDependencies(enclosingFile file: LSPDocumentUri,
-                         hashMap: CodeFileArtifactHashmap,
-                         server: LSP.ServerCommunicationHandler) async throws
+    func addSubsymbolDependencies(enclosingFile file: LSPDocumentUri,
+                                  hashMap: CodeFileArtifactHashmap,
+                                  server: LSP.ServerCommunicationHandler) async throws
     {
-        for subsymbol in subSymbols
+        for subsymbol in subsymbols
         {
-            try await subsymbol.addDependencies(enclosingFile: file,
-                                                hashMap: hashMap,
-                                                server: server)
+            try await subsymbol.addSubsymbolDependencies(enclosingFile: file,
+                                                         hashMap: hashMap,
+                                                         server: server)
         }
         
+        for subsymbol in subsymbols
+        {
+            let incoming = try await subsymbol.getIncoming(enclosingFile: file,
+                                                           hashMap: hashMap,
+                                                           server: server)
+            
+            subsymbolDependencies.add(incoming)
+        }
+    }
+    
+    func getIncoming(enclosingFile file: LSPDocumentUri,
+                     hashMap: CodeFileArtifactHashmap,
+                     server: LSP.ServerCommunicationHandler) async throws -> Dependencies<CodeSymbolArtifact>
+    {
         guard kind != .Namespace else
         {
             // at least with sourcekit-lsp, this detects many wrong dependencies onto namespaces which are Swift extensions
-            return
+            return .empty
         }
         
         let refs = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
                                                       in: file)
         
 //        print("found \(refs.count) referencing lsp locations for symbol artifact")
+        
+        let result = Dependencies<CodeSymbolArtifact>()
         
         for referencingLocation in refs
         {
@@ -59,21 +75,17 @@ extension CodeSymbolArtifact
             if scope === dependingSymbol.scope
             {
                 // dependency within same scope (between siblings)
-                incomingInScope.addDependence(from: dependingSymbol,
-                                              to: self)
-                
-                dependingSymbol.outgoingInScope.addDependence(from: dependingSymbol,
-                                                              to: self)
+                result.addDependence(from: dependingSymbol, to: self)
             }
             else
             {
                 // across different scopes
                 incomingDependenciesExternal += dependingSymbol
                 dependingSymbol.outgoingDependenciesExternal += self
-            }
+            }    
         }
         
-//        print("did add \(incomingDependencies.count) incoming dependencies to symbol artifact")
+        return result
     }
 }
 
@@ -98,7 +110,7 @@ private extension CodeSymbolArtifact
     func findSymbolArtifact(containing range: LSPRange) -> CodeSymbolArtifact?
     {
         // depth first!!! we want the deepest symbol that contains the range
-        for subsymbol in subSymbols
+        for subsymbol in subsymbols
         {
             if let artifact = subsymbol.findSymbolArtifact(containing: range)
             {

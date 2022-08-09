@@ -2,12 +2,12 @@ extension CodeSymbolArtifact
 {
     func sort()
     {
-        for subSymbol in subSymbols
+        for subSymbol in subsymbols
         {
             subSymbol.sort()
         }
         
-        subSymbols.sort()
+        subsymbols.sort()
     }
 }
 
@@ -31,9 +31,11 @@ extension CodeSymbolArtifact: Comparable
             return ancestorsA < ancestorsB
         }
         
-        if lhs.dependencyDifferenceScope != rhs.dependencyDifferenceScope
+        if let dependencyDiffA = lhs.metrics.dependencyDifferenceScope,
+           let dependencyDiffB = rhs.metrics.dependencyDifferenceScope,
+           dependencyDiffA != dependencyDiffB
         {
-            return lhs.dependencyDifferenceScope > rhs.dependencyDifferenceScope
+            return dependencyDiffA > dependencyDiffB
         }
         
         if lhs.dependencyDifferenceExternal != rhs.dependencyDifferenceExternal

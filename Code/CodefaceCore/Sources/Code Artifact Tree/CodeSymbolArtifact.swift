@@ -33,11 +33,20 @@ public class CodeSymbolArtifact: Identifiable, ObservableObject
     
     public var metrics = Metrics()
     
-    // MARK: - Tree Structure
+    // MARK: - Graph Structure
+    
+    public var dependencyDifferenceExternal: Int
+    {
+        outgoingDependenciesExternal.count - incomingDependenciesExternal.count
+    }
+    
+    public var incomingDependenciesExternal = [CodeSymbolArtifact]()
+    public var outgoingDependenciesExternal = [CodeSymbolArtifact]()
     
     public weak var scope: CodeArtifact?
     
-    public var subSymbols = [CodeSymbolArtifact]()
+    public var subsymbolDependencies = Dependencies<CodeSymbolArtifact>()
+    public var subsymbols = [CodeSymbolArtifact]()
     
     // MARK: - Basics
     
@@ -47,20 +56,4 @@ public class CodeSymbolArtifact: Identifiable, ObservableObject
     public let range: LSPRange
     public let selectionRange: LSPRange
     public let code: String?
-    
-    public var dependencyDifferenceScope: Int
-    {
-        outgoingInScope.count - incomingInScope.count
-    }
-    
-    public var incomingInScope = Dependencies<CodeSymbolArtifact>()
-    public var outgoingInScope = Dependencies<CodeSymbolArtifact>()
-    
-    public var dependencyDifferenceExternal: Int
-    {
-        outgoingDependenciesExternal.count - incomingDependenciesExternal.count
-    }
-    
-    public var incomingDependenciesExternal = [CodeSymbolArtifact]()
-    public var outgoingDependenciesExternal = [CodeSymbolArtifact]()
 }
