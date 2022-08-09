@@ -26,18 +26,18 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         }
     }
     
-    // Mark: - Metrics
+    // MARK: - Metrics
     
     public var metrics = Metrics()
     
-    // Mark: - Tree Structure
+    // MARK: - Tree Structure
     
     public weak var scope: CodeArtifact?
     
     public var subfolders = [CodeFolderArtifact]()
     public var files = [CodeFileArtifact]()
     
-    // Mark: - Basics
+    // MARK: - Basics
     
     public let id = UUID().uuidString
     public let codeFolderURL: URL

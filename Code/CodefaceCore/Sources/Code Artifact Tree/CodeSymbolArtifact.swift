@@ -12,7 +12,7 @@ extension CodeSymbolArtifact: CodeArtifact
 @MainActor
 public class CodeSymbolArtifact: Identifiable, ObservableObject
 {
-    // Mark: - Initialization
+    // MARK: - Initialization
     
     public init(name: String,
                 kind: LSPDocumentSymbol.SymbolKind?,
@@ -29,17 +29,17 @@ public class CodeSymbolArtifact: Identifiable, ObservableObject
         self.scope = scope
     }
     
-    // Mark: - Metrics
+    // MARK: - Metrics
     
     public var metrics = Metrics()
     
-    // Mark: - Tree Structure
+    // MARK: - Tree Structure
     
     public weak var scope: CodeArtifact?
     
     public var subSymbols = [CodeSymbolArtifact]()
     
-    // Mark: - Basics
+    // MARK: - Basics
     
     public let id = UUID().uuidString
     public let name: String

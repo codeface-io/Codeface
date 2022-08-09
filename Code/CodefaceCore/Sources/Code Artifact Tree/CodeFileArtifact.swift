@@ -16,17 +16,17 @@ public class CodeFileArtifact: Identifiable, ObservableObject
         self.scope = scope
     }
     
-    // Mark: - Metrics
+    // MARK: - Metrics
     
     public var metrics = Metrics()
     
-    // Mark: - Tree Structure
+    // MARK: - Tree Structure
     
     public weak var scope: CodeArtifact?
     
     public var symbols = [CodeSymbolArtifact]()
     
-    // Mark: - Basics
+    // MARK: - Basics
     
     public let id = UUID().uuidString
     public let codeFile: CodeFile

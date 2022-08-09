@@ -12,7 +12,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         lhs === rhs
     }
     
-    // Mark: - Initialization
+    // MARK: - Initialization
     
     init(folderArtifact: CodeFolderArtifact)
     {
@@ -77,14 +77,14 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         kind = .symbol(symbolArtifact)
     }
     
-    // Mark: - Search
+    // MARK: - Search
     
     @Published var passesSearchFilter = true
     
     var containsSearchTermRegardlessOfParts: Bool?
     var partsContainSearchTerm: Bool?
     
-    // Mark: - UI
+    // MARK: - UI
     
     @Published var isInFocus = false
     
@@ -148,7 +148,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     let fontDesign: Font.Design
     let linesOfCodeColor: Color
     
-    // Mark: - Basics
+    // MARK: - Basics
     
     var incomingDependencies = [ArtifactViewModel]()
     let parts: [ArtifactViewModel]
