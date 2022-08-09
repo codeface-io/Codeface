@@ -50,11 +50,11 @@ public class CodeSymbolArtifact: Identifiable, ObservableObject
     
     public var dependencyDifferenceScope: Int
     {
-        outgoingDependenciesScope.count - incomingDependenciesScope.count
+        outgoingInScope.count - incomingInScope.count
     }
     
-    public var incomingDependenciesScope = [String: Dependency]()
-    public var outgoingDependenciesScope = [String: Dependency]()
+    public var incomingInScope = Dependencies<CodeSymbolArtifact>()
+    public var outgoingInScope = Dependencies<CodeSymbolArtifact>()
     
     public var dependencyDifferenceExternal: Int
     {

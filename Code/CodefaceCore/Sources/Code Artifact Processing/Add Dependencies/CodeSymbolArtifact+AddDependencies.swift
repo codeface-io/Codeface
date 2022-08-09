@@ -35,7 +35,7 @@ extension CodeSymbolArtifact
                 continue
             }
             
-            guard let referencingSymbolArtifact = referencingFileArtifact.findSymbolArtifact(containing: referencingLocation.range) else
+            guard let dependingSymbol = referencingFileArtifact.findSymbolArtifact(containing: referencingLocation.range) else
             {
                 // TODO: contact sourcekit-lsp team about this, maybe open an issue on github ...
                 // sourcekit-lsp suggests a few wrong references where there is one of those issues: a) extension of Variable -> Var namespace declaration (plain wrong) b) class Variable -> namespace Var (wrong direction) or c) all range properties are -1 (invalid)
@@ -43,7 +43,7 @@ extension CodeSymbolArtifact
                 continue
             }
             
-            guard !referencingSymbolArtifact.contains(self) else
+            guard !dependingSymbol.contains(self) else
             {
                 // dependencies of containing symbols onto this one are already implicitly given by that containment (nesting) ... in this context, a symbol also contains itself
                 continue
@@ -56,59 +56,25 @@ extension CodeSymbolArtifact
 //                print("found dependency 🎉\nfrom \(referencingSymbolArtifact.name) of type \(referencingSymbolArtifact.kindName) on line \(referencingLocation.range.start.line) in \(referencingLocation.uri)\nonto \(name) of type \(kindName) on line \(positionInFile) in \(file)\n")
 //            }
             
-            if scope === referencingSymbolArtifact.scope
+            if scope === dependingSymbol.scope
             {
                 // dependency within same scope (between siblings)
-                if let dependency = incomingDependenciesScope[referencingSymbolArtifact.id]
-                {
-                    dependency.weight += 1
-                }
-                else
-                {
-                    incomingDependenciesScope[referencingSymbolArtifact.id] = .init(other: referencingSymbolArtifact)
-                }
+                incomingInScope.addDependence(from: dependingSymbol,
+                                              to: self)
                 
-                if let dependency = referencingSymbolArtifact.outgoingDependenciesScope[id]
-                {
-                    dependency.weight += 1
-                }
-                else
-                {
-                    referencingSymbolArtifact.outgoingDependenciesScope[id] = .init(other: self)
-                }
+                dependingSymbol.outgoingInScope.addDependence(from: dependingSymbol,
+                                                              to: self)
             }
             else
             {
                 // across different scopes
-                incomingDependenciesExternal += referencingSymbolArtifact
-                referencingSymbolArtifact.outgoingDependenciesExternal += self
+                incomingDependenciesExternal += dependingSymbol
+                dependingSymbol.outgoingDependenciesExternal += self
             }
         }
         
 //        print("did add \(incomingDependencies.count) incoming dependencies to symbol artifact")
     }
-}
-
-public class Dependency: Hashable
-{
-    public static func == (lhs: Dependency, rhs: Dependency) -> Bool
-    {
-        lhs === rhs
-    }
-    
-    public func hash(into hasher: inout Hasher)
-    {
-        hasher.combine(ObjectIdentifier(self).hashValue)
-    }
-    
-    init(other: CodeSymbolArtifact)
-    {
-        self.symbol = other
-        weight = 1
-    }
-    
-    public let symbol: CodeSymbolArtifact
-    public var weight = 0
 }
 
 private extension CodeFileArtifact

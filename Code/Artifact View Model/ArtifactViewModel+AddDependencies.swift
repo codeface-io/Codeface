@@ -18,9 +18,9 @@ extension ArtifactViewModel
             {
                 guard case .symbol(let subsymbol) = subVM.kind else { return }
                 
-                for incomingDependency in subsymbol.incomingDependenciesScope.values
+                for incomingDependency in subsymbol.incomingInScope.all
                 {
-                    let dependingSubsymbol = incomingDependency.symbol
+                    let dependingSubsymbol = incomingDependency.source
                     
                     guard let dependingSubsymbolVM = viewModelHashMap[dependingSubsymbol.hash]
                     else { continue }
