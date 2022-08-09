@@ -16,6 +16,7 @@
 		962952B32826898000DC8620 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 962952B22826898000DC8620 /* LSPServiceKit */; };
 		96309ECF2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */; };
 		96309ED12844EE0C00B0F9C5 /* ProjectConfigPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */; };
+		9633E40C28A27FBE001EB380 /* ArtifactViewModel+LayoutDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9633E40B28A27FBE001EB380 /* ArtifactViewModel+LayoutDependencies.swift */; };
 		964308A5254B7B070026E56C /* CodefaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964308A4254B7B070026E56C /* CodefaceView.swift */; };
 		96446C1A2829343600B347EF /* Codeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C192829343600B347EF /* Codeface.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
@@ -28,7 +29,7 @@
 		96D8DB1B28A1503100B84B45 /* OverviewBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1A28A1503100B84B45 /* OverviewBar.swift */; };
 		96D8DB1D28A1503C00B84B45 /* OverviewBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1C28A1503C00B84B45 /* OverviewBarView.swift */; };
 		96E479CC28359ABA00762FD7 /* ArtifactViewModel+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */; };
-		96E479CE28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CD28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift */; };
+		96E479CE28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CD28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift */; };
 		96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CF28359C9900762FD7 /* AnimatableLine.swift */; };
 		96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479D128359CCE00762FD7 /* ArtifactView.swift */; };
 		96E479D42835A1DB00762FD7 /* ArtifactIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479D32835A1DB00762FD7 /* ArtifactIcon.swift */; };
@@ -76,6 +77,7 @@
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
 		96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+PropertyWrapper.swift"; sourceTree = "<group>"; };
 		96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectConfigPersister.swift; sourceTree = "<group>"; };
+		9633E40B28A27FBE001EB380 /* ArtifactViewModel+LayoutDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+LayoutDependencies.swift"; sourceTree = "<group>"; };
 		964308A4254B7B070026E56C /* CodefaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceView.swift; sourceTree = "<group>"; };
 		96446C192829343600B347EF /* Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codeface.swift; sourceTree = "<group>"; };
 		967EDB1C2891579700963A7E /* ArtifactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactViewModel.swift; sourceTree = "<group>"; };
@@ -87,7 +89,7 @@
 		96D8DB1A28A1503100B84B45 /* OverviewBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewBar.swift; sourceTree = "<group>"; };
 		96D8DB1C28A1503C00B84B45 /* OverviewBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewBarView.swift; sourceTree = "<group>"; };
 		96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+Search.swift"; sourceTree = "<group>"; };
-		96E479CD28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+CalculateLayout.swift"; sourceTree = "<group>"; };
+		96E479CD28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+LayoutArtifacts.swift"; sourceTree = "<group>"; };
 		96E479CF28359C9900762FD7 /* AnimatableLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableLine.swift; sourceTree = "<group>"; };
 		96E479D128359CCE00762FD7 /* ArtifactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactView.swift; sourceTree = "<group>"; };
 		96E479D32835A1DB00762FD7 /* ArtifactIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactIcon.swift; sourceTree = "<group>"; };
@@ -171,7 +173,8 @@
 		96E479D72835A58800762FD7 /* Artifact View Model */ = {
 			isa = PBXGroup;
 			children = (
-				96E479CD28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift */,
+				9633E40B28A27FBE001EB380 /* ArtifactViewModel+LayoutDependencies.swift */,
+				96E479CD28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift */,
 				96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */,
 				960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */,
 				967EDB1C2891579700963A7E /* ArtifactViewModel.swift */,
@@ -411,7 +414,7 @@
 				96D8DB1B28A1503100B84B45 /* OverviewBar.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
 				96E479DF2835B88E00762FD7 /* Sidebar.swift in Sources */,
-				96E479CE28359C1900762FD7 /* ArtifactViewModel+CalculateLayout.swift in Sources */,
+				96E479CE28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,
 				96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */,
 				96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */,
@@ -419,6 +422,7 @@
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
 				96B9B0BD288FF03200C93A4E /* CodefaceAppDelegate.swift in Sources */,
 				961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */,
+				9633E40C28A27FBE001EB380 /* ArtifactViewModel+LayoutDependencies.swift in Sources */,
 				96E479D42835A1DB00762FD7 /* ArtifactIcon.swift in Sources */,
 				96E479E12835B92000762FD7 /* SwiftUI+Helpers.swift in Sources */,
 				96A3A39F254A3B8400AE4146 /* Project.swift in Sources */,
