@@ -10,20 +10,16 @@ struct ArtifactContentView: View
             
             ZStack
             {
-                ForEach(artifactVM.filteredParts)
+                ForEach(artifactVM.filteredPartDependencies)
                 {
-                    partVM in
+                    dependencyVM in
                     
-                    ForEach(partVM.incomingDependencies.indices, id: \.self)
-                    {
-                        let dependingVM = partVM.incomingDependencies[$0]
-
-                        if dependingVM.codeArtifact.scope === partVM.codeArtifact.scope
-                        {
-                            DependencyView(source: dependingVM, target: partVM)
-                                .opacity(artifactVM.showsContent ? 1 : 0)
-                        }
-                    }
+                    // TODO: just give the whole dependencyVM to the DependencyView, making sure that focus updates in source and target still get propagated to the view
+                    DependencyView(source: dependencyVM.sourcePart,
+                                   target: dependencyVM.targetPart,
+                                   sourcePoint: CGPoint(dependencyVM.sourcePoint),
+                                   targetPoint: CGPoint(dependencyVM.targetPoint))
+                    .opacity(artifactVM.showsContent ? 1 : 0)
                 }
                 
                 ForEach(artifactVM.filteredParts)
@@ -54,9 +50,7 @@ struct DependencyView: View
 {
     var body: some View
     {
-        let arrowPoints = source.pointsForDependency(to: target)
-        
-        Arrow(from: arrowPoints.0, to: arrowPoints.1)
+        Arrow(from: sourcePoint, to: targetPoint)
             .stroke(style: .init(lineWidth: 3, lineCap: .round))
             .foregroundColor(isHighlighted ? .accentColor : .primary.opacity(0.5))
     }
@@ -65,4 +59,14 @@ struct DependencyView: View
     
     @ObservedObject var source: ArtifactViewModel
     @ObservedObject var target: ArtifactViewModel
+    
+    let sourcePoint, targetPoint: CGPoint
+}
+
+extension CGPoint
+{
+    init(_ point: Point)
+    {
+        self.init(x: point.x, y: point.y)
+    }
 }

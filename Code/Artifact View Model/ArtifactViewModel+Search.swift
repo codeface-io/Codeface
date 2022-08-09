@@ -5,6 +5,14 @@ extension ArtifactViewModel
 {
     // MARK: - Filter
     
+    var filteredPartDependencies: [ArtifactViewModel.Dependency]
+    {
+        partDependencies.filter
+        {
+            $0.targetPart.passesSearchFilter && $0.targetPart.passesSearchFilter
+        }
+    }
+    
     var filteredParts: [ArtifactViewModel]
     {
         parts.filter { $0.passesSearchFilter }

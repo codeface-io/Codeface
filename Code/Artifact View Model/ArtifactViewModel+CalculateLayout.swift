@@ -292,7 +292,26 @@ extension ArtifactViewModel
 
 extension ArtifactViewModel
 {
-    func pointsForDependency(to otherArtifact: ArtifactViewModel) -> (CGPoint, CGPoint)
+    func layoutDependencies()
+    {
+        applyRecursively
+        {
+            artifactVM in
+            
+            for dependencyIndex in artifactVM.partDependencies.indices
+            {
+                let source = artifactVM.partDependencies[dependencyIndex].sourcePart
+                let target = artifactVM.partDependencies[dependencyIndex].targetPart
+                
+                let points = source.pointsForDependency(to: target)
+                
+                artifactVM.partDependencies[dependencyIndex].sourcePoint = points.0
+                artifactVM.partDependencies[dependencyIndex].targetPoint = points.1
+            }
+        }
+    }
+    
+    func pointsForDependency(to otherArtifact: ArtifactViewModel) -> (Point, Point)
     {
         let myFrame = frameInScopeContent
         let otherFrame = otherArtifact.frameInScopeContent
@@ -325,11 +344,18 @@ extension ArtifactViewModel
             y2 = y1
         }
         
-        return (CGPoint(x: x1, y: y1), CGPoint(x: x2, y: y2))
+        return (Point(x: x1, y: y1), Point(x: x2, y: y2))
     }
     
     func pointOnLine(from a: Double, to b: Double) -> Double
     {
         a + ((b - a) * 0.5) // (0.25 + .random(in: 0 ... 0.5)))
     }
+}
+
+struct Point
+{
+    static let zero = Point(x: 0, y: 0)
+    
+    let x, y: Double
 }

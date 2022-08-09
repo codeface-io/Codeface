@@ -23,6 +23,7 @@ struct RootArtifactContentView: View
                     {
                         artifact.updateLayoutOfParts(forScopeSize: size,
                                                      ignoreSearchFilter: viewModel.isSearching)
+                        artifact.layoutDependencies()
                     }
                 }
             }
@@ -36,6 +37,7 @@ struct RootArtifactContentView: View
                     {
                         artifact.updateLayoutOfParts(forScopeSize: geo.size,
                                                      ignoreSearchFilter: viewModel.isSearching)
+                        artifact.layoutDependencies()
                     }
                 }
             }

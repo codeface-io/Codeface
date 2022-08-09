@@ -1,4 +1,5 @@
 import CodefaceCore
+import SwiftyToolz
 
 extension ArtifactViewModel
 {
@@ -11,13 +12,20 @@ extension ArtifactViewModel
         // connect view models for symbol dependencies
         applyRecursively
         {
-            vm in
+            artifactVM in
             
-            guard case .symbol(let symbol) = vm.kind else { return }
-            
-            vm.incomingDependencies += symbol.incomingDependenciesScope.compactMap
+            for subVM in artifactVM.parts
             {
-                viewModelHashMap[$0.hash]
+                guard case .symbol(let subsymbol) = subVM.kind else { return }
+                
+                for dependingSubsymbol in subsymbol.incomingDependenciesScope
+                {
+                    guard let dependingSubsymbolVM = viewModelHashMap[dependingSubsymbol.hash]
+                    else { continue }
+                    
+                    artifactVM.partDependencies += .init(sourcePart: dependingSubsymbolVM,
+                                                         targetPart: subVM)
+                }
             }
         }
         

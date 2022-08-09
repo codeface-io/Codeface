@@ -150,8 +150,19 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     // MARK: - Basics
     
-    var incomingDependencies = [ArtifactViewModel]()
+    var partDependencies = [Dependency]()
     let parts: [ArtifactViewModel]
+    
+    struct Dependency: Identifiable
+    {
+        let id = UUID()
+        
+        let sourcePart: ArtifactViewModel
+        var sourcePoint: Point = .zero
+        
+        let targetPart: ArtifactViewModel
+        var targetPoint: Point = .zero
+    }
     
     nonisolated var id: String { codeArtifact.id }
     
