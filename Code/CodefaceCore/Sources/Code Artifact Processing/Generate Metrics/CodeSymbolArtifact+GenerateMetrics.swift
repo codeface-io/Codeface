@@ -32,7 +32,8 @@ func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact])
     // find components within scope
     let inScopeComponents = findComponents(in: symbols)
     {
-        $0.incomingDependenciesScope + $0.outgoingDependenciesScope
+        $0.incomingDependenciesScope.values.map { $0.symbol }
+        + $0.outgoingDependenciesScope.values.map { $0.symbol }
     }
     
     // sort components based on their external dependencies
@@ -86,7 +87,7 @@ extension CodeSymbolArtifact
     {
         if !nodesToVisit.contains(self) { return } else { nodesToVisit -= self }
         
-        metrics.numberOfAllIncomingDependenciesInScope = incomingDependenciesScope.reduce(Int(0))
+        metrics.numberOfAllIncomingDependenciesInScope = incomingDependenciesScope.values.map { $0.symbol }.reduce(Int(0))
         {
             $1.calculateNumberOfAncestors(nodesToVisit: &nodesToVisit)
             

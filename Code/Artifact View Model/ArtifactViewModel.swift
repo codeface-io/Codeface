@@ -162,6 +162,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         
         let targetPart: ArtifactViewModel
         var targetPoint: Point = .zero
+        
+        let weight: Int
     }
     
     nonisolated var id: String { codeArtifact.id }

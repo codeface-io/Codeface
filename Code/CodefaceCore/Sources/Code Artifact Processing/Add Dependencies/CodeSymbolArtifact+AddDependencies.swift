@@ -59,8 +59,23 @@ extension CodeSymbolArtifact
             if scope === referencingSymbolArtifact.scope
             {
                 // dependency within same scope (between siblings)
-                incomingDependenciesScope += referencingSymbolArtifact
-                referencingSymbolArtifact.outgoingDependenciesScope += self
+                if let dependency = incomingDependenciesScope[referencingSymbolArtifact.id]
+                {
+                    dependency.weight += 1
+                }
+                else
+                {
+                    incomingDependenciesScope[referencingSymbolArtifact.id] = .init(other: referencingSymbolArtifact)
+                }
+                
+                if let dependency = referencingSymbolArtifact.outgoingDependenciesScope[id]
+                {
+                    dependency.weight += 1
+                }
+                else
+                {
+                    referencingSymbolArtifact.outgoingDependenciesScope[id] = .init(other: self)
+                }
             }
             else
             {
@@ -72,6 +87,28 @@ extension CodeSymbolArtifact
         
 //        print("did add \(incomingDependencies.count) incoming dependencies to symbol artifact")
     }
+}
+
+public class Dependency: Hashable
+{
+    public static func == (lhs: Dependency, rhs: Dependency) -> Bool
+    {
+        lhs === rhs
+    }
+    
+    public func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(ObjectIdentifier(self).hashValue)
+    }
+    
+    init(other: CodeSymbolArtifact)
+    {
+        self.symbol = other
+        weight = 1
+    }
+    
+    public let symbol: CodeSymbolArtifact
+    public var weight = 0
 }
 
 private extension CodeFileArtifact

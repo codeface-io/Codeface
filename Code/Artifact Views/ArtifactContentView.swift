@@ -18,7 +18,8 @@ struct ArtifactContentView: View
                     DependencyView(source: dependencyVM.sourcePart,
                                    target: dependencyVM.targetPart,
                                    sourcePoint: CGPoint(dependencyVM.sourcePoint),
-                                   targetPoint: CGPoint(dependencyVM.targetPoint))
+                                   targetPoint: CGPoint(dependencyVM.targetPoint),
+                                   weight: Double(dependencyVM.weight))
                     .opacity(artifactVM.showsContent ? 1 : 0)
                 }
                 
@@ -52,15 +53,19 @@ struct DependencyView: View
     {
         Arrow(from: sourcePoint, to: targetPoint)
             .stroke(style: .init(lineWidth: 3, lineCap: .round))
-            .foregroundColor(isHighlighted ? .accentColor : .primary.opacity(0.5))
+            .foregroundColor(isHighlighted ? .accentColor : .primary.opacity(calculateOpacity))
     }
     
     var isHighlighted: Bool { source.isInFocus || target.isInFocus }
+    
+    var calculateOpacity: Double { 1 - pow(0.5, weight) }
     
     @ObservedObject var source: ArtifactViewModel
     @ObservedObject var target: ArtifactViewModel
     
     let sourcePoint, targetPoint: CGPoint
+    
+    let weight: Double
 }
 
 extension CGPoint

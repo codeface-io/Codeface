@@ -18,13 +18,16 @@ extension ArtifactViewModel
             {
                 guard case .symbol(let subsymbol) = subVM.kind else { return }
                 
-                for dependingSubsymbol in subsymbol.incomingDependenciesScope
+                for incomingDependency in subsymbol.incomingDependenciesScope.values
                 {
+                    let dependingSubsymbol = incomingDependency.symbol
+                    
                     guard let dependingSubsymbolVM = viewModelHashMap[dependingSubsymbol.hash]
                     else { continue }
                     
                     artifactVM.partDependencies += .init(sourcePart: dependingSubsymbolVM,
-                                                         targetPart: subVM)
+                                                         targetPart: subVM,
+                                                         weight: incomingDependency.weight)
                 }
             }
         }
