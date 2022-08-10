@@ -28,14 +28,14 @@ extension ArtifactViewModel
                 
                 artifactVM.partDependencies += .init(sourcePart: sourceVM,
                                                      targetPart: targetVM,
-                                                     weight: dependency.weight)
+                                                     weight: dependency.count)
             }
         }
         
         return self
     }
     
-    private var symbolDependencies: Dependencies<CodeSymbolArtifact>?
+    private var symbolDependencies: Edges<CodeSymbolArtifact, CodeSymbolArtifact>?
     {
         switch kind
         {

@@ -29,7 +29,7 @@ extension CodeSymbolArtifact
 
 @MainActor
 func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact],
-                                      dependencies: Dependencies<CodeSymbolArtifact>)
+                                      dependencies: Edges<CodeSymbolArtifact, CodeSymbolArtifact>)
 {
     // find components within scope
     let inScopeComponents = findComponents(in: symbols)
@@ -82,7 +82,7 @@ func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact],
 
 @MainActor
 func generateNumberOfAncestors(inComponent component: SymbolSet,
-                               dependencies: Dependencies<CodeSymbolArtifact>)
+                               dependencies: Edges<CodeSymbolArtifact, CodeSymbolArtifact>)
 {
     var nodesToVisit = component
     
@@ -97,7 +97,7 @@ extension CodeSymbolArtifact
 {
     @MainActor
     func calculateNumberOfAncestors(nodesToVisit: inout SymbolSet,
-                                    dependencies: Dependencies<CodeSymbolArtifact>)
+                                    dependencies: Edges<CodeSymbolArtifact, CodeSymbolArtifact>)
     {
         if !nodesToVisit.contains(self) { return } else { nodesToVisit -= self }
         

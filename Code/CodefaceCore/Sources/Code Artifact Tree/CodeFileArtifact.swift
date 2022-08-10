@@ -25,7 +25,7 @@ public class CodeFileArtifact: Identifiable, ObservableObject
     public weak var scope: CodeArtifact?
     
     public var symbols = [CodeSymbolArtifact]()
-    public var symbolDependencies = Dependencies<CodeSymbolArtifact>()
+    public var symbolDependencies = Edges<CodeSymbolArtifact, CodeSymbolArtifact>()
     
     // MARK: - Basics
     

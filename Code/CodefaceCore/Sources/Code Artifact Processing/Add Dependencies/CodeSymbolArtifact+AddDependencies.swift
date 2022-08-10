@@ -26,7 +26,7 @@ extension CodeSymbolArtifact
     
     func getIncoming(enclosingFile file: LSPDocumentUri,
                      hashMap: CodeFileArtifactHashmap,
-                     server: LSP.ServerCommunicationHandler) async throws -> Dependencies<CodeSymbolArtifact>
+                     server: LSP.ServerCommunicationHandler) async throws -> Edges<CodeSymbolArtifact, CodeSymbolArtifact>
     {
         guard kind != .Namespace else
         {
@@ -39,7 +39,7 @@ extension CodeSymbolArtifact
         
 //        print("found \(refs.count) referencing lsp locations for symbol artifact")
         
-        let result = Dependencies<CodeSymbolArtifact>()
+        let incomingInScope = Edges<CodeSymbolArtifact, CodeSymbolArtifact>()
         
         for referencingLocation in refs
         {
@@ -75,7 +75,7 @@ extension CodeSymbolArtifact
             if scope === dependingSymbol.scope
             {
                 // dependency within same scope (between siblings)
-                result.addDependence(from: dependingSymbol, to: self)
+                incomingInScope.addEdge(from: dependingSymbol, to: self)
             }
             else
             {
@@ -85,7 +85,7 @@ extension CodeSymbolArtifact
             }    
         }
         
-        return result
+        return incomingInScope
     }
 }
 
