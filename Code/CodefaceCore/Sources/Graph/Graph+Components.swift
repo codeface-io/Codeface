@@ -5,7 +5,6 @@ extension Graph
     func findComponents() -> Set<Set<Node>>
     {
         var nodesToSearch = nodes
-        
         var components = Set<Set<Node>>()
 
         while let nodeToSearch = nodesToSearch.first

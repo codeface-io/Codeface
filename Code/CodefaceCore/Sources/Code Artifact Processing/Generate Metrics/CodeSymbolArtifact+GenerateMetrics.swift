@@ -31,12 +31,10 @@ extension CodeSymbolArtifact
 func writeDependencyMetrics(toSymbolsInScope scopeSymbols: [CodeSymbolArtifact],
                             dependencies scopeDependencies: Edges<CodeSymbolArtifact>)
 {
+    // write component ranks
     let scopeGraph = Graph(nodes: Set(scopeSymbols), edges: scopeDependencies)
-    
-    // find components within scope
     let components = scopeGraph.findComponents()
     
-    // sort components based on their external dependencies
     var componentsAndDependencyDiff: [(Set<CodeSymbolArtifact>, Int)] = components.map
     {
         component in
@@ -51,7 +49,6 @@ func writeDependencyMetrics(toSymbolsInScope scopeSymbols: [CodeSymbolArtifact],
     
     componentsAndDependencyDiff.sort { $0.1 < $1.1 }
     
-    // write component numbers to symbol metrics
     for componentNumber in componentsAndDependencyDiff.indices
     {
         let component = componentsAndDependencyDiff[componentNumber].0
@@ -62,7 +59,7 @@ func writeDependencyMetrics(toSymbolsInScope scopeSymbols: [CodeSymbolArtifact],
         }
     }
     
-    // write topological ranks within components to nodes
+    // write topological ranks within components
     for componentNodes in components
     {
         let componentEdges = scopeDependencies.reduced(to: componentNodes)
@@ -87,7 +84,8 @@ func writeDependencyMetrics(toSymbolsInScope scopeSymbols: [CodeSymbolArtifact],
 
 extension CodeSymbolArtifact: Hashable
 {
-    public static func == (lhs: CodeSymbolArtifact, rhs: CodeSymbolArtifact) -> Bool
+    public static func == (lhs: CodeSymbolArtifact,
+                           rhs: CodeSymbolArtifact) -> Bool
     {
         lhs === rhs
     }
