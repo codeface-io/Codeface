@@ -34,6 +34,9 @@ extension CodeSymbolArtifact
             return .empty
         }
         
+        // TODO: contact sourcekit-lsp team about this, maybe open an issue on github ...
+        // sourcekit-lsp suggests a few wrong references where there is one of those issues: a) extension of Variable -> Var namespace declaration (plain wrong) b) class Variable -> namespace Var (wrong direction) or c) all range properties are -1 (invalid)
+        
         let refs = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
                                                       in: file)
         
@@ -53,8 +56,6 @@ extension CodeSymbolArtifact
             
             guard let dependingSymbol = referencingFileArtifact.findSymbolArtifact(containing: referencingLocation.range) else
             {
-                // TODO: contact sourcekit-lsp team about this, maybe open an issue on github ...
-                // sourcekit-lsp suggests a few wrong references where there is one of those issues: a) extension of Variable -> Var namespace declaration (plain wrong) b) class Variable -> namespace Var (wrong direction) or c) all range properties are -1 (invalid)
                 // log(warning: "Could not find referencing symbol artifact\nin file:\(referencingLocation.uri)\nat range: \(referencingLocation.range)\nreferenced symbol \(self.name) of type \(self.kindName) on line \(self.positionInFile) in \(file)")
                 continue
             }

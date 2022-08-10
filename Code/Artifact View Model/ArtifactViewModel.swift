@@ -27,7 +27,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         }
         
         iconSystemImageName = "folder.fill"
-        iconFillColor = Color(NSColor.secondaryLabelColor)
+        iconFillColor = Color("folderBlue")
         fontDesign = .default
         linesOfCodeColor = Color(NSColor.systemGray)
         
