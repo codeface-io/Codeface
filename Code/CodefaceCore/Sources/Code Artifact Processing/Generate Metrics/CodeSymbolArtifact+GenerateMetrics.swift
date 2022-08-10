@@ -22,18 +22,17 @@ extension CodeSymbolArtifact
     {
         guard !subsymbols.isEmpty else { return }
         subsymbols.forEach { $0.generateDependencyMetrics() }
-        generateDependencyMetricsInScope(with: subsymbols,
-                                         dependencies: subsymbolDependencies)
+        writeDependencyMetrics(toSymbolsInScope: subsymbols,
+                               dependencies: subsymbolDependencies)
     }
 }
 
 @MainActor
-func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact],
-                                      dependencies: Edges<CodeSymbolArtifact>)
+func writeDependencyMetrics(toSymbolsInScope symbols: [CodeSymbolArtifact],
+                            dependencies: Edges<CodeSymbolArtifact>)
 {
-    let graph = Graph(nodes: Set(symbols), edges: dependencies)
-    
     // find components within scope
+    let graph = Graph(nodes: Set(symbols), edges: dependencies)
     let inScopeComponents = graph.findComponents()
     
     // sort components based on their external dependencies
@@ -51,7 +50,7 @@ func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact],
     
     componentsAndDependencyDiff.sort { $0.1 < $1.1 }
     
-    // write component numbers to subsymbol metrics
+    // write component numbers to symbol metrics
     for componentNumber in componentsAndDependencyDiff.indices
     {
         let component = componentsAndDependencyDiff[componentNumber].0

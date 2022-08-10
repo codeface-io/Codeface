@@ -18,7 +18,7 @@ extension CodeFileArtifact
     {
         guard !symbols.isEmpty else { return }
         symbols.forEach { $0.generateDependencyMetrics() }
-        generateDependencyMetricsInScope(with: symbols,
-                                         dependencies: symbolDependencies)
+        writeDependencyMetrics(toSymbolsInScope: symbols,
+                               dependencies: symbolDependencies)
     }
 }
