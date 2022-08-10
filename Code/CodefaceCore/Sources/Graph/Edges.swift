@@ -32,6 +32,11 @@ public class Edges<Source: Node, Target: Node>
     
     // MARK: - Reading
     
+    func edge(from source: Source, to target: Target) -> EdgeType?
+    {
+        hashMap[EdgeType.ID(source: source, target: target)]
+    }
+    
     // TODO: hash by source for performance
     func outgoing(from source: Source) -> [EdgeType]
     {
