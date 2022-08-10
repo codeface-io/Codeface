@@ -16,16 +16,16 @@ extension CodeSymbolArtifact: Comparable
     public static func < (lhs: CodeSymbolArtifact, rhs: CodeSymbolArtifact) -> Bool
     {
         // different components?
-        if let componentNumA = lhs.metrics.componentNumber,
-           let componentNumB = rhs.metrics.componentNumber,
+        if let componentNumA = lhs.metrics.componentRank,
+           let componentNumB = rhs.metrics.componentRank,
            componentNumA != componentNumB
         {
             return componentNumA < componentNumB
         }
         
         // different topological rank?
-        if let ancestorsA  = lhs.metrics.numberOfAllIncomingDependenciesInScope,
-           let ancestorsB  = rhs.metrics.numberOfAllIncomingDependenciesInScope,
+        if let ancestorsA  = lhs.metrics.topologicalRankInComponent,
+           let ancestorsB  = rhs.metrics.topologicalRankInComponent,
            ancestorsA != ancestorsB
         {
             return ancestorsA < ancestorsB

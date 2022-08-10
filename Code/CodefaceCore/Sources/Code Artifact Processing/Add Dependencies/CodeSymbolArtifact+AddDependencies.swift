@@ -39,7 +39,7 @@ extension CodeSymbolArtifact
         
 //        print("found \(refs.count) referencing lsp locations for symbol artifact")
         
-        let incomingInScope = Edges<CodeSymbolArtifact>()
+        var incomingInScope = Edges<CodeSymbolArtifact>()
         
         for referencingLocation in refs
         {

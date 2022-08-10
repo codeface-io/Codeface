@@ -1,10 +1,22 @@
-public class Edges<Node: IdentifiableObject>
+public struct Edges<Node: Hashable & IdentifiableObject>
 {
     static var empty: Edges<Node> { .init() }
     
     // MARK: - Writing
     
-    func add(_ otherEdges: Edges<Node>)
+    func reduced(to nodes: Set<Node>) -> Edges<Node>
+    {
+        var reducedEdges = self
+        
+        reducedEdges.hashMap.remove
+        {
+            !nodes.contains($0.source) || !nodes.contains($0.target)
+        }
+        
+        return reducedEdges
+    }
+    
+    mutating func add(_ otherEdges: Edges<Node>)
     {
         hashMap.merge(otherEdges.hashMap)
         {
@@ -16,7 +28,7 @@ public class Edges<Node: IdentifiableObject>
         }
     }
     
-    func addEdge(from source: Node, to target: Node)
+    mutating func addEdge(from source: Node, to target: Node)
     {
         let edgeID = EdgeID(source: source, target: target)
         

@@ -69,8 +69,8 @@ extension ArtifactViewModel
         // tree map algorithm
         let (partsA, partsB) = split(parts)
         
-        let lastComponentA = partsA.last?.codeArtifact.metrics.componentNumber
-        let firstComponentB = partsB.first?.codeArtifact.metrics.componentNumber
+        let lastComponentA = partsA.last?.codeArtifact.metrics.componentRank
+        let firstComponentB = partsB.first?.codeArtifact.metrics.componentRank
         let isSplitBetweenComponents = lastComponentA == nil || firstComponentB == nil || lastComponentA != firstComponentB
         
         let locA = partsA.reduce(0) { $0 + $1.codeArtifact.linesOfCode }
@@ -111,7 +111,7 @@ extension ArtifactViewModel
             return (parts, [])
         }
         
-        let partsSpanMultipleComponents = firstPart.codeArtifact.metrics.componentNumber != lastPart.codeArtifact.metrics.componentNumber
+        let partsSpanMultipleComponents = firstPart.codeArtifact.metrics.componentRank != lastPart.codeArtifact.metrics.componentRank
         
         let halfTotalLOC = (parts.reduce(0) { $0 + $1.codeArtifact.linesOfCode }) / 2
         
@@ -126,8 +126,8 @@ extension ArtifactViewModel
             {
                 if index == parts.count - 1 { continue }
                 
-                let thisPartComponent = parts[index].codeArtifact.metrics.componentNumber
-                let nextPartComponent = parts[index + 1].codeArtifact.metrics.componentNumber
+                let thisPartComponent = parts[index].codeArtifact.metrics.componentRank
+                let nextPartComponent = parts[index + 1].codeArtifact.metrics.componentRank
                 let indexIsEndOfComponent = thisPartComponent != nextPartComponent
                 
                 if !indexIsEndOfComponent { continue }

@@ -28,15 +28,16 @@ extension CodeSymbolArtifact
 }
 
 @MainActor
-func writeDependencyMetrics(toSymbolsInScope symbols: [CodeSymbolArtifact],
-                            dependencies: Edges<CodeSymbolArtifact>)
+func writeDependencyMetrics(toSymbolsInScope scopeSymbols: [CodeSymbolArtifact],
+                            dependencies scopeDependencies: Edges<CodeSymbolArtifact>)
 {
+    let scopeGraph = Graph(nodes: Set(scopeSymbols), edges: scopeDependencies)
+    
     // find components within scope
-    let graph = Graph(nodes: Set(symbols), edges: dependencies)
-    let inScopeComponents = graph.findComponents()
+    let components = scopeGraph.findComponents()
     
     // sort components based on their external dependencies
-    var componentsAndDependencyDiff: [(Set<CodeSymbolArtifact>, Int)] = inScopeComponents.map
+    var componentsAndDependencyDiff: [(Set<CodeSymbolArtifact>, Int)] = components.map
     {
         component in
         
@@ -57,56 +58,30 @@ func writeDependencyMetrics(toSymbolsInScope symbols: [CodeSymbolArtifact],
         
         for symbol in component
         {
-            symbol.metrics.componentNumber = componentNumber
+            symbol.metrics.componentRank = componentNumber
         }
     }
     
-    // generate node ancestor numbers for each component
-    for component in inScopeComponents
+    // write topological ranks within components to nodes
+    for componentNodes in components
     {
-        generateNumberOfAncestors(inComponent: component,
-                                  dependencies: dependencies)
+        let componentEdges = scopeDependencies.reduced(to: componentNodes)
+        let componentGraph = Graph(nodes: componentNodes, edges: componentEdges)
+        
+        let topologicalRanks = componentGraph.findTopologicalRanks()
+        
+        for (symbol, rank) in topologicalRanks
+        {
+            symbol.metrics.topologicalRankInComponent = rank
+        }
     }
     
     // write dependency difference
-    for symbol in symbols
+    for symbol in scopeSymbols
     {
         symbol.metrics.dependencyDifferenceScope =
-            dependencies.outgoing(from: symbol).count
-            - dependencies.ingoing(to: symbol).count
-    }
-}
-
-@MainActor
-func generateNumberOfAncestors(inComponent component: Set<CodeSymbolArtifact>,
-                               dependencies: Edges<CodeSymbolArtifact>)
-{
-    var nodesToVisit = component
-    
-    while !nodesToVisit.isEmpty
-    {
-        nodesToVisit.first?.calculateNumberOfAncestors(nodesToVisit: &nodesToVisit,
-                                                       dependencies: dependencies)
-    }
-}
-
-extension CodeSymbolArtifact
-{
-    @MainActor
-    func calculateNumberOfAncestors(nodesToVisit: inout Set<CodeSymbolArtifact>,
-                                    dependencies: Edges<CodeSymbolArtifact>)
-    {
-        if !nodesToVisit.contains(self) { return } else { nodesToVisit -= self }
-        
-        let dependingSymbols = dependencies.ingoing(to: self).map { $0.source }
-        
-        metrics.numberOfAllIncomingDependenciesInScope = dependingSymbols.reduce(Int(0))
-        {
-            $1.calculateNumberOfAncestors(nodesToVisit: &nodesToVisit,
-                                          dependencies: dependencies)
-            
-            return $0 + 1 + ($1.metrics.numberOfAllIncomingDependenciesInScope ?? 0)
-        }
+            scopeDependencies.outgoing(from: symbol).count
+            - scopeDependencies.ingoing(to: symbol).count
     }
 }
 
@@ -119,6 +94,6 @@ extension CodeSymbolArtifact: Hashable
     
     public func hash(into hasher: inout Hasher)
     {
-        hasher.combine(ObjectIdentifier(self))
+        hasher.combine(id)
     }
 }
