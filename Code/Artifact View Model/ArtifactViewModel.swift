@@ -99,7 +99,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     var fontSize: Double
     {
-        1.2 * sqrt(sqrt(frameInScopeContent.height * frameInScopeContent.width))
+        let viewSurface = frameInScopeContent.height * frameInScopeContent.width
+        return 3 * pow(viewSurface, (1 / 6.0))
     }
     
     static var padding: Double = 16
