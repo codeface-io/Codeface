@@ -24,18 +24,26 @@ extension CodeSymbolArtifact: Comparable
         }
         
         // different topological rank?
-        if let ancestorsA  = lhs.metrics.topologicalRankInComponent,
-           let ancestorsB  = rhs.metrics.topologicalRankInComponent,
-           ancestorsA != ancestorsB
+        if let topoRankA  = lhs.metrics.topologicalRankInComponent,
+           let topoRankB  = rhs.metrics.topologicalRankInComponent,
+           topoRankA != topoRankB
         {
-            return ancestorsA < ancestorsB
+            return topoRankA < topoRankB
         }
         
-        if let dependencyDiffA = lhs.metrics.dependencyDifferenceScope,
-           let dependencyDiffB = rhs.metrics.dependencyDifferenceScope,
-           dependencyDiffA != dependencyDiffB
+        // in- and outgoing dependencies
+        if let inA = lhs.metrics.ingoingDependenciesInScope,
+           let inB = rhs.metrics.ingoingDependenciesInScope,
+           inA != inB
         {
-            return dependencyDiffA > dependencyDiffB
+            return inA < inB
+        }
+        
+        if let outA = lhs.metrics.outgoingDependenciesInScope,
+           let outB = rhs.metrics.outgoingDependenciesInScope,
+           outA != outB
+        {
+            return outA < outB
         }
         
         if lhs.dependencyDifferenceExternal != rhs.dependencyDifferenceExternal

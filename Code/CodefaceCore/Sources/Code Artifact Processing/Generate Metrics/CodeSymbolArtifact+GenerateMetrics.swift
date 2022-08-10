@@ -76,12 +76,12 @@ func writeDependencyMetrics(toSymbolsInScope scopeSymbols: [CodeSymbolArtifact],
         }
     }
     
-    // write dependency difference
+    // write numbers of dependencies
     for symbol in scopeSymbols
     {
-        symbol.metrics.dependencyDifferenceScope =
-            scopeDependencies.outgoing(from: symbol).count
-            - scopeDependencies.ingoing(to: symbol).count
+        symbol.metrics.ingoingDependenciesInScope = scopeDependencies.ingoing(to: symbol).count
+            
+        symbol.metrics.outgoingDependenciesInScope = scopeDependencies.outgoing(from: symbol).count
     }
 }
 

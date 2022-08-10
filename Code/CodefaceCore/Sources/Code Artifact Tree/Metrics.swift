@@ -9,5 +9,6 @@ public struct Metrics
     
     public var componentRank: Int?
     public var topologicalRankInComponent: Int?
-    public var dependencyDifferenceScope: Int?
+    public var ingoingDependenciesInScope: Int?
+    public var outgoingDependenciesInScope: Int?
 }
