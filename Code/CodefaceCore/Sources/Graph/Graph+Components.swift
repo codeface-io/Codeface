@@ -2,11 +2,11 @@ import SwiftyToolz
 
 extension Graph
 {
-    func findComponents() -> [Set<Node>]
+    func findComponents() -> Set<Set<Node>>
     {
         var nodesToSearch = nodes
         
-        var components = [Set<Node>]()
+        var components = Set<Set<Node>>()
 
         while let nodeToSearch = nodesToSearch.first
         {
