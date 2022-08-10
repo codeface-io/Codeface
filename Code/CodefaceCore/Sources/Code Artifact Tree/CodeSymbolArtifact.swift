@@ -45,7 +45,7 @@ public class CodeSymbolArtifact: Identifiable, ObservableObject
     
     public weak var scope: CodeArtifact?
     
-    public var subsymbolDependencies = Edges<CodeSymbolArtifact, CodeSymbolArtifact>()
+    public var subsymbolDependencies = Edges<CodeSymbolArtifact>()
     public var subsymbols = [CodeSymbolArtifact]()
     
     // MARK: - Basics

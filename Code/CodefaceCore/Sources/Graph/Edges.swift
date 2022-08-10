@@ -1,10 +1,10 @@
-public class Edges<Source: Node, Target: Node>
+public class Edges<Node: IdentifiableObject>
 {
-    static var empty: Edges<Source, Target> { .init() }
+    static var empty: Edges<Node> { .init() }
     
     // MARK: - Writing
     
-    func add(_ otherEdges: Edges<Source, Target>)
+    func add(_ otherEdges: Edges<Node>)
     {
         hashMap.merge(otherEdges.hashMap)
         {
@@ -16,9 +16,9 @@ public class Edges<Source: Node, Target: Node>
         }
     }
     
-    func addEdge(from source: Source, to target: Target)
+    func addEdge(from source: Node, to target: Node)
     {
-        let edgeID = EdgeType.ID(source: source, target: target)
+        let edgeID = EdgeID(source: source, target: target)
         
         if let edge = hashMap[edgeID]
         {
@@ -32,33 +32,33 @@ public class Edges<Source: Node, Target: Node>
     
     // MARK: - Reading
     
-    func edge(from source: Source, to target: Target) -> EdgeType?
+    func edge(from source: Node, to target: Node) -> Edge<Node>?
     {
-        hashMap[EdgeType.ID(source: source, target: target)]
+        hashMap[EdgeID(source: source, target: target)]
     }
     
     // TODO: hash by source for performance
-    func outgoing(from source: Source) -> [EdgeType]
+    func outgoing(from source: Node) -> [Edge<Node>]
     {
         Array(hashMap.values.filter { $0.source === source })
     }
     
     // TODO: hash by target for performance
-    func ingoing(to target: Target) -> [EdgeType]
+    func ingoing(to target: Node) -> [Edge<Node>]
     {
         Array(hashMap.values.filter { $0.target === target })
     }
     
-    public var all: [EdgeType] { Array(hashMap.values) }
+    public var all: [Edge<Node>] { Array(hashMap.values) }
     
-    var sources: [Source] { hashMap.values.map { $0.source } }
-    var targets: [Target] { hashMap.values.map { $0.target } }
+    var sources: [Node] { hashMap.values.map { $0.source } }
+    var targets: [Node] { hashMap.values.map { $0.target } }
     
     var count: Int { hashMap.count }
     
     // MARK: - Data
     
-    private var hashMap = [EdgeType.ID: EdgeType]()
+    private var hashMap = [EdgeID: Edge<Node>]()
     
-    public typealias EdgeType = Edge<Source, Target>
+    typealias EdgeID = Edge<Node>.ID
 }

@@ -35,7 +35,7 @@ extension ArtifactViewModel
         return self
     }
     
-    private var symbolDependencies: Edges<CodeSymbolArtifact, CodeSymbolArtifact>?
+    private var symbolDependencies: Edges<CodeSymbolArtifact>?
     {
         switch kind
         {

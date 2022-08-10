@@ -1,8 +1,8 @@
-public class Edge<Source: Node, Target: Node>
+public class Edge<Node: IdentifiableObject>
 {
     // MARK: - Initialization
     
-    init(source: Source, target: Target)
+    init(source: Node, target: Node)
     {
         self.source = source
         self.target = target
@@ -20,20 +20,18 @@ public class Edge<Source: Node, Target: Node>
     
     struct ID: Hashable
     {
-        init(source: Source, target: Target)
+        init(source: Node, target: Node)
         {
             self.sourceID = source.id
             self.targetID = target.id
         }
         
-        let sourceID: Source.ID
-        let targetID: Target.ID
+        let sourceID: Node.ID
+        let targetID: Node.ID
     }
     
-    public let source: Source
-    public let target: Target
+    public let source: Node
+    public let target: Node
 }
-
-public typealias Node = IdentifiableObject
 
 public typealias IdentifiableObject = Identifiable & AnyObject
