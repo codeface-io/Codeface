@@ -31,15 +31,13 @@ extension CodeSymbolArtifact
 func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact],
                                       dependencies: Edges<CodeSymbolArtifact>)
 {
+    let graph = Graph(nodes: Set(symbols), edges: dependencies)
+    
     // find components within scope
-    let inScopeComponents = findComponents(in: symbols)
-    {
-        dependencies.outgoing(from: $0).map { $0.target }
-        + dependencies.ingoing(to: $0).map { $0.source }
-    }
+    let inScopeComponents = graph.findComponents()
     
     // sort components based on their external dependencies
-    var componentsAndDependencyDiff: [(SymbolSet, Int)] = inScopeComponents.map
+    var componentsAndDependencyDiff: [(Set<CodeSymbolArtifact>, Int)] = inScopeComponents.map
     {
         component in
         
@@ -81,7 +79,7 @@ func generateDependencyMetricsInScope(with symbols: [CodeSymbolArtifact],
 }
 
 @MainActor
-func generateNumberOfAncestors(inComponent component: SymbolSet,
+func generateNumberOfAncestors(inComponent component: Set<CodeSymbolArtifact>,
                                dependencies: Edges<CodeSymbolArtifact>)
 {
     var nodesToVisit = component
@@ -96,7 +94,7 @@ func generateNumberOfAncestors(inComponent component: SymbolSet,
 extension CodeSymbolArtifact
 {
     @MainActor
-    func calculateNumberOfAncestors(nodesToVisit: inout SymbolSet,
+    func calculateNumberOfAncestors(nodesToVisit: inout Set<CodeSymbolArtifact>,
                                     dependencies: Edges<CodeSymbolArtifact>)
     {
         if !nodesToVisit.contains(self) { return } else { nodesToVisit -= self }
@@ -112,52 +110,6 @@ extension CodeSymbolArtifact
         }
     }
 }
-
-@MainActor
-func findComponents(in symbols: [CodeSymbolArtifact],
-                    getNeighbours: (CodeSymbolArtifact) -> [CodeSymbolArtifact]) -> [SymbolSet]
-{
-    var symbolsToSearch = SymbolSet(symbols)
-    var components = [SymbolSet]()
-    
-    while let symbolToSearch = symbolsToSearch.first
-    {
-        let nextComponent = symbolToSearch.findComponent(getNeighbours: getNeighbours)
-        
-        components += nextComponent
-        
-        symbolsToSearch -= nextComponent
-    }
-    
-    return components
-}
-
-@MainActor
-extension CodeSymbolArtifact
-{
-    func findComponent(getNeighbours: (CodeSymbolArtifact) -> [CodeSymbolArtifact]) -> SymbolSet
-    {
-        findComponentNodes(lackingIn: [], getNeighbours: getNeighbours)
-    }
-    
-    private func findComponentNodes(lackingIn incompleteComponent: SymbolSet,
-                                    getNeighbours: (CodeSymbolArtifact) -> [CodeSymbolArtifact]) -> SymbolSet
-    {
-        guard !incompleteComponent.contains(self) else { return [] }
-        
-        var lackingNodes: SymbolSet = [self]
-        
-        for neighbour in getNeighbours(self)
-        {
-            lackingNodes += neighbour.findComponentNodes(lackingIn: incompleteComponent + lackingNodes,
-                                                         getNeighbours: getNeighbours)
-        }
-        
-        return lackingNodes
-    }
-}
-
-typealias SymbolSet = Set<CodeSymbolArtifact>
 
 extension CodeSymbolArtifact: Hashable
 {
