@@ -4,6 +4,22 @@ import SwiftyToolz
 
 extension CodeSymbolArtifact: CodeArtifact
 {
+    public func addDependency(from source: CodeArtifact,
+                              to target: CodeArtifact)
+    {
+        guard let sourceSymbol = source as? CodeSymbolArtifact,
+              let targetSymbol = target as? CodeSymbolArtifact
+        else
+        {
+            log(error: "Tried to add dependency to symbol scope between non-symbol artifacts.")
+            return
+        }
+        
+        // TODO: do sanity check that source and target are actually subsymbols of this symbol ... requires that subsymbols are in an ordered set (order is important here)
+        
+        subsymbolDependencies.addEdge(from: sourceSymbol, to: targetSymbol)
+    }
+    
     public static var kindNames: [String] { LSPDocumentSymbol.SymbolKind.names }
     
     public var kindName: String { kind?.name ?? "Unknown Kind of Symbol" }
@@ -37,11 +53,11 @@ public class CodeSymbolArtifact: Identifiable, ObservableObject
     
     public var dependencyDifferenceExternal: Int
     {
-        outgoingDependenciesExternal.count - incomingDependenciesExternal.count
+        outgoingDependenciesExternal - incomingDependenciesExternal
     }
     
-    public var incomingDependenciesExternal = [CodeSymbolArtifact]()
-    public var outgoingDependenciesExternal = [CodeSymbolArtifact]()
+    public var incomingDependenciesExternal = 0
+    public var outgoingDependenciesExternal = 0
     
     public weak var scope: CodeArtifact?
     

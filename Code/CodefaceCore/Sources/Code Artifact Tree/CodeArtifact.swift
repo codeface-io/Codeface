@@ -26,6 +26,7 @@ public protocol CodeArtifact: AnyObject
     var metrics: Metrics { get }
     
     var scope: CodeArtifact? { get }
+    func addDependency(from: CodeArtifact, to: CodeArtifact)
     
     var name: String { get }
     var kindName: String { get }
