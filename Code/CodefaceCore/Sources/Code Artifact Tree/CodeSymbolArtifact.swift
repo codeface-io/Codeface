@@ -51,14 +51,6 @@ public class CodeSymbolArtifact: Identifiable, ObservableObject
     
     // MARK: - Graph Structure
     
-    public var dependencyDifferenceExternal: Int
-    {
-        outgoingDependenciesExternal - incomingDependenciesExternal
-    }
-    
-    public var incomingDependenciesExternal = 0
-    public var outgoingDependenciesExternal = 0
-    
     public weak var scope: CodeArtifact?
     
     public var subsymbolDependencies = Edges<CodeSymbolArtifact>()

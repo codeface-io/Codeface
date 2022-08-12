@@ -91,11 +91,6 @@ extension CodeSymbolArtifact
     private func handleExternalDependence(from sourceSymbol: CodeSymbolArtifact,
                                           to targetSymbol: CodeSymbolArtifact)
     {
-        // TODO: what about sorting components in higher level scopes???
-        // count external dependencies so we can sort components in a meaningful way
-        targetSymbol.incomingDependenciesExternal += 1
-        sourceSymbol.outgoingDependenciesExternal += 1
-        
         // get paths of enclosing scopes
         let sourcePath = sourceSymbol.getScopePath()
         let targetPath = targetSymbol.getScopePath()
