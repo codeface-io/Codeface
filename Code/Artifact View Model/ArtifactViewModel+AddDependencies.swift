@@ -13,36 +13,57 @@ extension ArtifactViewModel
             viewModelHashMap[$0.codeArtifact.hash] = $0
         }
         
-        // connect view models for symbol dependencies
+        // add view models for dependencies
         applyRecursively
         {
             artifactVM in
             
-            guard let symbolDependencies = artifactVM.symbolDependencies else { return }
+            // TODO: generalize this instead of repeating code for each kind
             
-            for dependency in symbolDependencies.all
+            switch artifactVM.kind
             {
-                guard let sourceVM = viewModelHashMap[dependency.source.hash],
-                      let targetVM = viewModelHashMap[dependency.target.hash]
-                else { continue }
+            case .folder(let folder):
                 
-                artifactVM.partDependencies += .init(sourcePart: sourceVM,
-                                                     targetPart: targetVM,
-                                                     weight: dependency.count)
+                for dependency in folder.partDependencies.all
+                {
+                    guard let sourceVM = viewModelHashMap[dependency.source.hash],
+                          let targetVM = viewModelHashMap[dependency.target.hash]
+                    else { continue }
+                    
+                    artifactVM.partDependencies += .init(sourcePart: sourceVM,
+                                                         targetPart: targetVM,
+                                                         weight: dependency.count)
+                }
+                
+            case .file(let file):
+                
+                for dependency in file.symbolDependencies.all
+                {
+                    guard let sourceVM = viewModelHashMap[dependency.source.hash],
+                          let targetVM = viewModelHashMap[dependency.target.hash]
+                    else { continue }
+                    
+                    artifactVM.partDependencies += .init(sourcePart: sourceVM,
+                                                         targetPart: targetVM,
+                                                         weight: dependency.count)
+                }
+                
+            case .symbol(let symbol):
+                
+                for dependency in symbol.subsymbolDependencies.all
+                {
+                    guard let sourceVM = viewModelHashMap[dependency.source.hash],
+                          let targetVM = viewModelHashMap[dependency.target.hash]
+                    else { continue }
+                    
+                    artifactVM.partDependencies += .init(sourcePart: sourceVM,
+                                                         targetPart: targetVM,
+                                                         weight: dependency.count)
+                }
             }
         }
         
         return self
-    }
-    
-    private var symbolDependencies: Edges<CodeSymbolArtifact>?
-    {
-        switch kind
-        {
-        case .symbol(let symbol): return symbol.subsymbolDependencies
-        case .file(let file): return file.symbolDependencies
-        case .folder: return nil
-        }
     }
 
     func applyRecursively(action: (ArtifactViewModel) -> Void)

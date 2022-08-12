@@ -76,6 +76,15 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
             hasher.combine(id)
         }
         
+        public var hash: CodeArtifact.Hash
+        {
+            switch kind
+            {
+            case .file(let file): return file.hash
+            case .subfolder(let subfolder): return subfolder.hash
+            }
+        }
+        
         public var id: String
         {
             switch kind
