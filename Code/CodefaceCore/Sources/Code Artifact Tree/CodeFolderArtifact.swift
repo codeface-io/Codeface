@@ -1,4 +1,5 @@
 import Foundation
+import OrderedCollections
 import SwiftyToolz
 
 extension CodeFolderArtifact: CodeArtifact
@@ -122,8 +123,9 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
     public weak var scope: CodeArtifact?
     
     // TODO: rather use an OrderedSet
+    
     public var parts: [PartNode] { Array(partsByArtifactHash.values) }
-    public var partsByArtifactHash = [CodeArtifact.Hash: PartNode]()
+    public var partsByArtifactHash = OrderedDictionary<CodeArtifact.Hash, PartNode>()
     
     // MARK: - Basics
     

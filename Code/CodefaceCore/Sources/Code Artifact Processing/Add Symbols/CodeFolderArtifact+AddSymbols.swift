@@ -6,7 +6,7 @@ public extension CodeFolderArtifact
 {
     func addSymbolArtifacts(using server: LSP.ServerCommunicationHandler) async throws
     {
-        for part in parts
+        for part in partsByArtifactHash.values
         {
             switch part.kind
             {

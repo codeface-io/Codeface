@@ -24,6 +24,10 @@ let package = Package(
         .package(
             url: "https://github.com/flowtoolz/SwiftyToolz.git",
             branch: "master"
+        ),
+        .package(
+            url: "https://github.com/apple/swift-collections.git",
+            from: "1.0.2"
         )
     ],
     targets: [
@@ -31,7 +35,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "CodefaceCore",
-            dependencies: ["SwiftLSP", "FoundationToolz", "SwiftyToolz"],
+            dependencies: ["SwiftLSP", "FoundationToolz", "SwiftyToolz", .product(name: "OrderedCollections", package: "swift-collections")],
             path: "Sources"
         ),
         .testTarget(
