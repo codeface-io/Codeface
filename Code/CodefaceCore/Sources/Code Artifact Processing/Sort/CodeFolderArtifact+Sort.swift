@@ -2,18 +2,16 @@ public extension CodeFolderArtifact
 {
     func sort()
     {
-        for file in files
+        for part in parts
         {
-            file.sort()
+            switch part.kind
+            {
+            case .subfolder(let folder): folder.sort()
+            case .file(let file): file.sort()
+            }
         }
         
-        files.sort { $0.linesOfCode > $1.linesOfCode }
-        
-        for subfolder in subfolders
-        {
-            subfolder.sort()
-        }
-        
-        subfolders.sort { $0.linesOfCode > $1.linesOfCode }
+        // TODO: use OrderedSet and bring back sorting
+//        parts.sort { $0.codeArtifact.linesOfCode > $1.codeArtifact.linesOfCode }
     }
 }

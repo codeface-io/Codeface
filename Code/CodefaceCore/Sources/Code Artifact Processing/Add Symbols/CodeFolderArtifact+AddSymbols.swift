@@ -6,14 +6,15 @@ public extension CodeFolderArtifact
 {
     func addSymbolArtifacts(using server: LSP.ServerCommunicationHandler) async throws
     {
-        for fileArtifact in files
+        for part in parts
         {
-            try await fileArtifact.addSymbolArtifacts(using: server)
-        }
-        
-        for subfolderArtifact in subfolders
-        {
-            try await subfolderArtifact.addSymbolArtifacts(using: server)
+            switch part.kind
+            {
+            case .subfolder(let subfolder):
+                try await subfolder.addSymbolArtifacts(using: server)
+            case .file(let file):
+                try await file.addSymbolArtifacts(using: server)
+            }
         }
     }
 }

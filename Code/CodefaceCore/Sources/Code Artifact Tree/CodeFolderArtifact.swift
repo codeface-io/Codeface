@@ -6,27 +6,15 @@ extension CodeFolderArtifact: CodeArtifact
     public func addDependency(from sourceArtifact: CodeArtifact,
                               to targetArtifact: CodeArtifact)
     {
-        guard let sourceNode = getPartNode(for: sourceArtifact),
-              let targetNode = getPartNode(for: targetArtifact)
+        guard let sourceNode = partsByArtifactHash[sourceArtifact.hash],
+              let targetNode = partsByArtifactHash[targetArtifact.hash]
         else
         {
             log(error: "Tried to add dependency to folder scope between invalid artifact types")
             return
         }
         
-        // TODO: do sanity check that source and target actually contain subfolders or files of this folder
-        
         partDependencies.addEdge(from: sourceNode, to: targetNode)
-    }
-    
-    private func getPartNode(for artifact: CodeArtifact) -> PartNode?
-    {
-        switch artifact
-        {
-        case let folder as CodeFolderArtifact: return .init(kind: .subfolder(folder))
-        case let file as CodeFileArtifact: return .init(kind: .file(file))
-        default: return nil
-        }
     }
     
     public var name: String { codeFolderURL.lastPathComponent }
@@ -42,14 +30,21 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         self.codeFolderURL = codeFolder.url
         self.scope = scope
         
-        self.subfolders = codeFolder.subfolders.map
+        let partArray = codeFolder.subfolders.map
         {
-            CodeFolderArtifact(codeFolder: $0, scope: self)
+            PartNode(kind: .subfolder(CodeFolderArtifact(codeFolder: $0,
+                                                         scope: self)))
+        }
+        +
+        codeFolder.files.map
+        {
+            PartNode(kind: .file(CodeFileArtifact(codeFile: $0,
+                                                  scope: self)))
         }
         
-        self.files = codeFolder.files.map
+        for part in partArray
         {
-            CodeFileArtifact(codeFile: $0, scope: self)
+            self.partsByArtifactHash[part.hash] = part
         }
     }
     
@@ -61,12 +56,16 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
     
     public var partDependencies = Edges<PartNode>()
     
-    public class PartNode: Hashable, Identifiable
+    public class PartNode: CodeArtifact, Hashable, Identifiable
     {
-        init(kind: Kind)
+        // MARK: Initialize
+        
+        public init(kind: Kind)
         {
             self.kind = kind
         }
+        
+        // MARK: Hashable
         
         public static func == (lhs: CodeFolderArtifact.PartNode,
                                rhs: CodeFolderArtifact.PartNode) -> Bool { lhs === rhs }
@@ -76,35 +75,55 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
             hasher.combine(id)
         }
         
-        public var hash: CodeArtifact.Hash
+        // MARK: CodeArtifact
+        
+        public var metrics: Metrics
+        {
+            get { codeArtifact.metrics }
+            set { codeArtifact.metrics = newValue }
+        }
+        
+        public var scope: CodeArtifact? { codeArtifact.scope }
+        
+        public func addDependency(from: CodeArtifact, to: CodeArtifact)
+        {
+            codeArtifact.addDependency(from: from, to: to)
+        }
+        
+        public var name: String { codeArtifact.name }
+        
+        public var kindName: String { codeArtifact.kindName }
+        
+        public var code: String? { codeArtifact.code }
+        
+        public var id: String { codeArtifact.id }
+        
+        public var hash: CodeArtifact.Hash { codeArtifact.hash }
+        
+        var codeArtifact: CodeArtifact
         {
             switch kind
             {
-            case .file(let file): return file.hash
-            case .subfolder(let subfolder): return subfolder.hash
+            case .file(let file): return file
+            case .subfolder(let subfolder): return subfolder
             }
         }
         
-        public var id: String
-        {
-            switch kind
-            {
-            case .file(let file): return file.id
-            case .subfolder(let subfolder): return subfolder.id
-            }
-        }
+        // MARK: Actual Artifact
         
-        let kind: Kind
+        public let kind: Kind
         
-        enum Kind
+        public enum Kind
         {
             case subfolder(CodeFolderArtifact), file(CodeFileArtifact)
         }
     }
     
     public weak var scope: CodeArtifact?
-    public var subfolders = [CodeFolderArtifact]()
-    public var files = [CodeFileArtifact]()
+    
+    // TODO: rather use an OrderedSet
+    public var parts: [PartNode] { Array(partsByArtifactHash.values) }
+    public var partsByArtifactHash = [CodeArtifact.Hash: PartNode]()
     
     // MARK: - Basics
     

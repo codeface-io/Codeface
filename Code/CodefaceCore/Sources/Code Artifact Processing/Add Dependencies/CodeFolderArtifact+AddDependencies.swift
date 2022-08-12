@@ -11,14 +11,15 @@ public extension CodeFolderArtifact
     private func addDependencies(using hashMap: CodeFileArtifactHashmap,
                                  _ server: LSP.ServerCommunicationHandler) async throws
     {
-        for subfolderArtifact in subfolders
+        for part in parts
         {
-            try await subfolderArtifact.addDependencies(using: hashMap, server)
-        }
-        
-        for fileArtifact in files
-        {
-            try await fileArtifact.addDependencies(using: hashMap, server)
+            switch part.kind
+            {
+            case .subfolder(let subfolder):
+                try await subfolder.addDependencies(using: hashMap, server)
+            case .file(let file):
+                try await file.addDependencies(using: hashMap, server)
+            }
         }
     }
 }

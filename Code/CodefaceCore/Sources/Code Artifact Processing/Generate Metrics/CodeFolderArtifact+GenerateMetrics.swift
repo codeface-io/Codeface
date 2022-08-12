@@ -2,27 +2,26 @@ public extension CodeFolderArtifact
 {
     func generateMetrics()
     {
+        for part in parts
+        {
+            switch part.kind
+            {
+            case .subfolder(let subfolder): subfolder.generateMetrics()
+            case .file(let file): file.generateMetrics()
+            }
+        }
+        
         generateSizeMetrics()
         generateDependencyMetrics()
     }
     
     private func generateSizeMetrics()
     {
-        subfolders.forEach { $0.generateSizeMetrics() }
-        files.forEach { $0.generateSizeMetrics() }
-            
-        let locOfSubfolders = subfolders.reduce(0) { $0 + $1.linesOfCode }
-        let locOfFiles = files.reduce(0) { $0 + $1.linesOfCode }
-        let locOfAllParts = locOfSubfolders + locOfFiles
+        let locOfAllParts = parts.reduce(0) { $0 + $1.codeArtifact.linesOfCode }
         
-        subfolders.forEach
+        parts.forEach
         {
-            $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfAllParts)
-        }
-        
-        files.forEach
-        {
-            $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfAllParts)
+            $0.codeArtifact.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfAllParts)
         }
         
         metrics.linesOfCode = locOfAllParts
@@ -30,7 +29,7 @@ public extension CodeFolderArtifact
     
     private func generateDependencyMetrics()
     {
-        subfolders.forEach { $0.generateDependencyMetrics() }
-        files.forEach { $0.generateDependencyMetrics() }
+        writeDependencyMetrics(toParts: parts,
+                               dependencies: partDependencies)
     }
 }

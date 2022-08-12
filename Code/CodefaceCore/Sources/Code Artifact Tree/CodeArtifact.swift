@@ -23,7 +23,7 @@ public extension CodeArtifact
 
 public protocol CodeArtifact: AnyObject
 {
-    var metrics: Metrics { get }
+    var metrics: Metrics { get set }
     
     var scope: CodeArtifact? { get }
     func addDependency(from: CodeArtifact, to: CodeArtifact)

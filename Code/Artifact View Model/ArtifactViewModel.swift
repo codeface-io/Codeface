@@ -17,13 +17,13 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     init(folderArtifact: CodeFolderArtifact)
     {
         // create child presentations for parts recursively
-        self.parts = folderArtifact.subfolders.map
+        self.parts = folderArtifact.parts.map
         {
-            ArtifactViewModel(folderArtifact: $0)
-        }
-        + folderArtifact.files.map
-        {
-            ArtifactViewModel(fileArtifact: $0)
+            switch $0.kind
+            {
+            case .file(let file): return .init(fileArtifact: file)
+            case .subfolder(let subfolder): return .init(folderArtifact: subfolder)
+            }
         }
         
         iconSystemImageName = "folder.fill"

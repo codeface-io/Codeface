@@ -1,4 +1,4 @@
-public struct Edges<Node: Hashable & IdentifiableObject>
+public struct Edges<Node: GraphNode>
 {
     static var empty: Edges<Node> { .init() }
     
@@ -74,3 +74,5 @@ public struct Edges<Node: Hashable & IdentifiableObject>
     
     typealias EdgeID = Edge<Node>.ID
 }
+
+public typealias GraphNode = Hashable & IdentifiableObject

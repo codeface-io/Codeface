@@ -23,12 +23,15 @@ extension ArtifactViewModel
             switch artifactVM.kind
             {
             case .folder(let folder):
-                
                 for dependency in folder.partDependencies.all
                 {
                     guard let sourceVM = viewModelHashMap[dependency.source.hash],
                           let targetVM = viewModelHashMap[dependency.target.hash]
-                    else { continue }
+                    else
+                    {
+                        log(error: "Could not find VMs for dependency from \(dependency.source.kindName) to \(dependency.target.kindName)")
+                        continue
+                    }
                     
                     artifactVM.partDependencies += .init(sourcePart: sourceVM,
                                                          targetPart: targetVM,
@@ -36,7 +39,6 @@ extension ArtifactViewModel
                 }
                 
             case .file(let file):
-                
                 for dependency in file.symbolDependencies.all
                 {
                     guard let sourceVM = viewModelHashMap[dependency.source.hash],
@@ -49,7 +51,6 @@ extension ArtifactViewModel
                 }
                 
             case .symbol(let symbol):
-                
                 for dependency in symbol.subsymbolDependencies.all
                 {
                     guard let sourceVM = viewModelHashMap[dependency.source.hash],

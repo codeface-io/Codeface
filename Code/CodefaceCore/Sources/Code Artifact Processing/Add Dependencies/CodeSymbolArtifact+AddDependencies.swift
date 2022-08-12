@@ -115,9 +115,10 @@ extension CodeSymbolArtifact
         {
             if sourcePath[pathIndex] !== targetPath[pathIndex] { continue }
             
-            // found deepest common scope: identify interdependent siblings
+            // found deepest common scope
             let commonScope = sourcePath[pathIndex]
             
+            // identify interdependent sibling parts
             let sourcePart =
             pathIndex == sourcePath.count - 1
             ? sourceSymbol
@@ -129,8 +130,7 @@ extension CodeSymbolArtifact
             : targetPath[pathIndex + 1]
             
             // add dependency between siblings to scope
-            return commonScope.addDependency(from: sourcePart,
-                                             to: targetPart)
+            return commonScope.addDependency(from: sourcePart, to: targetPart)
         }
     }
 }
@@ -143,7 +143,6 @@ private extension CodeArtifact
         return scope.getScopePath() + scope
     }
 }
-
 
 private extension CodeFileArtifact
 {

@@ -1,9 +1,15 @@
 extension CodeFileArtifact
 {
-    func generateSizeMetrics()
+    func generateMetrics()
     {
-        symbols.forEach { $0.generateSizeMetrics() }
-            
+        symbols.forEach { $0.generateMetrics() }
+        
+        generateSizeMetrics()
+        generateDependencyMetrics()
+    }
+    
+    private func generateSizeMetrics()
+    {
         let locOfAllSymbols = symbols.reduce(0) { $0 + $1.linesOfCode }
         
         symbols.forEach
@@ -14,11 +20,9 @@ extension CodeFileArtifact
         metrics.linesOfCode = codeFile.lines.count
     }
     
-    func generateDependencyMetrics()
+    private func generateDependencyMetrics()
     {
-        guard !symbols.isEmpty else { return }
-        symbols.forEach { $0.generateDependencyMetrics() }
-        writeDependencyMetrics(toSymbolsInScope: symbols,
+        writeDependencyMetrics(toParts: symbols,
                                dependencies: symbolDependencies)
     }
 }

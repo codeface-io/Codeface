@@ -2,7 +2,15 @@ import SwiftyToolz
 
 extension CodeSymbolArtifact
 {
-    func generateSizeMetrics()
+    func generateMetrics()
+    {
+        subsymbols.forEach { $0.generateMetrics() }
+        
+        generateSizeMetrics()
+        generateDependencyMetrics()
+    }
+    
+    private func generateSizeMetrics()
     {
         subsymbols.forEach { $0.generateSizeMetrics() }
         
@@ -18,67 +26,52 @@ extension CodeSymbolArtifact
         metrics.linesOfCode = loc
     }
     
-    func generateDependencyMetrics()
+    private func generateDependencyMetrics()
     {
-        guard !subsymbols.isEmpty else { return }
-        subsymbols.forEach { $0.generateDependencyMetrics() }
-        writeDependencyMetrics(toSymbolsInScope: subsymbols,
+        writeDependencyMetrics(toParts: subsymbols,
                                dependencies: subsymbolDependencies)
     }
 }
 
 @MainActor
-func writeDependencyMetrics(toSymbolsInScope scopeSymbols: [CodeSymbolArtifact],
-                            dependencies scopeDependencies: Edges<CodeSymbolArtifact>)
+func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
+                                  dependencies scopeDependencies: Edges<Part>)
+    where Part: CodeArtifact & Hashable & Identifiable
 {
-    // write component ranks
-    let scopeGraph = Graph(nodes: Set(scopeSymbols), edges: scopeDependencies)
-    let components = scopeGraph.findComponents()
+    // write (random) component ranks
+    let scopeGraph = Graph(nodes: Set(scopeParts), edges: scopeDependencies)
+    let components = Array(scopeGraph.findComponents())
     
-    var componentsAndDependencyDiff: [(Set<CodeSymbolArtifact>, Int)] = components.map
+    for componentIndex in components.indices
     {
-        component in
+        let component = components[componentIndex]
         
-        let componentDependencyDiffExternal = component.reduce(0)
+        for part in component
         {
-            $0 + $1.dependencyDifferenceExternal
-        }
-        
-        return (component, componentDependencyDiffExternal)
-    }
-    
-    componentsAndDependencyDiff.sort { $0.1 < $1.1 }
-    
-    for componentNumber in componentsAndDependencyDiff.indices
-    {
-        let component = componentsAndDependencyDiff[componentNumber].0
-        
-        for symbol in component
-        {
-            symbol.metrics.componentRank = componentNumber
+            part.metrics.componentRank = componentIndex
         }
     }
     
     // write topological ranks within components
     for componentNodes in components
     {
-        let componentEdges = scopeDependencies.reduced(to: componentNodes)
-        let componentGraph = Graph(nodes: componentNodes, edges: componentEdges)
+        let componentDependencies = scopeDependencies.reduced(to: componentNodes)
+        let componentGraph = Graph(nodes: componentNodes, edges: componentDependencies)
         
         let topologicalRanks = componentGraph.findTopologicalRanks()
         
-        for (symbol, rank) in topologicalRanks
+        for (part, rank) in topologicalRanks
         {
-            symbol.metrics.topologicalRankInComponent = rank
+            part.metrics.topologicalRankInComponent = rank
         }
     }
     
     // write numbers of dependencies
-    for symbol in scopeSymbols
+    for part in scopeParts
     {
-        symbol.metrics.ingoingDependenciesInScope = scopeDependencies.ingoing(to: symbol).count
+        part.metrics.ingoingDependenciesInScope = scopeDependencies.ingoing(to: part).count
             
-        symbol.metrics.outgoingDependenciesInScope = scopeDependencies.outgoing(from: symbol).count
+        part.metrics.outgoingDependenciesInScope = scopeDependencies.outgoing(from: part).count
     }
 }
 
