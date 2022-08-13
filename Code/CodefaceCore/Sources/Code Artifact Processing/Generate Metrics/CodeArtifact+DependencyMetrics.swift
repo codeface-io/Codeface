@@ -9,7 +9,7 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
     
     var componentsWithSize: [(Set<Part>, Int)] = components.map
     {
-        ($0, $0.reduce(0) { $0 + $1.linesOfCode })
+        ($0, $0.sum { $0.linesOfCode })
     }
     
     componentsWithSize.sort { $0.1 > $1.1 }

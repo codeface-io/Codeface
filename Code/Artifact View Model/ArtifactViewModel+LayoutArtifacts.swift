@@ -73,8 +73,8 @@ extension ArtifactViewModel
         let firstComponentB = partsB.first?.codeArtifact.metrics.componentRank
         let isSplitBetweenComponents = lastComponentA == nil || firstComponentB == nil || lastComponentA != firstComponentB
         
-        let locA = partsA.reduce(0) { $0 + $1.codeArtifact.linesOfCode }
-        let locB = partsB.reduce(0) { $0 + $1.codeArtifact.linesOfCode }
+        let locA = partsA.sum { $0.codeArtifact.linesOfCode }
+        let locB = partsB.sum { $0.codeArtifact.linesOfCode }
         
         let fractionA = Double(locA) / Double(locA + locB)
         
@@ -113,7 +113,7 @@ extension ArtifactViewModel
         
         let partsSpanMultipleComponents = firstPart.codeArtifact.metrics.componentRank != lastPart.codeArtifact.metrics.componentRank
         
-        let halfTotalLOC = (parts.reduce(0) { $0 + $1.codeArtifact.linesOfCode }) / 2
+        let halfTotalLOC = (parts.sum { $0.codeArtifact.linesOfCode }) / 2
         
         var partsALOC = 0
         var minDifferenceToHalfTotalLOC = Int.max

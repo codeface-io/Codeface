@@ -28,11 +28,11 @@ extension Graph
         
         let directAncestors = edges.ingoing(to: node).map { $0.source }
         
-        let ancestorCount = directAncestors.count + directAncestors.reduce(0)
+        let ancestorCount = directAncestors.count + directAncestors.sum
         {
-            $0 + getAncestorCount(for: $1,
-                                  nodesToVisit: &nodesToVisit,
-                                  results: &results)
+            getAncestorCount(for: $0,
+                             nodesToVisit: &nodesToVisit,
+                             results: &results)
         }
         
         results[node] = ancestorCount

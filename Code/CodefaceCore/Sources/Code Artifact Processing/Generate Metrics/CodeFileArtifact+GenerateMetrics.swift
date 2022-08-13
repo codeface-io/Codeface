@@ -10,7 +10,7 @@ extension CodeFileArtifact
     
     private func generateSizeMetrics()
     {
-        let locOfAllSymbols = symbols.reduce(0) { $0 + $1.linesOfCode }
+        let locOfAllSymbols = symbols.sum { $0.linesOfCode }
         
         symbols.forEach
         {

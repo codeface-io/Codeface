@@ -17,7 +17,7 @@ public extension CodeFolderArtifact
     
     private func generateSizeMetrics()
     {
-        let locOfAllParts = parts.reduce(0) { $0 + $1.codeArtifact.linesOfCode }
+        let locOfAllParts = parts.sum { $0.codeArtifact.linesOfCode }
         
         parts.forEach
         {
