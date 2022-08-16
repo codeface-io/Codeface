@@ -153,16 +153,3 @@ extension ArtifactViewModel.Dependency
         }
     }
 }
-
-struct Point
-{
-    static let zero = Point(0, 0)
-    
-    init(_ x: Double, _ y: Double)
-    {
-        self.x = x
-        self.y = y
-    }
-    
-    let x, y: Double
-}

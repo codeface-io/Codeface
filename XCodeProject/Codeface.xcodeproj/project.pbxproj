@@ -10,6 +10,9 @@
 		9606D887289A4549002B71E5 /* Xcode14Experiments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9606D886289A4549002B71E5 /* Xcode14Experiments.swift */; };
 		960730B42897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */; };
 		960730B628982F3C008F1D7C /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B528982F3C008F1D7C /* Arrow.swift */; };
+		960A7AA428AB875100F334CA /* DependencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA328AB875100F334CA /* DependencyView.swift */; };
+		960A7AA628AB87E300F334CA /* SwiftGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA528AB87E300F334CA /* SwiftGeometry.swift */; };
+		960A7AA828AB881200F334CA /* SwiftGeometry+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA728AB881200F334CA /* SwiftGeometry+SwiftUI.swift */; };
 		961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 961AAD652899C553001CFF67 /* CodefaceCore */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
@@ -72,6 +75,9 @@
 		9606D886289A4549002B71E5 /* Xcode14Experiments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xcode14Experiments.swift; sourceTree = "<group>"; };
 		960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+AddDependencies.swift"; sourceTree = "<group>"; };
 		960730B528982F3C008F1D7C /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
+		960A7AA328AB875100F334CA /* DependencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyView.swift; sourceTree = "<group>"; };
+		960A7AA528AB87E300F334CA /* SwiftGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGeometry.swift; sourceTree = "<group>"; };
+		960A7AA728AB881200F334CA /* SwiftGeometry+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftGeometry+SwiftUI.swift"; sourceTree = "<group>"; };
 		961AAD632899C3E6001CFF67 /* CodefaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CodefaceCore; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
@@ -165,6 +171,7 @@
 				961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */,
 				96E479D128359CCE00762FD7 /* ArtifactView.swift */,
 				96EA394E282C2AF2002B033E /* ArtifactContentView.swift */,
+				960A7AA328AB875100F334CA /* DependencyView.swift */,
 				96E479D32835A1DB00762FD7 /* ArtifactIcon.swift */,
 			);
 			path = "Artifact Views";
@@ -279,6 +286,8 @@
 				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
 				96E479E02835B92000762FD7 /* SwiftUI+Helpers.swift */,
 				96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */,
+				960A7AA728AB881200F334CA /* SwiftGeometry+SwiftUI.swift */,
+				960A7AA528AB87E300F334CA /* SwiftGeometry.swift */,
 			);
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
@@ -403,6 +412,7 @@
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
 				96309ECF2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift in Sources */,
 				96446C1A2829343600B347EF /* Codeface.swift in Sources */,
+				960A7AA828AB881200F334CA /* SwiftGeometry+SwiftUI.swift in Sources */,
 				9606D887289A4549002B71E5 /* Xcode14Experiments.swift in Sources */,
 				960730B42897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
@@ -415,8 +425,10 @@
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
 				96E479DF2835B88E00762FD7 /* Sidebar.swift in Sources */,
 				96E479CE28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,
+				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,
 				96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */,
+				960A7AA628AB87E300F334CA /* SwiftGeometry.swift in Sources */,
 				96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */,
 				96E479CC28359ABA00762FD7 /* ArtifactViewModel+Search.swift in Sources */,
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
