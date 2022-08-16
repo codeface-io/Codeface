@@ -45,6 +45,7 @@ class Project
                 catch
                 {
                     log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
+                    LSPServiceConnection.shared.isWorking = false
                 }
                 
                 rootArtifact.generateMetrics()
@@ -100,6 +101,8 @@ class Project
         let createdInitialization = Self.initialize(createdServer, for: config)
         serverInitialization = createdInitialization
         
+        LSPServiceConnection.shared.isWorking = true
+        
         return (createdServer, createdInitialization)
     }
     
@@ -137,11 +140,15 @@ class Project
             server.connection.close()
             
             // TODO: do we (why don't we?) need to nil the server after the websocket sent an error, so that the server gets recreated and the websocket connection reinstated?? do we need to close the websocket connection?? ... maybe the LSPServerConnection protocol needs to expose more functions for handling the connection itself, like func closeConnection() and var connectionDidClose ...
+            
+            LSPServiceConnection.shared.isWorking = false
         }
         
         server.connection.didClose =
         {
             log(warning: "LSP websocket connection did close")
+            
+            LSPServiceConnection.shared.isWorking = false
         }
         
         return server

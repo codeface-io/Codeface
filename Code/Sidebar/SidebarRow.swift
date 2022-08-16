@@ -4,18 +4,18 @@ struct SidebarRow: View
 {
     var body: some View
     {
-        NavigationLink(tag: artifact, selection: $viewModel.selectedArtifact)
+        NavigationLink(tag: artifactVM, selection: $viewModel.selectedArtifact)
         {
             Group
             {
                 switch viewModel.displayMode
                 {
-                case .treeMap: TreeMap(artifact: artifact, viewModel: viewModel)
-                case .code: CodeView(artifact: artifact)
+                case .treeMap: TreeMap(artifactVM: artifactVM, viewModel: viewModel)
+                case .code: CodeView(artifact: artifactVM)
                 }
             }
-            .navigationTitle(artifact.codeArtifact.name)
-            .navigationSubtitle(artifact.codeArtifact.kindName)
+            .navigationTitle(artifactVM.codeArtifact.name)
+            .navigationSubtitle(artifactVM.codeArtifact.kindName)
             .toolbar
             {
                 DisplayModePicker(displayMode: $viewModel.displayMode)
@@ -43,11 +43,11 @@ struct SidebarRow: View
             }
         } label:
         {
-            SidebarLabel(artifact: artifact,
-                         isSelected: artifact === viewModel.selectedArtifact)
+            SidebarLabel(artifact: artifactVM,
+                         isSelected: artifactVM === viewModel.selectedArtifact)
         }
     }
     
-    let artifact: ArtifactViewModel
+    let artifactVM: ArtifactViewModel
     @ObservedObject var viewModel: Codeface
 }

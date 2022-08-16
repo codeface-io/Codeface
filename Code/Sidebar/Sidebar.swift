@@ -13,7 +13,7 @@ struct Sidebar: View
             {
                 artifact in
                 
-                SidebarRow(artifact: artifact, viewModel: viewModel)
+                SidebarRow(artifactVM: artifact, viewModel: viewModel)
             }
             .listStyle(.sidebar)
             .toolbar

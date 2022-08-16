@@ -49,9 +49,16 @@ struct CodefaceApp: App
             
             CommandGroup(replacing: .help)
             {
-                // TODO: only show this option when the lspservice is not connected
-                Link("How to see Symbols, Dependencies etc.",
-                     destination: URL(string: "https://www.flowtoolz.com/codeface/lspservice")!)
+                if lspServiceConnection.isWorking
+                {
+                    Link("Open LSPService info page",
+                         destination: LSPServiceConnection.infoPageURL)
+                }
+                else
+                {
+                    Link("Learn how to see symbols and dependencies",
+                         destination: LSPServiceConnection.infoPageURL)
+                }
             }
             
             CommandGroup(replacing: .newItem)
@@ -103,6 +110,8 @@ struct CodefaceApp: App
         }
         
     }
+    
+    @ObservedObject private var lspServiceConnection = LSPServiceConnection.shared
     
     @State var isPresentingProjectSelector = false
     @State var isPresentingFileImporter = false

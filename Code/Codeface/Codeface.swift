@@ -16,7 +16,7 @@ class Codeface: Combine.ObservableObject, Observer
         }
     }
     
-    // MARK: - Overview Bar
+    // MARK: - Other Elements
     
     let overviewBar = OverviewBar()
     
