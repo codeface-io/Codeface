@@ -8,8 +8,6 @@ struct ArtifactView: View
     {
         ZStack
         {
-            let extraSpaceForTitles = artifactVM.collapseHorizontally ? 0 : 6.0
-            
             HStack(alignment: .firstTextBaseline, spacing: 0)
             {
                 ArtifactIcon(artifact: artifactVM, isSelected: false)
@@ -24,31 +22,17 @@ struct ArtifactView: View
             .font(.system(size: artifactVM.fontSize,
                           weight: .medium,
                           design: artifactVM.fontDesign))
-            .frame(width: artifactVM.frameInScopeContent.width - 2 * ArtifactViewModel.padding + extraSpaceForTitles,
-                   height: artifactVM.collapseVertically ? artifactVM.frameInScopeContent.height - 2 * ArtifactViewModel.padding : artifactVM.fontSize)
-            .position(x: artifactVM.frameInScopeContent.width / 2 + (extraSpaceForTitles / 2),
-                      y: artifactVM.collapseVertically ? artifactVM.frameInScopeContent.height / 2 : ArtifactViewModel.padding + artifactVM.fontSize / 2)
-            
+            .framePosition(artifactVM.headerFrame)
             
             ArtifactContentView(artifactVM: artifactVM,
                                 codeface: viewModel,
                                 ignoreSearchFilter: ignoreSearchFilter,
                                 bgBrightness: bgBrightness,
                                 isShownInScope: isShownInScope)
-            .frame(width: artifactVM.contentFrame.width,
-                   height: artifactVM.contentFrame.height)
-            .position(x: artifactVM.contentFrame.centerX,
-                      y: artifactVM.contentFrame.centerY)
+            .framePosition(artifactVM.contentFrame)
             .opacity(artifactVM.showsContent ? 1.0 : 0)
             
         }
-        .frame(width: artifactVM.frameInScopeContent.width,
-               height: artifactVM.frameInScopeContent.height)
-        .background(RoundedRectangle(cornerRadius: 5)
-            .fill(Color(white: bgBrightness).opacity(0.9))
-            .overlay(RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(isHovering ? Color.accentColor : .primary.opacity(0.25),
-                              antialiased: true)))
         .onHover
         {
             guard isShownInScope else { return }
@@ -72,8 +56,12 @@ struct ArtifactView: View
                 }
             }
         }
-        .position(x: artifactVM.frameInScopeContent.centerX,
-                  y: artifactVM.frameInScopeContent.centerY)
+        .background(RoundedRectangle(cornerRadius: 5)
+            .fill(Color(white: bgBrightness).opacity(0.9))
+            .overlay(RoundedRectangle(cornerRadius: 5)
+                .strokeBorder(isHovering ? Color.accentColor : .primary.opacity(0.25),
+                              antialiased: true)))
+        .framePosition(artifactVM.frameInScopeContent)
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel

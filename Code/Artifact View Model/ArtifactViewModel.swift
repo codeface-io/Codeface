@@ -86,6 +86,16 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     // MARK: - UI
     
+    var headerFrame: Frame
+    {
+        .init(centerX: frameInScopeContent.width / 2 + (extraSpaceForTitles / 2),
+              centerY: collapseVertically ? frameInScopeContent.height / 2 : Self.padding + fontSize / 2,
+              width: frameInScopeContent.width - 2 * Self.padding + extraSpaceForTitles,
+              height: collapseVertically ? frameInScopeContent.height - 2 * Self.padding : fontSize)
+    }
+    
+    var extraSpaceForTitles: Double { collapseHorizontally ? 0 : 6.0 }
+    
     @Published var isInFocus = false
     
     var showsName: Bool
