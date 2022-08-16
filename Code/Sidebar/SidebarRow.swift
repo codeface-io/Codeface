@@ -29,8 +29,7 @@ struct SidebarRow: View
                         {
                             viewModel.removeSearchFilter()
                         }
-                    }
-                    label:
+                    } label:
                     {
                         HStack
                         {
@@ -42,7 +41,8 @@ struct SidebarRow: View
                     }
                 }
             }
-        } label: {
+        } label:
+        {
             SidebarLabel(artifact: artifact,
                          isSelected: artifact === viewModel.selectedArtifact)
         }
@@ -50,70 +50,4 @@ struct SidebarRow: View
     
     let artifact: ArtifactViewModel
     @ObservedObject var viewModel: Codeface
-}
-
-struct TreeMap: View
-{
-    var body: some View
-    {
-        if artifact.parts.isEmpty
-        {
-            VStack(alignment: .center)
-            {
-                Label("Empty Scope", systemImage: "xmark.rectangle")
-                    .font(.system(.title))
-                    .padding(.bottom)
-                
-                Text(artifact.codeArtifact.name + " contains no further symbols that could be detected.")
-            }
-            .foregroundColor(.secondary)
-            .padding()
-        }
-        else
-        {
-            VStack(spacing: 0)
-            {
-                OverviewBarView(overviewBar: viewModel.overviewBar)
-                RootArtifactContentView(artifact: artifact,
-                                        viewModel: viewModel)
-                .padding(ArtifactViewModel.padding)
-            }
-            .background(Color(white: colorScheme == .dark ? 0 : 0.6))
-        }
-    }
-    
-    let artifact: ArtifactViewModel
-    @ObservedObject var viewModel: Codeface
-    @Environment(\.colorScheme) var colorScheme
-}
-
-struct CodeView: View
-{
-    var body: some View
-    {
-        if let code = artifact.codeArtifact.code
-        {
-            TextEditor(text: .constant(code))
-                .font(.system(.body, design: .monospaced))
-        }
-        else
-        {
-            VStack
-            {
-                Label {
-                    Text(artifact.codeArtifact.name)
-                } icon: {
-                    ArtifactIcon(artifact: artifact, isSelected: false)
-                }
-                .font(.system(.title))
-                
-                Text("Select a contained file or symbol to show their code.")
-                    .padding(.top)
-            }
-            .foregroundColor(.secondary)
-            .padding()
-        }
-    }
-    
-    let artifact: ArtifactViewModel
 }
