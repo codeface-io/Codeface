@@ -16,6 +16,7 @@
 		960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */; };
 		960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAB28ABB07800F334CA /* TreeMap.swift */; };
 		960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAD28ABB0A000F334CA /* CodeView.swift */; };
+		960A7AB028ABBFA500F334CA /* LSPServiceConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAF28ABBFA500F334CA /* LSPServiceConnection.swift */; };
 		961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 961AAD652899C553001CFF67 /* CodefaceCore */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
@@ -84,6 +85,7 @@
 		960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactHeaderView.swift; sourceTree = "<group>"; };
 		960A7AAB28ABB07800F334CA /* TreeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMap.swift; sourceTree = "<group>"; };
 		960A7AAD28ABB0A000F334CA /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
+		960A7AAF28ABBFA500F334CA /* LSPServiceConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceConnection.swift; sourceTree = "<group>"; };
 		961AAD632899C3E6001CFF67 /* CodefaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CodefaceCore; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				96FC8C3E284BEB9000AD7DD2 /* ProjectSelector.swift */,
 				96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */,
 				96A3A39E254A3B8400AE4146 /* Project.swift */,
+				960A7AAF28ABBFA500F334CA /* LSPServiceConnection.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				96E479CE28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,
 				960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */,
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
+				960A7AB028ABBFA500F334CA /* LSPServiceConnection.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,
 				96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */,
 				960A7AA628AB87E300F334CA /* SwiftGeometry.swift in Sources */,
