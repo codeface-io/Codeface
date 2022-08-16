@@ -13,6 +13,7 @@
 		960A7AA428AB875100F334CA /* DependencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA328AB875100F334CA /* DependencyView.swift */; };
 		960A7AA628AB87E300F334CA /* SwiftGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA528AB87E300F334CA /* SwiftGeometry.swift */; };
 		960A7AA828AB881200F334CA /* SwiftGeometry+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA728AB881200F334CA /* SwiftGeometry+SwiftUI.swift */; };
+		960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */; };
 		961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 961AAD652899C553001CFF67 /* CodefaceCore */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
@@ -78,6 +79,7 @@
 		960A7AA328AB875100F334CA /* DependencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyView.swift; sourceTree = "<group>"; };
 		960A7AA528AB87E300F334CA /* SwiftGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGeometry.swift; sourceTree = "<group>"; };
 		960A7AA728AB881200F334CA /* SwiftGeometry+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftGeometry+SwiftUI.swift"; sourceTree = "<group>"; };
+		960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactHeaderView.swift; sourceTree = "<group>"; };
 		961AAD632899C3E6001CFF67 /* CodefaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CodefaceCore; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */,
 				96EA394E282C2AF2002B033E /* ArtifactContentView.swift */,
 				96E479D128359CCE00762FD7 /* ArtifactView.swift */,
+				960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */,
 				960A7AA328AB875100F334CA /* DependencyView.swift */,
 				96E479D32835A1DB00762FD7 /* ArtifactIcon.swift */,
 			);
@@ -425,6 +428,7 @@
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
 				96E479DF2835B88E00762FD7 /* Sidebar.swift in Sources */,
 				96E479CE28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,
+				960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */,
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,
 				96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */,

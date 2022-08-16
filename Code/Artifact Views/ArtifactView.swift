@@ -8,21 +8,8 @@ struct ArtifactView: View
     {
         ZStack
         {
-            HStack(alignment: .firstTextBaseline, spacing: 0)
-            {
-                ArtifactIcon(artifact: artifactVM, isSelected: false)
-                
-                Text(artifactVM.collapseHorizontally ? "" : artifactVM.codeArtifact.name)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .opacity(artifactVM.showsName ? 1 : 0)
-                    .foregroundColor((artifactVM.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)
-                    .padding(.leading,
-                             artifactVM.collapseHorizontally ? 0 : artifactVM.fontSize / 7)
-            }
-            .font(.system(size: artifactVM.fontSize,
-                          weight: .medium,
-                          design: artifactVM.fontDesign))
-            .framePosition(artifactVM.headerFrame)
+            ArtifactHeaderView(artifactVM: artifactVM)
+                .framePosition(artifactVM.headerFrame)
             
             ArtifactContentView(artifactVM: artifactVM,
                                 codeface: viewModel,
@@ -31,7 +18,6 @@ struct ArtifactView: View
                                 isShownInScope: isShownInScope)
             .framePosition(artifactVM.contentFrame)
             .opacity(artifactVM.showsContent ? 1.0 : 0)
-            
         }
         .onHover
         {
