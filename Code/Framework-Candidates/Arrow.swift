@@ -58,11 +58,9 @@ struct Arrow: Shape
             from.animatableData = newValue.first
             to.animatableData = newValue.second
             
-            (a, b) = Self.pathPointsAAndB(forArrowFrom: from,
-                                          to: to)
+            (a, b) = Self.pathPointsAAndB(forArrowFrom: from, to: to)
             
-            c = Self.arrowHeadPoints(forArrowFrom: self.a,
-                                     to: self.b)
+            c = Self.arrowHeadPoints(forArrowFrom: a, to: b)
         }
     }
 

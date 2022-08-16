@@ -169,8 +169,8 @@
 			isa = PBXGroup;
 			children = (
 				961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */,
-				96E479D128359CCE00762FD7 /* ArtifactView.swift */,
 				96EA394E282C2AF2002B033E /* ArtifactContentView.swift */,
+				96E479D128359CCE00762FD7 /* ArtifactView.swift */,
 				960A7AA328AB875100F334CA /* DependencyView.swift */,
 				96E479D32835A1DB00762FD7 /* ArtifactIcon.swift */,
 			);

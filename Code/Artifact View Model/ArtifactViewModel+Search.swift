@@ -9,7 +9,7 @@ extension ArtifactViewModel
     {
         partDependencies.filter
         {
-            $0.targetPart.passesSearchFilter && $0.targetPart.passesSearchFilter
+            $0.targetPart.passesSearchFilter && $0.sourcePart.passesSearchFilter
         }
     }
     
