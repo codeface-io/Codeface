@@ -129,7 +129,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     // MARK: - Basics
     
-    var partDependencies = [Dependency]()
+    @Published var partDependencies = [Dependency]()
     let parts: [ArtifactViewModel]
     
     struct Dependency: Identifiable
