@@ -26,9 +26,11 @@ extension Graph
         if !nodesToVisit.contains(node) { return results[node] ?? 0 }
         else { nodesToVisit -= node }
         
-        let directAncestors = edges.ingoing(to: node).map { $0.source }
+        let ingoingEdges = edges.ingoing(to: node)
+        let directAncestors = ingoingEdges.map { $0.source }
+        let directAncestorCount = ingoingEdges.sum { $0.count }
         
-        let ancestorCount = directAncestors.count + directAncestors.sum
+        let ancestorCount = directAncestorCount + directAncestors.sum
         {
             getAncestorCount(for: $0,
                              nodesToVisit: &nodesToVisit,
