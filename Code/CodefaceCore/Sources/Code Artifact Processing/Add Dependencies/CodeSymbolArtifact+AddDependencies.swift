@@ -66,6 +66,12 @@ extension CodeSymbolArtifact
                 continue
             }
             
+            guard !contains(dependingSymbol) else
+            {
+                // TODO: This can actually happen in code: some symbol depends on its scope (on one of its enclosing symbols (ancestors)). This is a kind of cycle and should be visualized or even pointed out as a red flag ... on the other hand: it can be argued that it's ok and maybe not even worthy of visualization if the symbol depends on its DIRECT scope (parent), for instance a class `Node` may have a property `neighbours` of type `Node` in which case it is more like the `Node` knowing itself rather than a cycle because the property is such an intrinsic and small part of the Node. It's more critical when an actual nested type knows its enclosing type ...
+                continue
+            }
+            
             // TODO: further weirdness (?) of sourcekit-lsp: ist suggests that any usage of a type amounts to a reference to every extension of that type, which is simply not true ... it even suggests that different extensions of the same type are references of each other ... seems like it does not really find references of that specific symbol but just all references of the symbol's name (just string matching, no semantics) 🤦🏼‍♂️
             
 //            if referencingLocation.uri != file
@@ -96,6 +102,7 @@ extension CodeSymbolArtifact
         let targetPath = targetSymbol.getScopePath()
         
         // sanity checks
+        assert(sourceSymbol !== targetSymbol, "source and target symbol are the same")
         assert(!sourcePath.isEmpty, "source path is empty")
         assert(!targetPath.isEmpty, "target path is empty")
         assert(sourcePath.last === sourceSymbol.scope, "source scope is not last in path")
@@ -123,6 +130,9 @@ extension CodeSymbolArtifact
             pathIndex == targetPath.count - 1
             ? targetSymbol
             : targetPath[pathIndex + 1]
+            
+            // sanity checks
+            assert(sourcePart !== targetPart, "source and target part are the same")
             
             // add dependency between siblings to scope
             return commonScope.addDependency(from: sourcePart, to: targetPart)
