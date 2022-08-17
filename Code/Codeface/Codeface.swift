@@ -10,10 +10,17 @@ class Codeface: Combine.ObservableObject, Observer
     
     func didBecomeActive()
     {
+        loadLastProjectInDebugBuilds()
+    }
+    
+    private func loadLastProjectInDebugBuilds()
+    {
+        #if DEBUG
         if ProjectConfigPersister.hasPersistedLastProjectConfig, activeProject == nil
         {
             loadLastActiveProject()
         }
+        #endif
     }
     
     // MARK: - Other Elements
