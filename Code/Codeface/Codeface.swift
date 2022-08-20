@@ -1,3 +1,4 @@
+import LSPServiceKit
 import Foundation
 import Combine
 import SwiftObserver
@@ -74,7 +75,7 @@ class Codeface: Combine.ObservableObject, Observer
     
     // MARK: - Active Project
     
-    func loadNewActiveProject(with config: Project.Configuration)
+    func loadNewActiveProject(with config: LSPProjectConfiguration)
     {
         do
         {
@@ -93,7 +94,7 @@ class Codeface: Combine.ObservableObject, Observer
         catch { log(error) }
     }
     
-    private func setAndAnalyzeActiveProject(with config: Project.Configuration) throws
+    private func setAndAnalyzeActiveProject(with config: LSPProjectConfiguration) throws
     {
         set(activeProject: try Project(config: config))
         try activeProject?.startAnalysis()

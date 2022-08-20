@@ -1,4 +1,5 @@
 import SwiftUI
+import LSPServiceKit
 import SwiftyToolz
 
 struct ProjectSelector: View
@@ -12,10 +13,10 @@ struct ProjectSelector: View
             Form
             {
                 TextField("Language Name", text: $languageName)
-                .lineLimit(1)
+                    .lineLimit(1)
                 
                 TextField("Code File Endings", text: $fileEndings)
-                .lineLimit(1)
+                    .lineLimit(1)
             }
             .frame(minWidth: 300)
             .padding([.bottom, .top])
@@ -36,7 +37,7 @@ struct ProjectSelector: View
                               allowedContentTypes: [.directory],
                               allowsMultipleSelection: false,
                               onCompletion:
-                {
+                                {
                     result in
                     
                     isPresentingFileImporter = false
@@ -53,9 +54,9 @@ struct ProjectSelector: View
                         
                         let fileEndingArray = fileEndings.components(separatedBy: .whitespaces)
                         
-                        let config = Project.Configuration(folder: firstURL,
-                                                           language: languageName,
-                                                           codeFileEndings: fileEndingArray)
+                        let config = LSPProjectConfiguration(folder: firstURL,
+                                                             language: languageName,
+                                                             codeFileEndings: fileEndingArray)
                         
                         confirm(config)
                     }
@@ -66,7 +67,7 @@ struct ProjectSelector: View
     }
     
     @Binding var isBeingPresented: Bool
-    let confirm: (Project.Configuration) -> Void
+    let confirm: (LSPProjectConfiguration) -> Void
     
     @State private var languageName: String = ""
     @State private var fileEndings: String = ""

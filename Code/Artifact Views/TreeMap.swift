@@ -1,4 +1,5 @@
 import SwiftUI
+import LSPServiceKit
 
 struct TreeMap: View
 {
@@ -13,13 +14,15 @@ struct TreeMap: View
                     .font(.system(.title))
                     .padding(.bottom)
                 
-                Text(artifactVM.codeArtifact.name + " contains no further symbols.")
-                    .foregroundColor(.secondary)
-                
-                if !lspServiceConnection.isWorking
+                if serverManager.serverIsWorking
+                {
+                    Text(artifactVM.codeArtifact.name + " contains no further symbols.")
+                        .foregroundColor(.secondary)
+                }
+                else
                 {
                     Link("Use LSPService to see symbols and dependencies",
-                         destination: LSPServiceConnection.infoPageURL)
+                         destination: lspServicePage)
                 }
             }
             .padding()
@@ -38,9 +41,11 @@ struct TreeMap: View
         }
     }
      
-    @ObservedObject private var lspServiceConnection = LSPServiceConnection.shared
+    @ObservedObject private var serverManager = LSPServerManager.shared
     
     let artifactVM: ArtifactViewModel
     @ObservedObject var viewModel: Codeface
     @Environment(\.colorScheme) var colorScheme
 }
+
+let lspServicePage = URL(string: "https://www.flowtoolz.com/codeface/lspservice")!

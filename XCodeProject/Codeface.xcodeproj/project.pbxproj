@@ -16,7 +16,6 @@
 		960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */; };
 		960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAB28ABB07800F334CA /* TreeMap.swift */; };
 		960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAD28ABB0A000F334CA /* CodeView.swift */; };
-		960A7AB028ABBFA500F334CA /* LSPServiceConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAF28ABBFA500F334CA /* LSPServiceConnection.swift */; };
 		961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 961AAD652899C553001CFF67 /* CodefaceCore */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
@@ -85,7 +84,6 @@
 		960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactHeaderView.swift; sourceTree = "<group>"; };
 		960A7AAB28ABB07800F334CA /* TreeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMap.swift; sourceTree = "<group>"; };
 		960A7AAD28ABB0A000F334CA /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
-		960A7AAF28ABBFA500F334CA /* LSPServiceConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceConnection.swift; sourceTree = "<group>"; };
 		961AAD632899C3E6001CFF67 /* CodefaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CodefaceCore; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
@@ -94,6 +92,7 @@
 		9633E40B28A27FBE001EB380 /* ArtifactViewModel+LayoutDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+LayoutDependencies.swift"; sourceTree = "<group>"; };
 		964308A4254B7B070026E56C /* CodefaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceView.swift; sourceTree = "<group>"; };
 		96446C192829343600B347EF /* Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codeface.swift; sourceTree = "<group>"; };
+		9664648728B14E7700F1B376 /* LSPServiceKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LSPServiceKit; path = ../../LSPServiceKit; sourceTree = "<group>"; };
 		967EDB1C2891579700963A7E /* ArtifactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactViewModel.swift; sourceTree = "<group>"; };
 		969EF681289923CE00FC4238 /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
 		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -160,7 +159,6 @@
 				96FC8C3E284BEB9000AD7DD2 /* ProjectSelector.swift */,
 				96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */,
 				96A3A39E254A3B8400AE4146 /* Project.swift */,
-				960A7AAF28ABBFA500F334CA /* LSPServiceConnection.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -256,6 +254,7 @@
 				9E00727A218E250E0094BD1C /* Code */,
 				969EF681289923CE00FC4238 /* SwiftyToolz */,
 				96C87382285495D300C9D39A /* SwiftLSP */,
+				9664648728B14E7700F1B376 /* LSPServiceKit */,
 				9E95A705218C73C7009A58A9 /* Codeface */,
 				9E95A716218C73CA009A58A9 /* CodefaceTests */,
 				9E95A704218C73C7009A58A9 /* Products */,
@@ -440,7 +439,6 @@
 				96E479CE28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,
 				960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */,
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
-				960A7AB028ABBFA500F334CA /* LSPServiceConnection.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,
 				96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */,
 				960A7AA628AB87E300F334CA /* SwiftGeometry.swift in Sources */,

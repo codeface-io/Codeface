@@ -1,6 +1,5 @@
-import CodefaceCore
 import LSPServiceKit
-import SwiftLSP
+import CodefaceCore
 import FoundationToolz
 import Foundation
 import SwiftObserver
@@ -11,14 +10,14 @@ class Project
 {
     // MARK: - Initialization
     
-    init(config: Configuration) throws
+    init(config: LSPProjectConfiguration) throws
     {
         guard FileManager.default.itemExists(config.folder) else
         {
             throw "Project folder does not exist: " + config.folder.absoluteString
         }
         
-        self.config = config
+        self.project = config
     }
     
     // MARK: - Data Analysis
@@ -37,7 +36,20 @@ class Project
                 
                 do
                 {
-                    let (server, initialization) = try getServerAndServerInitialization()
+                    let (server, initialization) = try LSPServerManager.shared.getServerAndInitialization(for: project)
+                    {
+                        [weak self] error in
+                        
+                        guard let self = self else { return }
+                        
+                        self.analysis?.cancel()
+                        self.analysis = nil
+                        
+                        if case .running = self.analysisState
+                        {
+                            self.analysisState = .failed(error.readable.message)
+                        }
+                    }
                     try await initialization.assumeSuccess()
                     try await rootArtifact.addSymbolArtifacts(using: server)
                     try await rootArtifact.addDependencies(using: server)
@@ -45,7 +57,7 @@ class Project
                 catch
                 {
                     log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
-                    LSPServiceConnection.shared.isWorking = false
+                    LSPServerManager.shared.serverIsWorking = false
                 }
                 
                 rootArtifact.generateMetrics()
@@ -63,11 +75,11 @@ class Project
     
     private func createRootFolder() throws -> CodeFolder
     {
-        try config.folder.mapSecurityScoped
+        try project.folder.mapSecurityScoped
         {
-            guard let codeFolder = try CodeFolder($0, codeFileEndings: config.codeFileEndings) else
+            guard let codeFolder = try CodeFolder($0, codeFileEndings: project.codeFileEndings) else
             {
-                throw "Project folder contains no code files with the specified file endings\nFolder: \($0.absoluteString)\nFile endings: \(config.codeFileEndings)"
+                throw "Project folder contains no code files with the specified file endings\nFolder: \($0.absoluteString)\nFile endings: \(project.codeFileEndings)"
             }
             
             return codeFolder
@@ -86,103 +98,9 @@ class Project
              failed(String)
     }
     
-    // MARK: - Language Server
-    
-    private func getServerAndServerInitialization() throws -> (LSP.ServerCommunicationHandler, Task<Void, Error>)
-    {
-        if let server = server, let initialization = serverInitialization
-        {
-            return (server, initialization)
-        }
-        
-        let createdServer = try createServer(language: config.language)
-        server = createdServer
-        
-        let createdInitialization = Self.initialize(createdServer, for: config)
-        serverInitialization = createdInitialization
-        
-        LSPServiceConnection.shared.isWorking = true
-        
-        return (createdServer, createdInitialization)
-    }
-    
-    private func createServer(language: String) throws -> LSP.ServerCommunicationHandler
-    {
-        let server = try LSPService.api.language(language.lowercased()).connectToLSPServer()
-        
-        server.serverDidSendNotification =
-        {
-            notification in
-            
-//            log("Server sent notification:\n\(notification.method)\n\(notification.params?.description ?? "nil params")")
-        }
-
-        server.serverDidSendErrorOutput =
-        {
-            _ in
-//            log("\(language.capitalized) language server sent message via stdErr:\n\($0)")
-        }
-        
-        server.connection.didSendError =
-        {
-            error in
-            
-            log(error)
-            
-            self.analysis?.cancel()
-            self.analysis = nil
-            
-            if case .running = self.analysisState
-            {
-                self.analysisState = .failed(error.readable.message)
-            }
-            
-            server.connection.close()
-            
-            // TODO: do we (why don't we?) need to nil the server after the websocket sent an error, so that the server gets recreated and the websocket connection reinstated?? do we need to close the websocket connection?? ... maybe the LSPServerConnection protocol needs to expose more functions for handling the connection itself, like func closeConnection() and var connectionDidClose ...
-            
-            LSPServiceConnection.shared.isWorking = false
-        }
-        
-        server.connection.didClose =
-        {
-            log(warning: "LSP websocket connection did close")
-            
-            LSPServiceConnection.shared.isWorking = false
-        }
-        
-        return server
-    }
-    
-    private static func initialize(_ server: LSP.ServerCommunicationHandler,
-                                   for project: Configuration) -> Task<Void, Error>
-    {
-        Task
-        {
-            let processID = try await LSPService.api.processID.get()
-            
-            let _ = try await server.request(.initialize(folder: project.folder,
-                                                         clientProcessID: processID))
-            
-//            try log(initializeResult: initializeResult)
-            
-            try await server.notify(.initialized)
-        }
-    }
-    
-    private var serverInitialization: Task<Void, Error>? = nil
-    private var server: LSP.ServerCommunicationHandler? = nil
-    
     // MARK: - Configuration
     
-    let config: Configuration
-    
-    struct Configuration: Codable
-    {
-        var folder: URL
-        let language: String
-        let codeFileEndings: [String]
-    }
+    let project: LSPProjectConfiguration
 }
 
 extension Task where Success == Void

@@ -1,4 +1,5 @@
 import SwiftUI
+import LSPServiceKit
 import SwiftyToolz
 
 @main
@@ -49,15 +50,15 @@ struct CodefaceApp: App
             
             CommandGroup(replacing: .help)
             {
-                if lspServiceConnection.isWorking
+                if serverManager.serverIsWorking
                 {
                     Link("Open LSPService info page",
-                         destination: LSPServiceConnection.infoPageURL)
+                         destination: lspServicePage)
                 }
                 else
                 {
                     Link("Learn how to see symbols and dependencies",
-                         destination: LSPServiceConnection.infoPageURL)
+                         destination: lspServicePage)
                 }
             }
             
@@ -91,9 +92,9 @@ struct CodefaceApp: App
                             throw "Empty array of URLs"
                         }
                         
-                        let config = Project.Configuration(folder: firstURL,
-                                                           language: "Swift",
-                                                           codeFileEndings: ["swift"])
+                        let config = LSPProjectConfiguration(folder: firstURL,
+                                                          language: "Swift",
+                                                          codeFileEndings: ["swift"])
                         
                         codeface.loadNewActiveProject(with: config)
                     }
@@ -111,7 +112,7 @@ struct CodefaceApp: App
         
     }
     
-    @ObservedObject private var lspServiceConnection = LSPServiceConnection.shared
+    @ObservedObject private var serverManager = LSPServerManager.shared
     
     @State var isPresentingProjectSelector = false
     @State var isPresentingFileImporter = false
