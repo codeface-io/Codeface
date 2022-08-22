@@ -1,4 +1,4 @@
-/* Fonts */
+/* Basics */
 
 @font-face
 {
@@ -28,17 +28,14 @@ html {
     scroll-behavior: smooth;
 }
 
-body, p
+body
 {
+    background: rgb(240,240,240);
     font-family: FlowlistRegular;
     font-weight: normal;
     font-size: 18px;
     line-height: 1.6;
     margin: 0px;
-}
-
-body {
-    background: rgb(240,240,240);
 }
 
 a
@@ -89,13 +86,6 @@ h1
     font-weight: normal;
 }
 
-code
-{
-    font-family: FiraCode;
-    font-weight: normal;
-    letter-spacing: -1px;
-}
-
 h2
 {
     font-family: FiraCode;
@@ -115,10 +105,11 @@ h3
     font-size: 18px;
 }
 
-.codeface-3-columns {
-    display: grid;
-    grid-template-columns: 31% 31% 31%;
-    column-gap:3.5%;
+code
+{
+    font-family: FiraCode;
+    font-weight: normal;
+    letter-spacing: -1px;
 }
 
 /* Navbar */
@@ -156,6 +147,20 @@ li a {
     
 #codeface-navbar {
     background: rgb(240,240,240);
+}
+
+/* Responsive Grid */
+
+.codeface-3-columns {
+    display: grid;
+    grid-template-columns: 31% 31% 31%;
+    column-gap:3.5%;
+}
+
+@media only screen and (max-width: 700px) {
+    .codeface-3-columns {
+        display: initial;
+    }
 }
 
 /* Screen Shots */
