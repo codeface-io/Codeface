@@ -139,6 +139,10 @@ li a {
   color: white;
   text-decoration: none;
 }
+
+li a:hover {
+  text-decoration: none;
+}
     
 #codeface-navbar {
     background: rgb(16,16,16);
@@ -159,7 +163,6 @@ li a {
 
 #codeface-bottom-bar a:hover {
     color: rgba(84,178,235,1.0);
-    text-decoration: underline;
 }
 
 /* Responsive Grid */
