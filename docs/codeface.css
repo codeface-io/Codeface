@@ -24,7 +24,8 @@ html {
 
 body
 {
-    background:rgb(240,240,240);
+    background:black;
+    color:white;
     font-family: FlowlistRegular;
     font-weight: normal;
     font-size: 18px;
@@ -50,10 +51,10 @@ section
     padding-bottom:90px;
 
     background: white; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(white, rgba(240, 240, 240, 1)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(white, rgba(240, 240, 240, 1)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(white, rgba(240, 240, 240, 1)); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(white, rgba(240, 240, 240, 1)); /* Standard syntax */
+    background: -webkit-linear-gradient(black, rgba(16, 16, 16, 1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(black, rgba(16, 16, 16, 1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(black, rgba(16, 16, 16, 1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(black, rgba(16, 16, 16, 1)); /* Standard syntax */
 }
 
 section > div
@@ -135,12 +136,12 @@ ul {
 li a {
   display: block;
   text-align: center;
-  color: black;
+  color: white;
   text-decoration: none;
 }
     
 #codeface-navbar {
-    background: rgb(240,240,240);
+    background: rgb(16,16,16);
 }
 
 /* Bottom Bar */
@@ -148,12 +149,12 @@ li a {
 #codeface-bottom-bar {
     padding-top:18px;
     padding-bottom:16px;
-    background:rgb(230, 230, 230);
+    background:black;
 }
 
 #codeface-bottom-bar a {
     text-decoration:none;
-    color: black;
+    color: white;
 }
 
 #codeface-bottom-bar a:hover {
