@@ -1,4 +1,4 @@
-/* General */
+/* Fonts */
 
 @font-face
 {
@@ -31,6 +31,7 @@ html {
 body, p
 {
     font-family: FlowlistRegular;
+    font-weight: normal;
     font-size: 18px;
     line-height: 1.6;
     margin: 0px;
@@ -66,8 +67,7 @@ section
 
 section > div
 {
-    font-family: FlowlistRegular;
-    width:90%;
+    width:95%;
     max-width:1024px;
     margin-left:auto;
     margin-right:auto;
@@ -81,21 +81,44 @@ h1, h2
 
 h1
 {
-/*    color: rgb(170,170,170);*/
     margin-top: -30px;
     letter-spacing: -2px;
     font-family: FlowlistBold;
     font-size: 72px;
     margin-bottom: 20px;
+    font-weight: normal;
+}
+
+code
+{
+    font-family: FiraCode;
+    font-weight: normal;
+    letter-spacing: -1px;
 }
 
 h2
 {
+    font-family: FiraCode;
+    font-weight: normal;
     letter-spacing: -1px;
     line-height: 1.6;
-    font-family: FiraCode;
     font-size: 32px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+}
+
+h3
+{
+    font-family: FlowlistBold;
+    font-weight: normal;
+    letter-spacing: 0px;
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+.codeface-3-columns {
+    display: grid;
+    grid-template-columns: 31% 31% 31%;
+    column-gap:3.5%;
 }
 
 /* Navbar */
