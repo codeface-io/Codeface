@@ -115,6 +115,12 @@ code
 
 /* Navbar */
 
+@media only screen and (max-width: 570px) {
+    .desktop-only {
+        display:none;
+    }
+}
+
 ul {
   list-style-type: none;
   margin: 0;
