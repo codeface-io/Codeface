@@ -2,12 +2,6 @@
 
 @font-face
 {
-    font-family: FlowlistLight;
-    src: url("fonts/SF-Pro-Display-Thin.otf") format("opentype");
-}
-
-@font-face
-{
     font-family: FlowlistRegular;
     src: url("fonts/SF-Pro-Text-Regular.otf") format("opentype");
 }
