@@ -1,0 +1,178 @@
+/* General */
+
+@font-face
+{
+    font-family: FlowlistLight;
+    src: url("fonts/SF-Pro-Display-Thin.otf") format("opentype");
+}
+
+@font-face
+{
+    font-family: FlowlistRegular;
+    src: url("fonts/SF-Pro-Text-Regular.otf") format("opentype");
+}
+
+@font-face
+{
+    font-family: FlowlistBold;
+    src: url("fonts/SF-Pro-Display-Bold.otf") format("opentype");
+}
+
+@font-face
+{
+    font-family: FiraCode;
+    src: url("fonts/FiraCode-Regular.ttf") format("truetype");
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body, p
+{
+    font-family: FlowlistRegular;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0px;
+}
+
+body {
+    background: rgb(240,240,240);
+}
+
+a
+{
+    color: rgba(67,141,227,1.0);
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: rgba(84,178,235,1.0);
+    text-decoration: underline;
+}
+
+section
+{
+    padding-top:90px;
+    padding-bottom:90px;
+
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, rgba(240, 240, 240, 1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, rgba(240, 240, 240, 1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, rgba(240, 240, 240, 1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, rgba(240, 240, 240, 1)); /* Standard syntax */
+}
+
+section > div
+{
+    font-family: FlowlistRegular;
+    width:90%;
+    max-width:1024px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+h1, h2
+{
+    line-height: 1.6;
+    text-align:center;
+}
+
+h1
+{
+/*    color: rgb(170,170,170);*/
+    margin-top: -30px;
+    letter-spacing: -2px;
+    font-family: FlowlistBold;
+    font-size: 72px;
+    margin-bottom: 20px;
+}
+
+h2
+{
+    letter-spacing: -1px;
+    line-height: 1.6;
+    font-family: FiraCode;
+    font-size: 32px;
+    margin-bottom: 50px;
+}
+
+/* Navbar */
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.left {
+  float: left;
+}
+    
+.left a {
+    padding-top: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 16px;
+}
+    
+.right {
+  padding-top: 8px;
+  padding-right: 20px;
+  float: right;
+}
+
+li a {
+  display: block;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
+    
+#codeface-navbar {
+    background: rgb(240,240,240);
+}
+
+/* Screen Shots */
+
+#screen-shot-1
+{
+    background:url(screenshots/01_dark.png) no-repeat;
+    background-size:contain;
+    background-position:center;
+}
+
+#screen-shot-1:hover
+{
+    background:url(screenshots/01_light.png) no-repeat;
+    background-size:contain;
+    background-position:center;
+}
+#screen-shot-2
+{
+    background:url(screenshots/02_dark.png) no-repeat;
+    background-size:contain;
+    background-position:center;
+}
+
+#screen-shot-2:hover
+{
+    background:url(screenshots/02_light.png) no-repeat;
+    background-size:contain;
+    background-position:center;
+}
+#screen-shot-3
+{
+    background:url(screenshots/03_dark.png) no-repeat;
+    background-size:contain;
+    background-position:center;
+}
+
+#screen-shot-3:hover
+{
+    background:url(screenshots/03_light.png) no-repeat;
+    background-size:contain;
+    background-position:center;
+}
