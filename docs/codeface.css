@@ -81,6 +81,12 @@ h1
     font-weight: normal;
 }
 
+@media only screen and (max-width: 400px) {
+    h1 {
+        font-size: 48px;
+    }
+}
+
 h2
 {
     font-family: FiraCode;
