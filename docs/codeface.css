@@ -115,12 +115,6 @@ code
 
 /* Navbar */
 
-@media only screen and (max-width: 570px) {
-    .desktop-only {
-        display:none;
-    }
-}
-
 ul {
   list-style-type: none;
   margin: 0;
@@ -134,9 +128,21 @@ ul {
     
 .left a {
     padding-top: 18px;
+    padding-bottom: 16px;
+    
     padding-left: 20px;
     padding-right: 20px;
-    padding-bottom: 16px;
+}
+
+@media only screen and (max-width: 570px) {
+    .desktop-only {
+        display:none;
+    }
+    
+    .left a {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
     
 .right {
