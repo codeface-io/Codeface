@@ -1,1 +1,1 @@
-[Codeface.io](https://www.flowtoolz.com/codeface)
+[Codeface.io](https://flowtoolz.github.io/Codeface)
