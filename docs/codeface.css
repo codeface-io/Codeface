@@ -153,7 +153,7 @@ li a:hover {
 #codeface-bottom-bar {
     padding-top:18px;
     padding-bottom:16px;
-    background:black;
+    background:rgb(16,16,16);
 }
 
 #codeface-bottom-bar a {
