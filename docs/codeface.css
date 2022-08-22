@@ -24,7 +24,7 @@ html {
 
 body
 {
-    background: rgb(240,240,240);
+    background:rgb(240,240,240);
     font-family: FlowlistRegular;
     font-weight: normal;
     font-size: 18px;
@@ -141,6 +141,24 @@ li a {
     
 #codeface-navbar {
     background: rgb(240,240,240);
+}
+
+/* Bottom Bar */
+
+#codeface-bottom-bar {
+    padding-top:18px;
+    padding-bottom:16px;
+    background:rgb(230, 230, 230);
+}
+
+#codeface-bottom-bar a {
+    text-decoration:none;
+    color: black;
+}
+
+#codeface-bottom-bar a:hover {
+    color: rgba(84,178,235,1.0);
+    text-decoration: underline;
 }
 
 /* Responsive Grid */
