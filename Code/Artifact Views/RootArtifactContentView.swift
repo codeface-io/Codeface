@@ -9,7 +9,7 @@ struct RootArtifactContentView: View
             geo in
             
             ArtifactContentView(artifactVM: artifact,
-                                codeface: codeface,
+                                pathBar: codeface.pathBar,
                                 ignoreSearchFilter: codeface.isSearching,
                                 bgBrightness: colorScheme == .dark ? 0 : 0.6,
                                 isShownInScope: artifact.showsContent)

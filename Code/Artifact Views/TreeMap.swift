@@ -31,7 +31,7 @@ struct TreeMap: View
         {
             VStack(spacing: 0)
             {
-                OverviewBarView(overviewBar: viewModel.overviewBar)
+                PathBarView(overviewBar: viewModel.pathBar)
                 
                 RootArtifactContentView(artifact: artifactVM,
                                         codeface: viewModel)

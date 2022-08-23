@@ -28,7 +28,7 @@ struct ArtifactContentView: View
                     partVM in
                     
                     ArtifactView(artifactVM: partVM,
-                                 viewModel: codeface,
+                                 pathBar: pathBar,
                                  ignoreSearchFilter: ignoreSearchFilter,
                                  bgBrightness: min(bgBrightness + 0.1, 1),
                                  isShownInScope: isShownInScope && artifactVM.showsContent)
@@ -40,7 +40,7 @@ struct ArtifactContentView: View
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel
-    let codeface: Codeface
+    let pathBar: PathBar
     let ignoreSearchFilter: Bool
     let bgBrightness: Double
     let isShownInScope: Bool

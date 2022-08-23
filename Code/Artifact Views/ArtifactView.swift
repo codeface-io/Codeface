@@ -12,7 +12,7 @@ struct ArtifactView: View
                 .framePosition(artifactVM.headerFrame)
             
             ArtifactContentView(artifactVM: artifactVM,
-                                codeface: viewModel,
+                                pathBar: pathBar,
                                 ignoreSearchFilter: ignoreSearchFilter,
                                 bgBrightness: bgBrightness,
                                 isShownInScope: isShownInScope)
@@ -27,7 +27,7 @@ struct ArtifactView: View
             {
                 isHovering = true
                 artifactVM.isInFocus = true
-                viewModel.overviewBar.artifactVMStack += artifactVM
+                pathBar.artifactVMStack += artifactVM
             }
             else
             {
@@ -35,9 +35,9 @@ struct ArtifactView: View
                 {
                     self.isHovering = false
                     artifactVM.isInFocus = false
-                    if !viewModel.overviewBar.artifactVMStack.isEmpty
+                    if !pathBar.artifactVMStack.isEmpty
                     {
-                        viewModel.overviewBar.artifactVMStack.removeLast()
+                        pathBar.artifactVMStack.removeLast()
                     }
                 }
             }
@@ -51,7 +51,7 @@ struct ArtifactView: View
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel
-    let viewModel: Codeface
+    let pathBar: PathBar
     let ignoreSearchFilter: Bool
     @State var isHovering: Bool = false
     let bgBrightness: Double

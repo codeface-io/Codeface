@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct OverviewBarView: View
+struct PathBarView: View
 {
     var body: some View
     {
@@ -30,6 +30,6 @@ struct OverviewBarView: View
         .background(colorScheme == .dark ? Color(white: 0.08) : Color(NSColor.controlBackgroundColor))
     }
     
-    @ObservedObject var overviewBar: OverviewBar
+    @ObservedObject var overviewBar: PathBar
     @Environment(\.colorScheme) private var colorScheme
 }

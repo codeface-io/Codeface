@@ -32,8 +32,8 @@
 		96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96A3A3AB254A621900AE4146 /* SwiftLSP */; };
 		96B9B0BD288FF03200C93A4E /* CodefaceAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */; };
 		96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D1F8E128928325001657E8 /* SearchableCodeArtifact.swift */; };
-		96D8DB1B28A1503100B84B45 /* OverviewBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1A28A1503100B84B45 /* OverviewBar.swift */; };
-		96D8DB1D28A1503C00B84B45 /* OverviewBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1C28A1503C00B84B45 /* OverviewBarView.swift */; };
+		96D8DB1B28A1503100B84B45 /* PathBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1A28A1503100B84B45 /* PathBar.swift */; };
+		96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1C28A1503C00B84B45 /* PathBarView.swift */; };
 		96E479CC28359ABA00762FD7 /* ArtifactViewModel+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */; };
 		96E479CE28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CD28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift */; };
 		96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CF28359C9900762FD7 /* AnimatableLine.swift */; };
@@ -99,8 +99,8 @@
 		96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceAppDelegate.swift; sourceTree = "<group>"; };
 		96C87382285495D300C9D39A /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
 		96D1F8E128928325001657E8 /* SearchableCodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableCodeArtifact.swift; sourceTree = "<group>"; };
-		96D8DB1A28A1503100B84B45 /* OverviewBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewBar.swift; sourceTree = "<group>"; };
-		96D8DB1C28A1503C00B84B45 /* OverviewBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewBarView.swift; sourceTree = "<group>"; };
+		96D8DB1A28A1503100B84B45 /* PathBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBar.swift; sourceTree = "<group>"; };
+		96D8DB1C28A1503C00B84B45 /* PathBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBarView.swift; sourceTree = "<group>"; };
 		96E479CB28359ABA00762FD7 /* ArtifactViewModel+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+Search.swift"; sourceTree = "<group>"; };
 		96E479CD28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+LayoutArtifacts.swift"; sourceTree = "<group>"; };
 		96E479CF28359C9900762FD7 /* AnimatableLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableLine.swift; sourceTree = "<group>"; };
@@ -163,13 +163,13 @@
 			path = Project;
 			sourceTree = "<group>";
 		};
-		96D8DB1928A1500D00B84B45 /* Status Bar */ = {
+		96D8DB1928A1500D00B84B45 /* Path Bar */ = {
 			isa = PBXGroup;
 			children = (
-				96D8DB1C28A1503C00B84B45 /* OverviewBarView.swift */,
-				96D8DB1A28A1503100B84B45 /* OverviewBar.swift */,
+				96D8DB1C28A1503C00B84B45 /* PathBarView.swift */,
+				96D8DB1A28A1503100B84B45 /* PathBar.swift */,
 			);
-			path = "Status Bar";
+			path = "Path Bar";
 			sourceTree = "<group>";
 		};
 		96E479D52835A53200762FD7 /* Artifact Views */ = {
@@ -236,7 +236,7 @@
 			children = (
 				96E863D12844125500BCCE66 /* Codeface */,
 				96E863D22844125F00BCCE66 /* Sidebar */,
-				96D8DB1928A1500D00B84B45 /* Status Bar */,
+				96D8DB1928A1500D00B84B45 /* Path Bar */,
 				96E863D52844336400BCCE66 /* Display Mode */,
 				9686773D28423ECF00CE57D3 /* Project */,
 				96E479D52835A53200762FD7 /* Artifact Views */,
@@ -429,11 +429,11 @@
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				96FC8C3F284BEB9000AD7DD2 /* ProjectSelector.swift in Sources */,
 				96E863D42844335B00BCCE66 /* DisplayMode.swift in Sources */,
-				96D8DB1D28A1503C00B84B45 /* OverviewBarView.swift in Sources */,
+				96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */,
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
 				960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */,
 				96309ED12844EE0C00B0F9C5 /* ProjectConfigPersister.swift in Sources */,
-				96D8DB1B28A1503100B84B45 /* OverviewBar.swift in Sources */,
+				96D8DB1B28A1503100B84B45 /* PathBar.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
 				96E479DF2835B88E00762FD7 /* Sidebar.swift in Sources */,
 				96E479CE28359C1900762FD7 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,

@@ -26,7 +26,7 @@ class Codeface: Combine.ObservableObject, Observer
     
     // MARK: - Other Elements
     
-    let overviewBar = OverviewBar()
+    let pathBar = PathBar()
     
     // MARK: - Search
     

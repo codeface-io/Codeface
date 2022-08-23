@@ -1,6 +1,6 @@
 import Combine
 
-class OverviewBar: ObservableObject
+class PathBar: ObservableObject
 {
     @Published var artifactVMStack = [ArtifactViewModel]()
 }
