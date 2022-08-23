@@ -113,6 +113,28 @@ code
     letter-spacing: -1px;
 }
 
+/* Bottom Section (Contact) */
+
+#contact {
+    background:rgb(29,29,29);
+}
+
+/* Navbar and Bottom Bar */
+
+.codeface-bar {
+    color: rgb(245,245,245);
+    background: rgb(16,16,16);
+}
+
+.codeface-bar a {
+    color: rgb(245,245,245);
+}
+
+.codeface-bar a:hover {
+    text-decoration:none;
+    color: rgb(84,178,235);
+}
+
 /* Navbar */
 
 ul {
@@ -154,16 +176,12 @@ ul {
 li a {
   display: block;
   text-align: center;
-  color: white;
-  text-decoration: none;
-}
-
-li a:hover {
-  text-decoration: none;
 }
     
 #codeface-navbar {
-    background: rgb(16,16,16);
+    padding:0px;
+    border-bottom: 1px solid;
+    border-color: rgb(50, 50, 50);
 }
 
 /* Bottom Bar */
@@ -171,16 +189,6 @@ li a:hover {
 #codeface-bottom-bar {
     padding-top:18px;
     padding-bottom:16px;
-    background:rgb(16,16,16);
-}
-
-#codeface-bottom-bar a {
-    text-decoration:none;
-    color: white;
-}
-
-#codeface-bottom-bar a:hover {
-    color: rgba(84,178,235,1.0);
 }
 
 /* Responsive Grid */
