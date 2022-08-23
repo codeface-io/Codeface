@@ -1,3 +1,4 @@
+import SwiftUIToolz
 import SwiftUI
 
 struct SidebarLabel: View
@@ -14,7 +15,7 @@ struct SidebarLabel: View
                 Spacer()
                 
                 Text("\(loc)")
-                    .foregroundColor(isSelected ? .primary : artifact.linesOfCodeColor)
+                    .foregroundColor(isSelected ? .primary : .init(artifact.linesOfCodeColor))
             }
         }
         icon:

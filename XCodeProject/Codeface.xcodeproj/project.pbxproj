@@ -11,8 +11,6 @@
 		960730B42897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */; };
 		960730B628982F3C008F1D7C /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B528982F3C008F1D7C /* Arrow.swift */; };
 		960A7AA428AB875100F334CA /* DependencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA328AB875100F334CA /* DependencyView.swift */; };
-		960A7AA628AB87E300F334CA /* SwiftGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA528AB87E300F334CA /* SwiftGeometry.swift */; };
-		960A7AA828AB881200F334CA /* SwiftGeometry+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA728AB881200F334CA /* SwiftGeometry+SwiftUI.swift */; };
 		960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */; };
 		960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAB28ABB07800F334CA /* TreeMap.swift */; };
 		960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAD28ABB0A000F334CA /* CodeView.swift */; };
@@ -31,6 +29,8 @@
 		96A3A39F254A3B8400AE4146 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3A39E254A3B8400AE4146 /* Project.swift */; };
 		96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96A3A3AB254A621900AE4146 /* SwiftLSP */; };
 		96B9B0BD288FF03200C93A4E /* CodefaceAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */; };
+		96CFBB3328B57D480051C318 /* SwiftUIToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 96CFBB3228B57D480051C318 /* SwiftUIToolz */; };
+		96CFBB3628B582D20051C318 /* ArtifactViewModel+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */; };
 		96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D1F8E128928325001657E8 /* SearchableCodeArtifact.swift */; };
 		96D8DB1B28A1503100B84B45 /* PathBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1A28A1503100B84B45 /* PathBar.swift */; };
 		96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1C28A1503C00B84B45 /* PathBarView.swift */; };
@@ -79,8 +79,6 @@
 		960730B32897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+AddDependencies.swift"; sourceTree = "<group>"; };
 		960730B528982F3C008F1D7C /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
 		960A7AA328AB875100F334CA /* DependencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyView.swift; sourceTree = "<group>"; };
-		960A7AA528AB87E300F334CA /* SwiftGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGeometry.swift; sourceTree = "<group>"; };
-		960A7AA728AB881200F334CA /* SwiftGeometry+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftGeometry+SwiftUI.swift"; sourceTree = "<group>"; };
 		960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactHeaderView.swift; sourceTree = "<group>"; };
 		960A7AAB28ABB07800F334CA /* TreeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMap.swift; sourceTree = "<group>"; };
 		960A7AAD28ABB0A000F334CA /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
@@ -98,6 +96,8 @@
 		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceAppDelegate.swift; sourceTree = "<group>"; };
 		96C87382285495D300C9D39A /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
+		96CFBB3428B57E100051C318 /* SwiftUIToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftUIToolz; path = ../../SwiftUIToolz; sourceTree = "<group>"; };
+		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
 		96D1F8E128928325001657E8 /* SearchableCodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableCodeArtifact.swift; sourceTree = "<group>"; };
 		96D8DB1A28A1503100B84B45 /* PathBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBar.swift; sourceTree = "<group>"; };
 		96D8DB1C28A1503C00B84B45 /* PathBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBarView.swift; sourceTree = "<group>"; };
@@ -129,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */,
+				96CFBB3328B57D480051C318 /* SwiftUIToolz in Frameworks */,
 				9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */,
 				962952B32826898000DC8620 /* LSPServiceKit in Frameworks */,
 				9656A6A225287F2000D4CF26 /* SwiftObserver in Frameworks */,
@@ -182,6 +183,7 @@
 				960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */,
 				960A7AA328AB875100F334CA /* DependencyView.swift */,
 				96E479D32835A1DB00762FD7 /* ArtifactIcon.swift */,
+				96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */,
 			);
 			path = "Artifact Views";
 			sourceTree = "<group>";
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				9E00727A218E250E0094BD1C /* Code */,
+				96CFBB3428B57E100051C318 /* SwiftUIToolz */,
 				969EF681289923CE00FC4238 /* SwiftyToolz */,
 				96C87382285495D300C9D39A /* SwiftLSP */,
 				9664648728B14E7700F1B376 /* LSPServiceKit */,
@@ -297,8 +300,6 @@
 				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
 				96E479E02835B92000762FD7 /* SwiftUI+Helpers.swift */,
 				96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */,
-				960A7AA728AB881200F334CA /* SwiftGeometry+SwiftUI.swift */,
-				960A7AA528AB87E300F334CA /* SwiftGeometry.swift */,
 			);
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
@@ -326,6 +327,7 @@
 				96A3A3AB254A621900AE4146 /* SwiftLSP */,
 				962952B22826898000DC8620 /* LSPServiceKit */,
 				961AAD652899C553001CFF67 /* CodefaceCore */,
+				96CFBB3228B57D480051C318 /* SwiftUIToolz */,
 			);
 			productName = Cocoalytics;
 			productReference = 9E95A703218C73C7009A58A9 /* Codeface.app */;
@@ -384,6 +386,7 @@
 				9656A6A025287F2000D4CF26 /* XCRemoteSwiftPackageReference "SwiftObserver" */,
 				96A3A3AA254A621900AE4146 /* XCRemoteSwiftPackageReference "SwiftLSP" */,
 				962952B12826898000DC8620 /* XCRemoteSwiftPackageReference "LSPServiceKit" */,
+				96CFBB3128B57D480051C318 /* XCRemoteSwiftPackageReference "SwiftUIToolz" */,
 			);
 			productRefGroup = 9E95A704218C73C7009A58A9 /* Products */;
 			projectDirPath = "";
@@ -423,7 +426,7 @@
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
 				96309ECF2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift in Sources */,
 				96446C1A2829343600B347EF /* Codeface.swift in Sources */,
-				960A7AA828AB881200F334CA /* SwiftGeometry+SwiftUI.swift in Sources */,
+				96CFBB3628B582D20051C318 /* ArtifactViewModel+SwiftUI.swift in Sources */,
 				9606D887289A4549002B71E5 /* Xcode14Experiments.swift in Sources */,
 				960730B42897DDE5008F1D7C /* ArtifactViewModel+AddDependencies.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
@@ -441,7 +444,6 @@
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,
 				96D1F8E228928325001657E8 /* SearchableCodeArtifact.swift in Sources */,
-				960A7AA628AB87E300F334CA /* SwiftGeometry.swift in Sources */,
 				96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */,
 				96E479CC28359ABA00762FD7 /* ArtifactViewModel+Search.swift in Sources */,
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
@@ -745,6 +747,14 @@
 				kind = branch;
 			};
 		};
+		96CFBB3128B57D480051C318 /* XCRemoteSwiftPackageReference "SwiftUIToolz" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/flowtoolz/SwiftUIToolz";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -771,6 +781,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 96A3A3AA254A621900AE4146 /* XCRemoteSwiftPackageReference "SwiftLSP" */;
 			productName = SwiftLSP;
+		};
+		96CFBB3228B57D480051C318 /* SwiftUIToolz */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96CFBB3128B57D480051C318 /* XCRemoteSwiftPackageReference "SwiftUIToolz" */;
+			productName = SwiftUIToolz;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

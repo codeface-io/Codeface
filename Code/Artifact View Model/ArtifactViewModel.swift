@@ -1,7 +1,7 @@
 import CodefaceCore
-import SwiftUI
 import SwiftLSP
 import Foundation
+import SwiftyToolz
 
 @MainActor
 class ArtifactViewModel: Identifiable, ObservableObject, Equatable
@@ -27,9 +27,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         }
         
         iconSystemImageName = "folder.fill"
-        iconFillColor = Color("folderBlue")
-        fontDesign = .default
-        linesOfCodeColor = Color(NSColor.systemGray)
+        iconFillColor = .dynamic(.bytes(19, 165, 235), .bytes(83, 168, 209))
+        linesOfCodeColor = .system(.gray)
         
         kind = .folder(folderArtifact)
     }
@@ -45,18 +44,15 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         if fileArtifact.codeFile.name.hasSuffix(".swift")
         {
             iconSystemImageName = "swift"
-            iconFillColor = Color(red: 251.0 / 255.0,
-                                  green: 139.0 / 255.0,
-                                  blue: 57.0 / 255.0)
+            iconFillColor = .rgba(.bytes(251, 139, 57))
         }
         else
         {
             iconSystemImageName = "doc.fill"
-            iconFillColor = .white
+            iconFillColor = .rgba(.white)
         }
             
-        fontDesign = .default
-        linesOfCodeColor = locColorForFile(linesOfCode: fileArtifact.linesOfCode)
+        linesOfCodeColor = .system(systemColor(forLinesOfCode: fileArtifact.linesOfCode))
         
         kind = .file(fileArtifact)
     }
@@ -71,8 +67,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         
         self.iconSystemImageName = symbolIconSystemImageName(for: symbolArtifact.kind)
         self.iconFillColor = symbolIconFillColor(for: symbolArtifact.kind)
-        fontDesign = .monospaced
-        linesOfCodeColor = Color(NSColor.systemGray)
+        linesOfCodeColor = .system(.gray)
         
         kind = .symbol(symbolArtifact)
     }
@@ -123,9 +118,8 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     var contentFrame = Frame.zero
     
     let iconSystemImageName: String
-    let iconFillColor: Color
-    let fontDesign: Font.Design
-    let linesOfCodeColor: Color
+    let iconFillColor: UXColor
+    let linesOfCodeColor: UXColor
     
     // MARK: - Basics
     
@@ -195,36 +189,36 @@ private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolK
     }
 }
 
-private func symbolIconFillColor(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> Color
+private func symbolIconFillColor(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> UXColor
 {
     guard let symbolKind = symbolKind else
     {
-        return Color(NSColor.secondaryLabelColor)
+        return .system(.secondaryLabel)
     }
     
     switch symbolKind
     {
     case .File, .Module, .Package:
-        return .white
+        return .rgba(.white)
     case .Class, .Interface, .Struct:
-        return Color(NSColor.systemPurple)
+        return .system(.purple)
     case .Namespace, .Enum:
-        return Color(NSColor.systemOrange)
+        return .system(.orange)
     case .Method, .Constructor:
-        return Color(NSColor.systemBlue)
+        return .system(.blue)
     case .Property, .Field, .EnumMember:
-        return Color(NSColor.systemTeal)
+        return .system(.teal)
     case .Variable, .Constant, .Function, .Operator:
-        return Color(NSColor.systemGreen)
+        return .system(.green)
     case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .TypeParameter, .String:
-        return Color(NSColor.secondaryLabelColor)
+        return .system(.secondaryLabel)
     }
 }
 
-private func locColorForFile(linesOfCode: Int) -> Color
+private func systemColor(forLinesOfCode linesOfCode: Int) -> UXColor.System
 {
-    if linesOfCode < 100 { return Color(NSColor.systemGreen) }
-    else if linesOfCode < 200 { return Color(NSColor.systemYellow) }
-    else if linesOfCode < 300 { return Color(NSColor.systemOrange) }
-    else { return Color(NSColor.systemRed) }
+    if linesOfCode < 100 { return .green }
+    else if linesOfCode < 200 { return .yellow }
+    else if linesOfCode < 300 { return .orange }
+    else { return .red }
 }
