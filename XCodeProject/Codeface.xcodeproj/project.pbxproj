@@ -18,7 +18,7 @@
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
 		962952B32826898000DC8620 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 962952B22826898000DC8620 /* LSPServiceKit */; };
 		96309ECF2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */; };
-		96309ED12844EE0C00B0F9C5 /* ProjectConfigPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */; };
+		96309ED12844EE0C00B0F9C5 /* ProjectDescriptionPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96309ED02844EE0C00B0F9C5 /* ProjectDescriptionPersister.swift */; };
 		964308A5254B7B070026E56C /* CodefaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964308A4254B7B070026E56C /* CodefaceView.swift */; };
 		96446C1A2829343600B347EF /* Codeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C192829343600B347EF /* Codeface.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
@@ -37,7 +37,7 @@
 		96E479DF2835B88E00762FD7 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479DE2835B88E00762FD7 /* Sidebar.swift */; };
 		96E863D42844335B00BCCE66 /* DisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E863D32844335B00BCCE66 /* DisplayMode.swift */; };
 		96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA394E282C2AF2002B033E /* ArtifactContentView.swift */; };
-		96FC8C3F284BEB9000AD7DD2 /* ProjectSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC8C3E284BEB9000AD7DD2 /* ProjectSelector.swift */; };
+		96FC8C3F284BEB9000AD7DD2 /* ProjectPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC8C3E284BEB9000AD7DD2 /* ProjectPickerView.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceApp.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CodefaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CodefaceTests.swift */; };
@@ -77,7 +77,7 @@
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
 		96309ECE2844ED2600B0F9C5 /* UserDefaults+PropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+PropertyWrapper.swift"; sourceTree = "<group>"; };
-		96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectConfigPersister.swift; sourceTree = "<group>"; };
+		96309ED02844EE0C00B0F9C5 /* ProjectDescriptionPersister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionPersister.swift; sourceTree = "<group>"; };
 		964308A4254B7B070026E56C /* CodefaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceView.swift; sourceTree = "<group>"; };
 		96446C192829343600B347EF /* Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codeface.swift; sourceTree = "<group>"; };
 		9664648728B14E7700F1B376 /* LSPServiceKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LSPServiceKit; path = ../../LSPServiceKit; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		96E479DE2835B88E00762FD7 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		96E863D32844335B00BCCE66 /* DisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMode.swift; sourceTree = "<group>"; };
 		96EA394E282C2AF2002B033E /* ArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactContentView.swift; sourceTree = "<group>"; };
-		96FC8C3E284BEB9000AD7DD2 /* ProjectSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelector.swift; sourceTree = "<group>"; };
+		96FC8C3E284BEB9000AD7DD2 /* ProjectPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerView.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceApp.swift; sourceTree = "<group>"; };
 		9E27839C229ECDF1006ACB18 /* Codeface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codeface.entitlements; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Codeface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeface.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,13 +138,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		9686773D28423ECF00CE57D3 /* Project */ = {
+		9686773D28423ECF00CE57D3 /* Project Description */ = {
 			isa = PBXGroup;
 			children = (
-				96FC8C3E284BEB9000AD7DD2 /* ProjectSelector.swift */,
-				96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */,
+				96FC8C3E284BEB9000AD7DD2 /* ProjectPickerView.swift */,
+				96309ED02844EE0C00B0F9C5 /* ProjectDescriptionPersister.swift */,
 			);
-			path = Project;
+			path = "Project Description";
 			sourceTree = "<group>";
 		};
 		96D8DB1928A1500D00B84B45 /* Path Bar */ = {
@@ -210,7 +210,7 @@
 				96E863D22844125F00BCCE66 /* Sidebar */,
 				96D8DB1928A1500D00B84B45 /* Path Bar */,
 				96E863D52844336400BCCE66 /* Display Mode */,
-				9686773D28423ECF00CE57D3 /* Project */,
+				9686773D28423ECF00CE57D3 /* Project Description */,
 				96E479D52835A53200762FD7 /* Artifact Views */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 				961AAD632899C3E6001CFF67 /* CodefaceCore */,
@@ -396,12 +396,12 @@
 				96CFBB3628B582D20051C318 /* ArtifactViewModel+SwiftUI.swift in Sources */,
 				9606D887289A4549002B71E5 /* Xcode14Experiments.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
-				96FC8C3F284BEB9000AD7DD2 /* ProjectSelector.swift in Sources */,
+				96FC8C3F284BEB9000AD7DD2 /* ProjectPickerView.swift in Sources */,
 				96E863D42844335B00BCCE66 /* DisplayMode.swift in Sources */,
 				96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */,
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
 				960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */,
-				96309ED12844EE0C00B0F9C5 /* ProjectConfigPersister.swift in Sources */,
+				96309ED12844EE0C00B0F9C5 /* ProjectDescriptionPersister.swift in Sources */,
 				96D8DB1B28A1503100B84B45 /* PathBar.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
 				96E479DF2835B88E00762FD7 /* Sidebar.swift in Sources */,

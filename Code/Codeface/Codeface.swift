@@ -18,7 +18,7 @@ class Codeface: Combine.ObservableObject, Observer
     private func loadLastProjectInDebugBuilds()
     {
         #if DEBUG
-        if ProjectConfigPersister.hasPersistedLastProjectConfig, activeAnalysis == nil
+        if ProjectDescriptionPersister.hasPersistedLastProject, activeAnalysis == nil
         {
             loadLastActiveProject()
         }
@@ -76,12 +76,12 @@ class Codeface: Combine.ObservableObject, Observer
     
     // MARK: - Active Abalysis
     
-    func loadNewActiveProject(with config: LSPProjectDescription)
+    func loadNewActiveAnalysis(for project: LSPProjectDescription)
     {
         do
         {
-            try setAndStartActiveAnalysis(with: config)
-            try ProjectConfigPersister.persist(projectConfig: config)
+            try setAndStartActiveAnalysis(with: project)
+            try ProjectDescriptionPersister.persist(project)
         }
         catch { log(error) }
     }
@@ -90,7 +90,7 @@ class Codeface: Combine.ObservableObject, Observer
     {
         do
         {
-            try setAndStartActiveAnalysis(with: ProjectConfigPersister.loadProjectConfig())
+            try setAndStartActiveAnalysis(with: ProjectDescriptionPersister.loadProjectConfig())
         }
         catch { log(error) }
     }

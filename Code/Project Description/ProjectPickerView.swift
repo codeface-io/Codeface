@@ -2,7 +2,7 @@ import SwiftUI
 import LSPServiceKit
 import SwiftyToolz
 
-struct ProjectSelector: View
+struct ProjectPickerView: View
 {
     var body: some View
     {

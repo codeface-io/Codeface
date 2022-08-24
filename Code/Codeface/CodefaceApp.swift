@@ -22,9 +22,9 @@ struct CodefaceApp: App
             }
             .sheet(isPresented: $isPresentingProjectSelector)
             {
-                ProjectSelector(isBeingPresented: $isPresentingProjectSelector)
+                ProjectPickerView(isBeingPresented: $isPresentingProjectSelector)
                 {
-                    codeface.loadNewActiveProject(with: $0)
+                    codeface.loadNewActiveAnalysis(for: $0)
                 }
                 .padding()
             }
@@ -92,11 +92,11 @@ struct CodefaceApp: App
                             throw "Empty array of URLs"
                         }
                         
-                        let config = LSPProjectDescription(folder: firstURL,
-                                                          language: "Swift",
-                                                          codeFileEndings: ["swift"])
+                        let project = LSPProjectDescription(folder: firstURL,
+                                                            language: "Swift",
+                                                            codeFileEndings: ["swift"])
                         
-                        codeface.loadNewActiveProject(with: config)
+                        codeface.loadNewActiveAnalysis(for: project)
                     }
                     catch { log(error) }
                 })
@@ -106,7 +106,7 @@ struct CodefaceApp: App
                     codeface.loadLastActiveProject()
                 }
                 .keyboardShortcut("r")
-                .disabled(!ProjectConfigPersister.hasPersistedLastProjectConfig)
+                .disabled(!ProjectDescriptionPersister.hasPersistedLastProject)
             }
         }
         
