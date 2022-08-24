@@ -1,6 +1,7 @@
 import SwiftUIToolz
 import SwiftUI
 import SwiftLSP
+import CodefaceCore
 
 struct ArtifactIcon: View
 {

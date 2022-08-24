@@ -1,20 +1,19 @@
-import CodefaceCore
 import SwiftLSP
 import Foundation
 import SwiftyToolz
 
 @MainActor
-class ArtifactViewModel: Identifiable, ObservableObject, Equatable
+public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
 {
-    nonisolated static func == (lhs: ArtifactViewModel,
-                                rhs: ArtifactViewModel) -> Bool
+    public nonisolated static func == (lhs: ArtifactViewModel,
+                                       rhs: ArtifactViewModel) -> Bool
     {
         lhs === rhs
     }
     
     // MARK: - Initialization
     
-    init(folderArtifact: CodeFolderArtifact)
+    public init(folderArtifact: CodeFolderArtifact)
     {
         // create child presentations for parts recursively
         self.parts = folderArtifact.parts.map
@@ -76,12 +75,12 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     @Published var passesSearchFilter = true
     
-    var containsSearchTermRegardlessOfParts: Bool?
+    public var containsSearchTermRegardlessOfParts: Bool?
     var partsContainSearchTerm: Bool?
     
     // MARK: - UI
     
-    var headerFrame: Frame
+    public var headerFrame: Frame
     {
         .init(centerX: frameInScopeContent.width / 2 + (extraSpaceForTitles / 2),
               centerY: collapseVertically ? frameInScopeContent.height / 2 : Self.padding + fontSize / 2,
@@ -89,59 +88,59 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
               height: collapseVertically ? frameInScopeContent.height - 2 * Self.padding : fontSize)
     }
     
-    var extraSpaceForTitles: Double { collapseHorizontally ? 0 : 6.0 }
+    public var extraSpaceForTitles: Double { collapseHorizontally ? 0 : 6.0 }
     
-    @Published var isInFocus = false
+    @Published public var isInFocus = false
     
-    var showsName: Bool
+    public var showsName: Bool
     {
         frameInScopeContent.width - (2 * Self.padding + fontSize) >= 3 * fontSize
     }
     
-    var collapseHorizontally: Bool { frameInScopeContent.width <= fontSize + (2 * Self.padding) }
+    public var collapseHorizontally: Bool { frameInScopeContent.width <= fontSize + (2 * Self.padding) }
     
-    var collapseVertically: Bool { frameInScopeContent.height <= fontSize + (2 * Self.padding) }
+    public var collapseVertically: Bool { frameInScopeContent.height <= fontSize + (2 * Self.padding) }
     
-    var fontSize: Double
+    public var fontSize: Double
     {
         let viewSurface = frameInScopeContent.height * frameInScopeContent.width
         return 3 * pow(viewSurface, (1 / 6.0))
     }
     
-    static var padding: Double = 16
-    static var minWidth: Double = 30
-    static var minHeight: Double = 30
+    public static var padding: Double = 16
+    public static var minWidth: Double = 30
+    public static var minHeight: Double = 30
     
-    @Published var frameInScopeContent = Frame.zero
+    @Published public var frameInScopeContent = Frame.zero
     
-    var showsContent = true
-    var contentFrame = Frame.zero
+    public var showsContent = true
+    public var contentFrame = Frame.zero
     
-    let iconSystemImageName: String
-    let iconFillColor: UXColor
-    let linesOfCodeColor: UXColor
+    public let iconSystemImageName: String
+    public let iconFillColor: UXColor
+    public let linesOfCodeColor: UXColor
     
     // MARK: - Basics
     
-    @Published var partDependencies = [Dependency]()
-    let parts: [ArtifactViewModel]
+    @Published public var partDependencies = [Dependency]()
+    public let parts: [ArtifactViewModel]
     
-    struct Dependency: Identifiable
+    public struct Dependency: Identifiable
     {
-        let id = UUID()
+        public let id = UUID()
         
-        let sourcePart: ArtifactViewModel
-        var sourcePoint: Point = .zero
+        public let sourcePart: ArtifactViewModel
+        public var sourcePoint: Point = .zero
         
-        let targetPart: ArtifactViewModel
-        var targetPoint: Point = .zero
+        public let targetPart: ArtifactViewModel
+        public var targetPoint: Point = .zero
         
-        let weight: Int
+        public let weight: Int
     }
     
-    nonisolated var id: String { codeArtifact.id }
+    public nonisolated var id: String { codeArtifact.id }
     
-    nonisolated var codeArtifact: any SearchableCodeArtifact
+    public nonisolated var codeArtifact: any SearchableCodeArtifact
     {
         switch kind
         {
@@ -151,9 +150,9 @@ class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         }
     }
     
-    let kind: Kind
+    public let kind: Kind
     
-    enum Kind
+    public enum Kind
     {
         case folder(CodeFolderArtifact),
              file(CodeFileArtifact),

@@ -1,5 +1,6 @@
 import SwiftUI
 import LSPServiceKit
+import CodefaceCore
 
 struct TreeMap: View
 {

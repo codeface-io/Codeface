@@ -1,8 +1,7 @@
-import CodefaceCore
 import Foundation
 import SwiftyToolz
 
-extension ArtifactViewModel
+public extension ArtifactViewModel
 {
     func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
                              ignoreSearchFilter: Bool)

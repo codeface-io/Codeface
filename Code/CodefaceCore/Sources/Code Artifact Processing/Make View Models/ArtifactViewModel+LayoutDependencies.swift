@@ -1,6 +1,6 @@
 import SwiftyToolz
 
-extension ArtifactViewModel
+public extension ArtifactViewModel
 {
     func layoutDependencies()
     {

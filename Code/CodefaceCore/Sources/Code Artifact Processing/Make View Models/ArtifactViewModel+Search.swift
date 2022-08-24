@@ -1,7 +1,6 @@
-import CodefaceCore
 import SwiftyToolz
 
-extension ArtifactViewModel
+public extension ArtifactViewModel
 {
     // MARK: - Filter
     

@@ -1,4 +1,6 @@
+import SwiftUIToolz
 import SwiftUI
+import CodefaceCore
 
 struct Sidebar: View
 {
@@ -68,7 +70,7 @@ struct Sidebar: View
 
 extension ArtifactViewModel: Hashable
 {
-    func hash(into hasher: inout Hasher)
+    public func hash(into hasher: inout Hasher)
     {
         hasher.combine(id)
     }

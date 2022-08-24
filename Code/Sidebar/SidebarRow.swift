@@ -1,4 +1,5 @@
 import SwiftUI
+import CodefaceCore
 
 struct SidebarRow: View
 {

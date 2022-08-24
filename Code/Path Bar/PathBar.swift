@@ -1,4 +1,5 @@
 import Combine
+import CodefaceCore
 
 class PathBar: ObservableObject
 {

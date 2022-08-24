@@ -1,4 +1,5 @@
 import SwiftUI
+import CodefaceCore
 
 extension ArtifactViewModel {
     var fontDesign: Font.Design {

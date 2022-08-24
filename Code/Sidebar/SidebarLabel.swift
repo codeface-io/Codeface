@@ -1,5 +1,6 @@
 import SwiftUIToolz
 import SwiftUI
+import CodefaceCore
 
 struct SidebarLabel: View
 {

@@ -1,4 +1,5 @@
 import LSPServiceKit
+import CodefaceCore
 import Foundation
 import Combine
 import SwiftObserver
