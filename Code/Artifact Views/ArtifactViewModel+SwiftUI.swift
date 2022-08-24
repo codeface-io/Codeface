@@ -3,7 +3,7 @@ import CodefaceCore
 
 extension ArtifactViewModel {
     var fontDesign: Font.Design {
-        if case .file = kind { return .monospaced }
+        if case .symbol = kind { return .monospaced }
         return .default
     }
 }
