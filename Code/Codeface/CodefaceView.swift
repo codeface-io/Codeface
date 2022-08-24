@@ -53,5 +53,5 @@ struct CodefaceView: View
     
     @State var searchTerm = ""
     
-    @ObservedObject var viewModel: Codeface
+    @ObservedObject var viewModel: ProjectAnalysisViewModel
 }

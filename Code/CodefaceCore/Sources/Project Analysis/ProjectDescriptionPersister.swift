@@ -1,9 +1,10 @@
 import LSPServiceKit
+import FoundationToolz
 import Foundation
 
-enum ProjectDescriptionPersister
+public enum ProjectDescriptionPersister
 {
-    static var hasPersistedLastProject: Bool { persistedProjectDescriptionData != nil }
+    public static var hasPersistedLastProject: Bool { persistedProjectDescriptionData != nil }
     
     static func persist(_ project: LSPProjectDescription) throws
     {

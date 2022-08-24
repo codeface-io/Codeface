@@ -8,10 +8,7 @@ public extension CodeFolder
     {
         let fileManager = FileManager.default
         
-        guard let urls = fileManager.items(inDirectory: folderURL, recursive: false) else
-        {
-            throw "Couldn't get file URLs from folder"
-        }
+        let urls = fileManager.items(inDirectory: folderURL, recursive: false)
         
         var files = [CodeFile]()
         var subfolders = [CodeFolder]()

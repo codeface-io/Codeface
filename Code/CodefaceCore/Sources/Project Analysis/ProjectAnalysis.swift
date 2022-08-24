@@ -29,8 +29,7 @@ public class ProjectAnalysis
             do
             {
                 let rootFolder = try readRootFolder()
-                let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder,
-                                                      scope: nil)
+                let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder, scope: nil)
                 
                 do
                 {

@@ -50,5 +50,5 @@ struct SidebarRow: View
     }
     
     let artifactVM: ArtifactViewModel
-    @ObservedObject var viewModel: Codeface
+    @ObservedObject var viewModel: ProjectAnalysisViewModel
 }

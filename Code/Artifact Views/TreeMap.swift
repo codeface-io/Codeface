@@ -35,7 +35,7 @@ struct TreeMap: View
                 PathBarView(overviewBar: viewModel.pathBar)
                 
                 RootArtifactContentView(artifact: artifactVM,
-                                        codeface: viewModel)
+                                        viewModel: viewModel)
                 .padding(ArtifactViewModel.padding)
             }
             .background(Color(white: colorScheme == .dark ? 0 : 0.6))
@@ -45,7 +45,7 @@ struct TreeMap: View
     @ObservedObject private var serverManager = LSPServerManager.shared
     
     let artifactVM: ArtifactViewModel
-    @ObservedObject var viewModel: Codeface
+    @ObservedObject var viewModel: ProjectAnalysisViewModel
     @Environment(\.colorScheme) var colorScheme
 }
 

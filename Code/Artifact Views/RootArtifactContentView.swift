@@ -10,8 +10,8 @@ struct RootArtifactContentView: View
             geo in
             
             ArtifactContentView(artifactVM: artifact,
-                                pathBar: codeface.pathBar,
-                                ignoreSearchFilter: codeface.isSearching,
+                                pathBar: viewModel.pathBar,
+                                ignoreSearchFilter: viewModel.isSearching,
                                 bgBrightness: colorScheme == .dark ? 0 : 0.6,
                                 isShownInScope: artifact.showsContent)
             .onChange(of: geo.size)
@@ -23,12 +23,12 @@ struct RootArtifactContentView: View
                     withAnimation(.easeInOut(duration: 1))
                     {
                         artifact.updateLayoutOfParts(forScopeSize: size,
-                                                     ignoreSearchFilter: codeface.isSearching)
+                                                     ignoreSearchFilter: viewModel.isSearching)
                         artifact.layoutDependencies()
                     }
                 }
             }
-            .onReceive(codeface.$isSearching)
+            .onReceive(viewModel.$isSearching)
             {
                 _ in
                 
@@ -37,7 +37,7 @@ struct RootArtifactContentView: View
                     withAnimation(.easeInOut(duration: 1))
                     {
                         artifact.updateLayoutOfParts(forScopeSize: geo.size,
-                                                     ignoreSearchFilter: codeface.isSearching)
+                                                     ignoreSearchFilter: viewModel.isSearching)
                         artifact.layoutDependencies()
                     }
                 }
@@ -47,6 +47,6 @@ struct RootArtifactContentView: View
     }
     
     let artifact: ArtifactViewModel
-    @ObservedObject var codeface: Codeface
+    @ObservedObject var viewModel: ProjectAnalysisViewModel
     @Environment(\.colorScheme) var colorScheme
 }

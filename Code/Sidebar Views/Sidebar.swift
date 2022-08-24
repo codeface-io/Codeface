@@ -65,7 +65,7 @@ struct Sidebar: View
     @Environment(\.isSearching) var isSearching
     @Environment(\.dismissSearch) var dismissSearch
     
-    @ObservedObject var viewModel: Codeface
+    @ObservedObject var viewModel: ProjectAnalysisViewModel
 }
 
 extension ArtifactViewModel: Hashable

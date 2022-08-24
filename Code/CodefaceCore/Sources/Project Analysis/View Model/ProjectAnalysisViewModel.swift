@@ -1,44 +1,27 @@
 import LSPServiceKit
-import CodefaceCore
 import Foundation
 import Combine
 import SwiftObserver
 import SwiftyToolz
 
 @MainActor
-class Codeface: Combine.ObservableObject, Observer
+public class ProjectAnalysisViewModel: Combine.ObservableObject, Observer
 {
-    // MARK: - Life Cycle
-    
-    func didBecomeActive()
+    public init(activeAnalysis: ProjectAnalysis? = nil)
     {
-        loadLastProjectInDebugBuilds()
+        self.activeAnalysis = activeAnalysis
     }
-    
-    private func loadLastProjectInDebugBuilds()
-    {
-        #if DEBUG
-        if ProjectDescriptionPersister.hasPersistedLastProject, activeAnalysis == nil
-        {
-            loadLastActiveProject()
-        }
-        #endif
-    }
-    
-    // MARK: - Other Elements
-    
-    let pathBar = PathBar()
     
     // MARK: - Search
     
-    func removeSearchFilter()
+    public func removeSearchFilter()
     {
         updateArtifacts(withSearchTerm: "", allPass: true)
         appliedSearchTerm = nil
         isSearching = false
     }
     
-    func userChanged(searchTerm: String)
+    public func userChanged(searchTerm: String)
     {
         guard isSearching else { return }
         
@@ -57,40 +40,44 @@ class Codeface: Combine.ObservableObject, Observer
         }
     }
     
-    func beginSearch()
+    public func beginSearch()
     {
         isSearching = true
     }
     
-    func submitSearch()
+    public func submitSearch()
     {
         isSearching = false
     }
     
-    @Published var isSearching: Bool = false
-    @Published var appliedSearchTerm: String?
+    @Published public var isSearching: Bool = false
+    @Published public var appliedSearchTerm: String?
     
-    // MARK: - Display Mode
+    // MARK: - Active Analysis
     
-    @Published var displayMode: DisplayMode = .treeMap
+    public func loadLastProjectIfNoneIsActive()
+    {
+        if ProjectDescriptionPersister.hasPersistedLastProject, activeAnalysis == nil
+        {
+            loadLastActiveProject()
+        }
+    }
     
-    // MARK: - Active Abalysis
+    public func loadLastActiveProject()
+    {
+        do
+        {
+            try setAndStartActiveAnalysis(with: ProjectDescriptionPersister.loadProjectConfig())
+        }
+        catch { log(error) }
+    }
     
-    func loadNewActiveAnalysis(for project: LSPProjectDescription)
+    public func loadNewActiveAnalysis(for project: LSPProjectDescription)
     {
         do
         {
             try setAndStartActiveAnalysis(with: project)
             try ProjectDescriptionPersister.persist(project)
-        }
-        catch { log(error) }
-    }
-    
-    func loadLastActiveProject()
-    {
-        do
-        {
-            try setAndStartActiveAnalysis(with: ProjectDescriptionPersister.loadProjectConfig())
         }
         catch { log(error) }
     }
@@ -116,11 +103,15 @@ class Codeface: Combine.ObservableObject, Observer
         self.analysisState = activeAnalysis.state
     }
     
-    @Published var selectedArtifact: ArtifactViewModel?
-    @Published private(set) var analysisState: ProjectAnalysis.State = .stopped
-    private(set) var activeAnalysis: ProjectAnalysis?
+    @Published public var selectedArtifact: ArtifactViewModel?
+    @Published public private(set) var analysisState: ProjectAnalysis.State = .stopped
+    public private(set) var activeAnalysis: ProjectAnalysis?
     
-    // MARK: - Observer
+    public let receiver = Receiver()
     
-    let receiver = Receiver()
+    // MARK: - Other Elements
+    
+    @Published public var displayMode: DisplayMode = .treeMap
+    
+    public let pathBar = PathBar()
 }

@@ -1,4 +1,5 @@
 import SwiftUI
+import CodefaceCore
 import LSPServiceKit
 import SwiftyToolz
 
@@ -9,13 +10,16 @@ struct CodefaceApp: App
     {
         WindowGroup
         {
-            CodefaceView(viewModel: codeface)
+            CodefaceView(viewModel: viewModel)
                 .onChange(of: scenePhase)
             {
                 switch $0
                 {
                 case .background: break
-                case .active: codeface.didBecomeActive()
+                case .active:
+                    #if DEBUG
+                    viewModel.loadLastProjectIfNoneIsActive()
+                    #endif
                 case .inactive: break
                 @unknown default: break
                 }
@@ -24,7 +28,7 @@ struct CodefaceApp: App
             {
                 ProjectPickerView(isBeingPresented: $isPresentingProjectSelector)
                 {
-                    codeface.loadNewActiveAnalysis(for: $0)
+                    viewModel.loadNewActiveAnalysis(for: $0)
                 }
                 .padding()
             }
@@ -37,10 +41,10 @@ struct CodefaceApp: App
             {
                 Button("Switch View Mode")
                 {
-                    switch codeface.displayMode
+                    switch viewModel.displayMode
                     {
-                    case .code: codeface.displayMode = .treeMap
-                    case .treeMap: codeface.displayMode = .code
+                    case .code: viewModel.displayMode = .treeMap
+                    case .treeMap: viewModel.displayMode = .code
                     }
                 }
                 .keyboardShortcut(.space, modifiers: .shift)
@@ -96,14 +100,14 @@ struct CodefaceApp: App
                                                             language: "Swift",
                                                             codeFileEndings: ["swift"])
                         
-                        codeface.loadNewActiveAnalysis(for: project)
+                        viewModel.loadNewActiveAnalysis(for: project)
                     }
                     catch { log(error) }
                 })
                 
                 Button("Reload Last Project")
                 {
-                    codeface.loadLastActiveProject()
+                    viewModel.loadLastActiveProject()
                 }
                 .keyboardShortcut("r")
                 .disabled(!ProjectDescriptionPersister.hasPersistedLastProject)
@@ -118,7 +122,7 @@ struct CodefaceApp: App
     @State var isPresentingFileImporter = false
     @Environment(\.scenePhase) var scenePhase
     
-    @StateObject private var codeface = Codeface()
+    @StateObject private var viewModel = ProjectAnalysisViewModel()
     
     @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) private var appDelegate
 }
