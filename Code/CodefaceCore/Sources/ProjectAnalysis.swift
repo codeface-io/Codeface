@@ -1,56 +1,53 @@
 import LSPServiceKit
-import CodefaceCore
-import FoundationToolz
 import Foundation
 import SwiftObserver
 import SwiftyToolz
 
 @MainActor
-class Project
+public class ProjectAnalysis
 {
     // MARK: - Initialization
     
-    init(config: LSPProjectConfiguration) throws
+    public init(project: LSPProjectDescription) throws
     {
-        guard FileManager.default.itemExists(config.folder) else
+        guard FileManager.default.itemExists(project.folder) else
         {
-            throw "Project folder does not exist: " + config.folder.absoluteString
+            throw "Project folder does not exist: " + project.folder.absoluteString
         }
         
-        self.project = config
+        self.project = project
     }
     
-    // MARK: - Data Analysis
+    // MARK: - Analysis
     
-    func startAnalysis() throws
+    public func start() throws
     {
-        self.analysisState = .running
+        self.state = .running
         
-        analysis = Task
+        task = Task
         {
             do
             {
-                let rootFolder = try createRootFolder()
+                let rootFolder = try readRootFolder()
                 let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder,
                                                       scope: nil)
                 
                 do
                 {
-                    let (server, initialization) = try LSPServerManager.shared.getServerAndInitialization(for: project)
+                    let server = try await LSPServerManager.shared.getServer(for: project)
                     {
                         [weak self] error in
                         
                         guard let self = self else { return }
                         
-                        self.analysis?.cancel()
-                        self.analysis = nil
+                        self.task?.cancel()
+                        self.task = nil
                         
-                        if case .running = self.analysisState
+                        if case .running = self.state
                         {
-                            self.analysisState = .failed(error.readable.message)
+                            self.state = .failed(error.readable.message)
                         }
                     }
-                    try await initialization.assumeSuccess()
                     try await rootArtifact.addSymbolArtifacts(using: server)
                     try await rootArtifact.addDependencies(using: server)
                 }
@@ -63,17 +60,17 @@ class Project
                 rootArtifact.generateMetrics()
                 rootArtifact.sort()
                 let rootVM = ArtifactViewModel(folderArtifact: rootArtifact).addDependencies()
-                self.analysisState = .succeeded(rootVM)
+                self.state = .succeeded(rootVM)
             }
             catch
             {
-                self.analysisState = .failed(error.readable.message)
+                self.state = .failed(error.readable.message)
                 throw error
             }
         }
     }
     
-    private func createRootFolder() throws -> CodeFolder
+    private func readRootFolder() throws -> CodeFolder
     {
         try project.folder.mapSecurityScoped
         {
@@ -86,11 +83,11 @@ class Project
         }
     }
     
-    private var analysis: Task<Void, Error>?
+    private var task: Task<Void, Error>?
     
-    @Observable private(set) var analysisState: AnalysisState = .stopped
+    @Observable public private(set) var state: State = .stopped
     
-    enum AnalysisState: Equatable
+    public enum State: Equatable
     {
         case stopped,
              running,
@@ -100,10 +97,5 @@ class Project
     
     // MARK: - Configuration
     
-    let project: LSPProjectConfiguration
-}
-
-extension Task where Success == Void
-{
-    func assumeSuccess() async throws { try await value }
+    public let project: LSPProjectDescription
 }

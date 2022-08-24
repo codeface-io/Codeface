@@ -54,7 +54,7 @@ struct ProjectSelector: View
                         
                         let fileEndingArray = fileEndings.components(separatedBy: .whitespaces)
                         
-                        let config = LSPProjectConfiguration(folder: firstURL,
+                        let config = LSPProjectDescription(folder: firstURL,
                                                              language: languageName,
                                                              codeFileEndings: fileEndingArray)
                         
@@ -67,7 +67,7 @@ struct ProjectSelector: View
     }
     
     @Binding var isBeingPresented: Bool
-    let confirm: (LSPProjectConfiguration) -> Void
+    let confirm: (LSPProjectDescription) -> Void
     
     @State private var languageName: String = ""
     @State private var fileEndings: String = ""

@@ -26,7 +26,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         }
         
         iconSystemImageName = "folder.fill"
-        iconFillColor = .dynamic(.bytes(19, 165, 235), .bytes(83, 168, 209))
+        iconFillColor = .dynamic(lightMode: .bytes(19, 165, 235),
+                                 darkMode: .bytes(83, 168, 209))
         linesOfCodeColor = .system(.gray)
         
         kind = .folder(folderArtifact)

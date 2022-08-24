@@ -18,7 +18,7 @@ class Codeface: Combine.ObservableObject, Observer
     private func loadLastProjectInDebugBuilds()
     {
         #if DEBUG
-        if ProjectConfigPersister.hasPersistedLastProjectConfig, activeProject == nil
+        if ProjectConfigPersister.hasPersistedLastProjectConfig, activeAnalysis == nil
         {
             loadLastActiveProject()
         }
@@ -74,13 +74,13 @@ class Codeface: Combine.ObservableObject, Observer
     
     @Published var displayMode: DisplayMode = .treeMap
     
-    // MARK: - Active Project
+    // MARK: - Active Abalysis
     
-    func loadNewActiveProject(with config: LSPProjectConfiguration)
+    func loadNewActiveProject(with config: LSPProjectDescription)
     {
         do
         {
-            try setAndAnalyzeActiveProject(with: config)
+            try setAndStartActiveAnalysis(with: config)
             try ProjectConfigPersister.persist(projectConfig: config)
         }
         catch { log(error) }
@@ -90,35 +90,35 @@ class Codeface: Combine.ObservableObject, Observer
     {
         do
         {
-            try setAndAnalyzeActiveProject(with: ProjectConfigPersister.loadProjectConfig())
+            try setAndStartActiveAnalysis(with: ProjectConfigPersister.loadProjectConfig())
         }
         catch { log(error) }
     }
     
-    private func setAndAnalyzeActiveProject(with config: LSPProjectConfiguration) throws
+    private func setAndStartActiveAnalysis(with project: LSPProjectDescription) throws
     {
-        set(activeProject: try Project(config: config))
-        try activeProject?.startAnalysis()
+        set(activeAnalysis: try ProjectAnalysis(project: project))
+        try activeAnalysis?.start()
     }
     
-    private func set(activeProject: Project)
+    private func set(activeAnalysis: ProjectAnalysis)
     {
         selectedArtifact = nil
         
-        stopObserving(self.activeProject?.$analysisState)
+        stopObserving(self.activeAnalysis?.$state)
         
-        observe(activeProject.$analysisState).new()
+        observe(activeAnalysis.$state).new()
         {
             self.analysisState = $0
         }
         
-        self.activeProject = activeProject
-        self.analysisState = activeProject.analysisState
+        self.activeAnalysis = activeAnalysis
+        self.analysisState = activeAnalysis.state
     }
     
     @Published var selectedArtifact: ArtifactViewModel?
-    @Published private(set) var analysisState: Project.AnalysisState = .stopped
-    private(set) var activeProject: Project?
+    @Published private(set) var analysisState: ProjectAnalysis.State = .stopped
+    private(set) var activeAnalysis: ProjectAnalysis?
     
     // MARK: - Observer
     

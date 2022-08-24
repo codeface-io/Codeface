@@ -23,7 +23,6 @@
 		96446C1A2829343600B347EF /* Codeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96446C192829343600B347EF /* Codeface.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
 		9656A6A225287F2000D4CF26 /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A125287F2000D4CF26 /* SwiftObserver */; };
-		96A3A39F254A3B8400AE4146 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3A39E254A3B8400AE4146 /* Project.swift */; };
 		96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96A3A3AB254A621900AE4146 /* SwiftLSP */; };
 		96B9B0BD288FF03200C93A4E /* CodefaceAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */; };
 		96CFBB3328B57D480051C318 /* SwiftUIToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 96CFBB3228B57D480051C318 /* SwiftUIToolz */; };
@@ -83,7 +82,6 @@
 		96446C192829343600B347EF /* Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codeface.swift; sourceTree = "<group>"; };
 		9664648728B14E7700F1B376 /* LSPServiceKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LSPServiceKit; path = ../../LSPServiceKit; sourceTree = "<group>"; };
 		969EF681289923CE00FC4238 /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
-		96A3A39E254A3B8400AE4146 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceAppDelegate.swift; sourceTree = "<group>"; };
 		96C87382285495D300C9D39A /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
 		96CFBB3428B57E100051C318 /* SwiftUIToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftUIToolz; path = ../../SwiftUIToolz; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 			children = (
 				96FC8C3E284BEB9000AD7DD2 /* ProjectSelector.swift */,
 				96309ED02844EE0C00B0F9C5 /* ProjectConfigPersister.swift */,
-				96A3A39E254A3B8400AE4146 /* Project.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -172,13 +169,6 @@
 				96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */,
 			);
 			path = "Artifact Views";
-			sourceTree = "<group>";
-		};
-		96E479D72835A58800762FD7 /* Artifact View Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Artifact View Model";
 			sourceTree = "<group>";
 		};
 		96E863D12844125500BCCE66 /* Codeface */ = {
@@ -222,7 +212,6 @@
 				96E863D52844336400BCCE66 /* Display Mode */,
 				9686773D28423ECF00CE57D3 /* Project */,
 				96E479D52835A53200762FD7 /* Artifact Views */,
-				96E479D72835A58800762FD7 /* Artifact View Model */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 				961AAD632899C3E6001CFF67 /* CodefaceCore */,
 			);
@@ -424,7 +413,6 @@
 				96B9B0BD288FF03200C93A4E /* CodefaceAppDelegate.swift in Sources */,
 				961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */,
 				96E479D42835A1DB00762FD7 /* ArtifactIcon.swift in Sources */,
-				96A3A39F254A3B8400AE4146 /* Project.swift in Sources */,
 				960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */,
 				96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */,
 			);

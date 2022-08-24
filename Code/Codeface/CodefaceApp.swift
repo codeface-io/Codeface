@@ -92,7 +92,7 @@ struct CodefaceApp: App
                             throw "Empty array of URLs"
                         }
                         
-                        let config = LSPProjectConfiguration(folder: firstURL,
+                        let config = LSPProjectDescription(folder: firstURL,
                                                           language: "Swift",
                                                           codeFileEndings: ["swift"])
                         

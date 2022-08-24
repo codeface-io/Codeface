@@ -43,7 +43,7 @@ struct Sidebar: View
                 ProgressView()
                     .progressViewStyle(.circular)
                 
-                if let folderName = viewModel.activeProject?.project.folder.lastPathComponent {
+                if let folderName = viewModel.activeAnalysis?.project.folder.lastPathComponent {
                     Text("Loading code base:\n" + folderName)
                         .multilineTextAlignment(.center)
                         .padding(.top)

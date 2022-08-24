@@ -5,7 +5,7 @@ enum ProjectConfigPersister
 {
     static var hasPersistedLastProjectConfig: Bool { persistedProjectConfigData != nil }
     
-    static func persist(projectConfig config: LSPProjectConfiguration) throws
+    static func persist(projectConfig config: LSPProjectDescription) throws
     {
         let bookmarkData = try config.folder.bookmarkData(options: .withSecurityScope,
                                                           includingResourceValuesForKeys: nil,
@@ -17,7 +17,7 @@ enum ProjectConfigPersister
         persistedProjectConfigData = try persistedConfig.encode() as Data
     }
     
-    static func loadProjectConfig() throws -> LSPProjectConfiguration
+    static func loadProjectConfig() throws -> LSPProjectDescription
     {
         guard let configData = persistedProjectConfigData else
         {
@@ -52,5 +52,5 @@ enum ProjectConfigPersister
 private struct PersistedProjectConfiguration: Codable
 {
     var folderBookmarkData: Data
-    var configuration: LSPProjectConfiguration
+    var configuration: LSPProjectDescription
 }
