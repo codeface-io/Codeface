@@ -50,7 +50,7 @@ section
     padding-top:90px;
     padding-bottom:90px;
 
-    background: white; /* For browsers that do not support gradients */
+    background: black; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(black, rgba(16, 16, 16, 1)); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(black, rgba(16, 16, 16, 1)); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(black, rgba(16, 16, 16, 1)); /* For Firefox 3.6 to 15 */
@@ -81,12 +81,6 @@ h1
     font-weight: normal;
 }
 
-@media only screen and (max-width: 400px) {
-    h1 {
-        font-size: 48px;
-    }
-}
-
 h2
 {
     font-family: FiraCode;
@@ -95,6 +89,15 @@ h2
     line-height: 1.6;
     font-size: 32px;
     margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 400px) {
+    h1 {
+        font-size: 48px;
+    }
+    h2 {
+        font-size: 24px;
+    }
 }
 
 h3
