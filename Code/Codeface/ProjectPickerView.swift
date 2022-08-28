@@ -27,7 +27,7 @@ struct ProjectPickerView: View
                 
                 Spacer()
                 
-                Button("OK")
+                Button("Load")
                 {
                     isPresentingFileImporter = true
                 }

@@ -1,10 +1,10 @@
 import LSPServiceKit
 import Foundation
-import SwiftObserver
+import Combine
 import SwiftyToolz
 
 @MainActor
-public class ProjectAnalysis
+public class ProjectAnalysis: ObservableObject
 {
     // MARK: - Initialize
     
@@ -100,7 +100,7 @@ public class ProjectAnalysis
     
     // MARK: - Publish State
     
-    @Observable public private(set) var state: State = .stopped
+    @Published public private(set) var state: State = .stopped
     
     public enum State: Equatable
     {

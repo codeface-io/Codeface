@@ -12,7 +12,7 @@ struct ProjectAnalysisView: View
         NavigationView
         {
             Sidebar(viewModel: viewModel)
-            .toolbar
+                .toolbar
             {
                 ToolbarItemGroup(placement: .primaryAction)
                 {
@@ -28,7 +28,7 @@ struct ProjectAnalysisView: View
                         Button(action: { viewModel.loadLastActiveProject() })
                         {
                             Image(systemName: "arrow.clockwise")
-                        }   
+                        }
                     }
                 }
             }

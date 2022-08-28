@@ -1,11 +1,10 @@
 import LSPServiceKit
 import Foundation
 import Combine
-import SwiftObserver
 import SwiftyToolz
 
 @MainActor
-public class ProjectAnalysisViewModel: Combine.ObservableObject, Observer
+public class ProjectAnalysisViewModel: ObservableObject
 {
     public init(activeAnalysis: ProjectAnalysis? = nil)
     {
@@ -90,24 +89,21 @@ public class ProjectAnalysisViewModel: Combine.ObservableObject, Observer
     
     private func set(activeAnalysis: ProjectAnalysis)
     {
-        selectedArtifact = nil
-        
-        stopObserving(self.activeAnalysis?.$state)
-        
-        observe(activeAnalysis.$state).new()
-        {
-            self.analysisState = $0
-        }
+        self.selectedArtifact = nil
         
         self.activeAnalysis = activeAnalysis
+        
         self.analysisState = activeAnalysis.state
+        self.stateObservation?.cancel()
+        self.stateObservation = activeAnalysis.$state.sink { self.analysisState = $0 }
     }
     
     @Published public var selectedArtifact: ArtifactViewModel?
-    @Published public private(set) var analysisState: ProjectAnalysis.State = .stopped
+    
     public private(set) var activeAnalysis: ProjectAnalysis?
     
-    public let receiver = Receiver()
+    @Published public private(set) var analysisState: ProjectAnalysis.State = .stopped
+    private var stateObservation: AnyCancellable?
     
     // MARK: - Other Elements
     
