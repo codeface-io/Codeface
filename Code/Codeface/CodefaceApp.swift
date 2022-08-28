@@ -10,7 +10,7 @@ struct CodefaceApp: App
     {
         WindowGroup
         {
-            CodefaceView(viewModel: viewModel)
+            ProjectAnalysisView(viewModel: viewModel)
                 .onChange(of: scenePhase)
             {
                 switch $0

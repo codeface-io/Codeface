@@ -4,7 +4,7 @@ import AppKit
 import SwiftObserver
 import SwiftLSP
 
-struct CodefaceView: View
+struct ProjectAnalysisView: View
 {
     var body: some View
     {
