@@ -31,16 +31,20 @@ struct Sidebar: View
                     viewModel.beginSearch()
                 }
             }
-        case .running:
+        case .running(let step):
             VStack {
                 ProgressView()
                     .progressViewStyle(.circular)
                 
                 if let folderName = viewModel.activeAnalysis?.project.folder.lastPathComponent {
-                    Text("Loading code base:\n" + folderName)
+                    Text("Loading " + folderName)
                         .multilineTextAlignment(.center)
                         .padding(.top)
                 }
+                
+                Text(step.rawValue)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
             }
             .padding()
         case .stopped:

@@ -22,17 +22,21 @@ public class ProjectAnalysis
     
     public func start() throws
     {
-        self.state = .running
+        self.state = .running(.readFolder)
         
         task = Task
         {
             do
             {
                 let rootFolder = try readRootFolder()
+                
+                self.state = .running(.createRootFolderArtifact)
                 let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder, scope: nil)
                 
                 do
                 {
+                    self.state = .running(.connectToLSPServer)
+                    
                     let server = try await LSPServerManager.shared.getServer(for: project)
                     {
                         [weak self] error in
@@ -47,7 +51,11 @@ public class ProjectAnalysis
                             self.state = .failed(error.readable.message)
                         }
                     }
+                    
+                    self.state = .running(.retrieveSymbolArtifacts)
                     try await rootArtifact.addSymbolArtifacts(using: server)
+                    
+                    self.state = .running(.retrieveDependencies)
                     try await rootArtifact.addDependencies(using: server)
                 }
                 catch
@@ -56,8 +64,12 @@ public class ProjectAnalysis
                     LSPServerManager.shared.serverIsWorking = false
                 }
                 
+                self.state = .running(.calculateMetrics)
                 rootArtifact.generateMetrics()
+                
+                self.state = .running(.sort)
                 rootArtifact.sort()
+                
                 let rootVM = ArtifactViewModel(folderArtifact: rootArtifact).addDependencies()
                 self.state = .succeeded(rootVM)
             }
@@ -89,9 +101,20 @@ public class ProjectAnalysis
     public enum State: Equatable
     {
         case stopped,
-             running,
+             running(Step),
              succeeded(ArtifactViewModel),
              failed(String)
+        
+        public enum Step: String, Equatable
+        {
+            case readFolder = "Reading root folder",
+                 createRootFolderArtifact = "Creating root folder artifact",
+                 connectToLSPServer = "Connecting to LSP server",
+                 retrieveSymbolArtifacts = "Retrieving symbol artifacts",
+                 retrieveDependencies = "Retrieving dependencies",
+                 calculateMetrics = "Calculating metrics",
+                 sort = "Sorting"
+        }
     }
     
     // MARK: - Configuration
