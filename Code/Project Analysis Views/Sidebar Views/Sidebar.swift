@@ -32,15 +32,16 @@ struct Sidebar: View
                 }
             }
         case .running(let step):
-            VStack {
+            VStack
+            {
                 ProgressView()
                     .progressViewStyle(.circular)
+                    .padding(.bottom)
                 
-                if let folderName = viewModel.activeAnalysis?.project.folder.lastPathComponent {
-                    Text("Loading " + folderName)
-                        .multilineTextAlignment(.center)
-                        .padding(.top)
-                }
+                let codebaseName = viewModel.activeAnalysis?.project.folder.lastPathComponent ?? "codebase"
+                
+                Text("Loading " + codebaseName)
+                    .multilineTextAlignment(.center)
                 
                 Text(step.rawValue)
                     .foregroundColor(.secondary)
