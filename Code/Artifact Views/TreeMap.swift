@@ -49,4 +49,4 @@ struct TreeMap: View
     @Environment(\.colorScheme) var colorScheme
 }
 
-let lspServicePage = URL(string: "https://www.flowtoolz.com/codeface/lspservice")!
+let lspServicePage = URL(string: "https://www.codeface.io/lspservice")!
