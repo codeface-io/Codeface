@@ -6,7 +6,7 @@ import SwiftyToolz
 @MainActor
 public class ProjectAnalysis
 {
-    // MARK: - Initialization
+    // MARK: - Initialize
     
     public init(project: LSPProjectDescription) throws
     {
@@ -18,7 +18,7 @@ public class ProjectAnalysis
         self.project = project
     }
     
-    // MARK: - Analysis
+    // MARK: - Analyze
     
     public func start() throws
     {
@@ -70,7 +70,9 @@ public class ProjectAnalysis
                 self.state = .running(.sort)
                 rootArtifact.sort()
                 
+                self.state = .running(.createViewModel)
                 let rootVM = ArtifactViewModel(folderArtifact: rootArtifact).addDependencies()
+                
                 self.state = .succeeded(rootVM)
             }
             catch
@@ -96,6 +98,8 @@ public class ProjectAnalysis
     
     private var task: Task<Void, Error>?
     
+    // MARK: - Publish State
+    
     @Observable public private(set) var state: State = .stopped
     
     public enum State: Equatable
@@ -113,11 +117,12 @@ public class ProjectAnalysis
                  retrieveSymbolArtifacts = "Retrieving symbol artifacts",
                  retrieveDependencies = "Retrieving dependencies",
                  calculateMetrics = "Calculating metrics",
-                 sort = "Sorting"
+                 sort = "Sorting code artifacts",
+                 createViewModel = "Creating view model"
         }
     }
     
-    // MARK: - Configuration
+    // MARK: - Configure
     
     public let project: LSPProjectDescription
 }
