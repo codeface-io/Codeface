@@ -18,13 +18,6 @@ struct Sidebar: View
                 SidebarRow(artifactVM: artifact, viewModel: viewModel)
             }
             .listStyle(.sidebar)
-            .toolbar
-            {
-                Button(action: toggleSidebar)
-                {
-                    Image(systemName: "sidebar.leading")
-                }
-            }
             .onReceive(viewModel.$isSearching)
             {
                 if !$0 { dismissSearch() }

@@ -1,6 +1,7 @@
-import CodefaceCore
+import SwiftUIToolz
 import SwiftUI
 import AppKit
+import CodefaceCore
 import SwiftObserver
 import SwiftLSP
 
@@ -11,6 +12,26 @@ struct ProjectAnalysisView: View
         NavigationView
         {
             Sidebar(viewModel: viewModel)
+            .toolbar
+            {
+                ToolbarItemGroup(placement: .primaryAction)
+                {
+                    Button(action: toggleSidebar)
+                    {
+                        Image(systemName: "sidebar.leading")
+                    }
+                    
+                    if case .succeeded = viewModel.analysisState
+                    {
+                        Spacer()
+                        
+                        Button(action: { viewModel.loadLastActiveProject() })
+                        {
+                            Image(systemName: "arrow.clockwise")
+                        }   
+                    }
+                }
+            }
             .searchable(text: $searchTerm,
                         placement: .toolbar,
                         prompt: searchPrompt)
