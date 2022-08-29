@@ -14,7 +14,12 @@ extension CodeFileArtifact: CodeArtifact
             return
         }
         
-        // TODO: do sanity check that source and target are actually symbols of this file
+        // TODO: make this sanity check O(1) or remove it after a while
+        guard symbols.contains(sourceSymbol) && symbols.contains(targetSymbol) else
+        {
+            log(error: "Tried to add dependency to file between symbols outside the file")
+            return
+        }
         
         symbolDependencies.addEdge(from: sourceSymbol, to: targetSymbol)
     }
