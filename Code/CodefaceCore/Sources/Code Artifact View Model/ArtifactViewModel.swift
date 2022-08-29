@@ -79,7 +79,7 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     public var containsSearchTermRegardlessOfParts: Bool?
     var partsContainSearchTerm: Bool?
     
-    // MARK: - UI
+    // MARK: - Geometry
     
     public var headerFrame: Frame
     {
@@ -90,8 +90,6 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     }
     
     public var extraSpaceForTitles: Double { collapseHorizontally ? 0 : 6.0 }
-    
-    @Published public var isInFocus = false
     
     public var showsName: Bool
     {
@@ -116,6 +114,10 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     public var showsContent = true
     public var contentFrame = Frame.zero
+    
+    // MARK: - Colors & Symbols
+    
+    @Published public var isInFocus = false
     
     public let iconSystemImageName: String
     public let iconFillColor: UXColor

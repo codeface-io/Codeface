@@ -3,48 +3,60 @@ import SwiftyToolz
 
 extension CodeSymbolArtifact
 {
-    func addSubsymbolDependencies(enclosingFile file: LSPDocumentUri,
-                                  hashMap: CodeFileArtifactHashmap,
-                                  server: LSP.ServerCommunicationHandler) async throws
+    func retrieveReferencesRecursively(enclosingFile file: LSPDocumentUri,
+                                       server: LSP.ServerCommunicationHandler) async throws
     {
         for subsymbol in subsymbols
         {
-            try await subsymbol.addSubsymbolDependencies(enclosingFile: file,
-                                                         hashMap: hashMap,
-                                                         server: server)
+            try await subsymbol.retrieveReferencesRecursively(enclosingFile: file,
+                                                              server: server)
+        }
+        
+        try await retrieveReferences(enclosingFile: file, server: server)
+    }
+    
+    private func retrieveReferences(enclosingFile file: LSPDocumentUri,
+                                    server: LSP.ServerCommunicationHandler) async throws
+    {
+        guard kind != .Namespace else
+        {
+            // TODO: sourcekit-lsp detects many wrong dependencies onto namespaces which are Swift extensions ...
+            return
+        }
+        
+        // TODO: contact sourcekit-lsp team about this, maybe open an issue on github ...
+        // sourcekit-lsp suggests a few wrong references where there is one of those issues: a) extension of Variable -> Var namespace declaration (plain wrong) b) class Variable -> namespace Var (wrong direction) or c) all range properties are -1 (invalid)
+        
+        references = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
+                                                        in: file)
+        
+        //        print("found \(refs.count) referencing lsp locations for symbol artifact")
+    }
+    
+    func generateSubsymbolDependenciesRecursively(enclosingFile file: LSPDocumentUri,
+                                                  hashMap: CodeFileArtifactHashmap)
+    {
+        for subsymbol in subsymbols
+        {
+            subsymbol.generateSubsymbolDependenciesRecursively(enclosingFile: file,
+                                                               hashMap: hashMap)
         }
         
         for subsymbol in subsymbols
         {
-            let incoming = try await subsymbol.getIncoming(enclosingFile: file,
-                                                           hashMap: hashMap,
-                                                           server: server)
+            let incoming = subsymbol.getIncoming(enclosingFile: file,
+                                                 hashMap: hashMap)
             
             subsymbolDependencies.add(incoming)
         }
     }
     
     func getIncoming(enclosingFile file: LSPDocumentUri,
-                     hashMap: CodeFileArtifactHashmap,
-                     server: LSP.ServerCommunicationHandler) async throws -> Edges<CodeSymbolArtifact>
+                     hashMap: CodeFileArtifactHashmap) -> Edges<CodeSymbolArtifact>
     {
-        guard kind != .Namespace else
-        {
-            // at least with sourcekit-lsp, this detects many wrong dependencies onto namespaces which are Swift extensions
-            return .empty
-        }
-        
-        // TODO: contact sourcekit-lsp team about this, maybe open an issue on github ...
-        // sourcekit-lsp suggests a few wrong references where there is one of those issues: a) extension of Variable -> Var namespace declaration (plain wrong) b) class Variable -> namespace Var (wrong direction) or c) all range properties are -1 (invalid)
-        
-        let refs = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
-                                                      in: file)
-        
-//        print("found \(refs.count) referencing lsp locations for symbol artifact")
-        
         var incomingInScope = Edges<CodeSymbolArtifact>()
         
-        for referencingLocation in refs
+        for referencingLocation in references
         {
             guard let referencingFileArtifact = hashMap[referencingLocation.uri] else
             {
@@ -74,10 +86,10 @@ extension CodeSymbolArtifact
             
             // TODO: further weirdness (?) of sourcekit-lsp: ist suggests that any usage of a type amounts to a reference to every extension of that type, which is simply not true ... it even suggests that different extensions of the same type are references of each other ... seems like it does not really find references of that specific symbol but just all references of the symbol's name (just string matching, no semantics) 🤦🏼‍♂️
             
-//            if referencingLocation.uri != file
-//            {
-//                print("found dependency 🎉\nfrom \(referencingSymbolArtifact.name) of type \(referencingSymbolArtifact.kindName) on line \(referencingLocation.range.start.line) in \(referencingLocation.uri)\nonto \(name) of type \(kindName) on line \(positionInFile) in \(file)\n")
-//            }
+            //            if referencingLocation.uri != file
+            //            {
+            //                print("found dependency 🎉\nfrom \(referencingSymbolArtifact.name) of type \(referencingSymbolArtifact.kindName) on line \(referencingLocation.range.start.line) in \(referencingLocation.uri)\nonto \(name) of type \(kindName) on line \(positionInFile) in \(file)\n")
+            //            }
             
             if scope === dependingSymbol.scope
             {
@@ -88,7 +100,7 @@ extension CodeSymbolArtifact
             {
                 // across different scopes
                 handleExternalDependence(from: dependingSymbol, to: self)
-            }    
+            }
         }
         
         return incomingInScope
@@ -111,7 +123,7 @@ extension CodeSymbolArtifact
         
         // find latest (deepest) common scope
         let indexPathOfPotentialCommonScopes = 0 ..< min(sourcePath.count,
-                                                       targetPath.count)
+                                                         targetPath.count)
         
         for pathIndex in indexPathOfPotentialCommonScopes.reversed()
         {

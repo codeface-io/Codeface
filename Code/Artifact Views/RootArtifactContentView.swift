@@ -22,6 +22,8 @@ struct RootArtifactContentView: View
                 {
                     withAnimation(.easeInOut(duration: 1))
                     {
+//                        print("updating layout because size change")
+                        
                         artifact.updateLayoutOfParts(forScopeSize: size,
                                                      ignoreSearchFilter: viewModel.isTypingSearch)
                         artifact.layoutDependencies()
@@ -36,9 +38,19 @@ struct RootArtifactContentView: View
                 {
                     withAnimation(.easeInOut(duration: 1))
                     {
+//                        print("updating layout because typing change")
+                        
+//                        let before = Double.uptimeNanoSeconds
+                        
                         artifact.updateLayoutOfParts(forScopeSize: geo.size,
                                                      ignoreSearchFilter: viewModel.isTypingSearch)
                         artifact.layoutDependencies()
+                        
+//                        let after = Double.uptimeNanoSeconds
+//
+//                        let duration = after - before
+//
+//                        print ("\(Double(duration) / 1000000.0) ms")
                     }
                 }
             }

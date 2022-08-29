@@ -63,4 +63,5 @@ public class CodeSymbolArtifact: Identifiable, ObservableObject
     public let range: LSPRange
     public let selectionRange: LSPRange
     public let code: String?
+    public var references = [LSPLocation]()
 }

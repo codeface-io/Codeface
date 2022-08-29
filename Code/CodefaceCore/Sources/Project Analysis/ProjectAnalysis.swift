@@ -51,14 +51,17 @@ public actor ProjectAnalysis: ObservableObject
                     self.state = .running(.retrieveSymbolArtifacts)
                     try await rootArtifact.addSymbolArtifacts(using: server)
                     
-                    self.state = .running(.retrieveDependencies)
-                    try await rootArtifact.addDependencies(using: server)
+                    self.state = .running(.retrieveReferences)
+                    try await rootArtifact.requestReferences(from: server)
                 }
                 catch
                 {
                     log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
                     LSPServerManager.shared.serverIsWorking = false
                 }
+                
+                self.state = .running(.calculateDependencies)
+                rootArtifact.generateDependencies()
                 
                 self.state = .running(.calculateMetrics)
                 rootArtifact.generateMetrics()
@@ -121,8 +124,9 @@ public actor ProjectAnalysis: ObservableObject
             case readFolder = "Reading root folder",
                  createRootFolderArtifact = "Creating root folder artifact",
                  connectToLSPServer = "Connecting to LSP server",
-                 retrieveSymbolArtifacts = "Retrieving symbol artifacts",
-                 retrieveDependencies = "Retrieving dependencies",
+                 retrieveSymbolArtifacts = "Retrieving symbols",
+                 retrieveReferences = "Retrieving symbol references",
+                 calculateDependencies = "Calculating dependencies",
                  calculateMetrics = "Calculating metrics",
                  sort = "Sorting code artifacts",
                  createViewModel = "Creating view model"
