@@ -48,7 +48,7 @@ public actor ProjectAnalysis: ObservableObject
                         }
                     }
                     
-                    self.state = .running(.retrieveSymbolArtifacts)
+                    self.state = .running(.retrieveSymbols)
                     try await rootArtifact.addSymbolArtifacts(using: server)
                     
                     self.state = .running(.retrieveReferences)
@@ -66,10 +66,10 @@ public actor ProjectAnalysis: ObservableObject
                 self.state = .running(.calculateMetrics)
                 rootArtifact.generateMetrics()
                 
-                self.state = .running(.sort)
+                self.state = .running(.sortCodeArtifacts)
                 rootArtifact.sort()
                 
-                self.state = .running(.createViewModel)
+                self.state = .running(.createViewModels)
                 let rootVM = await ArtifactViewModel(folderArtifact: rootArtifact).addDependencies()
                 
                 self.state = .succeeded(rootVM)
@@ -124,12 +124,12 @@ public actor ProjectAnalysis: ObservableObject
             case readFolder = "Reading root folder",
                  createRootFolderArtifact = "Creating root folder artifact",
                  connectToLSPServer = "Connecting to LSP server",
-                 retrieveSymbolArtifacts = "Retrieving symbols",
+                 retrieveSymbols = "Retrieving symbols",
                  retrieveReferences = "Retrieving symbol references",
                  calculateDependencies = "Calculating dependencies",
-                 calculateMetrics = "Calculating metrics",
-                 sort = "Sorting code artifacts",
-                 createViewModel = "Creating view model"
+                 calculateMetrics = "Calculating code artifacts metrics",
+                 sortCodeArtifacts = "Sorting code artifacts",
+                 createViewModels = "Creating code artifact view models"
         }
     }
     
