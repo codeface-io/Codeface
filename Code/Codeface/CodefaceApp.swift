@@ -10,7 +10,7 @@ struct CodefaceApp: App
     {
         WindowGroup
         {
-            ProjectAnalysisView(viewModel: viewModel)
+            CodefaceView(viewModel: viewModel)
                 .onChange(of: scenePhase)
             {
                 switch $0
@@ -41,10 +41,13 @@ struct CodefaceApp: App
             {
                 Button("Switch View Mode")
                 {
-                    switch viewModel.displayMode
+                    if let projectAnalysis = viewModel.projectAnalysis
                     {
-                    case .code: viewModel.displayMode = .treeMap
-                    case .treeMap: viewModel.displayMode = .code
+                        switch projectAnalysis.displayMode
+                        {
+                        case .code: projectAnalysis.displayMode = .treeMap
+                        case .treeMap: projectAnalysis.displayMode = .code
+                        }
                     }
                 }
                 .keyboardShortcut(.space, modifiers: .shift)
@@ -122,7 +125,7 @@ struct CodefaceApp: App
     @State var isPresentingFileImporter = false
     @Environment(\.scenePhase) var scenePhase
     
-    @StateObject private var viewModel = ProjectAnalysisViewModel()
+    private let viewModel = CodefaceViewModel()
     
     @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) private var appDelegate
 }

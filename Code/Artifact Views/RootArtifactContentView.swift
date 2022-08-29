@@ -11,7 +11,7 @@ struct RootArtifactContentView: View
             
             ArtifactContentView(artifactVM: artifact,
                                 pathBar: viewModel.pathBar,
-                                ignoreSearchFilter: viewModel.isSearching,
+                                ignoreSearchFilter: viewModel.isTypingSearch,
                                 bgBrightness: colorScheme == .dark ? 0 : 0.6,
                                 isShownInScope: artifact.showsContent)
             .onChange(of: geo.size)
@@ -23,12 +23,12 @@ struct RootArtifactContentView: View
                     withAnimation(.easeInOut(duration: 1))
                     {
                         artifact.updateLayoutOfParts(forScopeSize: size,
-                                                     ignoreSearchFilter: viewModel.isSearching)
+                                                     ignoreSearchFilter: viewModel.isTypingSearch)
                         artifact.layoutDependencies()
                     }
                 }
             }
-            .onReceive(viewModel.$isSearching)
+            .onReceive(viewModel.$isTypingSearch)
             {
                 _ in
                 
@@ -37,7 +37,7 @@ struct RootArtifactContentView: View
                     withAnimation(.easeInOut(duration: 1))
                     {
                         artifact.updateLayoutOfParts(forScopeSize: geo.size,
-                                                     ignoreSearchFilter: viewModel.isSearching)
+                                                     ignoreSearchFilter: viewModel.isTypingSearch)
                         artifact.layoutDependencies()
                     }
                 }
