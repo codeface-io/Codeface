@@ -14,7 +14,7 @@ extension CodeFileArtifact: CodeArtifact
             return
         }
         
-        // TODO: make this sanity check O(1) or remove it after a while
+        // TODO: make this sanity check O(1) or remove it after a while #performance
         guard symbols.contains(sourceSymbol) && symbols.contains(targetSymbol) else
         {
             log(error: "Tried to add dependency to file between symbols outside the file")

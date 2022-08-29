@@ -41,15 +41,7 @@ public class ProjectAnalysis: ObservableObject
                     {
                         [weak self] error in
                         
-                        guard let self = self else { return }
-                        
-                        self.task?.cancel()
-                        self.task = nil
-                        
-                        if case .running = self.state
-                        {
-                            self.state = .failed(error.readable.message)
-                        }
+                        self?.serverInitializationFailed(with: error)
                     }
                     
                     self.state = .running(.retrieveSymbolArtifacts)
@@ -93,6 +85,17 @@ public class ProjectAnalysis: ObservableObject
             }
             
             return codeFolder
+        }
+    }
+    
+    private func serverInitializationFailed(with error: Error)
+    {
+        task?.cancel()
+        task = nil
+        
+        if case .running = state
+        {
+            state = .failed(error.readable.message)
         }
     }
     
