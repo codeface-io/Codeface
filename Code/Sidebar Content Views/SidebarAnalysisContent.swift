@@ -40,7 +40,7 @@ struct SidebarAnalysisContent: View
                     .progressViewStyle(.circular)
                     .padding(.bottom)
                 
-                let codebaseName = analysisVM.activeAnalysis.project.folder.lastPathComponent
+                let codebaseName = analysisVM.projectName
                 
                 Text("Loading " + codebaseName)
                     .multilineTextAlignment(.center)

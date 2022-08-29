@@ -3,8 +3,7 @@ import Foundation
 import Combine
 import SwiftyToolz
 
-@MainActor
-public class ProjectAnalysis: ObservableObject
+public actor ProjectAnalysis: ObservableObject
 {
     // MARK: - Initialize
     
@@ -39,9 +38,14 @@ public class ProjectAnalysis: ObservableObject
                     
                     let server = try await LSPServerManager.shared.getServer(for: project)
                     {
-                        [weak self] error in
+                        error in
                         
-                        self?.serverInitializationFailed(with: error)
+                        Task
+                        {
+                            [weak self] in
+                            
+                            await self?.serverInitializationFailed(with: error)
+                        }
                     }
                     
                     self.state = .running(.retrieveSymbolArtifacts)
@@ -63,7 +67,7 @@ public class ProjectAnalysis: ObservableObject
                 rootArtifact.sort()
                 
                 self.state = .running(.createViewModel)
-                let rootVM = ArtifactViewModel(folderArtifact: rootArtifact).addDependencies()
+                let rootVM = await ArtifactViewModel(folderArtifact: rootArtifact).addDependencies()
                 
                 self.state = .succeeded(rootVM)
             }

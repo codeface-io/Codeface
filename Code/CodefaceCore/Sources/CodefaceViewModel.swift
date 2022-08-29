@@ -36,9 +36,12 @@ public class CodefaceViewModel: ObservableObject
     
     private func setAndStartActiveAnalysis(with project: LSPProjectDescription) throws
     {
-        let analysis = try ProjectAnalysis(project: project)
-        projectAnalysis = ProjectAnalysisViewModel(activeAnalysis: analysis)
-        try analysis.start()
+        Task
+        {
+            let analysis = try ProjectAnalysis(project: project)
+            projectAnalysis = await ProjectAnalysisViewModel(activeAnalysis: analysis)
+            try await analysis.start()
+        }
     }
     
     @Published public var projectAnalysis: ProjectAnalysisViewModel? = nil

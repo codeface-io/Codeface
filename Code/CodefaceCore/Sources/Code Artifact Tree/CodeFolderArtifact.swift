@@ -23,7 +23,6 @@ extension CodeFolderArtifact: CodeArtifact
     public var code: String? { nil }
 }
 
-@MainActor
 public class CodeFolderArtifact: Identifiable, ObservableObject
 {
     public init(codeFolder: CodeFolder, scope: CodeArtifact?)

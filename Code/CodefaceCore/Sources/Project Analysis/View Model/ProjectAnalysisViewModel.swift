@@ -3,11 +3,12 @@ import Combine
 @MainActor
 public class ProjectAnalysisViewModel: ObservableObject
 {
-    public init(activeAnalysis: ProjectAnalysis)
+    public init(activeAnalysis: ProjectAnalysis) async
     {
         self.activeAnalysis = activeAnalysis
-        self.analysisState = activeAnalysis.state
-        self.stateObservation = activeAnalysis.$state.sink { self.analysisState = $0 }
+        self.analysisState = await activeAnalysis.state
+        self.projectName = activeAnalysis.project.folder.lastPathComponent
+        self.stateObservation = await activeAnalysis.$state.sink { self.analysisState = $0 }
     }
     
     deinit
@@ -49,12 +50,14 @@ public class ProjectAnalysisViewModel: ObservableObject
     
     // MARK: - Active Analysis
     
-    @Published public var selectedArtifact: ArtifactViewModel? = nil
+    public let projectName: String
     
-    public private(set) var activeAnalysis: ProjectAnalysis
+    @Published public var selectedArtifact: ArtifactViewModel? = nil
     
     @Published public private(set) var analysisState: ProjectAnalysis.State = .stopped
     private var stateObservation: AnyCancellable?
+    
+    private let activeAnalysis: ProjectAnalysis
     
     // MARK: - Other Elements
     

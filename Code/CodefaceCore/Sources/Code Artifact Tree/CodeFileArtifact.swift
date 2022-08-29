@@ -29,7 +29,6 @@ extension CodeFileArtifact: CodeArtifact
     public var code: String? { codeFile.code }
 }
 
-@MainActor
 public class CodeFileArtifact: Identifiable, ObservableObject
 {
     public init(codeFile: CodeFile, scope: CodeArtifact)

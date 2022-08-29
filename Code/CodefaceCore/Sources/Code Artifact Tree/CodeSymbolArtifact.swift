@@ -25,7 +25,6 @@ extension CodeSymbolArtifact: CodeArtifact
     public var kindName: String { kind?.name ?? "Unknown Kind of Symbol" }
 }
 
-@MainActor
 public class CodeSymbolArtifact: Identifiable, ObservableObject
 {
     // MARK: - Initialization

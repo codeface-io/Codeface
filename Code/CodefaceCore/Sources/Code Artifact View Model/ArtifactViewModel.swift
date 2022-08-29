@@ -161,7 +161,6 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     }
 }
 
-@MainActor
 private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String
 {
     guard let symbolKind = symbolKind else

@@ -1,4 +1,3 @@
-@MainActor
 func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
                                   dependencies scopeDependencies: Edges<Part>)
     where Part: CodeArtifact & Hashable & Identifiable

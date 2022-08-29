@@ -1,6 +1,5 @@
 import SwiftLSP
 
-@MainActor
 class CodeFileArtifactHashmap
 {
     init(root: CodeFolderArtifact)
