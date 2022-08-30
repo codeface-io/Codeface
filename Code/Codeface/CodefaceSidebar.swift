@@ -12,9 +12,10 @@ struct CodefaceSidebar: View
         }
         else
         {
-            Text("Load a code base\nvia the File menu")
+            Text("To load a codebase,\nsee the File menu.")
                 .multilineTextAlignment(.center)
                 .font(.title)
+                .foregroundColor(.secondary)
                 .padding()
         }
     }

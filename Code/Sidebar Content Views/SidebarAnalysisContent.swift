@@ -44,8 +44,6 @@ struct SidebarAnalysisContent: View
                 
                 Text(step.rawValue)
                     .foregroundColor(.secondary)
-                
-                Spacer()
             }
             .padding()
         case .stopped:
@@ -59,8 +57,6 @@ struct SidebarAnalysisContent: View
                     .padding(.bottom)
                 
                 Text(errorMessage)
-                
-                Spacer()
             }
             .padding()
         }

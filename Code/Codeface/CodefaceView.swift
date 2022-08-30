@@ -33,9 +33,44 @@ struct CodefaceView: View
                 }
             }
             
-            Text("") // dummy navigation content so view sizing works as expected
+            // dummy navigation content so view sizing works as expected
+            if let analysisVM = viewModel.projectAnalysis
+            {
+                DummyNavigationContent(analysisVM: analysisVM)
+            }
+            else
+            {
+                Text("To load a codebase, see the File menu.")
+                    .multilineTextAlignment(.center)
+                    .font(.title)
+                    .foregroundColor(.secondary)
+                    .padding()
+            }
         }
     }
     
     @ObservedObject var viewModel: CodefaceViewModel
+}
+
+private struct DummyNavigationContent: View
+{
+    var body: some View
+    {
+        switch analysisVM.analysisState
+        {
+        case .running:
+            ProgressView()
+                .progressViewStyle(.circular)
+        case .succeeded(let rootFolderVM):
+            Text("← Select some code artifact in " + rootFolderVM.codeArtifact.name)
+                .multilineTextAlignment(.center)
+                .font(.title)
+                .foregroundColor(.secondary)
+                .padding()
+        default:
+            Text("")
+        }
+    }
+    
+    @ObservedObject var analysisVM: ProjectAnalysisViewModel
 }
