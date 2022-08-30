@@ -27,17 +27,14 @@ struct ArtifactView: View
             if $0
             {
                 artifactVM.isInFocus = true
-                pathBar.artifactVMStack += artifactVM
+                pathBar.add(artifactVM)
             }
             else
             {
                 withAnimation(.easeInOut)
                 {
                     artifactVM.isInFocus = false
-                    if !pathBar.artifactVMStack.isEmpty
-                    {
-                        pathBar.artifactVMStack.removeLast()
-                    }
+                    pathBar.remove(artifactVM)
                 }
             }
         }

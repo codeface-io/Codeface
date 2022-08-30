@@ -2,6 +2,14 @@ import SwiftLSP
 import Foundation
 import SwiftyToolz
 
+extension ArtifactViewModel: Hashable
+{
+    public func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(id)
+    }
+}
+
 @MainActor
 public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
 {

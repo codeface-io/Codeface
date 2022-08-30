@@ -33,14 +33,6 @@ struct SidebarArtifactList: View
     let rootArtifact: ArtifactViewModel
 }
 
-extension ArtifactViewModel: Hashable
-{
-    public func hash(into hasher: inout Hasher)
-    {
-        hasher.combine(id)
-    }
-}
-
 private extension ArtifactViewModel
 {
     var children: [ArtifactViewModel]?
