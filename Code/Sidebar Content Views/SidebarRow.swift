@@ -1,4 +1,5 @@
 import SwiftUI
+import LSPServiceKit
 import CodefaceCore
 
 struct SidebarRow: View
@@ -9,17 +10,56 @@ struct SidebarRow: View
         {
             Group
             {
-                switch viewModel.displayMode
+                if selectedArtifactVM.filteredParts.isEmpty
                 {
-                case .treeMap: TreeMap(rootArtifactVM: selectedArtifactVM, viewModel: viewModel)
-                case .code: CodeView(artifact: selectedArtifactVM)
+                    VStack(alignment: .center)
+                    {
+                        Label("Empty Scope", systemImage: "xmark.rectangle")
+                            .foregroundColor(.secondary)
+                            .font(.system(.title))
+                            .padding(.bottom)
+                        
+                        if !selectedArtifactVM.parts.isEmpty
+                        {
+                            Text("No elements in " + selectedArtifactVM.codeArtifact.name + " contain the term \"\(viewModel.appliedSearchTerm ?? "")\"")
+                                .foregroundColor(.secondary)
+                                .padding(.bottom)
+                            
+                            Button("Remove Search Filter", role: .destructive)
+                            {
+                                viewModel.removeSearchFilter()
+                            }
+                        }
+                        else if serverManager.serverIsWorking
+                        {
+                            Text(selectedArtifactVM.codeArtifact.name + " contains no further symbols.")
+                                .foregroundColor(.secondary)
+                        }
+                        else
+                        {
+                            Link("Use LSPService to see symbols and dependencies",
+                                 destination: lspServicePage)
+                        }
+                    }
+                    .padding()
+                }
+                else
+                {
+                    switch viewModel.displayMode
+                    {
+                    case .treeMap: TreeMap(rootArtifactVM: selectedArtifactVM, viewModel: viewModel)
+                    case .code: CodeView(artifact: selectedArtifactVM)
+                    }
                 }
             }
             .navigationTitle(selectedArtifactVM.codeArtifact.name)
             .navigationSubtitle(selectedArtifactVM.codeArtifact.kindName)
             .toolbar
             {
-                DisplayModePicker(displayMode: $viewModel.displayMode)
+                if !selectedArtifactVM.filteredParts.isEmpty
+                {
+                    DisplayModePicker(displayMode: $viewModel.displayMode)
+                }
                 
                 if let searchTerm = viewModel.appliedSearchTerm,
                    !searchTerm.isEmpty
@@ -51,4 +91,5 @@ struct SidebarRow: View
     
     let selectedArtifactVM: ArtifactViewModel
     @ObservedObject var viewModel: ProjectAnalysisViewModel
+    @ObservedObject private var serverManager = LSPServerManager.shared
 }
