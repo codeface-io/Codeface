@@ -79,6 +79,13 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     public var containsSearchTermRegardlessOfParts: Bool?
     var partsContainSearchTerm: Bool?
     
+    // MARK: - Name
+    
+    public var displayName: String
+    {
+        collapseHorizontally ? "" : codeArtifact.name
+    }
+    
     // MARK: - Geometry
     
     public var headerFrame: Frame

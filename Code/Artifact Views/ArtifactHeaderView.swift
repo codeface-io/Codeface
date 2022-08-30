@@ -9,7 +9,7 @@ struct ArtifactHeaderView: View
         {
             ArtifactIcon(artifact: artifactVM, isSelected: false)
             
-            Text(artifactVM.collapseHorizontally ? "" : artifactVM.codeArtifact.name)
+            Text(artifactVM.displayName)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .opacity(artifactVM.showsName ? 1 : 0)
                 .foregroundColor((artifactVM.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)

@@ -126,7 +126,7 @@ public actor ProjectAnalysis: ObservableObject
                  connectToLSPServer = "Connecting to LSP server",
                  retrieveSymbols = "Retrieving symbols",
                  retrieveReferences = "Retrieving symbol references",
-                 calculateDependencies = "Calculating dependencies",
+                 calculateDependencies = "Calculating code artifacts dependencies",
                  calculateMetrics = "Calculating code artifacts metrics",
                  sortCodeArtifacts = "Sorting code artifacts",
                  createViewModels = "Creating code artifact view models"
