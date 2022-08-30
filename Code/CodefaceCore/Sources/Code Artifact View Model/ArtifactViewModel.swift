@@ -82,7 +82,7 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     // MARK: - Search
     
-    @Published var passesSearchFilter = true
+    @Published public var passesSearchFilter = true
     
     public var containsSearchTermRegardlessOfParts: Bool?
     var partsContainSearchTerm: Bool?

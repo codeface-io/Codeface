@@ -12,16 +12,18 @@ struct SidebarRow: View
             {
                 if selectedArtifactVM.filteredParts.isEmpty
                 {
-                    VStack(alignment: .center)
+                    let contentIsFilteredOut = !selectedArtifactVM.passesSearchFilter || !selectedArtifactVM.parts.isEmpty
+                    
+                    if contentIsFilteredOut
                     {
-                        Label("Empty Scope", systemImage: "xmark.rectangle")
-                            .foregroundColor(.secondary)
-                            .font(.system(.title))
-                            .padding(.bottom)
-                        
-                        if !selectedArtifactVM.parts.isEmpty
+                        VStack(alignment: .center)
                         {
-                            Text("No elements in " + selectedArtifactVM.codeArtifact.name + " contain the term \"\(viewModel.appliedSearchTerm ?? "")\"")
+                            Label("No Search Results", systemImage: "xmark.rectangle")
+                                .foregroundColor(.secondary)
+                                .font(.system(.title))
+                                .padding(.bottom)
+                            
+                            Text(selectedArtifactVM.codeArtifact.name + " does not contain the term \"\(viewModel.appliedSearchTerm ?? "")\"")
                                 .foregroundColor(.secondary)
                                 .padding(.bottom)
                             
@@ -30,24 +32,41 @@ struct SidebarRow: View
                                 viewModel.removeSearchFilter()
                             }
                         }
-                        else if serverManager.serverIsWorking
-                        {
-                            Text(selectedArtifactVM.codeArtifact.name + " contains no further symbols.")
-                                .foregroundColor(.secondary)
-                        }
-                        else
-                        {
-                            Link("Use LSPService to see symbols and dependencies",
-                                 destination: lspServicePage)
-                        }
+                        .padding()
                     }
-                    .padding()
+                    else if selectedArtifactVM.codeArtifact.code != nil
+                    {
+                        CodeView(artifact: selectedArtifactVM)
+                    }
+                    else
+                    {
+                        VStack(alignment: .center)
+                        {
+                            Label("Empty Scope", systemImage: "xmark.rectangle")
+                                .foregroundColor(.secondary)
+                                .font(.system(.title))
+                                .padding(.bottom)
+                            
+                            if serverManager.serverIsWorking
+                            {
+                                Text(selectedArtifactVM.codeArtifact.name + " contains no further symbols.")
+                                    .foregroundColor(.secondary)
+                            }
+                            else
+                            {
+                                Link("Use LSPService to see symbols and dependencies",
+                                     destination: lspServicePage)
+                            }
+                        }
+                        .padding()
+                    }
                 }
                 else
                 {
                     switch viewModel.displayMode
                     {
-                    case .treeMap: TreeMap(rootArtifactVM: selectedArtifactVM, viewModel: viewModel)
+                    case .treeMap: TreeMap(rootArtifactVM: selectedArtifactVM,
+                                           viewModel: viewModel)
                     case .code: CodeView(artifact: selectedArtifactVM)
                     }
                 }
