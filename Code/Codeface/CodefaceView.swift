@@ -32,25 +32,6 @@ struct CodefaceView: View
                     }
                 }
             }
-            
-            if let projectAnalysis = viewModel.projectAnalysis
-            {
-                switch projectAnalysis.analysisState
-                {
-                case .failed, .stopped, .running:
-                    EmptyView()
-                case .succeeded(let rootArtifactPresentation):
-                    Label("Select a code artifact from \(rootArtifactPresentation.codeArtifact.name)",
-                          systemImage: "arrow.left")
-                    .padding()
-                    .font(.system(.title))
-                    .foregroundColor(.secondary)
-                }
-            }
-            else
-            {
-                EmptyView()
-            }
         }
     }
     

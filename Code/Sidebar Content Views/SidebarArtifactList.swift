@@ -24,6 +24,12 @@ struct SidebarArtifactList: View
         {
             if !$0 { dismissSearch() }
         }
+        .onAppear
+        {
+            analysisVM.selectedArtifact = rootArtifact
+            listIsInFocus = true
+        }
+        .focused($listIsInFocus)
     }
     
     @Environment(\.isSearching) private var isSearching
@@ -31,6 +37,8 @@ struct SidebarArtifactList: View
     
     @ObservedObject var analysisVM: ProjectAnalysisViewModel
     let rootArtifact: ArtifactViewModel
+    
+    @FocusState private var listIsInFocus
 }
 
 private extension ArtifactViewModel
