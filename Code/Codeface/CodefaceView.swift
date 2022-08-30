@@ -32,6 +32,8 @@ struct CodefaceView: View
                     }
                 }
             }
+            
+            Text("") // dummy navigation content so view sizing works as expected
         }
     }
     
