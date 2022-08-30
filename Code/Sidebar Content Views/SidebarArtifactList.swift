@@ -9,7 +9,7 @@ struct SidebarArtifactList: View
              children: \.children,
              selection: $analysisVM.selectedArtifact)
         {
-            SidebarRow(artifactVM: $0, viewModel: analysisVM)
+            SidebarRow(selectedArtifactVM: $0, viewModel: analysisVM)
         }
         .listStyle(.sidebar)
         .onChange(of: isSearching)

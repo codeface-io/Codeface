@@ -6,7 +6,7 @@ struct TreeMap: View
 {
     var body: some View
     {
-        if artifactVM.parts.isEmpty
+        if rootArtifactVM.filteredParts.isEmpty
         {
             VStack(alignment: .center)
             {
@@ -15,9 +15,20 @@ struct TreeMap: View
                     .font(.system(.title))
                     .padding(.bottom)
                 
-                if serverManager.serverIsWorking
+                if !rootArtifactVM.parts.isEmpty
                 {
-                    Text(artifactVM.codeArtifact.name + " contains no further symbols.")
+                    Text("No elements in " + rootArtifactVM.codeArtifact.name + " contain the term \"\(viewModel.appliedSearchTerm ?? "")\"")
+                        .foregroundColor(.secondary)
+                        .padding(.bottom)
+                    
+                    Button("Remove Search Filter", role: .destructive)
+                    {
+                        viewModel.removeSearchFilter()
+                    }
+                }
+                else if serverManager.serverIsWorking
+                {
+                    Text(rootArtifactVM.codeArtifact.name + " contains no further symbols.")
                         .foregroundColor(.secondary)
                 }
                 else
@@ -34,7 +45,7 @@ struct TreeMap: View
             {
                 PathBarView(overviewBar: viewModel.pathBar)
                 
-                RootArtifactContentView(artifact: artifactVM,
+                RootArtifactContentView(artifact: rootArtifactVM,
                                         viewModel: viewModel)
                 .padding(ArtifactViewModel.padding)
             }
@@ -44,7 +55,7 @@ struct TreeMap: View
      
     @ObservedObject private var serverManager = LSPServerManager.shared
     
-    let artifactVM: ArtifactViewModel
+    let rootArtifactVM: ArtifactViewModel
     @ObservedObject var viewModel: ProjectAnalysisViewModel
     @Environment(\.colorScheme) var colorScheme
 }
