@@ -36,6 +36,8 @@ public class CodefaceViewModel: ObservableObject
     
     private func setAndStartActiveAnalysis(with project: LSPProjectDescription) throws
     {
+        projectAnalysis?.selectedArtifact = nil
+        
         Task
         {
             let analysis = try ProjectAnalysis(project: project)
