@@ -22,7 +22,6 @@ struct ArtifactContentView: View
                                    sourcePoint: CGPoint(dependencyVM.sourcePoint),
                                    targetPoint: CGPoint(dependencyVM.targetPoint),
                                    weight: Double(dependencyVM.weight))
-                    .opacity(artifactVM.showsContent ? 1 : 0)
                 }
                 
                 ForEach(artifactVM.filteredParts)
