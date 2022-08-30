@@ -6,6 +6,11 @@ import SwiftyToolz
 @main
 struct CodefaceApp: App
 {
+    init()
+    {
+        ReadableError.readableMessageForError = { $0.localizedDescription }
+    }
+    
     var body: some Scene
     {
         WindowGroup

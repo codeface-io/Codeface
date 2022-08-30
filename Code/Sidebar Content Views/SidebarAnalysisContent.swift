@@ -40,25 +40,29 @@ struct SidebarAnalysisContent: View
                     .progressViewStyle(.circular)
                     .padding(.bottom)
                 
-                let codebaseName = analysisVM.projectName
-                
-                Text("Loading " + codebaseName)
-                    .multilineTextAlignment(.center)
+                Text("Loading " + analysisVM.projectName)
                 
                 Text(step.rawValue)
                     .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
+                
+                Spacer()
             }
             .padding()
         case .stopped:
             Text("Project analysis has been stopped without error. Maybe you wanna try reloading.")
-                .multilineTextAlignment(.center)
-                .font(.title)
                 .padding()
         case .failed(let errorMessage):
-            Text("An error occured during analysis:\n" + errorMessage)
-                .foregroundColor(Color(NSColor.systemRed))
-                .padding()
+            VStack(alignment: .leading)
+            {
+                Text("An error occured during analysis:")
+                    .foregroundColor(Color(NSColor.systemRed))
+                    .padding(.bottom)
+                
+                Text(errorMessage)
+                
+                Spacer()
+            }
+            .padding()
         }
     }
     
