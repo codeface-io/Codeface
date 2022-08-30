@@ -26,7 +26,6 @@ struct ArtifactView: View
             
             if $0
             {
-                isHovering = true
                 artifactVM.isInFocus = true
                 pathBar.artifactVMStack += artifactVM
             }
@@ -34,7 +33,6 @@ struct ArtifactView: View
             {
                 withAnimation(.easeInOut)
                 {
-                    self.isHovering = false
                     artifactVM.isInFocus = false
                     if !pathBar.artifactVMStack.isEmpty
                     {
@@ -46,7 +44,7 @@ struct ArtifactView: View
         .background(RoundedRectangle(cornerRadius: 5)
             .fill(Color(white: bgBrightness).opacity(0.9))
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(isHovering ? Color.accentColor : .primary.opacity(0.25),
+                .strokeBorder(artifactVM.isInFocus ? Color.accentColor : .primary.opacity(0.25),
                               antialiased: true)))
         .framePosition(artifactVM.frameInScopeContent)
     }
@@ -54,7 +52,6 @@ struct ArtifactView: View
     @ObservedObject var artifactVM: ArtifactViewModel
     let pathBar: PathBar
     let ignoreSearchFilter: Bool
-    @State var isHovering: Bool = false
     let bgBrightness: Double
     let isShownInScope: Bool
 }
