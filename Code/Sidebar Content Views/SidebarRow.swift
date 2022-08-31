@@ -34,7 +34,7 @@ struct SidebarRow: View
                         }
                         .padding()
                     }
-                    else if selectedArtifactVM.codeArtifact.code != nil
+                    else if case .symbol = selectedArtifactVM.kind
                     {
                         CodeView(artifact: selectedArtifactVM)
                     }
