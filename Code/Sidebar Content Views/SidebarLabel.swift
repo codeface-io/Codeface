@@ -17,6 +17,7 @@ struct SidebarLabel: View
                 
                 Text("\(loc)")
                     .foregroundColor(isSelected ? .primary : .init(artifact.linesOfCodeColor))
+                    .monospacedDigit()
             }
         }
         icon:
