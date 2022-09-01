@@ -7,8 +7,9 @@ struct ArrowPreview: PreviewProvider {
             GeometryReader { geo in
                 Arrow(from: CGPoint(x: geo.size.width,
                                     y: 0),
-                         to: CGPoint(x: geo.size.width / 2 + 20,
-                                     y: geo.size.height / 2))
+                      to: CGPoint(x: geo.size.width / 2 + 20,
+                                  y: geo.size.height / 2),
+                      size: 10)
                 .stroke(style: .init(lineWidth: 3,
                                      lineCap: .round))
                 .foregroundColor(.red.opacity(0.4))
@@ -19,20 +20,25 @@ struct ArrowPreview: PreviewProvider {
 
 struct Arrow: Shape
 {
-    init(from: CGPoint, to: CGPoint)
+    init(from: CGPoint, to: CGPoint, size: Double)
     {
+        self.size = size
+        
         self.from = from
         self.to = to
         
         (self.a, self.b) = Self.pathPointsAAndB(forArrowFrom: from,
-                                                to: to)
+                                                to: to,
+                                                size: size)
         
         self.c = Self.arrowHeadPoints(forArrowFrom: self.a,
-                                      to: self.b)
+                                      to: self.b,
+                                      size: size)
     }
     
     private static func pathPointsAAndB(forArrowFrom from: CGPoint,
-                                        to: CGPoint) -> (CGPoint, CGPoint)
+                                        to: CGPoint,
+                                        size: Double) -> (CGPoint, CGPoint)
     {
         let fromV = from.vector
         let toV = to.vector
@@ -42,7 +48,7 @@ struct Arrow: Shape
         let normal = simd_normalize(toV - fromV)
         let reverseNormal = simd_normalize(fromV - toV)
         
-        return (CGPoint(fromV + normal * 6.0),
+        return (CGPoint(fromV + normal * size),
                 CGPoint(toV + reverseNormal * padding))
     }
     
@@ -58,9 +64,9 @@ struct Arrow: Shape
             from.animatableData = newValue.first
             to.animatableData = newValue.second
             
-            (a, b) = Self.pathPointsAAndB(forArrowFrom: from, to: to)
+            (a, b) = Self.pathPointsAAndB(forArrowFrom: from, to: to, size: size)
             
-            c = Self.arrowHeadPoints(forArrowFrom: a, to: b)
+            c = Self.arrowHeadPoints(forArrowFrom: a, to: b, size: size)
         }
     }
 
@@ -77,33 +83,35 @@ struct Arrow: Shape
             p.move(to: b)
             p.addLine(to: a)
             
-            p.addEllipse(in: .init(x: from.x - 6,
-                                   y: from.y - 6,
-                                   width: 12,
-                                   height: 12))
+            p.addEllipse(in: .init(x: from.x - size,
+                                   y: from.y - size,
+                                   width: 2 * size,
+                                   height: 2 * size))
         }
     }
     
+    let size: Double
     private var from, to: CGPoint
     private var a, b: CGPoint
     private var c: (CGPoint, CGPoint)
     
     private static func arrowHeadPoints(forArrowFrom pointA: CGPoint,
-                                        to pointB: CGPoint) -> (CGPoint, CGPoint)
+                                        to pointB: CGPoint,
+                                        size: Double) -> (CGPoint, CGPoint)
     {
         let a = pointA.vector
         let b = pointB.vector
         
         let f = simd_normalize(a - b) // normalized vector pointing from b to a
         
-        let length = 12.0 // length of the arrow head
+        let length = 2.5 * size // length of the arrow head
         
         let d = b + (f * length)
         
         let f_orth_1 = Vector2D(-f.y, f.x) // 1st vector orthogonal to f
         let f_orth_2 = Vector2D(f.y, -f.x) // 2nd vector orthogonal to f
         
-        let width = 6.0 // half width of the arrow head
+        let width = size // half width of the arrow head
         
         let c_1 = d + (width * f_orth_1)
         let c_2 = d + (width * f_orth_2)

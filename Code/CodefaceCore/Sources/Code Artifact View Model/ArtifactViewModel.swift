@@ -130,6 +130,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     public var showsContent = true
     public var contentFrame = Frame.zero
     
+    public var gapBetweenParts: Double = 0
+    
     // MARK: - Colors & Symbols
     
     @Published public var isInFocus = false

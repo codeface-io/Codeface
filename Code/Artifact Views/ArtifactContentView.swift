@@ -23,7 +23,8 @@ struct ArtifactContentView: View
                                    targetPoint: CGPoint(dependencyVM.targetPoint),
                                    weight: Double(dependencyVM.weight),
                                    defaultBrightness: lineBrightness(forBGBrightness: partBGBrightness,
-                                                                     isDarkMode: colorScheme == .dark))
+                                                                     isDarkMode: colorScheme == .dark),
+                                   size: artifactVM.gapBetweenParts / 2.5)
                 }
                 
                 ForEach(artifactVM.filteredParts)

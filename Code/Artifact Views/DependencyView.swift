@@ -5,8 +5,8 @@ struct DependencyView: View
 {
     var body: some View
     {
-        Arrow(from: sourcePoint, to: targetPoint)
-            .stroke(style: .init(lineWidth: 3, lineCap: .round))
+        Arrow(from: sourcePoint, to: targetPoint, size: size)
+            .stroke(style: .init(lineWidth: size / 3, lineCap: .round))
             .foregroundColor(isHighlighted ? .accentColor : Color(white: defaultBrightness))
     }
     
@@ -22,4 +22,6 @@ struct DependencyView: View
     let weight: Double
     
     let defaultBrightness: Double
+    
+    let size: Double
 }

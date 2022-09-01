@@ -14,20 +14,20 @@ public extension ArtifactViewModel
             return
         }
         
+        gapBetweenParts = pow(scopeSize.width * scopeSize.height, (1 / 6.0)) * 2
+        
         showsContent = prepare(parts: presentedParts,
                                forLayoutIn: .init(x: 0,
                                                   y: 0,
                                                   width: scopeSize.width,
                                                   height: scopeSize.height),
-                               ignoreSearchFilter: ignoreSearchFilter,
-                               smallGap: pow(scopeSize.width * scopeSize.height, (1 / 6.0)) * 2)
+                               ignoreSearchFilter: ignoreSearchFilter)
     }
     
     @discardableResult
     private func prepare(parts: [ArtifactViewModel],
                          forLayoutIn availableRect: CGRect,
-                         ignoreSearchFilter: Bool,
-                         smallGap: Double) -> Bool
+                         ignoreSearchFilter: Bool) -> Bool
     {
         if parts.isEmpty { return false }
         
@@ -79,23 +79,21 @@ public extension ArtifactViewModel
         
         let fractionA = Double(locA) / Double(locA + locB)
         
-        let bigGap = 3 * smallGap
+        let bigGap = 3 * gapBetweenParts
         
         let properRectSplit = split(availableRect,
                                     firstFraction: fractionA,
-                                    gap: isSplitBetweenComponents ? smallGap : bigGap)
+                                    gap: isSplitBetweenComponents ? gapBetweenParts : bigGap)
         
         let rectSplitToUse = properRectSplit ?? forceSplit(availableRect)
         
         let successA = prepare(parts: partsA,
                                forLayoutIn: rectSplitToUse.0,
-                               ignoreSearchFilter: ignoreSearchFilter,
-                               smallGap: smallGap)
+                               ignoreSearchFilter: ignoreSearchFilter)
         
         let successB = prepare(parts: partsB,
                                forLayoutIn: rectSplitToUse.1,
-                               ignoreSearchFilter: ignoreSearchFilter,
-                               smallGap: smallGap)
+                               ignoreSearchFilter: ignoreSearchFilter)
         
         return properRectSplit != nil && successA && successB
     }
