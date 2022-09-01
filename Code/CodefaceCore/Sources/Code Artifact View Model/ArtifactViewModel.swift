@@ -21,7 +21,7 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     // MARK: - Initialization
     
-    public init(folderArtifact: CodeFolderArtifact)
+    public init(folderArtifact: CodeFolderArtifact, isPackage: Bool)
     {
         // create child presentations for parts recursively
         self.parts = folderArtifact.parts.map
@@ -29,13 +29,24 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
             switch $0.kind
             {
             case .file(let file): return .init(fileArtifact: file)
-            case .subfolder(let subfolder): return .init(folderArtifact: subfolder)
+            case .subfolder(let subfolder): return .init(folderArtifact: subfolder,
+                                                         isPackage: false)
             }
         }
         
-        iconSystemImageName = "folder.fill"
-        iconFillColor = .dynamic(lightMode: .bytes(19, 165, 235),
-                                 darkMode: .bytes(83, 168, 209))
+        if isPackage
+        {
+            iconSystemImageName = "shippingbox.fill"
+            iconFillColor = .dynamic(lightMode: .bytes(167, 129, 79),
+                                     darkMode: .bytes(193, 156, 106))
+        }
+        else
+        {
+            iconSystemImageName = "folder.fill"
+            iconFillColor = .dynamic(lightMode: .bytes(19, 165, 235),
+                                     darkMode: .bytes(83, 168, 209))
+        }
+        
         linesOfCodeColor = .system(.gray)
         
         kind = .folder(folderArtifact)

@@ -70,7 +70,9 @@ public actor ProjectAnalysis: ObservableObject
                 rootArtifact.sort()
                 
                 self.state = .running(.createViewModels)
-                let rootVM = await ArtifactViewModel(folderArtifact: rootArtifact).addDependencies()
+                
+                let rootVM = await ArtifactViewModel(folderArtifact: rootArtifact,
+                                                     isPackage: rootFolder.looksLikeAPackage).addDependencies()
                 
                 self.state = .succeeded(rootVM)
             }
