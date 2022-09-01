@@ -154,9 +154,10 @@ public extension ArtifactViewModel
                firstFraction: Double,
                gap: Double) -> (CGRect, CGRect)?
     {
-        let rectIsSmall = min(rect.width, rect.height) <= ArtifactViewModel.minWidth * 5
+        let smallestPossibleResultingWidth = (rect.width - gap) * min(firstFraction, 1 - firstFraction)
+        let leftRightSplitWouldSuck = smallestPossibleResultingWidth < 200
         let rectAspectRatio = rect.width / rect.height
-        let tryLeftRightSplitFirst = rectAspectRatio > (rectIsSmall ? 4 : 2)
+        let tryLeftRightSplitFirst = leftRightSplitWouldSuck ? false : rectAspectRatio > 1
         
         if tryLeftRightSplitFirst
         {
