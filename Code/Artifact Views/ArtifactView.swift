@@ -41,7 +41,8 @@ struct ArtifactView: View
         .background(RoundedRectangle(cornerRadius: 5)
             .fill(Color(white: bgBrightness).opacity(0.9))
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(artifactVM.isInFocus ? Color.accentColor : .primary.opacity(0.25),
+                .strokeBorder(artifactVM.isInFocus ? Color.accentColor : defaultBorderColor,
+                              lineWidth: 1,
                               antialiased: true)))
         .framePosition(artifactVM.frameInScopeContent)
     }
@@ -51,4 +52,34 @@ struct ArtifactView: View
     let ignoreSearchFilter: Bool
     let bgBrightness: Double
     let isShownInScope: Bool
+    
+    private var defaultBorderColor: SwiftUI.Color
+    {
+        Color(white: lineBrightness(forBGBrightness: bgBrightness,
+                                    isDarkMode: colorScheme == .dark))
+    }
+    
+    @Environment(\.colorScheme) private var colorScheme
+}
+
+func lineBrightness(forBGBrightness bgBrightness: Double,
+                    isDarkMode: Bool) -> Double
+{
+    (bgBrightness + (isDarkMode ? 0.2 : -0.4)).clampedToFactor()
+}
+
+extension Double
+{
+    func clampedToFactor() -> Double
+    {
+        clamped(to: 0 ... 1)
+    }
+}
+
+extension Comparable
+{
+    func clamped(to limits: ClosedRange<Self>) -> Self
+    {
+        return min(max(self, limits.lowerBound), limits.upperBound)
+    }
 }

@@ -21,7 +21,9 @@ struct ArtifactContentView: View
                                    target: dependencyVM.targetPart,
                                    sourcePoint: CGPoint(dependencyVM.sourcePoint),
                                    targetPoint: CGPoint(dependencyVM.targetPoint),
-                                   weight: Double(dependencyVM.weight))
+                                   weight: Double(dependencyVM.weight),
+                                   defaultBrightness: lineBrightness(forBGBrightness: partBGBrightness,
+                                                                     isDarkMode: colorScheme == .dark))
                 }
                 
                 ForEach(artifactVM.filteredParts)
@@ -31,13 +33,18 @@ struct ArtifactContentView: View
                     ArtifactView(artifactVM: partVM,
                                  pathBar: pathBar,
                                  ignoreSearchFilter: ignoreSearchFilter,
-                                 bgBrightness: min(bgBrightness + 0.1, 1),
+                                 bgBrightness: partBGBrightness,
                                  isShownInScope: isShownInScope && artifactVM.showsContent)
                 }
             }
             .frame(width: contentGeometry.size.width,
                    height: contentGeometry.size.height)
         }
+    }
+    
+    private var partBGBrightness: Double
+    {
+        (bgBrightness + 0.1).clampedToFactor()
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel
