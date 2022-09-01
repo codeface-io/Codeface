@@ -39,11 +39,15 @@ struct ArtifactView: View
             }
         }
         .background(RoundedRectangle(cornerRadius: 5)
-            .fill(Color(white: bgBrightness).opacity(0.9))
+            .fill(Color.accentColor)
+            .opacity(artifactVM.containsSearchTermRegardlessOfParts ?? false ? colorScheme == .dark ? 1 : 0.2 : 0)
+            .blendMode(colorScheme == .dark ? .multiply : .normal)
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(artifactVM.isInFocus ? Color.accentColor : defaultBorderColor,
+                .strokeBorder(artifactVM.isInFocus ? (Color.accentColor) : defaultBorderColor,
                               lineWidth: 1,
                               antialiased: true)))
+        .background(RoundedRectangle(cornerRadius: 5)
+            .fill(Color(white: bgBrightness).opacity(0.9)))
         .framePosition(artifactVM.frameInScopeContent)
     }
     

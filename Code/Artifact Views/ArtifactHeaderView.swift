@@ -12,7 +12,7 @@ struct ArtifactHeaderView: View
             Text(artifactVM.displayName)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .opacity(artifactVM.showsName ? 1 : 0)
-                .foregroundColor((artifactVM.containsSearchTermRegardlessOfParts ?? false) ? .accentColor : .primary)
+                .foregroundColor(.primary)
                 .padding(.leading,
                          artifactVM.collapseHorizontally ? 0 : artifactVM.fontSize / 7)
         }
