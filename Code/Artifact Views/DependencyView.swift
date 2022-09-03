@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftyToolz
 import CodefaceCore
 
 struct DependencyView: View
@@ -7,10 +8,28 @@ struct DependencyView: View
     {
         Arrow(from: sourcePoint, to: targetPoint, size: size)
             .stroke(style: .init(lineWidth: size / 3, lineCap: .round))
-            .foregroundColor(isHighlighted ? .accentColor : Color(white: defaultBrightness))
+            .foregroundColor(color)
     }
     
-    var isHighlighted: Bool { source.isInFocus || target.isInFocus }
+    private var color: SwiftUI.Color
+    {
+        isHighlighted ? .accentColor : isPartOfCycle ? warningRed : Color(white: defaultBrightness)
+    }
+    
+    private var warningRed: SwiftUI.Color
+    {
+        Color(.dynamic(lightMode: .rgba(0.95, 0, 0, 0.75), darkMode: .rgba(1, 0, 0, 0.75)))
+    }
+    
+    private var isHighlighted: Bool { source.isInFocus || target.isInFocus }
+    
+    private var isPartOfCycle: Bool
+    {
+        let sourceSCCIndex = source.codeArtifact.metrics.sccIndexTopologicallySorted
+        let targetSCCIndex = target.codeArtifact.metrics.sccIndexTopologicallySorted
+        
+        return sourceSCCIndex == targetSCCIndex
+    }
     
 //    func calculateOpacity() -> Double { 1 - pow(0.5, weight) }
     
