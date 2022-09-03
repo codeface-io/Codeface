@@ -2,54 +2,58 @@ import SwiftyToolz
 
 extension Graph
 {
-    // create acyclic graph, condensing strongly connected components into single nodes
-    func condensedAssumingConnectedness() -> Graph<CondensedNode>
+    /**
+     Creates the acyclic condensation graph, composing strongly connected components into single nodes.
+     
+     See <https://en.wikipedia.org/wiki/Strongly_connected_component>
+     */
+    func makeCondensationGraph() -> Graph<CondensationNode>
     {
         let stronglyConnectedComponents = findStronglyConnectedComponents()
         
-        // create condensed nodes and a hashmap
-        var condensedNodes = Set<CondensedNode>()
-        var condensedNodeHash = [Node: CondensedNode]()
+        // create condensation nodes and a hashmap
+        var condensationNodes = Set<CondensationNode>()
+        var condensationNodeHash = [Node: CondensationNode]()
         
         for scc in stronglyConnectedComponents
         {
-            let condensedNode = CondensedNode(stronglyConnectedNodes: scc)
+            let condensationNode = CondensationNode(stronglyConnectedComponent: scc)
             
             for sccNode in scc
             {
-                condensedNodeHash[sccNode] = condensedNode
+                condensationNodeHash[sccNode] = condensationNode
             }
             
-            condensedNodes += condensedNode
+            condensationNodes += condensationNode
         }
         
-        // create condensed edges
-        var condensedEdges = Edges<CondensedNode>()
+        // create condensation edges
+        var condensationEdges = Edges<CondensationNode>()
         
         for edge in edges.all
         {
-            guard let sourceSCC = condensedNodeHash[edge.source],
-                  let targetSCC = condensedNodeHash[edge.target]
+            guard let sourceCN = condensationNodeHash[edge.source],
+                  let targetCN = condensationNodeHash[edge.target]
             else
             {
-                fatalError("found no scc in hash map")
+                fatalError("mising scc in hash map")
             }
             
-            if sourceSCC !== targetSCC
+            if sourceCN !== targetCN
             {
-                condensedEdges.addEdge(from: sourceSCC, to: targetSCC)
+                condensationEdges.addEdge(from: sourceCN, to: targetCN)
             }
         }
         
         // create graph
-        return .init(nodes: condensedNodes, edges: condensedEdges)
+        return .init(nodes: condensationNodes, edges: condensationEdges)
     }
     
-    class CondensedNode: Hashable, Identifiable
+    class CondensationNode: Hashable, Identifiable
     {
-        init(stronglyConnectedNodes: Set<Node>)
+        init(stronglyConnectedComponent: Set<Node>)
         {
-            self.stronglyConnectedNodes = stronglyConnectedNodes
+            self.stronglyConnectedComponent = stronglyConnectedComponent
         }
         
         func hash(into hasher: inout Hasher)
@@ -57,18 +61,18 @@ extension Graph
             hasher.combine(ObjectIdentifier(self))
         }
         
-        static func == (lhs: CondensedNode, rhs: CondensedNode) -> Bool
+        static func == (lhs: CondensationNode, rhs: CondensationNode) -> Bool
         {
             lhs === rhs
         }
         
-        let stronglyConnectedNodes: Set<Node>
+        let stronglyConnectedComponent: Set<Node>
     }
     
     
-    func findStronglyConnectedComponents() -> [Set<Node>]
+    func findStronglyConnectedComponents() -> Set<Set<Node>>
     {
-        var resultingSCCs = [Set<Node>]()
+        var resultingSCCs = Set<Set<Node>>()
         
         var markingsHash = [Node: NodeMarkings]()
         var index = 0
