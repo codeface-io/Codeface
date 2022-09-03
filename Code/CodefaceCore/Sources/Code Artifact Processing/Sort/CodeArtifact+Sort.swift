@@ -11,8 +11,8 @@ extension CodeArtifact
         }
         
         // different topological rank?
-        if let topoRankA  = metrics.topologicalRankInComponent,
-           let topoRankB  = nextArtifact.metrics.topologicalRankInComponent,
+        if let topoRankA  = metrics.sccIndexTopologicallySorted,
+           let topoRankB  = nextArtifact.metrics.sccIndexTopologicallySorted,
            topoRankA != topoRankB
         {
             return topoRankA < topoRankB

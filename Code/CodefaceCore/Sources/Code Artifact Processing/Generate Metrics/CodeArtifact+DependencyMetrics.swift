@@ -23,18 +23,28 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
         }
     }
     
-    // write topological ranks within components
+    // analyze each component
     for componentNodes in components
     {
         let componentDependencies = scopeDependencies.reduced(to: componentNodes)
         let componentGraph = Graph(nodes: componentNodes, edges: componentDependencies)
         
-        // set ranks
-        let topologicalRanks = componentGraph.findTopologicalRanks()
+        let componentCondensationGraph = componentGraph.makeCondensationGraph()
         
-        for (part, rank) in topologicalRanks
+        // write scc numbers sorted by topology
+        let condensationNodesSortedByAncestors = componentCondensationGraph
+            .findNumberOfNodeAncestors()
+            .sorted { $0.1 < $1.1 }
+            .map { $0.0 }
+        
+        for condensationNodeIndex in condensationNodesSortedByAncestors.indices
         {
-            part.metrics.topologicalRankInComponent = rank
+            let condensationNode = condensationNodesSortedByAncestors[condensationNodeIndex]
+            
+            for sccNode in condensationNode.stronglyConnectedComponent
+            {
+                sccNode.metrics.sccIndexTopologicallySorted = condensationNodeIndex
+            }
         }
     }
     
@@ -42,7 +52,6 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
     for part in scopeParts
     {
         part.metrics.ingoingDependenciesInScope = scopeDependencies.ingoing(to: part).count
-            
         part.metrics.outgoingDependenciesInScope = scopeDependencies.outgoing(from: part).count
     }
 }

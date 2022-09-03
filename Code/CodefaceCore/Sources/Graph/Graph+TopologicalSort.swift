@@ -2,7 +2,7 @@ import SwiftyToolz
 
 extension Graph
 {
-    func findTopologicalRanks() -> [Node: Int]
+    func findNumberOfNodeAncestors() -> [(Node, Int)]
     {
         var nodesToVisit = nodes
         
@@ -14,8 +14,8 @@ extension Graph
                              nodesToVisit: &nodesToVisit,
                              results: &ancestorCountsByNode)
         }
-        
-        return ancestorCountsByNode
+
+        return ancestorCountsByNode.map { ($0.key, $0.value) }
     }
 
     @discardableResult
