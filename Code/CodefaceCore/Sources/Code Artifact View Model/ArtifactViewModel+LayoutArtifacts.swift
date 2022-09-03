@@ -116,6 +116,8 @@ public extension ArtifactViewModel
         
         let partsSpanMultipleComponents = firstPart.codeArtifact.metrics.componentRank != lastPart.codeArtifact.metrics.componentRank
         
+        let partsSpanMultipleSCCs = firstPart.codeArtifact.metrics.sccIndexTopologicallySorted != lastPart.codeArtifact.metrics.sccIndexTopologicallySorted
+        
         let halfTotalLOC = (parts.sum { $0.codeArtifact.linesOfCode }) / 2
         
         var partsALOC = 0
@@ -124,9 +126,9 @@ public extension ArtifactViewModel
         
         for index in 0 ..< parts.count
         {
-            // if parts span multiple components, we only cut between components
             if partsSpanMultipleComponents
             {
+                // if parts span multiple components, we only cut between components
                 if index == parts.count - 1 { continue }
                 
                 let thisPartComponent = parts[index].codeArtifact.metrics.componentRank
@@ -134,6 +136,17 @@ public extension ArtifactViewModel
                 let indexIsEndOfComponent = thisPartComponent != nextPartComponent
                 
                 if !indexIsEndOfComponent { continue }
+            }
+            else if partsSpanMultipleSCCs
+            {
+                // if parts span multiple SCCs, we only cut between SCCs
+                if index == parts.count - 1 { continue }
+                
+                let thisPartSCC = parts[index].codeArtifact.metrics.sccIndexTopologicallySorted
+                let nextPartSCC = parts[index + 1].codeArtifact.metrics.sccIndexTopologicallySorted
+                let indexIsEndOfSCC = thisPartSCC != nextPartSCC
+                
+                if !indexIsEndOfSCC { continue }
             }
             
             let part = parts[index]

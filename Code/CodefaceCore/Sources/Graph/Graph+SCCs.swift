@@ -1,9 +1,6 @@
 import SwiftyToolz
 
-// TODO: Use condensation graph:
-// mark nonessential dependencies and ignore them in layouting and drawing
-// let treemap cut between SCCs if remaining parts stretch across multiple SCCs, similar to how it considers components
-// indicate cycles
+// TODO: Use condensation graph: mark nonessential dependencies and ignore them in layouting and drawing
 
 extension Graph
 {
