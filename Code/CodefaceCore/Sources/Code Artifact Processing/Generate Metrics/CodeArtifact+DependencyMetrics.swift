@@ -29,6 +29,7 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
         let componentDependencies = scopeDependencies.reduced(to: componentNodes)
         let componentGraph = Graph(nodes: componentNodes, edges: componentDependencies)
         
+        // set ranks
         let topologicalRanks = componentGraph.findTopologicalRanks()
         
         for (part, rank) in topologicalRanks
