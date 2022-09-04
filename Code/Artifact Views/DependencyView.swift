@@ -15,7 +15,8 @@ struct DependencyView: View
     {
         if isHighlighted
         {
-            return isPartOfCycle ? .dynamic(CodefaceStyle.warningPurple) : .system(.accent)
+            return .dynamic(CodefaceStyle.accent.mixed(with: isPartOfCycle ? 0.5 : 0,
+                                                       of: CodefaceStyle.warningRed))
         }
         else
         {

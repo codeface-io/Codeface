@@ -2,15 +2,15 @@ import SwiftyToolz
 
 public enum CodefaceStyle
 {
-    public static var warningRed: DynamicColor
+    public static var accent: DynamicColor
     {
-        .in(light: .rgba(0.95, 0, 0, 0.75),
-            darkness: .rgba(1, 0, 0, 0.75))
+        .in(light: .bytes(0, 122, 255),
+            darkness: .bytes(10, 132, 255))
     }
     
-    public static var warningPurple: DynamicColor
+    public static var warningRed: DynamicColor
     {
-        .in(light: .rgba(0.9, 0, 0.9, 0.75),
-            darkness: .rgba(0.95, 0, 0.95, 0.75))
+        .in(light: .bytes(255, 59, 48),
+            darkness: .bytes(255, 69, 58))
     }
 }
