@@ -24,6 +24,8 @@ struct CodefaceApp: App
                 case .active:
                     #if DEBUG
                     viewModel.loadLastProjectIfNoneIsActive()
+                    #else
+                    break
                     #endif
                 case .inactive: break
                 @unknown default: break

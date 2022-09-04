@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftyToolz
 import CodefaceCore
 
 struct SidebarArtifactList: View

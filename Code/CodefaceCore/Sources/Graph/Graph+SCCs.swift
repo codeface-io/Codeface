@@ -1,11 +1,9 @@
 import SwiftyToolz
 
-// TODO: Use condensation graph: mark nonessential dependencies and ignore them in layouting and drawing
-
 extension Graph
 {
     /**
-     Creates the acyclic condensation graph, composing strongly connected components into single nodes.
+     Creates the acyclic condensation graph, contracting strongly connected components into single nodes.
      
      See <https://en.wikipedia.org/wiki/Strongly_connected_component>
      */

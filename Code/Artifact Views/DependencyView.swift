@@ -8,17 +8,31 @@ struct DependencyView: View
     {
         Arrow(from: sourcePoint, to: targetPoint, size: size)
             .stroke(style: .init(lineWidth: size / 3, lineCap: .round))
-            .foregroundColor(color)
+            .foregroundColor(Color(color))
     }
     
-    private var color: SwiftUI.Color
+    private var color: UXColor
     {
-        isHighlighted ? .accentColor : isPartOfCycle ? warningRed : Color(white: defaultBrightness)
+        if isHighlighted
+        {
+            return isPartOfCycle ? warningPurple : .system(.accent)
+        }
+        else
+        {
+            return isPartOfCycle ? warningRed : .rgba(.gray(brightness: defaultBrightness))
+        }
     }
     
-    private var warningRed: SwiftUI.Color
+    private var warningRed: UXColor
     {
-        Color(.dynamic(lightMode: .rgba(0.95, 0, 0, 0.75), darkMode: .rgba(1, 0, 0, 0.75)))
+        .dynamic(lightMode: .rgba(0.95, 0, 0, 0.75),
+                 darkMode: .rgba(1, 0, 0, 0.75))
+    }
+    
+    private var warningPurple: UXColor
+    {
+        .dynamic(lightMode: .rgba(0.9, 0, 0.9, 0.75),
+                 darkMode: .rgba(0.95, 0, 0.95, 0.75))
     }
     
     private var isHighlighted: Bool { source.isInFocus || target.isInFocus }
