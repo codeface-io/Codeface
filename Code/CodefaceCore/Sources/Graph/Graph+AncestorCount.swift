@@ -7,17 +7,13 @@ extension Graph
      */
     func findNumberOfNodeAncestors() -> [(Node, Int)]
     {
-        var nodesToVisit = nodes
-        
         var ancestorCountsByNode = [Node: Int]()
         
         let sinkNodes = nodes.filter { edges.outgoing(from: $0).count == 0 }
 
         for sinkNode in sinkNodes
         {
-            getAncestorCount(for: sinkNode,
-                             nodesToVisit: &nodesToVisit,
-                             results: &ancestorCountsByNode)
+            getAncestorCount(for: sinkNode, results: &ancestorCountsByNode)
         }
 
         return ancestorCountsByNode.map { ($0.key, $0.value) }
@@ -25,11 +21,11 @@ extension Graph
 
     @discardableResult
     private func getAncestorCount(for node: Node,
-                                  nodesToVisit: inout Set<Node>,
                                   results: inout [Node: Int]) -> Int
     {
-        if !nodesToVisit.contains(node) { return results[node] ?? 0 }
-        else { nodesToVisit -= node }
+        if let ancestors = results[node] { return ancestors }
+        
+        results[node] = 0 // marks the node as visited to avoid infinite loops in cyclic graphs
         
         let ingoingEdges = edges.ingoing(to: node)
         let directAncestors = ingoingEdges.map { $0.source }
@@ -37,9 +33,7 @@ extension Graph
         
         let ancestorCount = directAncestorCount + directAncestors.sum
         {
-            getAncestorCount(for: $0,
-                             nodesToVisit: &nodesToVisit,
-                             results: &results)
+            getAncestorCount(for: $0, results: &results)
         }
         
         results[node] = ancestorCount
