@@ -43,24 +43,24 @@ struct ArtifactView: View
             .opacity(artifactVM.containsSearchTermRegardlessOfParts ?? false ? colorScheme == .dark ? 1 : 0.2 : 0)
             .blendMode(colorScheme == .dark ? .multiply : .normal)
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(Color(borderColor), lineWidth: 1, antialiased: true)))
+                .strokeBorder(Color(borderColor(for: colorScheme)),
+                              lineWidth: 1,
+                              antialiased: true)))
         .background(RoundedRectangle(cornerRadius: 5)
             .fill(Color(white: bgBrightness).opacity(0.9)))
         .framePosition(artifactVM.frameInScopeContent)
     }
     
-    private var borderColor: UXColor
+    private func borderColor(for colorScheme: ColorScheme) -> UXColor
     {
         if artifactVM.isInFocus { return .system(.accent) }
         
-        let partLOCs = artifactVM.codeArtifact.metrics.linesOfCodeOfParts ?? 0
-        let partLOCsInCycles = artifactVM.codeArtifact.metrics.linesOfCodeOfPartsInCycles ?? 0
+        let defaultColor = defaultBorderColor(for: colorScheme)
+        let errorPortion = artifactVM.codeArtifact.metrics.portionOfPartsInCycles
         
-        let cycleError = Double(partLOCsInCycles) / Double(partLOCs)
-        
-        return  .rgba(defaultBorderColor.mixed(with: cycleError,
-                                               // TODO: use dynamic warning red
-                                               of: .rgba(1, 0, 0, 0.75)))
+        return .rgba(defaultColor.mixed(with: errorPortion,
+                                        // TODO: use dynamic warning red
+                                        of: .rgba(1, 0, 0, 0.75)))
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel
@@ -69,12 +69,10 @@ struct ArtifactView: View
     let bgBrightness: Double
     let isShownInScope: Bool
     
-    private var defaultBorderColor: SwiftyToolz.Color
+    private func defaultBorderColor(for colorScheme: ColorScheme) -> SwiftyToolz.Color
     {
-        let lineBrightness = lineBrightness(forBGBrightness: bgBrightness,
-                                            isDarkMode: colorScheme == .dark)
-        
-        return .gray(brightness: lineBrightness)
+        .gray(brightness: lineBrightness(forBGBrightness: bgBrightness,
+                                         isDarkMode: colorScheme == .dark))
     }
     
     @Environment(\.colorScheme) private var colorScheme

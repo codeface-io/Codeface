@@ -1,5 +1,19 @@
 public struct Metrics
 {
+    // MARK: - Qualitative Metrics
+    
+    public var portionOfPartsInCycles: Double
+    {
+        guard let partLOCs = linesOfCodeOfParts, partLOCs > 0,
+              let partLOCsInCycles = linesOfCodeOfPartsInCycles
+        else { return 0 }
+        
+        return Double(partLOCsInCycles) / Double(partLOCs)
+    }
+    
+    public var isInACycle: Bool?
+    public var linesOfCodeOfPartsInCycles: Int?
+    
     // MARK: - Size
     
     public var linesOfCode: Int?
@@ -12,9 +26,4 @@ public struct Metrics
     public var sccIndexTopologicallySorted: Int?
     public var ingoingDependenciesInScope: Int?
     public var outgoingDependenciesInScope: Int?
-    
-    // MARK: - Qualitative Metrics
-    
-    public var isInACycle: Bool?
-    public var linesOfCodeOfPartsInCycles: Int?
 }
