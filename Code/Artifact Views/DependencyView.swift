@@ -15,24 +15,12 @@ struct DependencyView: View
     {
         if isHighlighted
         {
-            return isPartOfCycle ? warningPurple : .system(.accent)
+            return isPartOfCycle ? .dynamic(CodefaceStyle.warningPurple) : .system(.accent)
         }
         else
         {
-            return isPartOfCycle ? warningRed : .rgba(.gray(brightness: defaultBrightness))
+            return isPartOfCycle ? .dynamic(CodefaceStyle.warningRed) : .rgba(.gray(brightness: defaultBrightness))
         }
-    }
-    
-    private var warningRed: UXColor
-    {
-        .dynamic(lightMode: .rgba(0.95, 0, 0, 0.75),
-                 darkMode: .rgba(1, 0, 0, 0.75))
-    }
-    
-    private var warningPurple: UXColor
-    {
-        .dynamic(lightMode: .rgba(0.9, 0, 0.9, 0.75),
-                 darkMode: .rgba(0.95, 0, 0.95, 0.75))
     }
     
     private var isHighlighted: Bool { source.isInFocus || target.isInFocus }

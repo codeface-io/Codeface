@@ -55,12 +55,9 @@ struct ArtifactView: View
     {
         if artifactVM.isInFocus { return .system(.accent) }
         
-        let defaultColor = defaultBorderColor(for: colorScheme)
         let errorPortion = artifactVM.codeArtifact.metrics.portionOfPartsInCycles
         
-        return .rgba(defaultColor.mixed(with: errorPortion,
-                                        // TODO: use dynamic warning red
-                                        of: .rgba(1, 0, 0, 0.75)))
+        return .dynamic(defaultBorderColor.mixed(with: errorPortion, of: CodefaceStyle.warningRed))
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel
@@ -69,18 +66,24 @@ struct ArtifactView: View
     let bgBrightness: Double
     let isShownInScope: Bool
     
-    private func defaultBorderColor(for colorScheme: ColorScheme) -> SwiftyToolz.Color
+    private var defaultBorderColor: DynamicColor
     {
-        .gray(brightness: lineBrightness(forBGBrightness: bgBrightness,
-                                         isDarkMode: colorScheme == .dark))
+        lineColor(forBGBrightness: bgBrightness)
     }
     
     @Environment(\.colorScheme) private var colorScheme
 }
 
-func lineBrightness(forBGBrightness bgBrightness: Double, isDarkMode: Bool) -> Double
+func lineColor(forBGBrightness bgBrightness: Double) -> DynamicColor
 {
-    isDarkMode ? (bgBrightness + 0.2).clampedToFactor() : (bgBrightness - 0.4).clampedToFactor()
+    .in(light: .gray(brightness: lineBrightness(forBGBrightness: bgBrightness, isDarkMode: false)),
+        darkness: .gray(brightness: lineBrightness(forBGBrightness: bgBrightness, isDarkMode: true)))
+}
+
+func lineBrightness(forBGBrightness bgBrightness: Double,
+                    isDarkMode: Bool) -> Double
+{
+    (bgBrightness + (isDarkMode ? 0.2 : -0.4)).clampedToFactor()
 }
 
 extension Double

@@ -37,14 +37,14 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         if isPackage
         {
             iconSystemImageName = "shippingbox.fill"
-            iconFillColor = .dynamic(lightMode: .bytes(167, 129, 79),
-                                     darkMode: .bytes(193, 156, 106))
+            iconFillColor = .dynamic(.in(light: .bytes(167, 129, 79),
+                                         darkness: .bytes(193, 156, 106)))
         }
         else
         {
             iconSystemImageName = "folder.fill"
-            iconFillColor = .dynamic(lightMode: .bytes(19, 165, 235),
-                                     darkMode: .bytes(83, 168, 209))
+            iconFillColor = .dynamic(.in(light: .bytes(19, 165, 235),
+                                         darkness: .bytes(83, 168, 209)))
         }
         
         linesOfCodeColor = .system(.gray)
