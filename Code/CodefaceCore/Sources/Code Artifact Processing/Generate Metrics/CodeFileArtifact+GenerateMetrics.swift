@@ -23,6 +23,6 @@ extension CodeFileArtifact
     private func generateDependencyMetrics()
     {
         writeDependencyMetrics(toParts: symbols,
-                               dependencies: symbolDependencies)
+                               dependencies: &symbolDependencies)
     }
 }

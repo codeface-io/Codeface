@@ -1,5 +1,5 @@
 func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
-                                  dependencies scopeDependencies: Edges<Part>)
+                                  dependencies scopeDependencies: inout Edges<Part>)
     where Part: CodeArtifact & Hashable & Identifiable
 {
     // write component ranks by component size
@@ -29,7 +29,7 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
         let componentDependencies = scopeDependencies.reduced(to: componentNodes)
         let componentGraph = Graph(nodes: componentNodes, edges: componentDependencies)
         
-        let componentCondensationGraph = componentGraph.makeCondensationGraph()
+        let componentCondensationGraph = componentGraph.makeCondensation()
         
         // write scc numbers sorted by topology
         let condensationNodesSortedByAncestors = componentCondensationGraph
@@ -44,6 +44,39 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
             for sccNode in condensationNode.stronglyConnectedComponent
             {
                 sccNode.metrics.sccIndexTopologicallySorted = condensationNodeIndex
+            }
+        }
+        
+        // remove non-essential dependencies
+        let minimumCondensationGraph = componentCondensationGraph.makeMinimumEquivalentGraph()
+        
+        for componentDependency in componentDependencies.all
+        {
+            // make sure this is a dependency between different condensation nodes and not with an SCC
+            let source = componentDependency.source
+            let target = componentDependency.target
+            
+            guard let sourceSCCIndex = source.metrics.sccIndexTopologicallySorted,
+                  let targetSCCIndex = target.metrics.sccIndexTopologicallySorted
+            else
+            {
+                fatalError("At this point, artifacts shoud have their scc index set")
+            }
+            
+            let isDependencyWithinSCC = sourceSCCIndex == targetSCCIndex
+            
+            if isDependencyWithinSCC { continue }
+            
+            // find the corresponding edge in the condensation graph
+            let condensationSource = condensationNodesSortedByAncestors[sourceSCCIndex]
+            let condensationTarget = condensationNodesSortedByAncestors[targetSCCIndex]
+            let condensationEdgeID = Edge.ID(source: condensationSource, target: condensationTarget)
+            
+            let isEssentialDependency = minimumCondensationGraph.edges.contains(condensationEdgeID)
+            
+            if !isEssentialDependency
+            {
+                scopeDependencies.remove(componentDependency)
             }
         }
     }

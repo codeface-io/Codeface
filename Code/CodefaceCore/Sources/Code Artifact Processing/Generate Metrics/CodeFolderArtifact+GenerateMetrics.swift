@@ -30,6 +30,6 @@ public extension CodeFolderArtifact
     private func generateDependencyMetrics()
     {
         writeDependencyMetrics(toParts: parts,
-                               dependencies: partDependencies)
+                               dependencies: &partDependencies)
     }
 }

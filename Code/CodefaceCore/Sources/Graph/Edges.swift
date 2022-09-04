@@ -4,16 +4,9 @@ public struct Edges<Node: GraphNode>
     
     // MARK: - Writing
     
-    func reduced(to nodes: Set<Node>) -> Edges<Node>
+    mutating func remove(_ edge: Edge<Node>)
     {
-        var reducedEdges = self
-        
-        reducedEdges.hashMap.remove
-        {
-            !nodes.contains($0.source) || !nodes.contains($0.target)
-        }
-        
-        return reducedEdges
+        hashMap[edge.id] = nil
     }
     
     mutating func add(_ otherEdges: Edges<Node>)
@@ -42,7 +35,38 @@ public struct Edges<Node: GraphNode>
         }
     }
     
+    // MARK: - Making Transformations
+    
+    func reduced(to nodes: Set<Node>) -> Edges<Node>
+    {
+        var reducedEdges = self
+        
+        reducedEdges.hashMap.remove
+        {
+            !nodes.contains($0.source) || !nodes.contains($0.target)
+        }
+        
+        return reducedEdges
+    }
+    
+    func removing(_ otherEdges: Edges<Node>) -> Edges<Node>
+    {
+        var removed = self
+        
+        for otherEdge in otherEdges.hashMap.values
+        {
+            removed.hashMap[otherEdge.id] = nil
+        }
+        
+        return removed
+    }
+    
     // MARK: - Reading
+    
+    func contains(_ edgeID: EdgeID) -> Bool
+    {
+        hashMap[edgeID] != nil
+    }
     
     func edge(from source: Node, to target: Node) -> Edge<Node>?
     {

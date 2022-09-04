@@ -29,7 +29,7 @@ extension CodeSymbolArtifact
     private func generateDependencyMetrics()
     {
         writeDependencyMetrics(toParts: subsymbols,
-                               dependencies: subsymbolDependencies)
+                               dependencies: &subsymbolDependencies)
     }
 }
 
