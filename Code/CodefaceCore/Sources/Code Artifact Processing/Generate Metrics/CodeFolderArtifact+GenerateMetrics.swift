@@ -2,6 +2,7 @@ public extension CodeFolderArtifact
 {
     func generateMetrics()
     {
+        // depth first! this is important
         for part in parts
         {
             switch part.kind
@@ -25,6 +26,7 @@ public extension CodeFolderArtifact
         }
         
         metrics.linesOfCode = locOfAllParts
+        metrics.linesOfCodeOfParts = locOfAllParts
     }
     
     private func generateDependencyMetrics()

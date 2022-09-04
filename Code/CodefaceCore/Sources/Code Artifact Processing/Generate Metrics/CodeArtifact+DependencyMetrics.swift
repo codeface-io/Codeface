@@ -41,9 +41,12 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
         {
             let condensationNode = condensationNodesSortedByAncestors[condensationNodeIndex]
             
+            let condensationNodeContainsCycles = condensationNode.stronglyConnectedComponent.count > 1
+            
             for sccNode in condensationNode.stronglyConnectedComponent
             {
                 sccNode.metrics.sccIndexTopologicallySorted = condensationNodeIndex
+                sccNode.metrics.isInACycle = condensationNodeContainsCycles
             }
         }
         

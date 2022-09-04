@@ -11,6 +11,7 @@ extension CodeFileArtifact
     private func generateSizeMetrics()
     {
         let locOfAllSymbols = symbols.sum { $0.linesOfCode }
+        metrics.linesOfCodeOfParts = locOfAllSymbols
         
         symbols.forEach
         {

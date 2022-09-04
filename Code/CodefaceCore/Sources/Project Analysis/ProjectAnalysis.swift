@@ -65,6 +65,7 @@ public actor ProjectAnalysis: ObservableObject
                 
                 self.state = .running(.calculateMetrics)
                 rootArtifact.generateMetrics()
+                rootArtifact.generateLinesOfCodeInCycles()
                 
                 self.state = .running(.sortCodeArtifacts)
                 rootArtifact.sort()

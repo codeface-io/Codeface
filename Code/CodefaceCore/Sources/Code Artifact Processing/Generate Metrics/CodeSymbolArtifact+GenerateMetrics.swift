@@ -15,6 +15,7 @@ extension CodeSymbolArtifact
         subsymbols.forEach { $0.generateSizeMetrics() }
         
         let locOfAllSubsymbols = subsymbols.sum { $0.linesOfCode }
+        metrics.linesOfCodeOfParts = locOfAllSubsymbols
         
         subsymbols.forEach
         {

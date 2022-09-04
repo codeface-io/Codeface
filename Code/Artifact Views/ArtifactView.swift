@@ -43,12 +43,24 @@ struct ArtifactView: View
             .opacity(artifactVM.containsSearchTermRegardlessOfParts ?? false ? colorScheme == .dark ? 1 : 0.2 : 0)
             .blendMode(colorScheme == .dark ? .multiply : .normal)
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(artifactVM.isInFocus ? (Color.accentColor) : defaultBorderColor,
-                              lineWidth: 1,
-                              antialiased: true)))
+                .strokeBorder(Color(borderColor), lineWidth: 1, antialiased: true)))
         .background(RoundedRectangle(cornerRadius: 5)
             .fill(Color(white: bgBrightness).opacity(0.9)))
         .framePosition(artifactVM.frameInScopeContent)
+    }
+    
+    private var borderColor: UXColor
+    {
+        if artifactVM.isInFocus { return .system(.accent) }
+        
+        let partLOCs = artifactVM.codeArtifact.metrics.linesOfCodeOfParts ?? 0
+        let partLOCsInCycles = artifactVM.codeArtifact.metrics.linesOfCodeOfPartsInCycles ?? 0
+        
+        let cycleError = Double(partLOCsInCycles) / Double(partLOCs)
+        
+        return  .rgba(defaultBorderColor.mixed(with: cycleError,
+                                               // TODO: use dynamic warning red
+                                               of: .rgba(1, 0, 0, 0.75)))
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel
@@ -57,19 +69,20 @@ struct ArtifactView: View
     let bgBrightness: Double
     let isShownInScope: Bool
     
-    private var defaultBorderColor: SwiftUI.Color
+    private var defaultBorderColor: SwiftyToolz.Color
     {
-        Color(white: lineBrightness(forBGBrightness: bgBrightness,
-                                    isDarkMode: colorScheme == .dark))
+        let lineBrightness = lineBrightness(forBGBrightness: bgBrightness,
+                                            isDarkMode: colorScheme == .dark)
+        
+        return .gray(brightness: lineBrightness)
     }
     
     @Environment(\.colorScheme) private var colorScheme
 }
 
-func lineBrightness(forBGBrightness bgBrightness: Double,
-                    isDarkMode: Bool) -> Double
+func lineBrightness(forBGBrightness bgBrightness: Double, isDarkMode: Bool) -> Double
 {
-    (bgBrightness + (isDarkMode ? 0.2 : -0.4)).clampedToFactor()
+    isDarkMode ? (bgBrightness + 0.2).clampedToFactor() : (bgBrightness - 0.4).clampedToFactor()
 }
 
 extension Double
