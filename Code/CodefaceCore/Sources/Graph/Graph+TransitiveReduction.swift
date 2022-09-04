@@ -18,7 +18,7 @@ extension Graph
         
         for sourceNode in sourceNodes
         {
-            // TODO: keep track of visited nodes within each traversal from a source and ignore already visited nodes so we couldn't get hung up in cycles
+            // TODO: keep track of visited nodes within each traversal from a source and ignore already visited nodes so we can't get hung up in cycles
             
             let reachabilities = findIndirectReachabilities(around: sourceNode,
                                                             reachedAncestors: [],

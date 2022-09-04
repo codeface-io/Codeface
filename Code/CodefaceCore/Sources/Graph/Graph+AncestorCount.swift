@@ -2,15 +2,20 @@ import SwiftyToolz
 
 extension Graph
 {
+    /**
+     Finds the total number of all ancestors (predecessors / sources) for every node of an **acyclic** graph.
+     */
     func findNumberOfNodeAncestors() -> [(Node, Int)]
     {
         var nodesToVisit = nodes
         
         var ancestorCountsByNode = [Node: Int]()
+        
+        let sinkNodes = nodes.filter { edges.outgoing(from: $0).count == 0 }
 
-        while let nodeToVisit = nodesToVisit.first
+        for sinkNode in sinkNodes
         {
-            getAncestorCount(for: nodeToVisit,
+            getAncestorCount(for: sinkNode,
                              nodesToVisit: &nodesToVisit,
                              results: &ancestorCountsByNode)
         }

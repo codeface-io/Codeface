@@ -1,8 +1,10 @@
 public struct Edges<Node: GraphNode>
 {
+    // MARK: - Create
+    
     static var empty: Edges<Node> { .init() }
     
-    // MARK: - Writing
+    // MARK: - Write
     
     mutating func remove(_ edge: Edge<Node>)
     {
@@ -61,7 +63,7 @@ public struct Edges<Node: GraphNode>
         return removed
     }
     
-    // MARK: - Reading
+    // MARK: - Read
     
     func contains(_ edgeID: EdgeID) -> Bool
     {
@@ -92,7 +94,7 @@ public struct Edges<Node: GraphNode>
     
     var count: Int { hashMap.count }
     
-    // MARK: - Data
+    // MARK: - Store
     
     private var hashMap = [EdgeID: Edge<Node>]()
     
