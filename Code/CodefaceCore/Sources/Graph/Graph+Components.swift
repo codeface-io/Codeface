@@ -4,7 +4,7 @@ extension Graph
 {
     func findComponents() -> Set<Set<Node>>
     {
-        var nodesToSearch = nodes
+        var nodesToSearch = allNodes
         var components = Set<Set<Node>>()
 
         while let nodeToSearch = nodesToSearch.first
@@ -25,8 +25,7 @@ extension Graph
         
         var lackingNodes: Set<Node> = [node]
         
-        let neighbours = edges.outgoing(from: node).map { $0.target }
-                         + edges.ingoing(to: node).map { $0.source }
+        let neighbours = descandants(of: node) + ancestors(of: node)
         
         for neighbour in neighbours
         {

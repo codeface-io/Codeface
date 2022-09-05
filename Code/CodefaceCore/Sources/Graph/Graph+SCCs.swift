@@ -10,7 +10,7 @@ extension Graph
         var index = 0
         var stack = [Node]()
         
-        for node in nodes
+        for node in allNodes
         {
             if markingsHash[node] == nil
             {
@@ -39,8 +39,8 @@ extension Graph
         nodeMarkings.isOnStack = true
         markingsHash[node] = nodeMarkings
         
-        // Consider successors of node
-        for target in edges.outgoing(from: node).map({ $0.target })
+        // Consider descendants of node
+        for target in descandants(of: node)
         {
             if let targetMarkings = markingsHash[target]
             {

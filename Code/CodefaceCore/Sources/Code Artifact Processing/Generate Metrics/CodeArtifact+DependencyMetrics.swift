@@ -75,7 +75,7 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
             let condensationTarget = condensationNodesSortedByAncestors[targetSCCIndex]
             let condensationEdgeID = Edge.ID(source: condensationSource, target: condensationTarget)
             
-            let isEssentialDependency = minimumCondensationGraph.edges.contains(condensationEdgeID)
+            let isEssentialDependency = minimumCondensationGraph.hasEdge(condensationEdgeID)
             
             if !isEssentialDependency
             {

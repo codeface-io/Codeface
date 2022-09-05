@@ -14,7 +14,7 @@ extension Graph
         var indirectReachabilities = Edges<Node>()
         var consideredAncestorsHash = [Node: Set<Node>]()
         
-        let sourceNodes = nodes.filter { edges.ingoing(to: $0).count == 0 }
+        let sourceNodes = allNodes.filter { ancestors(of: $0).count == 0 }
         
         for sourceNode in sourceNodes
         {
@@ -27,8 +27,7 @@ extension Graph
             indirectReachabilities.add(reachabilities)
         }
         
-        return Graph(nodes: nodes,
-                     edges: edges.removing(indirectReachabilities)) 
+        return removing(indirectReachabilities) 
     }
     
     private func findIndirectReachabilities(around node: Node,
@@ -50,21 +49,21 @@ extension Graph
         
         // base case: add edges from all reached ancestors to all reachable neighbours of node
         
-        let reachableNeighbours = edges.outgoing(from: node).map { $0.target }
+        let descendants = descandants(of: node)
         
         for ancestor in ancestorsToConsider
         {
-            for reachableNeighbour in reachableNeighbours
+            for descendant in descendants
             {
-                indirectReachabilities.addEdge(from: ancestor, to: reachableNeighbour)
+                indirectReachabilities.addEdge(from: ancestor, to: descendant)
             }
         }
         
-        // recursive calls on reachable neighbours
+        // recursive calls on descendants
         
-        for reachableNeighbour in reachableNeighbours
+        for descendant in descendants
         {
-            indirectReachabilities.add(findIndirectReachabilities(around: reachableNeighbour,
+            indirectReachabilities.add(findIndirectReachabilities(around: descendant,
                                                                   reachedAncestors: ancestorsToConsider + node,
                                                                   consideredAncestorsHash: &consideredAncestorsHash))
         }

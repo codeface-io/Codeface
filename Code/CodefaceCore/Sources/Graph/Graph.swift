@@ -5,6 +5,46 @@ struct Graph<Node: GraphNode>
         Average complexity is in O(NumberOfEdges), assuming hashing in `Set` is constant on average.
      */
     
-    let nodes: Set<Node>
-    let edges: Edges<Node>
+    public init(nodes: Set<Node>, edges: Edges<Node>)
+    {
+        self.nodes = nodes
+        self.edges = edges
+    }
+    
+    public func removing(_ otherEdges: Edges<Node>) -> Graph<Node>
+    {
+        Graph(nodes: nodes, edges: edges.removing(otherEdges))
+    }
+    
+    public func descandants(of node: Node) -> [Node]
+    {
+        edges.outgoing(from: node).map { $0.target }
+    }
+    
+    public func ancestors(of node: Node) -> [Node]
+    {
+        edges.ingoing(to: node).map { $0.source }
+    }
+    
+    public func ingoingEdges(to node: Node) -> [Edge<Node>]
+    {
+        edges.ingoing(to: node)
+    }
+    
+    public func outgoingEdges(from node: Node) -> [Edge<Node>]
+    {
+        edges.outgoing(from: node)
+    }
+    
+    public func hasEdge(_ edgeID: Edge<Node>.ID) -> Bool
+    {
+        edges.contains(edgeID)
+    }
+    
+    public var allEdges: [Edge<Node>] { edges.all }
+    
+    public var allNodes: Set<Node> { nodes }
+    
+    private let nodes: Set<Node>
+    private let edges: Edges<Node>
 }

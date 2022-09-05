@@ -9,7 +9,7 @@ extension Graph
     {
         var ancestorCountsByNode = [Node: Int]()
         
-        let sinkNodes = nodes.filter { edges.outgoing(from: $0).count == 0 }
+        let sinkNodes = allNodes.filter { descandants(of: $0).count == 0 }
 
         for sinkNode in sinkNodes
         {
@@ -27,7 +27,7 @@ extension Graph
         
         results[node] = 0 // marks the node as visited to avoid infinite loops in cyclic graphs
         
-        let ingoingEdges = edges.ingoing(to: node)
+        let ingoingEdges = ingoingEdges(to: node)
         let directAncestors = ingoingEdges.map { $0.source }
         let directAncestorCount = ingoingEdges.sum { $0.count }
         
