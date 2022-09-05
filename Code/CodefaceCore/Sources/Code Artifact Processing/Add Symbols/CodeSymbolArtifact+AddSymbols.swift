@@ -24,12 +24,12 @@ extension CodeSymbolArtifact
         for childLSPDocSymbol in lspDocSymbol.children
         {
             let subsymbol = await CodeSymbolArtifact(lspDocSymbol: childLSPDocSymbol,
-                                                   codeFileLines: codeFileLines,
-                                                   scope: self,
-                                                   file: file,
-                                                   server: server)
+                                                     codeFileLines: codeFileLines,
+                                                     scope: self,
+                                                     file: file,
+                                                     server: server)
             
-            subsymbols += Node(content: subsymbol)
+            subsymbolGraph.addNode(for: subsymbol)
         }
     }
 }

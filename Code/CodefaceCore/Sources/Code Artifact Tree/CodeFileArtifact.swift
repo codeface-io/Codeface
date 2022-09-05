@@ -14,15 +14,7 @@ extension CodeFileArtifact: CodeArtifact
             return
         }
         
-        guard let sourceNode = symbols.first(where: { $0.content === sourceSymbol } ),
-              let targetNode = symbols.first(where: { $0.content === targetSymbol } )
-        else
-        {
-            log(error: "Tried to add dependency to file scope between symbols artifacts that are not in scope.")
-            return
-        }
-        
-        symbolDependencies.addEdge(from: sourceNode, to: targetNode)
+        symbolGraph.addEdge(from: sourceSymbol, to: targetSymbol)
     }
     
     public var name: String { codeFile.name }
@@ -46,8 +38,7 @@ public class CodeFileArtifact: Identifiable, ObservableObject
     
     public weak var scope: CodeArtifact?
     
-    public var symbols = [Node<CodeSymbolArtifact>]()
-    public var symbolDependencies = Edges<CodeSymbolArtifact>()
+    public var symbolGraph = Graph<CodeSymbolArtifact>()
     
     // MARK: - Basics
     

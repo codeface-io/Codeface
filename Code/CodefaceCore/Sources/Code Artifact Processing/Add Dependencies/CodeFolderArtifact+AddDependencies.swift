@@ -4,9 +4,9 @@ public extension CodeFolderArtifact
 {
     func requestReferences(from server: LSP.ServerCommunicationHandler) async throws
     {
-        for part in parts
+        for part in partGraph.values
         {
-            switch part.content.kind
+            switch part.kind
             {
             case .subfolder(let subfolder):
                 try await subfolder.requestReferences(from: server)
@@ -24,9 +24,9 @@ public extension CodeFolderArtifact
     
     private func generateDependencies(using hashMap: CodeFileArtifactHashmap)
     {
-        for part in parts
+        for part in partGraph.values
         {
-            switch part.content.kind
+            switch part.kind
             {
             case .subfolder(let subfolder):
                 subfolder.generateDependencies(using: hashMap)

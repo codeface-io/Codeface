@@ -22,9 +22,9 @@ extension CodeFolderArtifact
 {
     func iterateThroughFilesRecursively(_ actOnFile: (CodeFileArtifact) -> Void)
     {
-        parts.forEach
+        partGraph.values.forEach
         {
-            switch $0.content.kind
+            switch $0.kind
             {
             case .subfolder(let subfolder):
                 subfolder.iterateThroughFilesRecursively(actOnFile)

@@ -7,15 +7,16 @@ extension CodeFolderArtifact: CodeArtifact
     public func addDependency(from sourceArtifact: CodeArtifact,
                               to targetArtifact: CodeArtifact)
     {
-        guard let sourceNode = partsByArtifactHash[sourceArtifact.hash],
-              let targetNode = partsByArtifactHash[targetArtifact.hash]
+        // FIXME: hash by content in the graph, ensure code artifact hash is the same as folder part hash ...
+        guard let sourceNode = partGraph.nodes.first(where: { $0.content.codeArtifact.hash == sourceArtifact.hash }),
+              let targetNode = partGraph.nodes.first(where: { $0.content.codeArtifact.hash == targetArtifact.hash })
         else
         {
-            log(error: "Tried to add dependency to folder scope between invalid artifact types")
+            log(error: "Tried to add dependency to folder scope between artifacts for which no nodes are in the graph")
             return
         }
         
-        partDependencies.addEdge(from: sourceNode, to: targetNode)
+        partGraph.addEdge(from: sourceNode, to: targetNode)
     }
     
     public var name: String { codeFolderURL.lastPathComponent }
@@ -44,7 +45,7 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         
         for part in partArray
         {
-            self.partsByArtifactHash[part.hash] = Node(content: part)
+            partGraph.addNode(for: part)
         }
     }
     
@@ -54,7 +55,9 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
     
     // MARK: - Graph Structure
     
-    public var partDependencies = Edges<PartNode>()
+    public weak var scope: CodeArtifact?
+    
+    public var partGraph = Graph<PartNode>()
     
     public class PartNode: CodeArtifact, Hashable, Identifiable
     {
@@ -118,13 +121,6 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
             case subfolder(CodeFolderArtifact), file(CodeFileArtifact)
         }
     }
-    
-    public weak var scope: CodeArtifact?
-    
-    // TODO: rather use an OrderedSet
-    
-    public var parts: [Node<PartNode>] { Array(partsByArtifactHash.values) }
-    public var partsByArtifactHash = OrderedDictionary<CodeArtifact.Hash, Node<PartNode>>()
     
     // MARK: - Basics
     

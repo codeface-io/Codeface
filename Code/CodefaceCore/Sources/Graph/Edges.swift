@@ -2,7 +2,7 @@ public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
 {
     // MARK: - Create
     
-    static var empty: Edges<NodeContent> { .init() }
+    public static var empty: Edges<NodeContent> { .init() }
     
     // MARK: - Write
     

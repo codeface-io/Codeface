@@ -20,7 +20,7 @@ extension CodeFileArtifact
                                                   file: codeFile.path,
                                                   server: server)
             
-            symbols += Node(content: symbol)
+            symbolGraph.addNode(for: symbol)
         }
     }
 }

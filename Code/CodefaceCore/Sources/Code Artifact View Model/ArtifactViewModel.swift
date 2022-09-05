@@ -24,9 +24,9 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     public init(folderArtifact: CodeFolderArtifact, isPackage: Bool)
     {
         // create child presentations for parts recursively
-        self.parts = folderArtifact.parts.map
+        self.parts = folderArtifact.partGraph.values.map
         {
-            switch $0.content.kind
+            switch $0.kind
             {
             case .file(let file): return .init(fileArtifact: file)
             case .subfolder(let subfolder): return .init(folderArtifact: subfolder,
@@ -55,9 +55,9 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     private init(fileArtifact: CodeFileArtifact)
     {
         // create child presentations for symbols recursively
-        self.parts = fileArtifact.symbols.map
+        self.parts = fileArtifact.symbolGraph.values.map
         {
-            ArtifactViewModel(symbolArtifact: $0.content)
+            ArtifactViewModel(symbolArtifact: $0)
         }
         
         if fileArtifact.codeFile.name.hasSuffix(".swift")
@@ -79,9 +79,9 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     private init(symbolArtifact: CodeSymbolArtifact)
     {
         // create child presentations for subsymbols recursively
-        self.parts = symbolArtifact.subsymbols.map
+        self.parts = symbolArtifact.subsymbolGraph.values.map
         {
-            ArtifactViewModel(symbolArtifact: $0.content)
+            ArtifactViewModel(symbolArtifact: $0)
         }
         
         self.iconSystemImageName = symbolIconSystemImageName(for: symbolArtifact.kind)

@@ -6,10 +6,10 @@ extension CodeSymbolArtifact
     func retrieveReferencesRecursively(enclosingFile file: LSPDocumentUri,
                                        server: LSP.ServerCommunicationHandler) async throws
     {
-        for subsymbol in subsymbols
+        for subsymbol in subsymbolGraph.values
         {
-            try await subsymbol.content.retrieveReferencesRecursively(enclosingFile: file,
-                                                                      server: server)
+            try await subsymbol.retrieveReferencesRecursively(enclosingFile: file,
+                                                              server: server)
         }
         
         try await retrieveReferences(enclosingFile: file, server: server)
@@ -36,22 +36,28 @@ extension CodeSymbolArtifact
     func generateSubsymbolDependenciesRecursively(enclosingFile file: LSPDocumentUri,
                                                   hashMap: CodeFileArtifactHashmap)
     {
-        for subsymbol in subsymbols
+        let subsymbolNodes = subsymbolGraph.nodes
+        
+        for subsymbolNode in subsymbolNodes
         {
-            subsymbol.content.generateSubsymbolDependenciesRecursively(enclosingFile: file,
-                                                               hashMap: hashMap)
+            subsymbolNode.content.generateSubsymbolDependenciesRecursively(enclosingFile: file,
+                                                                           hashMap: hashMap)
         }
         
-        for subsymbolNode in subsymbols
+        for subsymbolNode in subsymbolNodes
         {
             let ancestorSubsymbols = subsymbolNode.content.getIncoming(enclosingFile: file,
-                                                                hashMap: hashMap)
+                                                                       hashMap: hashMap)
             
             for ancestorSubsymbol in ancestorSubsymbols
             {
-                if let ancestorSubsymbolNode = subsymbols.first(where: { $0.content === ancestorSubsymbol })
+                if let ancestorSubsymbolNode = subsymbolGraph.node(for: ancestorSubsymbol)
                 {
-                    subsymbolDependencies.addEdge(from: ancestorSubsymbolNode, to: subsymbolNode)
+                    subsymbolGraph.addEdge(from: ancestorSubsymbolNode, to: subsymbolNode)
+                }
+                else
+                {
+                    log(error: "Tried to add dependency from a symbol for which there is no node in the graph")
                 }
             }
         }
@@ -171,9 +177,9 @@ private extension CodeFileArtifact
 {
     func findSymbolArtifact(containing range: LSPRange) -> CodeSymbolArtifact?
     {
-        for symbol in symbols
+        for symbol in symbolGraph.values
         {
-            if let artifact = symbol.content.findSymbolArtifact(containing: range)
+            if let artifact = symbol.findSymbolArtifact(containing: range)
             {
                 return artifact
             }
@@ -188,9 +194,9 @@ private extension CodeSymbolArtifact
     func findSymbolArtifact(containing range: LSPRange) -> CodeSymbolArtifact?
     {
         // depth first!!! we want the deepest symbol that contains the range
-        for subsymbol in subsymbols
+        for subsymbol in subsymbolGraph.values
         {
-            if let artifact = subsymbol.content.findSymbolArtifact(containing: range)
+            if let artifact = subsymbol.findSymbolArtifact(containing: range)
             {
                 return artifact
             }

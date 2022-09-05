@@ -19,7 +19,7 @@ public class Edge<NodeContent: Identifiable & AnyObject & Hashable>
     var id: ID { ID(sourceContent: source.content,
                     targetContent: target.content) }
     
-    struct ID: Hashable
+    public struct ID: Hashable
     {
         init(sourceContent: NodeContent, targetContent: NodeContent)
         {

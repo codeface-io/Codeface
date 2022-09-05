@@ -2,11 +2,11 @@ extension CodeFileArtifact
 {
     func sort()
     {
-        for symbol in symbols
+        for symbol in symbolGraph.values
         {
-            symbol.content.sort()
+            symbol.sort()
         }
         
-        symbols.sort { $0.content < $1.content }
+        symbolGraph.sortNodes { $0 < $1 }
     }
 }

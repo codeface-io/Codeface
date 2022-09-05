@@ -2,12 +2,12 @@ extension CodeSymbolArtifact
 {
     func sort()
     {
-        for subSymbol in subsymbols
+        for subSymbol in subsymbolGraph.values
         {
-            subSymbol.content.sort()
+            subSymbol.sort()
         }
         
-        subsymbols.sort { $0.content < $1.content }
+        subsymbolGraph.sortNodes { $0 < $1 }
     }
 }
 

@@ -1,9 +1,7 @@
-func writeDependencyMetrics<Part>(toParts scopeNodes: [Node<Part>],
-                                  dependencies scopeDependencies: inout Edges<Part>)
+func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
     where Part: CodeArtifact & Hashable & Identifiable
 {
     // write component ranks by component size
-    let scopeGraph = Graph(nodes: Set(scopeNodes), edges: scopeDependencies)
     let components = scopeGraph.findComponents()
     
     var componentsWithSize: [(Set<Node<Part>>, Int)] = components.map
@@ -26,9 +24,7 @@ func writeDependencyMetrics<Part>(toParts scopeNodes: [Node<Part>],
     // analyze each component
     for componentNodes in components
     {
-        let componentDependencies = scopeDependencies.reduced(to: componentNodes)
-        let componentGraph = Graph(nodes: componentNodes, edges: componentDependencies)
-        
+        let componentGraph = scopeGraph.reduced(to: componentNodes)
         let componentCondensationGraph = componentGraph.makeCondensation()
         
         // write scc numbers sorted by topology
@@ -53,7 +49,7 @@ func writeDependencyMetrics<Part>(toParts scopeNodes: [Node<Part>],
         // remove non-essential dependencies
         let minimumCondensationGraph = componentCondensationGraph.makeMinimumEquivalentGraph()
         
-        for componentDependency in componentDependencies.all
+        for componentDependency in componentGraph.edges
         {
             // make sure this is a dependency between different condensation nodes and not with an SCC
             let source = componentDependency.source
@@ -80,15 +76,15 @@ func writeDependencyMetrics<Part>(toParts scopeNodes: [Node<Part>],
             
             if !isEssentialDependency
             {
-                scopeDependencies.remove(componentDependency)
+                scopeGraph.remove(componentDependency)
             }
         }
     }
     
     // write numbers of dependencies
-    for partNode in scopeNodes
+    for partNode in scopeGraph.nodes
     {
-        partNode.content.metrics.ingoingDependenciesInScope = scopeDependencies.ingoing(to: partNode).count
-        partNode.content.metrics.outgoingDependenciesInScope = scopeDependencies.outgoing(from: partNode).count
+        partNode.content.metrics.ingoingDependenciesInScope = scopeGraph.ancestors(of: partNode).count
+        partNode.content.metrics.outgoingDependenciesInScope = scopeGraph.descandants(of: partNode).count
     }
 }

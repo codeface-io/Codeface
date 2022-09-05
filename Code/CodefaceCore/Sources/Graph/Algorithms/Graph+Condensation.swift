@@ -30,7 +30,7 @@ extension Graph
         // create condensation edges
         var condensationEdges = Edges<CondensationNodeContent>()
         
-        for edge in allEdges
+        for edge in edges
         {
             guard let sourceCN = condensationNodeHash[edge.source],
                   let targetCN = condensationNodeHash[edge.target]

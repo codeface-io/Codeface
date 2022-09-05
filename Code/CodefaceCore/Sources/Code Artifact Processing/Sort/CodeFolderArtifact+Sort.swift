@@ -2,16 +2,16 @@ public extension CodeFolderArtifact
 {
     func sort()
     {
-        for part in parts
+        for part in partGraph.values
         {
-            switch part.content.kind
+            switch part.kind
             {
             case .subfolder(let folder): folder.sort()
             case .file(let file): file.sort()
             }
         }
         
-        partsByArtifactHash.values.sort { $0.content < $1.content }
+        partGraph.sortNodes { $0 < $1 }
     }
 }
 

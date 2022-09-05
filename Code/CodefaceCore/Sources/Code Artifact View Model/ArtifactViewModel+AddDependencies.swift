@@ -22,7 +22,7 @@ public extension ArtifactViewModel
             switch artifactVM.kind
             {
             case .folder(let folder):
-                for dependency in folder.partDependencies.all
+                for dependency in folder.partGraph.edges
                 {
                     guard let sourceVM = viewModelHashMap[dependency.source.content.hash],
                           let targetVM = viewModelHashMap[dependency.target.content.hash]
@@ -38,7 +38,7 @@ public extension ArtifactViewModel
                 }
                 
             case .file(let file):
-                for dependency in file.symbolDependencies.all
+                for dependency in file.symbolGraph.edges
                 {
                     guard let sourceVM = viewModelHashMap[dependency.source.content.hash],
                           let targetVM = viewModelHashMap[dependency.target.content.hash]
@@ -50,7 +50,7 @@ public extension ArtifactViewModel
                 }
                 
             case .symbol(let symbol):
-                for dependency in symbol.subsymbolDependencies.all
+                for dependency in symbol.subsymbolGraph.edges
                 {
                     guard let sourceVM = viewModelHashMap[dependency.source.content.hash],
                           let targetVM = viewModelHashMap[dependency.target.content.hash]

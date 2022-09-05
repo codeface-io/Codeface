@@ -6,9 +6,9 @@ public extension CodeFolderArtifact
 {
     func addSymbolArtifacts(using server: LSP.ServerCommunicationHandler) async throws
     {
-        for part in partsByArtifactHash.values
+        for part in partGraph.values
         {
-            switch part.content.kind
+            switch part.kind
             {
             case .subfolder(let subfolder):
                 try await subfolder.addSymbolArtifacts(using: server)
