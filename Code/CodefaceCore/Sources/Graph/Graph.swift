@@ -1,46 +1,57 @@
 import OrderedCollections
 import SwiftyToolz
 
-public struct Graph<NodeValue: Hashable & Identifiable & AnyObject>
+public struct Graph<NodeValue: Identifiable>
 {
-    // MARK: - Graph
-    
-    /**
-     It is possible that initial edges lead out of the set of nodes which would fuck up algorithms which are not aware of that – or slow down algorithms which are. Use `reduced(to:)` on `Edges` when you need to make sure the graph's edges are constrained to its nodes.
-     */
-    public init(nodes: OrderedSet<Node> = [], edges: Set<Edge> = [])
-    {
-        self.nodes = nodes
-        self.hashMap = .init(uniqueKeysWithValues: edges.map { ($0.id, $0) })
-    }
-    
-    public func removing(_ otherEdges: Set<Edge>) -> Graph<NodeValue>
-    {
-        Graph(nodes: nodes, edges: Set(hashMap.values) - otherEdges)
-    }
+    // MARK: - Create Graphs
     
     public func reduced(to aFewNodes: Set<Node>) -> Graph<NodeValue>
     {
-        let reducedEdges = hashMap.values.filter
+        let reducedEdges = edgesByID.values.filter
         {
             Set([$0.source, $0.target]).isSubset(of: aFewNodes)
         }
         
-        return Graph(nodes: OrderedSet(aFewNodes), edges: Set(reducedEdges))
+        return Graph(nodes: aFewNodes, edges: Set(reducedEdges))
+    }
+    
+    public func removing(_ otherEdges: Set<Edge>) -> Graph<NodeValue>
+    {
+        Graph(orderedNodes: nodesByID, edges: Set(edgesByID.values) - otherEdges)
+    }
+    
+    /**
+     It is possible that initial edges lead out of the set of nodes which would fuck up algorithms which are not aware of that – or slow down algorithms which are. Use `reduced(to:)` on `Edges` when you need to make sure the graph's edges are constrained to its nodes.
+     */
+    public init(nodes: Set<Node>, edges: Set<Edge>)
+    {
+        self.init(orderedNodes: .init(uniqueKeysWithValues: nodes.map { ($0.id, $0) }),
+                  edges: edges)
+    }
+    
+    public init(orderedNodes: OrderedDictionary<Node.ID, Node> = [:], edges: Set<Edge> = [])
+    {
+        self.nodesByID = orderedNodes
+        self.edgesByID = .init(uniqueKeysWithValues: edges.map { ($0.id, $0) })
     }
     
     // MARK: - Edges
     
     public mutating func remove(_ edge: Edge)
     {
-        hashMap[edge.id] = nil
+        edgesByID[edge.id] = nil
     }
     
-    public mutating func addEdge(from sourceValue: NodeValue,
-                                 to targetValue: NodeValue)
+    public mutating func addEdge(from sourceValue: NodeValue, to targetValue: NodeValue)
     {
-        guard let sourceNode = node(for: sourceValue),
-              let targetNode = node(for: targetValue)
+        addEdge(from: sourceValue.id, to: targetValue.id)
+    }
+    
+    public mutating func addEdge(from sourceValueID: NodeValue.ID,
+                                 to targetValueID: NodeValue.ID)
+    {
+        guard let sourceNode = node(for: sourceValueID),
+              let targetNode = node(for: targetValueID)
         else
         {
             print("🛑 Error: Tried to add dependency between nodes that are not in the graph")
@@ -54,13 +65,13 @@ public struct Graph<NodeValue: Hashable & Identifiable & AnyObject>
     {
         let edgeID = Edge.ID(sourceValue: source.value, targetValue: target.value)
         
-        if let edge = hashMap[edgeID]
+        if let edge = edgesByID[edgeID]
         {
             edge.count += 1
         }
         else
         {
-            hashMap[edgeID] = Edge(from: source, to: target)
+            edgesByID[edgeID] = Edge(from: source, to: target)
         }
     }
     
@@ -77,23 +88,23 @@ public struct Graph<NodeValue: Hashable & Identifiable & AnyObject>
     public func ingoingEdges(to node: Node) -> [Edge]
     {
         // TODO: hash by target for performance
-        Array(hashMap.values.filter { $0.target === node })
+        Array(edgesByID.values.filter { $0.target === node })
     }
     
     public func outgoingEdges(from node: Node) -> [Edge]
     {
         // TODO: hash by source for performance
-        Array(hashMap.values.filter { $0.source === node })
+        Array(edgesByID.values.filter { $0.source === node })
     }
     
     public func hasEdge(_ edgeID: Edge.ID) -> Bool
     {
-        hashMap[edgeID] != nil
+        edgesByID[edgeID] != nil
     }
     
-    public var edges: [Edge] { Array(hashMap.values) }
+    public var edges: [Edge] { Array(edgesByID.values) }
     
-    private var hashMap: [Edge.ID: Edge]
+    private var edgesByID: [Edge.ID: Edge]
     
     public typealias Edge = GraphEdge<NodeValue>
     
@@ -101,23 +112,29 @@ public struct Graph<NodeValue: Hashable & Identifiable & AnyObject>
     
     public mutating func sortNodes(by valuesAreInOrder: (NodeValue, NodeValue) -> Bool)
     {
-        nodes.sort { valuesAreInOrder($0.value, $1.value) }
+        nodesByID.sort { valuesAreInOrder($0.value.value, $1.value.value) }
     }
     
     public mutating func addNode(for value: NodeValue)
     {
-        nodes.append(Node(value: value))
+        nodesByID[value.id] = Node(value: value)
     }
     
     public func node(for value: NodeValue) -> Node?
     {
-        // TODO: turn ordered set of nodes into ordered dictionary so we can hash the nodes here
-        nodes.first { $0.value === value }
+        node(for: value.id)
     }
     
-    public var values: [NodeValue] { nodes.elements.map { $0.value } }
+    public func node(for valueID: NodeValue.ID) -> Node?
+    {
+        nodesByID[valueID]
+    }
     
-    public private(set) var nodes: OrderedSet<Node>
+    public var values: [NodeValue] { nodes.map { $0.value } }
+    
+    public var nodes: [Node] { nodesByID.elements.map { $0.value } }
+    
+    private var nodesByID = OrderedDictionary<NodeValue.ID, Node>()
     
     public typealias Node = GraphNode<NodeValue>
 }

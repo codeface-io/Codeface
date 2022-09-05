@@ -7,16 +7,7 @@ extension CodeFolderArtifact: CodeArtifact
     public func addDependency(from sourceArtifact: CodeArtifact,
                               to targetArtifact: CodeArtifact)
     {
-        // FIXME: hash by content in the graph, ensure code artifact hash is the same as folder part hash ...
-        guard let sourceNode = partGraph.nodes.first(where: { $0.value.codeArtifact.hash == sourceArtifact.hash }),
-              let targetNode = partGraph.nodes.first(where: { $0.value.codeArtifact.hash == targetArtifact.hash })
-        else
-        {
-            log(error: "Tried to add dependency to folder scope between artifacts for which no nodes are in the graph")
-            return
-        }
-        
-        partGraph.addEdge(from: sourceNode, to: targetNode)
+        partGraph.addEdge(from: sourceArtifact.id, to: targetArtifact.id)
     }
     
     public var name: String { codeFolderURL.lastPathComponent }
@@ -59,23 +50,13 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
     
     public var partGraph = Graph<PartNodeValue>()
     
-    public class PartNodeValue: CodeArtifact, Hashable, Identifiable
+    public class PartNodeValue: CodeArtifact, Identifiable
     {
         // MARK: Initialize
         
         public init(kind: Kind)
         {
             self.kind = kind
-        }
-        
-        // MARK: Hashable
-        
-        public static func == (lhs: PartNodeValue,
-                               rhs: PartNodeValue) -> Bool { lhs === rhs }
-        
-        public func hash(into hasher: inout Hasher)
-        {
-            hasher.combine(id)
         }
         
         // MARK: CodeArtifact
@@ -100,8 +81,6 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         public var code: String? { codeArtifact.code }
         
         public var id: String { codeArtifact.id }
-        
-        public var hash: CodeArtifact.Hash { codeArtifact.hash }
         
         var codeArtifact: CodeArtifact
         {

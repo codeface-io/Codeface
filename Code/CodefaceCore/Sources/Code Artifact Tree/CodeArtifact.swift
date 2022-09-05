@@ -15,12 +15,6 @@ public extension CodeArtifact
     }
 }
 
-public extension CodeArtifact
-{
-    var hash: Hash { SwiftyToolz.hashValue(self) }
-    typealias Hash = SwiftyToolz.HashValue
-}
-
 public protocol CodeArtifact: AnyObject
 {
     var metrics: Metrics { get set }
@@ -32,5 +26,7 @@ public protocol CodeArtifact: AnyObject
     var kindName: String { get }
     var code: String? { get }
     
-    var id: String { get }
+    var id: ID { get }
+    
+    typealias ID = String
 }

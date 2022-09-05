@@ -13,7 +13,7 @@ extension Graph
         let stronglyConnectedComponents = findStronglyConnectedComponents()
         
         // create condensation nodes and a hashmap
-        var condensationNodes = OrderedSet<CondensationNode>()
+        var condensationNodes = Set<CondensationNode>()
         var condensationNodeHash = [Node: CondensationNode]()
         
         for scc in stronglyConnectedComponents
@@ -25,7 +25,7 @@ extension Graph
                 condensationNodeHash[sccNode] = condensationNode
             }
             
-            condensationNodes.append(condensationNode)
+            condensationNodes += condensationNode
         }
         
         // create condensation edges

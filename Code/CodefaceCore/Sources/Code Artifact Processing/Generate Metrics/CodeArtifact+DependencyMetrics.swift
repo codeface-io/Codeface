@@ -1,5 +1,5 @@
 func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
-    where Part: CodeArtifact & Hashable & Identifiable
+    where Part: CodeArtifact & Identifiable
 {
     // write component ranks by component size
     let components = scopeGraph.findComponents()
@@ -70,7 +70,7 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
             let condensationSource = condensationNodesSortedByAncestors[sourceSCCIndex]
             let condensationTarget = condensationNodesSortedByAncestors[targetSCCIndex]
             let condensationEdgeID = GraphEdge.ID(sourceValue: condensationSource.value,
-                                             targetValue: condensationTarget.value)
+                                                  targetValue: condensationTarget.value)
             
             let isEssentialDependency = minimumCondensationGraph.hasEdge(condensationEdgeID)
             

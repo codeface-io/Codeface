@@ -1,5 +1,8 @@
 import SwiftyToolz
 
+// TODO: for all algorithms: make use of possibility to mark nodes directly
+// TODO: for all algorithms: cache neighbours in nodes and leverage that also ...
+
 extension Graph
 {
     /**

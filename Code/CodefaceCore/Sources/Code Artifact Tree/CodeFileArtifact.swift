@@ -6,15 +6,7 @@ extension CodeFileArtifact: CodeArtifact
     public func addDependency(from source: CodeArtifact,
                               to target: CodeArtifact)
     {
-        guard let sourceSymbol = source as? CodeSymbolArtifact,
-              let targetSymbol = target as? CodeSymbolArtifact
-        else
-        {
-            log(error: "Tried to add dependency to file scope between non-symbol artifacts.")
-            return
-        }
-        
-        symbolGraph.addEdge(from: sourceSymbol, to: targetSymbol)
+        symbolGraph.addEdge(from: source.id, to: target.id)
     }
     
     public var name: String { codeFile.name }

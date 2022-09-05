@@ -7,15 +7,7 @@ extension CodeSymbolArtifact: CodeArtifact
     public func addDependency(from source: CodeArtifact,
                               to target: CodeArtifact)
     {
-        guard let sourceSymbol = source as? CodeSymbolArtifact,
-              let targetSymbol = target as? CodeSymbolArtifact
-        else
-        {
-            log(error: "Tried to add dependency to symbol scope between non-symbol artifacts.")
-            return
-        }
-        
-        subsymbolGraph.addEdge(from: sourceSymbol, to: targetSymbol)
+        subsymbolGraph.addEdge(from: source.id, to: target.id)
     }
     
     public static var kindNames: [String] { LSPDocumentSymbol.SymbolKind.names }

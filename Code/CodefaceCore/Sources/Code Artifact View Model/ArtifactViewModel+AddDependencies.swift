@@ -5,11 +5,11 @@ public extension ArtifactViewModel
     func addDependencies() -> ArtifactViewModel
     {
         // make view model hash map
-        var viewModelHashMap = [CodeArtifact.Hash : ArtifactViewModel]()
+        var viewModelHashMap = [CodeArtifact.ID : ArtifactViewModel]()
         
         applyRecursively
         {
-            viewModelHashMap[$0.codeArtifact.hash] = $0
+            viewModelHashMap[$0.codeArtifact.id] = $0
         }
         
         // add view models for dependencies
@@ -24,8 +24,8 @@ public extension ArtifactViewModel
             case .folder(let folder):
                 for dependency in folder.partGraph.edges
                 {
-                    guard let sourceVM = viewModelHashMap[dependency.source.value.hash],
-                          let targetVM = viewModelHashMap[dependency.target.value.hash]
+                    guard let sourceVM = viewModelHashMap[dependency.source.value.id],
+                          let targetVM = viewModelHashMap[dependency.target.value.id]
                     else
                     {
                         log(error: "Could not find VMs for dependency from \(dependency.source.value.kindName) to \(dependency.target.value.kindName)")
@@ -40,8 +40,8 @@ public extension ArtifactViewModel
             case .file(let file):
                 for dependency in file.symbolGraph.edges
                 {
-                    guard let sourceVM = viewModelHashMap[dependency.source.value.hash],
-                          let targetVM = viewModelHashMap[dependency.target.value.hash]
+                    guard let sourceVM = viewModelHashMap[dependency.source.value.id],
+                          let targetVM = viewModelHashMap[dependency.target.value.id]
                     else { continue }
                     
                     artifactVM.partDependencies += .init(sourcePart: sourceVM,
@@ -52,8 +52,8 @@ public extension ArtifactViewModel
             case .symbol(let symbol):
                 for dependency in symbol.subsymbolGraph.edges
                 {
-                    guard let sourceVM = viewModelHashMap[dependency.source.value.hash],
-                          let targetVM = viewModelHashMap[dependency.target.value.hash]
+                    guard let sourceVM = viewModelHashMap[dependency.source.value.id],
+                          let targetVM = viewModelHashMap[dependency.target.value.id]
                     else { continue }
                     
                     artifactVM.partDependencies += .init(sourcePart: sourceVM,

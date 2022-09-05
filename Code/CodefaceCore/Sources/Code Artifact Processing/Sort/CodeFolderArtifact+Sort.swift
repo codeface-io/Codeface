@@ -17,6 +17,11 @@ public extension CodeFolderArtifact
 
 extension CodeFolderArtifact.PartNodeValue: Comparable
 {
+    public static func == (lhs: CodeFolderArtifact.PartNodeValue,
+                           rhs: CodeFolderArtifact.PartNodeValue) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     public static func < (lhs: CodeFolderArtifact.PartNodeValue,
                           rhs: CodeFolderArtifact.PartNodeValue) -> Bool { lhs.goesBefore(rhs) }
 }
