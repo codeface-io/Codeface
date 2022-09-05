@@ -2,14 +2,13 @@ public struct Metrics
 {
     // MARK: - Qualitative Metrics
     
-    public var portionOfPartsInCycles: Double
-    {
+    public lazy var portionOfPartsInCycles: Double = {
         guard let partLOCs = linesOfCodeOfParts, partLOCs > 0,
               let partLOCsInCycles = linesOfCodeOfPartsInCycles
         else { return 0 }
         
         return Double(partLOCsInCycles) / Double(partLOCs)
-    }
+    }()
     
     public var isInACycle: Bool?
     public var linesOfCodeOfPartsInCycles: Int?
