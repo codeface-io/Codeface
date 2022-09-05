@@ -1,17 +1,17 @@
-public struct Edges<Node: GraphNode>
+public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
 {
     // MARK: - Create
     
-    static var empty: Edges<Node> { .init() }
+    static var empty: Edges<NodeContent> { .init() }
     
     // MARK: - Write
     
-    mutating func remove(_ edge: Edge<Node>)
+    mutating func remove(_ edge: Edge<NodeContent>)
     {
         hashMap[edge.id] = nil
     }
     
-    mutating func add(_ otherEdges: Edges<Node>)
+    mutating func add(_ otherEdges: Edges<NodeContent>)
     {
         hashMap.merge(otherEdges.hashMap)
         {
@@ -23,7 +23,7 @@ public struct Edges<Node: GraphNode>
         }
     }
     
-    mutating func addEdge(from source: Node, to target: Node)
+    mutating func addEdge(from source: NodeContent, to target: NodeContent)
     {
         let edgeID = EdgeID(source: source, target: target)
         
@@ -39,7 +39,7 @@ public struct Edges<Node: GraphNode>
     
     // MARK: - Making Transformations
     
-    func reduced(to nodes: Set<Node>) -> Edges<Node>
+    func reduced(to nodes: Set<NodeContent>) -> Edges<NodeContent>
     {
         var reducedEdges = self
         
@@ -51,7 +51,7 @@ public struct Edges<Node: GraphNode>
         return reducedEdges
     }
     
-    func removing(_ otherEdges: Edges<Node>) -> Edges<Node>
+    func removing(_ otherEdges: Edges<NodeContent>) -> Edges<NodeContent>
     {
         var removed = self
         
@@ -70,35 +70,33 @@ public struct Edges<Node: GraphNode>
         hashMap[edgeID] != nil
     }
     
-    func edge(from source: Node, to target: Node) -> Edge<Node>?
+    func edge(from source: NodeContent, to target: NodeContent) -> Edge<NodeContent>?
     {
         hashMap[EdgeID(source: source, target: target)]
     }
     
     // TODO: hash by source for performance
-    func outgoing(from source: Node) -> [Edge<Node>]
+    func outgoing(from source: NodeContent) -> [Edge<NodeContent>]
     {
         Array(hashMap.values.filter { $0.source === source })
     }
     
     // TODO: hash by target for performance
-    func ingoing(to target: Node) -> [Edge<Node>]
+    func ingoing(to target: NodeContent) -> [Edge<NodeContent>]
     {
         Array(hashMap.values.filter { $0.target === target })
     }
     
-    public var all: [Edge<Node>] { Array(hashMap.values) }
+    public var all: [Edge<NodeContent>] { Array(hashMap.values) }
     
-    var sources: [Node] { hashMap.values.map { $0.source } }
-    var targets: [Node] { hashMap.values.map { $0.target } }
+    var sources: [NodeContent] { hashMap.values.map { $0.source } }
+    var targets: [NodeContent] { hashMap.values.map { $0.target } }
     
     var count: Int { hashMap.count }
     
     // MARK: - Store
     
-    private var hashMap = [EdgeID: Edge<Node>]()
+    private var hashMap = [EdgeID: Edge<NodeContent>]()
     
-    typealias EdgeID = Edge<Node>.ID
+    typealias EdgeID = Edge<NodeContent>.ID
 }
-
-public typealias GraphNode = Hashable & IdentifiableObject

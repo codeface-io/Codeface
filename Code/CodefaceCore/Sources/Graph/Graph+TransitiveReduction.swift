@@ -9,10 +9,10 @@ extension Graph
      
      See <https://en.wikipedia.org/wiki/Transitive_reduction>
      */
-    func makeMinimumEquivalentGraph() -> Graph<Node>
+    func makeMinimumEquivalentGraph() -> Graph<NodeContent>
     {
-        var indirectReachabilities = Edges<Node>()
-        var consideredAncestorsHash = [Node: Set<Node>]()
+        var indirectReachabilities = Edges<NodeContent>()
+        var consideredAncestorsHash = [NodeContent: Set<NodeContent>]()
         
         let sourceNodes = allNodes.filter { ancestors(of: $0).count == 0 }
         
@@ -30,11 +30,11 @@ extension Graph
         return removing(indirectReachabilities) 
     }
     
-    private func findIndirectReachabilities(around node: Node,
-                                            reachedAncestors: Set<Node>,
-                                            consideredAncestorsHash: inout [Node: Set<Node>]) -> Edges<Node>
+    private func findIndirectReachabilities(around node: NodeContent,
+                                            reachedAncestors: Set<NodeContent>,
+                                            consideredAncestorsHash: inout [NodeContent: Set<NodeContent>]) -> Edges<NodeContent>
     {
-        let consideredAncestors = consideredAncestorsHash[node, default: Set<Node>()]
+        let consideredAncestors = consideredAncestorsHash[node, default: Set<NodeContent>()]
         let ancestorsToConsider = reachedAncestors - consideredAncestors
         
         if !reachedAncestors.isEmpty && ancestorsToConsider.isEmpty
@@ -43,9 +43,9 @@ extension Graph
             return .empty
         }
         
-        consideredAncestorsHash[node, default: Set<Node>()] += ancestorsToConsider
+        consideredAncestorsHash[node, default: Set<NodeContent>()] += ancestorsToConsider
         
-        var indirectReachabilities = Edges<Node>()
+        var indirectReachabilities = Edges<NodeContent>()
         
         // base case: add edges from all reached ancestors to all reachable neighbours of node
         

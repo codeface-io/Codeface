@@ -13,7 +13,7 @@ extension Graph
         
         // create condensation nodes and a hashmap
         var condensationNodes = Set<CondensationNode>()
-        var condensationNodeHash = [Node: CondensationNode]()
+        var condensationNodeHash = [NodeContent: CondensationNode]()
         
         for scc in stronglyConnectedComponents
         {
@@ -51,7 +51,7 @@ extension Graph
     
     class CondensationNode: Hashable, Identifiable
     {
-        init(stronglyConnectedComponent: Set<Node>)
+        init(stronglyConnectedComponent: Set<NodeContent>)
         {
             self.stronglyConnectedComponent = stronglyConnectedComponent
         }
@@ -66,6 +66,6 @@ extension Graph
             lhs === rhs
         }
         
-        let stronglyConnectedComponent: Set<Node>
+        let stronglyConnectedComponent: Set<NodeContent>
     }
 }
