@@ -44,16 +44,14 @@ extension Graph
         {
             if let targetMarkings = markingsHash[target]
             {
+                // If target is not on stack, then edge (node, target) is pointing to an SCC already found and must be ignored
                 if targetMarkings.isOnStack
                 {
-                    // Successor w is in stack S and hence in the current SCC
-                    // If w is not on stack, then (v, w) is an edge pointing to an SCC already found and must be ignored
-                    // Note: The next line may look odd - but is correct.
-                    // It says w.index not w.lowlink; that is deliberate and from the original paper
+                    // Successor "target" is in stack and hence in the current SCC
                     nodeMarkings.lowLink = min(nodeMarkings.lowLink, targetMarkings.index)
                 }
             }
-            else // if target.index is undefined then
+            else // if target index is undefined then
             {
                 // Successor "target" has not yet been visited; recurse on it
                 let targetMarkings = findSCCsRecursively(node: target,
