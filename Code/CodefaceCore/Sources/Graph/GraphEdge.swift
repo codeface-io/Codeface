@@ -2,7 +2,7 @@ public class GraphEdge<NodeValue: Identifiable>: Identifiable, Hashable
 {
     // MARK: - Initialize
     
-    init(source: Node, target: Node)
+    init(from source: Node, to target: Node)
     {
         self.source = source
         self.target = target

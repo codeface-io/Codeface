@@ -42,7 +42,7 @@ extension Graph
             
             if sourceCN !== targetCN
             {
-                condensationEdges += CondensationEdge(source: sourceCN, target: targetCN)
+                condensationEdges += CondensationEdge(from: sourceCN, to: targetCN)
             }
         }
         

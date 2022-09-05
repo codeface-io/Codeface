@@ -55,7 +55,7 @@ extension Graph
         {
             for descendant in descendants
             {
-                indirectReachabilities += Edge(source: ancestor, target: descendant)
+                indirectReachabilities += Edge(from: ancestor, to: descendant)
             }
         }
         

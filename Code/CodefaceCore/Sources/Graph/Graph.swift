@@ -1,4 +1,5 @@
 import OrderedCollections
+import SwiftyToolz
 
 public struct Graph<NodeValue: Hashable & Identifiable & AnyObject>
 {
@@ -15,26 +16,17 @@ public struct Graph<NodeValue: Hashable & Identifiable & AnyObject>
     
     public func removing(_ otherEdges: Set<Edge>) -> Graph<NodeValue>
     {
-        var removedEdges = hashMap
-        
-        for otherEdge in otherEdges
-        {
-            removedEdges[otherEdge.id] = nil
-        }
-        
-        return Graph(nodes: nodes, edges: Set(removedEdges.values))
+        Graph(nodes: nodes, edges: Set(hashMap.values) - otherEdges)
     }
     
     public func reduced(to aFewNodes: Set<Node>) -> Graph<NodeValue>
     {
-        var reducedEdges = hashMap
-        
-        reducedEdges.remove
+        let reducedEdges = hashMap.values.filter
         {
-            !aFewNodes.contains($0.source) || !aFewNodes.contains($0.target)
+            Set([$0.source, $0.target]).isSubset(of: aFewNodes)
         }
         
-        return Graph(nodes: nodes, edges: Set(reducedEdges.values))
+        return Graph(nodes: OrderedSet(aFewNodes), edges: Set(reducedEdges))
     }
     
     // MARK: - Edges
@@ -60,8 +52,7 @@ public struct Graph<NodeValue: Hashable & Identifiable & AnyObject>
     
     public mutating func addEdge(from source: Node, to target: Node)
     {
-        let edgeID = Edge.ID(sourceValue: source.value,
-                            targetValue: target.value)
+        let edgeID = Edge.ID(sourceValue: source.value, targetValue: target.value)
         
         if let edge = hashMap[edgeID]
         {
@@ -69,7 +60,7 @@ public struct Graph<NodeValue: Hashable & Identifiable & AnyObject>
         }
         else
         {
-            hashMap[edgeID] = Edge(source: source, target: target)
+            hashMap[edgeID] = Edge(from: source, to: target)
         }
     }
     
