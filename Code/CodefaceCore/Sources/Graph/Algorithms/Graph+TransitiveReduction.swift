@@ -14,7 +14,7 @@ extension Graph
         var indirectReachabilities = Edges<NodeContent>()
         var consideredAncestorsHash = [Node<NodeContent>: Set<Node<NodeContent>>]()
         
-        let sourceNodes = allNodes.filter { ancestors(of: $0).count == 0 }
+        let sourceNodes = orderedNodes.filter { ancestors(of: $0).count == 0 }
         
         for sourceNode in sourceNodes
         {

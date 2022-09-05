@@ -1,3 +1,5 @@
+import OrderedCollections
+
 struct Graph<NodeContent: Hashable & Identifiable & AnyObject>
 {
     /** It is possible that edges lead out of the set of nodes which would fuck up algorithms which are not aware of that – or slow down algorithms which are. Use `reduced(to:)` on `Edges` when you need to make sure the graph's edges are constrained to its nodes.
@@ -8,13 +10,25 @@ struct Graph<NodeContent: Hashable & Identifiable & AnyObject>
     public init(nodes: Set<Node<NodeContent>> = [],
                 edges: Edges<NodeContent> = .empty)
     {
-        self.nodes = nodes
+        self.nodes = OrderedSet(nodes)
         self.edges = edges
+    }
+    
+    public init(orderedNodes: OrderedSet<Node<NodeContent>> = [],
+                edges: Edges<NodeContent> = .empty)
+    {
+        self.nodes = orderedNodes
+        self.edges = edges
+    }
+    
+    public mutating func sortNodes(by areInOrder: (NodeContent, NodeContent) -> Bool)
+    {
+        nodes.sort { areInOrder($0.content, $1.content) }
     }
     
     public func removing(_ otherEdges: Edges<NodeContent>) -> Graph<NodeContent>
     {
-        Graph(nodes: nodes, edges: edges.removing(otherEdges))
+        Graph(orderedNodes: nodes, edges: edges.removing(otherEdges))
     }
     
     public func descandants(of node: Node<NodeContent>) -> [Node<NodeContent>]
@@ -44,8 +58,8 @@ struct Graph<NodeContent: Hashable & Identifiable & AnyObject>
     
     public var allEdges: [Edge<NodeContent>] { edges.all }
     
-    public var allNodes: Set<Node<NodeContent>> { nodes }
+    public var orderedNodes: OrderedSet<Node<NodeContent>> { nodes }
     
-    private let nodes: Set<Node<NodeContent>>
+    private var nodes: OrderedSet<Node<NodeContent>>
     private let edges: Edges<NodeContent>
 }

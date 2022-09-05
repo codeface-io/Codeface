@@ -4,7 +4,7 @@ extension Graph
 {
     func findComponents() -> Set<Set<Node<NodeContent>>>
     {
-        var nodesToSearch = allNodes
+        var nodesToSearch = Set(orderedNodes)
         var components = Set<Set<Node<NodeContent>>>()
 
         while let nodeToSearch = nodesToSearch.first

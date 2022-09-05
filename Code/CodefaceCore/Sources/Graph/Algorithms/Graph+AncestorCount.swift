@@ -9,7 +9,7 @@ extension Graph
     {
         var ancestorCountsByNode = [Node<NodeContent>: Int]()
         
-        let sinkNodes = allNodes.filter { descandants(of: $0).count == 0 }
+        let sinkNodes = orderedNodes.filter { descandants(of: $0).count == 0 }
 
         for sinkNode in sinkNodes
         {

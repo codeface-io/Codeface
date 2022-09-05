@@ -10,7 +10,7 @@ extension Graph
         var index = 0
         var stack = [Node<NodeContent>]()
         
-        for node in allNodes
+        for node in orderedNodes
         {
             if markingsHash[node] == nil
             {
