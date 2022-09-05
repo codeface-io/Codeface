@@ -11,7 +11,7 @@ extension Graph
      */
     func makeMinimumEquivalentGraph() -> Graph<NodeValue>
     {
-        var indirectReachabilities = Edges<NodeValue>()
+        var indirectReachabilities = Set<Edge>()
         var consideredAncestorsHash = [Node: Set<Node>]()
         
         let sourceNodes = nodes.filter { ancestors(of: $0).count == 0 }
@@ -24,15 +24,15 @@ extension Graph
                                                             reachedAncestors: [],
                                                             consideredAncestorsHash: &consideredAncestorsHash)
             
-            indirectReachabilities.add(reachabilities)
+            indirectReachabilities += reachabilities
         }
         
-        return removing(indirectReachabilities) 
+        return removing(indirectReachabilities)
     }
     
     private func findIndirectReachabilities(around node: Node,
                                             reachedAncestors: Set<Node>,
-                                            consideredAncestorsHash: inout [Node: Set<Node>]) -> Edges<NodeValue>
+                                            consideredAncestorsHash: inout [Node: Set<Node>]) -> Set<Edge>
     {
         let consideredAncestors = consideredAncestorsHash[node, default: Set<Node>()]
         let ancestorsToConsider = reachedAncestors - consideredAncestors
@@ -40,12 +40,12 @@ extension Graph
         if !reachedAncestors.isEmpty && ancestorsToConsider.isEmpty
         {
             // found shortcut edge on a path we've already traversed, so we reached no new ancestors
-            return .empty
+            return []
         }
         
         consideredAncestorsHash[node, default: Set<Node>()] += ancestorsToConsider
         
-        var indirectReachabilities = Edges<NodeValue>()
+        var indirectReachabilities = Set<Edge>()
         
         // base case: add edges from all reached ancestors to all reachable neighbours of node
         
@@ -55,7 +55,7 @@ extension Graph
         {
             for descendant in descendants
             {
-                indirectReachabilities.addEdge(from: ancestor, to: descendant)
+                indirectReachabilities += Edge(source: ancestor, target: descendant)
             }
         }
         
@@ -63,9 +63,9 @@ extension Graph
         
         for descendant in descendants
         {
-            indirectReachabilities.add(findIndirectReachabilities(around: descendant,
-                                                                  reachedAncestors: ancestorsToConsider + node,
-                                                                  consideredAncestorsHash: &consideredAncestorsHash))
+            indirectReachabilities += findIndirectReachabilities(around: descendant,
+                                                                 reachedAncestors: ancestorsToConsider + node,
+                                                                 consideredAncestorsHash: &consideredAncestorsHash)
         }
         
         return indirectReachabilities

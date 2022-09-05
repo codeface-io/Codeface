@@ -1,6 +1,6 @@
-public class GraphEdge<NodeValue: Identifiable & AnyObject & Hashable>
+public class GraphEdge<NodeValue: Identifiable>: Identifiable, Hashable
 {
-    // MARK: - Initialization
+    // MARK: - Initialize
     
     init(source: Node, target: Node)
     {
@@ -10,26 +10,33 @@ public class GraphEdge<NodeValue: Identifiable & AnyObject & Hashable>
         count = 1
     }
     
-    // MARK: - Data
+    // MARK: - Hashability
     
-    public internal(set) var count: Int
+    public func hash(into hasher: inout Hasher) { hasher.combine(id) }
     
-    // MARK: - Nodes and Identity
+    public static func == (lhs: Edge, rhs: Edge) -> Bool { lhs.id == rhs.id }
     
-    var id: ID { ID(sourceValue: source.value,
-                    targetValue: target.value) }
+    public typealias Edge = GraphEdge<NodeValue>
+    
+    // MARK: - Identity
+    
+    public var id: ID { ID(sourceValue: source.value, targetValue: target.value) }
     
     public struct ID: Hashable
     {
         init(sourceValue: NodeValue, targetValue: NodeValue)
         {
-            self.sourceID = sourceValue.id
-            self.targetID = targetValue.id
+            self.sourceValueID = sourceValue.id
+            self.targetValueID = targetValue.id
         }
         
-        let sourceID: NodeValue.ID
-        let targetID: NodeValue.ID
+        let sourceValueID: NodeValue.ID
+        let targetValueID: NodeValue.ID
     }
+    
+    // MARK: - Basic Data
+    
+    public var count: Int
     
     public let source: Node
     public let target: Node

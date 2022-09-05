@@ -1,17 +1,14 @@
-public class GraphNode<Value: Identifiable & AnyObject & Hashable>: Hashable
+public class GraphNode<Value: Identifiable>: Identifiable, Hashable
 {
-    init(value: Value)
-    {
-        self.value = value
-    }
+    init(value: Value) { self.value = value }
     
-    public func hash(into hasher: inout Hasher)
-    {
-        hasher.combine(value.hashValue)
-    }
+    public func hash(into hasher: inout Hasher) { hasher.combine(id) }
     
-    public static func == (lhs: GraphNode<Value>,
-                           rhs: GraphNode<Value>) -> Bool { lhs === rhs }
+    public static func == (lhs: Node, rhs: Node) -> Bool { lhs.id == rhs.id }
+    
+    public typealias Node = GraphNode<Value>
+    
+    public var id: Value.ID { value.id }
     
     let value: Value
 }

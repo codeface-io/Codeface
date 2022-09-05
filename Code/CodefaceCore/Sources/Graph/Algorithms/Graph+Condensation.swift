@@ -29,7 +29,7 @@ extension Graph
         }
         
         // create condensation edges
-        var condensationEdges = Edges<StronglyConnectedComponent>()
+        var condensationEdges = Set<GraphEdge<StronglyConnectedComponent>>()
         
         for edge in edges
         {
@@ -42,7 +42,7 @@ extension Graph
             
             if sourceCN !== targetCN
             {
-                condensationEdges.addEdge(from: sourceCN, to: targetCN)
+                condensationEdges += CondensationEdge(source: sourceCN, target: targetCN)
             }
         }
         
@@ -51,6 +51,7 @@ extension Graph
     }
     
     typealias CondensationNode = GraphNode<StronglyConnectedComponent>
+    typealias CondensationEdge = GraphEdge<StronglyConnectedComponent>
     
     class StronglyConnectedComponent: Hashable, Identifiable
     {
