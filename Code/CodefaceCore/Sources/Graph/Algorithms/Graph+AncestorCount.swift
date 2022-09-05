@@ -5,11 +5,11 @@ extension Graph
     /**
      Finds the total number of all ancestors (predecessors / sources) for every node of an **acyclic** graph.
      */
-    func findNumberOfNodeAncestors() -> [(Node<NodeContent>, Int)]
+    func findNumberOfNodeAncestors() -> [(Node, Int)]
     {
-        var ancestorCountsByNode = [Node<NodeContent>: Int]()
+        var ancestorCountsByNode = [Node: Int]()
         
-        let sinkNodes = nodes.filter { descandants(of: $0).count == 0 }
+        let sinkNodes = nodes.filter { descendants(of: $0).count == 0 }
 
         for sinkNode in sinkNodes
         {
@@ -20,8 +20,8 @@ extension Graph
     }
 
     @discardableResult
-    private func getAncestorCount(for node: Node<NodeContent>,
-                                  results: inout [Node<NodeContent>: Int]) -> Int
+    private func getAncestorCount(for node: Node,
+                                  results: inout [Node: Int]) -> Int
     {
         if let ancestors = results[node] { return ancestors }
         

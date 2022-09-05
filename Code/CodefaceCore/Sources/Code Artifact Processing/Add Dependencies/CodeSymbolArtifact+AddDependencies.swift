@@ -40,13 +40,13 @@ extension CodeSymbolArtifact
         
         for subsymbolNode in subsymbolNodes
         {
-            subsymbolNode.content.generateSubsymbolDependenciesRecursively(enclosingFile: file,
+            subsymbolNode.value.generateSubsymbolDependenciesRecursively(enclosingFile: file,
                                                                            hashMap: hashMap)
         }
         
         for subsymbolNode in subsymbolNodes
         {
-            let ancestorSubsymbols = subsymbolNode.content.getIncoming(enclosingFile: file,
+            let ancestorSubsymbols = subsymbolNode.value.getIncoming(enclosingFile: file,
                                                                        hashMap: hashMap)
             
             for ancestorSubsymbol in ancestorSubsymbols

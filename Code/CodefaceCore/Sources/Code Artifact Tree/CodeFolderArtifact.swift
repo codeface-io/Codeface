@@ -8,8 +8,8 @@ extension CodeFolderArtifact: CodeArtifact
                               to targetArtifact: CodeArtifact)
     {
         // FIXME: hash by content in the graph, ensure code artifact hash is the same as folder part hash ...
-        guard let sourceNode = partGraph.nodes.first(where: { $0.content.codeArtifact.hash == sourceArtifact.hash }),
-              let targetNode = partGraph.nodes.first(where: { $0.content.codeArtifact.hash == targetArtifact.hash })
+        guard let sourceNode = partGraph.nodes.first(where: { $0.value.codeArtifact.hash == sourceArtifact.hash }),
+              let targetNode = partGraph.nodes.first(where: { $0.value.codeArtifact.hash == targetArtifact.hash })
         else
         {
             log(error: "Tried to add dependency to folder scope between artifacts for which no nodes are in the graph")
@@ -33,14 +33,14 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         
         let partArray = codeFolder.subfolders.map
         {
-            PartNode(kind: .subfolder(CodeFolderArtifact(codeFolder: $0,
-                                                         scope: self)))
+            PartNodeValue(kind: .subfolder(CodeFolderArtifact(codeFolder: $0,
+                                                              scope: self)))
         }
         +
         codeFolder.files.map
         {
-            PartNode(kind: .file(CodeFileArtifact(codeFile: $0,
-                                                  scope: self)))
+            PartNodeValue(kind: .file(CodeFileArtifact(codeFile: $0,
+                                                       scope: self)))
         }
         
         for part in partArray
@@ -57,9 +57,9 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
     
     public weak var scope: CodeArtifact?
     
-    public var partGraph = Graph<PartNode>()
+    public var partGraph = Graph<PartNodeValue>()
     
-    public class PartNode: CodeArtifact, Hashable, Identifiable
+    public class PartNodeValue: CodeArtifact, Hashable, Identifiable
     {
         // MARK: Initialize
         
@@ -70,8 +70,8 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         
         // MARK: Hashable
         
-        public static func == (lhs: CodeFolderArtifact.PartNode,
-                               rhs: CodeFolderArtifact.PartNode) -> Bool { lhs === rhs }
+        public static func == (lhs: PartNodeValue,
+                               rhs: PartNodeValue) -> Bool { lhs === rhs }
         
         public func hash(into hasher: inout Hasher)
         {

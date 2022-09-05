@@ -1,3 +1,4 @@
+import OrderedCollections
 import SwiftyToolz
 
 extension Graph
@@ -7,28 +8,28 @@ extension Graph
      
      See <https://en.wikipedia.org/wiki/Strongly_connected_component>
      */
-    func makeCondensation() -> Graph<CondensationNodeContent>
+    func makeCondensation() -> Graph<StronglyConnectedComponent>
     {
         let stronglyConnectedComponents = findStronglyConnectedComponents()
         
         // create condensation nodes and a hashmap
-        var condensationNodes = Set<Node<CondensationNodeContent>>()
-        var condensationNodeHash = [Node<NodeContent>: Node<CondensationNodeContent>]()
+        var condensationNodes = OrderedSet<CondensationNode>()
+        var condensationNodeHash = [Node: CondensationNode]()
         
         for scc in stronglyConnectedComponents
         {
-            let condensationNode = Node(content: CondensationNodeContent(stronglyConnectedComponent: scc))
+            let condensationNode = CondensationNode(value: StronglyConnectedComponent(nodes: scc))
             
             for sccNode in scc
             {
                 condensationNodeHash[sccNode] = condensationNode
             }
             
-            condensationNodes += condensationNode
+            condensationNodes.append(condensationNode)
         }
         
         // create condensation edges
-        var condensationEdges = Edges<CondensationNodeContent>()
+        var condensationEdges = Edges<StronglyConnectedComponent>()
         
         for edge in edges
         {
@@ -49,11 +50,13 @@ extension Graph
         return .init(nodes: condensationNodes, edges: condensationEdges)
     }
     
-    class CondensationNodeContent: Hashable, Identifiable
+    typealias CondensationNode = GraphNode<StronglyConnectedComponent>
+    
+    class StronglyConnectedComponent: Hashable, Identifiable
     {
-        init(stronglyConnectedComponent: Set<Node<NodeContent>>)
+        init(nodes: Set<Node>)
         {
-            self.stronglyConnectedComponent = stronglyConnectedComponent
+            self.nodes = nodes
         }
         
         func hash(into hasher: inout Hasher)
@@ -61,11 +64,12 @@ extension Graph
             hasher.combine(ObjectIdentifier(self))
         }
         
-        static func == (lhs: CondensationNodeContent, rhs: CondensationNodeContent) -> Bool
+        static func == (lhs: StronglyConnectedComponent,
+                        rhs: StronglyConnectedComponent) -> Bool
         {
             lhs === rhs
         }
         
-        let stronglyConnectedComponent: Set<Node<NodeContent>>
+        let nodes: Set<Node>
     }
 }

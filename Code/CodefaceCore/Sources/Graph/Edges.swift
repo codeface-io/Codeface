@@ -1,17 +1,17 @@
-public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
+public struct Edges<NodeValue: Hashable & Identifiable & AnyObject>
 {
     // MARK: - Create
     
-    public static var empty: Edges<NodeContent> { .init() }
+    public static var empty: Edges<NodeValue> { .init() }
     
     // MARK: - Write
     
-    mutating func remove(_ edge: Edge<NodeContent>)
+    mutating func remove(_ edge: Edge)
     {
         hashMap[edge.id] = nil
     }
     
-    mutating func add(_ otherEdges: Edges<NodeContent>)
+    mutating func add(_ otherEdges: Edges<NodeValue>)
     {
         hashMap.merge(otherEdges.hashMap)
         {
@@ -23,11 +23,10 @@ public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
         }
     }
     
-    mutating func addEdge(from source: Node<NodeContent>,
-                          to target: Node<NodeContent>)
+    mutating func addEdge(from source: Node, to target: Node)
     {
-        let edgeID = EdgeID(sourceContent: source.content,
-                            targetContent: target.content)
+        let edgeID = Edge.ID(sourceValue: source.value,
+                            targetValue: target.value)
         
         if let edge = hashMap[edgeID]
         {
@@ -41,7 +40,7 @@ public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
     
     // MARK: - Making Transformations
     
-    func reduced(to nodes: Set<Node<NodeContent>>) -> Edges<NodeContent>
+    func reduced(to nodes: Set<Node>) -> Edges<NodeValue>
     {
         var reducedEdges = self
         
@@ -53,7 +52,7 @@ public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
         return reducedEdges
     }
     
-    func removing(_ otherEdges: Edges<NodeContent>) -> Edges<NodeContent>
+    func removing(_ otherEdges: Edges<NodeValue>) -> Edges<NodeValue>
     {
         var removed = self
         
@@ -67,39 +66,39 @@ public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
     
     // MARK: - Read
     
-    func contains(_ edgeID: EdgeID) -> Bool
+    func contains(_ edgeID: Edge.ID) -> Bool
     {
         hashMap[edgeID] != nil
     }
     
-    func edge(from source: Node<NodeContent>,
-              to target: Node<NodeContent>) -> Edge<NodeContent>?
+    func edge(from source: Node, to target: Node) -> Edge?
     {
-        hashMap[EdgeID(sourceContent: source.content, targetContent: target.content)]
+        hashMap[Edge.ID(sourceValue: source.value, targetValue: target.value)]
     }
     
     // TODO: hash by source for performance
-    func outgoing(from source: Node<NodeContent>) -> [Edge<NodeContent>]
+    func outgoing(from source: Node) -> [Edge]
     {
         Array(hashMap.values.filter { $0.source === source })
     }
     
     // TODO: hash by target for performance
-    func ingoing(to target: Node<NodeContent>) -> [Edge<NodeContent>]
+    func ingoing(to target: Node) -> [Edge]
     {
         Array(hashMap.values.filter { $0.target === target })
     }
     
-    public var all: [Edge<NodeContent>] { Array(hashMap.values) }
+    public var all: [Edge] { Array(hashMap.values) }
     
-    var sources: [NodeContent] { hashMap.values.map { $0.source.content } }
-    var targets: [NodeContent] { hashMap.values.map { $0.target.content } }
+    var sources: [NodeValue] { hashMap.values.map { $0.source.value } }
+    var targets: [NodeValue] { hashMap.values.map { $0.target.value } }
     
     var count: Int { hashMap.count }
     
     // MARK: - Store
     
-    private var hashMap = [EdgeID: Edge<NodeContent>]()
+    private var hashMap = [Edge.ID: Edge]()
     
-    typealias EdgeID = Edge<NodeContent>.ID
+    public typealias Edge = GraphEdge<NodeValue>
+    public typealias Node = GraphNode<NodeValue>
 }

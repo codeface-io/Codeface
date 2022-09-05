@@ -15,8 +15,8 @@ public extension CodeFolderArtifact
     }
 }
 
-extension CodeFolderArtifact.PartNode: Comparable
+extension CodeFolderArtifact.PartNodeValue: Comparable
 {
-    public static func < (lhs: CodeFolderArtifact.PartNode,
-                          rhs: CodeFolderArtifact.PartNode) -> Bool { lhs.goesBefore(rhs) }
+    public static func < (lhs: CodeFolderArtifact.PartNodeValue,
+                          rhs: CodeFolderArtifact.PartNodeValue) -> Bool { lhs.goesBefore(rhs) }
 }

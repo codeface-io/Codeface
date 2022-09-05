@@ -21,7 +21,7 @@ extension CodeFileArtifact
         
         for symbolNode in symbolGraph.nodes
         {
-            let ancestorSymbols = symbolNode.content.getIncoming(enclosingFile: codeFile.path,
+            let ancestorSymbols = symbolNode.value.getIncoming(enclosingFile: codeFile.path,
                                                                  hashMap: hashMap)
             
             for ancestorSymbol in ancestorSymbols

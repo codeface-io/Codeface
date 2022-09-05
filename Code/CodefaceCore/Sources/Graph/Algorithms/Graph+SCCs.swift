@@ -2,13 +2,13 @@ import SwiftyToolz
 
 extension Graph
 {
-    func findStronglyConnectedComponents() -> Set<Set<Node<NodeContent>>>
+    func findStronglyConnectedComponents() -> Set<Set<Node>>
     {
-        var resultingSCCs = Set<Set<Node<NodeContent>>>()
+        var resultingSCCs = Set<Set<Node>>()
         
-        var markingsHash = [Node<NodeContent>: NodeMarkings]()
+        var markingsHash = [Node: NodeMarkings]()
         var index = 0
-        var stack = [Node<NodeContent>]()
+        var stack = [Node]()
         
         for node in nodes
         {
@@ -25,11 +25,11 @@ extension Graph
     }
     
     @discardableResult
-    private func findSCCsRecursively(node: Node<NodeContent>,
+    private func findSCCsRecursively(node: Node,
                                      index: inout Int,
-                                     stack: inout [Node<NodeContent>],
-                                     markingsHash: inout [Node<NodeContent>: NodeMarkings],
-                                     handleNewSCC: (Set<Node<NodeContent>>) -> Void) -> NodeMarkings
+                                     stack: inout [Node],
+                                     markingsHash: inout [Node: NodeMarkings],
+                                     handleNewSCC: (Set<Node>) -> Void) -> NodeMarkings
     {
         // Set the depth index for node to the smallest unused index
         assert(markingsHash[node] == nil, "there shouldn't be a markings object for this node yet")
@@ -40,7 +40,7 @@ extension Graph
         markingsHash[node] = nodeMarkings
         
         // Consider descendants of node
-        for target in descandants(of: node)
+        for target in descendants(of: node)
         {
             if let targetMarkings = markingsHash[target]
             {
@@ -67,7 +67,7 @@ extension Graph
         // If node is a root node, pop the stack and generate an SCC
         if nodeMarkings.lowLink == nodeMarkings.index
         {
-            var newSCC = Set<Node<NodeContent>>()
+            var newSCC = Set<Node>()
             
             while !stack.isEmpty
             {

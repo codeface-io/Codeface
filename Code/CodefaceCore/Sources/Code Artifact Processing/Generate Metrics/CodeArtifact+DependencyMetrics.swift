@@ -4,9 +4,9 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
     // write component ranks by component size
     let components = scopeGraph.findComponents()
     
-    var componentsWithSize: [(Set<Node<Part>>, Int)] = components.map
+    var componentsWithSize: [(Set<GraphNode<Part>>, Int)] = components.map
     {
-        ($0, $0.sum { $0.content.linesOfCode })
+        ($0, $0.sum { $0.value.linesOfCode })
     }
     
     componentsWithSize.sort { $0.1 > $1.1 }
@@ -17,7 +17,7 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
         
         for node in component
         {
-            node.content.metrics.componentRank = componentIndex
+            node.value.metrics.componentRank = componentIndex
         }
     }
     
@@ -37,12 +37,12 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
         {
             let condensationNode = condensationNodesSortedByAncestors[condensationNodeIndex]
             
-            let condensationNodeContainsCycles = condensationNode.content.stronglyConnectedComponent.count > 1
+            let condensationNodeContainsCycles = condensationNode.value.nodes.count > 1
             
-            for sccNode in condensationNode.content.stronglyConnectedComponent
+            for sccNode in condensationNode.value.nodes
             {
-                sccNode.content.metrics.sccIndexTopologicallySorted = condensationNodeIndex
-                sccNode.content.metrics.isInACycle = condensationNodeContainsCycles
+                sccNode.value.metrics.sccIndexTopologicallySorted = condensationNodeIndex
+                sccNode.value.metrics.isInACycle = condensationNodeContainsCycles
             }
         }
         
@@ -55,8 +55,8 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
             let source = componentDependency.source
             let target = componentDependency.target
             
-            guard let sourceSCCIndex = source.content.metrics.sccIndexTopologicallySorted,
-                  let targetSCCIndex = target.content.metrics.sccIndexTopologicallySorted
+            guard let sourceSCCIndex = source.value.metrics.sccIndexTopologicallySorted,
+                  let targetSCCIndex = target.value.metrics.sccIndexTopologicallySorted
             else
             {
                 fatalError("At this point, artifacts shoud have their scc index set")
@@ -69,8 +69,8 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
             // find the corresponding edge in the condensation graph
             let condensationSource = condensationNodesSortedByAncestors[sourceSCCIndex]
             let condensationTarget = condensationNodesSortedByAncestors[targetSCCIndex]
-            let condensationEdgeID = Edge.ID(sourceContent: condensationSource.content,
-                                             targetContent: condensationTarget.content)
+            let condensationEdgeID = GraphEdge.ID(sourceValue: condensationSource.value,
+                                             targetValue: condensationTarget.value)
             
             let isEssentialDependency = minimumCondensationGraph.hasEdge(condensationEdgeID)
             
@@ -84,7 +84,7 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
     // write numbers of dependencies
     for partNode in scopeGraph.nodes
     {
-        partNode.content.metrics.ingoingDependenciesInScope = scopeGraph.ancestors(of: partNode).count
-        partNode.content.metrics.outgoingDependenciesInScope = scopeGraph.descandants(of: partNode).count
+        partNode.value.metrics.ingoingDependenciesInScope = scopeGraph.ancestors(of: partNode).count
+        partNode.value.metrics.outgoingDependenciesInScope = scopeGraph.descendants(of: partNode).count
     }
 }

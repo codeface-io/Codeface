@@ -9,10 +9,10 @@ extension Graph
      
      See <https://en.wikipedia.org/wiki/Transitive_reduction>
      */
-    func makeMinimumEquivalentGraph() -> Graph<NodeContent>
+    func makeMinimumEquivalentGraph() -> Graph<NodeValue>
     {
-        var indirectReachabilities = Edges<NodeContent>()
-        var consideredAncestorsHash = [Node<NodeContent>: Set<Node<NodeContent>>]()
+        var indirectReachabilities = Edges<NodeValue>()
+        var consideredAncestorsHash = [Node: Set<Node>]()
         
         let sourceNodes = nodes.filter { ancestors(of: $0).count == 0 }
         
@@ -30,11 +30,11 @@ extension Graph
         return removing(indirectReachabilities) 
     }
     
-    private func findIndirectReachabilities(around node: Node<NodeContent>,
-                                            reachedAncestors: Set<Node<NodeContent>>,
-                                            consideredAncestorsHash: inout [Node<NodeContent>: Set<Node<NodeContent>>]) -> Edges<NodeContent>
+    private func findIndirectReachabilities(around node: Node,
+                                            reachedAncestors: Set<Node>,
+                                            consideredAncestorsHash: inout [Node: Set<Node>]) -> Edges<NodeValue>
     {
-        let consideredAncestors = consideredAncestorsHash[node, default: Set<Node<NodeContent>>()]
+        let consideredAncestors = consideredAncestorsHash[node, default: Set<Node>()]
         let ancestorsToConsider = reachedAncestors - consideredAncestors
         
         if !reachedAncestors.isEmpty && ancestorsToConsider.isEmpty
@@ -43,13 +43,13 @@ extension Graph
             return .empty
         }
         
-        consideredAncestorsHash[node, default: Set<Node<NodeContent>>()] += ancestorsToConsider
+        consideredAncestorsHash[node, default: Set<Node>()] += ancestorsToConsider
         
-        var indirectReachabilities = Edges<NodeContent>()
+        var indirectReachabilities = Edges<NodeValue>()
         
         // base case: add edges from all reached ancestors to all reachable neighbours of node
         
-        let descendants = descandants(of: node)
+        let descendants = descendants(of: node)
         
         for ancestor in ancestorsToConsider
         {
