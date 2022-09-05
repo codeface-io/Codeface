@@ -12,15 +12,15 @@ extension CodeFileArtifact
         // TODO: consider persisting this as a hashmap to accelerate development via an example data dump
         let lspDocSymbols = try await server.requestSymbols(in: codeFile.path)
         
-        symbols = [CodeSymbolArtifact]()
-        
         for lspDocSymbol in lspDocSymbols
         {
-            symbols += await CodeSymbolArtifact(lspDocSymbol: lspDocSymbol,
-                                                codeFileLines: codeFile.lines,
-                                                scope: self,
-                                                file: codeFile.path,
-                                                server: server)
+            let symbol = await CodeSymbolArtifact(lspDocSymbol: lspDocSymbol,
+                                                  codeFileLines: codeFile.lines,
+                                                  scope: self,
+                                                  file: codeFile.path,
+                                                  server: server)
+            
+            symbols += Node(content: symbol)
         }
     }
 }

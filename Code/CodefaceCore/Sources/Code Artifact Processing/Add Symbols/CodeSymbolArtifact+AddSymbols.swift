@@ -20,15 +20,16 @@ extension CodeSymbolArtifact
                   scope: scope)
         
         /// create subsymbols recursively
-        subsymbols = [CodeSymbolArtifact]()
         
         for childLSPDocSymbol in lspDocSymbol.children
         {
-            await subsymbols += CodeSymbolArtifact(lspDocSymbol: childLSPDocSymbol,
+            let subsymbol = await CodeSymbolArtifact(lspDocSymbol: childLSPDocSymbol,
                                                    codeFileLines: codeFileLines,
                                                    scope: self,
                                                    file: file,
                                                    server: server)
+            
+            subsymbols += Node(content: subsymbol)
         }
     }
 }

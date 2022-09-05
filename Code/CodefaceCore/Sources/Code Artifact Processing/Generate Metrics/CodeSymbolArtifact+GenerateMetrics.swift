@@ -4,7 +4,7 @@ extension CodeSymbolArtifact
 {
     func generateMetrics()
     {
-        subsymbols.forEach { $0.generateMetrics() }
+        subsymbols.forEach { $0.content.generateMetrics() }
         
         generateSizeMetrics()
         generateDependencyMetrics()
@@ -12,14 +12,14 @@ extension CodeSymbolArtifact
     
     private func generateSizeMetrics()
     {
-        subsymbols.forEach { $0.generateSizeMetrics() }
+        subsymbols.forEach { $0.content.generateSizeMetrics() }
         
-        let locOfAllSubsymbols = subsymbols.sum { $0.linesOfCode }
+        let locOfAllSubsymbols = subsymbols.sum { $0.content.linesOfCode }
         metrics.linesOfCodeOfParts = locOfAllSubsymbols
         
         subsymbols.forEach
         {
-            $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfAllSubsymbols)
+            $0.content.metrics.sizeRelativeToAllPartsInScope = Double($0.content.linesOfCode) / Double(locOfAllSubsymbols)
         }
         
         let loc = (range.end.line - range.start.line) + 1

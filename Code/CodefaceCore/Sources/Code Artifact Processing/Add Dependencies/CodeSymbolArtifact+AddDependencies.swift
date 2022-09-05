@@ -8,8 +8,8 @@ extension CodeSymbolArtifact
     {
         for subsymbol in subsymbols
         {
-            try await subsymbol.retrieveReferencesRecursively(enclosingFile: file,
-                                                              server: server)
+            try await subsymbol.content.retrieveReferencesRecursively(enclosingFile: file,
+                                                                      server: server)
         }
         
         try await retrieveReferences(enclosingFile: file, server: server)
@@ -38,23 +38,29 @@ extension CodeSymbolArtifact
     {
         for subsymbol in subsymbols
         {
-            subsymbol.generateSubsymbolDependenciesRecursively(enclosingFile: file,
+            subsymbol.content.generateSubsymbolDependenciesRecursively(enclosingFile: file,
                                                                hashMap: hashMap)
         }
         
-        for subsymbol in subsymbols
+        for subsymbolNode in subsymbols
         {
-            let incoming = subsymbol.getIncoming(enclosingFile: file,
-                                                 hashMap: hashMap)
+            let ancestorSubsymbols = subsymbolNode.content.getIncoming(enclosingFile: file,
+                                                                hashMap: hashMap)
             
-            subsymbolDependencies.add(incoming)
+            for ancestorSubsymbol in ancestorSubsymbols
+            {
+                if let ancestorSubsymbolNode = subsymbols.first(where: { $0.content === ancestorSubsymbol })
+                {
+                    subsymbolDependencies.addEdge(from: ancestorSubsymbolNode, to: subsymbolNode)
+                }
+            }
         }
     }
     
     func getIncoming(enclosingFile file: LSPDocumentUri,
-                     hashMap: CodeFileArtifactHashmap) -> Edges<CodeSymbolArtifact>
+                     hashMap: CodeFileArtifactHashmap) -> [CodeSymbolArtifact]
     {
-        var incomingInScope = Edges<CodeSymbolArtifact>()
+        var incomingInScope = [CodeSymbolArtifact]()
         
         for referencingLocation in references
         {
@@ -94,7 +100,7 @@ extension CodeSymbolArtifact
             if scope === dependingSymbol.scope
             {
                 // dependency within same scope (between siblings)
-                incomingInScope.addEdge(from: dependingSymbol, to: self)
+                incomingInScope += dependingSymbol
             }
             else
             {
@@ -167,7 +173,7 @@ private extension CodeFileArtifact
     {
         for symbol in symbols
         {
-            if let artifact = symbol.findSymbolArtifact(containing: range)
+            if let artifact = symbol.content.findSymbolArtifact(containing: range)
             {
                 return artifact
             }
@@ -184,7 +190,7 @@ private extension CodeSymbolArtifact
         // depth first!!! we want the deepest symbol that contains the range
         for subsymbol in subsymbols
         {
-            if let artifact = subsymbol.findSymbolArtifact(containing: range)
+            if let artifact = subsymbol.content.findSymbolArtifact(containing: range)
             {
                 return artifact
             }

@@ -24,7 +24,7 @@ extension CodeFolderArtifact
     {
         parts.forEach
         {
-            switch $0.kind
+            switch $0.content.kind
             {
             case .subfolder(let subfolder):
                 subfolder.iterateThroughFilesRecursively(actOnFile)

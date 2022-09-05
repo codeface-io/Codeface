@@ -4,9 +4,9 @@ extension CodeFileArtifact
     {
         for symbol in symbols
         {
-            symbol.sort()
+            symbol.content.sort()
         }
         
-        symbols.sort()
+        symbols.sort { $0.content < $1.content }
     }
 }

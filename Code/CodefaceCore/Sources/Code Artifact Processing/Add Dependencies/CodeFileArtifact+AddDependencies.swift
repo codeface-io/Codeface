@@ -6,7 +6,7 @@ extension CodeFileArtifact
     {
         for symbol in symbols
         {
-            try await symbol.retrieveReferencesRecursively(enclosingFile: codeFile.path,
+            try await symbol.content.retrieveReferencesRecursively(enclosingFile: codeFile.path,
                                                            server: server)
         }
     }
@@ -15,16 +15,22 @@ extension CodeFileArtifact
     {
         for symbol in symbols
         {
-            symbol.generateSubsymbolDependenciesRecursively(enclosingFile: codeFile.path,
+            symbol.content.generateSubsymbolDependenciesRecursively(enclosingFile: codeFile.path,
                                                             hashMap: hashMap)
         }
         
-        for symbol in symbols
+        for symbolNode in symbols
         {
-            let incoming = symbol.getIncoming(enclosingFile: codeFile.path,
-                                              hashMap: hashMap)
+            let ancestorSymbols = symbolNode.content.getIncoming(enclosingFile: codeFile.path,
+                                                                 hashMap: hashMap)
             
-            symbolDependencies.add(incoming)
+            for ancestorSymbol in ancestorSymbols
+            {
+                if let ancestorSymbolNode = symbols.first(where: { $0.content === ancestorSymbol })
+                {
+                    symbolDependencies.addEdge(from: ancestorSymbolNode, to: symbolNode)
+                }
+            }
         }
     }
 }

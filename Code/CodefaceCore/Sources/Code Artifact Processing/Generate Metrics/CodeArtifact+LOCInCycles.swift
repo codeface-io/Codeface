@@ -4,7 +4,7 @@ extension CodeFolderArtifact
     {
         parts.forEach
         {
-            switch $0.kind
+            switch $0.content.kind
             {
             case .file(let file):
                 file.generateLinesOfCodeInCycles()
@@ -15,7 +15,7 @@ extension CodeFolderArtifact
         
         metrics.linesOfCodeOfPartsInCycles = parts.sum
         {
-            $0.metrics.isInACycle ?? false ? $0.linesOfCode : $0.metrics.linesOfCodeOfPartsInCycles ?? 0
+            $0.content.metrics.isInACycle ?? false ? $0.content.linesOfCode : $0.content.metrics.linesOfCodeOfPartsInCycles ?? 0
         }
     }
 }
@@ -24,11 +24,11 @@ extension CodeFileArtifact
 {
     fileprivate func generateLinesOfCodeInCycles()
     {
-        symbols.forEach { $0.generateLinesOfCodeInCycles() }
+        symbols.forEach { $0.content.generateLinesOfCodeInCycles() }
         
         metrics.linesOfCodeOfPartsInCycles = symbols.sum
         {
-            $0.metrics.isInACycle ?? false ? $0.linesOfCode : $0.metrics.linesOfCodeOfPartsInCycles ?? 0
+            $0.content.metrics.isInACycle ?? false ? $0.content.linesOfCode : $0.content.metrics.linesOfCodeOfPartsInCycles ?? 0
         }
     }
 }
@@ -37,11 +37,11 @@ extension CodeSymbolArtifact
 {
     fileprivate func generateLinesOfCodeInCycles()
     {
-        subsymbols.forEach { $0.generateLinesOfCodeInCycles() }
+        subsymbols.forEach { $0.content.generateLinesOfCodeInCycles() }
         
         metrics.linesOfCodeOfPartsInCycles = subsymbols.sum
         {
-            $0.metrics.isInACycle ?? false ? $0.linesOfCode : $0.metrics.linesOfCodeOfPartsInCycles ?? 0
+            $0.content.metrics.isInACycle ?? false ? $0.content.linesOfCode : $0.content.metrics.linesOfCodeOfPartsInCycles ?? 0
         }
     }
 }

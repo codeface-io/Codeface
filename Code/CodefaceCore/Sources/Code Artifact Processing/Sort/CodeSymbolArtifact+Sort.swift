@@ -4,10 +4,10 @@ extension CodeSymbolArtifact
     {
         for subSymbol in subsymbols
         {
-            subSymbol.sort()
+            subSymbol.content.sort()
         }
         
-        subsymbols.sort()
+        subsymbols.sort { $0.content < $1.content }
     }
 }
 

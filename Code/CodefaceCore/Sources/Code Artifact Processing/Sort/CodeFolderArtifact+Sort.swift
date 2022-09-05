@@ -4,14 +4,14 @@ public extension CodeFolderArtifact
     {
         for part in parts
         {
-            switch part.kind
+            switch part.content.kind
             {
             case .subfolder(let folder): folder.sort()
             case .file(let file): file.sort()
             }
         }
         
-        partsByArtifactHash.values.sort()
+        partsByArtifactHash.values.sort { $0.content < $1.content }
     }
 }
 

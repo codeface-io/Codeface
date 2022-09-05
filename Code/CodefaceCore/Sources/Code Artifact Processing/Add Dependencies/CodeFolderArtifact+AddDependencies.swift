@@ -6,7 +6,7 @@ public extension CodeFolderArtifact
     {
         for part in parts
         {
-            switch part.kind
+            switch part.content.kind
             {
             case .subfolder(let subfolder):
                 try await subfolder.requestReferences(from: server)
@@ -26,7 +26,7 @@ public extension CodeFolderArtifact
     {
         for part in parts
         {
-            switch part.kind
+            switch part.content.kind
             {
             case .subfolder(let subfolder):
                 subfolder.generateDependencies(using: hashMap)

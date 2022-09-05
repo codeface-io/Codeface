@@ -12,7 +12,7 @@ extension Graph
     func makeMinimumEquivalentGraph() -> Graph<NodeContent>
     {
         var indirectReachabilities = Edges<NodeContent>()
-        var consideredAncestorsHash = [NodeContent: Set<NodeContent>]()
+        var consideredAncestorsHash = [Node<NodeContent>: Set<Node<NodeContent>>]()
         
         let sourceNodes = allNodes.filter { ancestors(of: $0).count == 0 }
         
@@ -30,11 +30,11 @@ extension Graph
         return removing(indirectReachabilities) 
     }
     
-    private func findIndirectReachabilities(around node: NodeContent,
-                                            reachedAncestors: Set<NodeContent>,
-                                            consideredAncestorsHash: inout [NodeContent: Set<NodeContent>]) -> Edges<NodeContent>
+    private func findIndirectReachabilities(around node: Node<NodeContent>,
+                                            reachedAncestors: Set<Node<NodeContent>>,
+                                            consideredAncestorsHash: inout [Node<NodeContent>: Set<Node<NodeContent>>]) -> Edges<NodeContent>
     {
-        let consideredAncestors = consideredAncestorsHash[node, default: Set<NodeContent>()]
+        let consideredAncestors = consideredAncestorsHash[node, default: Set<Node<NodeContent>>()]
         let ancestorsToConsider = reachedAncestors - consideredAncestors
         
         if !reachedAncestors.isEmpty && ancestorsToConsider.isEmpty
@@ -43,7 +43,7 @@ extension Graph
             return .empty
         }
         
-        consideredAncestorsHash[node, default: Set<NodeContent>()] += ancestorsToConsider
+        consideredAncestorsHash[node, default: Set<Node<NodeContent>>()] += ancestorsToConsider
         
         var indirectReachabilities = Edges<NodeContent>()
         

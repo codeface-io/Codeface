@@ -8,7 +8,7 @@ public extension CodeFolderArtifact
     {
         for part in partsByArtifactHash.values
         {
-            switch part.kind
+            switch part.content.kind
             {
             case .subfolder(let subfolder):
                 try await subfolder.addSymbolArtifacts(using: server)

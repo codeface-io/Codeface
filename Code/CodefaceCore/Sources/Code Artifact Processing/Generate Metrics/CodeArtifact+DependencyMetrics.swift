@@ -1,14 +1,14 @@
-func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
+func writeDependencyMetrics<Part>(toParts scopeNodes: [Node<Part>],
                                   dependencies scopeDependencies: inout Edges<Part>)
     where Part: CodeArtifact & Hashable & Identifiable
 {
     // write component ranks by component size
-    let scopeGraph = Graph(nodes: Set(scopeParts), edges: scopeDependencies)
+    let scopeGraph = Graph(nodes: Set(scopeNodes), edges: scopeDependencies)
     let components = scopeGraph.findComponents()
     
-    var componentsWithSize: [(Set<Part>, Int)] = components.map
+    var componentsWithSize: [(Set<Node<Part>>, Int)] = components.map
     {
-        ($0, $0.sum { $0.linesOfCode })
+        ($0, $0.sum { $0.content.linesOfCode })
     }
     
     componentsWithSize.sort { $0.1 > $1.1 }
@@ -17,9 +17,9 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
     {
         let component = componentsWithSize[componentIndex].0
         
-        for part in component
+        for node in component
         {
-            part.metrics.componentRank = componentIndex
+            node.content.metrics.componentRank = componentIndex
         }
     }
     
@@ -41,12 +41,12 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
         {
             let condensationNode = condensationNodesSortedByAncestors[condensationNodeIndex]
             
-            let condensationNodeContainsCycles = condensationNode.stronglyConnectedComponent.count > 1
+            let condensationNodeContainsCycles = condensationNode.content.stronglyConnectedComponent.count > 1
             
-            for sccNode in condensationNode.stronglyConnectedComponent
+            for sccNode in condensationNode.content.stronglyConnectedComponent
             {
-                sccNode.metrics.sccIndexTopologicallySorted = condensationNodeIndex
-                sccNode.metrics.isInACycle = condensationNodeContainsCycles
+                sccNode.content.metrics.sccIndexTopologicallySorted = condensationNodeIndex
+                sccNode.content.metrics.isInACycle = condensationNodeContainsCycles
             }
         }
         
@@ -59,8 +59,8 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
             let source = componentDependency.source
             let target = componentDependency.target
             
-            guard let sourceSCCIndex = source.metrics.sccIndexTopologicallySorted,
-                  let targetSCCIndex = target.metrics.sccIndexTopologicallySorted
+            guard let sourceSCCIndex = source.content.metrics.sccIndexTopologicallySorted,
+                  let targetSCCIndex = target.content.metrics.sccIndexTopologicallySorted
             else
             {
                 fatalError("At this point, artifacts shoud have their scc index set")
@@ -73,7 +73,8 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
             // find the corresponding edge in the condensation graph
             let condensationSource = condensationNodesSortedByAncestors[sourceSCCIndex]
             let condensationTarget = condensationNodesSortedByAncestors[targetSCCIndex]
-            let condensationEdgeID = Edge.ID(source: condensationSource, target: condensationTarget)
+            let condensationEdgeID = Edge.ID(sourceContent: condensationSource.content,
+                                             targetContent: condensationTarget.content)
             
             let isEssentialDependency = minimumCondensationGraph.hasEdge(condensationEdgeID)
             
@@ -85,9 +86,9 @@ func writeDependencyMetrics<Part>(toParts scopeParts: [Part],
     }
     
     // write numbers of dependencies
-    for part in scopeParts
+    for partNode in scopeNodes
     {
-        part.metrics.ingoingDependenciesInScope = scopeDependencies.ingoing(to: part).count
-        part.metrics.outgoingDependenciesInScope = scopeDependencies.outgoing(from: part).count
+        partNode.content.metrics.ingoingDependenciesInScope = scopeDependencies.ingoing(to: partNode).count
+        partNode.content.metrics.outgoingDependenciesInScope = scopeDependencies.outgoing(from: partNode).count
     }
 }

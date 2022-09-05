@@ -23,9 +23,11 @@ public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
         }
     }
     
-    mutating func addEdge(from source: NodeContent, to target: NodeContent)
+    mutating func addEdge(from source: Node<NodeContent>,
+                          to target: Node<NodeContent>)
     {
-        let edgeID = EdgeID(source: source, target: target)
+        let edgeID = EdgeID(sourceContent: source.content,
+                            targetContent: target.content)
         
         if let edge = hashMap[edgeID]
         {
@@ -39,7 +41,7 @@ public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
     
     // MARK: - Making Transformations
     
-    func reduced(to nodes: Set<NodeContent>) -> Edges<NodeContent>
+    func reduced(to nodes: Set<Node<NodeContent>>) -> Edges<NodeContent>
     {
         var reducedEdges = self
         
@@ -70,27 +72,28 @@ public struct Edges<NodeContent: Hashable & Identifiable & AnyObject>
         hashMap[edgeID] != nil
     }
     
-    func edge(from source: NodeContent, to target: NodeContent) -> Edge<NodeContent>?
+    func edge(from source: Node<NodeContent>,
+              to target: Node<NodeContent>) -> Edge<NodeContent>?
     {
-        hashMap[EdgeID(source: source, target: target)]
+        hashMap[EdgeID(sourceContent: source.content, targetContent: target.content)]
     }
     
     // TODO: hash by source for performance
-    func outgoing(from source: NodeContent) -> [Edge<NodeContent>]
+    func outgoing(from source: Node<NodeContent>) -> [Edge<NodeContent>]
     {
         Array(hashMap.values.filter { $0.source === source })
     }
     
     // TODO: hash by target for performance
-    func ingoing(to target: NodeContent) -> [Edge<NodeContent>]
+    func ingoing(to target: Node<NodeContent>) -> [Edge<NodeContent>]
     {
         Array(hashMap.values.filter { $0.target === target })
     }
     
     public var all: [Edge<NodeContent>] { Array(hashMap.values) }
     
-    var sources: [NodeContent] { hashMap.values.map { $0.source } }
-    var targets: [NodeContent] { hashMap.values.map { $0.target } }
+    var sources: [NodeContent] { hashMap.values.map { $0.source.content } }
+    var targets: [NodeContent] { hashMap.values.map { $0.target.content } }
     
     var count: Int { hashMap.count }
     

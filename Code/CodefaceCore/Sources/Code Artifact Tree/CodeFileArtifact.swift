@@ -14,14 +14,15 @@ extension CodeFileArtifact: CodeArtifact
             return
         }
         
-        // TODO: make this sanity check O(1) or remove it after a while #performance
-        guard symbols.contains(sourceSymbol) && symbols.contains(targetSymbol) else
+        guard let sourceNode = symbols.first(where: { $0.content === sourceSymbol } ),
+              let targetNode = symbols.first(where: { $0.content === targetSymbol } )
+        else
         {
-            log(error: "Tried to add dependency to file between symbols outside the file")
+            log(error: "Tried to add dependency to file scope between symbols artifacts that are not in scope.")
             return
         }
         
-        symbolDependencies.addEdge(from: sourceSymbol, to: targetSymbol)
+        symbolDependencies.addEdge(from: sourceNode, to: targetNode)
     }
     
     public var name: String { codeFile.name }
@@ -45,7 +46,7 @@ public class CodeFileArtifact: Identifiable, ObservableObject
     
     public weak var scope: CodeArtifact?
     
-    public var symbols = [CodeSymbolArtifact]()
+    public var symbols = [Node<CodeSymbolArtifact>]()
     public var symbolDependencies = Edges<CodeSymbolArtifact>()
     
     // MARK: - Basics

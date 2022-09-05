@@ -2,7 +2,7 @@ extension CodeFileArtifact
 {
     func generateMetrics()
     {
-        symbols.forEach { $0.generateMetrics() }
+        symbols.forEach { $0.content.generateMetrics() }
         
         generateSizeMetrics()
         generateDependencyMetrics()
@@ -10,12 +10,12 @@ extension CodeFileArtifact
     
     private func generateSizeMetrics()
     {
-        let locOfAllSymbols = symbols.sum { $0.linesOfCode }
+        let locOfAllSymbols = symbols.sum { $0.content.linesOfCode }
         metrics.linesOfCodeOfParts = locOfAllSymbols
         
         symbols.forEach
         {
-            $0.metrics.sizeRelativeToAllPartsInScope = Double($0.linesOfCode) / Double(locOfAllSymbols)
+            $0.content.metrics.sizeRelativeToAllPartsInScope = Double($0.content.linesOfCode) / Double(locOfAllSymbols)
         }
         
         metrics.linesOfCode = codeFile.lines.count

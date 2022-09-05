@@ -15,9 +15,13 @@ extension CodeSymbolArtifact: CodeArtifact
             return
         }
         
-        // TODO: do sanity check that source and target are actually subsymbols of this symbol ... requires that subsymbols are in an ordered set (order is important here)
+        guard let sourceNode = subsymbols.first(where: { $0.content === sourceSymbol }),
+              let targetNode = subsymbols.first(where: { $0.content === targetSymbol }) else {
+            log(error: "Tried to add dependency to symbol scope between subsymbols that are not in scope")
+            return
+        }
         
-        subsymbolDependencies.addEdge(from: sourceSymbol, to: targetSymbol)
+        subsymbolDependencies.addEdge(from: sourceNode, to: targetNode)
     }
     
     public static var kindNames: [String] { LSPDocumentSymbol.SymbolKind.names }
@@ -53,7 +57,7 @@ public class CodeSymbolArtifact: Identifiable, ObservableObject
     public weak var scope: CodeArtifact?
     
     public var subsymbolDependencies = Edges<CodeSymbolArtifact>()
-    public var subsymbols = [CodeSymbolArtifact]()
+    public var subsymbols = [Node<CodeSymbolArtifact>]()
     
     // MARK: - Basics
     

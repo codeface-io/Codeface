@@ -7,17 +7,17 @@ extension Graph
      
      See <https://en.wikipedia.org/wiki/Strongly_connected_component>
      */
-    func makeCondensation() -> Graph<CondensationNode>
+    func makeCondensation() -> Graph<CondensationNodeContent>
     {
         let stronglyConnectedComponents = findStronglyConnectedComponents()
         
         // create condensation nodes and a hashmap
-        var condensationNodes = Set<CondensationNode>()
-        var condensationNodeHash = [NodeContent: CondensationNode]()
+        var condensationNodes = Set<Node<CondensationNodeContent>>()
+        var condensationNodeHash = [Node<NodeContent>: Node<CondensationNodeContent>]()
         
         for scc in stronglyConnectedComponents
         {
-            let condensationNode = CondensationNode(stronglyConnectedComponent: scc)
+            let condensationNode = Node(content: CondensationNodeContent(stronglyConnectedComponent: scc))
             
             for sccNode in scc
             {
@@ -28,7 +28,7 @@ extension Graph
         }
         
         // create condensation edges
-        var condensationEdges = Edges<CondensationNode>()
+        var condensationEdges = Edges<CondensationNodeContent>()
         
         for edge in allEdges
         {
@@ -49,9 +49,9 @@ extension Graph
         return .init(nodes: condensationNodes, edges: condensationEdges)
     }
     
-    class CondensationNode: Hashable, Identifiable
+    class CondensationNodeContent: Hashable, Identifiable
     {
-        init(stronglyConnectedComponent: Set<NodeContent>)
+        init(stronglyConnectedComponent: Set<Node<NodeContent>>)
         {
             self.stronglyConnectedComponent = stronglyConnectedComponent
         }
@@ -61,11 +61,11 @@ extension Graph
             hasher.combine(ObjectIdentifier(self))
         }
         
-        static func == (lhs: CondensationNode, rhs: CondensationNode) -> Bool
+        static func == (lhs: CondensationNodeContent, rhs: CondensationNodeContent) -> Bool
         {
             lhs === rhs
         }
         
-        let stronglyConnectedComponent: Set<NodeContent>
+        let stronglyConnectedComponent: Set<Node<NodeContent>>
     }
 }

@@ -44,7 +44,7 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         
         for part in partArray
         {
-            self.partsByArtifactHash[part.hash] = part
+            self.partsByArtifactHash[part.hash] = Node(content: part)
         }
     }
     
@@ -123,8 +123,8 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
     
     // TODO: rather use an OrderedSet
     
-    public var parts: [PartNode] { Array(partsByArtifactHash.values) }
-    public var partsByArtifactHash = OrderedDictionary<CodeArtifact.Hash, PartNode>()
+    public var parts: [Node<PartNode>] { Array(partsByArtifactHash.values) }
+    public var partsByArtifactHash = OrderedDictionary<CodeArtifact.Hash, Node<PartNode>>()
     
     // MARK: - Basics
     
