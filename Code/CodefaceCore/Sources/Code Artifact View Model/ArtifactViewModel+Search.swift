@@ -81,12 +81,12 @@ public extension ArtifactViewModel
             }
         }
 
-        if codeArtifact.name.contains(searchTerm)
+        if codeArtifact.name.find(searchTerm)
         {
             containsSearchTermRegardlessOfParts = true
         }
 
-        if codeArtifact.kindName.contains(searchTerm)
+        if codeArtifact.kindName.find(searchTerm)
         {
             containsSearchTermRegardlessOfParts = true
         }
@@ -101,7 +101,7 @@ public extension ArtifactViewModel
 
             for lineIndex in 0 ..< fileArtifact.codeFile.lines.count
             {
-                if fileArtifact.codeFile.lines[lineIndex].contains(searchTerm)
+                if fileArtifact.codeFile.lines[lineIndex].find(searchTerm)
                 {
                     allMatches += lineIndex
                 }
@@ -145,5 +145,13 @@ public extension ArtifactViewModel
 
         case .folder: return []
         }
+    }
+}
+
+extension String
+{
+    func find(_ searchTerm: String) -> Bool
+    {
+        range(of: searchTerm, options: .caseInsensitive) != nil
     }
 }
