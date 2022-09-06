@@ -27,7 +27,7 @@ extension Graph
             indirectReachabilities += reachabilities
         }
         
-        return removing(indirectReachabilities)
+        return copyRemoving(indirectReachabilities)
     }
     
     private func findIndirectReachabilities(around node: Node,

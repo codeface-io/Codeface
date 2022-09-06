@@ -24,7 +24,7 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
     // analyze each component
     for componentNodes in components
     {
-        let componentGraph = scopeGraph.reduced(to: componentNodes)
+        let componentGraph = scopeGraph.copyReducing(to: componentNodes)
         let componentCondensationGraph = componentGraph.makeCondensation()
         
         // write scc numbers sorted by topology
@@ -69,12 +69,10 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
             // find the corresponding edge in the condensation graph
             let condensationSource = condensationNodesSortedByAncestors[sourceSCCIndex]
             let condensationTarget = condensationNodesSortedByAncestors[targetSCCIndex]
-            let condensationEdgeID = GraphEdge.ID(sourceValue: condensationSource.value,
-                                                  targetValue: condensationTarget.value)
+            let essentialEdge = minimumCondensationGraph.edge(from: condensationSource,
+                                                              to: condensationTarget)
             
-            let isEssentialDependency = minimumCondensationGraph.hasEdge(condensationEdgeID)
-            
-            if !isEssentialDependency
+            if essentialEdge == nil
             {
                 scopeGraph.remove(componentDependency)
             }

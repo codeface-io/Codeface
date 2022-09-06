@@ -8,7 +8,7 @@ extension Graph
      
      See <https://en.wikipedia.org/wiki/Strongly_connected_component>
      */
-    func makeCondensation() -> Graph<StronglyConnectedComponent>
+    func makeCondensation() -> CondensationGraph
     {
         let sccNodeSets = findStronglyConnectedComponents()
         
@@ -28,9 +28,10 @@ extension Graph
             condensationNodes += condensationNode
         }
         
-        // create condensation edges
-        var condensationEdges = Set<CondensationEdge>()
+        // create condensation graph
+        var condensationGraph = CondensationGraph(nodes: condensationNodes)
         
+        // add condensation edges
         for edge in edges
         {
             guard let sourceCN = condensationNodeHash[edge.source],
@@ -42,14 +43,15 @@ extension Graph
             
             if sourceCN !== targetCN
             {
-                condensationEdges += CondensationEdge(from: sourceCN, to: targetCN)
+                condensationGraph.addEdge(from: sourceCN, to: targetCN)
             }
         }
         
-        // create graph
-        return .init(nodes: condensationNodes, edges: condensationEdges)
+        // return graph
+        return condensationGraph
     }
     
+    typealias CondensationGraph = Graph<StronglyConnectedComponent>
     typealias CondensationNode = GraphNode<StronglyConnectedComponent>
     typealias CondensationEdge = GraphEdge<StronglyConnectedComponent>
     

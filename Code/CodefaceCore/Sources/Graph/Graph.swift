@@ -3,42 +3,59 @@ import SwiftyToolz
 
 public struct Graph<NodeValue: Identifiable>
 {
-    // MARK: - Create Graphs
+    // MARK: - Copy Subsets
     
-    public func reduced(to aFewNodes: Set<Node>) -> Graph<NodeValue>
+    public func copyReducing(to reducedNodes: Set<Node>) -> Graph<NodeValue>
     {
-        let reducedEdges = edgesByID.values.filter
+        let reducedNodesByIDKeysAndValues = reducedNodes.map { ($0.id, $0) }
+        let reducedNodesByID = NodesHash(uniqueKeysWithValues: reducedNodesByIDKeysAndValues)
+        
+        return copy(includedNodes: reducedNodesByID)
+    }
+    
+    public func copyRemoving(_ otherEdges: Set<Edge>) -> Graph<NodeValue>
+    {
+        copy(includedEdges: Set(edgesByID.values) - otherEdges)
+    }
+    
+    public func copy(includedNodes: NodesHash? = nil,
+                     includedEdges: Set<Edge>? = nil) -> Graph<NodeValue>
+    {
+        let nodesByIDOriginal = includedNodes ?? nodesByID
+        let nodesByIDKeysValuesCopy = nodesByIDOriginal.map { ($0.key, Node(value: $0.value.value)) }
+        let nodesByIDCopy = NodesHash(uniqueKeysWithValues: nodesByIDKeysValuesCopy)
+        
+        var graphCopy = Graph(orderedNodes: nodesByIDCopy)
+        
+        for originalEdge in includedEdges ?? Set(edgesByID.values)
         {
-            Set([$0.source, $0.target]).isSubset(of: aFewNodes)
+            graphCopy.addEdge(from: originalEdge.source.value, to: originalEdge.target.value)
         }
         
-        return Graph(nodes: aFewNodes, edges: Set(reducedEdges))
+        return graphCopy
     }
     
-    public func removing(_ otherEdges: Set<Edge>) -> Graph<NodeValue>
+    // MARK: - Initialize
+    
+    public init(nodes: Set<Node>)
     {
-        Graph(orderedNodes: nodesByID, edges: Set(edgesByID.values) - otherEdges)
+        self.init(orderedNodes: .init(uniqueKeysWithValues: nodes.map { ($0.id, $0) }))
     }
     
-    /**
-     It is possible that initial edges lead out of the set of nodes which would fuck up algorithms which are not aware of that – or slow down algorithms which are. Use `reduced(to:)` on `Edges` when you need to make sure the graph's edges are constrained to its nodes.
-     */
-    public init(nodes: Set<Node>, edges: Set<Edge>)
-    {
-        self.init(orderedNodes: .init(uniqueKeysWithValues: nodes.map { ($0.id, $0) }),
-                  edges: edges)
-    }
-    
-    public init(orderedNodes: OrderedDictionary<Node.ID, Node> = [:], edges: Set<Edge> = [])
+    public init(orderedNodes: NodesHash = [:])
     {
         self.nodesByID = orderedNodes
-        self.edgesByID = .init(uniqueKeysWithValues: edges.map { ($0.id, $0) })
     }
     
     // MARK: - Edges
     
     public mutating func remove(_ edge: Edge)
     {
+        // remove from node caches
+        edge.source.descendants -= edge.target
+        edge.target.ancestors -= edge.source
+        
+        // remove edge itself
         edgesByID[edge.id] = nil
     }
     
@@ -51,12 +68,7 @@ public struct Graph<NodeValue: Identifiable>
                                  to targetValueID: NodeValue.ID)
     {
         guard let sourceNode = node(for: sourceValueID),
-              let targetNode = node(for: targetValueID)
-        else
-        {
-            print("🛑 Error: Tried to add dependency between nodes that are not in the graph")
-            return
-        }
+              let targetNode = node(for: targetValueID) else { return }
         
         addEdge(from: sourceNode, to: targetNode)
     }
@@ -68,6 +80,8 @@ public struct Graph<NodeValue: Identifiable>
         if let edge = edgesByID[edgeID]
         {
             edge.count += 1
+            
+            // TODO: maintain count in edge caches in nodes as well, for algorithms that take edge weight into account when traversing the graph, like dijkstra shortest path ...
         }
         else
         {
@@ -97,14 +111,14 @@ public struct Graph<NodeValue: Identifiable>
         Array(edgesByID.values.filter { $0.source === node })
     }
     
-    public func hasEdge(_ edgeID: Edge.ID) -> Bool
+    public func edge(from source: Node, to target: Node) -> Edge?
     {
-        edgesByID[edgeID] != nil
+        edgesByID[.init(sourceValue: source.value, targetValue: target.value)]
     }
     
     public var edges: [Edge] { Array(edgesByID.values) }
     
-    private var edgesByID: [Edge.ID: Edge]
+    private var edgesByID = [Edge.ID: Edge]()
     
     public typealias Edge = GraphEdge<NodeValue>
     
@@ -134,7 +148,8 @@ public struct Graph<NodeValue: Identifiable>
     
     public var nodes: [Node] { nodesByID.elements.map { $0.value } }
     
-    private var nodesByID = OrderedDictionary<NodeValue.ID, Node>()
+    private var nodesByID = NodesHash()
     
+    public typealias NodesHash = OrderedDictionary<NodeValue.ID, Node>
     public typealias Node = GraphNode<NodeValue>
 }

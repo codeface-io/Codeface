@@ -1,3 +1,5 @@
+import SwiftyToolz
+
 public class GraphEdge<NodeValue: Identifiable>: Identifiable, Hashable
 {
     // MARK: - Initialize
@@ -8,6 +10,14 @@ public class GraphEdge<NodeValue: Identifiable>: Identifiable, Hashable
         self.target = target
         
         count = 1
+        
+        addToNodeCaches()
+    }
+    
+    func addToNodeCaches()
+    {
+        source.descendants += target
+        target.ancestors += source
     }
     
     // MARK: - Hashability
@@ -35,6 +45,8 @@ public class GraphEdge<NodeValue: Identifiable>: Identifiable, Hashable
     }
     
     // MARK: - Basic Data
+    
+    var nodes: Set<Node> { [source, target] }
     
     public var count: Int
     
