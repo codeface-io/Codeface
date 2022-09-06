@@ -89,28 +89,6 @@ public struct Graph<NodeValue: Identifiable>
         }
     }
     
-    public func descendants(of node: Node) -> [Node]
-    {
-        outgoingEdges(from: node).map { $0.target }
-    }
-    
-    public func ancestors(of node: Node) -> [Node]
-    {
-        ingoingEdges(to: node).map { $0.source }
-    }
-    
-    public func ingoingEdges(to node: Node) -> [Edge]
-    {
-        // TODO: hash by target for performance
-        Array(edgesByID.values.filter { $0.target === node })
-    }
-    
-    public func outgoingEdges(from node: Node) -> [Edge]
-    {
-        // TODO: hash by source for performance
-        Array(edgesByID.values.filter { $0.source === node })
-    }
-    
     public func edge(from source: Node, to target: Node) -> Edge?
     {
         edgesByID[.init(sourceValue: source.value, targetValue: target.value)]
@@ -145,6 +123,9 @@ public struct Graph<NodeValue: Identifiable>
     }
     
     public var values: [NodeValue] { nodes.map { $0.value } }
+    
+    public var sources: [Node] { nodes.filter { $0.ancestors.count == 0 } }
+    public var sinks: [Node] { nodes.filter { $0.descendants.count == 0 } }
     
     public var nodes: [Node] { nodesByID.elements.map { $0.value } }
     

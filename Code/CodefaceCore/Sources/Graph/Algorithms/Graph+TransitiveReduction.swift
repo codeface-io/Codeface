@@ -14,9 +14,7 @@ extension Graph
         var indirectReachabilities = Set<Edge>()
         var consideredAncestorsHash = [Node: Set<Node>]()
         
-        let sourceNodes = nodes.filter { ancestors(of: $0).count == 0 }
-        
-        for sourceNode in sourceNodes
+        for sourceNode in sources
         {
             // TODO: keep track of visited nodes within each traversal from a source and ignore already visited nodes so we can't get hung up in cycles
             
@@ -49,11 +47,11 @@ extension Graph
         
         // base case: add edges from all reached ancestors to all reachable neighbours of node
         
-        let descendants = descendants(of: node)
+        let descendants = node.descendants
         
-        for ancestor in ancestorsToConsider
+        for descendant in descendants
         {
-            for descendant in descendants
+            for ancestor in ancestorsToConsider
             {
                 indirectReachabilities += Edge(from: ancestor, to: descendant)
             }

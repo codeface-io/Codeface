@@ -40,7 +40,7 @@ extension Graph
         markingsHash[node] = nodeMarkings
         
         // Consider descendants of node
-        for target in descendants(of: node)
+        for target in node.descendants
         {
             if let targetMarkings = markingsHash[target]
             {

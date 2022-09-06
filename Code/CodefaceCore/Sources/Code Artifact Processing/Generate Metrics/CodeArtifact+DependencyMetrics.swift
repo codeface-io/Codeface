@@ -82,7 +82,7 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
     // write numbers of dependencies
     for partNode in scopeGraph.nodes
     {
-        partNode.value.metrics.ingoingDependenciesInScope = scopeGraph.ancestors(of: partNode).count
-        partNode.value.metrics.outgoingDependenciesInScope = scopeGraph.descendants(of: partNode).count
+        partNode.value.metrics.ingoingDependenciesInScope = partNode.ancestors.count
+        partNode.value.metrics.outgoingDependenciesInScope = partNode.descendants.count
     }
 }

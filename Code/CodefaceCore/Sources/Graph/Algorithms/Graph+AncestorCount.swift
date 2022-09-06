@@ -1,6 +1,5 @@
 import SwiftyToolz
 
-// TODO: for all algorithms: cache neighbours in nodes and leverage that
 // TODO: for all algorithms: make use of possibility to mark nodes directly
 // TODO: Then extract graph into its own open-source package
 
@@ -13,9 +12,7 @@ extension Graph
     {
         var ancestorCountsByNode = [Node: Int]()
         
-        let sinkNodes = nodes.filter { descendants(of: $0).count == 0 }
-
-        for sinkNode in sinkNodes
+        for sinkNode in sinks
         {
             getAncestorCount(for: sinkNode, results: &ancestorCountsByNode)
         }
@@ -31,8 +28,8 @@ extension Graph
         
         results[node] = 0 // marks the node as visited to avoid infinite loops in cyclic graphs
         
-        let ingoingEdges = ingoingEdges(to: node)
-        let directAncestors = ingoingEdges.map { $0.source }
+        let directAncestors = node.ancestors
+        let ingoingEdges = directAncestors.compactMap { edge(from: $0, to: node) }
         let directAncestorCount = ingoingEdges.sum { $0.count }
         
         let ancestorCount = directAncestorCount + directAncestors.sum

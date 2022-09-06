@@ -25,9 +25,7 @@ extension Graph
         
         var lackingNodes: Set<Node> = [node]
         
-        let neighbours = descendants(of: node) + ancestors(of: node)
-        
-        for neighbour in neighbours
+        for neighbour in node.neighbours
         {
             let extendedComponent = incompleteComponent + lackingNodes
             lackingNodes += findLackingNodes(forComponent: extendedComponent,
