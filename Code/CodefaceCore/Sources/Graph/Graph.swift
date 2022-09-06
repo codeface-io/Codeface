@@ -56,22 +56,12 @@ public struct Graph<NodeValue: Identifiable>
     
     // MARK: - Nodes
     
-    public func node(for value: NodeValue) -> Node?
-    {
-        node(for: value.id)
-    }
-    
-    public func node(for valueID: NodeValue.ID) -> Node?
-    {
-        nodesByID[valueID]
-    }
-    
     public var sources: [Node] { nodes.filter { $0.ancestors.count == 0 } }
     public var sinks: [Node] { nodes.filter { $0.descendants.count == 0 } }
     
     public var nodes: [Node] { nodesByID.elements.map { $0.value } }
     
-    internal var nodesByID = NodesHash()
+    public internal(set) var nodesByID = NodesHash()
     
     public typealias NodesHash = OrderedDictionary<NodeValue.ID, Node>
     public typealias Node = GraphNode<NodeValue>

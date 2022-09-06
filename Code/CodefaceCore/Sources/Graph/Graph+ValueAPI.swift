@@ -25,6 +25,18 @@ public extension Graph
         edgesByID[.init(sourceValueID: sourceValueID, targetValueID: targetValueID)]
     }
     
+    // MARK: - Nodes
+    
+    func node(for value: NodeValue) -> Node?
+    {
+        node(for: value.id)
+    }
+    
+    func node(for valueID: NodeValue.ID) -> Node?
+    {
+        nodesByID[valueID]
+    }
+    
     // MARK: - Values
     
     init(values: [NodeValue])
