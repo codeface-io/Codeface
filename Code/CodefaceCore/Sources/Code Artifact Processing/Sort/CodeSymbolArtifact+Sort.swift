@@ -7,7 +7,7 @@ extension CodeSymbolArtifact
             subSymbol.sort()
         }
         
-        subsymbolGraph.sortNodes { $0 < $1 }
+        subsymbolGraph.sort { $0 < $1 }
     }
 }
 

@@ -36,8 +36,13 @@ public class GraphEdge<NodeValue: Identifiable>: Identifiable, Hashable
     {
         init(sourceValue: NodeValue, targetValue: NodeValue)
         {
-            self.sourceValueID = sourceValue.id
-            self.targetValueID = targetValue.id
+            self.init(sourceValueID: sourceValue.id, targetValueID: targetValue.id)
+        }
+        
+        init(sourceValueID: NodeValue.ID, targetValueID: NodeValue.ID)
+        {
+            self.sourceValueID = sourceValueID
+            self.targetValueID = targetValueID
         }
         
         let sourceValueID: NodeValue.ID

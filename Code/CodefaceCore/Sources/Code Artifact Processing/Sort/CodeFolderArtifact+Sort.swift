@@ -11,7 +11,7 @@ public extension CodeFolderArtifact
             }
         }
         
-        partGraph.sortNodes { $0 < $1 }
+        partGraph.sort { $0 < $1 }
     }
 }
 

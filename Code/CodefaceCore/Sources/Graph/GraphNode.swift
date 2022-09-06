@@ -26,5 +26,5 @@ public class GraphNode<Value: Identifiable>: Identifiable, Hashable
     
     public var id: Value.ID { value.id }
     
-    let value: Value
+    public internal(set) var value: Value
 }

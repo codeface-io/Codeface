@@ -29,7 +29,7 @@ extension CodeSymbolArtifact
                                                      file: file,
                                                      server: server)
             
-            subsymbolGraph.addNode(for: subsymbol)
+            subsymbolGraph.insert(subsymbol)
         }
     }
 }

@@ -36,7 +36,7 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         
         for part in partArray
         {
-            partGraph.addNode(for: part)
+            partGraph.insert(part)
         }
     }
     

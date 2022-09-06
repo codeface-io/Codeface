@@ -7,6 +7,6 @@ extension CodeFileArtifact
             symbol.sort()
         }
         
-        symbolGraph.sortNodes { $0 < $1 }
+        symbolGraph.sort { $0 < $1 }
     }
 }
