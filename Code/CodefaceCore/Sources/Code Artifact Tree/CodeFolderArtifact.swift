@@ -1,5 +1,5 @@
 import Foundation
-import OrderedCollections
+import SwiftNodes
 import SwiftyToolz
 
 extension CodeFolderArtifact: CodeArtifact

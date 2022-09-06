@@ -1,4 +1,5 @@
 import Foundation
+import SwiftNodes
 import SwiftyToolz
 
 extension CodeFileArtifact: CodeArtifact

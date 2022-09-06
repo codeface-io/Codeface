@@ -26,6 +26,10 @@ let package = Package(
             branch: "master"
         ),
         .package(
+            url: "https://github.com/flowtoolz/SwiftNodes.git",
+            branch: "master"
+        ),
+        .package(
             url: "https://github.com/flowtoolz/SwiftyToolz.git",
             branch: "master"
         ),
@@ -42,6 +46,7 @@ let package = Package(
             dependencies: [
                 "SwiftLSP",
                 "FoundationToolz",
+                "SwiftNodes",
                 "SwiftyToolz",
                 .product(name: "OrderedCollections",
                          package: "swift-collections"),

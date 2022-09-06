@@ -1,3 +1,5 @@
+import SwiftNodes
+
 func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
     where Part: CodeArtifact & Identifiable
 {

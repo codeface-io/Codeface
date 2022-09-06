@@ -73,6 +73,7 @@
 		961AAD632899C3E6001CFF67 /* CodefaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CodefaceCore; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
+		962618A028C77477000E8F42 /* SwiftNodes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftNodes; path = ../../SwiftNodes; sourceTree = "<group>"; };
 		964308A4254B7B070026E56C /* CodefaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceView.swift; sourceTree = "<group>"; };
 		9648CBAD28BCB3A30011D3C7 /* SidebarAnalysisContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarAnalysisContent.swift; sourceTree = "<group>"; };
 		9648CBAF28BCB3DC0011D3C7 /* SidebarArtifactList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarArtifactList.swift; sourceTree = "<group>"; };
@@ -191,6 +192,7 @@
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
+				962618A028C77477000E8F42 /* SwiftNodes */,
 				9E00727A218E250E0094BD1C /* Code */,
 				96CFBB3428B57E100051C318 /* SwiftUIToolz */,
 				96B54D7B28B67D6300A1B26F /* FoundationToolz */,
