@@ -10,17 +10,17 @@ extension Graph
      */
     func makeCondensation() -> Graph<StronglyConnectedComponent>
     {
-        let stronglyConnectedComponents = findStronglyConnectedComponents()
+        let sccNodeSets = findStronglyConnectedComponents()
         
         // create condensation nodes and a hashmap
         var condensationNodes = Set<CondensationNode>()
         var condensationNodeHash = [Node: CondensationNode]()
         
-        for scc in stronglyConnectedComponents
+        for sccNodes in sccNodeSets
         {
-            let condensationNode = CondensationNode(value: StronglyConnectedComponent(nodes: scc))
+            let condensationNode = CondensationNode(value: StronglyConnectedComponent(nodes: sccNodes))
             
-            for sccNode in scc
+            for sccNode in sccNodes
             {
                 condensationNodeHash[sccNode] = condensationNode
             }
@@ -29,7 +29,7 @@ extension Graph
         }
         
         // create condensation edges
-        var condensationEdges = Set<GraphEdge<StronglyConnectedComponent>>()
+        var condensationEdges = Set<CondensationEdge>()
         
         for edge in edges
         {
@@ -53,22 +53,11 @@ extension Graph
     typealias CondensationNode = GraphNode<StronglyConnectedComponent>
     typealias CondensationEdge = GraphEdge<StronglyConnectedComponent>
     
-    class StronglyConnectedComponent: Hashable, Identifiable
+    class StronglyConnectedComponent: Identifiable
     {
         init(nodes: Set<Node>)
         {
             self.nodes = nodes
-        }
-        
-        func hash(into hasher: inout Hasher)
-        {
-            hasher.combine(ObjectIdentifier(self))
-        }
-        
-        static func == (lhs: StronglyConnectedComponent,
-                        rhs: StronglyConnectedComponent) -> Bool
-        {
-            lhs === rhs
         }
         
         let nodes: Set<Node>

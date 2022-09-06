@@ -15,13 +15,13 @@ public extension CodeFolderArtifact
     }
 }
 
-extension CodeFolderArtifact.PartNodeValue: Comparable
+extension CodeFolderArtifact.Part: Comparable
 {
-    public static func == (lhs: CodeFolderArtifact.PartNodeValue,
-                           rhs: CodeFolderArtifact.PartNodeValue) -> Bool {
+    public static func == (lhs: CodeFolderArtifact.Part,
+                           rhs: CodeFolderArtifact.Part) -> Bool {
         lhs.id == rhs.id
     }
     
-    public static func < (lhs: CodeFolderArtifact.PartNodeValue,
-                          rhs: CodeFolderArtifact.PartNodeValue) -> Bool { lhs.goesBefore(rhs) }
+    public static func < (lhs: CodeFolderArtifact.Part,
+                          rhs: CodeFolderArtifact.Part) -> Bool { lhs.goesBefore(rhs) }
 }

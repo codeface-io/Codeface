@@ -24,13 +24,13 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         
         let partArray = codeFolder.subfolders.map
         {
-            PartNodeValue(kind: .subfolder(CodeFolderArtifact(codeFolder: $0,
+            Part(kind: .subfolder(CodeFolderArtifact(codeFolder: $0,
                                                               scope: self)))
         }
         +
         codeFolder.files.map
         {
-            PartNodeValue(kind: .file(CodeFileArtifact(codeFile: $0,
+            Part(kind: .file(CodeFileArtifact(codeFile: $0,
                                                        scope: self)))
         }
         
@@ -48,9 +48,9 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
     
     public weak var scope: CodeArtifact?
     
-    public var partGraph = Graph<PartNodeValue>()
+    public var partGraph = Graph<Part>()
     
-    public class PartNodeValue: CodeArtifact, Identifiable
+    public class Part: CodeArtifact, Identifiable
     {
         // MARK: Initialize
         
