@@ -10,6 +10,11 @@ public struct Metrics
         return Double(partLOCsInCycles) / Double(partLOCs)
     }()
     
+    public var linesOfCodeInCycles: Int
+    {
+        isInACycle ?? false ? linesOfCode ?? 0 : linesOfCodeOfPartsInCycles ?? 0
+    }
+    
     public var isInACycle: Bool?
     public var linesOfCodeOfPartsInCycles: Int?
     

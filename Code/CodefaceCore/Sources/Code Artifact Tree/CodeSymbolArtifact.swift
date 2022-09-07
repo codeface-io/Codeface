@@ -5,6 +5,11 @@ import SwiftyToolz
 
 extension CodeSymbolArtifact: CodeArtifact
 {
+    public var parts: [CodeArtifact]
+    {
+        subsymbolGraph.nodesByValueID.values.map { $0.value }
+    }
+    
     public func addDependency(from source: CodeArtifact,
                               to target: CodeArtifact)
     {

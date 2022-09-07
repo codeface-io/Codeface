@@ -4,6 +4,11 @@ import SwiftyToolz
 
 extension CodeFolderArtifact: CodeArtifact
 {
+    public var parts: [CodeArtifact]
+    {
+        partGraph.nodesByValueID.values.map { $0.value }
+    }
+    
     public func addDependency(from sourceArtifact: CodeArtifact,
                               to targetArtifact: CodeArtifact)
     {
@@ -64,6 +69,11 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         }
         
         // MARK: CodeArtifact
+        
+        public var parts: [CodeArtifact]
+        {
+            codeArtifact.parts
+        }
         
         public var metrics: Metrics
         {
