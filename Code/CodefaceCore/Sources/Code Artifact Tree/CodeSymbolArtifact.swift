@@ -3,6 +3,20 @@ import Foundation
 import SwiftNodes
 import SwiftyToolz
 
+extension CodeSymbolArtifact: Hashable
+{
+    public static func == (lhs: CodeSymbolArtifact,
+                           rhs: CodeSymbolArtifact) -> Bool
+    {
+        lhs === rhs
+    }
+    
+    public func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(id)
+    }
+}
+
 extension CodeSymbolArtifact: CodeArtifact
 {
     public var parts: [CodeArtifact]
@@ -15,6 +29,8 @@ extension CodeSymbolArtifact: CodeArtifact
     {
         subsymbolGraph.addEdge(from: source.id, to: target.id)
     }
+    
+    public var intrinsicSizeInLinesOfCode: Int? { (range.end.line - range.start.line) + 1 }
     
     public static var kindNames: [String] { LSPDocumentSymbol.SymbolKind.names }
     

@@ -32,6 +32,8 @@ public protocol CodeArtifact: AnyObject
     // TODO: isn't there any way to restrict this to hashable artifacts and return an ordered set or even the whole graph??
     var parts: [CodeArtifact] { get }
     
+    var intrinsicSizeInLinesOfCode: Int? { get }
+    
     var name: String { get }
     var kindName: String { get }
     var code: String? { get }

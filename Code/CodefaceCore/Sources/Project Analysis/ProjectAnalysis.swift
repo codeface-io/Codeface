@@ -64,8 +64,9 @@ public actor ProjectAnalysis: ObservableObject
                 rootArtifact.generateDependencies()
                 
                 self.state = .running(.calculateMetrics)
-                rootArtifact.generateMetrics()
-                rootArtifact.generateLinesOfCodeInCycles()
+                rootArtifact.calculateSizeMetricsRecursively()
+                rootArtifact.generateDependencyMetrics()
+                rootArtifact.calculateCycleMetricsRecursively()
                 
                 self.state = .running(.sortCodeArtifacts)
                 rootArtifact.sort()

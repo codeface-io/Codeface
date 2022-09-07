@@ -15,6 +15,8 @@ extension CodeFileArtifact: CodeArtifact
         symbolGraph.addEdge(from: source.id, to: target.id)
     }
     
+    public var intrinsicSizeInLinesOfCode: Int? { codeFile.lines.count }
+    
     public var name: String { codeFile.name }
     public var kindName: String { "File" }
     public var code: String? { codeFile.code }

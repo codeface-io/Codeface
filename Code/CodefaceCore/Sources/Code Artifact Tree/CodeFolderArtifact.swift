@@ -15,6 +15,8 @@ extension CodeFolderArtifact: CodeArtifact
         partGraph.addEdge(from: sourceArtifact.id, to: targetArtifact.id)
     }
     
+    public var intrinsicSizeInLinesOfCode: Int? { nil }
+    
     public var name: String { codeFolderURL.lastPathComponent }
     public var kindName: String { "Folder" }
     public var code: String? { nil }
@@ -87,6 +89,8 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         {
             codeArtifact.addDependency(from: from, to: to)
         }
+        
+        public var intrinsicSizeInLinesOfCode: Int? { codeArtifact.intrinsicSizeInLinesOfCode }
         
         public var name: String { codeArtifact.name }
         
