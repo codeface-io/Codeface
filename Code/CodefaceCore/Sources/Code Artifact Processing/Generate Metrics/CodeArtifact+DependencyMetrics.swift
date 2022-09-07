@@ -24,9 +24,9 @@ func writeDependencyMetrics<Part>(toScopeGraph scopeGraph: inout Graph<Part>)
     }
     
     // analyze each component
-    for componentNodes in components
+    for component in components
     {
-        let componentGraph = scopeGraph.copyReducing(to: componentNodes)
+        let componentGraph = scopeGraph.copy(includedValues: component.values())
         let componentCondensationGraph = componentGraph.makeCondensation()
         
         // write scc numbers sorted by topology

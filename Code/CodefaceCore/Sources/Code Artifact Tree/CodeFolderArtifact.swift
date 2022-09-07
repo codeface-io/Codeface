@@ -50,8 +50,12 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
     
     public var partGraph = Graph<Part>()
     
-    public class Part: CodeArtifact, Identifiable
+    public class Part: CodeArtifact, Identifiable, Hashable
     {
+        // MARK: Hashability
+        
+        public func hash(into hasher: inout Hasher) { hasher.combine(id) }
+        
         // MARK: Initialize
         
         public init(kind: Kind)
