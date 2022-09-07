@@ -121,12 +121,5 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable
                 }
             }
         }
-        
-        // write numbers of dependencies
-        for partNode in nodes
-        {
-            partNode.value.metrics.ingoingDependenciesInScope = partNode.ancestors.count
-            partNode.value.metrics.outgoingDependenciesInScope = partNode.descendants.count
-        }
     }
 }

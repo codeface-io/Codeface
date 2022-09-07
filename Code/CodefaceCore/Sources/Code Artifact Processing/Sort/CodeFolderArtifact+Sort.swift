@@ -11,17 +11,6 @@ public extension CodeFolderArtifact
             }
         }
         
-        partGraph.sort { $0 < $1 }
+        partGraph.sort { $0.goesBefore($1) }
     }
-}
-
-extension CodeFolderArtifact.Part: Comparable
-{
-    public static func == (lhs: CodeFolderArtifact.Part,
-                           rhs: CodeFolderArtifact.Part) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    public static func < (lhs: CodeFolderArtifact.Part,
-                          rhs: CodeFolderArtifact.Part) -> Bool { lhs.goesBefore(rhs) }
 }

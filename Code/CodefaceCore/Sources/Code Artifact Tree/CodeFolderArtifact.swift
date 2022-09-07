@@ -31,14 +31,12 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         
         let partArray = codeFolder.subfolders.map
         {
-            Part(kind: .subfolder(CodeFolderArtifact(codeFolder: $0,
-                                                              scope: self)))
+            Part(kind: .subfolder(CodeFolderArtifact(codeFolder: $0, scope: self)))
         }
         +
         codeFolder.files.map
         {
-            Part(kind: .file(CodeFileArtifact(codeFile: $0,
-                                                       scope: self)))
+            Part(kind: .file(CodeFileArtifact(codeFile: $0, scope: self)))
         }
         
         for part in partArray
@@ -62,6 +60,8 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
         // MARK: Hashability
         
         public func hash(into hasher: inout Hasher) { hasher.combine(id) }
+        
+        public static func == (lhs: Part, rhs: Part) -> Bool { lhs.id == rhs.id }
         
         // MARK: Initialize
         

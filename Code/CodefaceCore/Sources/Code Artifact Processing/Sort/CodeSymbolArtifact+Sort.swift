@@ -7,12 +7,6 @@ extension CodeSymbolArtifact
             subSymbol.sort()
         }
         
-        subsymbolGraph.sort { $0 < $1 }
+        subsymbolGraph.sort { $0.goesBefore($1) }
     }
-}
-
-extension CodeSymbolArtifact: Comparable
-{
-    public static func < (lhs: CodeSymbolArtifact,
-                          rhs: CodeSymbolArtifact) -> Bool { lhs.goesBefore(rhs) }
 }

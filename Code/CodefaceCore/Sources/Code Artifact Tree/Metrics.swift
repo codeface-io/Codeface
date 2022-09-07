@@ -28,6 +28,4 @@ public struct Metrics
     
     public var componentRank: Int?
     public var sccIndexTopologicallySorted: Int?
-    public var ingoingDependenciesInScope: Int?
-    public var outgoingDependenciesInScope: Int?
 }
