@@ -19,6 +19,11 @@ extension CodeSymbolArtifact: Hashable
 
 extension CodeSymbolArtifact: CodeArtifact
 {
+    public func sort()
+    {
+        subsymbolGraph.sort(by: <)
+    }
+    
     public var parts: [CodeArtifact]
     {
         subsymbolGraph.nodesByValueID.values.map { $0.value }

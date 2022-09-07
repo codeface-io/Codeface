@@ -69,7 +69,7 @@ public actor ProjectAnalysis: ObservableObject
                 rootArtifact.calculateCycleMetricsRecursively()
                 
                 self.state = .running(.sortCodeArtifacts)
-                rootArtifact.sort()
+                rootArtifact.traverseDepthFirst { $0.sort() }
                 
                 self.state = .running(.createViewModels)
                 

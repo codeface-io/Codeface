@@ -4,6 +4,11 @@ import SwiftyToolz
 
 extension CodeFileArtifact: CodeArtifact
 {
+    public func sort()
+    {
+        symbolGraph.sort(by: <)
+    }
+    
     public var parts: [CodeArtifact]
     {
         symbolGraph.nodesByValueID.values.map { $0.value }

@@ -4,6 +4,11 @@ import SwiftyToolz
 
 extension CodeFolderArtifact: CodeArtifact
 {
+    public func sort()
+    {
+        partGraph.sort(by: <)
+    }
+    
     public var parts: [CodeArtifact]
     {
         partGraph.nodesByValueID.values.map { $0.value }
@@ -57,6 +62,8 @@ public class CodeFolderArtifact: Identifiable, ObservableObject
     
     public class Part: CodeArtifact, Identifiable, Hashable
     {
+        public func sort() { codeArtifact.sort() }
+        
         // MARK: Hashability
         
         public func hash(into hasher: inout Hasher) { hasher.combine(id) }
