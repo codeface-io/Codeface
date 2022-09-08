@@ -17,8 +17,6 @@ extension CodeFolderArtifact: CodeArtifact
     }
     
     public var intrinsicSizeInLinesOfCode: Int? { nil }
-    
-    public var name: String { codeFolderURL.lastPathComponent }
     public var kindName: String { "Folder" }
     public var code: String? { nil }
 }

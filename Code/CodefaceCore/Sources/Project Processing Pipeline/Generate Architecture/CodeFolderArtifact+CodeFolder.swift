@@ -4,7 +4,8 @@ extension CodeFolderArtifact
                      scope: CodeArtifact?,
                      symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData])
     {
-        self.init(scope: scope, codeFolderURL: codeFolder.url)
+        self.init(name: codeFolder.url.lastPathComponent,
+                  scope: scope)
         
         let partArray = codeFolder.subfolders.map
         {

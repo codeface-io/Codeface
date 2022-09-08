@@ -3,10 +3,10 @@ import SwiftNodes
 
 public class CodeFolderArtifact: Identifiable
 {
-    internal init(scope: CodeArtifact?, codeFolderURL: URL)
+    internal init(name: String, scope: CodeArtifact?)
     {
+        self.name = name
         self.scope = scope
-        self.codeFolderURL = codeFolderURL
     }
     
     // MARK: - Metrics
@@ -76,5 +76,5 @@ public class CodeFolderArtifact: Identifiable
     // MARK: - Basics
     
     public let id = UUID().uuidString
-    public let codeFolderURL: URL
+    public let name: String
 }
