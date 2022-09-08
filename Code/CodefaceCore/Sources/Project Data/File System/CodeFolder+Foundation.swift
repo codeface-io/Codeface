@@ -34,6 +34,14 @@ extension CodeFolder
                   files: files,
                   subfolders: subfolders)
     }
+    
+    func printSize()
+    {
+        if let encoded = encode()
+        {
+            log("\(url.lastPathComponent) size: \(Double(encoded.count) / 1000_000) MB")
+        }
+    }
 }
 
 private extension CodeFile

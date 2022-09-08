@@ -42,7 +42,7 @@ public class CodefaceViewModel: ObservableObject
         {
             let analysis = try ProjectProcessor(projectLocation: project)
             projectAnalysis = await ProjectAnalysisViewModel(activeAnalysis: analysis)
-            try await analysis.start()
+            try await analysis.run()
         }
     }
     

@@ -8,7 +8,8 @@ class CodeFolder: Codable
         || files.contains { $0.name.lowercased().contains("package") }
     }
     
-    init(url: URL, files: [CodeFile], subfolders: [CodeFolder]) {
+    init(url: URL, files: [CodeFile], subfolders: [CodeFolder])
+    {
         self.url = url
         self.files = files
         self.subfolders = subfolders

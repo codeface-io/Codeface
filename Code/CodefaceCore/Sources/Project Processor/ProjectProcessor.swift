@@ -17,9 +17,9 @@ public actor ProjectProcessor: ObservableObject
         self.projectLocation = projectLocation
     }
     
-    // MARK: - Analyze
+    // MARK: - Run Processing
     
-    public func start() throws
+    public func run() throws
     {
         self.state = .running(.readFolder)
         
@@ -58,8 +58,6 @@ public actor ProjectProcessor: ObservableObject
                     log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
                     LSPServerManager.shared.serverIsWorking = false
                 }
-                
-                // TODO: at this point we could theoretically persist the root folder as our project data
                 
                 // we have the project data. now we build a project-/architecture description
                 let rootArtifact = generateProjectArchitecture(fromProjectData: rootFolder)
