@@ -4,7 +4,10 @@ extension CodeFileArtifact
                      scope: CodeArtifact,
                      symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData])
     {
-        self.init(codeFile: codeFile, scope: scope)
+        self.init(name: codeFile.name,
+                  uri: codeFile.uri,
+                  codeLines: codeFile.code.components(separatedBy: .newlines),
+                  scope: scope)
         
         for symbolData in codeFile.symbols
         {

@@ -99,9 +99,9 @@ public extension ArtifactViewModel
             // search in code, then assign these matches recursively to parts
             var allMatches = [Int]()
 
-            for lineIndex in 0 ..< fileArtifact.codeFile.lines.count
+            for lineIndex in 0 ..< fileArtifact.lines.count
             {
-                if fileArtifact.codeFile.lines[lineIndex].find(searchTerm)
+                if fileArtifact.lines[lineIndex].find(searchTerm)
                 {
                     allMatches += lineIndex
                 }

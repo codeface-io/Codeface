@@ -60,7 +60,7 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
             ArtifactViewModel(symbolArtifact: $0)
         }
         
-        if fileArtifact.codeFile.name.hasSuffix(".swift")
+        if fileArtifact.name.hasSuffix(".swift")
         {
             iconSystemImageName = "swift"
             iconFillColor = .rgba(.bytes(251, 139, 57))

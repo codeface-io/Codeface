@@ -43,7 +43,7 @@ private extension CodeFile
         let content = try String(contentsOf: file, encoding: .utf8)
         
         self.init(name: file.lastPathComponent,
-                  path: file.absoluteString,
+                  uri: file.absoluteString,
                   lines: content.components(separatedBy: .newlines))
     }
 }

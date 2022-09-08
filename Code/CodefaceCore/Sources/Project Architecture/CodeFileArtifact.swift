@@ -1,11 +1,17 @@
 import Foundation
+import SwiftLSP
 import SwiftNodes
 
 public class CodeFileArtifact: Identifiable
 {
-    init(codeFile: CodeFile, scope: CodeArtifact)
+    init(name: String,
+         uri: LSPDocumentUri,
+         codeLines: [String],
+         scope: CodeArtifact)
     {
-        self.codeFile = codeFile
+        self.name = name
+        self.uri = uri
+        self.lines = codeLines
         self.scope = scope
     }
     
@@ -20,8 +26,10 @@ public class CodeFileArtifact: Identifiable
     
     // MARK: - Basics
     
-    public let id = UUID().uuidString
+    public let name: String
+    public let uri: LSPDocumentUri
+    public var code: String? { lines.joined(separator: "\n") }
+    let lines: [String]
     
-    // FIXME: Do not drag the whole wile preprocessing data into the architecture representation!
-    let codeFile: CodeFile
+    public let id = UUID().uuidString
 }

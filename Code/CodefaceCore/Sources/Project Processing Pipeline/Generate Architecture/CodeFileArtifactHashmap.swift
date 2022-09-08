@@ -6,7 +6,7 @@ class CodeFileArtifactHashmap
     {
         root.iterateThroughFilesRecursively
         {
-            dictionary[$0.codeFile.path] = $0
+            dictionary[$0.uri] = $0
         }
     }
     

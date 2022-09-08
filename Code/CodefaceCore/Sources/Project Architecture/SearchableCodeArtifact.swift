@@ -7,7 +7,7 @@ extension CodeFileArtifact: SearchableCodeArtifact
 {
     public func contains(fileLine: Int) -> Bool
     {
-       codeFile.lines.count > fileLine
+       lines.count > fileLine
     }
 }
 

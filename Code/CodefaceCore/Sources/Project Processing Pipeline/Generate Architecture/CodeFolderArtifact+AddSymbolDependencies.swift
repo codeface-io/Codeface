@@ -22,7 +22,7 @@ extension CodeFolderArtifact
                 subfolder.addSymbolDependencies(using: fileHash,
                                                 symbolDataHash: symbolDataHash)
             case .file(let file):
-                let filePath = file.codeFile.path
+                let filePath = file.uri
                 file.symbolGraph.addSymbolDependencies(enclosingFile: filePath,
                                                        fileHash: fileHash,
                                                        symbolDataHash: symbolDataHash)

@@ -8,13 +8,14 @@ extension CodeFolder
         {
             file in
             
-            try await server.notifyDidOpen(file.path, containingText: file.code)
+            try await server.notifyDidOpen(file.uri,
+                                           containingText: file.lines.joined(separator: "\n"))
             
             for symbol in file.symbols
             {
                 try await symbol.traverseDepthFirst
                 {
-                    try await $0.retrieveReferences(in: file.path, from: server)
+                    try await $0.retrieveReferences(in: file.uri, from: server)
                 }
             }
         }
@@ -26,9 +27,10 @@ extension CodeFolder
         {
             file in
             
-            try await server.notifyDidOpen(file.path, containingText: file.code)
+            try await server.notifyDidOpen(file.uri,
+                                           containingText: file.lines.joined(separator: "\n"))
             
-            file.symbols = try await server.requestSymbols(in: file.path)
+            file.symbols = try await server.requestSymbols(in: file.uri)
                 .compactMap(CodeSymbolData.init)
         }
     }
