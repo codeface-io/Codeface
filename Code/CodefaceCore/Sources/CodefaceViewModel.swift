@@ -40,7 +40,7 @@ public class CodefaceViewModel: ObservableObject
         
         Task
         {
-            let analysis = try ProjectProcessor(project: project)
+            let analysis = try ProjectProcessor(projectLocation: project)
             projectAnalysis = await ProjectAnalysisViewModel(activeAnalysis: analysis)
             try await analysis.start()
         }

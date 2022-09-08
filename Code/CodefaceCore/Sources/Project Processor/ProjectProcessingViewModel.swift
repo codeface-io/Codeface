@@ -7,7 +7,7 @@ public class ProjectAnalysisViewModel: ObservableObject
     {
         self.activeAnalysis = activeAnalysis
         self.analysisState = await activeAnalysis.state
-        self.projectName = activeAnalysis.project.folder.lastPathComponent
+        self.projectName = activeAnalysis.projectLocation.folder.lastPathComponent
         self.stateObservation = await activeAnalysis.$state.sink { self.analysisState = $0 }
     }
     

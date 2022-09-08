@@ -7,14 +7,14 @@ public actor ProjectProcessor: ObservableObject
 {
     // MARK: - Initialize
     
-    public init(project: ProjectLocation) throws
+    public init(projectLocation: ProjectLocation) throws
     {
-        guard FileManager.default.itemExists(project.folder) else
+        guard FileManager.default.itemExists(projectLocation.folder) else
         {
-            throw "Project folder does not exist: " + project.folder.absoluteString
+            throw "Project folder does not exist: " + projectLocation.folder.absoluteString
         }
         
-        self.project = project
+        self.projectLocation = projectLocation
     }
     
     // MARK: - Analyze
@@ -35,7 +35,7 @@ public actor ProjectProcessor: ObservableObject
                 {
                     self.state = .running(.connectToLSPServer)
                     
-                    let server = try await LSPServerManager.shared.getServer(for: project)
+                    let server = try await LSPServerManager.shared.getServer(for: projectLocation)
                     {
                         error in
                         
@@ -94,11 +94,11 @@ public actor ProjectProcessor: ObservableObject
     
     private func readRootFolder() throws -> CodeFolder
     {
-        try project.folder.mapSecurityScoped
+        try projectLocation.folder.mapSecurityScoped
         {
-            guard let codeFolder = try CodeFolder($0, codeFileEndings: project.codeFileEndings) else
+            guard let codeFolder = try CodeFolder($0, codeFileEndings: projectLocation.codeFileEndings) else
             {
-                throw "Project folder contains no code files with the specified file endings\nFolder: \($0.absoluteString)\nFile endings: \(project.codeFileEndings)"
+                throw "Project folder contains no code files with the specified file endings\nFolder: \($0.absoluteString)\nFile endings: \(projectLocation.codeFileEndings)"
             }
             
             return codeFolder
@@ -162,5 +162,5 @@ public actor ProjectProcessor: ObservableObject
     
     // MARK: - Configure
     
-    public let project: ProjectLocation
+    public let projectLocation: ProjectLocation
 }
