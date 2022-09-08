@@ -3,16 +3,16 @@ import SwiftyToolz
 
 extension CodeFolderArtifact
 {
-    func generateCrossScopeDependencies()
+    func addCrossScopeDependencies()
     {
-        for part in partGraph.values
+        for partNode in partGraph.nodesByValueID.values
         {
-            switch part.kind
+            switch partNode.value.kind
             {
             case .subfolder(let subfolder):
-                subfolder.generateCrossScopeDependencies()
+                subfolder.addCrossScopeDependencies()
             case .file(let file):
-                file.generateCrossScopeDependencies()
+                file.addCrossScopeDependencies()
             }
         }
     }
@@ -20,42 +20,38 @@ extension CodeFolderArtifact
 
 private extension CodeFileArtifact
 {
-    func generateCrossScopeDependencies()
+    func addCrossScopeDependencies()
     {
-        for symbol in symbolGraph.values
+        for symbolNode in symbolGraph.nodesByValueID.values
         {
-            symbol.generateCrossScopeDependencies(enclosingFile: codeFile.path)
+            symbolNode.value.addCrossScopeDependencies()
         }
     }
 }
 
 private extension CodeSymbolArtifact
 {
-    func generateCrossScopeDependencies(enclosingFile file: LSPDocumentUri)
+    func addCrossScopeDependencies()
     {
-        for subsymbolNode in subsymbolGraph.nodes
+        for subsymbolNode in subsymbolGraph.nodesByValueID.values
         {
-            subsymbolNode.value.generateCrossScopeDependencies(enclosingFile: file)
+            subsymbolNode.value.addCrossScopeDependencies()
         }
         
-        for dependency in outOfScopeDependencies
-        {
-            handleExternalDependence(from: self, to: dependency)
-        }
+        outOfScopeDependencies.forEach(handle(externalDependency:))
     }
     
-    func handleExternalDependence(from sourceSymbol: CodeSymbolArtifact,
-                                  to targetSymbol: CodeSymbolArtifact)
+    func handle(externalDependency targetSymbol: CodeSymbolArtifact)
     {
         // get paths of enclosing scopes
-        let sourcePath = sourceSymbol.getScopePath()
+        let sourcePath = getScopePath()
         let targetPath = targetSymbol.getScopePath()
         
         // sanity checks
-        assert(sourceSymbol !== targetSymbol, "source and target symbol are the same")
+        assert(self !== targetSymbol, "source and target symbol are the same")
         assert(!sourcePath.isEmpty, "source path is empty")
         assert(!targetPath.isEmpty, "target path is empty")
-        assert(sourcePath.last === sourceSymbol.scope, "source scope is not last in path")
+        assert(sourcePath.last === scope, "source scope is not last in path")
         assert(targetPath.last === targetSymbol.scope, "target scope is not last in path")
         assert(sourcePath[0] === targetPath[0], "source path root != target path root")
         
@@ -73,7 +69,7 @@ private extension CodeSymbolArtifact
             // identify interdependent sibling parts
             let sourcePart =
             pathIndex == sourcePath.count - 1
-            ? sourceSymbol
+            ? self
             : sourcePath[pathIndex + 1]
             
             let targetPart =

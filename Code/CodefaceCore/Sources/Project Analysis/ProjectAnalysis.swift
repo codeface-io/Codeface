@@ -91,8 +91,8 @@ public actor ProjectAnalysis: ObservableObject
                 let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder, scope: nil)
                 
                 self.state = .running(.calculateDependencies)
-                rootArtifact.generateSymbolDependencies()
-                rootArtifact.generateCrossScopeDependencies()
+                rootArtifact.addSymbolDependencies()
+                rootArtifact.addCrossScopeDependencies()
                 
                 // arguably, here begins the project analysis
                 self.state = .running(.calculateMetrics)

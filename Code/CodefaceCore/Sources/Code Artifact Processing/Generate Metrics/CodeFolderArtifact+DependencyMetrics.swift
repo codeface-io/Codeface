@@ -42,7 +42,7 @@ private extension CodeSymbolArtifact
 
 private extension Graph where NodeValue: CodeArtifact & Identifiable
 {
-    mutating func pruneDependenciesAndCalculateDependencyMetrics()
+    func pruneDependenciesAndCalculateDependencyMetrics()
     {
         // write component ranks by component size
         let components = findComponents()

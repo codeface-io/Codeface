@@ -1,78 +1,61 @@
 import SwiftLSP
+import SwiftNodes
 import SwiftyToolz
 
 extension CodeFolderArtifact
 {
-    func generateSymbolDependencies()
+    func addSymbolDependencies()
     {
         let hashMap = CodeFileArtifactHashmap(root: self)
-        generateSymbolDependencies(using: hashMap)
+        addSymbolDependencies(using: hashMap)
     }
     
-    private func generateSymbolDependencies(using hashMap: CodeFileArtifactHashmap)
+    private func addSymbolDependencies(using hashMap: CodeFileArtifactHashmap)
     {
         for part in partGraph.values
         {
             switch part.kind
             {
             case .subfolder(let subfolder):
-                subfolder.generateSymbolDependencies(using: hashMap)
+                subfolder.addSymbolDependencies(using: hashMap)
             case .file(let file):
-                file.generateSymbolDependencies(using: hashMap)
+                let filePath = file.codeFile.path
+                file.symbolGraph.addSymbolDependencies(enclosingFile: filePath,
+                                                       hashMap: hashMap)
             }
         }
     }
 }
 
-private extension CodeFileArtifact
+private extension Graph where NodeValue == CodeSymbolArtifact
 {
-    func generateSymbolDependencies(using hashMap: CodeFileArtifactHashmap)
+    func addSymbolDependencies(enclosingFile file: LSPDocumentUri,
+                               hashMap: CodeFileArtifactHashmap)
     {
-        for symbol in symbolGraph.values
+        for symbolNode in nodesByValueID.values
         {
-            symbol.generateSubsymbolDependenciesRecursively(enclosingFile: codeFile.path,
-                                                            hashMap: hashMap)
+            let symbol = symbolNode.value
+            
+            symbol.subsymbolGraph.addSymbolDependencies(enclosingFile: file,
+                                                             hashMap: hashMap)
         }
         
-        for symbolNode in symbolGraph.nodes
+        for symbolNode in nodesByValueID.values
         {
-            let ancestorSymbols = symbolNode.value.getIncoming(enclosingFile: codeFile.path,
-                                                                 hashMap: hashMap)
+            let symbol = symbolNode.value
             
-            for ancestorSymbol in ancestorSymbols
+            let ingoing = symbol.getIngoing(enclosingFile: file, hashMap: hashMap)
+            
+            for outOfScopeAncestor in ingoing.outOfScope
             {
-                if let ancestorSymbolNode = symbolGraph.node(for: ancestorSymbol)
-                {
-                    symbolGraph.addEdge(from: ancestorSymbolNode, to: symbolNode)
-                }
+                outOfScopeAncestor.outOfScopeDependencies += symbol
             }
-        }
-    }
-}
-
-private extension CodeSymbolArtifact
-{
-    func generateSubsymbolDependenciesRecursively(enclosingFile file: LSPDocumentUri,
-                                                  hashMap: CodeFileArtifactHashmap)
-    {
-        let subsymbolNodes = subsymbolGraph.nodes
-        
-        for subsymbolNode in subsymbolNodes
-        {
-            subsymbolNode.value.generateSubsymbolDependenciesRecursively(enclosingFile: file,
-                                                                           hashMap: hashMap)
-        }
-        
-        for subsymbolNode in subsymbolNodes
-        {
-            let ancestorSubsymbols = subsymbolNode.value.getIncoming(enclosingFile: file,
-                                                                       hashMap: hashMap)
             
-            for ancestorSubsymbol in ancestorSubsymbols
+            for inScopeAncestor in ingoing.inScope
             {
-                if let ancestorSubsymbolNode = subsymbolGraph.node(for: ancestorSubsymbol)
+                if let ancestorSymbolNode = node(for: inScopeAncestor)
                 {
-                    subsymbolGraph.addEdge(from: ancestorSubsymbolNode, to: subsymbolNode)
+                    addEdge(from: ancestorSymbolNode, to: symbolNode)
                 }
                 else
                 {
@@ -81,17 +64,20 @@ private extension CodeSymbolArtifact
             }
         }
     }
-    
-    func getIncoming(enclosingFile file: LSPDocumentUri,
-                     hashMap: CodeFileArtifactHashmap) -> [CodeSymbolArtifact]
+}
+
+private extension CodeSymbolArtifact
+{
+    func getIngoing(enclosingFile file: LSPDocumentUri,
+                    hashMap: CodeFileArtifactHashmap) -> IngoingDependencies
     {
         guard let references = symbolDataHash[self]?.lspReferences else
         {
             log(error: "no symbol data exists for this symbol artifact")
-            return []
+            return .empty
         }
         
-        var incomingInScope = [CodeSymbolArtifact]()
+        var result = IngoingDependencies()
         
         for referencingLocation in references
         {
@@ -130,17 +116,26 @@ private extension CodeSymbolArtifact
             
             if scope === dependingSymbol.scope
             {
-                // dependency within same scope (between siblings)
-                incomingInScope += dependingSymbol
+                result.inScope += dependingSymbol
             }
             else
             {
-                // across different scopes
-                dependingSymbol.outOfScopeDependencies += self
+                result.outOfScope += dependingSymbol
             }
         }
         
-        return incomingInScope
+        return result
+    }
+    
+    struct IngoingDependencies
+    {
+        static var empty: Self { .init(inScope: [], outOfScope: []) }
+        
+        // dependency within same scope (between siblings)
+        var inScope = Set<CodeSymbolArtifact>()
+        
+        // across different scopes
+        var outOfScope = Set<CodeSymbolArtifact>()
     }
 }
 
@@ -148,9 +143,9 @@ private extension CodeFileArtifact
 {
     func findSymbolArtifact(containing range: LSPRange) -> CodeSymbolArtifact?
     {
-        for symbol in symbolGraph.values
+        for symbolNode in symbolGraph.nodesByValueID.values
         {
-            if let artifact = symbol.findSymbolArtifact(containing: range)
+            if let artifact = symbolNode.value.findSymbolArtifact(containing: range)
             {
                 return artifact
             }
