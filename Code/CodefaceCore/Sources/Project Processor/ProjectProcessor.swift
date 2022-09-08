@@ -19,108 +19,81 @@ public actor ProjectProcessor: ObservableObject
     
     // MARK: - Run Processing
     
-    public func run() throws
+    public func run() async
     {
-        self.state = .running(.readFolder)
+        state = .running(.readFolder)
+        guard let projectData = readRootFolder() else { return }
         
-        task = Task
+        do
         {
-            do
-            {
-                // load project data from file system and lsp server
-                
-                let rootFolder = try readRootFolder()
-                
-                do
-                {
-                    self.state = .running(.connectToLSPServer)
-                    
-                    let server = try await LSPServerManager.shared.getServer(for: projectLocation)
-                    {
-                        error in
-                        
-                        Task
-                        {
-                            [weak self] in
-                            
-                            await self?.serverInitializationFailed(with: error)
-                        }
-                    }
-                    
-                    self.state = .running(.retrieveSymbols)
-                    try await rootFolder.retrieveSymbolData(from: server)
-                    
-                    self.state = .running(.retrieveReferences)
-                    try await rootFolder.retrieveSymbolReferences(from: server)
-                }
-                catch
-                {
-                    log(warning: "Cannot retrieve code file symbols from LSP server:\n" + error.readable.message)
-                    LSPServerManager.shared.serverIsWorking = false
-                }
-                
-                // we have the project data. now we build a project-/architecture description
-                let rootArtifact = generateProjectArchitecture(fromProjectData: rootFolder)
-                
-                // arguably, here begins the project analysis
-                self.state = .running(.calculateCrossScopeDependencies)
-                rootArtifact.addCrossScopeDependencies()
-                
-                self.state = .running(.calculateMetrics)
-                rootArtifact.calculateSizeMetricsRecursively()
-                rootArtifact.recursivelyPruneDependenciesAndCalculateDependencyMetrics()
-                rootArtifact.calculateCycleMetricsRecursively()
-                
-                // here begins the project visualization
-                self.state = .running(.sortCodeArtifacts)
-                rootArtifact.traverseDepthFirst { $0.sort() }
-                
-                self.state = .running(.createViewModels)
-                
-                let rootVM = await ArtifactViewModel(folderArtifact: rootArtifact,
-                                                     isPackage: rootFolder.looksLikeAPackage).addDependencies()
-                
-                self.state = .succeeded(rootVM)
-            }
-            catch
-            {
-                self.state = .failed(error.readable.message)
-                throw error
-            }
-        }
-    }
-    
-    private func readRootFolder() throws -> CodeFolder
-    {
-        try projectLocation.folder.mapSecurityScoped
-        {
-            guard let codeFolder = try CodeFolder($0, codeFileEndings: projectLocation.codeFileEndings) else
-            {
-                throw "Project folder contains no code files with the specified file endings\nFolder: \($0.absoluteString)\nFile endings: \(projectLocation.codeFileEndings)"
-            }
+            state = .running(.connectToLSPServer)
+            let server = try await LSPServerManager.shared.getServer(for: projectLocation)
             
-            return codeFolder
+            state = .running(.retrieveSymbols)
+            try await projectData.retrieveSymbolData(from: server)
+            
+            state = .running(.retrieveReferences)
+            try await projectData.retrieveSymbolReferences(from: server)
         }
-    }
-    
-    private func serverInitializationFailed(with error: Error)
-    {
-        task?.cancel()
-        task = nil
-        
-        if case .running = state
+        catch
         {
+            log(warning: "Cannot talk to LSP server: " + error.readable.message)
+            LSPServerManager.shared.serverIsWorking = false
+        }
+        
+        // we have the project data. now we build a project-/architecture description
+        let projectArchitecture = generateProjectArchitecture(from: projectData)
+        
+        // arguably, here begins the project analysis
+        state = .running(.calculateCrossScopeDependencies)
+        projectArchitecture.addCrossScopeDependencies()
+        
+        state = .running(.calculateMetrics)
+        projectArchitecture.calculateSizeMetricsRecursively()
+        projectArchitecture.recursivelyPruneDependenciesAndCalculateDependencyMetrics()
+        projectArchitecture.calculateCycleMetricsRecursively()
+        
+        // here begins the project visualization
+        state = .running(.sortCodeArtifacts)
+        projectArchitecture.traverseDepthFirst { $0.sort() }
+        
+        state = .running(.createViewModels)
+        
+        let rootVM = await ArtifactViewModel(folderArtifact: projectArchitecture,
+                                             isPackage: projectData.looksLikeAPackage).addDependencies()
+        
+        state = .succeeded(rootVM)
+    }
+    
+    private func readRootFolder() -> CodeFolder?
+    {
+        do
+        {
+            return try projectLocation.folder.mapSecurityScoped
+            {
+                guard let codeFolder = try CodeFolder($0, codeFileEndings: projectLocation.codeFileEndings) else
+                {
+                    throw "Project folder contains no code files with the specified file endings\nFolder: \($0.absoluteString)\nFile endings: \(projectLocation.codeFileEndings)"
+                }
+                
+                return codeFolder
+            }
+        }
+        catch
+        {
+            log(error.readable.message)
             state = .failed(error.readable.message)
+            return nil
         }
     }
     
-    private func generateProjectArchitecture(fromProjectData rootFolder: CodeFolder) -> CodeFolderArtifact
+    private func generateProjectArchitecture(from projectData: CodeFolder) -> CodeFolderArtifact
     {
         state = .running(.generateArchitecture)
         
         var symbolDataHash = [CodeSymbolArtifact: CodeSymbolData]()
         
-        let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder,
+        let rootArtifact = CodeFolderArtifact(codeFolder: projectData,
                                               scope: nil,
                                               symbolDataHash: &symbolDataHash)
         
@@ -130,8 +103,6 @@ public actor ProjectProcessor: ObservableObject
         
         return rootArtifact
     }
-    
-    private var task: Task<Void, Error>?
     
     // MARK: - Publish State
     
