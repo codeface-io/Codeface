@@ -217,12 +217,13 @@ li a {
     background-position:center;
 }
 
-#screen-shot-1:hover
+#screen-shot-1.light-mode
 {
     background:url(screenshots/01_light.png) no-repeat;
     background-size:contain;
     background-position:center;
 }
+
 #screen-shot-2
 {
     background:url(screenshots/02_dark.png) no-repeat;
@@ -230,7 +231,7 @@ li a {
     background-position:center;
 }
 
-#screen-shot-2:hover
+#screen-shot-2.light-mode
 {
     background:url(screenshots/02_light.png) no-repeat;
     background-size:contain;
@@ -243,7 +244,7 @@ li a {
     background-position:center;
 }
 
-#screen-shot-3:hover
+#screen-shot-3.light-mode
 {
     background:url(screenshots/03_light.png) no-repeat;
     background-size:contain;

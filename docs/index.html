@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="en">
-    
     <head>
         <!-- General HTML stuff -->
         <meta charset="utf-8">
@@ -9,10 +7,18 @@
         
         <!-- CSS -->
         <link rel="stylesheet" href="codeface.css">
+            
+        <!-- Toggle Screenshots Between Light and Dark -->
+        <script>
+            function toggleLightMode(idString)
+            {
+                document.getElementById(idString).classList.toggle("light-mode");
+                //console.log(document.getElementById("screen-shot-1").classList);
+            }
+        </script>
     </head>
     
     <body>
-        
         <section id="codeface-navbar" class="codeface-bar">
             <div>
                 <ul>
@@ -24,24 +30,20 @@
                         target="_blank">
                         <img style="width:180px"
                             src="App_Store_Badge.svg"
-                            title="Download Codeface for free from the Mac App Store"
-                            alt="{{ page.description }}"></a>
+                            title="Download Codeface for free from the Mac App Store"></a>
                     </li>
                 </ul>
             </div>
         </section>
         
         <section>
-            
             <div>
-                
                 <h1 style="margin-top:0px;">
                     <span><a onclick="ga('send', 'event', 'button', 'click', 'title');"
                         href="https://apps.apple.com/app/codeface/id1578175415"
                         target="_blank"><img style="width:100%;max-width:100px;margin-bottom:-23px;margin-right:-5px"
                             src="icon_1024.png"
-                            title="Codeface&trade; App"
-                            alt="{{ page.keywords }}"></img></a> Codeface&trade;</span>
+                            title="Codeface&trade; App"></img></a> Codeface&trade;</span>
                 </h1>
                 
                 <h2>
@@ -53,8 +55,7 @@
                     autoplay
                     poster="screenshots/01_dark.png">
                     <source src="videos/codeface_preview_cropped.mp4" type="video/mp4">
-               </video>
-                
+                </video>
                 
                 <div style="text-align:center;">
                     <a onclick="ga('send', 'event', 'button', 'click', 'top section');"
@@ -62,8 +63,7 @@
                         target="_blank">
                         <img style="height:68px;display:inline-block;margin-bottom:-10px"
                             src="App_Store_Badge.svg"
-                            title="Download Codeface&trade; for free from the Mac App Store"
-                            alt="{{ page.description }}">
+                            title="Download Codeface&trade; for free from the Mac App Store">
                         </img>
                     </a>
                 </div>
@@ -78,9 +78,11 @@
                     Understand, improve <nobr>and monitor</nobr> <nobr>your code</nobr>
                 </h2>
                 
-                <div id="screen-shot-1" style="margin-bottom:10px">
-                    <div style="padding-top:67.0608%;width:100%;"></div>
-                </div>
+                <a href="javascript:toggleLightMode('screen-shot-1')">
+                    <div  id="screen-shot-1" style="margin-bottom:10px">
+                        <div style="padding-top:67.0608%;width:100%;"></div>
+                    </div>
+                </a>
                 
                 <div class="codeface-3-columns">
                     <div>
@@ -108,7 +110,6 @@
                         You may shape Codeface&trade; with your own big ideas and feedback. Just drop us a line: <a href="mailto:hello@codeface.io">hello@codeface.io</a>
                     </div>
                 </div>
-                
             </div>
         </section>
         
@@ -120,18 +121,21 @@
                     Filter everything <nobr>by a search term</nobr>
                 </h2>
                 
-                <div id="screen-shot-2" style="margin-bottom:20px">
-                    <div style="padding-top:67.0608%;width:100%;"></div>
-                </div>
+                <a href="javascript:toggleLightMode('screen-shot-2')">
+                    <div id="screen-shot-2" style="margin-bottom:20px">
+                        <div style="padding-top:67.0608%;width:100%;"></div>
+                    </div>
+                </a>
                 
                 <h2>
                     And zone in on <nobr>the matching parts</nobr>
                 </h2>
                 
-                <div id="screen-shot-3" style="margin-bottom:-40px">
-                    <div style="padding-top:67.0608%;width:100%;"></div>
-                </div>
-                
+                <a href="javascript:toggleLightMode('screen-shot-3')">
+                    <div id="screen-shot-3" style="margin-bottom:-40px">
+                        <div style="padding-top:67.0608%;width:100%;"></div>
+                    </div>
+                </a>
             </div>
         </section>
         
@@ -157,20 +161,17 @@
                         Restart LSPService after its setup. Then restart Codeface&trade; and load a project. It will automatically detect LSPService and utilize it.
                     </div>
                 </div>
-                
             </div>
         </section>
         
         <section id="contact">
             <div style="text-align:center;">
-                
                 <a onclick="ga('send', 'event', 'button', 'click', 'top section');"
                     href="https://apps.apple.com/app/codeface/id1578175415"
                     target="_blank">
                     <img style="height:68px;display:inline-block;"
                         src="App_Store_Badge.svg"
-                        title="Download Codeface&trade; for free from the Mac App Store"
-                        alt="{{ page.description }}"></a>
+                        title="Download Codeface&trade; for free from the Mac App Store"></a>
                 
                 <br><br>
                 <h2  style="margin-bottom:0px;">Questions? Ideas? Bugs? -> <a href="mailto:hello@codeface.io"><nobr>hello @ codeface.io</nobr></a></h2>
@@ -182,7 +183,5 @@
                 Copyright &copy; 2022 <a href="https://www.flowtoolz.com">Flowtoolz.com</a>
             </div>
         </section>
-        
     </body>
-    
 </html>
