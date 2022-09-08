@@ -4,7 +4,7 @@ import SwiftyToolz
 
 public extension CodeFolder
 {
-    init?(_ folderURL: URL, codeFileEndings: [String]) throws
+    convenience init?(_ folderURL: URL, codeFileEndings: [String]) throws
     {
         let fileManager = FileManager.default
         
@@ -38,7 +38,7 @@ public extension CodeFolder
 
 public extension CodeFile
 {
-    init(_ file: URL) throws
+    convenience init(_ file: URL) throws
     {
         let content = try String(contentsOf: file, encoding: .utf8)
         

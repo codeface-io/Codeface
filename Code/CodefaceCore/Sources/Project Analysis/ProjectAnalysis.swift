@@ -27,10 +27,9 @@ public actor ProjectAnalysis: ObservableObject
         {
             do
             {
-                let rootFolder = try readRootFolder()
+                // load project data from file system and lsp server
                 
-                self.state = .running(.createRootFolderArtifact)
-                let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder, scope: nil)
+                let rootFolder = try readRootFolder()
                 
                 do
                 {
@@ -49,10 +48,33 @@ public actor ProjectAnalysis: ObservableObject
                     }
                     
                     self.state = .running(.retrieveSymbols)
-                    try await rootArtifact.addSymbolArtifacts(using: server)
+                    
+                    try await rootFolder.forEachFile
+                    {
+                        file in
+                        
+                        try await server.notifyDidOpen(file.path, containingText: file.code)
+                        
+                        file.symbols = try await server.requestSymbols(in: file.path)
+                            .compactMap(CodeSymbolData.init)
+                    }
                     
                     self.state = .running(.retrieveReferences)
-                    try await rootArtifact.requestReferences(from: server)
+                    
+                    try await rootFolder.forEachFile
+                    {
+                        file in
+                        
+                        try await server.notifyDidOpen(file.path, containingText: file.code)
+                        
+                        for symbol in file.symbols
+                        {
+                            try await symbol.traverseDepthFirst
+                            {
+                                try await $0.retrieveReferences(in: file.path, from: server)
+                            }
+                        }
+                    }
                 }
                 catch
                 {
@@ -60,14 +82,25 @@ public actor ProjectAnalysis: ObservableObject
                     LSPServerManager.shared.serverIsWorking = false
                 }
                 
-                self.state = .running(.calculateDependencies)
-                rootArtifact.generateDependencies()
+                // we have the project data. now we build a project-/architecture description
                 
+                // TODO: at this point we could theoretically persist the root folder as our project data
+                
+                self.state = .running(.createRootFolderArtifact)
+                symbolDataHash.removeAll()
+                let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder, scope: nil)
+                
+                self.state = .running(.calculateDependencies)
+                rootArtifact.generateSymbolDependencies()
+                rootArtifact.generateCrossScopeDependencies()
+                
+                // arguably, here begins the project analysis
                 self.state = .running(.calculateMetrics)
                 rootArtifact.calculateSizeMetricsRecursively()
                 rootArtifact.recursivelyPruneDependenciesAndCalculateDependencyMetrics()
                 rootArtifact.calculateCycleMetricsRecursively()
                 
+                // here begins the project visualization
                 self.state = .running(.sortCodeArtifacts)
                 rootArtifact.traverseDepthFirst { $0.sort() }
                 

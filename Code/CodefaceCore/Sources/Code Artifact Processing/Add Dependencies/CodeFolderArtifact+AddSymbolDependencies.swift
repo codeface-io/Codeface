@@ -1,38 +1,57 @@
 import SwiftLSP
 import SwiftyToolz
 
-extension CodeSymbolArtifact
+extension CodeFolderArtifact
 {
-    func retrieveReferencesRecursively(enclosingFile file: LSPDocumentUri,
-                                       server: LSP.ServerCommunicationHandler) async throws
+    func generateSymbolDependencies()
     {
-        for subsymbol in subsymbolGraph.values
-        {
-            try await subsymbol.retrieveReferencesRecursively(enclosingFile: file,
-                                                              server: server)
-        }
-        
-        try await retrieveReferences(enclosingFile: file, server: server)
+        let hashMap = CodeFileArtifactHashmap(root: self)
+        generateSymbolDependencies(using: hashMap)
     }
     
-    private func retrieveReferences(enclosingFile file: LSPDocumentUri,
-                                    server: LSP.ServerCommunicationHandler) async throws
+    private func generateSymbolDependencies(using hashMap: CodeFileArtifactHashmap)
     {
-        guard kind != .Namespace else
+        for part in partGraph.values
         {
-            // TODO: sourcekit-lsp detects many wrong dependencies onto namespaces which are Swift extensions ...
-            return
+            switch part.kind
+            {
+            case .subfolder(let subfolder):
+                subfolder.generateSymbolDependencies(using: hashMap)
+            case .file(let file):
+                file.generateSymbolDependencies(using: hashMap)
+            }
+        }
+    }
+}
+
+private extension CodeFileArtifact
+{
+    func generateSymbolDependencies(using hashMap: CodeFileArtifactHashmap)
+    {
+        for symbol in symbolGraph.values
+        {
+            symbol.generateSubsymbolDependenciesRecursively(enclosingFile: codeFile.path,
+                                                            hashMap: hashMap)
         }
         
-        // TODO: contact sourcekit-lsp team about this, maybe open an issue on github ...
-        // sourcekit-lsp suggests a few wrong references where there is one of those issues: a) extension of Variable -> Var namespace declaration (plain wrong) b) class Variable -> namespace Var (wrong direction) or c) all range properties are -1 (invalid)
-        
-        references = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
-                                                        in: file)
-        
-        //        print("found \(refs.count) referencing lsp locations for symbol artifact")
+        for symbolNode in symbolGraph.nodes
+        {
+            let ancestorSymbols = symbolNode.value.getIncoming(enclosingFile: codeFile.path,
+                                                                 hashMap: hashMap)
+            
+            for ancestorSymbol in ancestorSymbols
+            {
+                if let ancestorSymbolNode = symbolGraph.node(for: ancestorSymbol)
+                {
+                    symbolGraph.addEdge(from: ancestorSymbolNode, to: symbolNode)
+                }
+            }
+        }
     }
-    
+}
+
+private extension CodeSymbolArtifact
+{
     func generateSubsymbolDependenciesRecursively(enclosingFile file: LSPDocumentUri,
                                                   hashMap: CodeFileArtifactHashmap)
     {
@@ -66,6 +85,12 @@ extension CodeSymbolArtifact
     func getIncoming(enclosingFile file: LSPDocumentUri,
                      hashMap: CodeFileArtifactHashmap) -> [CodeSymbolArtifact]
     {
+        guard let references = symbolDataHash[self]?.lspReferences else
+        {
+            log(error: "no symbol data exists for this symbol artifact")
+            return []
+        }
+        
         var incomingInScope = [CodeSymbolArtifact]()
         
         for referencingLocation in references
@@ -111,65 +136,11 @@ extension CodeSymbolArtifact
             else
             {
                 // across different scopes
-                handleExternalDependence(from: dependingSymbol, to: self)
+                dependingSymbol.outOfScopeDependencies += self
             }
         }
         
         return incomingInScope
-    }
-    
-    private func handleExternalDependence(from sourceSymbol: CodeSymbolArtifact,
-                                          to targetSymbol: CodeSymbolArtifact)
-    {
-        // get paths of enclosing scopes
-        let sourcePath = sourceSymbol.getScopePath()
-        let targetPath = targetSymbol.getScopePath()
-        
-        // sanity checks
-        assert(sourceSymbol !== targetSymbol, "source and target symbol are the same")
-        assert(!sourcePath.isEmpty, "source path is empty")
-        assert(!targetPath.isEmpty, "target path is empty")
-        assert(sourcePath.last === sourceSymbol.scope, "source scope is not last in path")
-        assert(targetPath.last === targetSymbol.scope, "target scope is not last in path")
-        assert(sourcePath[0] === targetPath[0], "source path root != target path root")
-        
-        // find latest (deepest) common scope
-        let indexPathOfPotentialCommonScopes = 0 ..< min(sourcePath.count,
-                                                         targetPath.count)
-        
-        for pathIndex in indexPathOfPotentialCommonScopes.reversed()
-        {
-            if sourcePath[pathIndex] !== targetPath[pathIndex] { continue }
-            
-            // found deepest common scope
-            let commonScope = sourcePath[pathIndex]
-            
-            // identify interdependent sibling parts
-            let sourcePart =
-            pathIndex == sourcePath.count - 1
-            ? sourceSymbol
-            : sourcePath[pathIndex + 1]
-            
-            let targetPart =
-            pathIndex == targetPath.count - 1
-            ? targetSymbol
-            : targetPath[pathIndex + 1]
-            
-            // sanity checks
-            assert(sourcePart !== targetPart, "source and target part are the same")
-            
-            // add dependency between siblings to scope
-            return commonScope.addDependency(from: sourcePart, to: targetPart)
-        }
-    }
-}
-
-private extension CodeArtifact
-{
-    func getScopePath() -> [CodeArtifact]
-    {
-        guard let scope = scope else { return [] }
-        return scope.getScopePath() + scope
     }
 }
 

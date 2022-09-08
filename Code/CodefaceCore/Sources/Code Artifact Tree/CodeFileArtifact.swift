@@ -33,6 +33,13 @@ public class CodeFileArtifact: Identifiable, ObservableObject
     {
         self.codeFile = codeFile
         self.scope = scope
+        
+        for symbolData in codeFile.symbols
+        {
+            symbolGraph.insert(.init(symbolData: symbolData,
+                                     scope: self,
+                                     enclosingFile: codeFile))
+        }
     }
     
     // MARK: - Metrics
