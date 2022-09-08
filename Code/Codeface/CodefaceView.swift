@@ -21,7 +21,7 @@ struct CodefaceView: View
                         Image(systemName: "sidebar.leading")
                     }
                     
-                    if ProjectDescriptionPersister.hasPersistedLastProject
+                    if ProjectLocationPersister.hasPersistedLastProject
                     {
                         Spacer()
                         

@@ -9,7 +9,7 @@ public class CodefaceViewModel: ObservableObject
     
     public func loadLastProjectIfNoneIsActive()
     {
-        if ProjectDescriptionPersister.hasPersistedLastProject, projectAnalysis == nil
+        if ProjectLocationPersister.hasPersistedLastProject, projectAnalysis == nil
         {
             loadLastActiveProject()
         }
@@ -19,28 +19,28 @@ public class CodefaceViewModel: ObservableObject
     {
         do
         {
-            try setAndStartActiveAnalysis(with: ProjectDescriptionPersister.loadProjectConfig())
+            try setAndStartActiveAnalysis(with: ProjectLocationPersister.loadProjectConfig())
         }
         catch { log(error) }
     }
     
-    public func loadNewActiveAnalysis(for project: LSPProjectDescription)
+    public func loadNewActiveAnalysis(for project: ProjectLocation)
     {
         do
         {
             try setAndStartActiveAnalysis(with: project)
-            try ProjectDescriptionPersister.persist(project)
+            try ProjectLocationPersister.persist(project)
         }
         catch { log(error) }
     }
     
-    private func setAndStartActiveAnalysis(with project: LSPProjectDescription) throws
+    private func setAndStartActiveAnalysis(with project: ProjectLocation) throws
     {
         projectAnalysis?.selectedArtifact = nil
         
         Task
         {
-            let analysis = try ProjectAnalysis(project: project)
+            let analysis = try ProjectProcessor(project: project)
             projectAnalysis = await ProjectAnalysisViewModel(activeAnalysis: analysis)
             try await analysis.start()
         }

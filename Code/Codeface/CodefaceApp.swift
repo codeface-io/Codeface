@@ -106,7 +106,7 @@ struct CodefaceApp: App
                             throw "Empty array of URLs"
                         }
                         
-                        let project = LSPProjectDescription(folder: firstURL,
+                        let project = ProjectLocation(folder: firstURL,
                                                             language: "Swift",
                                                             codeFileEndings: ["swift"])
                         
@@ -120,7 +120,7 @@ struct CodefaceApp: App
                     viewModel.loadLastActiveProject()
                 }
                 .keyboardShortcut("r")
-                .disabled(!ProjectDescriptionPersister.hasPersistedLastProject)
+                .disabled(!ProjectLocationPersister.hasPersistedLastProject)
             }
         }
         

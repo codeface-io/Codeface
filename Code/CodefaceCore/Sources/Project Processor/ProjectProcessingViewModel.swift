@@ -3,7 +3,7 @@ import Combine
 @MainActor
 public class ProjectAnalysisViewModel: ObservableObject
 {
-    public init(activeAnalysis: ProjectAnalysis) async
+    public init(activeAnalysis: ProjectProcessor) async
     {
         self.activeAnalysis = activeAnalysis
         self.analysisState = await activeAnalysis.state
@@ -54,10 +54,10 @@ public class ProjectAnalysisViewModel: ObservableObject
     
     @Published public var selectedArtifact: ArtifactViewModel? = nil
     
-    @Published public private(set) var analysisState: ProjectAnalysis.State = .stopped
+    @Published public private(set) var analysisState: ProjectProcessor.State = .stopped
     private var stateObservation: AnyCancellable?
     
-    private let activeAnalysis: ProjectAnalysis
+    private let activeAnalysis: ProjectProcessor
     
     // MARK: - Other Elements
     

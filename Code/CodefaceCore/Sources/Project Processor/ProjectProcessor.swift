@@ -3,11 +3,11 @@ import Foundation
 import Combine
 import SwiftyToolz
 
-public actor ProjectAnalysis: ObservableObject
+public actor ProjectProcessor: ObservableObject
 {
     // MARK: - Initialize
     
-    public init(project: LSPProjectDescription) throws
+    public init(project: ProjectLocation) throws
     {
         guard FileManager.default.itemExists(project.folder) else
         {
@@ -162,5 +162,5 @@ public actor ProjectAnalysis: ObservableObject
     
     // MARK: - Configure
     
-    public let project: LSPProjectDescription
+    public let project: ProjectLocation
 }
