@@ -120,13 +120,13 @@ code
 
 .clickable
 {
-    transition: transform .3s; /* Animation */
+    transition: transform .4s; /* Animation */
     transition-timing-function: ease-out;
 }
 
 .clickable:hover
 {
-    transform: scale(1.05);
+    transform: scale(1.07);
 }
 
 /* Bottom Section (Contact) */
