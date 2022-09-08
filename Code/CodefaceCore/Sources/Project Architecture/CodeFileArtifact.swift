@@ -21,5 +21,7 @@ public class CodeFileArtifact: Identifiable
     // MARK: - Basics
     
     public let id = UUID().uuidString
+    
+    // FIXME: Do not drag the whole wile preprocessing data into the architecture representation!
     let codeFile: CodeFile
 }
