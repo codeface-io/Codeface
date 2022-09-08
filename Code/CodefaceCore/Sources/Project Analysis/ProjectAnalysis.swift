@@ -48,33 +48,10 @@ public actor ProjectAnalysis: ObservableObject
                     }
                     
                     self.state = .running(.retrieveSymbols)
-                    
-                    try await rootFolder.forEachFile
-                    {
-                        file in
-                        
-                        try await server.notifyDidOpen(file.path, containingText: file.code)
-                        
-                        file.symbols = try await server.requestSymbols(in: file.path)
-                            .compactMap(CodeSymbolData.init)
-                    }
+                    try await rootFolder.retrieveSymbolData(from: server)
                     
                     self.state = .running(.retrieveReferences)
-                    
-                    try await rootFolder.forEachFile
-                    {
-                        file in
-                        
-                        try await server.notifyDidOpen(file.path, containingText: file.code)
-                        
-                        for symbol in file.symbols
-                        {
-                            try await symbol.traverseDepthFirst
-                            {
-                                try await $0.retrieveReferences(in: file.path, from: server)
-                            }
-                        }
-                    }
+                    try await rootFolder.retrieveSymbolReferences(from: server)
                 }
                 catch
                 {
@@ -82,19 +59,15 @@ public actor ProjectAnalysis: ObservableObject
                     LSPServerManager.shared.serverIsWorking = false
                 }
                 
-                // we have the project data. now we build a project-/architecture description
-                
                 // TODO: at this point we could theoretically persist the root folder as our project data
                 
-                self.state = .running(.createRootFolderArtifact)
-                symbolDataHash.removeAll()
-                let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder, scope: nil)
-                
-                self.state = .running(.calculateDependencies)
-                rootArtifact.addSymbolDependencies()
-                rootArtifact.addCrossScopeDependencies()
+                // we have the project data. now we build a project-/architecture description
+                let rootArtifact = generateProjectArchitecture(fromProjectData: rootFolder)
                 
                 // arguably, here begins the project analysis
+                self.state = .running(.calculateCrossScopeDependencies)
+                rootArtifact.addCrossScopeDependencies()
+                
                 self.state = .running(.calculateMetrics)
                 rootArtifact.calculateSizeMetricsRecursively()
                 rootArtifact.recursivelyPruneDependenciesAndCalculateDependencyMetrics()
@@ -143,6 +116,23 @@ public actor ProjectAnalysis: ObservableObject
         }
     }
     
+    private func generateProjectArchitecture(fromProjectData rootFolder: CodeFolder) -> CodeFolderArtifact
+    {
+        state = .running(.generateArchitecture)
+        
+        var symbolDataHash = [CodeSymbolArtifact: CodeSymbolData]()
+        
+        let rootArtifact = CodeFolderArtifact(codeFolder: rootFolder,
+                                              scope: nil,
+                                              symbolDataHash: &symbolDataHash)
+        
+        rootArtifact.addSymbolDependencies(symbolDataHash: symbolDataHash)
+        
+        symbolDataHash.removeAll()
+        
+        return rootArtifact
+    }
+    
     private var task: Task<Void, Error>?
     
     // MARK: - Publish State
@@ -158,15 +148,15 @@ public actor ProjectAnalysis: ObservableObject
         
         public enum Step: String, Equatable
         {
-            case readFolder = "Reading root folder",
-                 createRootFolderArtifact = "Creating root folder artifact",
+            case readFolder = "Reading raw data drom project folder",
                  connectToLSPServer = "Connecting to LSP server",
-                 retrieveSymbols = "Retrieving symbols",
-                 retrieveReferences = "Retrieving symbol references",
-                 calculateDependencies = "Calculating code artifacts dependencies",
-                 calculateMetrics = "Calculating code artifacts metrics",
+                 retrieveSymbols = "Retrieving symbols from LSP server",
+                 retrieveReferences = "Retrieving symbol references from LSP server",
+                 generateArchitecture = "Generating project architecture",
+                 calculateCrossScopeDependencies = "Calculating dependencies across scopes",
+                 calculateMetrics = "Calculating metrics",
                  sortCodeArtifacts = "Sorting code artifacts",
-                 createViewModels = "Creating code artifact view models"
+                 createViewModels = "Generating code artifact view models"
         }
     }
     

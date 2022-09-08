@@ -4,24 +4,28 @@ import SwiftyToolz
 
 extension CodeFolderArtifact
 {
-    func addSymbolDependencies()
+    func addSymbolDependencies(symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
     {
-        let hashMap = CodeFileArtifactHashmap(root: self)
-        addSymbolDependencies(using: hashMap)
+        let fileHash = CodeFileArtifactHashmap(root: self)
+        addSymbolDependencies(using: fileHash,
+                              symbolDataHash: symbolDataHash)
     }
     
-    private func addSymbolDependencies(using hashMap: CodeFileArtifactHashmap)
+    private func addSymbolDependencies(using fileHash: CodeFileArtifactHashmap,
+                                       symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
     {
         for part in partGraph.values
         {
             switch part.kind
             {
             case .subfolder(let subfolder):
-                subfolder.addSymbolDependencies(using: hashMap)
+                subfolder.addSymbolDependencies(using: fileHash,
+                                                symbolDataHash: symbolDataHash)
             case .file(let file):
                 let filePath = file.codeFile.path
                 file.symbolGraph.addSymbolDependencies(enclosingFile: filePath,
-                                                       hashMap: hashMap)
+                                                       fileHash: fileHash,
+                                                       symbolDataHash: symbolDataHash)
             }
         }
     }
@@ -30,21 +34,25 @@ extension CodeFolderArtifact
 private extension Graph where NodeValue == CodeSymbolArtifact
 {
     func addSymbolDependencies(enclosingFile file: LSPDocumentUri,
-                               hashMap: CodeFileArtifactHashmap)
+                               fileHash: CodeFileArtifactHashmap,
+                               symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
     {
         for symbolNode in nodesByValueID.values
         {
             let symbol = symbolNode.value
             
             symbol.subsymbolGraph.addSymbolDependencies(enclosingFile: file,
-                                                             hashMap: hashMap)
+                                                        fileHash: fileHash,
+                                                        symbolDataHash: symbolDataHash)
         }
         
         for symbolNode in nodesByValueID.values
         {
             let symbol = symbolNode.value
             
-            let ingoing = symbol.getIngoing(enclosingFile: file, hashMap: hashMap)
+            let ingoing = symbol.getIngoing(enclosingFile: file,
+                                            fileHash: fileHash,
+                                            symbolDataHash: symbolDataHash)
             
             for outOfScopeAncestor in ingoing.outOfScope
             {
@@ -69,7 +77,8 @@ private extension Graph where NodeValue == CodeSymbolArtifact
 private extension CodeSymbolArtifact
 {
     func getIngoing(enclosingFile file: LSPDocumentUri,
-                    hashMap: CodeFileArtifactHashmap) -> IngoingDependencies
+                    fileHash: CodeFileArtifactHashmap,
+                    symbolDataHash: [CodeSymbolArtifact: CodeSymbolData]) -> IngoingDependencies
     {
         guard let references = symbolDataHash[self]?.lspReferences else
         {
@@ -81,7 +90,7 @@ private extension CodeSymbolArtifact
         
         for referencingLocation in references
         {
-            guard let referencingFileArtifact = hashMap[referencingLocation.uri] else
+            guard let referencingFileArtifact = fileHash[referencingLocation.uri] else
             {
                 // TODO: contact sourcekit-lsp team about this, maybe open an issue on github ...
                 // sourcekit-lsp suggests weird references from Swift SDKs into our code when our code extends basic types like String. we must ignore those references.

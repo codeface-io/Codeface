@@ -1,12 +1,36 @@
-import Foundation
 import SwiftLSP
 
-public extension CodeFolder
+extension CodeFolder
 {
-    var looksLikeAPackage: Bool
+    func retrieveSymbolReferences(from server: LSP.ServerCommunicationHandler) async throws
     {
-        url.lastPathComponent.lowercased().contains("package")
-        || files.contains { $0.name.lowercased().contains("package") }
+        try await forEachFile
+        {
+            file in
+            
+            try await server.notifyDidOpen(file.path, containingText: file.code)
+            
+            for symbol in file.symbols
+            {
+                try await symbol.traverseDepthFirst
+                {
+                    try await $0.retrieveReferences(in: file.path, from: server)
+                }
+            }
+        }
+    }
+    
+    func retrieveSymbolData(from server: LSP.ServerCommunicationHandler) async throws
+    {
+        try await forEachFile
+        {
+            file in
+            
+            try await server.notifyDidOpen(file.path, containingText: file.code)
+            
+            file.symbols = try await server.requestSymbols(in: file.path)
+                .compactMap(CodeSymbolData.init)
+        }
     }
     
     func forEachFile(visit: (CodeFile) async throws -> Void) async rethrows
@@ -23,7 +47,16 @@ public extension CodeFolder
     }
 }
 
-extension CodeSymbolData
+private extension CodeSymbolData
+{
+    func traverseDepthFirst(_ visit: (CodeSymbolData) async throws -> Void) async rethrows
+    {
+        for child in children { try await child.traverseDepthFirst(visit) }
+        try await visit(self)
+    }
+}
+
+private extension CodeSymbolData
 {
     func retrieveReferences(in enclosingFile: LSPDocumentUri,
                             from server: LSP.ServerCommunicationHandler) async throws
@@ -40,26 +73,4 @@ extension CodeSymbolData
         lspReferences = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
                                                            in: enclosingFile)
     }
-}
-
-extension CodeSymbolData
-{
-    func traverseDepthFirst(_ visit: (CodeSymbolData) async throws -> Void) async rethrows
-    {
-        for child in children { try await child.traverseDepthFirst(visit) }
-        try await visit(self)
-    }
-}
-
-public class CodeFolder: Codable
-{
-    internal init(url: URL, files: [CodeFile], subfolders: [CodeFolder]) {
-        self.url = url
-        self.files = files
-        self.subfolders = subfolders
-    }
-    
-    public let url: URL
-    public let files: [CodeFile]
-    public let subfolders: [CodeFolder]
 }
