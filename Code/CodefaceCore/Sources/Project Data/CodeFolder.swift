@@ -1,21 +1,19 @@
-import Foundation
-
 class CodeFolder: Codable
 {
     var looksLikeAPackage: Bool
     {
-        url.lastPathComponent.lowercased().contains("package")
-        || files.contains { $0.name.lowercased().contains("package") }
+        name.lowercased().contains("package")
+            || files.contains { $0.name.lowercased().contains("package") }
     }
     
-    init(url: URL, files: [CodeFile], subfolders: [CodeFolder])
+    init(name: String, files: [CodeFile], subfolders: [CodeFolder])
     {
-        self.url = url
+        self.name = name
         self.files = files
         self.subfolders = subfolders
     }
     
-    let url: URL
+    let name: String
     let files: [CodeFile]
     let subfolders: [CodeFolder]
 }

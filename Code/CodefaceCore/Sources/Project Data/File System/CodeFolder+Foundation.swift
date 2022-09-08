@@ -30,7 +30,7 @@ extension CodeFolder
         
         if files.count + subfolders.count == 0 { return nil }
         
-        self.init(url: folderURL,
+        self.init(name: folderURL.lastPathComponent,
                   files: files,
                   subfolders: subfolders)
     }
@@ -39,7 +39,7 @@ extension CodeFolder
     {
         if let encoded = encode()
         {
-            log("\(url.lastPathComponent) size: \(Double(encoded.count) / 1000_000) MB")
+            log(name + " size: \(Double(encoded.count) / 1000_000) MB")
         }
     }
 }
