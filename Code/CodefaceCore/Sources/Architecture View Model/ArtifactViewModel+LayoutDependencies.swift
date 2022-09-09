@@ -8,22 +8,22 @@ public extension ArtifactViewModel
         {
             artifactVM in
             
-            var tasksByOptimalX = [Double: [(Int, Dependency.LayoutResult.HorizontalRange)]]()
-            var tasksByOptimalY = [Double: [(Int, Dependency.LayoutResult.VerticalRange)]]()
+            var tasksByOptimalX = [Double: [(Int, Dependency.LayoutTask.Range)]]()
+            var tasksByOptimalY = [Double: [(Int, Dependency.LayoutTask.Range)]]()
             
             for dependencyIndex in artifactVM.partDependencies.indices
             {
-                let layout = artifactVM.partDependencies[dependencyIndex].calculateLayout()
-                
-                switch layout
+                guard let task = artifactVM.partDependencies[dependencyIndex].calculateLayout() else
                 {
-                case .points(let sourcePoint, let targetPoint):
-                    artifactVM.partDependencies[dependencyIndex].sourcePoint = sourcePoint
-                    artifactVM.partDependencies[dependencyIndex].targetPoint = targetPoint
+                    continue
+                }
+                        
+                switch task
+                {
                 case .horizontalRange(let horizontalRange):
-                    tasksByOptimalX[horizontalRange.optimalX, default: []] += (dependencyIndex, horizontalRange)
+                    tasksByOptimalX[horizontalRange.optimalA, default: []] += (dependencyIndex, horizontalRange)
                 case .verticalRange(let verticalRange):
-                    tasksByOptimalY[verticalRange.optimalY, default: []] += (dependencyIndex, verticalRange)
+                    tasksByOptimalY[verticalRange.optimalA, default: []] += (dependencyIndex, verticalRange)
                 }
             }
             
@@ -36,10 +36,10 @@ public extension ArtifactViewModel
                     let (dependencyIndex, horizontalRange) = tasks[taskIndex]
                     
                     let relativeXInRange = Double(taskIndex + 1) / Double(numberOfTasks + 1)
-                    let rangeStart = horizontalRange.optimalX - horizontalRange.radiusX
-                    let chosenX = rangeStart + relativeXInRange * (horizontalRange.radiusX * 2)
-                    let sourcePoint = Point(chosenX, horizontalRange.sourceY)
-                    let targetPoint = Point(chosenX, horizontalRange.targetY)
+                    let rangeStart = horizontalRange.optimalA - horizontalRange.radiusA
+                    let chosenX = rangeStart + relativeXInRange * (horizontalRange.radiusA * 2)
+                    let sourcePoint = Point(chosenX, horizontalRange.sourceB)
+                    let targetPoint = Point(chosenX, horizontalRange.targetB)
                     
                     artifactVM.partDependencies[dependencyIndex].sourcePoint = sourcePoint
                     artifactVM.partDependencies[dependencyIndex].targetPoint = targetPoint
@@ -55,10 +55,10 @@ public extension ArtifactViewModel
                     let (dependencyIndex, verticalRange) = tasks[taskIndex]
                     
                     let relativeYInRange = Double(taskIndex + 1) / Double(numberOfTasks + 1)
-                    let rangeStart = verticalRange.optimalY - verticalRange.radiusY
-                    let chosenY = rangeStart + relativeYInRange * (verticalRange.radiusY * 2)
-                    let sourcePoint = Point(verticalRange.sourceX, chosenY)
-                    let targetPoint = Point(verticalRange.targetX, chosenY)
+                    let rangeStart = verticalRange.optimalA - verticalRange.radiusA
+                    let chosenY = rangeStart + relativeYInRange * (verticalRange.radiusA * 2)
+                    let sourcePoint = Point(verticalRange.sourceB, chosenY)
+                    let targetPoint = Point(verticalRange.targetB, chosenY)
                     
                     artifactVM.partDependencies[dependencyIndex].sourcePoint = sourcePoint
                     artifactVM.partDependencies[dependencyIndex].targetPoint = targetPoint
@@ -71,7 +71,7 @@ public extension ArtifactViewModel
 @MainActor
 extension ArtifactViewModel.Dependency
 {
-    func calculateLayout() -> LayoutResult
+    mutating func calculateLayout() -> LayoutTask?
     {
         let sourceFrame = sourcePart.frameInScopeContent
         let targetFrame = targetPart.frameInScopeContent
@@ -112,44 +112,37 @@ extension ArtifactViewModel.Dependency
         
         if sourceX == targetX
         {
-            return .horizontalRange(.init(optimalX: sourceX,
-                                          radiusX: radius,
-                                          sourceY: sourceY,
-                                          targetY: targetY))
+            return .horizontalRange(.init(optimalA: sourceX,
+                                          radiusA: radius,
+                                          sourceB: sourceY,
+                                          targetB: targetY))
         }
         else if sourceY == targetY
         {
-            return .verticalRange(.init(optimalY: sourceY,
-                                        radiusY: radius,
-                                        sourceX: sourceX,
-                                        targetX: targetX))
+            return .verticalRange(.init(optimalA: sourceY,
+                                        radiusA: radius,
+                                        sourceB: sourceX,
+                                        targetB: targetX))
         }
         else
         {
-            return .points(Point(sourceX, sourceY), Point(targetX, targetY))
+            sourcePoint = Point(sourceX, sourceY)
+            targetPoint = Point(targetX, targetY)
+            return nil
         }
     }
     
-    enum LayoutResult
+    enum LayoutTask
     {
-        case points(Point, Point)
-        case horizontalRange(HorizontalRange)
-        case verticalRange(VerticalRange)
+        case horizontalRange(Range)
+        case verticalRange(Range)
         
-        struct HorizontalRange
+        struct Range
         {
-            let optimalX: Double
-            let radiusX: Double
+            let optimalA: Double
+            let radiusA: Double
             
-            let sourceY, targetY: Double
-        }
-
-        struct VerticalRange
-        {
-            let optimalY: Double
-            let radiusY: Double
-            
-            let sourceX, targetX: Double
+            let sourceB, targetB: Double
         }
     }
 }
