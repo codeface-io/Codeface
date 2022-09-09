@@ -8,8 +8,8 @@ public extension ArtifactViewModel
         {
             artifactVM in
             
-            var tasksByOptimalX = [Double: [(Int, Dependency.LayoutTask.Range)]]()
-            var tasksByOptimalY = [Double: [(Int, Dependency.LayoutTask.Range)]]()
+            var tasksByOptimalX = [Double: [(Int, DependencyVM.LayoutTask.Range)]]()
+            var tasksByOptimalY = [Double: [(Int, DependencyVM.LayoutTask.Range)]]()
             
             for dependencyIndex in artifactVM.partDependencies.indices
             {
@@ -69,9 +69,9 @@ public extension ArtifactViewModel
 }
 
 @MainActor
-extension ArtifactViewModel.Dependency
+extension DependencyVM
 {
-    mutating func calculateLayout() -> LayoutTask?
+    func calculateLayout() -> LayoutTask?
     {
         let sourceFrame = sourcePart.frameInScopeContent
         let targetFrame = targetPart.frameInScopeContent

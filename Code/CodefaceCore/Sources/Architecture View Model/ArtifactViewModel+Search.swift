@@ -4,7 +4,7 @@ public extension ArtifactViewModel
 {
     // MARK: - Filter
     
-    var filteredPartDependencies: [ArtifactViewModel.Dependency]
+    var filteredPartDependencies: [DependencyVM]
     {
         partDependencies.filter
         {

@@ -153,21 +153,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     // MARK: - Basics
     
-    @Published public var partDependencies = [Dependency]()
+    public var partDependencies = [DependencyVM]()
     public let parts: [ArtifactViewModel]
-    
-    public struct Dependency: Identifiable
-    {
-        public let id = UUID()
-        
-        public let sourcePart: ArtifactViewModel
-        public var sourcePoint: Point = .zero
-        
-        public let targetPart: ArtifactViewModel
-        public var targetPoint: Point = .zero
-        
-        public let weight: Int
-    }
     
     public nonisolated var id: String { codeArtifact.id }
     
@@ -189,6 +176,27 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
              file(CodeFileArtifact),
              symbol(CodeSymbolArtifact)
     }
+}
+
+public class DependencyVM: ObservableObject, Identifiable
+{
+    internal init(sourcePart: ArtifactViewModel,
+                  targetPart: ArtifactViewModel,
+                  weight: Int) {
+        self.sourcePart = sourcePart
+        self.targetPart = targetPart
+        self.weight = weight
+    }
+    
+    public let id = UUID()
+    
+    public let sourcePart: ArtifactViewModel
+    @Published public var sourcePoint: Point = .zero
+    
+    public let targetPart: ArtifactViewModel
+    @Published public var targetPoint: Point = .zero
+    
+    public let weight: Int
 }
 
 private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String

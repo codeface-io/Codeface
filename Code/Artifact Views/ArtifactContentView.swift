@@ -19,9 +19,7 @@ struct ArtifactContentView: View
                     // TODO: just give the whole dependencyVM to the DependencyView, making sure that focus updates in source and target still get propagated to the view
                     DependencyView(source: dependencyVM.sourcePart,
                                    target: dependencyVM.targetPart,
-                                   sourcePoint: CGPoint(dependencyVM.sourcePoint),
-                                   targetPoint: CGPoint(dependencyVM.targetPoint),
-                                   weight: Double(dependencyVM.weight),
+                                   viewModel: dependencyVM,
                                    defaultBrightness: lineBrightness(forBGBrightness: partBGBrightness,
                                                                      isDarkMode: colorScheme == .dark),
                                    size: artifactVM.gapBetweenParts / 2.5)
