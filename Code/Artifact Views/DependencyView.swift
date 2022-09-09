@@ -38,7 +38,6 @@ struct DependencyView: View
     
     @ObservedObject var source: ArtifactViewModel
     @ObservedObject var target: ArtifactViewModel
-    
     @ObservedObject var viewModel: DependencyVM
     
     let defaultBrightness: Double

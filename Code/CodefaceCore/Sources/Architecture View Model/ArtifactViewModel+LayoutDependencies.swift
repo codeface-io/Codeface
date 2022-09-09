@@ -8,70 +8,102 @@ public extension ArtifactViewModel
         {
             artifactVM in
             
-            var tasksByOptimalX = [Double: [(Int, DependencyVM.LayoutTask.Range)]]()
-            var tasksByOptimalY = [Double: [(Int, DependencyVM.LayoutTask.Range)]]()
+            var verticalTasks = [OrthogonalDependencyLayoutTask]()
+            var horizontalTasks = [OrthogonalDependencyLayoutTask]()
             
-            for dependencyIndex in artifactVM.partDependencies.indices
-            {
-                guard let task = artifactVM.partDependencies[dependencyIndex].calculateLayout() else
+            artifactVM.partDependencies
+                .compactMap { $0.calculateLayout() }
+                .forEach
                 {
-                    continue
+                    if $0.isVertical { verticalTasks += $0.task }
+                    else { horizontalTasks += $0.task }
                 }
-                        
-                switch task
+                
+            solve(verticalTasks, vertical: true)
+            solve(horizontalTasks, vertical: false)
+        }
+    }
+    
+    private func solve(_ tasks: [OrthogonalDependencyLayoutTask], vertical: Bool)
+    {
+        var possiblyOverlappingTasksByOptimalA = [Double: [OrthogonalDependencyLayoutTask]]()
+        
+        for task in tasks
+        {
+            possiblyOverlappingTasksByOptimalA[task.centerA, default: []] += task
+        }
+        
+        for possiblyOverlappingTasks in possiblyOverlappingTasksByOptimalA.values
+        {
+            var bucketsOfNonOverlappingTasks = [NonOverlappingTasks]()
+            
+            for task in possiblyOverlappingTasks.sorted(by: { $0.lengthB < $1.lengthB } )
+            {
+                var foundBucket = false
+                
+                for bucketIndex in bucketsOfNonOverlappingTasks.indices
                 {
-                case .horizontalRange(let horizontalRange):
-                    tasksByOptimalX[horizontalRange.optimalA, default: []] += (dependencyIndex, horizontalRange)
-                case .verticalRange(let verticalRange):
-                    tasksByOptimalY[verticalRange.optimalA, default: []] += (dependencyIndex, verticalRange)
+                    if bucketsOfNonOverlappingTasks[bucketIndex].add(newTask: task)
+                    {
+                        foundBucket = true
+                        break
+                    }
+                }
+                
+                if !foundBucket
+                {
+                    bucketsOfNonOverlappingTasks += NonOverlappingTasks(tasks: [task])
                 }
             }
+
+            let numberOfPossiblyOverlappingBuckets = bucketsOfNonOverlappingTasks.count
             
-            for tasks in tasksByOptimalX.values
+            for bucketIndex in bucketsOfNonOverlappingTasks.indices
             {
-                let numberOfTasks = tasks.count
-                
-                for taskIndex in tasks.indices
-                {
-                    let (dependencyIndex, horizontalRange) = tasks[taskIndex]
-                    
-                    let relativeXInRange = Double(taskIndex + 1) / Double(numberOfTasks + 1)
-                    let rangeStart = horizontalRange.optimalA - horizontalRange.radiusA
-                    let chosenX = rangeStart + relativeXInRange * (horizontalRange.radiusA * 2)
-                    let sourcePoint = Point(chosenX, horizontalRange.sourceB)
-                    let targetPoint = Point(chosenX, horizontalRange.targetB)
-                    
-                    artifactVM.partDependencies[dependencyIndex].sourcePoint = sourcePoint
-                    artifactVM.partDependencies[dependencyIndex].targetPoint = targetPoint
-                }
-            }
-            
-            for tasks in tasksByOptimalY.values
-            {
-                let numberOfTasks = tasks.count
-                
-                for taskIndex in tasks.indices
-                {
-                    let (dependencyIndex, verticalRange) = tasks[taskIndex]
-                    
-                    let relativeYInRange = Double(taskIndex + 1) / Double(numberOfTasks + 1)
-                    let rangeStart = verticalRange.optimalA - verticalRange.radiusA
-                    let chosenY = rangeStart + relativeYInRange * (verticalRange.radiusA * 2)
-                    let sourcePoint = Point(verticalRange.sourceB, chosenY)
-                    let targetPoint = Point(verticalRange.targetB, chosenY)
-                    
-                    artifactVM.partDependencies[dependencyIndex].sourcePoint = sourcePoint
-                    artifactVM.partDependencies[dependencyIndex].targetPoint = targetPoint
-                }
+                let relativeAInRange = Double(bucketIndex + 1) / Double(numberOfPossiblyOverlappingBuckets + 1)
+
+                bucketsOfNonOverlappingTasks[bucketIndex].solve(relativeAInRange: relativeAInRange,
+                                                                asVerticalTask: vertical)
             }
         }
+    }
+    
+    private struct NonOverlappingTasks
+    {
+        func solve(relativeAInRange: Double, asVerticalTask: Bool)
+        {
+            for task in tasks
+            {
+                task.solve(relativeAInRange: relativeAInRange,
+                           asVerticalTask: asVerticalTask)
+            }
+        }
+        
+        mutating func add(newTask: OrthogonalDependencyLayoutTask) -> Bool
+        {
+            if taskOverlapsWithExistingTasks(newTask: newTask) { return false }
+            tasks += newTask
+            return true
+        }
+        
+        private func taskOverlapsWithExistingTasks(newTask: OrthogonalDependencyLayoutTask) -> Bool
+        {
+            for esistingTask in tasks
+            {
+                if esistingTask.rangeBOverlaps(with: newTask) { return true }
+            }
+            
+            return false
+        }
+        
+        var tasks: [OrthogonalDependencyLayoutTask]
     }
 }
 
 @MainActor
-extension DependencyVM
+private extension DependencyVM
 {
-    func calculateLayout() -> LayoutTask?
+    func calculateLayout() -> DependencyLayoutResult?
     {
         let sourceFrame = sourcePart.frameInScopeContent
         let targetFrame = targetPart.frameInScopeContent
@@ -112,17 +144,21 @@ extension DependencyVM
         
         if sourceX == targetX
         {
-            return .horizontalRange(.init(optimalA: sourceX,
-                                          radiusA: radius,
-                                          sourceB: sourceY,
-                                          targetB: targetY))
+            return .init(task: .init(centerA: sourceX,
+                                     radiusA: radius,
+                                     sourceB: sourceY,
+                                     targetB: targetY,
+                                     dependencyVM: self),
+                         isVertical: false)
         }
         else if sourceY == targetY
         {
-            return .verticalRange(.init(optimalA: sourceY,
-                                        radiusA: radius,
-                                        sourceB: sourceX,
-                                        targetB: targetX))
+            return .init(task: .init(centerA: sourceY,
+                                     radiusA: radius,
+                                     sourceB: sourceX,
+                                     targetB: targetX,
+                                     dependencyVM: self),
+                         isVertical: true)
         }
         else
         {
@@ -132,17 +168,48 @@ extension DependencyVM
         }
     }
     
-    enum LayoutTask
+    struct DependencyLayoutResult
     {
-        case horizontalRange(Range)
-        case verticalRange(Range)
+        let task: OrthogonalDependencyLayoutTask
+        let isVertical: Bool
+    }
+}
+
+private struct OrthogonalDependencyLayoutTask
+{
+    var lengthB: Double
+    {
+        abs(targetB - sourceB)
+    }
+    
+    func rangeBOverlaps(with otherTask: OrthogonalDependencyLayoutTask) -> Bool
+    {
+        !(max(otherTask.sourceB, otherTask.targetB) < min(sourceB, targetB)) &&
+        !(min(otherTask.sourceB, otherTask.targetB) > max(sourceB, targetB))
+    }
+    
+    func solve(relativeAInRange: Double, asVerticalTask isVertical: Bool)
+    {
+        let rangeA = radiusA * 2
+        let rangeAStart = centerA - radiusA
+        let resultA = rangeAStart + relativeAInRange * rangeA
         
-        struct Range
+        if isVertical
         {
-            let optimalA: Double
-            let radiusA: Double
-            
-            let sourceB, targetB: Double
+            dependencyVM.sourcePoint = Point(sourceB, resultA)
+            dependencyVM.targetPoint = Point(targetB, resultA)
+        }
+        else
+        {
+            dependencyVM.sourcePoint = Point(resultA, sourceB)
+            dependencyVM.targetPoint = Point(resultA, targetB)
         }
     }
+    
+    let centerA: Double
+    let radiusA: Double
+    
+    let sourceB, targetB: Double
+    
+    let dependencyVM: DependencyVM
 }
