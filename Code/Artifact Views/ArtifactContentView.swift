@@ -16,7 +16,6 @@ struct ArtifactContentView: View
                 {
                     dependencyVM in
                     
-                    // TODO: just give the whole dependencyVM to the DependencyView, making sure that focus updates in source and target still get propagated to the view
                     DependencyView(source: dependencyVM.sourcePart,
                                    target: dependencyVM.targetPart,
                                    viewModel: dependencyVM,

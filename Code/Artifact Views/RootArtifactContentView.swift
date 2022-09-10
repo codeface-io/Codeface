@@ -16,19 +16,31 @@ struct RootArtifactContentView: View
                                 isShownInScope: artifact.showsContent)
             .onChange(of: geo.size)
             {
-                size in
+                newSize in
                 
                 Task
                 {
                     withAnimation(.easeInOut(duration: 1))
                     {
-//                        print("updating layout because size change")
+                        // print("updating layout because size change")
                         
-                        artifact.updateLayoutOfParts(forScopeSize: size,
+                        artifact.updateLayoutOfParts(forScopeSize: newSize,
                                                      ignoreSearchFilter: viewModel.isTypingSearch)
                         artifact.layoutDependencies()
                     }
                 }
+            }
+            .onReceive(viewModel.$selectedArtifact)
+            {
+                selectedArtifact in
+                
+                guard let selectedArtifact = selectedArtifact else { return }
+                
+                // print("updating layout because selection change")
+                
+                selectedArtifact.updateLayoutOfParts(forScopeSize: geo.size,
+                                                     ignoreSearchFilter: viewModel.isTypingSearch)
+                selectedArtifact.layoutDependencies()
             }
             .onReceive(viewModel.$isTypingSearch)
             {
@@ -39,7 +51,7 @@ struct RootArtifactContentView: View
                     withAnimation(.easeInOut(duration: 1))
                     {
 //                        print("updating layout because typing change")
-                        
+//
 //                        let before = Double.uptimeNanoSeconds
                         
                         artifact.updateLayoutOfParts(forScopeSize: geo.size,
