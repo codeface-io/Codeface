@@ -110,6 +110,6 @@ struct SidebarRow: View
     }
     
     let selectedArtifactVM: ArtifactViewModel
-    @ObservedObject var viewModel: ProjectAnalysisViewModel
+    @ObservedObject var viewModel: ProjectProcessorViewModel
     @ObservedObject private var serverManager = LSPServerManager.shared
 }

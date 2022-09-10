@@ -7,14 +7,14 @@ public actor ProjectProcessor: ObservableObject
 {
     // MARK: - Initialize
     
-    public init(projectLocation: ProjectLocation) throws
+    public init(location: ProjectLocation) throws
     {
-        guard FileManager.default.itemExists(projectLocation.folder) else
+        guard FileManager.default.itemExists(location.folder) else
         {
-            throw "Project folder does not exist: " + projectLocation.folder.absoluteString
+            throw "Project folder does not exist: " + location.folder.absoluteString
         }
         
-        self.projectLocation = projectLocation
+        self.projectLocation = location
     }
     
     // MARK: - Run Processing

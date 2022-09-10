@@ -36,7 +36,7 @@ struct SidebarArtifactList: View
     @Environment(\.isSearching) private var isSearching
     @Environment(\.dismissSearch) private var dismissSearch
     
-    @ObservedObject var analysisVM: ProjectAnalysisViewModel
+    @ObservedObject var analysisVM: ProjectProcessorViewModel
     let rootArtifact: ArtifactViewModel
     
     @FocusState private var listIsInFocus

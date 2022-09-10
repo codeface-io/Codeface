@@ -4,7 +4,7 @@ import Foundation
 
 public enum ProjectLocationPersister
 {
-    public static var hasPersistedLastProject: Bool { persistedProjectLocationData != nil }
+    public static var hasPersistedLastProjectLocation: Bool { persistedProjectLocationData != nil }
     
     static func persist(_ project: ProjectLocation) throws
     {
@@ -18,7 +18,7 @@ public enum ProjectLocationPersister
         persistedProjectLocationData = try persistedProject.encode() as Data
     }
     
-    static func loadProjectConfig() throws -> ProjectLocation
+    static func loadProjectLocation() throws -> ProjectLocation
     {
         guard let projectData = persistedProjectLocationData else
         {

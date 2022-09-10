@@ -1,14 +1,14 @@
 import Combine
 
 @MainActor
-public class ProjectAnalysisViewModel: ObservableObject
+public class ProjectProcessorViewModel: ObservableObject
 {
-    public init(activeAnalysis: ProjectProcessor) async
+    public init(activeProcessor: ProjectProcessor) async
     {
-        self.activeAnalysis = activeAnalysis
-        self.analysisState = await activeAnalysis.state
-        self.projectName = activeAnalysis.projectLocation.folder.lastPathComponent
-        self.stateObservation = await activeAnalysis.$state.sink { self.analysisState = $0 }
+        self.activeProcessor = activeProcessor
+        self.analysisState = await activeProcessor.state
+        self.projectName = activeProcessor.projectLocation.folder.lastPathComponent
+        self.stateObservation = await activeProcessor.$state.sink { self.analysisState = $0 }
     }
     
     deinit
@@ -57,7 +57,7 @@ public class ProjectAnalysisViewModel: ObservableObject
     @Published public private(set) var analysisState: ProjectProcessor.State = .stopped
     private var stateObservation: AnyCancellable?
     
-    private let activeAnalysis: ProjectProcessor
+    private let activeProcessor: ProjectProcessor
     
     // MARK: - Other Elements
     

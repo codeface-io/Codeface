@@ -21,11 +21,11 @@ struct CodefaceView: View
                         Image(systemName: "sidebar.leading")
                     }
                     
-                    if ProjectLocationPersister.hasPersistedLastProject
+                    if ProjectLocationPersister.hasPersistedLastProjectLocation
                     {
                         Spacer()
                         
-                        Button(action: { viewModel.loadLastActiveProject() })
+                        Button(action: { viewModel.loadLastProject() })
                         {
                             Image(systemName: "arrow.clockwise")
                         }
@@ -34,7 +34,7 @@ struct CodefaceView: View
             }
             
             // dummy navigation content so view sizing works as expected
-            if let analysisVM = viewModel.projectAnalysis
+            if let analysisVM = viewModel.projectProcessorVM
             {
                 DummyNavigationContent(analysisVM: analysisVM)
             }
@@ -49,7 +49,7 @@ struct CodefaceView: View
         }
     }
     
-    @ObservedObject var viewModel: CodefaceViewModel
+    @ObservedObject var viewModel: Codeface
 }
 
 private struct DummyNavigationContent: View
@@ -72,5 +72,5 @@ private struct DummyNavigationContent: View
         }
     }
     
-    @ObservedObject var analysisVM: ProjectAnalysisViewModel
+    @ObservedObject var analysisVM: ProjectProcessorViewModel
 }

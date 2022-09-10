@@ -35,7 +35,7 @@ struct CodefaceApp: App
             {
                 ProjectPickerView(isBeingPresented: $isPresentingProjectSelector)
                 {
-                    viewModel.loadNewActiveAnalysis(for: $0)
+                    viewModel.loadNewActiveprocessor(for: $0)
                 }
                 .padding()
             }
@@ -48,7 +48,7 @@ struct CodefaceApp: App
             {
                 Button("Switch View Mode")
                 {
-                    if let projectAnalysis = viewModel.projectAnalysis
+                    if let projectAnalysis = viewModel.projectProcessorVM
                     {
                         switch projectAnalysis.displayMode
                         {
@@ -110,17 +110,17 @@ struct CodefaceApp: App
                                                             language: "Swift",
                                                             codeFileEndings: ["swift"])
                         
-                        viewModel.loadNewActiveAnalysis(for: project)
+                        viewModel.loadNewActiveprocessor(for: project)
                     }
                     catch { log(error) }
                 })
                 
                 Button("Reload Last Project")
                 {
-                    viewModel.loadLastActiveProject()
+                    viewModel.loadLastProject()
                 }
                 .keyboardShortcut("r")
-                .disabled(!ProjectLocationPersister.hasPersistedLastProject)
+                .disabled(!ProjectLocationPersister.hasPersistedLastProjectLocation)
             }
         }
         
@@ -132,7 +132,7 @@ struct CodefaceApp: App
     @State var isPresentingFileImporter = false
     @Environment(\.scenePhase) var scenePhase
     
-    private let viewModel = CodefaceViewModel()
+    private let viewModel = Codeface()
     
     @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) private var appDelegate
 }

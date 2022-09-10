@@ -69,5 +69,5 @@ struct SidebarAnalysisContent: View
     
     @State private var searchTerm = ""
     
-    @ObservedObject var analysisVM: ProjectAnalysisViewModel
+    @ObservedObject var analysisVM: ProjectProcessorViewModel
 }

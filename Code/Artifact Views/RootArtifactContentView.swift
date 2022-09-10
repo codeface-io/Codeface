@@ -71,6 +71,6 @@ struct RootArtifactContentView: View
     }
     
     let artifact: ArtifactViewModel
-    @ObservedObject var viewModel: ProjectAnalysisViewModel
+    @ObservedObject var viewModel: ProjectProcessorViewModel
     @Environment(\.colorScheme) var colorScheme
 }

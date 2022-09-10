@@ -6,7 +6,7 @@ struct CodefaceSidebar: View
 {
     var body: some View
     {
-        if let analysisVM = viewModel.projectAnalysis
+        if let analysisVM = viewModel.projectProcessorVM
         {
             SidebarAnalysisContent(analysisVM: analysisVM)
         }
@@ -20,5 +20,5 @@ struct CodefaceSidebar: View
         }
     }
     
-    @ObservedObject var viewModel: CodefaceViewModel
+    @ObservedObject var viewModel: Codeface
 }
