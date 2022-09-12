@@ -1,36 +1,99 @@
-/* Basics */
+/* Basic Elements */
 
 @font-face
 {
-    font-family: FlowlistRegular;
+    font-family: RegularFont;
     src: url("fonts/SF-Pro-Text-Regular.otf") format("opentype");
 }
 
 @font-face
 {
-    font-family: FlowlistBold;
+    font-family: BoldFont;
     src: url("fonts/SF-Pro-Display-Bold.otf") format("opentype");
 }
 
 @font-face
 {
-    font-family: FiraCode;
+    font-family: CodeFont;
     src: url("fonts/FiraCode-Regular.ttf") format("truetype");
-}
-
-html {
-    scroll-behavior: smooth;
 }
 
 body
 {
-    background:black;
-    color:white;
-    font-family: FlowlistRegular;
+    margin: 0px;
+}
+
+html
+{
+    scroll-behavior: smooth;
+    
+    background: black;
+    color: white;
+    
+    font-family: RegularFont;
     font-weight: normal;
     font-size: 18px;
     line-height: 1.6;
-    margin: 0px;
+}
+
+section
+{
+    background: black; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(black, rgba(20, 20, 20, 1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(black, rgba(20, 20, 20, 1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(black, rgba(20, 20, 20, 1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(black, rgba(20, 20, 20, 1)); /* Standard syntax */
+}
+
+h1
+{
+    text-align: center;
+    
+    font-family: BoldFont;
+    font-size: 72px;
+    font-weight: normal;
+    letter-spacing: -2px;
+}
+
+h2
+{
+    font-family: CodeFont;
+    font-size: 30px;
+    font-weight: normal;
+    letter-spacing: -1.5px;
+}
+
+
+@media only screen and (max-width: 400px) /* smaller headlines on very narrow screens */
+{
+    h1
+    {
+        font-size: 48px;
+    }
+    
+    h2
+    {
+        font-size: 24px;
+    }
+}
+
+h3
+{
+    font-family: BoldFont;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+img
+{
+    max-width: 100%;
+}
+
+code
+{
+    font-family: CodeFont;
+    font-weight: normal;
+    letter-spacing: -1px;
 }
 
 a
@@ -45,101 +108,24 @@ a:hover
     text-decoration: underline;
 }
 
-section
-{
-    padding-top:90px;
-    padding-bottom:90px;
-
-    background: black; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(black, rgba(16, 16, 16, 1)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(black, rgba(16, 16, 16, 1)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(black, rgba(16, 16, 16, 1)); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(black, rgba(16, 16, 16, 1)); /* Standard syntax */
-}
-
-section > div
-{
-    width:95%;
-    max-width:1024px;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-h1, h2
-{
-    line-height: 1.6;
-    text-align:center;
-}
-
-h1
-{
-    margin-top: -30px;
-    letter-spacing: -2px;
-    font-family: FlowlistBold;
-    font-size: 72px;
-    margin-bottom: 20px;
-    font-weight: normal;
-}
-
-h2
-{
-    font-family: FiraCode;
-    font-weight: normal;
-    letter-spacing: -1px;
-    line-height: 1.6;
-    font-size: 32px;
-    margin-bottom: 30px;
-}
-
-@media only screen and (max-width: 400px) {
-    h1 {
-        font-size: 48px;
-    }
-    h2 {
-        font-size: 24px;
-    }
-}
-
-h3
-{
-    font-family: FlowlistBold;
-    font-weight: normal;
-    letter-spacing: 0px;
-    line-height: 1.6;
-    font-size: 18px;
-}
-
-code
-{
-    font-family: FiraCode;
-    font-weight: normal;
-    letter-spacing: -1px;
-}
-
 /* Fancy clickable images */
 
-.clickable
+.clickable-image, a > img
 {
     transition: transform .4s; /* Animation */
     transition-timing-function: ease-out;
 }
 
-.clickable:hover
+.clickable-image:hover, a > img:hover
 {
     transform: scale(1.07);
-}
-
-/* Bottom Section (Contact) */
-
-#contact {
-    background:rgb(29,29,29);
 }
 
 /* Navbar and Bottom Bar */
 
 .codeface-bar {
     color: rgb(245,245,245);
-    background: rgb(16,16,16);
+    background: rgb(20,20,20);
 }
 
 .codeface-bar a {
@@ -189,7 +175,7 @@ ul {
   float: right;
 }
 
-li a {
+#codeface-navbar li a {
   display: block;
   text-align: center;
 }
@@ -205,61 +191,4 @@ li a {
 #codeface-bottom-bar {
     padding-top:18px;
     padding-bottom:16px;
-}
-
-/* Responsive Grid */
-
-.codeface-3-columns {
-    display: grid;
-    grid-template-columns: 31% 31% 31%;
-    column-gap:3.5%;
-}
-
-@media only screen and (max-width: 700px) {
-    .codeface-3-columns {
-        display: initial;
-    }
-}
-
-/* Screen Shots */
-
-#screen-shot-1
-{
-    background:url(screenshots/01_dark.png) no-repeat;
-    background-size:contain;
-    background-position:center;
-}
-
-#screen-shot-1.light-mode
-{
-    background:url(screenshots/01_light.png) no-repeat;
-    background-size:contain;
-    background-position:center;
-}
-
-#screen-shot-2
-{
-    background:url(screenshots/02_dark.png) no-repeat;
-    background-size:contain;
-    background-position:center;
-}
-
-#screen-shot-2.light-mode
-{
-    background:url(screenshots/02_light.png) no-repeat;
-    background-size:contain;
-    background-position:center;
-}
-#screen-shot-3
-{
-    background:url(screenshots/03_dark.png) no-repeat;
-    background-size:contain;
-    background-position:center;
-}
-
-#screen-shot-3.light-mode
-{
-    background:url(screenshots/03_light.png) no-repeat;
-    background-size:contain;
-    background-position:center;
 }
