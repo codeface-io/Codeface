@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="en">
-    
     <head>
         <!-- General HTML stuff -->
         <meta charset="utf-8">
@@ -9,115 +7,16 @@
             
         <!-- CSS -->
         <link rel="stylesheet" href="../codeface.css">
-            
-        <!-- Overwrite some CSS, since this is more an article than a landing page -->
-        <style>
-            h2 {
-                text-align:left;
-            }
-            
-            section > div {
-                max-width:800px;
-            }
-        </style>
+        <link rel="stylesheet" href="../blog/blog.css">
     </head>
     
     <body>
-        
-        <section id="codeface-navbar" class="codeface-bar">
-            <div>
-                <ul>
-                    <li class="left"><a href="../index.html#vision">Vision</a></li>
-                    <li class="left"><a href="index.html">Blog</a></li>
-                    <li class="left"><a href="../index.html#contact">Contact</a></li>
-                    <li class="right desktop-only"><a onclick="ga('send', 'event', 'button', 'click', 'navigation bar');"
-                        href="https://apps.apple.com/app/codeface/id1578175415"
-                        target="_blank">
-                        <img style="width:180px"
-                            src="../App_Store_Badge.svg"
-                            title="Download Codeface for free from the Mac App Store"></a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        
         <section>
-            
             <div>
-                
-            <h1>LSPService for Codeface</h1>
-            
-            LSPService is a free open source webservice that can provide <a href="../index.html">Codeface</a> finer granularity and information about actual architecture:
-            
-            <br><br>
-            
-            <img style="width:100%" src="../screenshots/01_dark.png"></img>
-            
-            <br><br>
-            
-            For example, it allows <a href="../index.html">Codeface</a> to show the symbols (like classes and functions) and dependencies in your code base.
-            
-            <h2>Download and Run</h2>
-            
-            Simply download LSPService and run it locally on your machine. <a href="../index.html">Codeface</a> will automatically detect LSPService and talk to it.
-            <br><br>
-            
-            <div style="display:grid;grid-template-columns:50% 50%;column-gap:0%;">
-            
-            <a href="binaries/arm64-apple-macosx/LSPService.zip" download>
-                <img style="margin-bottom:-17px" src="apple-logo.png" width="50"/> &nbsp; LSPService for Apple Silicon
-            </a>
-            
-            <a href="binaries/x86_64-apple-macosx/LSPService.zip" download>
-                <img style="margin-bottom:-17px" src="intel-logo.png" width="50"/> &nbsp; LSPService for Intel Chips
-            </a>
-            
+                <h1>
+                    This article has moved <nobr>to the blog:</nobr><br><a href="../blog/posts/using-lsp-servers-in-codeface-via-lspservice/index.html">Click here to read it</a>
+                </h1>
             </div>
-                
-            <br><br>
-            
-            On you first attempt to launch LSPService, you'll probably need to confirm that intention via the security settings:
-            
-            <br>
-            
-            <img style="width:100%" src="security_preferences_screenshot.png"></img>
-            
-            LSPService will run in terminal, and as long as it's running there, the service is available. Check <a href="http://localhost:8080">http://localhost:8080</a>.
-            
-            <h2>Add Language Support</h2>
-            
-            If Xcode is installed, LSPService automatically supports <b>Swift packages</b>. Be aware that using LSPService and Codeface on Swift packages, you have to `swift build` your package from the console to update what LSPService and Codeface "can see". This is due to a <a href="https://github.com/apple/sourcekit-lsp#caveats">caveat</a> of <a href="https://github.com/apple/sourcekit-lsp">Apple's LSP server</a>, which is still at an early stage.
-            
-            <br><br>
-            
-            The same LSP server from Apple should also work for Objective-c, C++ and C (see below).
-            
-            <br><br>
-            
-            Generally, you must provide locations of <a href="https://langserver.org">LSP servers</a> for the languages you care about: LSPService creates an LSPServiceConfig.json file on launch if the file doesn't exist yet. If the file exists, LSPService loads server configurations from the file. The JSON structure is quite self-explanatory:
-            
-<pre><code>{
-    "swift" : {
-        "path" : "/usr/bin/xcrun",
-        "arguments" : [
-            "sourcekit-lsp"
-        ],
-        "environment" : {
-            "SOURCEKIT_LOGGING" : "0"
-        }
-    }
-}</code></pre>
-            
-            Just add language server entries to the file and then restart LSPService. Arguments and environment may of course remain empty.
-            
-            <br><br>
-            
-            In the future, LSPService will help more with installing and locating LSP servers for common languages. Learn more (or even contribute) <a href="https://github.com/flowtoolz/LSPService">on GitHub</a>.
-            
-            </div>
-            
         </section>
-        
     </body>
-    
 </html>
