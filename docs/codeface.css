@@ -209,8 +209,22 @@ ul {
 
 /* Bottom Bar */
 
-#codeface-bottom-bar {
+#codeface-bottom-bar
+{
     text-align: center;
     padding-top:18px;
     padding-bottom:16px;
+    
+    color: gray;
+}
+
+#codeface-bottom-bar a
+{
+    color: gray;
+}
+
+#codeface-bottom-bar a:hover
+{
+    color: rgb(84,178,235);
+    text-decoration: none;
 }
