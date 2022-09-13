@@ -1,23 +1,13 @@
-section
-{
-    padding-bottom: 20px;
-}
-
 section > div
 {
-    width: 95%;
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .blog-post-grid
 {
     display: grid;
     grid-template-columns: 33% 65%;
-    column-gap:3%;
-    
-    padding-bottom: 80px;
+    column-gap: 3%;
 }
 
 @media only screen and (max-width: 700px)
@@ -28,7 +18,8 @@ section > div
     }
 }
 
-.blog-post-date
+.blog-post-list-wrapper h2
 {
-    color: gray;
+    margin-top: 80px;
 }
+

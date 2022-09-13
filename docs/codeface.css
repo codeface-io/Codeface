@@ -38,11 +38,20 @@ html
 
 section
 {
+    padding-bottom: 90px;
+    
     background: black; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(black, rgba(20, 20, 20, 1)); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(black, rgba(20, 20, 20, 1)); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(black, rgba(20, 20, 20, 1)); /* For Firefox 3.6 to 15 */
     background: linear-gradient(black, rgba(20, 20, 20, 1)); /* Standard syntax */
+}
+
+section > div
+{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1
@@ -108,6 +117,22 @@ a:hover
     text-decoration: underline;
 }
 
+a.subtle-link
+{
+    color: white;
+}
+
+a.subtle-link:hover
+{
+    color: rgb(84,178,235);
+    text-decoration: none;
+}
+
+.secondary-text-color
+{
+    color: gray;
+}
+
 /* Fancy clickable images */
 
 .clickable-image, a > img
@@ -123,18 +148,14 @@ a:hover
 
 /* Navbar and Bottom Bar */
 
-.codeface-bar {
-    color: rgb(245,245,245);
+section.codeface-bar
+{
     background: rgb(20,20,20);
 }
 
-.codeface-bar a {
-    color: rgb(245,245,245);
-}
-
-.codeface-bar a:hover {
-    text-decoration:none;
-    color: rgb(84,178,235);
+section.codeface-bar > div
+{
+    max-width: 1280px;
 }
 
 /* Navbar */
@@ -189,6 +210,7 @@ ul {
 /* Bottom Bar */
 
 #codeface-bottom-bar {
+    text-align: center;
     padding-top:18px;
     padding-bottom:16px;
 }
