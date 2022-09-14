@@ -15,13 +15,15 @@ class CodeSymbolData: Codable
         kind = decodedKind
         range = lspDocumentySymbol.range
         selectionRange = lspDocumentySymbol.selectionRange
-        children = lspDocumentySymbol.children.compactMap(CodeSymbolData.init)
+        
+        let createdChildren = lspDocumentySymbol.children.compactMap(CodeSymbolData.init)
+        children = createdChildren.isEmpty ? nil : createdChildren
     }
     
     let name: String
     let kind: LSPDocumentSymbol.SymbolKind
     let range: LSPRange
     let selectionRange: LSPRange
-    let children: [CodeSymbolData]
-    var lspReferences = [LSPLocation]()
+    let children: [CodeSymbolData]?
+    var lspReferences: [LSPLocation]?
 }

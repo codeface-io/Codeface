@@ -2,16 +2,16 @@ import SwiftLSP
 
 class CodeFile: Codable
 {
-    init(name: String, uri: LSPDocumentUri, lines: [String])
+    init(name: String, uri: LSPDocumentUri, code: String)
     {
         self.name = name
         self.uri = uri
-        self.lines = lines
+        self.code = code
     }
     
     let name: String
     let uri: LSPDocumentUri
-    var code: String { lines.joined(separator: "\n") }
-    let lines: [String]
-    var symbols = [CodeSymbolData]()
+    let code: String
+    var lines: [String] { code.components(separatedBy: .newlines) }
+    var symbols: [CodeSymbolData]? = nil
 }

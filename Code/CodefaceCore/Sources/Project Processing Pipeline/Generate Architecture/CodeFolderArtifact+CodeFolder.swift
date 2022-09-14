@@ -6,14 +6,14 @@ extension CodeFolderArtifact
     {
         self.init(name: codeFolder.name, scope: scope)
         
-        let partArray = codeFolder.subfolders.map
+        let partArray = (codeFolder.subfolders ?? []).map
         {
             Part(kind: .subfolder(CodeFolderArtifact(codeFolder: $0,
                                                      scope: self,
                                                      symbolDataHash: &symbolDataHash)))
         }
         +
-        codeFolder.files.map
+        (codeFolder.files ?? []).map
         {
             Part(kind: .file(CodeFileArtifact(codeFile: $0,
                                               scope: self,

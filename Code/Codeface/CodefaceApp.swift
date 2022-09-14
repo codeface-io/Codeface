@@ -1,6 +1,7 @@
 import SwiftUI
 import CodefaceCore
 import LSPServiceKit
+import SwiftLSP
 import SwiftyToolz
 
 @main
@@ -90,8 +91,7 @@ struct CodefaceApp: App
                 }
                 .fileImporter(isPresented: $isPresentingFileImporter,
                               allowedContentTypes: [.directory],
-                              allowsMultipleSelection: false,
-                              onCompletion:
+                              allowsMultipleSelection: false)
                 {
                     result in
                     
@@ -106,14 +106,14 @@ struct CodefaceApp: App
                             throw "Empty array of URLs"
                         }
                         
-                        let project = ProjectLocation(folder: firstURL,
-                                                            language: "Swift",
-                                                            codeFileEndings: ["swift"])
+                        let project = LSP.ProjectLocation(folder: firstURL,
+                                                          language: "Swift",
+                                                          codeFileEndings: ["swift"])
                         
                         viewModel.loadNewActiveprocessor(for: project)
                     }
                     catch { log(error) }
-                })
+                }
                 
                 Button("Reload Last Project")
                 {
@@ -121,18 +121,60 @@ struct CodefaceApp: App
                 }
                 .keyboardShortcut("r")
                 .disabled(!ProjectLocationPersister.hasPersistedLastProjectLocation)
+                
+                Button("Save project data ...")
+                {
+                    isPresentingFileExporter = true
+                }
+                .fileExporter(isPresented: $isPresentingFileExporter,
+                              document: DataDocument(data: viewModel.projectProcessorVM?.projectData),
+                              contentType: .data,
+                              defaultFilename: viewModel.projectProcessorVM?.projectName ?? "Codeface_Project.cf")
+                {
+                    result in
+                    
+                    
+                }
+                .disabled(viewModel.projectProcessorVM?.projectData == nil)
             }
         }
-        
     }
     
-    @ObservedObject private var serverManager = LSPServerManager.shared
+    @ObservedObject private var serverManager = LSP.ServerManager.shared
     
     @State var isPresentingProjectSelector = false
     @State var isPresentingFileImporter = false
+    
     @Environment(\.scenePhase) var scenePhase
     
-    private let viewModel = Codeface()
+    @StateObject private var viewModel = Codeface()
     
     @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) private var appDelegate
+    
+    @State var isPresentingFileExporter = false
+}
+
+import UniformTypeIdentifiers
+
+struct DataDocument: FileDocument
+{
+    static var readableContentTypes: [UTType] = [.data]
+                    
+    init?(data: Data?)
+    {
+        guard let data = data else { return nil }
+        self.data = data
+    }
+    
+    init(configuration: ReadConfiguration) throws
+    {
+        data = try configuration.file.regularFileContents.unwrap()
+    }
+    
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper
+    {
+        .init(regularFileWithContents: data)
+    }
+    
+    let data: Data
 }

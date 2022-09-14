@@ -1,4 +1,5 @@
 import LSPServiceKit
+import SwiftLSP
 import Foundation
 import Combine
 import SwiftyToolz
@@ -7,7 +8,7 @@ public actor ProjectProcessor: ObservableObject
 {
     // MARK: - Initialize
     
-    public init(location: ProjectLocation) throws
+    public init(location: LSP.ProjectLocation) throws
     {
         guard FileManager.default.itemExists(location.folder) else
         {
@@ -22,27 +23,29 @@ public actor ProjectProcessor: ObservableObject
     public func run() async
     {
         state = .running(.readFolder)
-        guard let projectData = readRootFolder() else { return }
+        projectData = nil
+        guard let newProjectData = readRootFolder() else { return }
+        projectData = newProjectData
         
         do
         {
             state = .running(.connectToLSPServer)
-            let server = try await LSPServerManager.shared.getServer(for: projectLocation)
+            let server = try await LSP.ServerManager.shared.getServer(for: projectLocation)
             
             state = .running(.retrieveSymbols)
-            try await projectData.retrieveSymbolData(from: server)
+            try await newProjectData.retrieveSymbolData(from: server)
             
             state = .running(.retrieveReferences)
-            try await projectData.retrieveSymbolReferences(from: server)
+            try await newProjectData.retrieveSymbolReferences(from: server)
         }
         catch
         {
             log(warning: "Cannot talk to LSP server: " + error.readable.message)
-            LSPServerManager.shared.serverIsWorking = false
+            LSP.ServerManager.shared.serverIsWorking = false
         }
         
         // we have the project data. now we build a project-/architecture description
-        let projectArchitecture = generateProjectArchitecture(from: projectData)
+        let projectArchitecture = generateProjectArchitecture(from: newProjectData)
         
         // arguably, here begins the project analysis
         state = .running(.calculateCrossScopeDependencies)
@@ -60,7 +63,7 @@ public actor ProjectProcessor: ObservableObject
         state = .running(.createViewModels)
         
         let rootVM = await ArtifactViewModel(folderArtifact: projectArchitecture,
-                                             isPackage: projectData.looksLikeAPackage).addDependencies()
+                                             isPackage: newProjectData.looksLikeAPackage).addDependencies()
         
         state = .succeeded(rootVM)
     }
@@ -86,6 +89,14 @@ public actor ProjectProcessor: ObservableObject
             return nil
         }
     }
+    
+    public func encodeProjectData() -> Data?
+    {
+        guard let projectData = projectData else { return nil }
+        return projectData.encode(options: [.withoutEscapingSlashes])
+    }
+    
+    private var projectData: CodeFolder?
     
     private func generateProjectArchitecture(from projectData: CodeFolder) -> CodeFolderArtifact
     {
@@ -131,5 +142,5 @@ public actor ProjectProcessor: ObservableObject
     
     // MARK: - Configure
     
-    public let projectLocation: ProjectLocation
+    public let projectLocation: LSP.ProjectLocation
 }

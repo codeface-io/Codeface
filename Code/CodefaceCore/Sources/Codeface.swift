@@ -1,4 +1,6 @@
 import LSPServiceKit
+import Foundation
+import SwiftLSP
 import Combine
 import SwiftyToolz
 
@@ -24,7 +26,7 @@ public class Codeface: ObservableObject
         catch { log(error) }
     }
     
-    public func loadNewActiveprocessor(for project: ProjectLocation)
+    public func loadNewActiveprocessor(for project: LSP.ProjectLocation)
     {
         do
         {
@@ -34,19 +36,27 @@ public class Codeface: ObservableObject
         catch { log(error) }
     }
     
-    private func setAndStartActiveProcessor(with location: ProjectLocation) throws
+    private func setAndStartActiveProcessor(with location: LSP.ProjectLocation) throws
     {
         projectProcessorVM?.selectedArtifact = nil
         
         Task
         {
             let processor = try ProjectProcessor(location: location)
-            projectProcessorVM = await ProjectProcessorViewModel(activeProcessor: processor)
+            let processorVM = await ProjectProcessorViewModel(activeProcessor: processor)
+            self.projectDataObservation?.cancel()
+            self.projectDataObservation = processorVM.$projectData.sink {
+                self.projectData = $0
+            }
+            projectProcessorVM = processorVM
             await processor.run()
         }
     }
     
     @Published public var projectProcessorVM: ProjectProcessorViewModel? = nil
+    
+    @Published public var projectData: Data?
+    private var projectDataObservation: AnyCancellable?
 }
 
 public enum CodefaceStyle

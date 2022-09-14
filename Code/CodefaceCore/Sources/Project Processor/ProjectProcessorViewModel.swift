@@ -1,3 +1,4 @@
+import Foundation
 import Combine
 
 @MainActor
@@ -8,7 +9,18 @@ public class ProjectProcessorViewModel: ObservableObject
         self.activeProcessor = activeProcessor
         self.analysisState = await activeProcessor.state
         self.projectName = activeProcessor.projectLocation.folder.lastPathComponent
-        self.stateObservation = await activeProcessor.$state.sink { self.analysisState = $0 }
+        self.stateObservation = await activeProcessor.$state.sink
+        {
+            self.analysisState = $0
+            
+            if case .succeeded = $0
+            {
+                Task
+                {
+                    self.projectData = await activeProcessor.encodeProjectData()
+                }
+            }
+        }
     }
     
     deinit
@@ -51,6 +63,7 @@ public class ProjectProcessorViewModel: ObservableObject
     // MARK: - Active Analysis
     
     public let projectName: String
+    @Published public var projectData: Data? = nil
     
     @Published public var selectedArtifact: ArtifactViewModel? = nil
     

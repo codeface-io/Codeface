@@ -1,5 +1,6 @@
 import SwiftUI
 import LSPServiceKit
+import SwiftLSP
 import SwiftyToolz
 
 struct ProjectPickerView: View
@@ -54,9 +55,9 @@ struct ProjectPickerView: View
                         
                         let fileEndingArray = fileEndings.components(separatedBy: .whitespaces)
                         
-                        let config = ProjectLocation(folder: firstURL,
-                                                             language: languageName,
-                                                             codeFileEndings: fileEndingArray)
+                        let config = LSP.ProjectLocation(folder: firstURL,
+                                                         language: languageName,
+                                                         codeFileEndings: fileEndingArray)
                         
                         confirm(config)
                     }
@@ -67,7 +68,7 @@ struct ProjectPickerView: View
     }
     
     @Binding var isBeingPresented: Bool
-    let confirm: (ProjectLocation) -> Void
+    let confirm: (LSP.ProjectLocation) -> Void
     
     @State private var languageName: String = ""
     @State private var fileEndings: String = ""

@@ -9,7 +9,7 @@ extension CodeFileArtifact
                   codeLines: codeFile.code.components(separatedBy: .newlines),
                   scope: scope)
         
-        for symbolData in codeFile.symbols
+        for symbolData in (codeFile.symbols ?? [])
         {
             symbolGraph.insert(.init(symbolData: symbolData,
                                      scope: self,

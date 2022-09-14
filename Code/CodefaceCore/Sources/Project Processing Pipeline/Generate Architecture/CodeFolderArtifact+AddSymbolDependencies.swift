@@ -80,11 +80,13 @@ private extension CodeSymbolArtifact
                     fileHash: CodeFileArtifactHashmap,
                     symbolDataHash: [CodeSymbolArtifact: CodeSymbolData]) -> IngoingDependencies
     {
-        guard let references = symbolDataHash[self]?.lspReferences else
+        guard let symbolData = symbolDataHash[self] else
         {
             log(error: "no symbol data exists for this symbol artifact")
             return .empty
         }
+        
+        guard let references = symbolData.lspReferences else { return .empty }
         
         var result = IngoingDependencies()
         

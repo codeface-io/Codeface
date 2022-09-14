@@ -16,7 +16,7 @@ extension CodeSymbolArtifact
                   scope: scope)
         
         // create subsymbols recursively
-        for childSymbolData in symbolData.children
+        for childSymbolData in (symbolData.children ?? [])
         {
             let childSymbol =  CodeSymbolArtifact(symbolData: childSymbolData,
                                                   scope: self,

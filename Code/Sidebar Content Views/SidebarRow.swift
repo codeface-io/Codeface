@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftyToolz
 import LSPServiceKit
+import SwiftLSP
 import CodefaceCore
 
 struct SidebarRow: View
@@ -111,5 +112,5 @@ struct SidebarRow: View
     
     let selectedArtifactVM: ArtifactViewModel
     @ObservedObject var viewModel: ProjectProcessorViewModel
-    @ObservedObject private var serverManager = LSPServerManager.shared
+    @ObservedObject private var serverManager = LSP.ServerManager.shared
 }

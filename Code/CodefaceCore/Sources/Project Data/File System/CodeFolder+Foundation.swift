@@ -48,10 +48,8 @@ private extension CodeFile
 {
     convenience init(_ file: URL) throws
     {
-        let content = try String(contentsOf: file, encoding: .utf8)
-        
         self.init(name: file.lastPathComponent,
                   uri: file.absoluteString,
-                  lines: content.components(separatedBy: .newlines))
+                  code: try String(contentsOf: file, encoding: .utf8))
     }
 }

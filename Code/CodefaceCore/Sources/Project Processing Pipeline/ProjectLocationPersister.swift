@@ -1,4 +1,5 @@
 import LSPServiceKit
+import SwiftLSP
 import FoundationToolz
 import Foundation
 
@@ -6,7 +7,7 @@ public enum ProjectLocationPersister
 {
     public static var hasPersistedLastProjectLocation: Bool { persistedProjectLocationData != nil }
     
-    static func persist(_ project: ProjectLocation) throws
+    static func persist(_ project: LSP.ProjectLocation) throws
     {
         let bookmarkData = try project.folder.bookmarkData(options: .withSecurityScope,
                                                            includingResourceValuesForKeys: nil,
@@ -18,7 +19,7 @@ public enum ProjectLocationPersister
         persistedProjectLocationData = try persistedProject.encode() as Data
     }
     
-    static func loadProjectLocation() throws -> ProjectLocation
+    static func loadProjectLocation() throws -> LSP.ProjectLocation
     {
         guard let projectData = persistedProjectLocationData else
         {
@@ -53,5 +54,5 @@ public enum ProjectLocationPersister
 private struct PersistedProjectLocation: Codable
 {
     var folderBookmarkData: Data
-    var projectLocation: ProjectLocation
+    var projectLocation: LSP.ProjectLocation
 }
