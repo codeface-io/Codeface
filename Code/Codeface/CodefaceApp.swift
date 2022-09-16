@@ -19,7 +19,6 @@ struct CodefaceApp: App
         {
             documentConfiguration in
             
-//            Text("codebase named \(documentConfiguration.document.codebase.name)")
             CodefaceView(viewModel: codeface)
                 .onChange(of: scenePhase)
             {
@@ -120,7 +119,7 @@ struct CodefaceApp: App
                 }
                 .keyboardShortcut("i")
                 .fileImporter(isPresented: $isPresentingFileImporter,
-                              allowedContentTypes: [.data],
+                              allowedContentTypes: [.codebase],
                               allowsMultipleSelection: false)
                 {
                     guard let fileURL = (try? $0.get())?.first else
@@ -139,7 +138,7 @@ struct CodefaceApp: App
                 .disabled(codeface.projectData == nil)
                 .fileExporter(isPresented: $isPresentingFileExporter,
                               document: makeCodebaseFileDocument(),
-                              contentType: .data,
+                              contentType: .codebase,
                               defaultFilename: codeface.defaultProjectFileName)
                 {
                     if case .failure(let error) = $0

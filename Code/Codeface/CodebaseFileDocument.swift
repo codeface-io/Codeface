@@ -2,21 +2,13 @@ import SwiftUI
 import UniformTypeIdentifiers
 import CodefaceCore
 
-extension UTType
-{
-    static let codebase = UTType(exportedAs: "com.flowtoolz.codeface.codebase")
-}
-
 @available(macOS 11.0, *)
 public struct CodebaseFileDocument: FileDocument
 {
-    public static var readableContentTypes: [UTType] = [.codebase]
-    
     // load file
     public init(configuration: ReadConfiguration) throws
     {
-        let codebaseData = try configuration.file.regularFileContents.unwrap()
-        codebase = try CodeFolder(jsonData: codebaseData)
+        codebase = try CodeFolder(jsonData: configuration.file.regularFileContents.unwrap())
     }
     
     // write to file
@@ -31,4 +23,10 @@ public struct CodebaseFileDocument: FileDocument
     }
     
     public let codebase: CodeFolder
+    public static var readableContentTypes: [UTType] = [.codebase]
+}
+
+extension UTType
+{
+    static let codebase = UTType(exportedAs: "com.flowtoolz.codeface.codebase")
 }
