@@ -25,7 +25,7 @@ struct CodefaceApp: App
                 case .background: break
                 case .active:
                     #if DEBUG
-                    codeface.loadLastProjectIfNoneIsActive()
+                    codeface.loadLastProjectIfNoneIsLoaded()
                     #else
                     break
                     #endif
@@ -37,7 +37,7 @@ struct CodefaceApp: App
             {
                 ProjectPickerView(isBeingPresented: $isPresentingProjectSelector)
                 {
-                    codeface.loadNewActiveprocessor(for: $0)
+                    codeface.loadNewProject(from: $0)
                 }
                 .padding()
             }
@@ -80,13 +80,13 @@ struct CodefaceApp: App
             
             CommandGroup(replacing: .newItem)
             {
-                Button("Load Code Base ...")
+                Button("Load Codebase...")
                 {
                     isPresentingProjectSelector = true
                 }
                 .keyboardShortcut("n")
                 
-                Button("Load Swift Package ...")
+                Button("Load Swift Package...")
                 {
                     isPresentingFolderImporter = true
                 }
@@ -94,82 +94,56 @@ struct CodefaceApp: App
                               allowedContentTypes: [.directory],
                               allowsMultipleSelection: false)
                 {
-                    result in
-                    
-                    isPresentingFolderImporter = false
-                    
-                    do
+                    guard let folderURL = (try? $0.get())?.first else
                     {
-                        let urls = try result.get()
-                        
-                        guard let firstURL = urls.first else
-                        {
-                            throw "Empty array of URLs"
-                        }
-                        
-                        let project = LSP.ProjectLocation(folder: firstURL,
-                                                          language: "Swift",
-                                                          codeFileEndings: ["swift"])
-                        
-                        codeface.loadNewActiveprocessor(for: project)
+                        return log(error: "Could not select project folder")
                     }
-                    catch { log(error) }
+                    
+                    codeface.loadSwiftPackage(from: folderURL)
                 }
                 
-                Button("Reload Last Project")
+                Button("Reload Last Codebase")
                 {
                     codeface.loadLastProject()
                 }
                 .keyboardShortcut("r")
                 .disabled(!ProjectLocationPersister.hasPersistedLastProjectLocation)
                 
-                Button("Load project data from file ...")
+                Divider()
+                
+                Button("Import Codebase From File...")
                 {
                     isPresentingFileImporter = true
                 }
+                .keyboardShortcut("i")
                 .fileImporter(isPresented: $isPresentingFileImporter,
                               allowedContentTypes: [.data],
                               allowsMultipleSelection: false)
                 {
-                    result in
-                    
-                    guard let fileURLs = try? result.get(),
-                          let fileURL = fileURLs.first
-                    else
+                    guard let fileURL = (try? $0.get())?.first else
                     {
-                        log(error: "Couldn't select project data file")
-                        return
+                        return log(error: "Couldn't select project data file")
                     }
                     
-                    guard let fileData = Data(from: fileURL) else
-                    {
-                        log(error: "Couldn't read project data file")
-                        return
-                    }
-                    
-                    guard let projectData = CodeFolder(fileData) else
-                    {
-                        log(error: "Couldn't decode project data")
-                        return
-                    }
-                    
-                    
+                    codeface.loadProject(from: fileURL)
                 }
                 
-                Button("Save project data ...")
+                Button("Export Codebase to File...")
                 {
                     isPresentingFileExporter = true
                 }
+                .keyboardShortcut("e")
+                .disabled(codeface.projectData == nil)
                 .fileExporter(isPresented: $isPresentingFileExporter,
                               document: makeProjectDataFileDocument(),
                               contentType: .data,
                               defaultFilename: codeface.defaultProjectFileName)
                 {
-                    result in
-                    
-                    
+                    if case .failure(let error) = $0
+                    {
+                        log(error)
+                    }
                 }
-                .disabled(codeface.projectData == nil)
             }
         }
     }
@@ -189,7 +163,7 @@ struct CodefaceApp: App
     @State private var isPresentingFileExporter = false
     @State private var isPresentingFileImporter = false
     
-    // MARK: - Loading a Project
+    // MARK: - Load a Project
     
     @State private var isPresentingProjectSelector = false
     @State private var isPresentingFolderImporter = false

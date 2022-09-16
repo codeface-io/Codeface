@@ -4,14 +4,14 @@ import Combine
 @MainActor
 public class ProjectProcessorViewModel: ObservableObject
 {
-    public init(activeProcessor: ProjectProcessor) async
+    public init(processor: ProjectProcessor) async
     {
-        self.activeProcessor = activeProcessor
-        let currentProcessorState = await activeProcessor.state
+        self.activeProcessor = processor
+        let currentProcessorState = await processor.state
         processorState = currentProcessorState
         projectName = currentProcessorState.projectName
         
-        stateObservation = await activeProcessor.$state.sink
+        stateObservation = await processor.$state.sink
         {
             newState in
             
