@@ -54,9 +54,7 @@ public actor ProjectProcessor: ObservableObject
         {
         case .didLocateProject(let projectLocation):
             state = .retrievingProjectData(.readFolder)
-            projectData = nil
-            guard let newProjectData = readRootFolder(from: projectLocation) else { return nil }
-            projectData = newProjectData
+            guard let projectData = readFolder(from: projectLocation) else { return nil }
             
             do
             {
@@ -64,10 +62,10 @@ public actor ProjectProcessor: ObservableObject
                 let server = try await LSP.ServerManager.shared.getServer(for: projectLocation)
                 
                 state = .retrievingProjectData(.retrieveSymbols)
-                try await newProjectData.retrieveSymbolData(from: server)
+                try await projectData.retrieveSymbolData(from: server)
                 
                 state = .retrievingProjectData(.retrieveReferences)
-                try await newProjectData.retrieveSymbolReferences(from: server)
+                try await projectData.retrieveSymbolReferences(from: server)
             }
             catch
             {
@@ -75,9 +73,9 @@ public actor ProjectProcessor: ObservableObject
                 LSP.ServerManager.shared.serverIsWorking = false
             }
             
-            state = .didRetrieveProjectData(newProjectData)
+            state = .didRetrieveProjectData(projectData)
             
-            return newProjectData
+            return projectData
         case .didRetrieveProjectData(let projectData):
             return projectData
         case .didVisualizeProjectArchitecture(let projectData, _):
@@ -88,7 +86,7 @@ public actor ProjectProcessor: ObservableObject
         }
     }
     
-    private func readRootFolder(from projectLocation: LSP.ProjectLocation) -> CodeFolder?
+    private func readFolder(from projectLocation: LSP.ProjectLocation) -> CodeFolder?
     {
         do
         {
@@ -109,8 +107,6 @@ public actor ProjectProcessor: ObservableObject
             return nil
         }
     }
-    
-    private var projectData: CodeFolder?
     
     private func generateProjectArchitecture(from projectData: CodeFolder) -> CodeFolderArtifact
     {
