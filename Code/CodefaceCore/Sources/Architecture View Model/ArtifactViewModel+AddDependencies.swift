@@ -2,7 +2,7 @@ import SwiftyToolz
 
 public extension ArtifactViewModel
 {
-    func addDependencies() -> ArtifactViewModel
+    func addDependencies()
     {
         // make view model hash map
         var viewModelHashMap = [CodeArtifact.ID : ArtifactViewModel]()
@@ -62,8 +62,6 @@ public extension ArtifactViewModel
                 }
             }
         }
-        
-        return self
     }
 
     func applyRecursively(action: (ArtifactViewModel) -> Void)

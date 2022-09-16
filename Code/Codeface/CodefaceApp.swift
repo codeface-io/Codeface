@@ -87,15 +87,15 @@ struct CodefaceApp: App
                 
                 Button("Load Swift Package ...")
                 {
-                    isPresentingFileImporter = true
+                    isPresentingFolderImporter = true
                 }
-                .fileImporter(isPresented: $isPresentingFileImporter,
+                .fileImporter(isPresented: $isPresentingFolderImporter,
                               allowedContentTypes: [.directory],
                               allowsMultipleSelection: false)
                 {
                     result in
                     
-                    isPresentingFileImporter = false
+                    isPresentingFolderImporter = false
                     
                     do
                     {
@@ -122,12 +122,45 @@ struct CodefaceApp: App
                 .keyboardShortcut("r")
                 .disabled(!ProjectLocationPersister.hasPersistedLastProjectLocation)
                 
+                Button("Load project data from file ...")
+                {
+                    isPresentingFileImporter = true
+                }
+                .fileImporter(isPresented: $isPresentingFileImporter,
+                              allowedContentTypes: [.data],
+                              allowsMultipleSelection: false)
+                {
+                    result in
+                    
+                    guard let fileURLs = try? result.get(),
+                          let fileURL = fileURLs.first
+                    else
+                    {
+                        log(error: "Couldn't select project data file")
+                        return
+                    }
+                    
+                    guard let fileData = Data(from: fileURL) else
+                    {
+                        log(error: "Couldn't read project data file")
+                        return
+                    }
+                    
+                    guard let projectData = CodeFolder(fileData) else
+                    {
+                        log(error: "Couldn't decode project data")
+                        return
+                    }
+                    
+                    
+                }
+                
                 Button("Save project data ...")
                 {
                     isPresentingFileExporter = true
                 }
                 .fileExporter(isPresented: $isPresentingFileExporter,
-                              document: DataDocument(data: viewModel.projectProcessorVM?.projectData),
+                              document: DataDocument(data: viewModel.projectData),
                               contentType: .data,
                               defaultFilename: viewModel.projectProcessorVM?.projectName ?? "Codeface_Project.cf")
                 {
@@ -135,7 +168,7 @@ struct CodefaceApp: App
                     
                     
                 }
-                .disabled(viewModel.projectProcessorVM?.projectData == nil)
+                .disabled(viewModel.projectData == nil)
             }
         }
     }
@@ -143,7 +176,7 @@ struct CodefaceApp: App
     @ObservedObject private var serverManager = LSP.ServerManager.shared
     
     @State var isPresentingProjectSelector = false
-    @State var isPresentingFileImporter = false
+    @State var isPresentingFolderImporter = false
     
     @Environment(\.scenePhase) var scenePhase
     
@@ -152,6 +185,7 @@ struct CodefaceApp: App
     @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) private var appDelegate
     
     @State var isPresentingFileExporter = false
+    @State var isPresentingFileImporter = false
 }
 
 import UniformTypeIdentifiers

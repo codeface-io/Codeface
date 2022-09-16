@@ -6,9 +6,9 @@ struct CodefaceSidebar: View
 {
     var body: some View
     {
-        if let analysisVM = viewModel.projectProcessorVM
+        if let processorVM = viewModel.projectProcessorVM
         {
-            SidebarAnalysisContent(analysisVM: analysisVM)
+            SidebarAnalysisContent(processorVM: processorVM)
         }
         else
         {

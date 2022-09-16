@@ -1,7 +1,12 @@
 import SwiftLSP
 
-class CodeFile: Codable
+class CodeFile: Codable, Equatable
 {
+    static func == (lhs: CodeFile, rhs: CodeFile) -> Bool
+    {
+        lhs === rhs
+    }
+    
     init(name: String, uri: LSPDocumentUri, code: String)
     {
         self.name = name

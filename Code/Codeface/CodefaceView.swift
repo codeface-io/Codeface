@@ -56,12 +56,12 @@ private struct DummyNavigationContent: View
 {
     var body: some View
     {
-        switch analysisVM.analysisState
+        switch analysisVM.processorState
         {
-        case .running:
+        case .visualizingProjectArchitecture:
             ProgressView()
                 .progressViewStyle(.circular)
-        case .succeeded(let rootFolderVM):
+        case .didVisualizeProjectArchitecture(_, let rootFolderVM):
             Text("← Select some code artifact in " + rootFolderVM.codeArtifact.name)
                 .multilineTextAlignment(.center)
                 .font(.title)

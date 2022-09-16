@@ -1,5 +1,10 @@
-class CodeFolder: Codable
+public class CodeFolder: Codable, Equatable
 {
+    public static func == (lhs: CodeFolder, rhs: CodeFolder) -> Bool
+    {
+        lhs === rhs
+    }
+    
     var looksLikeAPackage: Bool
     {
         if name.lowercased().contains("package") { return true }

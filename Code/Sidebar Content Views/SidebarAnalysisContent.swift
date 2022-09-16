@@ -5,17 +5,48 @@ struct SidebarAnalysisContent: View
 {
     var body: some View
     {
-        switch analysisVM.analysisState
+        switch processorVM.processorState
         {
-        case .succeeded(let rootArtifact):
-            SidebarArtifactList(analysisVM: analysisVM,
-                        rootArtifact: rootArtifact)
-            .searchable(text: $searchTerm,
-                        placement: .toolbar,
-                        prompt: searchPrompt)
-            .onSubmit(of: .search)
+        case .didLocateProject:
+            Text("Project has been located but loading has not started yet.")
+                .padding()
+        case .retrievingProjectData(let step):
+            VStack
             {
-                analysisVM.isTypingSearch = false
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .padding(.bottom)
+                
+                Text("Loading " + processorVM.projectName)
+                
+                Text(step.rawValue)
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+        case .didRetrieveProjectData:
+            Text("Project data has been retrieved but analysis has not started yet.")
+                .padding()
+        case .visualizingProjectArchitecture(let step):
+            VStack
+            {
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .padding(.bottom)
+                
+                Text("Analyzing " + processorVM.projectName)
+                
+                Text(step.rawValue)
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+        case .didVisualizeProjectArchitecture(_, let rootArtifact):
+            SidebarArtifactList(analysisVM: processorVM, rootArtifact: rootArtifact)
+                .searchable(text: $searchTerm,
+                            placement: .toolbar,
+                            prompt: searchPrompt)
+                .onSubmit(of: .search)
+            {
+                processorVM.isTypingSearch = false
             }
             .onChange(of: searchTerm)
             {
@@ -25,30 +56,13 @@ struct SidebarAnalysisContent: View
                 
                 withAnimation(.easeInOut)
                 {
-                    analysisVM.userChanged(searchTerm: newSearchTerm)
+                    processorVM.userChanged(searchTerm: newSearchTerm)
                 }
             }
-            .onReceive(analysisVM.$isTypingSearch)
+            .onReceive(processorVM.$isTypingSearch)
             {
-                if $0 { searchTerm = analysisVM.appliedSearchTerm ?? "" }
+                if $0 { searchTerm = processorVM.appliedSearchTerm ?? "" }
             }
-            
-        case .running(let step):
-            VStack
-            {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .padding(.bottom)
-                
-                Text("Loading " + analysisVM.projectName)
-                
-                Text(step.rawValue)
-                    .foregroundColor(.secondary)
-            }
-            .padding()
-        case .stopped:
-            Text("Project analysis has been stopped without error. Maybe you wanna try reloading.")
-                .padding()
         case .failed(let errorMessage):
             VStack(alignment: .leading)
             {
@@ -64,10 +78,10 @@ struct SidebarAnalysisContent: View
     
     private var searchPrompt: String
     {
-        "Search in \(analysisVM.selectedArtifact?.codeArtifact.name ?? "Selected Artifact")"
+        "Search in \(processorVM.selectedArtifact?.codeArtifact.name ?? "Selected Artifact")"
     }
     
     @State private var searchTerm = ""
     
-    @ObservedObject var analysisVM: ProjectProcessorViewModel
+    @ObservedObject var processorVM: ProjectProcessorViewModel
 }

@@ -44,6 +44,15 @@ extension CodeFolder
     }
 }
 
+public extension CodeFolder
+{
+    func encodeForFileStorage() -> Data?
+    {
+        // avoid white space from pretty printing, avoid escaping slashes
+        encode(options: [.withoutEscapingSlashes])
+    }
+}
+
 private extension CodeFile
 {
     convenience init(_ file: URL) throws

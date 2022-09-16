@@ -1,8 +1,13 @@
 import SwiftLSP
 import SwiftyToolz
 
-class CodeSymbolData: Codable
+class CodeSymbolData: Codable, Equatable
 {
+    static func == (lhs: CodeSymbolData, rhs: CodeSymbolData) -> Bool
+    {
+        lhs === rhs
+    }
+    
     init?(lspDocumentySymbol: LSPDocumentSymbol)
     {
         guard let decodedKind = lspDocumentySymbol.decodedKind else

@@ -7,19 +7,16 @@ public class ProjectProcessorViewModel: ObservableObject
     public init(activeProcessor: ProjectProcessor) async
     {
         self.activeProcessor = activeProcessor
-        self.analysisState = await activeProcessor.state
-        self.projectName = activeProcessor.projectLocation.folder.lastPathComponent
-        self.stateObservation = await activeProcessor.$state.sink
+        processorState = await activeProcessor.state
+        projectName = activeProcessor.projectName
+        
+        stateObservation = await activeProcessor.$state.sink
         {
-            self.analysisState = $0
+            newState in
             
-            if case .succeeded = $0
-            {
-                Task
-                {
-                    self.projectData = await activeProcessor.encodeProjectData()
-                }
-            }
+            /// TODO: the compiler does not warn that we must – let alone enforce that we do – jump to our own actor (in this case the MainActor) or do it asynchronously when setting `self.processorState`. First of all: Why the fuck not? It's obviously mutating data across actors since the sink closure runs on actor `ProjectProcessor`. Second: How can we observe across actors more easily? We could use `.receive(on: DispatchQueue.main).sink` to receive the update on the main **queue**, but how can we receive it on any **actor**, in particular on actor `self`?
+            
+            Task { await MainActor.run { self.processorState = newState } }
         }
     }
     
@@ -50,7 +47,7 @@ public class ProjectProcessorViewModel: ObservableObject
     private func updateArtifacts(withSearchTerm searchTerm: String,
                                  allPass: Bool)
     {
-        if case .succeeded(let rootViewModel) = analysisState
+        if case .didVisualizeProjectArchitecture(_, let rootViewModel) = processorState
         {
             rootViewModel.updateSearchResults(withSearchTerm: searchTerm)
             rootViewModel.updateSearchFilter(allPass: allPass)
@@ -63,11 +60,10 @@ public class ProjectProcessorViewModel: ObservableObject
     // MARK: - Active Analysis
     
     public let projectName: String
-    @Published public var projectData: Data? = nil
     
     @Published public var selectedArtifact: ArtifactViewModel? = nil
     
-    @Published public private(set) var analysisState: ProjectProcessor.State = .stopped
+    @Published public private(set) var processorState: ProjectProcessor.State
     private var stateObservation: AnyCancellable?
     
     private let activeProcessor: ProjectProcessor

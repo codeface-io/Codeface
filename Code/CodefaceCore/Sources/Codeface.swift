@@ -44,11 +44,14 @@ public class Codeface: ObservableObject
         {
             let processor = try ProjectProcessor(location: location)
             let processorVM = await ProjectProcessorViewModel(activeProcessor: processor)
+            self.projectProcessorVM = processorVM
+            
             self.projectDataObservation?.cancel()
-            self.projectDataObservation = processorVM.$projectData.sink {
-                self.projectData = $0
+            self.projectDataObservation = processorVM.$processorState.sink
+            {
+                self.projectData = $0.projectData?.encodeForFileStorage()
             }
-            projectProcessorVM = processorVM
+            
             await processor.run()
         }
     }
