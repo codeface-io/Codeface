@@ -34,9 +34,10 @@ struct CodefaceView: View
             }
             
             // dummy navigation content so view sizing works as expected
-            if let analysisVM = viewModel.projectProcessorVM
+            if viewModel.projectProcessorVM != nil
             {
-                DummyNavigationContent(analysisVM: analysisVM)
+                ProgressView()
+                    .progressViewStyle(.circular)
             }
             else
             {
@@ -50,27 +51,4 @@ struct CodefaceView: View
     }
     
     @ObservedObject var viewModel: Codeface
-}
-
-private struct DummyNavigationContent: View
-{
-    var body: some View
-    {
-        switch analysisVM.processorState
-        {
-        case .visualizingProjectArchitecture:
-            ProgressView()
-                .progressViewStyle(.circular)
-        case .didVisualizeProjectArchitecture(_, let rootFolderVM):
-            Text("← Select some code artifact in " + rootFolderVM.codeArtifact.name)
-                .multilineTextAlignment(.center)
-                .font(.title)
-                .foregroundColor(.secondary)
-                .padding()
-        default:
-            Text("")
-        }
-    }
-    
-    @ObservedObject var analysisVM: ProjectProcessorViewModel
 }
