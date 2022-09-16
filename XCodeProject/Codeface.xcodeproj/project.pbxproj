@@ -22,6 +22,7 @@
 		9648CBB028BCB3DC0011D3C7 /* SidebarArtifactList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648CBAF28BCB3DC0011D3C7 /* SidebarArtifactList.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
 		9656A6A225287F2000D4CF26 /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A125287F2000D4CF26 /* SwiftObserver */; };
+		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
 		96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96A3A3AB254A621900AE4146 /* SwiftLSP */; };
 		96B9B0BD288FF03200C93A4E /* CodefaceAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */; };
 		96CFBB3328B57D480051C318 /* SwiftUIToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 96CFBB3228B57D480051C318 /* SwiftUIToolz */; };
@@ -78,6 +79,7 @@
 		9648CBAD28BCB3A30011D3C7 /* SidebarAnalysisContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarAnalysisContent.swift; sourceTree = "<group>"; };
 		9648CBAF28BCB3DC0011D3C7 /* SidebarArtifactList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarArtifactList.swift; sourceTree = "<group>"; };
 		9664648728B14E7700F1B376 /* LSPServiceKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LSPServiceKit; path = ../../LSPServiceKit; sourceTree = "<group>"; };
+		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
 		969EF681289923CE00FC4238 /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
 		96B54D7B28B67D6300A1B26F /* FoundationToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FoundationToolz; path = ../../FoundationToolz; sourceTree = "<group>"; };
 		96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceAppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				9648CBAD28BCB3A30011D3C7 /* SidebarAnalysisContent.swift */,
+				968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */,
 				9648CBAF28BCB3DC0011D3C7 /* SidebarArtifactList.swift */,
 				961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */,
 				96E479DC2835B36C00762FD7 /* SidebarLabel.swift */,
@@ -297,7 +300,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = Flowtoolz;
 				TargetAttributes = {
 					9E95A702218C73C7009A58A9 = {
@@ -370,6 +373,7 @@
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
 				960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
+				968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */,
 				96E479DF2835B88E00762FD7 /* CodefaceSidebar.swift in Sources */,
 				960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */,
 				9648CBAE28BCB3A30011D3C7 /* SidebarAnalysisContent.swift in Sources */,
@@ -440,6 +444,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -502,6 +507,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -531,6 +537,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 13;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
 				INFOPLIST_FILE = Codeface/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -554,6 +561,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 13;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
 				INFOPLIST_FILE = Codeface/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -575,6 +583,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
 				INFOPLIST_FILE = CodefaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -596,6 +605,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
 				INFOPLIST_FILE = CodefaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

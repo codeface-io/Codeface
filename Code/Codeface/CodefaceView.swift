@@ -1,9 +1,6 @@
 import SwiftUIToolz
 import SwiftUI
-import AppKit
 import CodefaceCore
-import SwiftObserver
-import SwiftLSP
 
 struct CodefaceView: View
 {

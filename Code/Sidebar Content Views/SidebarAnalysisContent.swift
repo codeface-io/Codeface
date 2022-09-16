@@ -8,37 +8,17 @@ struct SidebarAnalysisContent: View
         switch processorVM.processorState
         {
         case .didLocateProject:
-            Text("Project has been located but loading has not started yet.")
-                .padding()
+            LoadingProgressView(primaryText: "Project Located",
+                                secondaryText: "✅").padding()
         case .retrievingProjectData(let step):
-            VStack
-            {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .padding(.bottom)
-                
-                Text("Loading " + processorVM.projectDisplayName)
-                
-                Text(step.rawValue)
-                    .foregroundColor(.secondary)
-            }
-            .padding()
+            LoadingProgressView(primaryText: "Loading " + processorVM.projectDisplayName,
+                                secondaryText: step.rawValue).padding()
         case .didRetrieveProjectData:
-            Text("Project data has been retrieved but analysis has not started yet.")
-                .padding()
+            LoadingProgressView(primaryText: "Project Data Complete",
+                                secondaryText: "✅").padding()
         case .visualizingProjectArchitecture(let step):
-            VStack
-            {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .padding(.bottom)
-                
-                Text("Analyzing " + processorVM.projectDisplayName)
-                
-                Text(step.rawValue)
-                    .foregroundColor(.secondary)
-            }
-            .padding()
+            LoadingProgressView(primaryText: "Analyzing " + processorVM.projectDisplayName,
+                                secondaryText: step.rawValue).padding()
         case .didVisualizeProjectArchitecture(_, let rootArtifact):
             SidebarArtifactList(analysisVM: processorVM, rootArtifact: rootArtifact)
                 .searchable(text: $searchTerm,
@@ -66,7 +46,7 @@ struct SidebarAnalysisContent: View
         case .failed(let errorMessage):
             VStack(alignment: .leading)
             {
-                Text("An error occured during analysis:")
+                Text("An error occured while loading the codebase:")
                     .foregroundColor(Color(NSColor.systemRed))
                     .padding(.bottom)
                 
