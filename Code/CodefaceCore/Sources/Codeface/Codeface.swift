@@ -92,7 +92,7 @@ public class Codeface: ObservableObject
     
     public var defaultProjectFileName: String
     {
-        (projectProcessorVM?.projectDisplayName ?? "Project") + ".cf"
+        (projectProcessorVM?.projectDisplayName ?? "Project") + ".codebase"
     }
     
     private func bindProjectDataToProjectProcessorVM()

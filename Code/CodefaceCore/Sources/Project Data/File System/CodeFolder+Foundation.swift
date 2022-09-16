@@ -46,10 +46,10 @@ extension CodeFolder
 
 public extension CodeFolder
 {
-    func encodeForFileStorage() -> Data?
+    func encodeForFileStorage() throws -> Data
     {
         // avoid white space from pretty printing, avoid escaping slashes
-        encode(options: [.withoutEscapingSlashes])
+        try encode(options: [.withoutEscapingSlashes])
     }
 }
 

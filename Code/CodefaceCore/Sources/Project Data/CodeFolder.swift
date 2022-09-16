@@ -12,14 +12,18 @@ public class CodeFolder: Codable, Equatable
         return files?.contains { $0.name.lowercased().contains("package") } ?? false
     }
     
-    init(name: String, files: [CodeFile], subfolders: [CodeFolder])
+    public convenience init() { self.init(name: "New Folder") }
+    
+    init(name: String,
+         files: [CodeFile] = [],
+         subfolders: [CodeFolder] = [])
     {
         self.name = name
         self.files = files.isEmpty ? nil : files
         self.subfolders = subfolders.isEmpty ? nil : subfolders
     }
     
-    let name: String
+    public let name: String
     let files: [CodeFile]?
     let subfolders: [CodeFolder]?
 }

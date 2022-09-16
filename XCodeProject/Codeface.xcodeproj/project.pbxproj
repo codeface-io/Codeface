@@ -17,6 +17,7 @@
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
 		962952B32826898000DC8620 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 962952B22826898000DC8620 /* LSPServiceKit */; };
+		963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */; };
 		964308A5254B7B070026E56C /* CodefaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964308A4254B7B070026E56C /* CodefaceView.swift */; };
 		9648CBAE28BCB3A30011D3C7 /* SidebarAnalysisContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648CBAD28BCB3A30011D3C7 /* SidebarAnalysisContent.swift */; };
 		9648CBB028BCB3DC0011D3C7 /* SidebarArtifactList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648CBAF28BCB3DC0011D3C7 /* SidebarArtifactList.swift */; };
@@ -75,6 +76,7 @@
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
 		962618A028C77477000E8F42 /* SwiftNodes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftNodes; path = ../../SwiftNodes; sourceTree = "<group>"; };
+		963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseFileDocument.swift; sourceTree = "<group>"; };
 		964308A4254B7B070026E56C /* CodefaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceView.swift; sourceTree = "<group>"; };
 		9648CBAD28BCB3A30011D3C7 /* SidebarAnalysisContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarAnalysisContent.swift; sourceTree = "<group>"; };
 		9648CBAF28BCB3DC0011D3C7 /* SidebarArtifactList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarArtifactList.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
+				963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */,
 				96B9B0BC288FF03200C93A4E /* CodefaceAppDelegate.swift */,
 				964308A4254B7B070026E56C /* CodefaceView.swift */,
 				96E479DE2835B88E00762FD7 /* CodefaceSidebar.swift */,
@@ -376,6 +379,7 @@
 				968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */,
 				96E479DF2835B88E00762FD7 /* CodefaceSidebar.swift in Sources */,
 				960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */,
+				963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */,
 				9648CBAE28BCB3A30011D3C7 /* SidebarAnalysisContent.swift in Sources */,
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceView.swift in Sources */,

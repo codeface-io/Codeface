@@ -15,8 +15,11 @@ struct CodefaceApp: App
     
     var body: some Scene
     {
-        WindowGroup
+        DocumentGroup(newDocument: CodebaseFileDocument(codebase: CodeFolder()))
         {
+            documentConfiguration in
+            
+//            Text("codebase named \(documentConfiguration.document.codebase.name)")
             CodefaceView(viewModel: codeface)
                 .onChange(of: scenePhase)
             {
@@ -135,7 +138,7 @@ struct CodefaceApp: App
                 .keyboardShortcut("e")
                 .disabled(codeface.projectData == nil)
                 .fileExporter(isPresented: $isPresentingFileExporter,
-                              document: makeProjectDataFileDocument(),
+                              document: makeCodebaseFileDocument(),
                               contentType: .data,
                               defaultFilename: codeface.defaultProjectFileName)
                 {
@@ -150,14 +153,10 @@ struct CodefaceApp: App
     
     // MARK: - Import / Export Files
     
-    private func makeProjectDataFileDocument() -> DataFileDocument?
+    private func makeCodebaseFileDocument() -> CodebaseFileDocument?
     {
-        guard let encodedProjectData = codeface.projectData?.encodeForFileStorage() else
-        {
-            return nil
-        }
-        
-        return DataFileDocument(data: encodedProjectData)
+        guard let codebase = codeface.projectData else { return nil }
+        return CodebaseFileDocument(codebase: codebase)
     }
     
     @State private var isPresentingFileExporter = false

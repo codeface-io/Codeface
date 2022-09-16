@@ -12,7 +12,7 @@
 			<key>CFBundleTypeName</key>
 			<string>Codebase</string>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
@@ -20,7 +20,7 @@
 				<string>com.flowtoolz.codeface.codebase</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>NSDocument</string>
+			<string></string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -53,17 +53,18 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Codebase Data</string>
+			<string>Codeface Codebase</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>CodebaseDocumentFill</string>
 				<key>UTTypeIconBadgeName</key>
-				<string>CodebaseDocumentImage</string>
+				<string></string>
 				<key>UTTypeIconText</key>
-				<string>Codebase</string>
+				<string></string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>com.flowtoolz.codeface.codebase</string>
