@@ -201,10 +201,7 @@ public class DependencyVM: ObservableObject, Identifiable
 
 private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String
 {
-    guard let symbolKind = symbolKind else
-    {
-        return "questionmark.square.fill"
-    }
+    guard let symbolKind else { return "questionmark.square.fill" }
     
     switch symbolKind
     {
@@ -228,10 +225,7 @@ private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolK
 
 private func symbolIconFillColor(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> UXColor
 {
-    guard let symbolKind = symbolKind else
-    {
-        return .system(.secondaryLabel)
-    }
+    guard let symbolKind else { return .system(.secondaryLabel) }
     
     switch symbolKind
     {

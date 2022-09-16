@@ -19,8 +19,7 @@ public extension ArtifactViewModel
     
     func updateSearchFilter(allPass: Bool)
     {
-        guard let containsSearchTermRegardlessOfParts = containsSearchTermRegardlessOfParts,
-              let partsContainSearchTerm = partsContainSearchTerm else
+        guard let containsSearchTermRegardlessOfParts, let partsContainSearchTerm else
         {
             passesSearchFilter = true
 

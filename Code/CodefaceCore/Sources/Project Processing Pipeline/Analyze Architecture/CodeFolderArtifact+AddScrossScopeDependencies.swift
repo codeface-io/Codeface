@@ -90,7 +90,7 @@ private extension CodeArtifact
 {
     func getScopePath() -> [CodeArtifact]
     {
-        guard let scope = scope else { return [] }
+        guard let scope else { return [] }
         return scope.getScopePath() + scope
     }
 }

@@ -34,7 +34,7 @@ struct RootArtifactContentView: View
             {
                 selectedArtifact in
                 
-                guard let selectedArtifact = selectedArtifact else { return }
+                guard let selectedArtifact else { return }
                 
                 // print("updating layout because selection change")
                 
