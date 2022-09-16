@@ -12,12 +12,6 @@ public struct CodebaseFileDocument: FileDocument
 {
     public static var readableContentTypes: [UTType] = [.codebase]
     
-    // TODO: do we need this initializer???
-    public init(codebase: CodeFolder)
-    {
-        self.codebase = codebase
-    }
-    
     // load file
     public init(configuration: ReadConfiguration) throws
     {
@@ -29,6 +23,11 @@ public struct CodebaseFileDocument: FileDocument
     public func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper
     {
         .init(regularFileWithContents: try codebase.encodeForFileStorage())
+    }
+    
+    public init(codebase: CodeFolder)
+    {
+        self.codebase = codebase
     }
     
     public let codebase: CodeFolder
