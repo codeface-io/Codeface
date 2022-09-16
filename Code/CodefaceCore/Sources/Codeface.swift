@@ -49,7 +49,10 @@ public class Codeface: ObservableObject
             self.projectDataObservation?.cancel()
             self.projectDataObservation = processorVM.$processorState.sink
             {
-                self.projectData = $0.projectData?.encodeForFileStorage()
+                if let projectData = $0.projectData
+                {
+                    self.projectData = projectData
+                }
             }
             
             await processor.run()
@@ -63,7 +66,7 @@ public class Codeface: ObservableObject
     
     @Published public var projectProcessorVM: ProjectProcessorViewModel? = nil
     
-    @Published public var projectData: Data?
+    @Published public var projectData: CodeFolder?
     private var projectDataObservation: AnyCancellable?
 }
 

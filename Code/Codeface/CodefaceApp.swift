@@ -1,3 +1,4 @@
+import SwiftUIToolz
 import SwiftUI
 import CodefaceCore
 import LSPServiceKit
@@ -16,7 +17,7 @@ struct CodefaceApp: App
     {
         WindowGroup
         {
-            CodefaceView(viewModel: viewModel)
+            CodefaceView(viewModel: codeface)
                 .onChange(of: scenePhase)
             {
                 switch $0
@@ -24,7 +25,7 @@ struct CodefaceApp: App
                 case .background: break
                 case .active:
                     #if DEBUG
-                    viewModel.loadLastProjectIfNoneIsActive()
+                    codeface.loadLastProjectIfNoneIsActive()
                     #else
                     break
                     #endif
@@ -36,7 +37,7 @@ struct CodefaceApp: App
             {
                 ProjectPickerView(isBeingPresented: $isPresentingProjectSelector)
                 {
-                    viewModel.loadNewActiveprocessor(for: $0)
+                    codeface.loadNewActiveprocessor(for: $0)
                 }
                 .padding()
             }
@@ -49,7 +50,7 @@ struct CodefaceApp: App
             {
                 Button("Switch View Mode")
                 {
-                    if let projectAnalysis = viewModel.projectProcessorVM
+                    if let projectAnalysis = codeface.projectProcessorVM
                     {
                         switch projectAnalysis.displayMode
                         {
@@ -110,14 +111,14 @@ struct CodefaceApp: App
                                                           language: "Swift",
                                                           codeFileEndings: ["swift"])
                         
-                        viewModel.loadNewActiveprocessor(for: project)
+                        codeface.loadNewActiveprocessor(for: project)
                     }
                     catch { log(error) }
                 }
                 
                 Button("Reload Last Project")
                 {
-                    viewModel.loadLastProject()
+                    codeface.loadLastProject()
                 }
                 .keyboardShortcut("r")
                 .disabled(!ProjectLocationPersister.hasPersistedLastProjectLocation)
@@ -160,55 +161,44 @@ struct CodefaceApp: App
                     isPresentingFileExporter = true
                 }
                 .fileExporter(isPresented: $isPresentingFileExporter,
-                              document: DataDocument(data: viewModel.projectData),
+                              document: makeProjectDataFileDocument(),
                               contentType: .data,
-                              defaultFilename: viewModel.defaultProjectFileName)
+                              defaultFilename: codeface.defaultProjectFileName)
                 {
                     result in
                     
                     
                 }
-                .disabled(viewModel.projectData == nil)
+                .disabled(codeface.projectData == nil)
             }
         }
     }
     
-    @ObservedObject private var serverManager = LSP.ServerManager.shared
+    // MARK: - Import / Export Files
     
-    @State var isPresentingProjectSelector = false
-    @State var isPresentingFolderImporter = false
+    private func makeProjectDataFileDocument() -> DataFileDocument?
+    {
+        guard let encodedProjectData = codeface.projectData?.encodeForFileStorage() else
+        {
+            return nil
+        }
+        
+        return DataFileDocument(data: encodedProjectData)
+    }
     
-    @Environment(\.scenePhase) var scenePhase
+    @State private var isPresentingFileExporter = false
+    @State private var isPresentingFileImporter = false
     
-    @StateObject private var viewModel = Codeface()
+    // MARK: - Loading a Project
     
+    @State private var isPresentingProjectSelector = false
+    @State private var isPresentingFolderImporter = false
+    
+    // MARK: - Basics
+    
+    @Environment(\.scenePhase) private var scenePhase
     @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) private var appDelegate
     
-    @State var isPresentingFileExporter = false
-    @State var isPresentingFileImporter = false
-}
-
-import UniformTypeIdentifiers
-
-struct DataDocument: FileDocument
-{
-    static var readableContentTypes: [UTType] = [.data]
-                    
-    init?(data: Data?)
-    {
-        guard let data = data else { return nil }
-        self.data = data
-    }
-    
-    init(configuration: ReadConfiguration) throws
-    {
-        data = try configuration.file.regularFileContents.unwrap()
-    }
-    
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper
-    {
-        .init(regularFileWithContents: data)
-    }
-    
-    let data: Data
+    @ObservedObject private var serverManager = LSP.ServerManager.shared
+    @StateObject private var codeface = Codeface()
 }
