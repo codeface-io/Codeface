@@ -17,7 +17,7 @@ struct SidebarAnalysisContent: View
                     .progressViewStyle(.circular)
                     .padding(.bottom)
                 
-                Text("Loading " + processorVM.projectName)
+                Text("Loading " + processorVM.projectDisplayName)
                 
                 Text(step.rawValue)
                     .foregroundColor(.secondary)
@@ -33,7 +33,7 @@ struct SidebarAnalysisContent: View
                     .progressViewStyle(.circular)
                     .padding(.bottom)
                 
-                Text("Analyzing " + processorVM.projectName)
+                Text("Analyzing " + processorVM.projectDisplayName)
                 
                 Text(step.rawValue)
                     .foregroundColor(.secondary)

@@ -42,7 +42,7 @@ public class Codeface: ObservableObject
         
         Task
         {
-            let processor = try ProjectProcessor(location: location)
+            let processor = try ProjectProcessor(projectLocation: location)
             let processorVM = await ProjectProcessorViewModel(activeProcessor: processor)
             self.projectProcessorVM = processorVM
             
@@ -54,6 +54,11 @@ public class Codeface: ObservableObject
             
             await processor.run()
         }
+    }
+    
+    public var defaultProjectFileName: String
+    {
+        (projectProcessorVM?.projectDisplayName ?? "Project") + ".cf"
     }
     
     @Published public var projectProcessorVM: ProjectProcessorViewModel? = nil

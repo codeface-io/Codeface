@@ -162,7 +162,7 @@ struct CodefaceApp: App
                 .fileExporter(isPresented: $isPresentingFileExporter,
                               document: DataDocument(data: viewModel.projectData),
                               contentType: .data,
-                              defaultFilename: viewModel.projectProcessorVM?.projectName ?? "Codeface_Project.cf")
+                              defaultFilename: viewModel.defaultProjectFileName)
                 {
                     result in
                     

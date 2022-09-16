@@ -8,16 +8,24 @@ public actor ProjectProcessor: ObservableObject
 {
     // MARK: - Initialize
     
-    public init(location: LSP.ProjectLocation) throws
+    public init(projectData: CodeFolder)
     {
-        guard FileManager.default.itemExists(location.folder) else
+        self.init(state: .didRetrieveProjectData(projectData))
+    }
+    
+    public init(projectLocation: LSP.ProjectLocation) throws
+    {
+        guard FileManager.default.itemExists(projectLocation.folder) else
         {
-            throw "Project folder does not exist: " + location.folder.absoluteString
+            throw "Project folder does not exist: " + projectLocation.folder.absoluteString
         }
         
-        projectName = location.folder.lastPathComponent
-        
-        _state = Published(initialValue: .didLocateProject(location))
+        self.init(state: .didLocateProject(projectLocation))
+    }
+    
+    private init(state: State)
+    {
+        _state = Published(initialValue: state)
     }
     
     // MARK: - Run Processing
@@ -129,7 +137,7 @@ public actor ProjectProcessor: ObservableObject
         return projectArchitecture
     }
     
-    // MARK: - Publish State
+    // MARK: - Publish Current State
     
     @Published public private(set) var state: State
     
@@ -170,8 +178,4 @@ public actor ProjectProcessor: ObservableObject
                  createViewModels = "Generating code artifact view models"
         }
     }
-    
-    // MARK: - Configure
-    
-    public let projectName: String
 }
