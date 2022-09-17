@@ -56,23 +56,22 @@ private extension CodeSymbolArtifact
         assert(sourcePath[0] === targetPath[0], "source path root != target path root")
         
         // find latest (deepest) common scope
-        let indexPathOfPotentialCommonScopes = 0 ..< min(sourcePath.count,
-                                                         targetPath.count)
+        let indexPathOfPotentialCommonScopes = 0 ..< min(sourcePath.count, targetPath.count)
         
         for pathIndex in indexPathOfPotentialCommonScopes.reversed()
         {
             if sourcePath[pathIndex] !== targetPath[pathIndex] { continue }
             
             // found deepest common scope
-            let commonScope = sourcePath[pathIndex]
+            let commonScope: any CodeArtifact = sourcePath[pathIndex]
             
             // identify interdependent sibling parts
-            let sourcePart =
+            let sourcePart: any CodeArtifact =
             pathIndex == sourcePath.count - 1
             ? self
             : sourcePath[pathIndex + 1]
             
-            let targetPart =
+            let targetPart: any CodeArtifact =
             pathIndex == targetPath.count - 1
             ? targetSymbol
             : targetPath[pathIndex + 1]
@@ -81,14 +80,14 @@ private extension CodeSymbolArtifact
             assert(sourcePart !== targetPart, "source and target part are the same")
             
             // add dependency between siblings to scope
-            return commonScope.addDependency(from: sourcePart, to: targetPart)
+            return commonScope.addPartDependency(from: sourcePart.id, to: targetPart.id)
         }
     }
 }
 
 private extension CodeArtifact
 {
-    func getScopePath() -> [CodeArtifact]
+    func getScopePath() -> [any CodeArtifact]
     {
         guard let scope else { return [] }
         return scope.getScopePath() + scope

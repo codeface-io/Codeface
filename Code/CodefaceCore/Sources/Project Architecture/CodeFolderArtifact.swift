@@ -3,7 +3,7 @@ import SwiftNodes
 
 public class CodeFolderArtifact: Identifiable
 {
-    internal init(name: String, scope: CodeArtifact?)
+    internal init(name: String, scope: (any CodeArtifact)?)
     {
         self.name = name
         self.scope = scope
@@ -15,7 +15,7 @@ public class CodeFolderArtifact: Identifiable
     
     // MARK: - Graph Structure
     
-    public weak var scope: CodeArtifact?
+    public weak var scope: (any CodeArtifact)?
     public var partGraph = Graph<Part>()
     
     public class Part: CodeArtifact, Identifiable, Hashable
@@ -23,7 +23,6 @@ public class CodeFolderArtifact: Identifiable
         // MARK: Hashability
         
         public func hash(into hasher: inout Hasher) { hasher.combine(id) }
-        
         public static func == (lhs: Part, rhs: Part) -> Bool { lhs.id == rhs.id }
         
         // MARK: CodeArtifact Protocol
@@ -34,9 +33,9 @@ public class CodeFolderArtifact: Identifiable
             set { codeArtifact.metrics = newValue }
         }
         
-        public func addDependency(from: CodeArtifact, to: CodeArtifact)
+        public func addPartDependency(from sourceID: ID, to targetID: ID)
         {
-            codeArtifact.addDependency(from: from, to: to)
+            codeArtifact.addPartDependency(from: sourceID, to: targetID)
         }
         
         public var intrinsicSizeInLinesOfCode: Int?
@@ -45,8 +44,8 @@ public class CodeFolderArtifact: Identifiable
         }
         
         public func sort() { codeArtifact.sort() }
-        public var parts: [CodeArtifact] { codeArtifact.parts }
-        public var scope: CodeArtifact? { codeArtifact.scope }
+        public var parts: [any CodeArtifact] { codeArtifact.parts }
+        public var scope: (any CodeArtifact)? { codeArtifact.scope }
         public var name: String { codeArtifact.name }
         public var kindName: String { codeArtifact.kindName }
         public var code: String? { codeArtifact.code }
@@ -54,7 +53,7 @@ public class CodeFolderArtifact: Identifiable
         
         // MARK: Actual Artifact
         
-        var codeArtifact: CodeArtifact
+        var codeArtifact: any CodeArtifact
         {
             switch kind
             {

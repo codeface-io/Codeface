@@ -4,31 +4,34 @@ public extension CodeArtifact
 {
     var linesOfCode: Int { metrics.linesOfCode ?? 0 }
     
-    func contains(_ otherArtifact: CodeArtifact) -> Bool
+    func contains(_ otherArtifact: any CodeArtifact) -> Bool
     {
         if otherArtifact === self { return true }
         guard let otherArtifactScope = otherArtifact.scope else { return false }
         return self === otherArtifactScope ? true : contains(otherArtifactScope)
     }
     
-    func traverseDepthFirst(_ visit: (CodeArtifact) -> Void)
+    func traverseDepthFirst(_ visit: (any CodeArtifact) -> Void)
     {
         parts.forEach { $0.traverseDepthFirst(visit) }
         visit(self)
     }
 }
 
-public protocol CodeArtifact: AnyObject
+public protocol CodeArtifact: AnyObject, Hashable
 {
     // analysis
+    func sort()
     var metrics: Metrics { get set }
     
     // hierarchy
-    var scope: CodeArtifact? { get }
-    func addDependency(from: CodeArtifact, to: CodeArtifact)
-    func sort()
-    // TODO: isn't there any way to restrict this to hashable artifacts and return an ordered set or even the whole graph??
-    var parts: [CodeArtifact] { get }
+    var scope: (any CodeArtifact)? { get }
+
+    // TODO: replace parts and addPartDependency by returning the whole graph
+    var parts: [any CodeArtifact] { get }
+    func addPartDependency(from: ID, to: ID)
+    
+//    var test: Graph<CodeArtifact> { get }
     
     // basic properties
     var intrinsicSizeInLinesOfCode: Int? { get }

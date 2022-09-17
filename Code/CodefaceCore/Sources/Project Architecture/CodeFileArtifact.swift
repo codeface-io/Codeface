@@ -7,7 +7,7 @@ public class CodeFileArtifact: Identifiable
     init(name: String,
          uri: LSPDocumentUri,
          codeLines: [String],
-         scope: CodeArtifact)
+         scope: any CodeArtifact)
     {
         self.name = name
         self.uri = uri
@@ -21,7 +21,7 @@ public class CodeFileArtifact: Identifiable
     
     // MARK: - Tree Structure
     
-    public weak var scope: CodeArtifact?
+    public weak var scope: (any CodeArtifact)?
     public var symbolGraph = Graph<CodeSymbolArtifact>()
     
     // MARK: - Basics

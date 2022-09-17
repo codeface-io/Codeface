@@ -1,7 +1,7 @@
 extension CodeFileArtifact
 {
     convenience init(codeFile: CodeFile,
-                     scope: CodeArtifact,
+                     scope: any CodeArtifact,
                      symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData])
     {
         self.init(name: codeFile.name,

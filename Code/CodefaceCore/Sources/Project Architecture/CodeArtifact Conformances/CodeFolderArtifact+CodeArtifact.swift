@@ -5,18 +5,24 @@ extension CodeFolderArtifact: CodeArtifact
         partGraph.sort(by: <)
     }
     
-    public var parts: [CodeArtifact]
+    public var parts: [any CodeArtifact]
     {
         partGraph.nodesByValueID.values.map { $0.value }
     }
     
-    public func addDependency(from sourceArtifact: CodeArtifact,
-                              to targetArtifact: CodeArtifact)
+    public func addPartDependency(from sourceID: ID, to targetID: ID)
     {
-        partGraph.addEdge(from: sourceArtifact.id, to: targetArtifact.id)
+        partGraph.addEdge(from: sourceID, to: targetID)
     }
     
     public var intrinsicSizeInLinesOfCode: Int? { nil }
     public var kindName: String { "Folder" }
     public var code: String? { nil }
+    
+    // MARK: - Hashability
+    
+    public static func == (lhs: CodeFolderArtifact,
+                           rhs: CodeFolderArtifact) -> Bool { lhs === rhs }
+    
+    public func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }

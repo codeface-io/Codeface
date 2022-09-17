@@ -1,7 +1,7 @@
 extension CodeFolderArtifact
 {
     convenience init(codeFolder: CodeFolder,
-                     scope: CodeArtifact?,
+                     scope: (any CodeArtifact)?,
                      symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData])
     {
         self.init(name: codeFolder.name, scope: scope)

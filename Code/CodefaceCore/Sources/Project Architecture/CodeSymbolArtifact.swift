@@ -11,7 +11,7 @@ public class CodeSymbolArtifact: Identifiable, Hashable
                 range: LSPRange,
                 selectionRange: LSPRange,
                 code: String,
-                scope: CodeArtifact)
+                scope: any CodeArtifact)
     {
         self.name = name
         self.kind = kind
@@ -27,16 +27,9 @@ public class CodeSymbolArtifact: Identifiable, Hashable
     
     // MARK: - Graph Structure
     
-    public weak var scope: CodeArtifact?
+    public weak var scope: (any CodeArtifact)?
     public var subsymbolGraph = Graph<CodeSymbolArtifact>()
     public var outOfScopeDependencies = Set<CodeSymbolArtifact>()
-    
-    // MARK: - Hashability
-    
-    public static func == (lhs: CodeSymbolArtifact,
-                           rhs: CodeSymbolArtifact) -> Bool { lhs === rhs }
-    
-    public func hash(into hasher: inout Hasher) { hasher.combine(id) }
     
     // MARK: - Basics
     
