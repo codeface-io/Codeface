@@ -27,7 +27,7 @@ struct CodefaceApp: App
                 case .background: break
                 case .active:
                     #if DEBUG
-                    codeface.loadLastProjectIfNoneIsLoaded()
+                    codeface.loadProcessorForLastCodebaseIfNoneIsLoaded()
                     #else
                     break
                     #endif
@@ -35,11 +35,11 @@ struct CodefaceApp: App
                 @unknown default: break
                 }
             }
-            .sheet(isPresented: $isPresentingProjectSelector)
+            .sheet(isPresented: $isPresentingCodebaseLocator)
             {
-                ProjectPickerView(isBeingPresented: $isPresentingProjectSelector)
+                CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
                 {
-                    codeface.loadNewProject(from: $0)
+                    codeface.loadNewProcessor(forCodebaseFrom: $0)
                 }
                 .padding()
             }
@@ -52,12 +52,12 @@ struct CodefaceApp: App
             {
                 Button("Switch View Mode")
                 {
-                    if let projectAnalysis = codeface.projectProcessorVM
+                    if let processorVM = codeface.projectProcessorVM
                     {
-                        switch projectAnalysis.displayMode
+                        switch processorVM.displayMode
                         {
-                        case .code: projectAnalysis.displayMode = .treeMap
-                        case .treeMap: projectAnalysis.displayMode = .code
+                        case .code: processorVM.displayMode = .treeMap
+                        case .treeMap: processorVM.displayMode = .code
                         }
                     }
                 }
@@ -84,7 +84,7 @@ struct CodefaceApp: App
             {
                 Button("Load Codebase...")
                 {
-                    isPresentingProjectSelector = true
+                    isPresentingCodebaseLocator = true
                 }
                 .keyboardShortcut("n")
                 
@@ -98,18 +98,18 @@ struct CodefaceApp: App
                 {
                     guard let folderURL = (try? $0.get())?.first else
                     {
-                        return log(error: "Could not select project folder")
+                        return log(error: "Could not select codebase folder")
                     }
                     
-                    codeface.loadSwiftPackage(from: folderURL)
+                    codeface.loadProcessorForSwiftPackage(from: folderURL)
                 }
                 
                 Button("Reload Last Codebase")
                 {
-                    codeface.loadLastProject()
+                    codeface.loadProcessorForLastCodebase()
                 }
                 .keyboardShortcut("r")
-                .disabled(!ProjectLocationPersister.hasPersistedLastProjectLocation)
+                .disabled(!CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
                 
                 Divider()
                 
@@ -124,10 +124,10 @@ struct CodefaceApp: App
                 {
                     guard let fileURL = (try? $0.get())?.first else
                     {
-                        return log(error: "Couldn't select project data file")
+                        return log(error: "Couldn't select codebase file")
                     }
                     
-                    codeface.loadProject(from: fileURL)
+                    codeface.loadProcessor(forCodebaseFrom: fileURL)
                 }
                 
                 Button("Export Codebase to File...")
@@ -135,7 +135,7 @@ struct CodefaceApp: App
                     isPresentingFileExporter = true
                 }
                 .keyboardShortcut("e")
-                .disabled(codeface.projectData == nil)
+                .disabled(codeface.codebase == nil)
                 .fileExporter(isPresented: $isPresentingFileExporter,
                               document: makeCodebaseFileDocument(),
                               contentType: .codebase,
@@ -150,20 +150,20 @@ struct CodefaceApp: App
         }
     }
     
-    // MARK: - Import / Export Files
+    // MARK: - Import / Export Codebase File
     
     private func makeCodebaseFileDocument() -> CodebaseFileDocument?
     {
-        guard let codebase = codeface.projectData else { return nil }
+        guard let codebase = codeface.codebase else { return nil }
         return CodebaseFileDocument(codebase: codebase)
     }
     
     @State private var isPresentingFileExporter = false
     @State private var isPresentingFileImporter = false
     
-    // MARK: - Load a Project
+    // MARK: - Load Codebase from Folder
     
-    @State private var isPresentingProjectSelector = false
+    @State private var isPresentingCodebaseLocator = false
     @State private var isPresentingFolderImporter = false
     
     // MARK: - Basics

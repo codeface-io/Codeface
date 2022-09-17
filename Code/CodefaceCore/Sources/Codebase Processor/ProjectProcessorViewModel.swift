@@ -9,7 +9,7 @@ public class ProjectProcessorViewModel: ObservableObject
         self.activeProcessor = processor
         let currentProcessorState = await processor.state
         processorState = currentProcessorState
-        projectName = currentProcessorState.projectName
+        codebaseName = currentProcessorState.codebaseName
         
         stateObservation = await processor.$state.sink
         {
@@ -21,9 +21,9 @@ public class ProjectProcessorViewModel: ObservableObject
             {
                 await MainActor.run
                 {
-                    if self.projectName == nil, let projectName = newState.projectName
+                    if self.codebaseName == nil, let codebaseName = newState.codebaseName
                     {
-                        self.projectName = projectName
+                        self.codebaseName = codebaseName
                     }
                     
                     self.processorState = newState
@@ -59,7 +59,7 @@ public class ProjectProcessorViewModel: ObservableObject
     private func updateArtifacts(withSearchTerm searchTerm: String,
                                  allPass: Bool)
     {
-        if case .didVisualizeProjectArchitecture(_, let rootViewModel) = processorState
+        if case .didVisualizeCodebaseArchitecture(_, let rootViewModel) = processorState
         {
             rootViewModel.updateSearchResults(withSearchTerm: searchTerm)
             rootViewModel.updateSearchFilter(allPass: allPass)
@@ -71,8 +71,8 @@ public class ProjectProcessorViewModel: ObservableObject
     
     // MARK: - Active Analysis
     
-    public var projectDisplayName: String { projectName ?? "Project" }
-    private var projectName: String?
+    public var codebaseDisplayName: String { codebaseName ?? "Project" }
+    private var codebaseName: String?
     
     @Published public var selectedArtifact: ArtifactViewModel? = nil
     
@@ -90,13 +90,13 @@ public class ProjectProcessorViewModel: ObservableObject
 
 private extension ProjectProcessor.State
 {
-    var projectName: String?
+    var codebaseName: String?
     {
         switch self
         {
-        case .didLocateProject(let location): return location.folder.lastPathComponent
-        case .didRetrieveProjectData(let folder): return folder.name
-        case .didVisualizeProjectArchitecture(let folder, _): return folder.name
+        case .didLocateCodebase(let location): return location.folder.lastPathComponent
+        case .didRetrieveCodebase(let codebase): return codebase.name
+        case .didVisualizeCodebaseArchitecture(let codebase, _): return codebase.name
         default: return nil
         }
     }

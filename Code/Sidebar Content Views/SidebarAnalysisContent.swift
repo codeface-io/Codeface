@@ -7,19 +7,19 @@ struct SidebarAnalysisContent: View
     {
         switch processorVM.processorState
         {
-        case .didLocateProject:
+        case .didLocateCodebase:
             LoadingProgressView(primaryText: "Project Located",
                                 secondaryText: "✅").padding()
-        case .retrievingProjectData(let step):
-            LoadingProgressView(primaryText: "Loading " + processorVM.projectDisplayName,
+        case .retrievingCodebase(let step):
+            LoadingProgressView(primaryText: "Loading " + processorVM.codebaseDisplayName,
                                 secondaryText: step.rawValue).padding()
-        case .didRetrieveProjectData:
+        case .didRetrieveCodebase:
             LoadingProgressView(primaryText: "Project Data Complete",
                                 secondaryText: "✅").padding()
-        case .visualizingProjectArchitecture(let step):
-            LoadingProgressView(primaryText: "Analyzing " + processorVM.projectDisplayName,
+        case .visualizingCodebaseArchitecture(let step):
+            LoadingProgressView(primaryText: "Analyzing " + processorVM.codebaseDisplayName,
                                 secondaryText: step.rawValue).padding()
-        case .didVisualizeProjectArchitecture(_, let rootArtifact):
+        case .didVisualizeCodebaseArchitecture(_, let rootArtifact):
             SidebarArtifactList(analysisVM: processorVM, rootArtifact: rootArtifact)
                 .searchable(text: $searchTerm,
                             placement: .toolbar,

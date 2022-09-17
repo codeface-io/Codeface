@@ -18,11 +18,11 @@ struct CodefaceView: View
                         Image(systemName: "sidebar.leading")
                     }
                     
-                    if ProjectLocationPersister.hasPersistedLastProjectLocation
+                    if CodebaseLocationPersister.hasPersistedLastCodebaseLocation
                     {
                         Spacer()
                         
-                        Button(action: { viewModel.loadLastProject() })
+                        Button(action: { viewModel.loadProcessorForLastCodebase() })
                         {
                             Image(systemName: "arrow.clockwise")
                         }

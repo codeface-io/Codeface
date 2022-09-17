@@ -8,103 +8,103 @@ public class Codeface: ObservableObject
 {
     public init() {}
     
-    // MARK: - Load Project from Location
+    // MARK: - Load Processor for Codebase from Location
     
-    public func loadSwiftPackage(from folderURL: URL)
+    public func loadProcessorForSwiftPackage(from folderURL: URL)
     {
-        loadNewProject(from: .init(folder: folderURL,
-                                   language: "Swift",
-                                   codeFileEndings: ["swift"]))
+        loadNewProcessor(forCodebaseFrom: .init(folder: folderURL,
+                                                language: "Swift",
+                                                codeFileEndings: ["swift"]))
     }
     
-    public func loadLastProjectIfNoneIsLoaded()
+    public func loadProcessorForLastCodebaseIfNoneIsLoaded()
     {
-        if ProjectLocationPersister.hasPersistedLastProjectLocation, projectProcessorVM == nil
+        if CodebaseLocationPersister.hasPersistedLastCodebaseLocation, projectProcessorVM == nil
         {
-            loadLastProject()
+            loadProcessorForLastCodebase()
         }
     }
     
-    public func loadLastProject()
+    public func loadProcessorForLastCodebase()
     {
         do
         {
-            try loadProject(from: ProjectLocationPersister.loadProjectLocation())
+            try loadProcessor(forCodebaseFrom: CodebaseLocationPersister.loadCodebaseLocation())
         }
         catch { log(error) }
     }
     
-    public func loadNewProject(from location: LSP.ProjectLocation)
+    public func loadNewProcessor(forCodebaseFrom location: LSP.CodebaseLocation)
     {
         do
         {
-            try loadProject(from: location)
-            try ProjectLocationPersister.persist(location)
+            try loadProcessor(forCodebaseFrom: location)
+            try CodebaseLocationPersister.persist(location)
         }
         catch { log(error) }
     }
     
-    private func loadProject(from location: LSP.ProjectLocation) throws
+    private func loadProcessor(forCodebaseFrom location: LSP.CodebaseLocation) throws
     {
-        loadProject(with: try .init(projectLocation: location))
+        load(try .init(codebaseLocation: location))
     }
     
-    // MARK: - Load Project from File
+    // MARK: - Load Processor for Codebase from File
     
-    public func loadProject(from fileURL: URL)
+    public func loadProcessor(forCodebaseFrom fileURL: URL)
     {
         guard let fileData = Data(from: fileURL) else
         {
-            log(error: "Couldn't read project data file")
+            log(error: "Couldn't read codebase file")
             return
         }
         
-        guard let projectData = CodeFolder(fileData) else
+        guard let codebase = CodeFolder(fileData) else
         {
-            log(error: "Couldn't decode project data")
+            log(error: "Couldn't decode codebase")
             return
         }
         
-        loadProject(from: projectData)
+        loadProcessor(for: codebase)
     }
     
-    private func loadProject(from projectData: CodeFolder)
+    private func loadProcessor(for codebase: CodeFolder)
     {
-        loadProject(with: .init(projectData: projectData))
-        self.projectData = projectData
+        load(.init(codebase: codebase))
+        self.codebase = codebase
     }
     
-    // MARK: - Load Project
+    // MARK: - Load Processor
     
-    private func loadProject(with processor: ProjectProcessor)
+    private func load(_ processor: ProjectProcessor)
     {
         projectProcessorVM?.selectedArtifact = nil
         
         Task
         {
             self.projectProcessorVM = await ProjectProcessorViewModel(processor: processor)
-            self.bindProjectDataToProjectProcessorVM()
+            self.bindCodebaseToProjectProcessorVM()
             await processor.run()
         }
     }
     
-    // MARK: - Export Project Data
+    // MARK: - Export Codebase
     
     public var defaultProjectFileName: String
     {
-        (projectProcessorVM?.projectDisplayName ?? "Project")
+        (projectProcessorVM?.codebaseDisplayName ?? "Codebase")
     }
     
-    private func bindProjectDataToProjectProcessorVM()
+    private func bindCodebaseToProjectProcessorVM()
     {
-        projectDataObservation?.cancel()
-        projectDataObservation = projectProcessorVM?.$processorState
-            .map { $0.projectData }
-            .assign(to: \.projectData, on: self)
+        codebaseObservation?.cancel()
+        codebaseObservation = projectProcessorVM?.$processorState
+            .map { $0.codebase }
+            .assign(to: \.codebase, on: self)
     }
     
-    private var projectDataObservation: AnyCancellable?
-    @Published public var projectData: CodeFolder?
+    private var codebaseObservation: AnyCancellable?
+    @Published public var codebase: CodeFolder?
     
     // MARK: - Project Processor View Model
     

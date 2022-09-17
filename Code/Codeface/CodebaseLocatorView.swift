@@ -3,13 +3,13 @@ import LSPServiceKit
 import SwiftLSP
 import SwiftyToolz
 
-struct ProjectPickerView: View
+struct CodebaseLocatorView: View
 {
     var body: some View
     {
         VStack(alignment: .leading)
         {
-            Text("Set project language:")
+            Text("Set codebase language:")
             
             Form
             {
@@ -55,7 +55,7 @@ struct ProjectPickerView: View
                         
                         let fileEndingArray = fileEndings.components(separatedBy: .whitespaces)
                         
-                        let config = LSP.ProjectLocation(folder: firstURL,
+                        let config = LSP.CodebaseLocation(folder: firstURL,
                                                          language: languageName,
                                                          codeFileEndings: fileEndingArray)
                         
@@ -68,7 +68,7 @@ struct ProjectPickerView: View
     }
     
     @Binding var isBeingPresented: Bool
-    let confirm: (LSP.ProjectLocation) -> Void
+    let confirm: (LSP.CodebaseLocation) -> Void
     
     @State private var languageName: String = ""
     @State private var fileEndings: String = ""
