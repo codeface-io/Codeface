@@ -38,11 +38,21 @@ struct CodefaceDocumentContentView: View
         }
         else
         {
-            Text("Import a codebase folder via the File menu.")
-                .multilineTextAlignment(.center)
-                .font(.title)
-                .foregroundColor(.secondary)
-                .padding()
+            VStack
+            {
+                Spacer()
+                HStack
+                {
+                    Spacer()
+                    Text("Import a codebase folder via the File menu.")
+                        .multilineTextAlignment(.center)
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                        .padding()
+                    Spacer()
+                }
+                Spacer()
+            }
         }
     }
     
