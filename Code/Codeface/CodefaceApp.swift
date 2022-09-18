@@ -18,6 +18,7 @@ struct CodefaceApp: App
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
             CodefaceDocumentView(codebaseFile: $0.$document)
+                .frame(minWidth: 600, minHeight: 300)
                 .sheet(isPresented: $isPresentingCodebaseLocator) {
                     CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
                     {
@@ -57,6 +58,8 @@ struct CodefaceApp: App
             
             CommandGroup(after: .newItem)
             {
+                Divider()
+                
                 Button("Import Codebase Folder...")
                 {
                     isPresentingCodebaseLocator = true
