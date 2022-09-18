@@ -15,54 +15,29 @@ struct CodefaceApp: App
     
     var body: some Scene
     {
-        DocumentGroup(newDocument: CodebaseFileDocument(codebase: CodeFolder()))
+        DocumentGroup(newDocument: CodebaseFileDocument())
         {
-            documentConfiguration in
-            
-            CodefaceView(viewModel: codeface)
-                .onChange(of: scenePhase)
-            {
-                switch $0
-                {
-                case .background: break
-                case .active:
-                    #if DEBUG
-                    codeface.loadProcessorForLastCodebaseIfNoneIsLoaded()
-                    #else
-                    break
-                    #endif
-                case .inactive: break
-                @unknown default: break
+            CodefaceDocumentView(codebaseFile: $0.$document)
+                .sheet(isPresented: $isPresentingCodebaseLocator) {
+                    CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
+                    {
+                        focusedDocument?.loadNewProcessor(forCodebaseFrom: $0)
+                    }
+                    .padding()
                 }
-            }
-            .sheet(isPresented: $isPresentingCodebaseLocator)
-            {
-                CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
-                {
-                    codeface.loadNewProcessor(forCodebaseFrom: $0)
-                }
-                .padding()
-            }
         }
         .commands
         {
             SidebarCommands()
-            
+
             CommandGroup(before: .sidebar)
             {
                 Button("Switch View Mode")
                 {
-                    if let processorVM = codeface.projectProcessorVM
-                    {
-                        switch processorVM.displayMode
-                        {
-                        case .code: processorVM.displayMode = .treeMap
-                        case .treeMap: processorVM.displayMode = .code
-                        }
-                    }
+                    focusedDocument?.switchDisplayMode()
                 }
                 .keyboardShortcut(.space, modifiers: .shift)
-                
+
                 Divider()
             }
             
@@ -80,18 +55,19 @@ struct CodefaceApp: App
                 }
             }
             
-            CommandGroup(replacing: .newItem)
+            CommandGroup(after: .newItem)
             {
-                Button("Load Codebase...")
+                Button("Import Codebase Folder...")
                 {
                     isPresentingCodebaseLocator = true
                 }
-                .keyboardShortcut("n")
+                .disabled(focusedDocument == nil || focusedDocument?.codebase != nil)
                 
-                Button("Load Swift Package...")
+                Button("Import Swift Package...")
                 {
                     isPresentingFolderImporter = true
                 }
+                .disabled(focusedDocument == nil || focusedDocument?.codebase != nil)
                 .fileImporter(isPresented: $isPresentingFolderImporter,
                               allowedContentTypes: [.directory],
                               allowsMultipleSelection: false)
@@ -101,65 +77,13 @@ struct CodefaceApp: App
                         return log(error: "Could not select codebase folder")
                     }
                     
-                    codeface.loadProcessorForSwiftPackage(from: folderURL)
+                    focusedDocument?.loadProcessorForSwiftPackage(from: folderURL)
                 }
-                
-                Button("Reload Last Codebase")
-                {
-                    codeface.loadProcessorForLastCodebase()
-                }
-                .keyboardShortcut("r")
-                .disabled(!CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
-                
+
                 Divider()
-                
-                Button("Import Codebase From File...")
-                {
-                    isPresentingFileImporter = true
-                }
-                .keyboardShortcut("i")
-                .fileImporter(isPresented: $isPresentingFileImporter,
-                              allowedContentTypes: [.codebase],
-                              allowsMultipleSelection: false)
-                {
-                    guard let fileURL = (try? $0.get())?.first else
-                    {
-                        return log(error: "Couldn't select codebase file")
-                    }
-                    
-                    codeface.loadProcessor(forCodebaseFrom: fileURL)
-                }
-                
-                Button("Export Codebase to File...")
-                {
-                    isPresentingFileExporter = true
-                }
-                .keyboardShortcut("e")
-                .disabled(codeface.codebase == nil)
-                .fileExporter(isPresented: $isPresentingFileExporter,
-                              document: makeCodebaseFileDocument(),
-                              contentType: .codebase,
-                              defaultFilename: codeface.defaultProjectFileName)
-                {
-                    if case .failure(let error) = $0
-                    {
-                        log(error)
-                    }
-                }
             }
         }
     }
-    
-    // MARK: - Import / Export Codebase File
-    
-    private func makeCodebaseFileDocument() -> CodebaseFileDocument?
-    {
-        guard let codebase = codeface.codebase else { return nil }
-        return CodebaseFileDocument(codebase: codebase)
-    }
-    
-    @State private var isPresentingFileExporter = false
-    @State private var isPresentingFileImporter = false
     
     // MARK: - Load Codebase from Folder
     
@@ -168,9 +92,6 @@ struct CodefaceApp: App
     
     // MARK: - Basics
     
-    @Environment(\.scenePhase) private var scenePhase
-    @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) private var appDelegate
-    
+    @FocusedValue(\.document) var focusedDocument: CodefaceDocument?
     @ObservedObject private var serverManager = LSP.ServerManager.shared
-    @StateObject private var codeface = Codeface()
 }

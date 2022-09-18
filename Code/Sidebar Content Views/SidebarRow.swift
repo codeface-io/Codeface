@@ -73,8 +73,6 @@ struct SidebarRow: View
                     }
                 }
             }
-            .navigationTitle(selectedArtifactVM.codeArtifact.name)
-            .navigationSubtitle(selectedArtifactVM.codeArtifact.kindName)
             .toolbar
             {
                 if !selectedArtifactVM.filteredParts.isEmpty

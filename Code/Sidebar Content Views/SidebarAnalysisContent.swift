@@ -20,7 +20,8 @@ struct SidebarAnalysisContent: View
             LoadingProgressView(primaryText: "Analyzing " + processorVM.codebaseDisplayName,
                                 secondaryText: step.rawValue).padding()
         case .didVisualizeCodebaseArchitecture(_, let rootArtifact):
-            SidebarArtifactList(analysisVM: processorVM, rootArtifact: rootArtifact)
+            SidebarArtifactList(analysisVM: processorVM,
+                                rootArtifact: rootArtifact)
                 .searchable(text: $searchTerm,
                             placement: .toolbar,
                             prompt: searchPrompt)

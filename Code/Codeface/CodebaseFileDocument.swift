@@ -1,28 +1,32 @@
 import SwiftUI
+import FoundationToolz
 import UniformTypeIdentifiers
 import CodefaceCore
 
 @available(macOS 11.0, *)
-public struct CodebaseFileDocument: FileDocument
+public struct CodebaseFileDocument: FileDocument, Codable
 {
-    // load file
+    // load from file
     public init(configuration: ReadConfiguration) throws
     {
-        codebase = try CodeFolder(jsonData: configuration.file.regularFileContents.unwrap())
+        let selfData = try configuration.file.regularFileContents.unwrap()
+        self = try CodebaseFileDocument(jsonData: selfData)
     }
     
     // write to file
     public func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper
     {
-        .init(regularFileWithContents: try codebase.encodeForFileStorage())
+        // avoid white space from pretty printing, avoid escaping slashes
+        .init(regularFileWithContents: try encode(options: .withoutEscapingSlashes))
     }
     
-    public init(codebase: CodeFolder)
+    // store optional codebase
+    public init(codebase: CodeFolder? = nil)
     {
         self.codebase = codebase
     }
     
-    public let codebase: CodeFolder
+    public var codebase: CodeFolder?
     public static var readableContentTypes: [UTType] = [.codebase]
 }
 

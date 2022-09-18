@@ -71,7 +71,7 @@ public class ProjectProcessorViewModel: ObservableObject
     
     // MARK: - Active Analysis
     
-    public var codebaseDisplayName: String { codebaseName ?? "Project" }
+    public var codebaseDisplayName: String { codebaseName ?? "Untitled Codebase" }
     private var codebaseName: String?
     
     @Published public var selectedArtifact: ArtifactViewModel? = nil
@@ -82,6 +82,15 @@ public class ProjectProcessorViewModel: ObservableObject
     private let activeProcessor: ProjectProcessor
     
     // MARK: - Other Elements
+    
+    func switchDisplayMode()
+    {
+        switch displayMode
+        {
+        case .code: displayMode = .treeMap
+        case .treeMap: displayMode = .code
+        }
+    }
     
     @Published public var displayMode: DisplayMode = .treeMap
     

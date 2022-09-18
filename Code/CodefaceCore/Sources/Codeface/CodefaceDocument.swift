@@ -4,7 +4,7 @@ import Combine
 import SwiftyToolz
 
 @MainActor
-public class Codeface: ObservableObject
+public class CodefaceDocument: ObservableObject
 {
     public init() {}
     
@@ -68,7 +68,7 @@ public class Codeface: ObservableObject
         loadProcessor(for: codebase)
     }
     
-    private func loadProcessor(for codebase: CodeFolder)
+    public func loadProcessor(for codebase: CodeFolder)
     {
         load(.init(codebase: codebase))
         self.codebase = codebase
@@ -82,13 +82,13 @@ public class Codeface: ObservableObject
         
         Task
         {
-            self.projectProcessorVM = await ProjectProcessorViewModel(processor: processor)
+            self.set(processorVM: await ProjectProcessorViewModel(processor: processor)) 
             self.bindCodebaseToProjectProcessorVM()
             await processor.run()
         }
     }
     
-    // MARK: - Export Codebase
+    // MARK: - Observable Codebase
     
     public var defaultProjectFileName: String
     {
@@ -104,9 +104,19 @@ public class Codeface: ObservableObject
     }
     
     private var codebaseObservation: AnyCancellable?
-    @Published public var codebase: CodeFolder?
+    @Published public private(set) var codebase: CodeFolder?
     
     // MARK: - Project Processor View Model
     
-    @Published public var projectProcessorVM: ProjectProcessorViewModel? = nil
+    public func switchDisplayMode()
+    {
+        projectProcessorVM?.switchDisplayMode()
+    }
+    
+    func set(processorVM: ProjectProcessorViewModel)
+    {
+        self.projectProcessorVM = processorVM
+    }
+    
+    @Published public private(set) var projectProcessorVM: ProjectProcessorViewModel? = nil
 }
