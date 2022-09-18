@@ -28,7 +28,7 @@ struct CodebaseLocatorView: View
                 
                 Spacer()
                 
-                Button("Load")
+                Button("Next")
                 {
                     isPresentingFileImporter = true
                 }

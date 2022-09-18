@@ -32,10 +32,11 @@ struct CodefaceApp: App
 
             CommandGroup(before: .sidebar)
             {
-                Button("Switch View Mode")
+                Button("Switch Display Mode")
                 {
                     focusedDocument?.switchDisplayMode()
                 }
+                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut(.space, modifiers: .shift)
 
                 Divider()
@@ -58,14 +59,14 @@ struct CodefaceApp: App
             CommandGroup(after: .newItem)
             {
                 Divider()
-                
-                Button("Import Codebase Folder...")
+
+                Button("\(Image(systemName: "folder"))\tImport Codebase Folder...")
                 {
                     isPresentingCodebaseLocator = true
                 }
                 .disabled(focusedDocument == nil)
                 
-                Button("Import Swift Package Folder...")
+                Button("\(Image(systemName: "swift"))\tImport Swift Package Folder...")
                 {
                     isPresentingFolderImporter = true
                 }
@@ -82,7 +83,7 @@ struct CodefaceApp: App
                     focusedDocument?.loadProcessorForSwiftPackage(from: folderURL)
                 }
                 
-                Button("Re-import Last Imported Folder...")
+                Button("\(Image(systemName: "arrow.clockwise"))\tImport \(lastFolderName) Again...")
                 {
                     focusedDocument?.loadProcessorForLastCodebase()
                 }
@@ -93,6 +94,11 @@ struct CodefaceApp: App
                 Divider()
             }
         }
+    }
+    
+    private var lastFolderName: String
+    {
+        CodebaseLocationPersister.cachedLocation?.folder.lastPathComponent ?? "Last Folder"
     }
     
     // MARK: - Load Codebase from Folder

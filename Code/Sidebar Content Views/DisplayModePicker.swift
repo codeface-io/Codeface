@@ -10,7 +10,7 @@ struct DisplayModePicker: View
             ForEach(DisplayMode.allCases) { $0.label }
         }
         .pickerStyle(.segmented)
-        .help("Switch between architecture and code")
+        .help("Switch display mode between architecture and code")
     }
     
     @Binding var displayMode: DisplayMode

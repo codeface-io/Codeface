@@ -28,13 +28,10 @@ struct CodefaceDocumentContentView: View
                                 {
                                     Image(systemName: "arrow.clockwise")
                                 }
-                                .help("Import the last imported codebase folder")
+                                .help("Import the last imported folder again")
                             }
                         }
                     }
-                
-                // dummy navigation content so view sizing works as expected
-                Text(" ")
             }
         }
         else

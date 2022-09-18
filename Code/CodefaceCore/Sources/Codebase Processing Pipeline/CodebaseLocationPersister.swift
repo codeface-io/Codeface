@@ -17,6 +17,8 @@ public enum CodebaseLocationPersister
                                                           codebaseLocation: location)
         
         persistedCodebaseLocationData = try persistedLocation.encode() as Data
+        
+        Self.cachedLocation = location
     }
     
     static func loadCodebaseLocation() throws -> LSP.CodebaseLocation
@@ -44,11 +46,15 @@ public enum CodebaseLocationPersister
             persistedCodebaseLocationData = try persistedLocation.encode() as Data
         }
         
+        Self.cachedLocation = persistedLocation.codebaseLocation
+        
         return persistedLocation.codebaseLocation
     }
     
     @UserDefault(key: "persistedCodebaseLocationData", defaultValue: nil)
     private static var persistedCodebaseLocationData: Data?
+    
+    public static var cachedLocation: LSP.CodebaseLocation?
 }
 
 private struct PersistedCodebaseLocation: Codable
