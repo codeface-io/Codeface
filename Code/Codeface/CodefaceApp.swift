@@ -64,13 +64,13 @@ struct CodefaceApp: App
                 {
                     isPresentingCodebaseLocator = true
                 }
-                .disabled(focusedDocument == nil || focusedDocument?.codebase != nil)
+                .disabled(focusedDocument == nil)
                 
-                Button("Import Swift Package...")
+                Button("Import Swift Package Folder...")
                 {
                     isPresentingFolderImporter = true
                 }
-                .disabled(focusedDocument == nil || focusedDocument?.codebase != nil)
+                .disabled(focusedDocument == nil)
                 .fileImporter(isPresented: $isPresentingFolderImporter,
                               allowedContentTypes: [.directory],
                               allowsMultipleSelection: false)
@@ -82,6 +82,14 @@ struct CodefaceApp: App
                     
                     focusedDocument?.loadProcessorForSwiftPackage(from: folderURL)
                 }
+                
+                Button("Re-import Last Imported Folder...")
+                {
+                    focusedDocument?.loadProcessorForLastCodebase()
+                }
+                .keyboardShortcut("r")
+                .disabled(focusedDocument == nil || !CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
+
 
                 Divider()
             }

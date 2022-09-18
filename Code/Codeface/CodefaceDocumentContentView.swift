@@ -6,11 +6,11 @@ struct CodefaceDocumentContentView: View
 {
     var body: some View
     {
-        if codefaceDocument.projectProcessorVM != nil
+        if let processorVM = codefaceDocument.projectProcessorVM
         {
             NavigationView
             {
-                CodefaceSidebar(codefaceDocument: codefaceDocument)
+                SidebarAnalysisContent(processorVM: processorVM)
                     .frame(minWidth: 250)
                     .toolbar {
                         ToolbarItemGroup(placement: .primaryAction)
@@ -38,7 +38,7 @@ struct CodefaceDocumentContentView: View
         }
         else
         {
-            Text("To import a codebase from a folder, see the File menu.")
+            Text("Import a codebase folder via the File menu.")
                 .multilineTextAlignment(.center)
                 .font(.title)
                 .foregroundColor(.secondary)
