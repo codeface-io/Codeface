@@ -28,6 +28,7 @@ struct CodefaceDocumentContentView: View
                                 {
                                     Image(systemName: "arrow.clockwise")
                                 }
+                                .help("Import the last imported codebase folder")
                             }
                         }
                     }
