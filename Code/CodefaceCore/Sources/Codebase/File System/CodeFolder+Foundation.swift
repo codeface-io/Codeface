@@ -49,7 +49,6 @@ private extension CodeFile
     convenience init(_ file: URL) throws
     {
         self.init(name: file.lastPathComponent,
-                  uri: file.absoluteString,
                   code: try String(contentsOf: file, encoding: .utf8))
     }
 }

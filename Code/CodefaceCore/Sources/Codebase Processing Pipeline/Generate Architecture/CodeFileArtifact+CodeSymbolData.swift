@@ -5,7 +5,6 @@ extension CodeFileArtifact
                      symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData])
     {
         self.init(name: codeFile.name,
-                  uri: codeFile.uri,
                   codeLines: codeFile.code.components(separatedBy: .newlines),
                   scope: scope)
         

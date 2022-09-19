@@ -1,10 +1,25 @@
-public class CodeFolder: Codable, Equatable
+extension CodeFolder
 {
-    public static func == (lhs: CodeFolder, rhs: CodeFolder) -> Bool
+    func forEachFileAndItsRelativeFolderPath(folderPath: String?,
+                                             _ actOnFile: (String, CodeFile) async throws -> Void) async rethrows
     {
-        lhs === rhs
+        let folderPathWithSlash = folderPath?.appending("/") ?? ""
+        
+        for subfolder in (subfolders ?? [])
+        {
+            let subfolderPath = folderPathWithSlash + subfolder.name
+            try await subfolder.forEachFileAndItsRelativeFolderPath(folderPath: subfolderPath, actOnFile)
+        }
+        
+        for file in (files ?? [])
+        {
+            try await actOnFile(folderPathWithSlash, file)
+        }
     }
-    
+}
+
+public class CodeFolder: Codable
+{
     var looksLikeAPackage: Bool
     {
         if name.lowercased().contains("package") { return true }

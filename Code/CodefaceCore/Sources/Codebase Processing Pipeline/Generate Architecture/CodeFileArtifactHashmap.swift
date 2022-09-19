@@ -4,32 +4,38 @@ class CodeFileArtifactHashmap
 {
     init(root: CodeFolderArtifact)
     {
-        root.iterateThroughFilesRecursively
+        root.forEachFileAndItsRelativeFolderPath(folderPath: nil)
         {
-            dictionary[$0.uri] = $0
+            folderPathWithSlash, file in
+            
+            filesByRelativeFolderPaths[folderPathWithSlash + file.name] = file
         }
     }
     
-    subscript(_ lspDocURI: LSPDocumentUri) -> CodeFileArtifact?
+    subscript(_ relativeFolderPath: String) -> CodeFileArtifact?
     {
-        dictionary[lspDocURI]
+        filesByRelativeFolderPaths[relativeFolderPath]
     }
     
-    private var dictionary = [LSPDocumentUri: CodeFileArtifact]()
+    private var filesByRelativeFolderPaths = [String: CodeFileArtifact]()
 }
 
-extension CodeFolderArtifact
+private extension CodeFolderArtifact
 {
-    func iterateThroughFilesRecursively(_ actOnFile: (CodeFileArtifact) -> Void)
+    func forEachFileAndItsRelativeFolderPath(folderPath: String?,
+                                             _ actOnFile: (String, CodeFileArtifact) -> Void)
     {
-        partGraph.values.forEach
+        let folderPathWithSlash = folderPath?.appending("/") ?? ""
+        
+        for part in partGraph.values
         {
-            switch $0.kind
+            switch part.kind
             {
             case .subfolder(let subfolder):
-                subfolder.iterateThroughFilesRecursively(actOnFile)
+                subfolder.forEachFileAndItsRelativeFolderPath(folderPath: folderPathWithSlash + subfolder.name,
+                                                              actOnFile)
             case .file(let file):
-                actOnFile(file)
+                actOnFile(folderPathWithSlash, file)
             }
         }
     }

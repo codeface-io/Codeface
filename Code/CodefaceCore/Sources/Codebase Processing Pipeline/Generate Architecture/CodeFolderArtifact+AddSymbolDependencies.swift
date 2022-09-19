@@ -7,6 +7,7 @@ extension CodeFolderArtifact
     func addSymbolDependencies(symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
     {
         let fileHash = CodeFileArtifactHashmap(root: self)
+        
         addSymbolDependencies(using: fileHash,
                               symbolDataHash: symbolDataHash)
     }
@@ -80,17 +81,18 @@ private extension CodeSymbolArtifact
             return .empty
         }
         
-        guard let references = symbolData.lspReferences else { return .empty }
+        guard let references = symbolData.references else { return .empty }
         
         var result = IngoingDependencies()
         
         for referencingLocation in references
         {
-            guard let referencingFileArtifact = fileHash[referencingLocation.uri] else
+            guard let referencingFileArtifact = fileHash[referencingLocation.filePathRelativeToRoot] else
             {
+                log(warning: "Couldn't hash file: " + referencingLocation.filePathRelativeToRoot)
                 // TODO: contact sourcekit-lsp team about this, maybe open an issue on github ...
                 // sourcekit-lsp suggests weird references from Swift SDKs into our code when our code extends basic types like String. we must ignore those references.
-                // log(warning: "Could not find file artifact for LSP document URI:\n\(referencingLocation.uri)\nReferenced Symbol \(self.name) of type \(self.kindName) on line \(self.positionInFile) in \(file)")
+                // Also: srckit-lsp sometimes finds references from OLD files that don't even exist anymore. in that case rebuilding isn't enough. we have to stop the server, delete the package's .build/ folder, rebuild the package and restart the server ... 🤦🏼‍♂️
                 continue
             }
             

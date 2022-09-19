@@ -5,12 +5,10 @@ import SwiftNodes
 public class CodeFileArtifact: Identifiable
 {
     init(name: String,
-         uri: LSPDocumentUri,
          codeLines: [String],
          scope: any CodeArtifact)
     {
         self.name = name
-        self.uri = uri
         self.lines = codeLines
         self.scope = scope
     }
@@ -27,7 +25,6 @@ public class CodeFileArtifact: Identifiable
     // MARK: - Basics
     
     public let name: String
-    public let uri: LSPDocumentUri
     public var code: String? { lines.joined(separator: "\n") }
     let lines: [String]
     

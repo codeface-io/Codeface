@@ -1,13 +1,8 @@
 import SwiftLSP
 import SwiftyToolz
 
-class CodeSymbolData: Codable, Equatable
+class CodeSymbolData: Codable
 {
-    static func == (lhs: CodeSymbolData, rhs: CodeSymbolData) -> Bool
-    {
-        lhs === rhs
-    }
-    
     init?(lspDocumentySymbol: LSPDocumentSymbol)
     {
         guard let decodedKind = lspDocumentySymbol.decodedKind else
@@ -30,5 +25,13 @@ class CodeSymbolData: Codable, Equatable
     let range: LSPRange
     let selectionRange: LSPRange
     let children: [CodeSymbolData]?
-    var lspReferences: [LSPLocation]?
+    var references: [ReferenceLocation]?
+    
+    struct ReferenceLocation: Codable
+    {
+        /// without root folder, like: `"SubfolderOfRoot/Deeper/Subfolders/myFile.swift"`
+        let filePathRelativeToRoot: String
+        
+        let range: LSPRange
+    }
 }

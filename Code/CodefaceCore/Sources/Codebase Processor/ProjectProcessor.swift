@@ -70,10 +70,13 @@ public actor ProjectProcessor: ObservableObject
                 let server = try await LSP.ServerManager.shared.getServer(for: codebaseLocation)
                 
                 state = .retrievingCodebase(.retrieveSymbols)
-                try await codebase.retrieveSymbolData(from: server)
+                let absoluteRootPath = codebaseLocation.folder.absoluteString
+                try await codebase.retrieveSymbolData(from: server,
+                                                      codebaseRootPathAbsolute: absoluteRootPath)
                 
                 state = .retrievingCodebase(.retrieveReferences)
-                try await codebase.retrieveSymbolReferences(from: server)
+                try await codebase.retrieveSymbolReferences(from: server,
+                                                            codebaseRootPathAbsolute: absoluteRootPath)
             }
             catch
             {
@@ -141,7 +144,7 @@ public actor ProjectProcessor: ObservableObject
     
     @Published public private(set) var state: State
     
-    public enum State: Equatable
+    public enum State
     {
         var codebase: CodeFolder?
         {
