@@ -22,9 +22,7 @@ extension CodeFolderArtifact
                 subfolder.addSymbolDependencies(using: fileHash,
                                                 symbolDataHash: symbolDataHash)
             case .file(let file):
-                let filePath = file.uri
-                file.symbolGraph.addSymbolDependencies(enclosingFile: filePath,
-                                                       fileHash: fileHash,
+                file.symbolGraph.addSymbolDependencies(fileHash: fileHash,
                                                        symbolDataHash: symbolDataHash)
             }
         }
@@ -33,16 +31,14 @@ extension CodeFolderArtifact
 
 private extension Graph where NodeValue == CodeSymbolArtifact
 {
-    func addSymbolDependencies(enclosingFile file: LSPDocumentUri,
-                               fileHash: CodeFileArtifactHashmap,
+    func addSymbolDependencies(fileHash: CodeFileArtifactHashmap,
                                symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
     {
         for symbolNode in nodesByValueID.values
         {
             let symbol = symbolNode.value
             
-            symbol.subsymbolGraph.addSymbolDependencies(enclosingFile: file,
-                                                        fileHash: fileHash,
+            symbol.subsymbolGraph.addSymbolDependencies(fileHash: fileHash,
                                                         symbolDataHash: symbolDataHash)
         }
         
@@ -50,8 +46,7 @@ private extension Graph where NodeValue == CodeSymbolArtifact
         {
             let symbol = symbolNode.value
             
-            let ingoing = symbol.getIngoing(enclosingFile: file,
-                                            fileHash: fileHash,
+            let ingoing = symbol.getIngoing(fileHash: fileHash,
                                             symbolDataHash: symbolDataHash)
             
             for outOfScopeAncestor in ingoing.outOfScope
@@ -76,8 +71,7 @@ private extension Graph where NodeValue == CodeSymbolArtifact
 
 private extension CodeSymbolArtifact
 {
-    func getIngoing(enclosingFile file: LSPDocumentUri,
-                    fileHash: CodeFileArtifactHashmap,
+    func getIngoing(fileHash: CodeFileArtifactHashmap,
                     symbolDataHash: [CodeSymbolArtifact: CodeSymbolData]) -> IngoingDependencies
     {
         guard let symbolData = symbolDataHash[self] else
