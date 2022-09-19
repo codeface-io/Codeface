@@ -6,7 +6,7 @@ extension CodeFolder
     func retrieveSymbolReferences(from server: LSP.ServerCommunicationHandler,
                                   codebaseRootPathAbsolute: String) async throws
     {
-        try await forEachFileAndItsRelativeFolderPath(folderPath: nil)
+        try await forEachFileAndItsRelativeFolderPathAsync(folderPath: nil)
         {
             folderPath, file in
             
@@ -17,13 +17,20 @@ extension CodeFolder
             try await server.notifyDidOpen(fileUri,
                                            containingText: file.lines.joined(separator: "\n"))
             
-            for symbol in (file.symbols ?? [])
+            await withThrowingTaskGroup(of: Void.self)
             {
-                try await symbol.traverseDepthFirst
+                group in
+                
+                file.traverseSymbolsDepthFirst
                 {
-                    try await $0.retrieveReferences(in: fileUri,
-                                                    codebaseRootPathAbsolute: codebaseRootPathAbsolute,
-                                                    from: server)
+                    symbol in
+                    
+                    group.addTask
+                    {
+                        try await symbol.retrieveReferences(in: fileUri,
+                                                            codebaseRootPathAbsolute: codebaseRootPathAbsolute,
+                                                            from: server)
+                    }
                 }
             }
         }
@@ -32,19 +39,27 @@ extension CodeFolder
     func retrieveSymbolData(from server: LSP.ServerCommunicationHandler,
                             codebaseRootPathAbsolute: String) async throws
     {
-        try await forEachFileAndItsRelativeFolderPath(folderPath: nil)
+        await withThrowingTaskGroup(of: Void.self)
         {
-            folderPath, file in
+            group in
             
-            let fileUri = lspDocumentUri(of: file,
-                                         folderPathRelativeToRoot: folderPath,
-                                         codebaseRootPathAbsolute: codebaseRootPathAbsolute)
-            
-            try await server.notifyDidOpen(fileUri,
-                                           containingText: file.lines.joined(separator: "\n"))
-            
-            let retrievedSymbols = try await server.requestSymbols(in: fileUri).compactMap(CodeSymbolData.init)
-            file.symbols = retrievedSymbols.isEmpty ? nil : retrievedSymbols
+            forEachFileAndItsRelativeFolderPath(folderPath: nil)
+            {
+                folderPath, file in
+                
+                group.addTask
+                {
+                    let fileUri = self.lspDocumentUri(of: file,
+                                                 folderPathRelativeToRoot: folderPath,
+                                                 codebaseRootPathAbsolute: codebaseRootPathAbsolute)
+                    
+                    try await server.notifyDidOpen(fileUri,
+                                                   containingText: file.lines.joined(separator: "\n"))
+                    
+                    let retrievedSymbols = try await server.requestSymbols(in: fileUri).compactMap(CodeSymbolData.init)
+                    file.symbols = retrievedSymbols.isEmpty ? nil : retrievedSymbols
+                }
+            }
         }
     }
     
@@ -57,17 +72,25 @@ extension CodeFolder
     }
 }
 
-private extension CodeSymbolData
+private extension CodeFile
 {
-    func traverseDepthFirst(_ visit: (CodeSymbolData) async throws -> Void) async rethrows
+    func traverseSymbolsDepthFirst(_ visit: (CodeSymbolData) -> Void)
     {
-        for child in (children ?? []) { try await child.traverseDepthFirst(visit) }
-        try await visit(self)
+        for symbol in (symbols ?? [])
+        {
+            symbol.traverseDepthFirst(visit)
+        }
     }
 }
 
 private extension CodeSymbolData
 {
+    func traverseDepthFirst(_ visit: (CodeSymbolData) -> Void)
+    {
+        for child in (children ?? []) { child.traverseDepthFirst(visit) }
+        visit(self)
+    }
+    
     func retrieveReferences(in enclosingFile: LSPDocumentUri,
                             codebaseRootPathAbsolute: String,
                             from server: LSP.ServerCommunicationHandler) async throws

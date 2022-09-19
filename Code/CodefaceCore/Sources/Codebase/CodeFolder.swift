@@ -1,6 +1,6 @@
 extension CodeFolder
 {
-    func forEachFileAndItsRelativeFolderPath(folderPath: String?,
+    func forEachFileAndItsRelativeFolderPathAsync(folderPath: String?,
                                              _ actOnFile: (String, CodeFile) async throws -> Void) async rethrows
     {
         let folderPathWithSlash = folderPath?.appending("/") ?? ""
@@ -8,12 +8,30 @@ extension CodeFolder
         for subfolder in (subfolders ?? [])
         {
             let subfolderPath = folderPathWithSlash + subfolder.name
-            try await subfolder.forEachFileAndItsRelativeFolderPath(folderPath: subfolderPath, actOnFile)
+            try await subfolder.forEachFileAndItsRelativeFolderPathAsync(folderPath: subfolderPath,
+                                                                         actOnFile)
         }
         
         for file in (files ?? [])
         {
             try await actOnFile(folderPathWithSlash, file)
+        }
+    }
+    
+    func forEachFileAndItsRelativeFolderPath(folderPath: String?,
+                                             _ actOnFile: (String, CodeFile) -> Void)
+    {
+        let folderPathWithSlash = folderPath?.appending("/") ?? ""
+        
+        for subfolder in (subfolders ?? [])
+        {
+            let subfolderPath = folderPathWithSlash + subfolder.name
+            subfolder.forEachFileAndItsRelativeFolderPath(folderPath: subfolderPath, actOnFile)
+        }
+        
+        for file in (files ?? [])
+        {
+            actOnFile(folderPathWithSlash, file)
         }
     }
 }
