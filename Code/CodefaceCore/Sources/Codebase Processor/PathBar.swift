@@ -1,8 +1,14 @@
 import Combine
 import OrderedCollections
 
+@MainActor
 public class PathBar: ObservableObject
 {
+    public func select(_ artifactVM: ArtifactViewModel?)
+    {
+        artifactVMStack.elements = artifactVM?.getPath() ?? []
+    }
+    
     public func add(_ artifactVM: ArtifactViewModel)
     {
         remove(artifactVM)
@@ -20,4 +26,12 @@ public class PathBar: ObservableObject
     }
     
     @Published public private(set) var artifactVMStack = OrderedSet<ArtifactViewModel>()
+}
+
+private extension ArtifactViewModel
+{
+    func getPath() -> [ArtifactViewModel]
+    {
+        (scope?.getPath() ?? []) + [self]
+    }
 }

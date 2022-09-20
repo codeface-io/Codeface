@@ -75,6 +75,9 @@ public class ProjectProcessorViewModel: ObservableObject
     private var codebaseName: String?
     
     @Published public var selectedArtifact: ArtifactViewModel? = nil
+    {
+        didSet { pathBar.select(selectedArtifact) }
+    }
     
     @Published public private(set) var processorState: ProjectProcessor.State
     private var stateObservation: AnyCancellable?

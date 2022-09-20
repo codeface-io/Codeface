@@ -50,6 +50,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         linesOfCodeColor = .system(.gray)
         
         kind = .folder(folderArtifact)
+        
+        for part in parts { part.scope = self }
     }
     
     private init(fileArtifact: CodeFileArtifact)
@@ -74,6 +76,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         linesOfCodeColor = .system(systemColor(forLinesOfCode: fileArtifact.linesOfCode))
         
         kind = .file(fileArtifact)
+        
+        for part in parts { part.scope = self }
     }
     
     private init(symbolArtifact: CodeSymbolArtifact)
@@ -89,6 +93,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         linesOfCodeColor = .system(.gray)
         
         kind = .symbol(symbolArtifact)
+        
+        for part in parts { part.scope = self }
     }
     
     // MARK: - Search
@@ -153,8 +159,9 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     
     // MARK: - Basics
     
-    public var partDependencies = [DependencyVM]()
+    public var scope: ArtifactViewModel?
     public let parts: [ArtifactViewModel]
+    public var partDependencies = [DependencyVM]()
     
     public nonisolated var id: String { codeArtifact.id }
     
