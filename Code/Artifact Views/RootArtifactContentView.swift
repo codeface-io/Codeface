@@ -20,13 +20,10 @@ struct RootArtifactContentView: View
                 
 //                print("attempt to layout \(artifact.codeArtifact.name) because size changed to \(newSize)")
                 
-                Task
+                withAnimation(.easeInOut(duration: 1))
                 {
-                    withAnimation(.easeInOut(duration: 1))
-                    {
-                        artifact.updateLayout(forScopeSize: newSize,
-                                              ignoreSearchFilter: viewModel.isTypingSearch)
-                    }
+                    artifact.updateLayout(forScopeSize: newSize,
+                                          ignoreSearchFilter: viewModel.isTypingSearch)
                 }
             }
             .onReceive(viewModel.$appliedSearchTerm.removeDuplicates().dropFirst())
@@ -35,14 +32,11 @@ struct RootArtifactContentView: View
                 
 //                print("attempt to layout \(artifact.codeArtifact.name) because search term changed to " + (newTerm ?? "nil"))
 
-                Task
+                withAnimation(.easeInOut(duration: 1))
                 {
-                    withAnimation(.easeInOut(duration: 1))
-                    {
-                        artifact.updateLayout(forScopeSize: geo.size,
-                                              ignoreSearchFilter: viewModel.isTypingSearch,
-                                              forceUpdate: true)
-                    }
+                    artifact.updateLayout(forScopeSize: geo.size,
+                                          ignoreSearchFilter: viewModel.isTypingSearch,
+                                          forceUpdate: true)
                 }
             }
             .onReceive(viewModel.$isTypingSearch.removeDuplicates().dropFirst())
@@ -51,14 +45,11 @@ struct RootArtifactContentView: View
                 
 //                print("attempt to layout \(artifact.codeArtifact.name) because user \(isTyping ? "started" : "ended") typing")
 
-                Task
+                withAnimation(.easeInOut(duration: 1))
                 {
-                    withAnimation(.easeInOut(duration: 1))
-                    {
-                        artifact.updateLayout(forScopeSize: geo.size,
-                                              ignoreSearchFilter: isTyping,
-                                              forceUpdate: true)
-                    }
+                    artifact.updateLayout(forScopeSize: geo.size,
+                                          ignoreSearchFilter: isTyping,
+                                          forceUpdate: true)
                 }
             }
             .onAppear
