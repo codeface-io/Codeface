@@ -18,10 +18,10 @@ struct RootArtifactContentView: View
             {
                 newSize in
                 
+//                print("attempt to layout \(artifact.codeArtifact.name) because size changed to \(newSize)")
+                
                 Task
                 {
-                    print("attempt to layout \(artifact.codeArtifact.name) because size changed to \(newSize)")
-                    
                     withAnimation(.easeInOut(duration: 1))
                     {
                         artifact.updateLayout(forScopeSize: newSize,
@@ -29,23 +29,16 @@ struct RootArtifactContentView: View
                     }
                 }
             }
-            .onReceive(viewModel.$selectedArtifact.compactMap({ $0 }).removeDuplicates())
-            {
-//                print("attempt to layout because selection changed to: \($0.codeArtifact.name)")
-                
-                $0.updateLayout(forScopeSize: geo.size,
-                                ignoreSearchFilter: viewModel.isTypingSearch)
-            }
             .onReceive(viewModel.$appliedSearchTerm.removeDuplicates().dropFirst())
             {
                 newTerm in
                 
+//                print("attempt to layout \(artifact.codeArtifact.name) because search term changed to " + (newTerm ?? "nil"))
+
                 Task
                 {
                     withAnimation(.easeInOut(duration: 1))
                     {
-//                        print("attempt to layout \(artifact.codeArtifact.name) because search term changed to " + (newTerm ?? "nil"))
-
                         artifact.updateLayout(forScopeSize: geo.size,
                                               ignoreSearchFilter: viewModel.isTypingSearch,
                                               forceUpdate: true)
@@ -56,16 +49,25 @@ struct RootArtifactContentView: View
             {
                 isTyping in
                 
+//                print("attempt to layout \(artifact.codeArtifact.name) because user \(isTyping ? "started" : "ended") typing")
+
                 Task
                 {
                     withAnimation(.easeInOut(duration: 1))
                     {
-//                        print("attempt to layout \(artifact.codeArtifact.name) because user \(isTyping ? "started" : "ended") typing")
-
                         artifact.updateLayout(forScopeSize: geo.size,
-                                              ignoreSearchFilter: isTyping)
+                                              ignoreSearchFilter: isTyping,
+                                              forceUpdate: true)
                     }
                 }
+            }
+            .onAppear
+            {
+//                print("attempt to layout \(artifact.codeArtifact.name) because view did appear")
+                
+                artifact.updateLayout(forScopeSize: geo.size,
+                                      ignoreSearchFilter: viewModel.isTypingSearch,
+                                      forceUpdate: true)
             }
             .drawingGroup()
         }

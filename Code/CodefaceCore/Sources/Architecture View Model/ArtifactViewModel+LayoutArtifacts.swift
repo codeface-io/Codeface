@@ -8,12 +8,8 @@ public extension ArtifactViewModel
                       ignoreSearchFilter: Bool,
                       forceUpdate: Bool = false)
     {
-        guard forceUpdate ||
-              scopeSize != lastScopeContentSize ||
-              ignoreSearchFilter != ignoredFilterOnLastLayout else { return }
-        
+        guard forceUpdate || scopeSize != lastScopeContentSize else { return }
         lastScopeContentSize = scopeSize
-        ignoredFilterOnLastLayout = ignoreSearchFilter
         
         print("updating layout of \(codeArtifact.name)")
         

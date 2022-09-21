@@ -104,8 +104,6 @@ public class ArtifactViewModel: Identifiable, ObservableObject
     
     // MARK: - Search
     
-    var ignoredFilterOnLastLayout: Bool? = nil
-    
     @Published public var passesSearchFilter = true
     
     public var containsSearchTermRegardlessOfParts: Bool?

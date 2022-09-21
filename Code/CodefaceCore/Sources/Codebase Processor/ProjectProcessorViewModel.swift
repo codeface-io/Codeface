@@ -74,8 +74,7 @@ public class ProjectProcessorViewModel: ObservableObject
         didSet
         {
             guard oldValue !== selectedArtifact else { return }
-            selectedArtifact?.ignoredFilterOnLastLayout = nil
-            selectedArtifact?.lastScopeContentSize = nil
+            oldValue?.lastScopeContentSize = nil
             pathBar.select(selectedArtifact)
         }
     }
