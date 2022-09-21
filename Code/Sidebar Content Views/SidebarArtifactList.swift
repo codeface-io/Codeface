@@ -8,9 +8,11 @@ struct SidebarArtifactList: View
     {
         List([rootArtifact],
              children: \.children,
-             selection: makeBindingToSelectedArtifact())
+             selection: $selectedArtifact)
         {
-            SidebarRow(artifactVM: $0, viewModel: analysisVM)
+            SidebarRow(artifactVM: $0,
+                       viewModel: analysisVM,
+                       selectedArtifact: $selectedArtifact)
         }
         .listStyle(.sidebar)
         .onChange(of: isSearching)
@@ -27,7 +29,7 @@ struct SidebarArtifactList: View
         }
         .onAppear
         {
-            analysisVM.selectedArtifact = rootArtifact
+            selectedArtifact = rootArtifact
             listIsInFocus = true
         }
         .focused($listIsInFocus)
@@ -36,13 +38,9 @@ struct SidebarArtifactList: View
     @Environment(\.isSearching) private var isSearching
     @Environment(\.dismissSearch) private var dismissSearch
     
-    private func makeBindingToSelectedArtifact() -> Binding<ArtifactViewModel?>
-    {
-        Binding { analysisVM.selectedArtifact } set: { analysisVM.selectedArtifact = $0 }
-    }
-    
     @ObservedObject var analysisVM: ProjectProcessorViewModel
     let rootArtifact: ArtifactViewModel
+    @Binding var selectedArtifact: ArtifactViewModel?
     
     @FocusState private var listIsInFocus
 }

@@ -69,16 +69,6 @@ public class ProjectProcessorViewModel: ObservableObject
     public var codebaseDisplayName: String { codebaseName ?? "Untitled Codebase" }
     private var codebaseName: String?
     
-    public var selectedArtifact: ArtifactViewModel? = nil
-    {
-        didSet
-        {
-            guard oldValue !== selectedArtifact else { return }
-            oldValue?.lastScopeContentSize = nil
-            pathBar.select(selectedArtifact)
-        }
-    }
-    
     private func processorDidUpdate(toNewState newState: ProjectProcessor.State)
     {
         if codebaseName == nil, let newCodebaseName = newState.codebaseName

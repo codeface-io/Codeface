@@ -10,7 +10,8 @@ struct CodefaceDocumentContentView: View
         {
             NavigationView
             {
-                SidebarAnalysisContent(processorVM: processorVM)
+                SidebarAnalysisContent(processorVM: processorVM,
+                                       selectedArtifact: $codefaceDocument.selectedArtifact)
                     .frame(minWidth: 250)
                     .toolbar {
                         ToolbarItemGroup(placement: .primaryAction)

@@ -78,7 +78,7 @@ public class CodefaceDocument: ObservableObject
     
     private func load(_ processor: ProjectProcessor)
     {
-        projectProcessorVM?.selectedArtifact = nil
+        selectedArtifact = nil
         
         Task
         {
@@ -105,6 +105,19 @@ public class CodefaceDocument: ObservableObject
     
     private var codebaseObservation: AnyCancellable?
     @Published public private(set) var codebase: CodeFolder?
+    
+    // MARK: - Selection View Model
+    
+    @Published public var selectedArtifact: ArtifactViewModel? = nil
+    {
+        didSet
+        {
+            guard oldValue !== selectedArtifact else { return }
+//            print("selected \(selectedArtifact?.codeArtifact.name ?? "nil")")
+            oldValue?.lastScopeContentSize = nil
+            projectProcessorVM?.pathBar.select(selectedArtifact)
+        }
+    }
     
     // MARK: - Project Processor View Model
     

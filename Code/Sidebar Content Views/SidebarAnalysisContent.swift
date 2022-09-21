@@ -21,7 +21,8 @@ struct SidebarAnalysisContent: View
                                 secondaryText: step.rawValue).padding()
         case .didVisualizeCodebaseArchitecture(_, let rootArtifact):
             SidebarArtifactList(analysisVM: processorVM,
-                                rootArtifact: rootArtifact)
+                                rootArtifact: rootArtifact,
+                                selectedArtifact: $selectedArtifact)
                 .searchable(text: $searchTerm,
                             placement: .toolbar,
                             prompt: searchPrompt)
@@ -59,10 +60,11 @@ struct SidebarAnalysisContent: View
     
     private var searchPrompt: String
     {
-        "Search in \(processorVM.selectedArtifact?.codeArtifact.name ?? "Selected Artifact")"
+        "Search in \(selectedArtifact?.codeArtifact.name ?? "Selected Artifact")"
     }
     
     @State private var searchTerm = ""
     
     @ObservedObject var processorVM: ProjectProcessorViewModel
+    @Binding var selectedArtifact: ArtifactViewModel?
 }

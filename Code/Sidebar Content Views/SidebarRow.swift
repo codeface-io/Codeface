@@ -8,7 +8,7 @@ struct SidebarRow: View
 {
     var body: some View
     {
-        NavigationLink
+        NavigationLink(tag: artifactVM, selection: $selectedArtifact)
         {
             Group
             {
@@ -102,12 +102,12 @@ struct SidebarRow: View
             }
         } label:
         {
-            SidebarLabel(artifact: artifactVM,
-                         isSelected: artifactVM === viewModel.selectedArtifact)
+            SidebarLabel(artifact: artifactVM, isSelected: artifactVM === selectedArtifact)
         }
     }
     
     let artifactVM: ArtifactViewModel
     @ObservedObject var viewModel: ProjectProcessorViewModel
+    @Binding var selectedArtifact: ArtifactViewModel?
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }
