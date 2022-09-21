@@ -12,13 +12,15 @@ struct ArtifactView: View
             ArtifactHeaderView(artifactVM: artifactVM)
                 .framePosition(artifactVM.calculateHeaderFrame())
             
-            ArtifactContentView(artifactVM: artifactVM,
-                                pathBar: pathBar,
-                                ignoreSearchFilter: ignoreSearchFilter,
-                                bgBrightness: bgBrightness,
-                                isShownInScope: isShownInScope)
-            .framePosition(artifactVM.contentFrame)
-            .opacity(artifactVM.showsContent ? 1.0 : 0)
+            if artifactVM.showsContent
+            {
+                ArtifactContentView(artifactVM: artifactVM,
+                                    pathBar: pathBar,
+                                    ignoreSearchFilter: ignoreSearchFilter,
+                                    bgBrightness: bgBrightness,
+                                    isShownInScope: isShownInScope)
+                .framePosition(artifactVM.contentFrame)
+            }
         }
         .onHover
         {

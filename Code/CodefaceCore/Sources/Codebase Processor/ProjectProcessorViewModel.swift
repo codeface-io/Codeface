@@ -69,7 +69,7 @@ public class ProjectProcessorViewModel: ObservableObject
     public var codebaseDisplayName: String { codebaseName ?? "Untitled Codebase" }
     private var codebaseName: String?
     
-    @Published public var selectedArtifact: ArtifactViewModel? = nil
+    public var selectedArtifact: ArtifactViewModel? = nil
     {
         didSet
         {

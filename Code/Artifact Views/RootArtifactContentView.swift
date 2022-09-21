@@ -14,6 +14,7 @@ struct RootArtifactContentView: View
                                 ignoreSearchFilter: viewModel.isTypingSearch,
                                 bgBrightness: colorScheme == .dark ? 0 : 0.6,
                                 isShownInScope: artifact.showsContent)
+            .drawingGroup()
             .onChange(of: geo.size)
             {
                 newSize in
@@ -60,7 +61,6 @@ struct RootArtifactContentView: View
                                       ignoreSearchFilter: viewModel.isTypingSearch,
                                       forceUpdate: true)
             }
-            .drawingGroup()
         }
     }
     

@@ -8,14 +8,14 @@ struct SidebarRow: View
 {
     var body: some View
     {
-        NavigationLink(tag: selectedArtifactVM, selection: $viewModel.selectedArtifact)
+        NavigationLink
         {
             Group
             {
-                if selectedArtifactVM.filteredParts.isEmpty
+                if artifactVM.filteredParts.isEmpty
                 {
-                    let contentIsFilteredOut = !selectedArtifactVM.passesSearchFilter || !selectedArtifactVM.parts.isEmpty
-                    
+                    let contentIsFilteredOut = !artifactVM.passesSearchFilter || !artifactVM.parts.isEmpty
+
                     if contentIsFilteredOut
                     {
                         VStack(alignment: .center)
@@ -24,8 +24,8 @@ struct SidebarRow: View
                                 .foregroundColor(.secondary)
                                 .font(.system(.title))
                                 .padding(.bottom)
-                            
-                            Text(selectedArtifactVM.codeArtifact.name + " does not contain the term \"\(viewModel.appliedSearchTerm ?? "")\"")
+
+                            Text(artifactVM.codeArtifact.name + " does not contain the term \"\(viewModel.appliedSearchTerm ?? "")\"")
                                 .foregroundColor(.secondary)
                                 .padding(.bottom)
                             
@@ -36,9 +36,9 @@ struct SidebarRow: View
                         }
                         .padding()
                     }
-                    else if case .symbol = selectedArtifactVM.kind
+                    else if case .symbol = artifactVM.kind
                     {
-                        CodeView(artifact: selectedArtifactVM)
+                        CodeView(artifact: artifactVM)
                     }
                     else
                     {
@@ -48,10 +48,10 @@ struct SidebarRow: View
                                 .foregroundColor(.secondary)
                                 .font(.system(.title))
                                 .padding(.bottom)
-                            
+
                             if serverManager.serverIsWorking
                             {
-                                Text(selectedArtifactVM.codeArtifact.name + " contains no further symbols.")
+                                Text(artifactVM.codeArtifact.name + " contains no further symbols.")
                                     .foregroundColor(.secondary)
                             }
                             else
@@ -67,15 +67,14 @@ struct SidebarRow: View
                 {
                     switch viewModel.displayMode
                     {
-                    case .treeMap: TreeMap(rootArtifactVM: selectedArtifactVM,
-                                           viewModel: viewModel)
-                    case .code: CodeView(artifact: selectedArtifactVM)
+                    case .treeMap: TreeMap(rootArtifactVM: artifactVM, viewModel: viewModel)
+                    case .code: CodeView(artifact: artifactVM)
                     }
                 }
             }
             .toolbar
             {
-                if !selectedArtifactVM.filteredParts.isEmpty
+                if !artifactVM.filteredParts.isEmpty
                 {
                     DisplayModePicker(displayMode: $viewModel.displayMode)
                 }
@@ -103,12 +102,12 @@ struct SidebarRow: View
             }
         } label:
         {
-            SidebarLabel(artifact: selectedArtifactVM,
-                         isSelected: selectedArtifactVM === viewModel.selectedArtifact)
+            SidebarLabel(artifact: artifactVM,
+                         isSelected: artifactVM === viewModel.selectedArtifact)
         }
     }
     
-    let selectedArtifactVM: ArtifactViewModel
+    let artifactVM: ArtifactViewModel
     @ObservedObject var viewModel: ProjectProcessorViewModel
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }
