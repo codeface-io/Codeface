@@ -1,4 +1,5 @@
 import SwiftUI
+import FoundationToolz
 import CodefaceCore
 
 struct RootArtifactContentView: View
@@ -36,11 +37,21 @@ struct RootArtifactContentView: View
                 
                 guard let selectedArtifact else { return }
                 
-                // print("updating layout because selection change")
+//                 print("updating layout because selection change")
                 
+//                var stopWatch = StopWatch()
                 selectedArtifact.updateLayoutOfParts(forScopeSize: geo.size,
                                                      ignoreSearchFilter: viewModel.isTypingSearch)
+//                stopWatch.measure("Artifact Layout")
+//                stopWatch.restart()
                 selectedArtifact.layoutDependencies()
+//                stopWatch.measure("Dependency Layout")
+                
+                /**
+                 before any optimization: one layout of root folder, srckit-lsp, full screen:
+                 ⏱ Artifact Layout: 49.851709 mili seconds
+                 ⏱ Dependency Layout: 22.688292 mili seconds
+                 */
             }
             .onReceive(viewModel.$isTypingSearch)
             {
