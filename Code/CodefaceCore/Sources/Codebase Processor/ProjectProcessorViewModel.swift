@@ -71,7 +71,13 @@ public class ProjectProcessorViewModel: ObservableObject
     
     @Published public var selectedArtifact: ArtifactViewModel? = nil
     {
-        didSet { pathBar.select(selectedArtifact) }
+        didSet
+        {
+            guard oldValue !== selectedArtifact else { return }
+            selectedArtifact?.ignoredFilterOnLastLayout = nil
+            selectedArtifact?.lastScopeContentSize = nil
+            pathBar.select(selectedArtifact)
+        }
     }
     
     private func processorDidUpdate(toNewState newState: ProjectProcessor.State)

@@ -85,6 +85,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject
     
     // MARK: - Geometry
     
+    var lastScopeContentSize: CGSize? = nil
+    
     @Published public var frameInScopeContent = Frame.zero
     
     public var showsContent = true
@@ -101,6 +103,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject
     public let linesOfCodeColor: UXColor
     
     // MARK: - Search
+    
+    var ignoredFilterOnLastLayout: Bool? = nil
     
     @Published public var passesSearchFilter = true
     

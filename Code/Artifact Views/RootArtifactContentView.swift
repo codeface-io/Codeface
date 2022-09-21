@@ -1,5 +1,4 @@
 import SwiftUI
-import FoundationToolz
 import CodefaceCore
 
 struct RootArtifactContentView: View
@@ -21,59 +20,50 @@ struct RootArtifactContentView: View
                 
                 Task
                 {
+                    print("attempt to layout \(artifact.codeArtifact.name) because size changed to \(newSize)")
+                    
                     withAnimation(.easeInOut(duration: 1))
                     {
-                        // print("updating layout because size change")
-                        
-                        artifact.updateLayoutOfParts(forScopeSize: newSize,
-                                                     ignoreSearchFilter: viewModel.isTypingSearch)
-                        artifact.layoutDependencies()
+                        artifact.updateLayout(forScopeSize: newSize,
+                                              ignoreSearchFilter: viewModel.isTypingSearch)
                     }
                 }
             }
-            .onReceive(viewModel.$selectedArtifact)
+            .onReceive(viewModel.$selectedArtifact.compactMap({ $0 }).removeDuplicates())
             {
-                selectedArtifact in
+//                print("attempt to layout because selection changed to: \($0.codeArtifact.name)")
                 
-                guard let selectedArtifact else { return }
-                
-//                 print("updating layout because selection change")
-                
-//                var stopWatch = StopWatch()
-                selectedArtifact.updateLayoutOfParts(forScopeSize: geo.size,
-                                                     ignoreSearchFilter: viewModel.isTypingSearch)
-//                stopWatch.measure("Artifact Layout")
-//                stopWatch.restart()
-                selectedArtifact.layoutDependencies()
-//                stopWatch.measure("Dependency Layout")
-                
-                /**
-                 before any optimization: one layout of root folder, srckit-lsp, full screen:
-                 ⏱ Artifact Layout: 49.851709 mili seconds
-                 ⏱ Dependency Layout: 22.688292 mili seconds
-                 */
+                $0.updateLayout(forScopeSize: geo.size,
+                                ignoreSearchFilter: viewModel.isTypingSearch)
             }
-            .onReceive(viewModel.$isTypingSearch)
+            .onReceive(viewModel.$appliedSearchTerm.removeDuplicates().dropFirst())
             {
-                _ in
+                newTerm in
                 
                 Task
                 {
                     withAnimation(.easeInOut(duration: 1))
                     {
-//                        print("updating layout because typing change")
-//
-//                        let before = Double.uptimeNanoSeconds
-                        
-                        artifact.updateLayoutOfParts(forScopeSize: geo.size,
-                                                     ignoreSearchFilter: viewModel.isTypingSearch)
-                        artifact.layoutDependencies()
-                        
-//                        let after = Double.uptimeNanoSeconds
-//
-//                        let duration = after - before
-//
-//                        print ("\(Double(duration) / 1000000.0) ms")
+//                        print("attempt to layout \(artifact.codeArtifact.name) because search term changed to " + (newTerm ?? "nil"))
+
+                        artifact.updateLayout(forScopeSize: geo.size,
+                                              ignoreSearchFilter: viewModel.isTypingSearch,
+                                              forceUpdate: true)
+                    }
+                }
+            }
+            .onReceive(viewModel.$isTypingSearch.removeDuplicates().dropFirst())
+            {
+                isTyping in
+                
+                Task
+                {
+                    withAnimation(.easeInOut(duration: 1))
+                    {
+//                        print("attempt to layout \(artifact.codeArtifact.name) because user \(isTyping ? "started" : "ended") typing")
+
+                        artifact.updateLayout(forScopeSize: geo.size,
+                                              ignoreSearchFilter: isTyping)
                     }
                 }
             }
@@ -82,6 +72,6 @@ struct RootArtifactContentView: View
     }
     
     let artifact: ArtifactViewModel
-    @ObservedObject var viewModel: ProjectProcessorViewModel
+    var viewModel: ProjectProcessorViewModel
     @Environment(\.colorScheme) var colorScheme
 }

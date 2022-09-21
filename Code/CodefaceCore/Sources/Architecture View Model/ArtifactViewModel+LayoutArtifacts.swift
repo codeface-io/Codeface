@@ -1,10 +1,39 @@
+import FoundationToolz
 import Foundation
 import SwiftyToolz
 
 public extension ArtifactViewModel
 {
-    func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
-                             ignoreSearchFilter: Bool)
+    func updateLayout(forScopeSize scopeSize: CGSize,
+                      ignoreSearchFilter: Bool,
+                      forceUpdate: Bool = false)
+    {
+        guard forceUpdate ||
+              scopeSize != lastScopeContentSize ||
+              ignoreSearchFilter != ignoredFilterOnLastLayout else { return }
+        
+        lastScopeContentSize = scopeSize
+        ignoredFilterOnLastLayout = ignoreSearchFilter
+        
+        print("updating layout of \(codeArtifact.name)")
+        
+        var stopWatch = StopWatch()
+        updateLayoutOfParts(forScopeSize: scopeSize, ignoreSearchFilter: ignoreSearchFilter)
+        stopWatch.measure("Artifact Layout")
+        
+        stopWatch.restart()
+        layoutDependencies()
+        stopWatch.measure("Dependency Layout")
+        
+        /**
+         before any optimization: one layout of root folder, srckit-lsp, full screen:
+         ⏱ Artifact Layout: 49.851709 mili seconds
+         ⏱ Dependency Layout: 22.688292 mili seconds
+         */
+    }
+    
+    private func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
+                                     ignoreSearchFilter: Bool)
     {
         let presentedParts = ignoreSearchFilter ? parts : filteredParts
         
