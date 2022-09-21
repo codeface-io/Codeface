@@ -85,7 +85,7 @@ struct SidebarRow: View
                 {
                     Button
                     {
-                        withAnimation(.easeInOut)
+                        withAnimation(.easeInOut(duration: 1.5))
                         {
                             viewModel.removeSearchFilter()
                         }
