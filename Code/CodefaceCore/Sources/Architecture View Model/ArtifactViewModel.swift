@@ -2,23 +2,9 @@ import SwiftLSP
 import Foundation
 import SwiftyToolz
 
-extension ArtifactViewModel: Hashable
-{
-    public func hash(into hasher: inout Hasher)
-    {
-        hasher.combine(id)
-    }
-}
-
 @MainActor
-public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
+public class ArtifactViewModel: Identifiable, ObservableObject
 {
-    public nonisolated static func == (lhs: ArtifactViewModel,
-                                       rhs: ArtifactViewModel) -> Bool
-    {
-        lhs === rhs
-    }
-    
     // MARK: - Initialization
     
     public init(folderArtifact: CodeFolderArtifact, isPackage: Bool)
@@ -97,50 +83,7 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
         for part in parts { part.scope = self }
     }
     
-    // MARK: - Search
-    
-    @Published public var passesSearchFilter = true
-    
-    public var containsSearchTermRegardlessOfParts: Bool?
-    var partsContainSearchTerm: Bool?
-    
-    // MARK: - Name
-    
-    public var displayName: String
-    {
-        collapseHorizontally ? "" : codeArtifact.name
-    }
-    
     // MARK: - Geometry
-    
-    public var headerFrame: Frame
-    {
-        .init(centerX: frameInScopeContent.width / 2 + (extraSpaceForTitles / 2),
-              centerY: collapseVertically ? frameInScopeContent.height / 2 : Self.padding + fontSize / 2,
-              width: frameInScopeContent.width - 2 * Self.padding + extraSpaceForTitles,
-              height: collapseVertically ? frameInScopeContent.height - 2 * Self.padding : fontSize)
-    }
-    
-    public var extraSpaceForTitles: Double { collapseHorizontally ? 0 : 6.0 }
-    
-    public var showsName: Bool
-    {
-        frameInScopeContent.width - (2 * Self.padding + fontSize) >= 3 * fontSize
-    }
-    
-    public var collapseHorizontally: Bool { frameInScopeContent.width <= fontSize + (2 * Self.padding) }
-    
-    public var collapseVertically: Bool { frameInScopeContent.height <= fontSize + (2 * Self.padding) }
-    
-    public var fontSize: Double
-    {
-        let viewSurface = frameInScopeContent.height * frameInScopeContent.width
-        return 3 * pow(viewSurface, (1 / 6.0))
-    }
-    
-    public static var padding: Double = 16
-    public static var minWidth: Double = 30
-    public static var minHeight: Double = 30
     
     @Published public var frameInScopeContent = Frame.zero
     
@@ -156,6 +99,13 @@ public class ArtifactViewModel: Identifiable, ObservableObject, Equatable
     public let iconSystemImageName: String
     public let iconFillColor: UXColor
     public let linesOfCodeColor: UXColor
+    
+    // MARK: - Search
+    
+    @Published public var passesSearchFilter = true
+    
+    public var containsSearchTermRegardlessOfParts: Bool?
+    var partsContainSearchTerm: Bool?
     
     // MARK: - Basics
     

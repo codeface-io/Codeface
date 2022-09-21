@@ -44,7 +44,7 @@ public extension ArtifactViewModel
             if availableRect.width > 100, availableRect.height > 100
             {
                 let padding = ArtifactViewModel.padding
-                let headerHeight = part.fontSize + 2 * padding
+                let headerHeight = part.calculateFontSize() + 2 * padding
                 
                 part.contentFrame = .init(x: padding,
                                           y: headerHeight,

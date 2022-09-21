@@ -10,7 +10,7 @@ struct ArtifactView: View
         ZStack
         {
             ArtifactHeaderView(artifactVM: artifactVM)
-                .framePosition(artifactVM.headerFrame)
+                .framePosition(artifactVM.calculateHeaderFrame())
             
             ArtifactContentView(artifactVM: artifactVM,
                                 pathBar: pathBar,

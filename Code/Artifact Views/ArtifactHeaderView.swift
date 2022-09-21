@@ -11,15 +11,23 @@ struct ArtifactHeaderView: View
             
             Text(artifactVM.displayName)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .opacity(artifactVM.showsName ? 1 : 0)
+                .opacity(artifactVM.calculateWhetherToShowName() ? 1 : 0)
                 .foregroundColor(.primary)
                 .padding(.leading,
-                         artifactVM.collapseHorizontally ? 0 : artifactVM.fontSize / 7)
+                         artifactVM.calculateWhetherToCollapseHorizontally() ? 0 : artifactVM.calculateFontSize() / 7)
         }
-        .font(.system(size: artifactVM.fontSize,
+        .font(.system(size: artifactVM.calculateFontSize(),
                       weight: .medium,
                       design: artifactVM.fontDesign))
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel
+}
+
+private extension ArtifactViewModel
+{
+    var displayName: String
+    {
+        calculateWhetherToCollapseHorizontally() ? "" : codeArtifact.name
+    }
 }
