@@ -27,7 +27,7 @@ struct RootArtifactContentView: View
                         HStack
                         {
                             Spacer()
-                            Text("Couldn't find layout of \"\(artifact.codeArtifact.name)\" that fits within \(Int(geo.size.width))×\(Int(geo.size.height)) points")
+                            Text("Couldn't find layout that fits within \(Int(geo.size.width))×\(Int(geo.size.height)) points")
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.secondary)
                             Spacer()
