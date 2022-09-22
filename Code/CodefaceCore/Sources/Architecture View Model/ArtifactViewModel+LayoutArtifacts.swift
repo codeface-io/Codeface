@@ -11,15 +11,15 @@ public extension ArtifactViewModel
         guard forceUpdate || scopeSize != lastScopeContentSize else { return }
         lastScopeContentSize = scopeSize
         
-        print("updating layout of \(codeArtifact.name)")
+//        print("updating layout of \(codeArtifact.name)")
         
-        var stopWatch = StopWatch()
+//        var stopWatch = StopWatch()
         updateLayoutOfParts(forScopeSize: scopeSize, ignoreSearchFilter: ignoreSearchFilter)
-        stopWatch.measure("Artifact Layout")
+//        stopWatch.measure("Artifact Layout")
         
-        stopWatch.restart()
+//        stopWatch.restart()
         layoutDependencies()
-        stopWatch.measure("Dependency Layout")
+//        stopWatch.measure("Dependency Layout")
         
         /**
          before any optimization: one layout of root folder, srckit-lsp, full screen:
