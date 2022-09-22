@@ -89,10 +89,10 @@ public class ArtifactViewModel: Identifiable, ObservableObject
     
     @Published public var frameInScopeContent = Frame.zero
     
-    public var showsContent = true
+    @Published public var showsContent = false
     public var contentFrame = Frame.zero
     
-    @Published public var gapBetweenParts: Double = 0
+    @Published public var gapBetweenParts: Double?
     
     // MARK: - Colors & Symbols
     

@@ -104,11 +104,12 @@ public extension ArtifactViewModel
         
         let fractionA = Double(locA) / Double(locA + locB)
         
-        let bigGap = 3 * gapBetweenParts
+        let regularGap = gapBetweenParts ?? 0
+        let bigGap = 3 * regularGap
         
         let properRectSplit = split(availableRect,
                                     firstFraction: fractionA,
-                                    gap: isSplitBetweenComponents ? gapBetweenParts : bigGap)
+                                    gap: isSplitBetweenComponents ? regularGap : bigGap)
         
         let rectSplitToUse = properRectSplit ?? forceSplit(availableRect)
         

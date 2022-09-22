@@ -21,7 +21,7 @@ struct ArtifactContentView: View
                                    viewModel: dependencyVM,
                                    defaultBrightness: lineBrightness(forBGBrightness: partBGBrightness,
                                                                      isDarkMode: colorScheme == .dark),
-                                   size: artifactVM.gapBetweenParts / 2.5)
+                                   size: (artifactVM.gapBetweenParts ?? 0) / 2.5)
                 }
                 
                 ForEach(artifactVM.filteredParts)
