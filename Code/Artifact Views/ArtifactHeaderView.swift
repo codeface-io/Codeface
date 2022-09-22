@@ -11,12 +11,12 @@ struct ArtifactHeaderView: View
             
             Text(artifactVM.displayName)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .opacity(artifactVM.calculateWhetherToShowName() ? 1 : 0)
+                .opacity(artifactVM.shouldShowName ? 1 : 0)
                 .foregroundColor(.primary)
                 .padding(.leading,
-                         artifactVM.calculateWhetherToCollapseHorizontally() ? 0 : artifactVM.calculateFontSize() / 7)
+                         artifactVM.shouldCollapseHorizontally ? 0 : artifactVM.fontSize / 7)
         }
-        .font(.system(size: artifactVM.calculateFontSize(),
+        .font(.system(size: artifactVM.fontSize,
                       weight: .medium,
                       design: artifactVM.fontDesign))
     }
@@ -28,6 +28,6 @@ private extension ArtifactViewModel
 {
     var displayName: String
     {
-        calculateWhetherToCollapseHorizontally() ? "" : codeArtifact.name
+        shouldCollapseHorizontally ? "" : codeArtifact.name
     }
 }

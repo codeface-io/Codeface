@@ -23,25 +23,25 @@ public extension ArtifactViewModel
         
         /**
          before any optimization: one layout of root folder, srckit-lsp, full screen:
-         ⏱ Artifact Layout: 49.851709 mili seconds
-         ⏱ Dependency Layout: 22.688292 mili seconds
+         ⏱ Artifact Layout: 39.136875 mili seconds
+         ⏱ Dependency Layout: 18.996541 mili seconds
          */
     }
     
     private func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
                                      ignoreSearchFilter: Bool)
     {
-        let presentedParts = ignoreSearchFilter ? parts : filteredParts
+        let contentParts = ignoreSearchFilter ? parts : filteredParts
         
-        guard !presentedParts.isEmpty else
+        guard !contentParts.isEmpty else
         {
             showsContent = false
             return
         }
         
-        gapBetweenParts = pow(scopeSize.width * scopeSize.height, (1 / 6.0)) * 2
+        gapBetweenParts = 2 * pow(scopeSize.width * scopeSize.height, (1 / 6.0))
         
-        showsContent = prepare(parts: presentedParts,
+        showsContent = prepare(parts: contentParts,
                                forLayoutIn: .init(x: 0,
                                                   y: 0,
                                                   width: scopeSize.width,
@@ -69,7 +69,7 @@ public extension ArtifactViewModel
             if availableRect.width > 100, availableRect.height > 100
             {
                 let padding = ArtifactViewModel.padding
-                let headerHeight = part.calculateFontSize() + 2 * padding
+                let headerHeight = part.fontSize + 2 * padding
                 
                 part.contentFrame = .init(x: padding,
                                           y: headerHeight,

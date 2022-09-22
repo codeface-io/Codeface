@@ -83,16 +83,54 @@ public class ArtifactViewModel: Identifiable, ObservableObject
         for part in parts { part.scope = self }
     }
     
-    // MARK: - Geometry
+    // MARK: - Geometry: Basics
     
     var lastScopeContentSize: CGSize? = nil
-    
     @Published public var frameInScopeContent = Frame.zero
+    {
+        didSet
+        {
+            updatePropertiesDerivedFromFrame()
+        }
+    }
     
     @Published public var showsContent = false
     public var contentFrame = Frame.zero
-    
     @Published public var gapBetweenParts: Double?
+    
+    // MARK: - Geometry: Properties Derived (Cached) From Frame
+    
+    private func updatePropertiesDerivedFromFrame()
+    {
+        let width = frameInScopeContent.width
+        let height = frameInScopeContent.height
+        let surface = height * width
+        
+        fontSize = 3 * pow(surface, (1 / 6.0))
+        
+        shouldCollapseHorizontally = width <= fontSize + (2 * Self.padding)
+        shouldCollapseVertically = height <= fontSize + (2 * Self.padding)
+        shouldShowName = width - (2 * Self.padding + fontSize) >= 3 * fontSize
+        
+        let extraSpaceForTitles = shouldCollapseHorizontally ? 0 : 6.0
+        headerFrame = .init(centerX: width / 2 + (extraSpaceForTitles / 2),
+                            centerY: shouldCollapseVertically ? height / 2 : Self.padding + fontSize / 2,
+                            width: width - 2 * Self.padding + extraSpaceForTitles,
+                            height: shouldCollapseVertically ? height - 2 * Self.padding : fontSize)
+    }
+    
+    public var fontSize: Double = 0
+    public var shouldCollapseHorizontally = false
+    public var shouldCollapseVertically = false
+    public var shouldShowName = true
+    
+    public var headerFrame = Frame.zero
+    
+    // MARK: - Geometry: Static Parameters
+    
+    public static var padding: Double = 16
+    static var minWidth: Double = 30
+    static var minHeight: Double = 30
     
     // MARK: - Colors & Symbols
     
