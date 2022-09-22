@@ -25,6 +25,7 @@
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
 		9656A6A225287F2000D4CF26 /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A6A125287F2000D4CF26 /* SwiftObserver */; };
 		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
+		968EA5C328DCD24500FE8A9B /* ContentNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EA5C228DCD24500FE8A9B /* ContentNavigationView.swift */; };
 		96A3A3AC254A621900AE4146 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96A3A3AB254A621900AE4146 /* SwiftLSP */; };
 		96CFBB3328B57D480051C318 /* SwiftUIToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 96CFBB3228B57D480051C318 /* SwiftUIToolz */; };
 		96CFBB3628B582D20051C318 /* ArtifactViewModel+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */; };
@@ -82,6 +83,7 @@
 		9648CBAF28BCB3DC0011D3C7 /* SidebarArtifactList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarArtifactList.swift; sourceTree = "<group>"; };
 		9664648728B14E7700F1B376 /* LSPServiceKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LSPServiceKit; path = ../../LSPServiceKit; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
+		968EA5C228DCD24500FE8A9B /* ContentNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentNavigationView.swift; sourceTree = "<group>"; };
 		969EF681289923CE00FC4238 /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
 		96B54D7B28B67D6300A1B26F /* FoundationToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FoundationToolz; path = ../../FoundationToolz; sourceTree = "<group>"; };
 		96C87382285495D300C9D39A /* SwiftLSP */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftLSP; path = ../../SwiftLSP; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
 				9639C27128D761A000779BA5 /* CodefaceDocumentView.swift */,
 				964308A4254B7B070026E56C /* CodefaceDocumentContentView.swift */,
+				968EA5C228DCD24500FE8A9B /* ContentNavigationView.swift */,
 				963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */,
 				96FC8C3E284BEB9000AD7DD2 /* CodebaseLocatorView.swift */,
 			);
@@ -370,6 +373,7 @@
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				96FC8C3F284BEB9000AD7DD2 /* CodebaseLocatorView.swift in Sources */,
 				96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */,
+				968EA5C328DCD24500FE8A9B /* ContentNavigationView.swift in Sources */,
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
 				960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,

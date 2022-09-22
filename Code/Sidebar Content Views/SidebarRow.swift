@@ -72,32 +72,15 @@ struct SidebarRow: View
                     }
                 }
             }
-            .toolbar
-            {
-                if !artifactVM.filteredParts.isEmpty
-                {
-                    DisplayModePicker(displayMode: $viewModel.displayMode)
-                }
-                
-                if let searchTerm = viewModel.appliedSearchTerm,
-                   !searchTerm.isEmpty
-                {
-                    Button
+            .toolbar {
+                ToolbarItemGroup(placement: .principal) {
+                    if let searchTerm = viewModel.appliedSearchTerm, !searchTerm.isEmpty
                     {
-                        withAnimation(.easeInOut(duration: 1.5))
-                        {
-                            viewModel.removeSearchFilter()
-                        }
-                    } label:
-                    {
-                        HStack
-                        {
-                            Text("Search Filter:")
-                            Text(searchTerm)
-                                .foregroundColor(.accentColor)
-                            Image(systemName: "xmark")
-                        }
+                        FilterRemovalButton(processorVM: viewModel)
                     }
+                
+                    // FIXME: try to fix this with the new SwiftUI on Ventura: having a 2nd item here can lead to a crash: size window smaller so that sidebar disappears automatically, size window bigger so that sidebar reappears, select some higher-level artifact
+                    // DisplayModePicker(displayMode: $viewModel.displayMode)
                 }
             }
         } label:
@@ -113,3 +96,26 @@ struct SidebarRow: View
 }
 
 let lspServicePage = URL(string: "https://www.codeface.io/blog/posts/using-lsp-servers-in-codeface-via-lspservice/index.html")!
+
+struct FilterRemovalButton: View
+{
+    var body: some View
+    {
+        Button {
+            withAnimation(.easeInOut(duration: 1.5))
+            {
+                processorVM.removeSearchFilter()
+            }
+        } label: {
+            HStack
+            {
+                Text("Search Filter:")
+                Text(processorVM.appliedSearchTerm ?? "")
+                    .foregroundColor(.accentColor)
+                Image(systemName: "xmark")
+            }
+        }
+    }
+    
+    @ObservedObject var processorVM: ProjectProcessorViewModel
+}
