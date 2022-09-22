@@ -31,8 +31,7 @@ struct ArtifactContentView: View
                     ArtifactView(artifactVM: partVM,
                                  pathBar: pathBar,
                                  ignoreSearchFilter: ignoreSearchFilter,
-                                 bgBrightness: partBGBrightness,
-                                 isShownInScope: isShownInScope && artifactVM.showsContent)
+                                 bgBrightness: partBGBrightness)
                 }
             }
             .frame(width: contentGeometry.size.width,
@@ -49,6 +48,5 @@ struct ArtifactContentView: View
     let pathBar: PathBar
     let ignoreSearchFilter: Bool
     let bgBrightness: Double
-    let isShownInScope: Bool
     @Environment(\.colorScheme) var colorScheme
 }

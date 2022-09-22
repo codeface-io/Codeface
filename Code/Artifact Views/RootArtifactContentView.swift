@@ -12,8 +12,7 @@ struct RootArtifactContentView: View
             ArtifactContentView(artifactVM: artifact,
                                 pathBar: viewModel.pathBar,
                                 ignoreSearchFilter: viewModel.isTypingSearch,
-                                bgBrightness: colorScheme == .dark ? 0 : 0.6,
-                                isShownInScope: artifact.showsContent)
+                                bgBrightness: colorScheme == .dark ? 0 : 0.6)
             .drawingGroup()
             .onChange(of: geo.size)
             {

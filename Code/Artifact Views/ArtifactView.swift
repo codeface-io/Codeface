@@ -17,15 +17,12 @@ struct ArtifactView: View
                 ArtifactContentView(artifactVM: artifactVM,
                                     pathBar: pathBar,
                                     ignoreSearchFilter: ignoreSearchFilter,
-                                    bgBrightness: bgBrightness,
-                                    isShownInScope: isShownInScope)
+                                    bgBrightness: bgBrightness)
                 .framePosition(artifactVM.contentFrame)
             }
         }
         .onHover
         {
-            guard isShownInScope else { return }
-            
             if $0
             {
                 artifactVM.isInFocus = true
@@ -66,7 +63,6 @@ struct ArtifactView: View
     let pathBar: PathBar
     let ignoreSearchFilter: Bool
     let bgBrightness: Double
-    let isShownInScope: Bool
     
     private var defaultBorderColor: DynamicColor
     {
