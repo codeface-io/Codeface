@@ -18,15 +18,21 @@ struct ContentNavigationView: View
                         Image(systemName: "sidebar.leading")
                     }
                     
-                    if CodebaseLocationPersister.hasPersistedLastCodebaseLocation
+                    Spacer()
+                    
+                    Button(action: { codefaceDocument.loadProcessorForLastCodebase() })
                     {
-                        Spacer()
-                        
-                        Button(action: { codefaceDocument.loadProcessorForLastCodebase() })
-                        {
-                            Image(systemName: "arrow.clockwise")
-                        }
-                        .help("Import the last imported folder again")
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .disabled(!CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
+                    .help("Import the last imported folder again")
+                }
+                    
+                ToolbarItemGroup(placement: .navigation)
+                {
+                    if let searchTerm = processorVM.appliedSearchTerm, !searchTerm.isEmpty
+                    {
+                        FilterRemovalButton(processorVM: processorVM)
                     }
                 }
             }

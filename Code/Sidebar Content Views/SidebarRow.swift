@@ -72,17 +72,17 @@ struct SidebarRow: View
                     }
                 }
             }
-            .toolbar {
-                ToolbarItemGroup(placement: .principal) {
-                    if let searchTerm = viewModel.appliedSearchTerm, !searchTerm.isEmpty
-                    {
-                        FilterRemovalButton(processorVM: viewModel)
-                    }
-                
-                    // FIXME: try to fix this with the new SwiftUI on Ventura: having a 2nd item here can lead to a crash: size window smaller so that sidebar disappears automatically, size window bigger so that sidebar reappears, select some higher-level artifact
-                    // DisplayModePicker(displayMode: $viewModel.displayMode)
-                }
-            }
+            // FIXME: try to fix this with the new SwiftUI on Ventura: having a "2nd" toolbar here can lead to a crash: size window smaller so that sidebar disappears automatically, size window bigger so that sidebar reappears, select some higher-level artifact
+//            .toolbar {
+//                ToolbarItemGroup(placement: .automatic) {
+//                    if let searchTerm = viewModel.appliedSearchTerm, !searchTerm.isEmpty
+//                    {
+//                        FilterRemovalButton(processorVM: viewModel)
+//                    }
+//
+//                    // DisplayModePicker(displayMode: $viewModel.displayMode)
+//                }
+//            }
         } label:
         {
             SidebarLabel(artifact: artifactVM, isSelected: artifactVM === selectedArtifact)
