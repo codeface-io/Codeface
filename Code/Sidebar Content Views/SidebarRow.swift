@@ -111,3 +111,5 @@ struct SidebarRow: View
     @Binding var selectedArtifact: ArtifactViewModel?
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }
+
+let lspServicePage = URL(string: "https://www.codeface.io/blog/posts/using-lsp-servers-in-codeface-via-lspservice/index.html")!

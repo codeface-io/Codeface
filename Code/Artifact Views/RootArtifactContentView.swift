@@ -9,11 +9,33 @@ struct RootArtifactContentView: View
         {
             geo in
             
-            ArtifactContentView(artifactVM: artifact,
-                                pathBar: viewModel.pathBar,
-                                ignoreSearchFilter: viewModel.isTypingSearch,
-                                bgBrightness: colorScheme == .dark ? 0 : 0.6)
-            .drawingGroup()
+            Group
+            {
+                if artifact.showsContent
+                {
+                    ArtifactContentView(artifactVM: artifact,
+                                        pathBar: viewModel.pathBar,
+                                        ignoreSearchFilter: viewModel.isTypingSearch,
+                                        bgBrightness: colorScheme == .dark ? 0 : 0.6)
+                    .drawingGroup()
+                }
+                else
+                {
+                    VStack
+                    {
+                        Spacer()
+                        HStack
+                        {
+                            Spacer()
+                            Text("Couldn't find layout of \"\(artifact.codeArtifact.name)\" that fits within \(Int(geo.size.width))×\(Int(geo.size.height)) points")
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.secondary)
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                }
+            }
             .onChange(of: geo.size)
             {
                 newSize in
@@ -63,7 +85,7 @@ struct RootArtifactContentView: View
         }
     }
     
-    let artifact: ArtifactViewModel
+    @ObservedObject var artifact: ArtifactViewModel
     var viewModel: ProjectProcessorViewModel
     @Environment(\.colorScheme) var colorScheme
 }

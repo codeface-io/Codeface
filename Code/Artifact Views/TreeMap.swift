@@ -8,11 +8,11 @@ struct TreeMap: View
             VStack(spacing: 0)
             {
                 PathBarView(overviewBar: viewModel.pathBar)
-                
-                RootArtifactContentView(artifact: rootArtifactVM,
-                                        viewModel: viewModel)
-                .padding(ArtifactViewModel.padding)
+
+                RootArtifactContentView(artifact: rootArtifactVM, viewModel: viewModel)
+                    .padding(ArtifactViewModel.padding)
             }
+            .frame(minWidth: 300, minHeight: 300)
             .background(Color(white: colorScheme == .dark ? 0 : 0.6))
     }
     
@@ -20,5 +20,3 @@ struct TreeMap: View
     @ObservedObject var viewModel: ProjectProcessorViewModel
     @Environment(\.colorScheme) var colorScheme
 }
-
-let lspServicePage = URL(string: "https://www.codeface.io/lspservice")!

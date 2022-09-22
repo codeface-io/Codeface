@@ -31,9 +31,9 @@ public extension ArtifactViewModel
     private func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
                                      ignoreSearchFilter: Bool)
     {
-        let contentParts = ignoreSearchFilter ? parts : filteredParts
+        let shownContentParts = ignoreSearchFilter ? parts : filteredParts
         
-        guard !contentParts.isEmpty else
+        guard !shownContentParts.isEmpty else
         {
             showsContent = false
             return
@@ -41,7 +41,7 @@ public extension ArtifactViewModel
         
         gapBetweenParts = 2 * pow(scopeSize.width * scopeSize.height, (1 / 6.0))
         
-        showsContent = prepare(parts: contentParts,
+        showsContent = prepare(parts: shownContentParts,
                                forLayoutIn: .init(x: 0,
                                                   y: 0,
                                                   width: scopeSize.width,
