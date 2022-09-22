@@ -8,6 +8,8 @@ public extension ArtifactViewModel
         {
             artifactVM in
             
+            guard artifactVM.showsContent else { return }
+            
             var verticalTasks = [OrthogonalDependencyLayoutTask]()
             var horizontalTasks = [OrthogonalDependencyLayoutTask]()
             

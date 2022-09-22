@@ -23,8 +23,8 @@ public extension ArtifactViewModel
         
         /**
          before any optimization: one layout of root folder, srckit-lsp, full screen:
-         ⏱ Artifact Layout: 1.254417 mili seconds
-         ⏱ Dependency Layout: 19.846208 mili seconds
+         ⏱ Artifact Layout: 1.263375 mili seconds
+         ⏱ Dependency Layout: 2.7165 mili seconds
          */
     }
     
