@@ -23,8 +23,8 @@ public extension ArtifactViewModel
         
         /**
          before any optimization: one layout of root folder, srckit-lsp, full screen:
-         ⏱ Artifact Layout: 39.136875 mili seconds
-         ⏱ Dependency Layout: 18.996541 mili seconds
+         ⏱ Artifact Layout: 1.254417 mili seconds
+         ⏱ Dependency Layout: 19.846208 mili seconds
          */
     }
     
@@ -107,21 +107,17 @@ public extension ArtifactViewModel
         let regularGap = gapBetweenParts ?? 0
         let bigGap = 3 * regularGap
         
-        let properRectSplit = split(availableRect,
+        guard let rectSplit = split(availableRect,
                                     firstFraction: fractionA,
-                                    gap: isSplitBetweenComponents ? regularGap : bigGap)
-        
-        let rectSplitToUse = properRectSplit ?? forceSplit(availableRect)
-        
-        let successA = prepare(parts: partsA,
-                               forLayoutIn: rectSplitToUse.0,
-                               ignoreSearchFilter: ignoreSearchFilter)
-        
-        let successB = prepare(parts: partsB,
-                               forLayoutIn: rectSplitToUse.1,
-                               ignoreSearchFilter: ignoreSearchFilter)
-        
-        return properRectSplit != nil && successA && successB
+                                    gap: isSplitBetweenComponents ? regularGap : bigGap),
+              prepare(parts: partsA,
+                      forLayoutIn: rectSplit.0,
+                      ignoreSearchFilter: ignoreSearchFilter),
+              prepare(parts: partsB,
+                      forLayoutIn: rectSplit.1,
+                      ignoreSearchFilter: ignoreSearchFilter) else { return false }
+
+        return true
     }
     
     func split(_ parts: [ArtifactViewModel]) -> ([ArtifactViewModel], [ArtifactViewModel])
@@ -217,40 +213,6 @@ public extension ArtifactViewModel
             return result ?? splitIntoLeftAndRight(rect,
                                                    firstFraction: firstFraction,
                                                    gap: gap)
-        }
-    }
-    
-    func forceSplit(_ rect: CGRect) -> (CGRect, CGRect)
-    {
-        if rect.width / rect.height > 1
-        {
-            let padding = rect.width > ArtifactViewModel.padding ? ArtifactViewModel.padding : 0
-            
-            let width = (rect.width - padding) / 2
-            
-            return (CGRect(x: rect.minX,
-                           y: rect.minY,
-                           width: width,
-                           height: rect.height),
-                    CGRect(x: rect.minX + width + padding,
-                           y: rect.minY,
-                           width: width,
-                           height: rect.height))
-        }
-        else
-        {
-            let padding = rect.height > ArtifactViewModel.padding ? ArtifactViewModel.padding : 0
-            
-            let height = (rect.height - padding) / 2
-            
-            return (CGRect(x: rect.minX,
-                           y: rect.minY,
-                           width: rect.width,
-                           height: height),
-                    CGRect(x: rect.minX,
-                           y: rect.minY + height + padding,
-                           width: rect.width,
-                           height: height))
         }
     }
     
