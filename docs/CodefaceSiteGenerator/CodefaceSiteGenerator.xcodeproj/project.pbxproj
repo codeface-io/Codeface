@@ -10,6 +10,12 @@
 		960F6C1A28DE16F100573747 /* PostMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C1928DE16F100573747 /* PostMetaData.swift */; };
 		960F6C1C28DE171E00573747 /* SiteFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C1B28DE171E00573747 /* SiteFolder.swift */; };
 		960F6C1E28DE176F00573747 /* GeneratePageHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C1D28DE176F00573747 /* GeneratePageHTML.swift */; };
+		960F6C2228DE4ACE00573747 /* GenerateCodefacePageHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C2128DE4ACE00573747 /* GenerateCodefacePageHTML.swift */; };
+		960F6C2428DE4B1B00573747 /* GenerateBlogPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C2328DE4B1B00573747 /* GenerateBlogPages.swift */; };
+		960F6C2628DE4B8A00573747 /* GeneratePrivacyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C2528DE4B8A00573747 /* GeneratePrivacyPage.swift */; };
+		960F6C2828DE4BB600573747 /* GenerateRootPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C2728DE4BB600573747 /* GenerateRootPage.swift */; };
+		960F6C2A28DE4D5900573747 /* URL+TexIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C2928DE4D5900573747 /* URL+TexIO.swift */; };
+		960F6C2E28DE504200573747 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 960F6C2D28DE504200573747 /* SwiftyToolz */; };
 		9657E85A28DDD31000970470 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9657E85928DDD31000970470 /* main.swift */; };
 		9657E86228DDD63400970470 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9657E86128DDD63400970470 /* FoundationToolz */; };
 /* End PBXBuildFile section */
@@ -30,8 +36,15 @@
 		960F6C1928DE16F100573747 /* PostMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMetaData.swift; sourceTree = "<group>"; };
 		960F6C1B28DE171E00573747 /* SiteFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteFolder.swift; sourceTree = "<group>"; };
 		960F6C1D28DE176F00573747 /* GeneratePageHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePageHTML.swift; sourceTree = "<group>"; };
+		960F6C2128DE4ACE00573747 /* GenerateCodefacePageHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCodefacePageHTML.swift; sourceTree = "<group>"; };
+		960F6C2328DE4B1B00573747 /* GenerateBlogPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateBlogPages.swift; sourceTree = "<group>"; };
+		960F6C2528DE4B8A00573747 /* GeneratePrivacyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePrivacyPage.swift; sourceTree = "<group>"; };
+		960F6C2728DE4BB600573747 /* GenerateRootPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRootPage.swift; sourceTree = "<group>"; };
+		960F6C2928DE4D5900573747 /* URL+TexIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+TexIO.swift"; sourceTree = "<group>"; };
 		9657E85628DDD31000970470 /* CodefaceSiteGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodefaceSiteGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		9657E85928DDD31000970470 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		96F5432E28DE50B7002D1E40 /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyToolz; path = ../../../SwiftyToolz; sourceTree = "<group>"; };
+		96F5432F28DE50E8002D1E40 /* FoundationToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FoundationToolz; path = ../../../FoundationToolz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +53,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9657E86228DDD63400970470 /* FoundationToolz in Frameworks */,
+				960F6C2E28DE504200573747 /* SwiftyToolz in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,15 +64,29 @@
 			isa = PBXGroup;
 			children = (
 				960F6C1928DE16F100573747 /* PostMetaData.swift */,
-				960F6C1B28DE171E00573747 /* SiteFolder.swift */,
 				960F6C1D28DE176F00573747 /* GeneratePageHTML.swift */,
+				960F6C1B28DE171E00573747 /* SiteFolder.swift */,
+				960F6C2928DE4D5900573747 /* URL+TexIO.swift */,
 			);
 			path = "General Tools (Site-Agnostic)";
+			sourceTree = "<group>";
+		};
+		960F6C2028DE4AA400573747 /* Codeface.io */ = {
+			isa = PBXGroup;
+			children = (
+				960F6C2728DE4BB600573747 /* GenerateRootPage.swift */,
+				960F6C2328DE4B1B00573747 /* GenerateBlogPages.swift */,
+				960F6C2528DE4B8A00573747 /* GeneratePrivacyPage.swift */,
+				960F6C2128DE4ACE00573747 /* GenerateCodefacePageHTML.swift */,
+			);
+			path = Codeface.io;
 			sourceTree = "<group>";
 		};
 		9657E84D28DDD31000970470 = {
 			isa = PBXGroup;
 			children = (
+				96F5432F28DE50E8002D1E40 /* FoundationToolz */,
+				96F5432E28DE50B7002D1E40 /* SwiftyToolz */,
 				9657E85828DDD31000970470 /* CodefaceSiteGenerator */,
 				9657E85728DDD31000970470 /* Products */,
 			);
@@ -76,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				9657E85928DDD31000970470 /* main.swift */,
+				960F6C2028DE4AA400573747 /* Codeface.io */,
 				960F6C1F28DE186300573747 /* General Tools (Site-Agnostic) */,
 			);
 			path = CodefaceSiteGenerator;
@@ -99,6 +128,7 @@
 			name = CodefaceSiteGenerator;
 			packageProductDependencies = (
 				9657E86128DDD63400970470 /* FoundationToolz */,
+				960F6C2D28DE504200573747 /* SwiftyToolz */,
 			);
 			productName = CodefaceSiteGenerator;
 			productReference = 9657E85628DDD31000970470 /* CodefaceSiteGenerator */;
@@ -130,6 +160,7 @@
 			mainGroup = 9657E84D28DDD31000970470;
 			packageReferences = (
 				9657E86028DDD63400970470 /* XCRemoteSwiftPackageReference "FoundationToolz" */,
+				960F6C2C28DE504200573747 /* XCRemoteSwiftPackageReference "SwiftyToolz" */,
 			);
 			productRefGroup = 9657E85728DDD31000970470 /* Products */;
 			projectDirPath = "";
@@ -146,9 +177,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				960F6C1E28DE176F00573747 /* GeneratePageHTML.swift in Sources */,
+				960F6C2428DE4B1B00573747 /* GenerateBlogPages.swift in Sources */,
 				960F6C1A28DE16F100573747 /* PostMetaData.swift in Sources */,
 				960F6C1C28DE171E00573747 /* SiteFolder.swift in Sources */,
+				960F6C2628DE4B8A00573747 /* GeneratePrivacyPage.swift in Sources */,
+				960F6C2828DE4BB600573747 /* GenerateRootPage.swift in Sources */,
 				9657E85A28DDD31000970470 /* main.swift in Sources */,
+				960F6C2A28DE4D5900573747 /* URL+TexIO.swift in Sources */,
+				960F6C2228DE4ACE00573747 /* GenerateCodefacePageHTML.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +350,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		960F6C2C28DE504200573747 /* XCRemoteSwiftPackageReference "SwiftyToolz" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/flowtoolz/SwiftyToolz";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		9657E86028DDD63400970470 /* XCRemoteSwiftPackageReference "FoundationToolz" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/flowtoolz/FoundationToolz";
@@ -325,6 +369,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		960F6C2D28DE504200573747 /* SwiftyToolz */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 960F6C2C28DE504200573747 /* XCRemoteSwiftPackageReference "SwiftyToolz" */;
+			productName = SwiftyToolz;
+		};
 		9657E86128DDD63400970470 /* FoundationToolz */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9657E86028DDD63400970470 /* XCRemoteSwiftPackageReference "FoundationToolz" */;

@@ -1,9 +1,10 @@
+import FoundationToolz
 import Foundation
 import SwiftyToolz
 
 struct SiteFolder
 {
-    init(path: String) throws
+    init(path: String = Bundle.main.bundlePath) throws
     {
         guard FileManager.default.fileExists(atPath: path) else
         {
@@ -17,15 +18,12 @@ struct SiteFolder
     
     func read(file filePath: String) throws -> String
     {
-        let file = url.appendingPathComponent(filePath)
-        return try String(contentsOf: file, encoding: .utf8)
+        try (url + filePath).readText()
     }
     
-    func write(html: String, toFile filePath: String) throws
+    func write(text: String, toFile filePath: String) throws
     {
-        let file = url.appendingPathComponent(filePath)
-        try html.write(to: file, atomically: true, encoding: .utf8)
-        log("Did write: \(filePath) ✅")
+        try (url + filePath).write(text: text)
     }
     
     let url: URL

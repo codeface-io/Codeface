@@ -1,0 +1,107 @@
+import FoundationToolz
+import Foundation
+import SwiftyToolz
+
+func generateBlogPages(siteFolder: SiteFolder) throws
+{
+    let blogPageHTML = try generateBlogPageHTML(siteFolder: siteFolder)
+    let filePath = "blog/index.html"
+    try siteFolder.write(text: blogPageHTML, toFile: filePath)
+    log("Did write: \(filePath) ✅")
+    
+    try generateAndWriteBlogPostPages(siteFolderURL: siteFolder.url)
+}
+
+private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
+{
+    let postsFolder = siteFolder.url + "blog/posts"
+    
+    let postFolders = FileManager.default.items(inDirectory: postsFolder,
+                                                recursive: false)
+    
+    let postListHTML: String = postFolders
+        .map {
+            let metaDataFile = $0 + "post_meta_data.json"
+            let postMetaData = PostMetaData(from: metaDataFile)
+            
+            log("found\(postMetaData == nil ? " no " : " ")post meta data in folder: \($0.lastPathComponent) \(postMetaData != nil ? "✅" : "❌")")
+            
+            return ($0, postMetaData ?? .init())
+        }
+        .sorted {
+            $0.1 < $1.1 // sort by date
+        }
+        .map {
+            generatePostOverviewHTML(with: $1, folderName: $0.lastPathComponent)
+        }
+        .joined(separator: "\n\n        ")
+    
+    let contentHTML =
+    """
+    <section>
+        <div class="blog-post-list-wrapper">
+            \(postListHTML)
+        </div>
+    </section>
+    """
+    
+    return generateCodefacePageHTML(rootPath: "../",
+                                    blogPath: "",
+                                    cssFiles: ["../codeface.css", "page_style.css"],
+                                    contentHTML: contentHTML)
+}
+
+private func generatePostOverviewHTML(with metaData: PostMetaData, folderName: String) -> String
+{
+    """
+    <h2><a class="subtle-link" href="posts/\(folderName)/index.html">\(metaData.title ?? folderName)</a></h2>
+    
+    <div class="blog-post-grid">
+        <a href="posts/\(folderName)/index.html">
+            <img class="blog-post-image" src="posts/\(folderName)/\(metaData.posterImage ?? "")"></img>
+        </a>
+        <div>
+            <p class="secondary-text-color">\(metaData.date?.displayString ?? "")</p>
+            <p>
+            \(metaData.excerpt ?? "")
+            </p>
+        </div>
+    </div>
+    """
+}
+
+private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
+{
+    let postsFolder = siteFolderURL + "blog/posts"
+    
+    let postFolders = FileManager.default.items(inDirectory: postsFolder,
+                                                recursive: false)
+    
+    for postFolder in postFolders
+    {
+        let postMetaDataFile = postFolder + "post_meta_data.json"
+        let postMetaData = PostMetaData(from: postMetaDataFile)
+        
+        log("found\(postMetaData == nil ? " no " : " ")post meta data in folder: \(postFolder.lastPathComponent) \(postMetaData != nil ? "✅" : "❌")")
+        
+        let postContentHTML = try (postFolder + "post_content.html").readText()
+        
+        let postPageBodyContentHTML =
+        """
+        <section>
+            <div>
+                \(postContentHTML)
+            </div>
+        </section>
+        """
+        
+        let postPageHTML = generateCodefacePageHTML(rootPath: "../../../",
+                                                    blogPath: "../../",
+                                                    cssFiles: ["../../../codeface.css", "../../page_style.css"],
+                                                    contentHTML: postPageBodyContentHTML)
+        
+        let fileName = "index.html"
+        try (postFolder + fileName).write(text: postPageHTML)
+        log("Did write: \(postFolder.lastPathComponent)/\(fileName) ✅")
+    }
+}
