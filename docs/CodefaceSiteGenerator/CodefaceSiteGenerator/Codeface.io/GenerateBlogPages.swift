@@ -21,10 +21,14 @@ private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
     
     let postListHTML: String = postFolders
         .map {
-            let metaDataFile = $0 + "post_meta_data.json"
+            
+            let metaDataFile = $0 + postMetaDataFileName
             let postMetaData = PostMetaData(from: metaDataFile)
             
-            log("found\(postMetaData == nil ? " no " : " ")post meta data in folder: \($0.lastPathComponent) \(postMetaData != nil ? "✅" : "❌")")
+            if postMetaData == nil
+            {
+                log(warning: "No \(postMetaDataFileName) file in folder: \($0.lastPathComponent) ❌")
+            }
             
             return ($0, postMetaData ?? .init())
         }
@@ -79,10 +83,13 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
     
     for postFolder in postFolders
     {
-        let postMetaDataFile = postFolder + "post_meta_data.json"
+        let postMetaDataFile = postFolder + postMetaDataFileName
         let postMetaData = PostMetaData(from: postMetaDataFile)
         
-        log("found\(postMetaData == nil ? " no " : " ")post meta data in folder: \(postFolder.lastPathComponent) \(postMetaData != nil ? "✅" : "❌")")
+        if postMetaData == nil
+        {
+            log(warning: "No \(postMetaDataFileName) file in folder: \(postFolder.lastPathComponent) ❌")
+        }
         
         let postContentHTML = try (postFolder + "post_content.html").readText()
         
@@ -105,3 +112,5 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
         log("Did write: \(postFolder.lastPathComponent)/\(fileName) ✅")
     }
 }
+
+private var postMetaDataFileName: String { "post_meta_data.json" }

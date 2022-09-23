@@ -85,9 +85,9 @@
 		9657E84D28DDD31000970470 = {
 			isa = PBXGroup;
 			children = (
+				9657E85828DDD31000970470 /* CodefaceSiteGenerator */,
 				96F5432F28DE50E8002D1E40 /* FoundationToolz */,
 				96F5432E28DE50B7002D1E40 /* SwiftyToolz */,
-				9657E85828DDD31000970470 /* CodefaceSiteGenerator */,
 				9657E85728DDD31000970470 /* Products */,
 			);
 			sourceTree = "<group>";
