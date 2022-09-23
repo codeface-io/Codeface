@@ -14,7 +14,6 @@ private func generatePrivacyPageHTML(siteFolder: SiteFolder) throws -> String
     let contentHTML = try siteFolder.read(file: "privacy-policy/page_content.html")
     
     return generateCodefacePageHTML(rootPath: "../",
-                                    blogPath: "../blog/",
                                     cssFiles: ["../codeface.css", "../blog/page_style.css"],
                                     contentHTML: contentHTML)
 }

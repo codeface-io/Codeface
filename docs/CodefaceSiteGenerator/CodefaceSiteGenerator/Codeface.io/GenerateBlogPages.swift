@@ -50,7 +50,6 @@ private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
     """
     
     return generateCodefacePageHTML(rootPath: "../",
-                                    blogPath: "",
                                     cssFiles: ["../codeface.css", "page_style.css"],
                                     contentHTML: contentHTML)
 }
@@ -103,7 +102,6 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
         """
         
         let postPageHTML = generateCodefacePageHTML(rootPath: "../../../",
-                                                    blogPath: "../../",
                                                     cssFiles: ["../../../codeface.css", "../../page_style.css"],
                                                     contentHTML: postPageBodyContentHTML)
         

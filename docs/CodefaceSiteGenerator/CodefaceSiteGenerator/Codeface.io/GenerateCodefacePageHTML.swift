@@ -1,7 +1,6 @@
 import Foundation
 
 func generateCodefacePageHTML(rootPath: String,
-                              blogPath: String,
                               cssFiles: [String] = [],
                               contentHTML: String,
                               script: String = "") -> String
@@ -11,7 +10,7 @@ func generateCodefacePageHTML(rootPath: String,
                                 description: "See the Architecture of any Codebase",
                                 keywords: "macOS, Swift, software architecture, app, codeface, codebase")
     
-    let navBarHTML = generateNavigationBarHTML(rootPath: rootPath, blogPath: blogPath)
+    let navBarHTML = generateNavigationBarHTML(rootPath: rootPath)
     let footerHTML = generateFooterHTML(rootPath: rootPath)
     let bodyContentHTML = navBarHTML + "\n\n" + contentHTML + "\n\n" + footerHTML
     
@@ -21,14 +20,14 @@ func generateCodefacePageHTML(rootPath: String,
                             script: script)
 }
 
-func generateNavigationBarHTML(rootPath: String, blogPath: String) -> String
+func generateNavigationBarHTML(rootPath: String) -> String
 {
     """
     <section id="codeface-navbar" class="codeface-bar">
         <div>
             <a href="\(rootPath)index.html"><img style="float:left;margin-top:4px;margin-right:10px;px;width:55px;heigh:55px;" src="\(rootPath)app/icon_1024.png"></img></a>
             <ul>
-                <li class="left"><a class="subtle-link" href="\(blogPath)index.html">Blog</a></li>
+                <li class="left"><a class="subtle-link" href="\(rootPath)blog/index.html">Blog</a></li>
                 <li class="left"><a class="subtle-link" href="\(rootPath)index.html#contact">Contact</a></li>
                 <li class="right desktop-only"><a onclick="ga('send', 'event', 'button', 'click', 'navigation bar');"
                     href="https://apps.apple.com/app/codeface/id1578175415"
