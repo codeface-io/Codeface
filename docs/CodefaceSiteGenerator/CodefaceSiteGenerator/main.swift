@@ -164,7 +164,7 @@ func generateFooterHTML(rootPath: String) -> String
     <section id="codeface-bottom-bar" class="codeface-bar">
         <div style="display:grid;grid-template-columns:50% 50%;column-gap:0%;">
             <div style="text-align: left">
-                <a href="\(rootPath)privacy-policy.html">Privacy Policy</a>
+                <a href="\(rootPath)privacy-policy/index.html">Privacy Policy</a>
             </div>
             <div style="text-align: right">
                 Copyright &copy; 2022 <a href="https://www.flowtoolz.com">Flowtoolz.com</a>
