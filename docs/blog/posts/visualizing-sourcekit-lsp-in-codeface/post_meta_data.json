@@ -1,0 +1,10 @@
+{
+  "title" : "Visualizing Apple's <nobr>SourceKit-LSP</nobr> in Codeface",
+  "excerpt" : "In this showcase, we visualized 19 top-level scopes of Apple's open-source LSP server in Codeface.",
+  "posterImage" : "images/poster.png",
+  "date" : {
+    "year" : 2022,
+    "month" : 9,
+    "day" : 12
+  }
+}

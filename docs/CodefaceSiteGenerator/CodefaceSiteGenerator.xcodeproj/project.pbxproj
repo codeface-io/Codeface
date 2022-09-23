@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960F6C1A28DE16F100573747 /* PostMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C1928DE16F100573747 /* PostMetaData.swift */; };
+		960F6C1C28DE171E00573747 /* SiteFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C1B28DE171E00573747 /* SiteFolder.swift */; };
+		960F6C1E28DE176F00573747 /* GeneratePageHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960F6C1D28DE176F00573747 /* GeneratePageHTML.swift */; };
 		9657E85A28DDD31000970470 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9657E85928DDD31000970470 /* main.swift */; };
 		9657E86228DDD63400970470 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9657E86128DDD63400970470 /* FoundationToolz */; };
 /* End PBXBuildFile section */
@@ -24,6 +27,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		960F6C1928DE16F100573747 /* PostMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMetaData.swift; sourceTree = "<group>"; };
+		960F6C1B28DE171E00573747 /* SiteFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteFolder.swift; sourceTree = "<group>"; };
+		960F6C1D28DE176F00573747 /* GeneratePageHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePageHTML.swift; sourceTree = "<group>"; };
 		9657E85628DDD31000970470 /* CodefaceSiteGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodefaceSiteGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		9657E85928DDD31000970470 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -40,6 +46,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		960F6C1F28DE186300573747 /* General Tools (Site-Agnostic) */ = {
+			isa = PBXGroup;
+			children = (
+				960F6C1928DE16F100573747 /* PostMetaData.swift */,
+				960F6C1B28DE171E00573747 /* SiteFolder.swift */,
+				960F6C1D28DE176F00573747 /* GeneratePageHTML.swift */,
+			);
+			path = "General Tools (Site-Agnostic)";
+			sourceTree = "<group>";
+		};
 		9657E84D28DDD31000970470 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				9657E85928DDD31000970470 /* main.swift */,
+				960F6C1F28DE186300573747 /* General Tools (Site-Agnostic) */,
 			);
 			path = CodefaceSiteGenerator;
 			sourceTree = "<group>";
@@ -128,6 +145,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				960F6C1E28DE176F00573747 /* GeneratePageHTML.swift in Sources */,
+				960F6C1A28DE16F100573747 /* PostMetaData.swift in Sources */,
+				960F6C1C28DE171E00573747 /* SiteFolder.swift in Sources */,
 				9657E85A28DDD31000970470 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
