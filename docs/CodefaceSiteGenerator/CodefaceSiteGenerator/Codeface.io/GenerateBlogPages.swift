@@ -90,12 +90,25 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
             log(warning: "No \(postMetaDataFileName) file in folder: \(postFolder.lastPathComponent) ❌")
         }
         
+        let defaultTitle = postFolder
+            .lastPathComponent
+            .replacingOccurrences(of: "-", with: " ")
+            .capitalized
+        
+        let title = postMetaData?.title ?? defaultTitle
+        let date = postMetaData?.date?.displayString ?? ""
+        let author = postMetaData?.author ?? "Sebastian Fichtner"
+        let dateAndAuthor = date + " • " + author
+        
         let postContentHTML = try (postFolder + "post_content.html").readText()
         
         let postPageBodyContentHTML =
         """
         <section>
             <div>
+                <h1 style="margin-bottom:30px">\(title)</h1>
+        
+                <p style="text-align:center" class="secondary-text-color">\(dateAndAuthor)</p>
                 \(postContentHTML)
             </div>
         </section>

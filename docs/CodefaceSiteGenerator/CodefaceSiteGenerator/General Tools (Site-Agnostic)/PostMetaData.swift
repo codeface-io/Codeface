@@ -1,3 +1,4 @@
+import FoundationToolz
 import Foundation
 
 struct PostMetaData: Codable, Comparable
@@ -13,11 +14,13 @@ struct PostMetaData: Codable, Comparable
     internal init(title: String? = nil,
                   posterImage: String? = nil,
                   date: PostMetaData.PublishDate? = nil,
+                  author: String? = nil,
                   excerpt: String? = nil)
     {
         self.title = title
         self.posterImage = posterImage
         self.date = date
+        self.author = author
         self.excerpt = excerpt
     }
         
@@ -32,6 +35,7 @@ struct PostMetaData: Codable, Comparable
     let title: String?
     let posterImage: String?
     let date: PublishDate?
+    let author: String?
     let excerpt: String?
     
     struct PublishDate: Codable, Comparable
@@ -43,7 +47,15 @@ struct PostMetaData: Codable, Comparable
             return lhs.day > rhs.day
         }
         
-        var displayString: String { "\(day).\(month).\(year)" }
+        var displayString: String
+        {
+            guard let date = Date(year: year, month: month, day: day) else
+            {
+                return "\(day).\(month).\(year)"
+            }
+            
+            return date.string(withFormat: "MMMM d, yyyy")
+        }
         
         let year: Int
         let month: Int
