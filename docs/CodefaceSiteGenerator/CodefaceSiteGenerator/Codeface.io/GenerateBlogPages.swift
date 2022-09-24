@@ -51,7 +51,7 @@ private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
     
     return generateCodefacePageHTML(rootPath: "../",
                                     cssFiles: ["../codeface.css", "page_style.css"],
-                                    contentHTML: contentHTML)
+                                    bodyContentHTML: contentHTML)
 }
 
 private func generatePostOverviewHTML(with metaData: PostMetaData, folderName: String) -> String
@@ -116,7 +116,7 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
         
         let postPageHTML = generateCodefacePageHTML(rootPath: "../../../",
                                                     cssFiles: ["../../../codeface.css", "../../page_style.css"],
-                                                    contentHTML: postPageBodyContentHTML)
+                                                    bodyContentHTML: postPageBodyContentHTML)
         
         let fileName = "index.html"
         try (postFolder + fileName).write(text: postPageHTML)

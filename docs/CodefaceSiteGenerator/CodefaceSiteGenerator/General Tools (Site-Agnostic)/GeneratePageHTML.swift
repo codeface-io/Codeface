@@ -1,6 +1,6 @@
 func generatePageHTML(metaData: PageMetaData,
                       cssFiles: [String],
-                      bodyContent: String,
+                      bodyContentHTML: String,
                       script: String) -> String
 {
     let cssFileHTML = cssFiles
@@ -45,7 +45,7 @@ func generatePageHTML(metaData: PageMetaData,
         </head>
         <body>
         <!-- START: BODY CONTENT INSERTED BY SITE GENERATOR -->
-        \(bodyContent)
+        \(bodyContentHTML)
         <!-- END: BODY CONTENT INSERTED BY SITE GENERATOR -->
         </body>
     

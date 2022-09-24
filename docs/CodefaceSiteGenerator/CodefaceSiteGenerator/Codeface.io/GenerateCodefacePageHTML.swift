@@ -2,7 +2,7 @@ import Foundation
 
 func generateCodefacePageHTML(rootPath: String,
                               cssFiles: [String] = [],
-                              contentHTML: String,
+                              bodyContentHTML: String,
                               script: String = "") -> String
 {
     let metaData = PageMetaData(title: "Codeface",
@@ -12,11 +12,11 @@ func generateCodefacePageHTML(rootPath: String,
     
     let navBarHTML = generateNavigationBarHTML(rootPath: rootPath)
     let footerHTML = generateFooterHTML(rootPath: rootPath)
-    let bodyContentHTML = navBarHTML + "\n\n" + contentHTML + "\n\n" + footerHTML
+    let bodyContentHTML = navBarHTML + "\n\n" + bodyContentHTML + "\n\n" + footerHTML
     
     return generatePageHTML(metaData: metaData,
                             cssFiles: cssFiles,
-                            bodyContent: bodyContentHTML,
+                            bodyContentHTML: bodyContentHTML,
                             script: script)
 }
 

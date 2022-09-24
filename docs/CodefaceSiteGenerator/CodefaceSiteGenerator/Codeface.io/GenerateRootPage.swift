@@ -24,6 +24,6 @@ private func generateRootPageHTML(siteFolder: SiteFolder) throws -> String
     
     return generateCodefacePageHTML(rootPath: "",
                                     cssFiles: ["codeface.css", "app/page_style.css"],
-                                    contentHTML: contentHTML,
+                                    bodyContentHTML: contentHTML,
                                     script: script)
 }

@@ -15,5 +15,5 @@ private func generatePrivacyPageHTML(siteFolder: SiteFolder) throws -> String
     
     return generateCodefacePageHTML(rootPath: "../",
                                     cssFiles: ["../codeface.css", "../blog/page_style.css"],
-                                    contentHTML: contentHTML)
+                                    bodyContentHTML: contentHTML)
 }
