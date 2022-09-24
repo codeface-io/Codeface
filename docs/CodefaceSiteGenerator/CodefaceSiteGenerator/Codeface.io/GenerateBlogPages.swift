@@ -64,7 +64,7 @@ private func generatePostOverviewHTML(with metaData: PostMetaData, folderName: S
             <img class="blog-post-image" src="posts/\(folderName)/\(metaData.posterImage ?? "")"></img>
         </a>
         <div>
-            <p class="secondary-text-color">\(metaData.date?.displayString ?? "")</p>
+            <p style="margin-top:-3px;margin-bottom:-8px" class="secondary-text-color">\(metaData.date?.displayString ?? "")</p>
             <p>
             \(metaData.excerpt ?? "")
             </p>

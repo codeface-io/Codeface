@@ -3,6 +3,17 @@ section > div
     max-width: 800px;
 }
 
+.blog-post-list-wrapper h2
+{
+    margin-top: 80px;
+    margin-bottom: 14px;
+}
+
+.blog-post-list-wrapper img
+{
+    border-radius: 10px;
+}
+
 .blog-post-grid
 {
     display: grid;
@@ -17,9 +28,3 @@ section > div
         display: initial;
     }
 }
-
-.blog-post-list-wrapper h2
-{
-    margin-top: 80px;
-}
-
