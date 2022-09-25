@@ -4,12 +4,16 @@ import SwiftyToolz
 
 func generateBlogPages(siteFolder: SiteFolder) throws
 {
+    try generateBlogPage(siteFolder: siteFolder)
+    try generateBlogPostPages(siteFolderURL: siteFolder.url)
+}
+
+private func generateBlogPage(siteFolder: SiteFolder) throws
+{
     let blogPageHTML = try generateBlogPageHTML(siteFolder: siteFolder)
     let filePath = "blog/index.html"
     try siteFolder.write(text: blogPageHTML, toFile: filePath)
     log("Did write: \(filePath) ✅")
-    
-    try generateAndWriteBlogPostPages(siteFolderURL: siteFolder.url)
 }
 
 private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
@@ -79,7 +83,7 @@ private func generatePostOverviewHTML(with metaData: PostMetaData, folderName: S
     """
 }
 
-private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
+private func generateBlogPostPages(siteFolderURL: URL) throws
 {
     let postsFolder = siteFolderURL + "blog/posts"
     
