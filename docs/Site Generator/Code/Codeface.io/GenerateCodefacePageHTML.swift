@@ -60,18 +60,21 @@ func generateNavigationBarHTML(rootPath: String) -> String
     """
     <section id="codeface-navbar" class="codeface-bar">
         <div>
-            <a href="\(rootPath)index.html"><img style="float:left;margin-top:4px;margin-right:10px;px;width:55px;heigh:55px;" src="\(rootPath)app/icon_1024.png"></img></a>
-            <ul>
-                <li class="left"><a class="subtle-link" href="\(rootPath)blog/index.html">Blog</a></li>
-                <li class="left"><a class="subtle-link" href="\(rootPath)index.html#contact">Contact</a></li>
-                <li class="right desktop-only"><a onclick="ga('send', 'event', 'button', 'click', 'navigation bar');"
-                    href="https://apps.apple.com/app/codeface/id1578175415"
-                    target="_blank">
-                    <img style="width:180px"
-                        src="\(rootPath)app/App_Store_Badge.svg"
-                        title="Download Codeface for free from the Mac App Store"></a>
-                </li>
-            </ul>
+            <a id="logo" class="clickable-image" href="\(rootPath)index.html">
+                <img style="padding-left:0px;padding-top:16px;width:30px;heigh:30px" src="\(rootPath)favicon_io/android-chrome-512x512.png"/>
+            </a>
+    
+            <a class="left subtle-link" href="\(rootPath)blog/index.html">Blog</a>
+                
+            <a class="left subtle-link" href="\(rootPath)index.html#contact">Contact</a>
+            
+            <a id="call-to-action"
+                href="https://apps.apple.com/app/codeface/id1578175415"
+                target="_blank">
+                <img style="width:180px"
+                    src="\(rootPath)app/App_Store_Badge.svg"
+                    title="Download Codeface for free from the Mac App Store"/>
+            </a>
         </div>
     </section>
     """

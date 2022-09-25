@@ -160,51 +160,52 @@ section.codeface-bar > div
 
 /* Navbar */
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+#codeface-navbar {
+    padding: 0px;
+    border-bottom: 1px solid;
+    border-color: rgb(50, 50, 50);
+}
+
+#codeface-navbar > div {
+    height: 62px;
+}
+
+#logo {
+    float: left;
+    display: inline-block;
+    
+    height: 62px;
+    width: 60px;
 }
 
 .left {
-  float: left;
-}
+    float: left;
+    display: inline-block;
     
-.left a {
+    text-align: center;
+    
     padding-top: 18px;
     padding-bottom: 16px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+#call-to-action {
+    float: right;
     
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-top: 9px;
+    padding-right: 0px;
 }
 
 @media only screen and (max-width: 570px) {
-    .desktop-only {
-        display:none;
+    #call-to-action {
+        display: none;
     }
     
-    .left a {
+    .left {
         padding-left: 10px;
         padding-right: 10px;
     }
-}
-    
-.right {
-  padding-top: 8px;
-  padding-right: 20px;
-  float: right;
-}
-
-#codeface-navbar li a {
-  display: block;
-  text-align: center;
-}
-    
-#codeface-navbar {
-    padding:0px;
-    border-bottom: 1px solid;
-    border-color: rgb(50, 50, 50);
 }
 
 /* Bottom Bar */
