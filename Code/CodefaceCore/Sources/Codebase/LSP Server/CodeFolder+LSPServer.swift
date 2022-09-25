@@ -4,15 +4,16 @@ import SwiftLSP
 extension CodeFolder
 {
     func retrieveSymbolReferences(from server: LSP.ServerCommunicationHandler,
-                                  codebaseRootPathAbsolute: String) async throws
+                                  codebaseRootFolder: URL) async throws
     {
         try await forEachFileAndItsRelativeFolderPath(folderPath: nil)
         {
             folderPath, file in
+
+            let fileUri = fileURI(forFilePath: folderPath + file.name,
+                                  inFolder: codebaseRootFolder)
             
-            let fileUri = lspDocumentUri(of: file,
-                                         folderPathRelativeToRoot: folderPath,
-                                         codebaseRootPathAbsolute: codebaseRootPathAbsolute)
+            let absoluteRootFolderPath = codebaseRootFolder.absoluteString
             
             try await server.notifyDidOpen(fileUri,
                                            containingText: file.lines.joined(separator: "\n"))
@@ -22,7 +23,7 @@ extension CodeFolder
                 try await symbol.traverseDepthFirst
                 {
                     try await $0.retrieveReferences(in: fileUri,
-                                                    codebaseRootPathAbsolute: codebaseRootPathAbsolute,
+                                                    codebaseRootPathAbsolute: absoluteRootFolderPath,
                                                     from: server)
                 }
             }
@@ -30,15 +31,14 @@ extension CodeFolder
     }
     
     func retrieveSymbolData(from server: LSP.ServerCommunicationHandler,
-                            codebaseRootPathAbsolute: String) async throws
+                            codebaseRootFolder: URL) async throws
     {
         try await forEachFileAndItsRelativeFolderPath(folderPath: nil)
         {
             folderPath, file in
             
-            let fileUri = lspDocumentUri(of: file,
-                                         folderPathRelativeToRoot: folderPath,
-                                         codebaseRootPathAbsolute: codebaseRootPathAbsolute)
+            let fileUri = fileURI(forFilePath: folderPath + file.name,
+                                  inFolder: codebaseRootFolder)
             
             try await server.notifyDidOpen(fileUri,
                                            containingText: file.lines.joined(separator: "\n"))
@@ -48,12 +48,9 @@ extension CodeFolder
         }
     }
     
-    private func lspDocumentUri(of file: CodeFile,
-                                folderPathRelativeToRoot: String,
-                                codebaseRootPathAbsolute: String) -> LSPDocumentUri
+    private func fileURI(forFilePath filePath: String, inFolder folder: URL) -> String
     {
-        let filePath = codebaseRootPathAbsolute + folderPathRelativeToRoot + file.name
-        return URL(string: filePath)?.absoluteString ?? filePath
+        folder.appendingPathComponent(filePath).absoluteString
     }
 }
 

@@ -71,23 +71,16 @@ public actor ProjectProcessor: ObservableObject
                 let server = try await LSP.ServerManager.shared.getServer(for: codebaseLocation)
                 
                 state = .retrievingCodebase(.retrieveSymbols)
-                var stopWatch = StopWatch()
-                let absoluteRootPath = codebaseLocation.folder.absoluteString
+//                var stopWatch = StopWatch()
                 try await codebase.retrieveSymbolData(from: server,
-                                                      codebaseRootPathAbsolute: absoluteRootPath)
-                stopWatch.measure("Retrieving Symbols")
+                                                      codebaseRootFolder: codebaseLocation.folder)
+//                stopWatch.measure("Retrieving Symbols")
                 
                 state = .retrievingCodebase(.retrieveReferences)
-                stopWatch.restart()
+//                stopWatch.restart()
                 try await codebase.retrieveSymbolReferences(from: server,
-                                                            codebaseRootPathAbsolute: absoluteRootPath)
-                stopWatch.measure("Retrieving Symbol References")
-                
-                /**
-                 sourcekit-lsp benchmark:
-                 ⏱ Retrieving Symbols: 35.13 seconds
-                 ⏱ Retrieving Symbol References: 39.81 seconds
-                 */
+                                                            codebaseRootFolder: codebaseLocation.folder)
+//                stopWatch.measure("Retrieving Symbol References")
             }
             catch
             {
