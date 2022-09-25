@@ -1,0 +1,11 @@
+{
+  "title" : "Dependencies Determine the Software Architecture",
+  "excerpt" : "In part 4 of this series, we show how dependencies between hierarchically composed artifacts make up the structure of source code.",
+  "posterImage" : "images/zen-stack.jpg",
+  "date" : {
+    "year" : 2019,
+    "month" : 8,
+    "day" : 26
+  },
+  "keywords" : "software architecture, software, architecture, zen, code quality, software quality, book, software development, architecture pattern, design pattern, productivity, philosophy, dependence, object-oriented design"
+}

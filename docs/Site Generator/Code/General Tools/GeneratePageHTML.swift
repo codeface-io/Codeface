@@ -54,7 +54,7 @@ func generatePageHTML(metaData: PageMetaData,
     """
     
     /* potential other head content
-     
+     // for image source on blog posts: use poster image from post meta data!
      <!-- Site Icon -->
      <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
      <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- General Meta Data Stuff -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:locale" content="en_US">
+        <meta property="og:locale:alternate" content="en_GB">
+        <meta property="og:locale:alternate" content="de_DE">
+        
+        <!-- Title -->
+        <title>Codeface</title>
+        <meta name="twitter:title" content="Codeface"/>
+        <meta name="og:title" content="Codeface"/>
+        <meta property="og:title" content="Codeface"/>
+        <meta property="og:site_name" content="Codeface"/>
+
+        <!-- Author -->
+        <meta name="author" content="Sebastian Fichtner"/>
+
+        <!-- Description -->
+        <meta name="description" content="See the Architecture of any Codebase"/>
+        <meta property="og:description" content="See the Architecture of any Codebase"/>
+
+        <!-- Keywords -->
+        <meta name="keywords" content="swift, observer, observer pattern, observable, architecture, software architecture, reactive, reactive programming, callback, redux, programming, clean code, rxswift, reswift, reactive swift, reactive kit, apple, design pattern, software development, github"/>
+
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="../../../codeface.css">
+        <link rel="stylesheet" href="../../page_style.css">
+    </head>
+    <body>
+        <section id="codeface-navbar" class="codeface-bar">
+            <div>
+                <a href="../../../index.html"><img style="float:left;margin-top:4px;margin-right:10px;px;width:55px;heigh:55px;" src="../../../app/icon_1024.png"></img></a>
+                <ul>
+                    <li class="left"><a class="subtle-link" href="../../../blog/index.html">Blog</a></li>
+                    <li class="left"><a class="subtle-link" href="../../../index.html#contact">Contact</a></li>
+                    <li class="right desktop-only"><a onclick="ga('send', 'event', 'button', 'click', 'navigation bar');"
+                        href="https://apps.apple.com/app/codeface/id1578175415"
+                        target="_blank">
+                        <img style="width:180px"
+                            src="../../../app/App_Store_Badge.svg"
+                            title="Download Codeface for free from the Mac App Store"></a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+        <section>
+            <div>
+                <h1 style="margin-bottom:30px">SwiftObserver: Elegant Reactive Observing</h1>
+        
+                <p style="text-align:center" class="secondary-text-color">
+                    March 17, 2018 • Sebastian Fichtner
+                </p>
+        
+                <img src="images/swift.jpeg"/></p>
+                
+                <p><i>Care about the code? Jump over to <a href="https://github.com/flowtoolz/SwiftObserver">SwiftObserver on Github</a>.</i></p>
+                
+                <p>Recently I’ve been discussing app architecture a lot with colleagues. As ever so often, our main question was: How do we propagate information from the bottom of the hierarchy to the top?</p>
+                
+                <p>Delegates came up and where quickly dismissed. Notifications came up and where quickly dismissed. Closures came up and were embraced. Functional stuff is all the craze. For good reasons.</p>
+                
+                <p>We looked at different Reactive/Redux frameworks: Reactive Swift, Reactive Kit, ReSwift, RxSwift.</p>
+                
+                <p>To be honest, I was a bit overwhelmed by all the new terms around old ideas and old terms for new applications: observable, reducer, aspect, signal, signal producer, variable, stream, cancelable, disposable, dispose bag, event emitter, source, sink…</p>
+                
+                <p>However, I got obsessed with callback mechanisms in general and in Swift in particular.</p>
+                
+                <p>As a method of exploring and learning, I wrote three fundamental primitives for reactive Swift programming, which are solid, simple, sufficient and sweet for my own taste.</p>
+                
+                <p>This compact library also compensates for what I didn’t like about common implementations. I guess I aimed at usability, readability, simplicity, safety and flexibility.</p>
+                
+                <p><a href="https://github.com/flowtoolz/SwiftObserver">Checkout SwiftObserver on Github</a>. You can read the text there as the continuation of this article.</p>
+                
+            </div>
+        </section>
+        
+        <section id="codeface-bottom-bar" class="codeface-bar">
+            <div style="display:grid;grid-template-columns:50% 50%;column-gap:0%;">
+                <div style="text-align: left">
+                    <a href="../../../privacy-policy/index.html">Privacy Policy</a>
+                </div>
+                <div style="text-align: right">
+                    Copyright &copy; 2022 <a href="https://www.flowtoolz.com">Flowtoolz.com</a>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <!-- Load scripts at the very end for performance -->
+    <script>
+    
+    </script>
+</html>

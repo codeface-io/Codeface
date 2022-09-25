@@ -1,0 +1,121 @@
+<img src="images/customer-value-before-technology.jpeg"/>
+
+<p>If <em>software architecture</em> roots in a set of laws that naturally apply to all code, then what are these laws? Let’s narrow down the first one! In this text, we excavate the fundamental role of <em>software architecture</em> by digging into the essence of code.</p>
+
+<p>Note, that when we talk of users, designers, developers and so forth, we mean abstract view points, not job descriptions or actual people. Could be that one person plays all the roles, could be that a view point is held by an institution or certain demographic. The possible concretions don’t matter here.</p>
+
+<h2 id="value-environment-and-tech-environment">Value Environment and Tech Environment</h2>
+
+<p>To uncover the nature of code, let’s approach it from a beginner’s mind, let’s pretend we know nothing about software. What does it do? How does it fit into the whole picture?</p>
+
+<p>At least, we can say this much: Software runs on concrete hardware to help people achieve abstract goals.</p>
+
+<p><img src="images/software-hardware-people.jpg" alt="" /></p>
+
+<p>Putting abstractions (and wishful thinking) aside, we may also notice that software interacts with the real world exclusively through hardware. From the perspective of code, there is no “user interaction”, there are just a bunch of devices like touch screen, hard drive and WiFi which translate information between code and the tangible world. While people might feel like they directly interact with an interesting domain, they technically only ever interact with hardware.</p>
+
+<p>To meet people’s needs and expectations (and wishful thinking), we build software upon many shared ideas, from language and common sense over our mental model of the application domain to the specific use cases and design of the envisioned product. Whether we make such ideas explicit in code or not, they are innate to any software that provides value.</p>
+
+<p><strong>There is no escape from this duality. Every piece of code on the planet stands with one foot in a technical- and with the other in an ideational environment.</strong></p>
+
+<p>The two environments are clearly distinct in the sense that the machine on which code runs is hardly ever what the code is about. Or put another way: We can always distinguish the value software generates for the user from the headache it generates for the developer.</p>
+
+<h3 id="value-environment">Value Environment</h3>
+
+<p><strong>The ideational environment of code are all concepts needed to describe the <em>value</em> we want people to get out of the product. It also reflects what ideas and conventions people generally <em>value</em>. So let’s call it the <em>value environment</em>.</strong></p>
+
+<p>More specifically, the value environment implies a complete description of the product from the user’s perspective, including a detailed idea of the product’s philosophy, application domain, use cases and design.</p>
+
+<h3 id="tech-environment">Tech Environment</h3>
+
+<p><strong>The <em>tech environment</em> of code are all pre-existing <a href="https://en.wikipedia.org/wiki/Application_programming_interface">APIs</a> the code can directly talk to. Mainly, that’s the programming language itself as well as frameworks provided by the system vendor and by 3rd parties.</strong> Note how this differs from a developer’s <a href="https://stackshare.io/stacks">tech stack</a>.</p>
+
+<p>The pupose of most software frameworks is communication with hardware, and we can understand much of the tech environment as a hardware representation.</p>
+
+<p>It should be clear that we can’t consider software frameworks as <em>defining</em> the architecture, let alone as <em>being</em> it. There is no such thing as an “architectural software framework”. No tool has the power to dictate the structure of what we build.</p>
+
+<p>We’re interested in a thought framework not in technical frameworks. Our question is how to think about the architecture of a whole project, not how to subject it to the patterns of one external dependency.</p>
+
+<h2 id="effective-code-tells-the-truth">Effective Code Tells the Truth</h2>
+
+<p><strong>Value- and tech environment may hold some difficult or implicit concepts that are hard to model, but they hold <em>all</em> the concepts our code represents. We never need to “invent” anything.</strong> Inventions wouldn’t correspond to anything in the environments, so they would neither contribute customer value nor help in dealing with the technology. They would only add useless complexity.</p>
+
+<p><strong>Code has exactly two sources of truth: its value- and its tech environment. They are its <em>meaning</em>. Code is <em>meaningful</em> when it reflects the reality of their concerns, structure and mechanics, no matter at what level of detail.</strong></p>
+
+<p>The two environments are very real - abstract maybe, but neither arbitrary nor virtual. And the “real world” can be a capricious chimera. Code is under this constant pressure to adapt because it mediates between two changing realities.</p>
+
+<p>Luckily, reality doesn’t evolve through arbitrary glitches. At least, I’d like to believe mine doesn’t. Instead, it’s bound by inherent laws. Some aspects of the world change easily, while other changes require lots of energy, are unlikely or simply impossible.</p>
+
+<p>This partial continuity and predictability of the world equally applies to the code representing that world. That’s why we intuitively understand how impactful a change request is. In other words: We know its meaning.</p>
+
+<p><strong>When code already corresponds well to reality, the effort that’s required to adopt a real-world change in code matches our intuitive expectation. To put it simply: With meaningful code, a “small” feature is quick to implement.</strong>  That’s not to say code should map all details of the world, but whatever aspects it needs to represent it must represent <strong>truthfully</strong>.</p>
+
+<p>The reverse also applies: When things change and our code can’t keep up as expected, it means some part of it is foul. Some part is at odds with the truth.</p>
+
+<p>To see things as they are and then paint an accurate picture is more than some heuristic for how to write resilient code because it matches what code really does. <strong>Code expresses ideational and technical concepts. And effective code tells the truth.</strong></p>
+
+<p>This axiomatic realization is almost banal. But it pays to deepen our awareness of it because, in practice, we’re often tempted to fabricate merely convenient concepts instead of making an effort to uncover the true inherent concepts of value- and tech environment.</p>
+
+<p>Writing code is to speak in a programming language. So, above all, let’s not lie. Lies make bad karma. Let’s just tell the truth and effectiveness will follow.</p>
+
+<!-- ... More Examples to Make All this More Concrete ... -->
+
+<!-- todo: examples of easy and hard changes in reality and how they map to developer expectations in an app in that domain -->
+
+<!-- This could mean, for instance, the necessary general frameworks are not available and application-agnostic functionality must be implemented, which is not part of our mental model of the application's reality. We intuitively assume that what is common across applications would pre-exist. And we'd be right to assume that because it should be part of the tech environment. -->
+
+<!-- Sometimes, the foul parts are beyond the control of developers, like when platform frameworks are designed in unfathomable ways. On the other hand: If the changing part of reality, like a functional requirement, doesn't intrinsically depend on any framework, then the corresponding code shouldn't depend on any framework either, otherwise that code wouldn't be true to the requirement's reality. -->
+
+<h2 id="effective-code-roots-in-precise-names">Effective Code Roots in Precise Names</h2>
+
+<blockquote>
+  <p>“In the Beginning Was the Word”</p>
+
+  <p>– Gospel of John</p>
+</blockquote>
+
+<p>Code shall tell the truth, but how can it tell us anything at all? Let’s talk about naming.</p>
+
+<p>We might think naming code artifacts is somewhat important because names help everyone understand what the hell the code does. And while that is true, the process of naming things has far greater significance.</p>
+
+<p>The expressiveness of code relies entirely on names. Even its structure would be meaningless if the structural elements were anonymous. All we have to attach meaning to code is the shared language we employ in its names.</p>
+
+<blockquote>
+  <p>“There are only two hard things in Computer Science: cache invalidation and naming things.”</p>
+
+  <p>– Phil Karlton</p>
+</blockquote>
+
+<p>This might be the most well known quote in all IT. So naming is not just crucial but also hard. Why?</p>
+
+<p>To name a code artifact, we have to think about what it actually means. What is the role of this variable, function, enumeration, interface, class, file, module or micro service? What does it represent?</p>
+
+<p>When an artifact’s intrinsic name isn’t obvious, it likely doesn’t correspond to anything real yet, at least not to only one thing. Either we haven’t precisely mapped the involved ideas and technicalities to code or we haven’t even understood them properly.</p>
+
+<p>Naming is difficult because it is a bi-directional process. By figuring out how to name our code artifacts we also figure out what code artifacts we should have to begin with. We articulate but also investigate value- and tech environment, constantly answering two intricate questions:</p>
+
+<ol>
+  <li>What is it <em>really</em> that we try to build?<br />(What is the value environment?)</li>
+  <li>How do these frameworks and devices <em>really</em> work?<br />(What is the tech environment?)</li>
+</ol>
+
+<h2 id="the-value-environment-is-paramount">The Value Environment Is Paramount</h2>
+
+<p>You likely saw this coming from a mile away: Although value- and tech environment are clearly distinct ideas that we could easily spin as some sort of profound dualism, they have no parity at this grand level of analysis. <strong>Value- and tech environment are not true equals. What software does for the user is more important than what it requires from the developer.</strong></p>
+
+<p>We don’t make software because a bunch of developers are bored to death, but because a bunch of users love it. So there are levels to this: <strong><em>How</em> we build a software poduct depends on <em>what</em> exactly we build which depends on <em>why</em> we build it. While the developer has the <em>know how</em> (the technical environment), the user has the <em>know why</em> (the value environment).</strong></p>
+
+<p>You might think: “But users rarely know why they value one thing over another, and they certainly don’t make every design decision, that’s why we have excellent product owners and UX designers.” All that is true. However, we’re targeting a deeper truth. Although users might not consciously know them, the reasons for why they love or hate software are ultimately their own. Also remember, that “users” refers to an abstract viewpoint.</p>
+
+<p><strong>When we design software, we aim to accommodate what users feel, believe and value. That means we anticipate a value environment. The technical environment then follows our design as in “form follows function”. Therefore, the value environment is paramount.</strong> Fear not, we’re not trying to resurrect the waterfall model here, we only depict logical dependence and importance, not sequence.</p>
+
+<p>To bring this back to earth: The reason Instagram has mobile phones as a basic tech environment is not that the respective developers are tired of JavaScript. Instagram runs on mobile phones because people documenting their lifes is a pretty mobile use case.</p>
+
+<p>So we can make two assessments of the nature of code:</p>
+
+<ol>
+  <li>Code represents the value it generates as well as the technology to which it adapts.</li>
+  <li>The value it generates is the ultimate purpose of code, so technology is secondary.</li>
+</ol>
+
+<p>This result took only a subtle (almost self-evident) step in terms of analysis, yet it allows for a leap in terms of practical implications. If we truly let the fact sink in that code represents <em>real</em> concepts, and if our thinking truly is “customer centric”, then many daily questions in the trenches of code production answer themselves, from naming and ordering over optimization and organization to high-level architecture.</p>

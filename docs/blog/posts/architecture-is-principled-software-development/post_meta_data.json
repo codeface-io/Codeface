@@ -1,0 +1,11 @@
+{
+  "title" : "Architecture is Principled Software Development",
+  "excerpt" : "In part 2 of this series on software architecture, we discuss the relevance of principles or \"natural laws\" that govern the realm of code.",
+  "posterImage" : "images/dharma-wheel.jpeg",
+  "date" : {
+    "year" : 2019,
+    "month" : 8,
+    "day" : 24
+  },
+  "keywords" : "software architecture, software, architecture, zen, code quality, software quality, book, software development, architecture pattern, design pattern, productivity, philosophy, dependence, object-oriented design"
+}

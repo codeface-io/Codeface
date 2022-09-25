@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- General Meta Data Stuff -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:locale" content="en_US">
+        <meta property="og:locale:alternate" content="en_GB">
+        <meta property="og:locale:alternate" content="de_DE">
+        
+        <!-- Title -->
+        <title>Codeface</title>
+        <meta name="twitter:title" content="Codeface"/>
+        <meta name="og:title" content="Codeface"/>
+        <meta property="og:title" content="Codeface"/>
+        <meta property="og:site_name" content="Codeface"/>
+
+        <!-- Author -->
+        <meta name="author" content="Sebastian Fichtner"/>
+
+        <!-- Description -->
+        <meta name="description" content="See the Architecture of any Codebase"/>
+        <meta property="og:description" content="See the Architecture of any Codebase"/>
+
+        <!-- Keywords -->
+        <meta name="keywords" content="software architecture, software, architecture, zen, code quality, software quality, book, software development, architecture pattern, design pattern, productivity, philosophy, dependence, object-oriented design"/>
+
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="../../../codeface.css">
+        <link rel="stylesheet" href="../../page_style.css">
+    </head>
+    <body>
+        <section id="codeface-navbar" class="codeface-bar">
+            <div>
+                <a href="../../../index.html"><img style="float:left;margin-top:4px;margin-right:10px;px;width:55px;heigh:55px;" src="../../../app/icon_1024.png"></img></a>
+                <ul>
+                    <li class="left"><a class="subtle-link" href="../../../blog/index.html">Blog</a></li>
+                    <li class="left"><a class="subtle-link" href="../../../index.html#contact">Contact</a></li>
+                    <li class="right desktop-only"><a onclick="ga('send', 'event', 'button', 'click', 'navigation bar');"
+                        href="https://apps.apple.com/app/codeface/id1578175415"
+                        target="_blank">
+                        <img style="width:180px"
+                            src="../../../app/App_Store_Badge.svg"
+                            title="Download Codeface for free from the Mac App Store"></a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+        <section>
+            <div>
+                <h1 style="margin-bottom:30px">Architecture is Principled Software Development</h1>
+        
+                <p style="text-align:center" class="secondary-text-color">
+                    August 24, 2019 • Sebastian Fichtner
+                </p>
+        
+                <img src="images/dharma-wheel.jpeg"/>
+                
+                <h2 id="is-architecture-for-buildings">Is Architecture for Buildings?</h2>
+                
+                <p><em>Software architecture</em> is a fuzzy term and we’ll deconstruct it anyway, so let’s not get bogged down by “definitions”. Instead, let’s build upon our intuitive understanding and address common misconceptions.</p>
+                
+                <p>In the realm of software, architecture is, first and foremost, a metaphor. It’s a useful one. But, like with any metaphor, you can take it to a point where it breaks down. Its applicability is limited and depends on what aspects we want to illuminate.</p>
+                
+                <p>One aspect in which the metaphor fails software is this: Real world construction requires <a href="https://en.wikipedia.org/wiki/Big_Design_Up_Front">up front design</a> while software can evolve organically. The software architect can quickly build a working product and then iterate over it again and again. It’s like starting with a small hut, with no windows, plumbing or electricity, and then growing that hut, step by step, into a futuristic complex.</p>
+                
+                <p><img src="images/construction-vs-iteration.jpg" alt="" /></p>
+                
+                <p>Another mismatch worth remembering is that architecture of buildings involves the aesthetics they present to the end customer. In that sense, it is artistic and subjective. What interests us about software architecture is neither artistic nor subjective.</p>
+                
+                <p>In some aspects, the metaphor is valid: Architecture relates to the structure of the end product. It’s supposed to meet functional and non-functional requirements. And it must accord with natural laws.</p>
+                
+                <p>For buildings, those natural laws are the laws of physics. For software, noone has really articulated them. Common patterns and principles suggest that there are some fundamental insights buried within our best practices. It seems we’re already half-conscious of the laws of code. Throughout this book, we’ll attempt to excavate them.</p>
+                
+                <h2 id="architecture-pattern-recognition">Architecture Pattern Recognition</h2>
+                
+                <p><strong>“Architectural” patterns and principles are supposed to paint the big picture. And while that zoomed out perspective is wide in scope, it is often shallow conceptually.</strong> We want a deeper level of analysis because, as they say, you can’t solve a problem at the same level at which it occurs.</p>
+                
+                <p>In daily practice, we feel we have an intuition of what “clean” design, proper “engineering” and “elegant” solutions would look like. But <strong>what we think is optimal or what feels beautiful isn’t necessarily that by the intrinsic standards and true nature of the subject matter</strong>.</p>
+                
+                <p>Often, we cling to some so called “architecture” without really knowing why. <strong>Compliance with an architecture pattern yields consistency and beauty in terms of that pattern but not necessarily in terms of the nature of software itself.</strong></p>
+                
+                <p><a href="https://en.wikipedia.org/wiki/Model–view–presenter">Model-View-Presenter</a>, for instance, is not an architecture. It’s a subjective observation, a simplified model of reality, a perceived pattern:</p>
+                
+                <p><img src="images/mvp.jpg" alt="" /></p>
+                
+                <p><strong>Concepts like MVP, MVC, MVVM and VIPER are more descriptive than normative. They describe patterns that emerge in effective architectures. But they’re never the true basis or cause for effective architecture.</strong></p>
+                
+                <p>There are myths in our field that we’ve conjured up through blind adherence to observed patterns. But <strong>when you turn an observation into a dogma, you’ve lost the way</strong>.</p>
+                
+                <p>Here are just some of those <strong>myths</strong>:</p>
+                
+                <ul>
+                  <li>Views must not access models</li>
+                  <li>Ideally, all code should be functional (spoiler: it can’t be and it shouldn’t)</li>
+                  <li>The functional core of an app resides in the model</li>
+                  <li>Everything must be unit-tested</li>
+                  <li>Independence is for re-usability</li>
+                  <li>The “model” is the state of the application</li>
+                  <li>Singletons are bad</li>
+                  <li>Views must have no behaviour</li>
+                  <li>View controllers are the only acceptable “controller” type</li>
+                  <li>The view-model layer is only for output</li>
+                  <li>Different “architectures” are mutually exclusive</li>
+                </ul>
+                
+                <p>We won’t challenge them directly. But when we’re able to put such ideas in perspective and understand where they come from, they appear small-minded, arbitrary, over-restrictive, superficial and needlessly confusing.</p>
+                
+                <h2 id="product-process-principles">Product, Process, Principles</h2>
+                
+                <p>So, if architecture patterns aren’t architecture, then what is? Let’s start at the beginning. Every type of productivity involves these layers:</p>
+                
+                <p><img src="images/product-process-principles.jpg" alt="" /></p>
+                
+                <p>Here is what they mean in our context:</p>
+                
+                <ol>
+                  <li>The <strong>product</strong> is the ultimate outcome. The product of <em>software architecture</em> is software - not “architecture”.</li>
+                  <li>The <strong>process</strong> produces the product with respect to the principles. It is the dynamic activity (or negligence) of the architect.</li>
+                  <li>The <strong>principles</strong> describe the domain of production, its entities and rules. They’re the science of the materials and building blocks the architect has to work with. The basic material of <em>software architecture</em> is code.</li>
+                </ol>
+                
+                <h3 id="product">Product</h3>
+                
+                <p>Note, that our approach applies to everything made of code, independent of the underlying hardware-structure. Technical <em>system architecture</em> is a different subject. So you may have any type of software in mind: A highly distributed system, a microservice, a mobile app, a web service, whatever you’re doing.</p>
+                
+                <p>Now, <strong>the global high-level code structure that we commonly call <em>architecture</em> describes what holds a particular software product together and what makes it a <em>thing</em> at all</strong>. It’s a level of analysis applicable to any product, even if the product wasn’t designed at that level.</p>
+                
+                <h3 id="principles">Principles</h3>
+                
+                <p><strong>Principles, on the other hand, are the natural laws that govern the universe in which the product arises. They determine what can possibly manifest as a stable entity.</strong></p>
+                
+                <p>Everything exists as a consequence of such laws and only as far as it is in accordance with them. As far as something disintegrates, it is obviously, as a <em>thing</em>, not in accordance with the laws of its universe.</p>
+                
+                <p><strong>Our notion of <em>software architecture</em> includes not only the product structure itself but also the universal principles that enable and regulate it.</strong></p>
+                
+                <h2 id="principled-software-development">Principled Software Development</h2>
+                
+                <h3 id="applicability">Applicability</h3>
+                
+                <p>Code that violates fundamental principles causes myriads of negative symptoms. And hundred of books have been written about these symptoms. They name them, describe them, explain them, classify them, warn against them and prescribe patterns to deal with them. Obviously, all that complexity is superficial and unnecessary if we see the common underlying problem. And that’s the simplicity, elegance and beauty principled software design has to offer.</p>
+                
+                <p>While principles might seem trivial or abstract at first, their power lies in their combinded far reaching implications. A deeper understanding of code provides guidance and clarity, from how to lay out global structure down to the nitty gritty details of how to lay out a four line function.</p>
+                
+                <h3 id="objectivity">Objectivity</h3>
+                
+                <p>All advice on code design preaches that <a href="https://www.goodreads.com/book/show/39996759-a-philosophy-of-software-design">“strategic”</a> or <a href="https://www.goodreads.com/book/show/3735293-clean-code">“clean”</a> engineering is superior over tactical hacking, and that discipline pays off over time. Yet in practice, the often arbitrary collections of conflicting symptom-level heuristics never inspire the deep clarity we would need to actually stop, think and clean up. To walk the walk, we must be able to clearly distinguish the correct path from all its sloppy alternatives.</p>
+                
+                <p>Now, the post-modernist in all of us might feel that there is no such thing as a “correct” path and that nothing objective can be said about “good” code. However, if we assess code at a fundamental level, we can clinically describe what it is, without judgement or imperative. Such observed principles are the basis for more clarity and objective reasoning in practice.</p>
+                
+                <p>With a principled mind, we see into the logical heart of things, and our professional decisions are no longer guess work, personal taste, intuititive art, black magic or mindless copying of “best practices”.</p>
+                
+                <h3 id="humility">Humility</h3>
+                
+                <p>“Architecture” indeed often refers to the core nature and smallest building blocks of a thing. The “architecture of the universe” refers to physical laws and subatomic particles. The “architecture of life” can refer to the bio chemsistry and molecules that gave rise to the first living organism.</p>
+                
+                <p>And we cannot work <em>against</em> such pre-existing architecture, we have to work <em>with</em> it. To grow into a healthy long-lived human being, we must design our lifestyle in accordance with <em>the architecture of human existence</em>. To grow a healthy long-lived code base, we must design it in accordance with <em>the architecture of code</em>.</p>
+                
+                <p>Ultimately, negative consequences and bad karma aren’t even the proper reason for why we should adhere to principles. Our reason should be the realization that “violating” them is to ignore reality and to resist the natural laws of the universe. Who would ever want to do that? We stick to principles as a matter of principle.</p>
+                
+                <h2 id="the-role-of-uncle-bobs-principles">The Role of Uncle Bob’s Principles</h2>
+                
+                <p>You might be wondering what Uncle Bob has to say about all this. How do his famous principles fit into the picture?</p>
+                
+                <p><a href="https://blog.cleancoder.com">Robert C. Martin (a.k.a. Uncle Bob)</a> is not just a pioneer of the agile and craftsmanship movements, he also laid a foundation for methodical software architecture. His <a href="https://web.archive.org/web/20150906155800/http://www.objectmentor.com/resources/articles/Principles_and_Patterns.jpg">11 principles of class and package design</a> are profound and have vast implications on code structure.</p>
+                
+                <p><img src="images/robert-martin-uncle-bob.jpg" alt="" /></p>
+                
+                <p><strong>While Uncle Bob is a legend among developers, most do not know, let alone apply, the principles he repeatedly wrote about since first publishing them more than two decades ago. As true software craftsmen, our thinking should revolve around such essential timeless principles, instead of the ephemeral (and by themselves meaningless) technical details of the latest technologies.</strong></p>
+                
+                <p>We’ll cover the wisdom of all of Uncle Bob’s principles and more. However, we approach it from a different perspective, in our own terms, less as a list of abstract definitions and more integrated into a meaningful learning process.</p>
+                
+                <p>Our line of reasoning leads to results that contain abstractions of Uncle Bob’s principles. We’ll also present some explicit arguments for why certain generalizations of those principles make sense.</p>
+                
+                <p>Most importantly, <strong>the laws we deduct do not parcel out classes or packages. Instead, they apply to all code artifacts at all scales, from functions to large sub-systems</strong>. This also means we <strong>should</strong> apply them at all scales because conforming to a law at one level, say at the class level, does not guarantee conformance at others, like at the package level.</p>
+                
+                <p>As far as this book conveys the ideas of Uncle Bob’s principles, it provides an additional access to their essence. <strong>Getting a feel for underlying reasons has a bigger impact on practice and is more profoundly valuable than just knowing a list of Dos and Don’ts.</strong></p>
+                
+            </div>
+        </section>
+        
+        <section id="codeface-bottom-bar" class="codeface-bar">
+            <div style="display:grid;grid-template-columns:50% 50%;column-gap:0%;">
+                <div style="text-align: left">
+                    <a href="../../../privacy-policy/index.html">Privacy Policy</a>
+                </div>
+                <div style="text-align: right">
+                    Copyright &copy; 2022 <a href="https://www.flowtoolz.com">Flowtoolz.com</a>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <!-- Load scripts at the very end for performance -->
+    <script>
+    
+    </script>
+</html>
