@@ -15,13 +15,15 @@ struct PostMetaData: Codable, Comparable
                   posterImage: String? = nil,
                   date: PostMetaData.PublishDate? = nil,
                   author: String? = nil,
-                  excerpt: String? = nil)
+                  excerpt: String? = nil,
+                  keywords: String? = nil)
     {
         self.title = title
         self.posterImage = posterImage
         self.date = date
         self.author = author
         self.excerpt = excerpt
+        self.keywords = keywords
     }
         
     static var example: PostMetaData
@@ -37,6 +39,7 @@ struct PostMetaData: Codable, Comparable
     let date: PublishDate?
     let author: String?
     let excerpt: String?
+    let keywords: String?
     
     struct PublishDate: Codable, Comparable
     {

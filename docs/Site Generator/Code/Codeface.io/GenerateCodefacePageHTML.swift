@@ -1,14 +1,17 @@
 import Foundation
 
 func generateCodefacePageHTML(rootPath: String,
+                              keywords: String? = nil,
                               cssFiles: [String] = [],
                               bodyContentHTML: String,
                               script: String = "") -> String
 {
+    let defaultKeywords = "macOS, Swift, software architecture, app, codeface, codebase"
+    
     let metaData = PageMetaData(title: "Codeface",
                                 author: "Sebastian Fichtner",
                                 description: "See the Architecture of any Codebase",
-                                keywords: "macOS, Swift, software architecture, app, codeface, codebase")
+                                keywords: keywords ?? defaultKeywords)
     
     let navBarHTML = generateNavigationBarHTML(rootPath: rootPath)
     let footerHTML = generateFooterHTML(rootPath: rootPath)

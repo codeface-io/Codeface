@@ -44,7 +44,7 @@ private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
     """
     <section>
         <div class="blog-post-list-wrapper">
-            \(postListHTML)
+            \(postListHTML.with(newlineIndentations: 2))
         </div>
     </section>
     """
@@ -64,9 +64,12 @@ private func generatePostOverviewHTML(with metaData: PostMetaData, folderName: S
             <img class="blog-post-image" src="posts/\(folderName)/\(metaData.posterImage ?? "")"></img>
         </a>
         <div>
-            <p style="margin-top:-3px;margin-bottom:-8px" class="secondary-text-color">\(metaData.date?.displayString ?? "")</p>
+            <p style="margin-top:-3px;margin-bottom:-8px" class="secondary-text-color">
+                \(metaData.date?.displayString ?? "")
+            </p>
+    
             <p>
-            \(metaData.excerpt ?? "")
+                \(metaData.excerpt ?? "")
             </p>
         </div>
     </div>
@@ -108,13 +111,17 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
             <div>
                 <h1 style="margin-bottom:30px">\(title)</h1>
         
-                <p style="text-align:center" class="secondary-text-color">\(dateAndAuthor)</p>
-                \(postContentHTML)
+                <p style="text-align:center" class="secondary-text-color">
+                    \(dateAndAuthor)
+                </p>
+        
+                \(postContentHTML.with(newlineIndentations: 2))
             </div>
         </section>
         """
         
         let postPageHTML = generateCodefacePageHTML(rootPath: "../../../",
+                                                    keywords: postMetaData?.keywords,
                                                     cssFiles: ["../../../codeface.css", "../../page_style.css"],
                                                     bodyContentHTML: postPageBodyContentHTML)
         

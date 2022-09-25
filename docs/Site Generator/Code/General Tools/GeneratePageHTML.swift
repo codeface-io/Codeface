@@ -3,7 +3,7 @@ func generatePageHTML(metaData: PageMetaData,
                       bodyContentHTML: String,
                       script: String) -> String
 {
-    let cssFileHTML = cssFiles
+    let cssFilesHTML = cssFiles
         .map {
             "<link rel=\"stylesheet\" href=\"\($0)\">"
         }
@@ -26,8 +26,8 @@ func generatePageHTML(metaData: PageMetaData,
             <title>\(metaData.title)</title>
             <meta name="twitter:title" content="\(metaData.title)"/>
             <meta name="og:title" content="\(metaData.title)"/>
-            <meta property="og:title" content="\(metaData.title)" />
-            <meta property="og:site_name" content="\(metaData.title)" />
+            <meta property="og:title" content="\(metaData.title)"/>
+            <meta property="og:site_name" content="\(metaData.title)"/>
     
             <!-- Author -->
             <meta name="author" content="\(metaData.author)"/>
@@ -39,21 +39,16 @@ func generatePageHTML(metaData: PageMetaData,
             <!-- Keywords -->
             <meta name="keywords" content="\(metaData.keywords)"/>
     
-            <!-- START: CSS FILES INSERTED BY SITE GENERATOR -->
-            \(cssFileHTML)
-            <!-- END: CSS FILES INSERTED BY SITE GENERATOR -->
+            <!-- CSS Files -->
+            \(cssFilesHTML.with(newlineIndentations: 2))
         </head>
         <body>
-        <!-- START: BODY CONTENT INSERTED BY SITE GENERATOR -->
-        \(bodyContentHTML)
-        <!-- END: BODY CONTENT INSERTED BY SITE GENERATOR -->
+            \(bodyContentHTML.with(newlineIndentations: 2))
         </body>
     
         <!-- Load scripts at the very end for performance -->
         <script>
-        // START: SCRIPT INSERTED BY SITE GENERATOR
-        \(script)
-        // END: SCRIPT INSERTED BY SITE GENERATOR
+        \(script.with(newlineIndentations: 1))
         </script>
     </html>
     """
@@ -76,6 +71,16 @@ func generatePageHTML(metaData: PageMetaData,
      <meta property="og:image" content="http://localhost:4000" />
      <meta property="og:image:type" content="image/jpeg" />
      */
+}
+
+extension String
+{
+    func with(newlineIndentations: Int) -> String
+    {
+        var newlinePrefix = ""
+        newlineIndentations.times { newlinePrefix += "    " }
+        return replacingOccurrences(of: "\n", with: "\n" + newlinePrefix)
+    }
 }
 
 struct PageMetaData
