@@ -45,8 +45,8 @@ struct PostMetaData: Codable, Comparable
     {
         static func < (lhs: PublishDate, rhs: PublishDate) -> Bool
         {
-            if lhs.year > rhs.year { return true }
-            if lhs.month > rhs.month { return true }
+            if lhs.year != rhs.year { return lhs.year > rhs.year }
+            if lhs.month != rhs.month { return lhs.month > rhs.month }
             return lhs.day > rhs.day
         }
         
