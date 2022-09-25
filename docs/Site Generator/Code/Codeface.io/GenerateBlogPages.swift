@@ -27,7 +27,7 @@ private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
             
             if postMetaData == nil
             {
-                log(warning: "No \(postMetaDataFileName) file in folder: \($0.lastPathComponent) ❌")
+                log(warning: "No \(postMetaDataFileName) in post folder: \($0.lastPathComponent)")
             }
             
             return ($0, postMetaData ?? .init())
@@ -57,11 +57,11 @@ private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
 private func generatePostOverviewHTML(with metaData: PostMetaData, folderName: String) -> String
 {
     """
-    <h2><a class="subtle-link" href="posts/\(folderName)/index.html">\(metaData.title ?? folderName)</a></h2>
+    <h2><a class="subtle-link" href="posts/\(folderName)/index.html">\(metaData.title ?? defaultTitle(fromPostFolderName: folderName))</a></h2>
     
     <div class="blog-post-grid">
         <a href="posts/\(folderName)/index.html">
-            <img class="blog-post-image" src="posts/\(folderName)/\(metaData.posterImage ?? "")"></img>
+            <img class="blog-post-image" src="posts/\(folderName)/\(metaData.posterImage ?? "images/poster.png")"></img>
         </a>
         <div>
             <p style="margin-top:-3px;margin-bottom:-8px" class="secondary-text-color">
@@ -85,25 +85,26 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
     
     for postFolder in postFolders
     {
+        let postContentFileName = "post_content.html"
+        
+        guard let postContentHTML = try? (postFolder + postContentFileName).readText() else
+        {
+            log(error: "Couldn't read \(postContentFileName) in post folder: \(postFolder.lastPathComponent)")
+            continue
+        }
+        
         let postMetaDataFile = postFolder + postMetaDataFileName
         let postMetaData = PostMetaData(from: postMetaDataFile)
         
         if postMetaData == nil
         {
-            log(warning: "No \(postMetaDataFileName) file in folder: \(postFolder.lastPathComponent) ❌")
+            log(warning: "No \(postMetaDataFileName) in post folder: \(postFolder.lastPathComponent)")
         }
         
-        let defaultTitle = postFolder
-            .lastPathComponent
-            .replacingOccurrences(of: "-", with: " ")
-            .capitalized
-        
-        let title = postMetaData?.title ?? defaultTitle
+        let title = postMetaData?.title ?? defaultTitle(fromPostFolderName: postFolder.lastPathComponent)
         let date = postMetaData?.date?.displayString ?? ""
         let author = postMetaData?.author ?? "Sebastian Fichtner"
         let dateAndAuthor = date + " • " + author
-        
-        let postContentHTML = try (postFolder + "post_content.html").readText()
         
         let postPageBodyContentHTML =
         """
@@ -129,6 +130,13 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
         try (postFolder + fileName).write(text: postPageHTML)
         log("Did write: \(postFolder.lastPathComponent)/\(fileName) ✅")
     }
+}
+
+private func defaultTitle(fromPostFolderName folderName: String) -> String
+{
+    folderName
+        .replacingOccurrences(of: "-", with: " ")
+        .capitalized
 }
 
 private var postMetaDataFileName: String { "post_meta_data.json" }

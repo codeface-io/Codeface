@@ -1,0 +1,11 @@
+{
+  "title" : "Blog Post Template Title",
+  "excerpt" : "This is the excerpt of the blog post template",
+  "posterImage" : "images/poster.png",
+  "date" : {
+    "year" : 2023,
+    "month" : 1,
+    "day" : 7
+  },
+  "keywords" : "remove, the, keywords, field, to, use, default, keywords"
+}
