@@ -50,6 +50,7 @@ private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
     """
     
     return generateCodefacePageHTML(rootPath: "../",
+                                    filePathRelativeToRoot: "blog/index.html",
                                     cssFiles: ["../codeface.css", "page_style.css"],
                                     bodyContentHTML: contentHTML)
 }
@@ -87,10 +88,11 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
     for postFolder in postFolders
     {
         let postContentFileName = "post_content.html"
+        let postFolderName = postFolder.lastPathComponent
         
         guard let postContentHTML = try? (postFolder + postContentFileName).readText() else
         {
-            log(error: "Couldn't read \(postContentFileName) in post folder: \(postFolder.lastPathComponent)")
+            log(error: "Couldn't read \(postContentFileName) in post folder: \(postFolderName)")
             continue
         }
         
@@ -99,10 +101,10 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
         
         if postMetaData == nil
         {
-            log(warning: "No \(postMetaDataFileName) in post folder: \(postFolder.lastPathComponent)")
+            log(warning: "No \(postMetaDataFileName) in post folder: \(postFolderName)")
         }
         
-        let title = postMetaData?.title ?? defaultTitle(fromPostFolderName: postFolder.lastPathComponent)
+        let title = postMetaData?.title ?? defaultTitle(fromPostFolderName: postFolderName)
         let date = postMetaData?.date?.displayString ?? ""
         let author = postMetaData?.author ?? "Sebastian Fichtner"
         let dateAndAuthor = date + " • " + author
@@ -123,7 +125,11 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
         """
         
         let postPageHTML = generateCodefacePageHTML(rootPath: "../../../",
-                                                    keywords: postMetaData?.keywords,
+                                                    filePathRelativeToRoot: "blog/posts/\(postFolderName)/index.html",
+                                                    metaData: .codeface(title: title,
+                                                                        author: author,
+                                                                        description: postMetaData?.excerpt,
+                                                                        keywords: postMetaData?.keywords),
                                                     cssFiles: ["../../../codeface.css", "../../page_style.css"],
                                                     bodyContentHTML: postPageBodyContentHTML)
         

@@ -1,4 +1,5 @@
 func generatePageHTML(metaData: PageMetaData,
+                      canonicalURL: String,
                       cssFiles: [String],
                       bodyContentHTML: String,
                       script: String) -> String
@@ -39,6 +40,9 @@ func generatePageHTML(metaData: PageMetaData,
             <!-- Keywords -->
             <meta name="keywords" content="\(metaData.keywords)"/>
     
+            <!-- Canonical Link -->
+            <link rel="canonical" href="\(canonicalURL)">
+    
             <!-- CSS Files -->
             \(cssFilesHTML.with(newlineIndentations: 2))
         </head>
@@ -65,6 +69,7 @@ func generatePageHTML(metaData: PageMetaData,
      <meta name="theme-color" content="#ffffff">
 
      <!-- URL -->
+     <link rel="canonical" href="http://localhost:4000/">
      <meta property="og:url" content="http://localhost:4000/" />
   
      <!-- Image -->

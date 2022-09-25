@@ -23,6 +23,7 @@ private func generateRootPageHTML(siteFolder: SiteFolder) throws -> String
     """
     
     return generateCodefacePageHTML(rootPath: "",
+                                    filePathRelativeToRoot: "index.html",
                                     cssFiles: ["codeface.css", "app/page_style.css"],
                                     bodyContentHTML: contentHTML,
                                     script: script)

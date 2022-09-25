@@ -1,26 +1,42 @@
 import Foundation
 
+func getCanonicalBaseURL() -> String
+{
+    "https://www.codeface.io/"
+}
+
 func generateCodefacePageHTML(rootPath: String,
-                              keywords: String? = nil,
+                              filePathRelativeToRoot: String,
+                              metaData: PageMetaData = .codeface(),
                               cssFiles: [String] = [],
                               bodyContentHTML: String,
                               script: String = "") -> String
 {
-    let defaultKeywords = "macOS, Swift, software architecture, app, codeface, codebase"
-    
-    let metaData = PageMetaData(title: "Codeface",
-                                author: "Sebastian Fichtner",
-                                description: "See the Architecture of any Codebase",
-                                keywords: keywords ?? defaultKeywords)
-    
     let navBarHTML = generateNavigationBarHTML(rootPath: rootPath)
     let footerHTML = generateFooterHTML(rootPath: rootPath)
     let bodyContentHTML = navBarHTML + "\n\n" + bodyContentHTML + "\n\n" + footerHTML
     
     return generatePageHTML(metaData: metaData,
+                            canonicalURL: getCanonicalBaseURL() + filePathRelativeToRoot,
                             cssFiles: cssFiles,
                             bodyContentHTML: bodyContentHTML,
                             script: script)
+}
+
+extension PageMetaData
+{
+    static func codeface(title: String? = nil,
+                         author: String? = nil,
+                         description: String? = nil,
+                         keywords: String? = nil) -> PageMetaData
+    {
+        .init(title: title ?? "Codeface",
+              author: author ?? "Sebastian Fichtner",
+              description: description ?? "See the Architecture of any Codebase",
+              keywords: keywords ?? defaultKeywords)
+    }
+    
+    static let defaultKeywords = "macOS, Swift, software architecture, app, codeface, codebase"
 }
 
 func generateNavigationBarHTML(rootPath: String) -> String
@@ -51,7 +67,7 @@ func generateFooterHTML(rootPath: String) -> String
     <section id="codeface-bottom-bar" class="codeface-bar">
         <div style="display:grid;grid-template-columns:50% 50%;column-gap:0%;">
             <div style="text-align: left">
-                <a href="\(rootPath)privacy-policy/index.html">Privacy Policy</a>
+                <a href="\(rootPath)privacy-policy/index.html">Codeface Privacy Policy</a>
             </div>
             <div style="text-align: right">
                 Copyright &copy; 2022 <a href="https://www.flowtoolz.com">Flowtoolz.com</a>
