@@ -38,7 +38,7 @@ private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
         .map {
             generatePostOverviewHTML(with: $1, folderName: $0.lastPathComponent)
         }
-        .joined(separator: "\n\n        ")
+        .joined(separator: "\n\n")
     
     let contentHTML =
     """
@@ -63,6 +63,7 @@ private func generatePostOverviewHTML(with metaData: PostMetaData, folderName: S
         <a href="posts/\(folderName)/index.html">
             <img class="blog-post-image" src="posts/\(folderName)/\(metaData.posterImage ?? "images/poster.png")"></img>
         </a>
+    
         <div>
             <p style="margin-top:-3px;margin-bottom:-8px" class="secondary-text-color">
                 \(metaData.date?.displayString ?? "")

@@ -42,6 +42,7 @@ func generatePageHTML(metaData: PageMetaData,
             <!-- CSS Files -->
             \(cssFilesHTML.with(newlineIndentations: 2))
         </head>
+    
         <body>
             \(bodyContentHTML.with(newlineIndentations: 2))
         </body>
