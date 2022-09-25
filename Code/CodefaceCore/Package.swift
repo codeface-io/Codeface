@@ -14,11 +14,11 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/flowtoolz/LSPServiceKit.git",
+            url: "https://github.com/codeface-io/LSPServiceKit.git",
             branch: "master"
         ),
         .package(
-            url: "https://github.com/flowtoolz/SwiftLSP.git",
+            url: "https://github.com/codeface-io/SwiftLSP.git",
             branch: "master"
         ),
         .package(
@@ -26,7 +26,7 @@ let package = Package(
             branch: "master"
         ),
         .package(
-            url: "https://github.com/flowtoolz/SwiftNodes.git",
+            url: "https://github.com/codeface-io/SwiftNodes.git",
             branch: "master"
         ),
         .package(
