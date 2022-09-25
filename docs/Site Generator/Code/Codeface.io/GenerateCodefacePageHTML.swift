@@ -57,7 +57,7 @@ func generateNavigationBarHTML(rootPath: String) -> String
     <section id="codeface-navbar" class="codeface-bar">
         <div>
             <a id="logo" class="clickable-image" href="\(rootPath)index.html">
-                <img style="padding-left:0px;padding-top:16px;width:30px;heigh:30px" src="\(rootPath)favicon_io/android-chrome-512x512.png"/>
+                <img style="padding-left:0px;padding-top:17px;width:30px;height:30px" src="\(rootPath)favicon_io/android-chrome-512x512.png"/>
             </a>
     
             <a class="left subtle-link" href="\(rootPath)blog/index.html">Blog</a>
