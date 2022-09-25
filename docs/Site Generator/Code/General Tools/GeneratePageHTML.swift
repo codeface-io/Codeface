@@ -22,6 +22,7 @@ func generatePageHTML(metaData: PageMetaData,
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <meta name="theme-color" content="#000000">
+            <meta name="msapplication-TileColor" content="#000000">
     
             <meta property="og:type" content="\(metaData.ogType)"/>
             <meta property="og:locale" content="en_US">
