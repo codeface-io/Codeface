@@ -51,6 +51,7 @@ private func generateBlogPageHTML(siteFolder: SiteFolder) throws -> String
     
     return generateCodefacePageHTML(rootPath: "../",
                                     filePathRelativeToRoot: "blog/index.html",
+                                    metaData: .codeface(title: "Codeface Blog", ogType: "blog"),
                                     cssFiles: ["../codeface.css", "page_style.css"],
                                     bodyContentHTML: contentHTML)
 }
@@ -124,18 +125,28 @@ private func generateAndWriteBlogPostPages(siteFolderURL: URL) throws
         </section>
         """
         
+        let postFolderPath = "blog/posts/" + postFolderName
+        
+        let postImagePath: String? = {
+            guard let posterImage = postMetaData?.posterImage else { return nil }
+            return postFolderPath + "/" + posterImage
+        }()
+        
+        let postFileName = "index.html"
+        
         let postPageHTML = generateCodefacePageHTML(rootPath: "../../../",
-                                                    filePathRelativeToRoot: "blog/posts/\(postFolderName)/index.html",
+                                                    filePathRelativeToRoot: postFolderPath + "/" + postFileName,
                                                     metaData: .codeface(title: title,
                                                                         author: author,
                                                                         description: postMetaData?.excerpt,
-                                                                        keywords: postMetaData?.keywords),
+                                                                        keywords: postMetaData?.keywords,
+                                                                        ogType: "article"),
+                                                    imagePathRelativeToRoot: postImagePath,
                                                     cssFiles: ["../../../codeface.css", "../../page_style.css"],
                                                     bodyContentHTML: postPageBodyContentHTML)
         
-        let fileName = "index.html"
-        try (postFolder + fileName).write(text: postPageHTML)
-        log("Did write: \(postFolder.lastPathComponent)/\(fileName) ✅")
+        try (postFolder + postFileName).write(text: postPageHTML)
+        log("Did write: \(postFolderName)/\(postFileName) ✅")
     }
 }
 

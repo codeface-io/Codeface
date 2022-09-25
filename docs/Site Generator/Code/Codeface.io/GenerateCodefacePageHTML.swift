@@ -1,13 +1,9 @@
 import Foundation
 
-func getCanonicalBaseURL() -> String
-{
-    "https://www.codeface.io/"
-}
-
 func generateCodefacePageHTML(rootPath: String,
                               filePathRelativeToRoot: String,
                               metaData: PageMetaData = .codeface(),
+                              imagePathRelativeToRoot: String? = nil,
                               cssFiles: [String] = [],
                               bodyContentHTML: String,
                               script: String = "") -> String
@@ -16,8 +12,12 @@ func generateCodefacePageHTML(rootPath: String,
     let footerHTML = generateFooterHTML(rootPath: rootPath)
     let bodyContentHTML = navBarHTML + "\n\n" + bodyContentHTML + "\n\n" + footerHTML
     
+    let rootURL = "https://www.codeface.io"
+    let imagePath = imagePathRelativeToRoot ?? "app/icon_1024.png"
+    
     return generatePageHTML(metaData: metaData,
-                            canonicalURL: getCanonicalBaseURL() + filePathRelativeToRoot,
+                            imageURL: rootURL + "/" + imagePath,
+                            canonicalURL: rootURL + "/" + filePathRelativeToRoot,
                             cssFiles: cssFiles,
                             bodyContentHTML: bodyContentHTML,
                             script: script)
@@ -28,12 +28,14 @@ extension PageMetaData
     static func codeface(title: String? = nil,
                          author: String? = nil,
                          description: String? = nil,
-                         keywords: String? = nil) -> PageMetaData
+                         keywords: String? = nil,
+                         ogType: String? = nil) -> PageMetaData
     {
         .init(title: title ?? "Codeface",
               author: author ?? "Sebastian Fichtner",
               description: description ?? "See the Architecture of any Codebase",
-              keywords: keywords ?? defaultKeywords)
+              keywords: keywords ?? defaultKeywords,
+              ogType: ogType)
     }
     
     static let defaultKeywords = "macOS, Swift, software architecture, app, codeface, codebase"
