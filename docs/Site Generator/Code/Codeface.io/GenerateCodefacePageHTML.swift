@@ -85,7 +85,7 @@ func generateFooterHTML(rootPath: String) -> String
                 <a href="\(rootPath)privacy-policy/index.html">Codeface Privacy Policy</a>
             </div>
             <div style="text-align: right">
-                Copyright &copy; 2022 <a href="https://www.flowtoolz.com">Flowtoolz.com</a>
+                Copyright &copy; 2022 <a href="https://www.flowtoolz.com">Flowtoolz</a>
             </div>
         </div>
     </section>
