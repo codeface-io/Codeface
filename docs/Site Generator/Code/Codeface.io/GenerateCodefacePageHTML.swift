@@ -15,10 +15,24 @@ func generateCodefacePageHTML(rootPath: String,
     let rootURL = "https://www.codeface.io"
     let imagePath = imagePathRelativeToRoot ?? "app/icon_1024.png"
     
+    let iconLinks =
+    """
+    <!-- Favicon (made with https://favicon.io) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/favicon_io/site.webmanifest">
+    """
+    
+//    <link rel="icon" type="image/png" sizes="32x32" href="/icon_monochrome_32.png">
+//    <link rel="icon" sizes="128x128" href="icon_monochrome_128.icns">
+//    <link rel="icon" type="image/x-icon" href="icon_monochrome_32.png">
+    
     return generatePageHTML(metaData: metaData,
                             imageURL: rootURL + "/" + imagePath,
                             canonicalURL: rootURL + "/" + filePathRelativeToRoot,
                             cssFiles: cssFiles,
+                            otherHeadContent: iconLinks,
                             bodyContentHTML: bodyContentHTML,
                             script: script)
 }

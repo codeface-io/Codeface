@@ -2,6 +2,7 @@ func generatePageHTML(metaData: PageMetaData,
                       imageURL: String,
                       canonicalURL: String,
                       cssFiles: [String],
+                      otherHeadContent: String? = nil,
                       bodyContentHTML: String,
                       script: String) -> String
 {
@@ -54,6 +55,8 @@ func generatePageHTML(metaData: PageMetaData,
     
             <!-- CSS Files -->
             \(cssFilesHTML.with(newlineIndentations: 2))
+    
+            \(otherHeadContent?.with(newlineIndentations: 2) ?? "")
         </head>
     
         <body>
@@ -66,15 +69,6 @@ func generatePageHTML(metaData: PageMetaData,
         </script>
     </html>
     """
-    
-    /* potential other head content
-     <!-- Site Icon -->
-     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
-     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
-     <link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#000000">
-     <link rel="manifest" href="/assets/icon/site.webmanifest">
-     */
 }
 
 extension String
