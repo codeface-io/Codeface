@@ -31,7 +31,7 @@ public class CodefaceDocument: ObservableObject
         {
             try loadProcessor(forCodebaseFrom: CodebaseLocationPersister.loadCodebaseLocation())
         }
-        catch { log(error) }
+        catch { log(error.readable) }
     }
     
     public func loadNewProcessor(forCodebaseFrom location: LSP.CodebaseLocation)
@@ -41,7 +41,7 @@ public class CodefaceDocument: ObservableObject
             try loadProcessor(forCodebaseFrom: location)
             try CodebaseLocationPersister.persist(location)
         }
-        catch { log(error) }
+        catch { log(error.readable) }
     }
     
     private func loadProcessor(forCodebaseFrom location: LSP.CodebaseLocation) throws

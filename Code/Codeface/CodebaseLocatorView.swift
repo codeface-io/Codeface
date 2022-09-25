@@ -61,7 +61,7 @@ struct CodebaseLocatorView: View
                         
                         confirm(config)
                     }
-                    catch { log(error) }
+                    catch { log(error.readable) }
                 })
             }
         }
