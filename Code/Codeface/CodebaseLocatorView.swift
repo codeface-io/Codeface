@@ -56,8 +56,8 @@ struct CodebaseLocatorView: View
                         let fileEndingArray = fileEndings.components(separatedBy: .whitespaces)
                         
                         let config = LSP.CodebaseLocation(folder: firstURL,
-                                                         language: languageName,
-                                                         codeFileEndings: fileEndingArray)
+                                                          languageName: languageName,
+                                                          codeFileEndings: fileEndingArray)
                         
                         confirm(config)
                     }

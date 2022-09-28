@@ -3,7 +3,7 @@ import SwiftLSP
 
 extension CodeFolder
 {
-    func retrieveSymbolReferences(from server: LSP.ServerCommunicationHandler,
+    func retrieveSymbolReferences(from server: LSP.Server,
                                   codebaseRootFolder: URL) async throws
     {
         try await forEachFileAndItsRelativeFolderPath(folderPath: nil)
@@ -30,7 +30,7 @@ extension CodeFolder
         }
     }
     
-    func retrieveSymbolData(from server: LSP.ServerCommunicationHandler,
+    func retrieveSymbolData(from server: LSP.Server,
                             codebaseRootFolder: URL) async throws
     {
         try await forEachFileAndItsRelativeFolderPath(folderPath: nil)
@@ -67,7 +67,7 @@ private extension CodeSymbolData
 {
     func retrieveReferences(in enclosingFile: LSPDocumentUri,
                             codebaseRootPathAbsolute: String,
-                            from server: LSP.ServerCommunicationHandler) async throws
+                            from server: LSP.Server) async throws
     {
         guard kind != .Namespace else
         {

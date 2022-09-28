@@ -13,7 +13,7 @@ public class CodefaceDocument: ObservableObject
     public func loadProcessorForSwiftPackage(from folderURL: URL)
     {
         loadNewProcessor(forCodebaseFrom: .init(folder: folderURL,
-                                                language: "Swift",
+                                                languageName: "Swift",
                                                 codeFileEndings: ["swift"]))
     }
     
