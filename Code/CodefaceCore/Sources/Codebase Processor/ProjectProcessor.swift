@@ -68,7 +68,7 @@ public actor ProjectProcessor: ObservableObject
             do
             {
                 state = .retrievingCodebase(.connectToLSPServer)
-                let server = try await LSP.ServerManager.shared.getServer(for: codebaseLocation)
+                let server = try await LSP.ServerManager.shared.initializeServer(for: codebaseLocation)
                 
                 state = .retrievingCodebase(.retrieveSymbols)
 //                var stopWatch = StopWatch()
