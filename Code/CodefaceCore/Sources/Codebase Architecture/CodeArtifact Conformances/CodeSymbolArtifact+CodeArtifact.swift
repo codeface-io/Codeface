@@ -9,7 +9,7 @@ extension CodeSymbolArtifact: CodeArtifact
     
     public var parts: [any CodeArtifact]
     {
-        subsymbolGraph.nodesByValueID.values.map { $0.value }
+        subsymbolGraph.nodesByID.values.map { $0.value }
     }
     
     public func addPartDependency(from sourceID: ID, to targetID: ID)

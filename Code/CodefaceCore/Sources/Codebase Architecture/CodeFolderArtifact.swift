@@ -16,7 +16,7 @@ public class CodeFolderArtifact: Identifiable
     // MARK: - Graph Structure
     
     public weak var scope: (any CodeArtifact)?
-    public var partGraph = Graph<Part>()
+    public var partGraph = Graph<CodeArtifact.ID, Part>()
     
     public class Part: CodeArtifact, Identifiable, Hashable
     {

@@ -30,12 +30,12 @@ extension CodeFolderArtifact
     }
 }
 
-private extension Graph where NodeValue == CodeSymbolArtifact
+private extension Graph where NodeValue == CodeSymbolArtifact, NodeID == CodeArtifact.ID
 {
     func addSymbolDependencies(fileHash: CodeFileArtifactHashmap,
                                symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
     {
-        for symbolNode in nodesByValueID.values
+        for symbolNode in nodesByID.values
         {
             let symbol = symbolNode.value
             
@@ -43,7 +43,7 @@ private extension Graph where NodeValue == CodeSymbolArtifact
                                                         symbolDataHash: symbolDataHash)
         }
         
-        for symbolNode in nodesByValueID.values
+        for symbolNode in nodesByID.values
         {
             let symbol = symbolNode.value
             
@@ -57,7 +57,7 @@ private extension Graph where NodeValue == CodeSymbolArtifact
             
             for inScopeAncestor in ingoing.inScope
             {
-                if let ancestorSymbolNode = node(for: inScopeAncestor)
+                if let ancestorSymbolNode = node(for: inScopeAncestor.id)
                 {
                     addEdge(from: ancestorSymbolNode, to: symbolNode)
                 }
@@ -150,7 +150,7 @@ private extension CodeFileArtifact
 {
     func findSymbolArtifact(containing range: LSPRange) -> CodeSymbolArtifact?
     {
-        for symbolNode in symbolGraph.nodesByValueID.values
+        for symbolNode in symbolGraph.nodesByID.values
         {
             if let artifact = symbolNode.value.findSymbolArtifact(containing: range)
             {

@@ -18,12 +18,10 @@ extension CodeSymbolArtifact
         // create subsymbols recursively
         for childSymbolData in (symbolData.children ?? [])
         {
-            let childSymbol =  CodeSymbolArtifact(symbolData: childSymbolData,
-                                                  scope: self,
-                                                  enclosingFile: enclosingFile,
-                                                  symbolDataHash: &symbolDataHash)
-            
-            subsymbolGraph.insert(childSymbol)
+            subsymbolGraph.insert(.init(symbolData: childSymbolData,
+                                        scope: self,
+                                        enclosingFile: enclosingFile,
+                                        symbolDataHash: &symbolDataHash))
         }
         
         // remember symbol data, so we can add dependencies to the artifact hierarchy later

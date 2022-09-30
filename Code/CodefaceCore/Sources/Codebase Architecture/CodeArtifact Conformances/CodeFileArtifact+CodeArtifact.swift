@@ -7,7 +7,7 @@ extension CodeFileArtifact: CodeArtifact
     
     public var parts: [any CodeArtifact]
     {
-        symbolGraph.nodesByValueID.values.map { $0.value }
+        symbolGraph.nodesByID.values.map { $0.value }
     }
     
     public func addPartDependency(from sourceID: ID, to targetID: ID)

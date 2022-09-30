@@ -2,8 +2,7 @@ import SwiftNodes
 
 extension GraphNode: Comparable where Value: CodeArtifact
 {
-    public static func < (lhs: GraphNode<Value>,
-                          rhs: GraphNode<Value>) -> Bool
+    public static func < (lhs: Node, rhs: Node) -> Bool
     {
         lhs.goesBefore(rhs)
     }

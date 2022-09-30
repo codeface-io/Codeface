@@ -5,7 +5,7 @@ extension CodeFolderArtifact
 {
     func addCrossScopeDependencies()
     {
-        for partNode in partGraph.nodesByValueID.values
+        for partNode in partGraph.nodesByID.values
         {
             switch partNode.value.kind
             {
@@ -22,7 +22,7 @@ private extension CodeFileArtifact
 {
     func addCrossScopeDependencies()
     {
-        for symbolNode in symbolGraph.nodesByValueID.values
+        for symbolNode in symbolGraph.nodesByID.values
         {
             symbolNode.value.addCrossScopeDependencies()
         }
@@ -33,7 +33,7 @@ private extension CodeSymbolArtifact
 {
     func addCrossScopeDependencies()
     {
-        for subsymbolNode in subsymbolGraph.nodesByValueID.values
+        for subsymbolNode in subsymbolGraph.nodesByID.values
         {
             subsymbolNode.value.addCrossScopeDependencies()
         }

@@ -1,4 +1,5 @@
 import SwiftNodes
+import OrderedCollections
 
 public extension CodeFolderArtifact
 {
@@ -67,7 +68,7 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable
         // analyze each component
         for component in components
         {
-            let componentGraph = copy(includedValues: component.values())
+            let componentGraph = copy(includedNodes: OrderedSet(component))
             let componentCondensationGraph = componentGraph.makeCondensation()
             
             // write scc numbers sorted by topology

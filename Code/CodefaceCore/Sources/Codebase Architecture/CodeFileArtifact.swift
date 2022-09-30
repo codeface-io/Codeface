@@ -20,7 +20,7 @@ public class CodeFileArtifact: Identifiable
     // MARK: - Tree Structure
     
     public weak var scope: (any CodeArtifact)?
-    public var symbolGraph = Graph<CodeSymbolArtifact>()
+    public var symbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
     
     // MARK: - Basics
     

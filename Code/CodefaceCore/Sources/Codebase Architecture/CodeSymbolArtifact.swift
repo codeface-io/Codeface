@@ -28,7 +28,7 @@ public class CodeSymbolArtifact: Identifiable, Hashable
     // MARK: - Graph Structure
     
     public weak var scope: (any CodeArtifact)?
-    public var subsymbolGraph = Graph<CodeSymbolArtifact>()
+    public var subsymbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
     public var outOfScopeDependencies = Set<CodeSymbolArtifact>()
     
     // MARK: - Basics
