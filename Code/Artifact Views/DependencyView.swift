@@ -30,8 +30,9 @@ struct DependencyView: View
     
     private var isPartOfCycle: Bool
     {
-        let sourceSCCIndex = source.codeArtifact.metrics.sccIndexTopologicallySorted
-        let targetSCCIndex = target.codeArtifact.metrics.sccIndexTopologicallySorted
+        guard let sourceSCCIndex = source.codeArtifact.metrics.sccIndexTopologicallySorted,
+              let targetSCCIndex = target.codeArtifact.metrics.sccIndexTopologicallySorted
+        else { return false }
         
         return sourceSCCIndex == targetSCCIndex
     }
