@@ -95,7 +95,7 @@ struct SidebarRow: View
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }
 
-let lspServicePage = URL(string: "https://www.codeface.io/blog/posts/using-lsp-servers-in-codeface-via-lspservice/index.html")!
+let lspServicePage = URL(string: "https://codeface.io/blog/posts/using-lsp-servers-in-codeface-via-lspservice/index.html")!
 
 struct FilterRemovalButton: View
 {
