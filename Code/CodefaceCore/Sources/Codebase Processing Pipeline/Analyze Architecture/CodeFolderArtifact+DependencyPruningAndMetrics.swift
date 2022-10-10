@@ -69,7 +69,7 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable
         for component in components
         {
             let componentGraph = copy(includedNodes: OrderedSet(component))
-            let componentCondensationGraph = componentGraph.makeCondensation()
+            let componentCondensationGraph = componentGraph.makeCondensationGraph()
 
             // write scc numbers sorted by topology
             let condensationNodesSortedByAncestors = componentCondensationGraph
@@ -96,11 +96,11 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable
             for componentDependency in componentGraph.edges
             {
                 // make sure this is a dependency between different condensation nodes and not within a SCC
-                let source = componentDependency.source
-                let target = componentDependency.target
+                let origin = componentDependency.origin
+                let destination = componentDependency.destination
 
-                guard let sourceSCCIndex = source.value.metrics.sccIndexTopologicallySorted,
-                      let targetSCCIndex = target.value.metrics.sccIndexTopologicallySorted
+                guard let sourceSCCIndex = origin.value.metrics.sccIndexTopologicallySorted,
+                      let targetSCCIndex = destination.value.metrics.sccIndexTopologicallySorted
                 else
                 {
                     fatalError("At this point, artifacts shoud have their scc index set")
