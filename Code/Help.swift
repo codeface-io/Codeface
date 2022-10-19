@@ -9,12 +9,11 @@ struct LSPServiceHint: View
     {
         if !serverManager.serverIsWorking
         {
-            VStack(alignment: .center)
+            VStack
             {
                 Label
                 {
-                    Text("To see symbols and dependencies, you must (setup and) launch LSPService before importing a code folder:")
-                        .multilineTextAlignment(.center)
+                    Text("To see symbols and dependencies, launch LSPService before importing code:")
                 }
                 icon:
                 {
@@ -24,7 +23,6 @@ struct LSPServiceHint: View
                 
                 LSPServiceHintLink()
             }
-            .frame(maxWidth: 500)
         }
     }
     
