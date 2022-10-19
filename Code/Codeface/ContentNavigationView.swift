@@ -20,12 +20,12 @@ struct ContentNavigationView: View
                     
                     Spacer()
                     
-                    Button(action: { codefaceDocument.loadProcessorForLastCodebase() })
-                    {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                    .disabled(!CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
-                    .help("Import the last imported folder again")
+//                    Button(action: { codefaceDocument.loadProcessorForLastCodebase() })
+//                    {
+//                        Image(systemName: "arrow.clockwise")
+//                    }
+//                    .disabled(!CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
+//                    .help("Import the last imported folder again")
                 }
                     
                 ToolbarItemGroup(placement: .navigation)
