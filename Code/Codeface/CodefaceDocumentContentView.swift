@@ -14,7 +14,6 @@ struct CodefaceDocumentContentView: View
         {
             VStack
             {
-                Spacer()
                 HStack
                 {
                     Spacer()
@@ -26,8 +25,6 @@ struct CodefaceDocumentContentView: View
                     Spacer()
                 }
                 LSPServiceHint()
-                    .padding()
-                Spacer()
             }
         }
     }

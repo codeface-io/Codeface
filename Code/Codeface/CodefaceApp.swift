@@ -44,14 +44,9 @@ struct CodefaceApp: App
             
             CommandGroup(replacing: .help)
             {
-                if serverManager.serverIsWorking
-                {
-                    LSPServiceHintLink("Open LSPService info page")
-                }
-                else
-                {
-                    LSPServiceHintLink()
-                }
+                HelpLink.lspService
+                
+                HelpLink.documentation
             }
             
             CommandGroup(replacing: .newItem)
@@ -119,5 +114,4 @@ struct CodefaceApp: App
     // MARK: - Basics
     
     @FocusedValue(\.document) var focusedDocument: CodefaceDocument?
-    @ObservedObject private var serverManager = LSP.ServerManager.shared
 }

@@ -9,11 +9,11 @@ struct LSPServiceHint: View
     {
         if !serverManager.serverIsWorking
         {
-            VStack
+            List
             {
                 Label
                 {
-                    Text("To see symbols and dependencies, launch LSPService before importing code:")
+                    Text("To see symbols and dependencies, you need to launch LSPService before importing code.")
                 }
                 icon:
                 {
@@ -21,7 +21,9 @@ struct LSPServiceHint: View
                         .foregroundColor(Color(NSColor.systemYellow))
                 }
                 
-                LSPServiceHintLink()
+                HelpLink.lspService
+                
+                HelpLink.documentation
             }
         }
     }
@@ -29,11 +31,18 @@ struct LSPServiceHint: View
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }
 
-struct LSPServiceHintLink: View
-{    
-    init(_ text: String = "How to Setup LSPService")
+struct HelpLink: View
+{
+    static let lspService = HelpLink("How to Setup LSPService",
+                                     urlString: "https://codeface.io/lspservice/index.html")
+    
+    static let documentation = HelpLink("General Codeface Documentation",
+                                        urlString: "https://codeface.io/documentation/index.html")
+    
+    init(_ text: String, urlString: String)
     {
         self.text = text
+        self.url = URL(string: urlString)!
     }
     
     var body: some View
@@ -45,5 +54,5 @@ struct LSPServiceHintLink: View
     }
     
     private let text: String
-    private let url = URL(string: "https://codeface.io/lspservice/index.html")!
+    private let url: URL
 }
