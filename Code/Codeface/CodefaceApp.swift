@@ -51,13 +51,24 @@ struct CodefaceApp: App
                 }
                 else
                 {
-                    Link("Learn how to see symbols and dependencies",
+                    Link("How to See Symbols and Dependencies",
                          destination: lspServicePage)
                 }
             }
             
-            CommandGroup(after: .newItem)
+            CommandGroup(replacing: .newItem)
             {
+                Button("New Empty Codebase File") {
+                    NSDocumentController.shared.newDocument(nil)
+                }
+                .keyboardShortcut("n")
+                
+                Button("Open a Codebase File ...") {
+                    NSDocumentController.shared.openDocument(nil)
+                }
+                
+                // TODO: Bring back menu item "Open Recent" programmatically!
+                
                 Divider()
 
                 Button("\(Image(systemName: "folder"))\tImport Codebase Folder...")
