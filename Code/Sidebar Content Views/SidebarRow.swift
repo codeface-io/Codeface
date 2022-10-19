@@ -44,7 +44,7 @@ struct SidebarRow: View
                     {
                         VStack(alignment: .center)
                         {
-                            Label("Empty Scope", systemImage: "xmark.rectangle")
+                            Label("Empty " + artifactVM.codeArtifact.kindName, systemImage: "xmark.rectangle")
                                 .foregroundColor(.secondary)
                                 .font(.system(.title))
                                 .padding(.bottom)
@@ -56,8 +56,7 @@ struct SidebarRow: View
                             }
                             else
                             {
-                                Link("Use LSPService to see symbols and dependencies",
-                                     destination: lspServicePage)
+                                LSPServiceHint()
                             }
                         }
                         .padding()
@@ -94,8 +93,6 @@ struct SidebarRow: View
     @Binding var selectedArtifact: ArtifactViewModel?
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }
-
-let lspServicePage = URL(string: "https://codeface.io/lspservice/index.html")!
 
 struct FilterRemovalButton: View
 {

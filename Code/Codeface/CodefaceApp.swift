@@ -46,13 +46,11 @@ struct CodefaceApp: App
             {
                 if serverManager.serverIsWorking
                 {
-                    Link("Open LSPService info page",
-                         destination: lspServicePage)
+                    LSPServiceHintLink("Open LSPService info page")
                 }
                 else
                 {
-                    Link("How to See Symbols and Dependencies",
-                         destination: lspServicePage)
+                    LSPServiceHintLink()
                 }
             }
             

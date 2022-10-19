@@ -18,13 +18,15 @@ struct CodefaceDocumentContentView: View
                 HStack
                 {
                     Spacer()
-                    Text("Import a code folder into this empty file via the Edit menu.")
+                    Text("This is an empty codebase file.\nImport a code folder via the Edit menu.")
                         .multilineTextAlignment(.center)
                         .font(.title)
                         .foregroundColor(.secondary)
                         .padding()
                     Spacer()
                 }
+                LSPServiceHint()
+                    .padding()
                 Spacer()
             }
         }
