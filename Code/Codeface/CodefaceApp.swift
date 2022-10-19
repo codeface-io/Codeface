@@ -68,10 +68,11 @@ struct CodefaceApp: App
                 }
                 
                 // TODO: Bring back menu item "Open Recent" programmatically!
-                
-                Divider()
-
-                Button("\(Image(systemName: "folder"))\tImport Codebase Folder...")
+            }
+            
+            CommandGroup(before: .undoRedo)
+            {
+                Button("\(Image(systemName: "folder"))\tImport Code Folder...")
                 {
                     isPresentingCodebaseLocator = true
                 }
@@ -88,7 +89,7 @@ struct CodefaceApp: App
                 {
                     guard let folderURL = (try? $0.get())?.first else
                     {
-                        return log(error: "Could not select codebase folder")
+                        return log(error: "Could not select code folder")
                     }
                     
                     focusedDocument?.loadProcessorForSwiftPackage(from: folderURL)

@@ -18,7 +18,7 @@ struct CodefaceDocumentContentView: View
                 HStack
                 {
                     Spacer()
-                    Text("Import a codebase folder via the File menu.")
+                    Text("Import a code folder into this empty file via the Edit menu.")
                         .multilineTextAlignment(.center)
                         .font(.title)
                         .foregroundColor(.secondary)
