@@ -26,6 +26,7 @@ struct CodefaceDocumentContentView: View
                 }
                 LSPServiceHint()
             }
+            .padding(50)
         }
     }
     

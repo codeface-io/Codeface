@@ -42,7 +42,7 @@ struct SidebarRow: View
                     }
                     else
                     {
-                        VStack(alignment: .center)
+                        VStack
                         {
                             Label("Empty " + artifactVM.codeArtifact.kindName, systemImage: "xmark.rectangle")
                                 .foregroundColor(.secondary)
@@ -59,7 +59,7 @@ struct SidebarRow: View
                                 LSPServiceHint()
                             }
                         }
-                        .padding()
+                        .padding(50)
                     }
                 }
                 else
