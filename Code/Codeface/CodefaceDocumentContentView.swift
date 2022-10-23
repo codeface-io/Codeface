@@ -1,5 +1,7 @@
 import SwiftUI
 import CodefaceCore
+import LSPServiceKit
+import SwiftLSP
 
 struct CodefaceDocumentContentView: View
 {
