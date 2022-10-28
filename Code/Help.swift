@@ -11,7 +11,17 @@ struct LSPServiceHint: View
         {
             Label
             {
-                Text("To see symbols and dependencies, you need to launch LSPService before importing code.")
+                Text("To see symbols and dependencies, you must (setup and) launch LSPService before importing code.")
+            }
+            icon:
+            {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(Color(NSColor.systemYellow))
+            }
+            
+            Label
+            {
+                Text("LSPService automatically detects SourceKit-LSP when Xcode is installed, but SourceKit-LSP does NOT support Xcode projects – only Swift packages.")
             }
             icon:
             {
