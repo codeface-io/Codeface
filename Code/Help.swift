@@ -7,56 +7,56 @@ struct LSPServiceHint: View
 {
     var body: some View
     {
-        if !serverManager.serverIsWorking
+        List
         {
-            List
+            Label
             {
-                Label
+                Text("To see symbols and dependencies, you need to launch LSPService before importing code.")
+            }
+            icon:
+            {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(Color(NSColor.systemYellow))
+            }
+            
+            Label
+            {
+                HStack(alignment: .firstTextBaseline)
                 {
-                    Text("To see symbols and dependencies, you need to launch LSPService before importing code.")
-                }
-                icon:
-                {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(Color(NSColor.systemYellow))
-                }
-                
-                Label
-                {
-                    // TODO: use (alignment: .firstTextBaseline) on Ventura (https://stackoverflow.com/questions/72226626/baseline-alignment-of-buttons-in-swiftui-on-macos)
-                    HStack {
-                        Text("LSPService is\(lspServiceIsRunning ? "" : " not") running")
-                        
-                        Button {
-                            checkLSPService()
-                        } label: {
-                            Label("Check Again", systemImage: "arrow.clockwise")
+                    Text("LSPService is\(lspServiceIsRunning ? "" : " not") running")
+                    
+                    Button
+                    {
+                        Task
+                        {
+                            await checkLSPService()
                         }
                     }
+                    label:
+                    {
+                        Label("Check Again", systemImage: "arrow.clockwise")
+                    }
                 }
-                icon:
-                {
-                    Image(systemName: lspServiceIsRunning ? "checkmark.diamond.fill" : "xmark.octagon.fill")
-                        .foregroundColor(Color(lspServiceIsRunning ? NSColor.systemGreen : NSColor.systemRed))
-                }
-                
-                HelpLink.lspService
-                
-                HelpLink.documentation
             }
-            .onAppear { checkLSPService() }
+            icon:
+            {
+                Image(systemName: lspServiceIsRunning ? "checkmark.diamond.fill" : "xmark.octagon.fill")
+                    .foregroundColor(Color(lspServiceIsRunning ? NSColor.systemGreen : NSColor.systemRed))
+            }
+            
+            HelpLink.lspService
+            
+            HelpLink.documentation
         }
+        .task { await checkLSPService() }
     }
     
-    private func checkLSPService() {
-        Task {
-            lspServiceIsRunning = await LSPService.isRunning()
-        }
+    private func checkLSPService() async
+    {
+        lspServiceIsRunning = await LSPService.isRunning()
     }
     
     @State private var lspServiceIsRunning = false
-    
-    @ObservedObject private var serverManager = LSP.ServerManager.shared
 }
 
 struct HelpLink: View

@@ -16,6 +16,11 @@ struct CodefaceDocumentContentView: View
         {
             VStack
             {
+                if serverManager.serverIsWorking
+                {
+                    Spacer()
+                }
+                
                 HStack
                 {
                     Spacer()
@@ -26,11 +31,20 @@ struct CodefaceDocumentContentView: View
                         .padding()
                     Spacer()
                 }
-                LSPServiceHint()
+                
+                if !serverManager.serverIsWorking
+                {
+                    LSPServiceHint()
+                }
+                else
+                {
+                    Spacer()
+                }
             }
             .padding(50)
         }
     }
     
     @ObservedObject var codefaceDocument: CodefaceDocument
+    @ObservedObject private var serverManager = LSP.ServerManager.shared
 }
