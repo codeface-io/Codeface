@@ -88,7 +88,7 @@ struct CodefaceApp: App
                     focusedDocument?.loadProcessorForSwiftPackage(from: folderURL)
                 }
                 
-                Button("Import \(lastFolderName) Again...")
+                Button("Import \(lastFolderName) Again")
                 {
                     focusedDocument?.loadProcessorForLastCodebase()
                 }
