@@ -65,13 +65,13 @@ struct CodefaceApp: App
             
             CommandGroup(before: .undoRedo)
             {
-                Button("\(Image(systemName: "folder"))\tImport Code Folder...")
+                Button("Import Code Folder...")
                 {
                     isPresentingCodebaseLocator = true
                 }
                 .disabled(focusedDocument == nil)
                 
-                Button("\(Image(systemName: "swift"))\tImport Swift Package Folder...")
+                Button("Import Swift Package Folder...")
                 {
                     isPresentingFolderImporter = true
                 }
@@ -88,7 +88,7 @@ struct CodefaceApp: App
                     focusedDocument?.loadProcessorForSwiftPackage(from: folderURL)
                 }
                 
-                Button("\(Image(systemName: "arrow.clockwise"))\tImport \(lastFolderName) Again...")
+                Button("Import \(lastFolderName) Again...")
                 {
                     focusedDocument?.loadProcessorForLastCodebase()
                 }
