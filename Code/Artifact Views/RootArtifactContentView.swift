@@ -1,5 +1,6 @@
 import SwiftUI
 import CodefaceCore
+import SwiftyToolz
 
 struct RootArtifactContentView: View
 {
@@ -44,7 +45,7 @@ struct RootArtifactContentView: View
                 
                 withAnimation(.easeInOut(duration: 1))
                 {
-                    artifact.updateLayout(forScopeSize: newSize,
+                    artifact.updateLayout(forScopeSize: newSize.size,
                                           ignoreSearchFilter: viewModel.isTypingSearch)
                 }
             }
@@ -56,7 +57,7 @@ struct RootArtifactContentView: View
 
                 withAnimation(.easeInOut(duration: 1))
                 {
-                    artifact.updateLayout(forScopeSize: geo.size,
+                    artifact.updateLayout(forScopeSize: geo.size.size,
                                           ignoreSearchFilter: viewModel.isTypingSearch,
                                           forceUpdate: true)
                 }
@@ -69,7 +70,7 @@ struct RootArtifactContentView: View
 
                 withAnimation(.easeInOut(duration: 1))
                 {
-                    artifact.updateLayout(forScopeSize: geo.size,
+                    artifact.updateLayout(forScopeSize: geo.size.size,
                                           ignoreSearchFilter: isTyping,
                                           forceUpdate: true)
                 }
@@ -78,7 +79,7 @@ struct RootArtifactContentView: View
             {
 //                print("attempt to layout \(artifact.codeArtifact.name) because view did appear")
                 
-                artifact.updateLayout(forScopeSize: geo.size,
+                artifact.updateLayout(forScopeSize: geo.size.size,
                                       ignoreSearchFilter: viewModel.isTypingSearch,
                                       forceUpdate: true)
             }
@@ -88,4 +89,9 @@ struct RootArtifactContentView: View
     @ObservedObject var artifact: ArtifactViewModel
     var viewModel: ProjectProcessorViewModel
     @Environment(\.colorScheme) var colorScheme
+}
+
+extension CGSize
+{
+    var size: Size { .init(width, height) }
 }

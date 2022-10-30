@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftyToolz
 import simd
 
 struct ArrowPreview: PreviewProvider {
@@ -129,5 +130,3 @@ extension CGPoint
     
     var vector: Vector2D { .init(x: x, y: y) }
 }
-
-typealias Vector2D = SIMD2<Double>

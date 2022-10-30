@@ -4,7 +4,7 @@ import SwiftyToolz
 
 public extension ArtifactViewModel
 {
-    func updateLayoutOfParts(forScopeSize scopeSize: CGSize,
+    func updateLayoutOfParts(forScopeSize scopeSize: Size,
                              ignoreSearchFilter: Bool)
     {
         let shownContentParts = ignoreSearchFilter ? parts : filteredParts
@@ -18,16 +18,13 @@ public extension ArtifactViewModel
         gapBetweenParts = 2 * pow(scopeSize.width * scopeSize.height, (1 / 6.0))
         
         showsContent = prepare(parts: shownContentParts,
-                               forLayoutIn: .init(x: 0,
-                                                  y: 0,
-                                                  width: scopeSize.width,
-                                                  height: scopeSize.height),
+                               forLayoutIn: Rectangle(size: scopeSize),
                                ignoreSearchFilter: ignoreSearchFilter)
     }
     
     @discardableResult
     private func prepare(parts: [ArtifactViewModel],
-                         forLayoutIn availableRect: CGRect,
+                         forLayoutIn availableRect: Rectangle,
                          ignoreSearchFilter: Bool) -> Bool
     {
         if parts.isEmpty { return false }
@@ -37,35 +34,29 @@ public extension ArtifactViewModel
         {
             let part = parts[0]
             
-            part.frameInScopeContent = .init(centerX: availableRect.midX,
-                                             centerY: availableRect.midY,
-                                             width: availableRect.width,
-                                             height: availableRect.height)
+            part.frameInScopeContent = availableRect
             
             if availableRect.width > 100, availableRect.height > 100
             {
                 let padding = ArtifactViewModel.padding
                 let headerHeight = part.fontSize + 2 * padding
                 
-                part.contentFrame = .init(x: padding,
-                                          y: headerHeight,
-                                          width: availableRect.width - (2 * padding),
-                                          height: (availableRect.height - padding) - headerHeight)
+                part.contentFrame = Rectangle(position: Point(padding, headerHeight),
+                                              size: Size(availableRect.width - (2 * padding),
+                                                         (availableRect.height - padding) - headerHeight))
             }
             else
             {
-                part.contentFrame = .init(x: availableRect.width / 2,
-                                          y: availableRect.height / 2,
-                                          width: 0,
-                                          height: 0)
+                part.contentFrame = Rectangle(position: Point(availableRect.width / 2,
+                                                              availableRect.height / 2))
             }
             
             part.updateLayoutOfParts(forScopeSize: .init(width: part.contentFrame.width,
                                                          height: part.contentFrame.height),
                                      ignoreSearchFilter: ignoreSearchFilter)
             
-            return availableRect.size.width >= ArtifactViewModel.minWidth &&
-            availableRect.size.height >= ArtifactViewModel.minHeight
+            return availableRect.width >= ArtifactViewModel.minWidth &&
+            availableRect.height >= ArtifactViewModel.minHeight
         }
         
         // tree map algorithm
@@ -161,9 +152,9 @@ public extension ArtifactViewModel
                 Array(parts[optimalEndIndexForPartsA + 1 ..< parts.count]))
     }
     
-    func split(_ rect: CGRect,
+    func split(_ rect: Rectangle,
                firstFraction: Double,
-               gap: Double) -> (CGRect, CGRect)?
+               gap: Double) -> (Rectangle, Rectangle)?
     {
         let smallestPossibleResultingWidth = (rect.width - gap) * min(firstFraction, 1 - firstFraction)
         let leftRightSplitWouldSuck = smallestPossibleResultingWidth < 200
@@ -192,9 +183,9 @@ public extension ArtifactViewModel
         }
     }
     
-    func splitIntoLeftAndRight(_ rect: CGRect,
+    func splitIntoLeftAndRight(_ rect: Rectangle,
                                firstFraction: Double,
-                               gap: Double) -> (CGRect, CGRect)?
+                               gap: Double) -> (Rectangle, Rectangle)?
     {
         if 2 * ArtifactViewModel.minWidth + gap > rect.width
         {
@@ -215,22 +206,18 @@ public extension ArtifactViewModel
             widthA = (rect.width - ArtifactViewModel.minWidth) - gap
         }
         
-        let rectA = CGRect(x: rect.minX,
-                           y: rect.minY,
-                           width: widthA,
-                           height: rect.height)
+        let rectA = Rectangle(position: rect.position,
+                              size: Size(widthA, rect.height))
         
-        let rectB = CGRect(x: (rect.minX + widthA) + gap,
-                           y: rect.minY,
-                           width: widthB,
-                           height: rect.height)
+        let rectB = Rectangle(position: Point((rect.x + widthA) + gap, rect.y),
+                              size: Size(widthB, rect.height))
         
         return (rectA, rectB)
     }
     
-    func splitIntoTopAndBottom(_ rect: CGRect,
+    func splitIntoTopAndBottom(_ rect: Rectangle,
                                firstFraction: Double,
-                               gap: Double) -> (CGRect, CGRect)?
+                               gap: Double) -> (Rectangle, Rectangle)?
     {
         if 2 * ArtifactViewModel.minHeight + gap > rect.height
         {
@@ -251,15 +238,11 @@ public extension ArtifactViewModel
             heightA = (rect.height - ArtifactViewModel.minHeight) - gap
         }
         
-        let rectA = CGRect(x: rect.minX,
-                           y: rect.minY,
-                           width: rect.width,
-                           height: heightA)
+        let rectA = Rectangle(position: rect.position,
+                              size: Size(rect.width, heightA))
         
-        let rectB = CGRect(x: rect.minX,
-                           y: (rect.minY + heightA) + gap,
-                           width: rect.width,
-                           height: heightB)
+        let rectB = Rectangle(position: Point(rect.x, (rect.y + heightA) + gap),
+                              size: Size(rect.width, heightB))
         
         return (rectA, rectB)
     }

@@ -1,8 +1,9 @@
 import Foundation
+import SwiftyToolz
 
 public extension ArtifactViewModel
 {
-    func updateLayout(forScopeSize scopeSize: CGSize,
+    func updateLayout(forScopeSize scopeSize: Size,
                       ignoreSearchFilter: Bool,
                       forceUpdate: Bool = false)
     {
