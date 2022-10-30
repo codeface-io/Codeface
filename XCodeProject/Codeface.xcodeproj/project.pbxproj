@@ -14,6 +14,10 @@
 		960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAB28ABB07800F334CA /* TreeMap.swift */; };
 		960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAD28ABB0A000F334CA /* CodeView.swift */; };
 		960BBE9629004F9000F9DC2A /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960BBE9529004F9000F9DC2A /* Help.swift */; };
+		96143F01290ED68A008CA3C2 /* LSPXPCServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F00290ED68A008CA3C2 /* LSPXPCServiceProtocol.swift */; };
+		96143F03290ED68A008CA3C2 /* LSPXPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F02290ED68A008CA3C2 /* LSPXPCService.swift */; };
+		96143F05290ED68A008CA3C2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F04290ED68A008CA3C2 /* main.swift */; };
+		96143F09290ED68A008CA3C2 /* LSPXPCService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 96143EFE290ED68A008CA3C2 /* LSPXPCService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 961AAD652899C553001CFF67 /* CodefaceCore */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
@@ -45,6 +49,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		96143F07290ED68A008CA3C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E95A6FB218C73C7009A58A9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96143EFD290ED68A008CA3C2;
+			remoteInfo = LSPXPCService;
+		};
 		9E95A714218C73CA009A58A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9E95A6FB218C73C7009A58A9 /* Project object */;
@@ -55,6 +66,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		96143F0A290ED68A008CA3C2 /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				96143F09290ED68A008CA3C2 /* LSPXPCService.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E984A2A219F28C300AFE752 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -75,6 +97,11 @@
 		960A7AAB28ABB07800F334CA /* TreeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMap.swift; sourceTree = "<group>"; };
 		960A7AAD28ABB0A000F334CA /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		960BBE9529004F9000F9DC2A /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
+		96143EFE290ED68A008CA3C2 /* LSPXPCService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = LSPXPCService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		96143F00290ED68A008CA3C2 /* LSPXPCServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPXPCServiceProtocol.swift; sourceTree = "<group>"; };
+		96143F02290ED68A008CA3C2 /* LSPXPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPXPCService.swift; sourceTree = "<group>"; };
+		96143F04290ED68A008CA3C2 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		96143F06290ED68A008CA3C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		961AAD632899C3E6001CFF67 /* CodefaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CodefaceCore; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
@@ -105,6 +132,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		96143EFB290ED68A008CA3C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E95A700218C73C7009A58A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,6 +163,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96143EFF290ED68A008CA3C2 /* LSPXPCService */ = {
+			isa = PBXGroup;
+			children = (
+				96143F00290ED68A008CA3C2 /* LSPXPCServiceProtocol.swift */,
+				96143F02290ED68A008CA3C2 /* LSPXPCService.swift */,
+				96143F04290ED68A008CA3C2 /* main.swift */,
+				96143F06290ED68A008CA3C2 /* Info.plist */,
+			);
+			path = LSPXPCService;
+			sourceTree = "<group>";
+		};
 		961AAD642899C553001CFF67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +245,7 @@
 				9E00727A218E250E0094BD1C /* Code */,
 				9E95A705218C73C7009A58A9 /* Codeface */,
 				9E95A716218C73CA009A58A9 /* CodefaceTests */,
+				96143EFF290ED68A008CA3C2 /* LSPXPCService */,
 				9E95A704218C73C7009A58A9 /* Products */,
 				961AAD642899C553001CFF67 /* Frameworks */,
 			);
@@ -210,6 +256,7 @@
 			children = (
 				9E95A703218C73C7009A58A9 /* Codeface.app */,
 				9E95A713218C73CA009A58A9 /* CodefaceTests.xctest */,
+				96143EFE290ED68A008CA3C2 /* LSPXPCService.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -245,6 +292,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		96143EFD290ED68A008CA3C2 /* LSPXPCService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96143F0D290ED68A008CA3C2 /* Build configuration list for PBXNativeTarget "LSPXPCService" */;
+			buildPhases = (
+				96143EFA290ED68A008CA3C2 /* Sources */,
+				96143EFB290ED68A008CA3C2 /* Frameworks */,
+				96143EFC290ED68A008CA3C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LSPXPCService;
+			productName = LSPXPCService;
+			productReference = 96143EFE290ED68A008CA3C2 /* LSPXPCService.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		9E95A702218C73C7009A58A9 /* Codeface */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E95A71C218C73CA009A58A9 /* Build configuration list for PBXNativeTarget "Codeface" */;
@@ -253,10 +317,12 @@
 				9E95A700218C73C7009A58A9 /* Frameworks */,
 				9E95A701218C73C7009A58A9 /* Resources */,
 				9E984A2A219F28C300AFE752 /* Embed Frameworks */,
+				96143F0A290ED68A008CA3C2 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				96143F08290ED68A008CA3C2 /* PBXTargetDependency */,
 			);
 			name = Codeface;
 			packageProductDependencies = (
@@ -296,10 +362,13 @@
 		9E95A6FB218C73C7009A58A9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = Flowtoolz;
 				TargetAttributes = {
+					96143EFD290ED68A008CA3C2 = {
+						CreatedOnToolsVersion = 14.1;
+					};
 					9E95A702218C73C7009A58A9 = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1120;
@@ -333,11 +402,19 @@
 			targets = (
 				9E95A702218C73C7009A58A9 /* Codeface */,
 				9E95A712218C73CA009A58A9 /* CodefaceTests */,
+				96143EFD290ED68A008CA3C2 /* LSPXPCService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		96143EFC290ED68A008CA3C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E95A701218C73C7009A58A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -356,6 +433,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		96143EFA290ED68A008CA3C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96143F01290ED68A008CA3C2 /* LSPXPCServiceProtocol.swift in Sources */,
+				96143F03290ED68A008CA3C2 /* LSPXPCService.swift in Sources */,
+				96143F05290ED68A008CA3C2 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E95A6FF218C73C7009A58A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -400,6 +487,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		96143F08290ED68A008CA3C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96143EFD290ED68A008CA3C2 /* LSPXPCService */;
+			targetProxy = 96143F07290ED68A008CA3C2 /* PBXContainerItemProxy */;
+		};
 		9E95A715218C73CA009A58A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9E95A702218C73C7009A58A9 /* Codeface */;
@@ -408,6 +500,58 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		96143F0B290ED68A008CA3C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 8T3R57GCBV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LSPXPCService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = LSPXPCService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Flowtoolz. All rights reserved.";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.LSPXPCService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		96143F0C290ED68A008CA3C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 8T3R57GCBV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LSPXPCService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = LSPXPCService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Flowtoolz. All rights reserved.";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.LSPXPCService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		9E95A71A218C73CA009A58A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -532,6 +676,7 @@
 		9E95A71D218C73CA009A58A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Codeface/Codeface.entitlements;
 				CODE_SIGN_IDENTITY = "-";
@@ -541,6 +686,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
 				INFOPLIST_FILE = Codeface/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -556,6 +702,7 @@
 		9E95A71E218C73CA009A58A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Codeface/Codeface.entitlements;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
@@ -565,6 +712,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
 				INFOPLIST_FILE = Codeface/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -624,6 +772,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		96143F0D290ED68A008CA3C2 /* Build configuration list for PBXNativeTarget "LSPXPCService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96143F0B290ED68A008CA3C2 /* Debug */,
+				96143F0C290ED68A008CA3C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9E95A6FE218C73C7009A58A9 /* Build configuration list for PBXProject "Codeface" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
