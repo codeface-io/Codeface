@@ -4,7 +4,8 @@ import Foundation
 class LSPXPCService: NSObject, LSPXPCServiceProtocol {
     
     /// This implements the example protocol. Replace the body of this class with the implementation of this service's protocol.
-    @objc func uppercase(string: String, with reply: @escaping (String) -> Void) {
+    @objc func uppercase(string: String,
+                         with reply: @escaping (String) -> Void) {
         let response = string.uppercased()
         reply(response)
     }

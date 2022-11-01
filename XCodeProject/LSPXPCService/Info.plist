@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundlePackageType</key>
+	<string>XPC</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.flowtoolz.codeface.LSPXPCService</string>
 	<key>XPCService</key>
 	<dict>
 		<key>ServiceType</key>
