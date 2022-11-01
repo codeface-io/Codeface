@@ -177,13 +177,13 @@
 		96143F10290EE1B6008CA3C2 /* Main App */ = {
 			isa = PBXGroup;
 			children = (
-				96143F0E290EDC32008CA3C2 /* LSPXPCServiceClient.swift */,
 				9606D886289A4549002B71E5 /* Xcode14Experiments.swift */,
 				96E863D12844125500BCCE66 /* Codeface */,
 				96D8DB1928A1500D00B84B45 /* Sidebar Content Views */,
 				96E479D52835A53200762FD7 /* Artifact Views */,
 				961AAD632899C3E6001CFF67 /* CodefaceCore */,
 				960BBE9529004F9000F9DC2A /* Help.swift */,
+				96143F0E290EDC32008CA3C2 /* LSPXPCServiceClient.swift */,
 			);
 			path = "Main App";
 			sourceTree = "<group>";
