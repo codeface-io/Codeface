@@ -1,5 +1,7 @@
 import Foundation
 
+// “By default, XPC services are run in the most restricted environment possible—sandboxed with minimal filesystem access, network access, and so on. Elevating a service’s privileges to root is not supported.”
+
 class ListenerDelegate: NSObject, NSXPCListenerDelegate {
     
     /// The helper receives a connection request when the first actual message is sent. The (main app's) connection object’s resume method does not cause a message to be sent.

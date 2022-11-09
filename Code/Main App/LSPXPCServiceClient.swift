@@ -1,10 +1,52 @@
 import Foundation
+import Combine
 import SwiftyToolz
+
+//import ProcessServiceClient
 
 class LSPXPCServiceClient
 {
+    /*
+    func experimentWithProcessServiceClient() async throws
+    {
+        let process = HostedProcess(named: Self.serviceBundleID,
+                                    parameters: .init(path: "/usr/bin/xcrun",
+                                                      arguments: ["sourcekit-lsp"]))
+
+        processObservation = try await process.processEventPublisher.sink
+        {
+            completion in
+            
+            switch completion
+            {
+            case .finished:
+                break
+            case .failure(let error):
+                log(error: error.localizedDescription)
+            }
+        }
+        receiveValue:
+        {
+            event in
+            
+            switch event
+            {
+            case .stdout(let output):
+                log("StdOut: \(String(data: output, encoding: .utf8) ?? "decoding error")")
+            case .stderr(let errorOutput):
+                log("ErrOut: \(String(data: errorOutput, encoding: .utf8) ?? "decoding error")")
+            case .terminated(let reason):
+                log(error: "Terminated with reason code \(reason.rawValue)")
+            }
+        }
+    }
+    
+    private var processObservation: AnyCancellable?
+     */
+    
     init()
     {
+        log("Initializing \(Self.self)")
         /**
          "the main application and the helper have an instance of NSXPCConnection. The main application creates its connection object itself, which causes the helper to launch."
          
@@ -46,11 +88,11 @@ class LSPXPCServiceClient
             return
         }
         
-        proxy.uppercase(string: "hello")
+        proxy.testLSPServer(someParam: "test parameter")
         {
-            aString in
+            serviceReply in
             
-            log("Result string was: \(aString)")
+            log("✅ service replied: " + serviceReply)
         }
     }
     
@@ -60,5 +102,7 @@ class LSPXPCServiceClient
         connection.invalidate()
     }
     
-    private let connection = NSXPCConnection(serviceName: "com.flowtoolz.codeface.LSPXPCService")
+    private let connection = NSXPCConnection(serviceName: serviceBundleID)
+    
+    private static let serviceBundleID = "com.flowtoolz.codeface.LSPXPCService"
 }

@@ -17,7 +17,10 @@ struct CodefaceApp: App
     {
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
+            
             CodefaceDocumentView(codebaseFile: $0.$document)
+            //            _ in
+//            LSPXPCServicePOC()
                 .sheet(isPresented: $isPresentingCodebaseLocator) {
                     CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
                     {

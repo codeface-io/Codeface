@@ -4,5 +4,5 @@ import Foundation
 @objc protocol LSPXPCServiceProtocol {
     
     /// Replace the API of this protocol with an API appropriate to the service you are vending.
-    func uppercase(string: String, with reply: @escaping (String) -> Void)
+    func testLSPServer(someParam: String, with reply: @escaping (String) -> Void)
 }
