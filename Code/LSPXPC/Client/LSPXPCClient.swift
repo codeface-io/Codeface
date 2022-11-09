@@ -2,10 +2,12 @@ import Foundation
 import Combine
 import SwiftyToolz
 
-class LSPXPCClient: NSObject, LSPXPCClientProtocol
+class LSPXPCClient: NSObject, LSPXPCClientExportedInterface
 {
     override init()
     {
+        super.init()
+        
         log("Initializing \(Self.self)")
         /**
          "the main application and the helper have an instance of NSXPCConnection. The main application creates its connection object itself, which causes the helper to launch."
@@ -15,7 +17,7 @@ class LSPXPCClient: NSObject, LSPXPCClientProtocol
         
         /// To use the service from an application or other process, use NSXPCConnection to establish a connection to the service by doing something like this:
         
-        connection.remoteObjectInterface = NSXPCInterface(with: LSPXPCServiceProtocol.self)
+        connection.remoteObjectInterface = NSXPCInterface(with: LSPXPCServiceExportedInterface.self)
         
         /**
          called when the process on the other end of the connection has crashed or has otherwise closed its connection.
@@ -34,8 +36,8 @@ class LSPXPCClient: NSObject, LSPXPCClientProtocol
         connection.invalidationHandler = {  }
         
         /// If you want to allow the helper process to call methods on an object in your application, you must set the exportedInterface and exportedObject properties before calling resume.
-//        connection.exportedObject
-//        connection.exportedInterface
+        connection.exportedInterface = NSXPCInterface(with: LSPXPCClientExportedInterface.self)
+        connection.exportedObject = self
         
         connection.resume()
     }
@@ -44,9 +46,9 @@ class LSPXPCClient: NSObject, LSPXPCClientProtocol
     {
         /// Once you have a connection to the service, you can use it like this:
         
-        guard let proxy = connection.remoteObjectProxy as? LSPXPCServiceProtocol else
+        guard let proxy = connection.remoteObjectProxy as? LSPXPCServiceExportedInterface else
         {
-            log(error: "Connection has no proxy object set of type \(LSPXPCServiceProtocol.self)")
+            log(error: "Connection has no proxy object set of type \(LSPXPCServiceExportedInterface.self)")
             return
         }
         

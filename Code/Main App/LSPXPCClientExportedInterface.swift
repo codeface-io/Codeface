@@ -1,6 +1,6 @@
 import Foundation
 
-@objc protocol LSPXPCClientProtocol
+@objc protocol LSPXPCClientExportedInterface
 {
     func receiveEventFromService(dummyEvent: String,
                                  with reply: @escaping (String) -> Void)
