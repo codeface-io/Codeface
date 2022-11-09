@@ -2,48 +2,8 @@ import Foundation
 import Combine
 import SwiftyToolz
 
-//import ProcessServiceClient
-
 class LSPXPCClient: NSObject, LSPXPCClientProtocol
 {
-    /*
-    func experimentWithProcessServiceClient() async throws
-    {
-        let process = HostedProcess(named: Self.serviceBundleID,
-                                    parameters: .init(path: "/usr/bin/xcrun",
-                                                      arguments: ["sourcekit-lsp"]))
-
-        processObservation = try await process.processEventPublisher.sink
-        {
-            completion in
-            
-            switch completion
-            {
-            case .finished:
-                break
-            case .failure(let error):
-                log(error: error.localizedDescription)
-            }
-        }
-        receiveValue:
-        {
-            event in
-            
-            switch event
-            {
-            case .stdout(let output):
-                log("StdOut: \(String(data: output, encoding: .utf8) ?? "decoding error")")
-            case .stderr(let errorOutput):
-                log("ErrOut: \(String(data: errorOutput, encoding: .utf8) ?? "decoding error")")
-            case .terminated(let reason):
-                log(error: "Terminated with reason code \(reason.rawValue)")
-            }
-        }
-    }
-    
-    private var processObservation: AnyCancellable?
-     */
-    
     override init()
     {
         log("Initializing \(Self.self)")
