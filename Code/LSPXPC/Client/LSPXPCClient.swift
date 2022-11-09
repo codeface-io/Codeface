@@ -4,7 +4,7 @@ import SwiftyToolz
 
 //import ProcessServiceClient
 
-class LSPXPCServiceClient
+class LSPXPCClient: NSObject, LSPXPCClientProtocol
 {
     /*
     func experimentWithProcessServiceClient() async throws
@@ -44,7 +44,7 @@ class LSPXPCServiceClient
     private var processObservation: AnyCancellable?
      */
     
-    init()
+    override init()
     {
         log("Initializing \(Self.self)")
         /**
@@ -74,6 +74,8 @@ class LSPXPCServiceClient
         connection.invalidationHandler = {  }
         
         /// If you want to allow the helper process to call methods on an object in your application, you must set the exportedInterface and exportedObject properties before calling resume.
+//        connection.exportedObject
+//        connection.exportedInterface
         
         connection.resume()
     }
@@ -100,6 +102,14 @@ class LSPXPCServiceClient
     {
         /// And, when you are finished with the service, clean up the connection like this:
         connection.invalidate()
+    }
+    
+    func receiveEventFromService(dummyEvent: String,
+                                 with reply: @escaping (String) -> Void)
+    {
+        log("received event from service: " + dummyEvent)
+        
+        reply("ok")
     }
     
     private let connection = NSXPCConnection(serviceName: serviceBundleID)

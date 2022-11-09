@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LSPXPCServicePOC: View {
+struct LSPXPCClientPOCView: View {
     var body: some View {
         Form {
             Button("Test Service") {
@@ -10,4 +10,4 @@ struct LSPXPCServicePOC: View {
     }
 }
 
-private let client = LSPXPCServiceClient()
+private let client = LSPXPCClient()

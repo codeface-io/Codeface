@@ -1,9 +1,7 @@
 import Foundation
 
-// “By default, XPC services are run in the most restricted environment possible—sandboxed with minimal filesystem access, network access, and so on. Elevating a service’s privileges to root is not supported.”
-
-class ListenerDelegate: NSObject, NSXPCListenerDelegate {
-    
+class LSPXPCServiceListenerDelegate: NSObject, NSXPCListenerDelegate
+{
     /// The helper receives a connection request when the first actual message is sent. The (main app's) connection object’s resume method does not cause a message to be sent.
 
     /// This method is where the NSXPCListener configures, accepts, and resumes a new incoming NSXPCConnection.
@@ -41,13 +39,3 @@ class ListenerDelegate: NSObject, NSXPCListenerDelegate {
         return true
     }
 }
-
-// Create the delegate for the service.
-let listenerDelegate = ListenerDelegate()
-
-// Set up the one NSXPCListener for this service. It will handle all incoming connections.
-let listener = NSXPCListener.service()
-listener.delegate = listenerDelegate
-
-// Resuming the serviceListener starts this service. This method does not return.
-listener.resume()
