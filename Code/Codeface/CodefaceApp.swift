@@ -21,7 +21,7 @@ struct CodefaceApp: App
 //            CodefaceDocumentView(codebaseFile: $0.$document)
             
             _ in
-            LSPXPCClientPOCView()
+            XPCExecutable.ClientView()
                 .sheet(isPresented: $isPresentingCodebaseLocator) {
                     CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
                     {
