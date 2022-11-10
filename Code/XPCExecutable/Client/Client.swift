@@ -7,6 +7,48 @@ extension XPCExecutable
 {
     class Client: NSObject, XPCExecutableClientExportedInterface
     {
+        // MARK: - Call Service (using XPCExecutableServiceExportedInterface)
+        
+        func launchExecutable(with config: Executable.Configuration,
+                              handleCompletion: @escaping (Error?) -> Void)
+        {
+            // TODO: This should all use async/await, but we need to handle timeouts in case XPC fails, see "Pitfall": https://www.chimehq.com/blog/extensionkit-xpc
+            
+            guard let serviceProxy = connection.remoteObjectProxy as? XPCExecutableServiceExportedInterface else
+            {
+                handleCompletion("Connection has no proxy object set of type \(XPCExecutableServiceExportedInterface.self)")
+                return
+            }
+            
+            do
+            {
+                let executableConfigData: Data = try config.encode(options: [])
+                
+                serviceProxy.launchExecutable(withEncodedConfig: executableConfigData)
+                {
+                    errorMessage in
+                    
+                    handleCompletion(errorMessage)
+                }
+            }
+            catch
+            {
+                handleCompletion(error)
+            }
+        }
+        
+        // MARK: - Respond to Service (XPCExecutableClientExportedInterface)
+        
+        func executableDidSend(stdOut: Data,
+                               confirmCall: @escaping () -> Void)
+        {
+            log("received stdout from service: " + (stdOut.utf8String ?? "decoding error"))
+            
+            confirmCall()
+        }
+        
+        // MARK: - Basics, including NSXPCConnection
+        
         override init()
         {
             super.init()
@@ -44,55 +86,10 @@ extension XPCExecutable
             connection.activate()
         }
         
-        func callServiceExample()
-        {
-            /// Once you have a connection to the service, you can use it like this:
-            
-            guard let serviceProxy = connection.remoteObjectProxy as? XPCExecutableServiceExportedInterface else
-            {
-                log(error: "Connection has no proxy object set of type \(XPCExecutableServiceExportedInterface.self)")
-                return
-            }
-            
-            let executableConfig = Executable.Configuration(path: "/usr/bin/xcrun",
-                                                            arguments: ["sourcekit-lsp"])
-            
-            do
-            {
-                let executableConfigData: Data = try executableConfig.encode(options: [])
-                
-                serviceProxy.launchExecutable(withEncodedConfig: executableConfigData)
-                {
-                    errorMessage in
-                    
-                    if let errorMessage
-                    {
-                        log("🛑 service failed to launch executable: " + errorMessage)
-                    }
-                    else
-                    {
-                        log("✅ service did launch executable")
-                    }
-                }
-            }
-            catch
-            {
-                log(error.readable)
-            }
-        }
-        
         deinit
         {
             /// And, when you are finished with the service, clean up the connection like this:
             connection.invalidate()
-        }
-        
-        func receiveEventFromService(dummyEvent: String,
-                                     with reply: @escaping (String) -> Void)
-        {
-            log("received event from service: " + dummyEvent)
-            
-            reply("ok")
         }
         
         private let connection = NSXPCConnection(serviceName: serviceBundleID)

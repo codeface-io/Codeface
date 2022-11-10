@@ -5,6 +5,6 @@ import Foundation
 @objc protocol XPCExecutableServiceExportedInterface
 {
     func launchExecutable(withEncodedConfig: Data,
-                          handleCompletionWithErrorMessage: @escaping (String?) -> Void)
+                          handleCompletion: @escaping (Error?) -> Void)
 }
 
