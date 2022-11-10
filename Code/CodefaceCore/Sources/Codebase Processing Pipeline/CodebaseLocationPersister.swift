@@ -21,7 +21,7 @@ public enum CodebaseLocationPersister
         Self.storedCachedLocation = location
     }
     
-    static func loadCodebaseLocation() throws -> LSP.CodebaseLocation
+    public static func loadCodebaseLocation() throws -> LSP.CodebaseLocation
     {
         guard let locationData = persistedCodebaseLocationData else
         {

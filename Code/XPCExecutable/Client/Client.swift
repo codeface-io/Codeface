@@ -7,61 +7,55 @@ extension XPCExecutable
 {
     class Client: NSObject, XPCExecutableClientExportedInterface
     {
-        // MARK: - Call Service (using XPCExecutableServiceExportedInterface)
-        
-        func launchExecutable(with config: Executable.Configuration,
-                              handleCompletion: @escaping (Error?) -> Void)
-        {
-            // TODO: This should all use async/await, but we need to handle timeouts in case XPC fails, see "Pitfall": https://www.chimehq.com/blog/extensionkit-xpc
-            
-            guard let serviceProxy = connection.remoteObjectProxy as? XPCExecutableServiceExportedInterface else
-            {
-                handleCompletion("Connection has no proxy object set of type \(XPCExecutableServiceExportedInterface.self)")
-                return
-            }
-            
-            do
-            {
-                let executableConfigData: Data = try config.encode(options: [])
-                
-                serviceProxy.launchExecutable(withEncodedConfig: executableConfigData)
-                {
-                    errorMessage in
-                    
-                    handleCompletion(errorMessage)
-                }
-            }
-            catch
-            {
-                handleCompletion(error)
-            }
-        }
-        
         // MARK: - Respond to Service (XPCExecutableClientExportedInterface)
         
         func executableDidSend(stdOut: Data,
                                confirmCall: @escaping () -> Void)
         {
+            confirmCall()
+            
             log("received stdout from service: " + (stdOut.utf8String ?? "decoding error"))
+        }
+        
+        func executableDidSend(stdErr: Data,
+                               confirmCall: @escaping () -> Void)
+        {
+            confirmCall()
+            
+            guard stdErr.count > 0, var stdErrString = stdErr.utf8String else
+            {
+                log(error: "Executable sent empty or undecodable data via stdErr")
+                return
+            }
+            
+            if stdErrString.last == "\n" { stdErrString.removeLast() }
+            
+            log("executable sent data via stdErr:\n\(stdErrString)")
+        }
+        
+        func executableDidTerminate(confirmCall: @escaping () -> Void)
+        {
+            log("executable did terminate")
             
             confirmCall()
         }
         
-        // MARK: - Basics, including NSXPCConnection
+        // MARK: - Basics, Including Exposed Service Proxy
         
-        override init()
+        init(serviceBundleID: String) throws
         {
-            super.init()
-            
             /**
              "the main application and the helper have an instance of NSXPCConnection. The main application creates its connection object itself, which causes the helper to launch."
              
              https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingXPCServices.html#//apple_ref/doc/uid/10000172i-SW6-SW19
              */
             
-            /// To use the service from an application or other process, use NSXPCConnection to establish a connection to the service by doing something like this:
-            
+            connection = NSXPCConnection(serviceName: serviceBundleID)
             connection.remoteObjectInterface = NSXPCInterface(with: XPCExecutableServiceExportedInterface.self)
+            
+            serviceProxy = try (connection.remoteObjectProxy as? XPCExecutableServiceExportedInterface).unwrap()
+            
+            super.init()
             
             /// If you want to allow the helper process to call methods on an object in your application, you must set the exportedInterface and exportedObject properties before calling resume.
             connection.exportedInterface = NSXPCInterface(with: XPCExecutableClientExportedInterface.self)
@@ -92,8 +86,9 @@ extension XPCExecutable
             connection.invalidate()
         }
         
-        private let connection = NSXPCConnection(serviceName: serviceBundleID)
+        /// the service proxy is part of the API of this client class. users of the client class call the service via this proxy.
+        let serviceProxy: XPCExecutableServiceExportedInterface
         
-        private static let serviceBundleID = "com.flowtoolz.codeface.XPCExecutable"
+        private let connection: NSXPCConnection
     }
 }

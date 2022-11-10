@@ -4,10 +4,14 @@ import SwiftyToolz
 
 extension XPCExecutable
 {
-    /// This object implements the protocol which we have defined. It provides the actual behavior for the service. It is 'exported' by the service to make it available to the process hosting the service over an NSXPCConnection.
     class Service: NSObject, XPCExecutableServiceExportedInterface, NSXPCListenerDelegate
     {
         // MARK: - Respond to Client (XPCExecutableServiceExportedInterface)
+        
+        @objc func getProcessID(handleCompletion: (Int) -> Void)
+        {
+            handleCompletion(Int(ProcessInfo.processInfo.processIdentifier))
+        }
         
         @objc func launchExecutable(withEncodedConfig executableConfigData: Data,
                                     handleCompletion: @escaping (Error?) -> Void)
@@ -24,45 +28,30 @@ extension XPCExecutable
                 {
                     [weak self] stdOut in
                     
-                    guard let self else { return }
-                    
-                    do
+                    self?.getClientProxy()?.executableDidSend(stdOut: stdOut)
                     {
-                        let clientProxy = try self.getClientProxy()
-                        
-                        clientProxy.executableDidSend(stdOut: stdOut)
-                        {
-                            log("✅ client confirmed call")
-                        }
-                    }
-                    catch
-                    {
-                        log(error.readable)
+                        log("✅ client confirmed call")
                     }
                 }
                 
                 newExecutable.didSendError =
                 {
-                    stdErrData in
+                    [weak self] stdErr in
                     
-                    guard stdErrData.count > 0, var stdErrString = stdErrData.utf8String else
+                    self?.getClientProxy()?.executableDidSend(stdErr: stdErr)
                     {
-                        log(error: "Executable sent empty or undecodable data via stdErr")
-                        return
+                        log("✅ client confirmed call")
                     }
-                    
-                    if stdErrString.last == "\n" { stdErrString.removeLast() }
-                    
-                    log("executable sent data via stdErr:\n\(stdErrString)")
-                    
-                    // TODO: send stderr data to client
                 }
                 
                 newExecutable.didTerminate =
                 {
-                    log(warning: "Executable did terminate")
+                    [weak self] in
                     
-                    // TODO: inform client
+                    self?.getClientProxy()?.executableDidTerminate
+                    {
+                        log("✅ client confirmed call")
+                    }
                 }
                 
                 newExecutable.run()
@@ -77,37 +66,40 @@ extension XPCExecutable
             }
         }
         
+        @objc func writeExecutableStdIn(_ stdIn: Data,
+                                        handleCompletion: @escaping (Error?) -> Void)
+        {
+            guard let activeExecutable else
+            {
+                handleCompletion("Tried to write data to active executable while the latter is nil")
+                return
+            }
+            
+            activeExecutable.receive(input: stdIn)
+            
+            handleCompletion(nil)
+        }
+        
+        private var activeExecutable: Executable? = nil
+        
         // MARK: - Call Client (using XPCExecutableClientExportedInterface)
         
-        private func getClientProxy() throws -> some XPCExecutableClientExportedInterface
+        private func getClientProxy() -> XPCExecutableClientExportedInterface?
         {
             guard let activeXPCConnection else
             {
-                throw "Tried to get client proxy while active XPC connection is nil"
+                log(error: "Tried to get client proxy while active XPC connection is nil")
+                return nil
             }
             
             guard let clientProxy = activeXPCConnection.remoteObjectProxy as? XPCExecutableClientExportedInterface else
             {
-                throw "Connection proxy object is not of type \(XPCExecutableClientExportedInterface.self) but of type \(type(of: activeXPCConnection.remoteObjectProxy))"
+                log(error: "Connection proxy object is not of type \(XPCExecutableClientExportedInterface.self) but of type \(type(of: activeXPCConnection.remoteObjectProxy))")
+                return nil
             }
                             
             return clientProxy
         }
-        
-        // MARK: - Manage Active Executable
-        
-        func writeToActiveExecutable(_ data: Data)
-        {
-            guard let activeExecutable else
-            {
-                log(warning: "Tried to write data to active executable while the latter is nil")
-                return
-            }
-            
-            activeExecutable.receive(input: data)
-        }
-        
-        private var activeExecutable: Executable? = nil
         
         // MARK: - Basics, including NSXPCConnection
         
