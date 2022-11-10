@@ -53,9 +53,6 @@
 		96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479DA2835B33600762FD7 /* DisplayModePicker.swift */; };
 		96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479DC2835B36C00762FD7 /* SidebarLabel.swift */; };
 		96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA394E282C2AF2002B033E /* ArtifactContentView.swift */; };
-		96EF440B29129DD000EB93D1 /* ProcessServiceClient in Frameworks */ = {isa = PBXBuildFile; productRef = 96EF440A29129DD000EB93D1 /* ProcessServiceClient */; };
-		96EF440D29129DD000EB93D1 /* ProcessServiceContainer in Frameworks */ = {isa = PBXBuildFile; productRef = 96EF440C29129DD000EB93D1 /* ProcessServiceContainer */; };
-		96EF440F29129DD000EB93D1 /* ProcessServiceServer in Frameworks */ = {isa = PBXBuildFile; productRef = 96EF440E29129DD000EB93D1 /* ProcessServiceServer */; };
 		96FC8C3F284BEB9000AD7DD2 /* CodebaseLocatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC8C3E284BEB9000AD7DD2 /* CodebaseLocatorView.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceApp.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
@@ -168,13 +165,10 @@
 				96DC635528E100D900DD5BEB /* SwiftLSP in Frameworks */,
 				96CFBB3328B57D480051C318 /* SwiftUIToolz in Frameworks */,
 				96C2118C28E347F0008024AA /* CombineObserver in Frameworks */,
-				96EF440B29129DD000EB93D1 /* ProcessServiceClient in Frameworks */,
 				9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */,
 				966F39B1291BF54F00198B14 /* FoundationToolz in Frameworks */,
 				96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */,
 				961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */,
-				96EF440F29129DD000EB93D1 /* ProcessServiceServer in Frameworks */,
-				96EF440D29129DD000EB93D1 /* ProcessServiceContainer in Frameworks */,
 				96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -401,9 +395,6 @@
 				96DC635428E100D900DD5BEB /* SwiftLSP */,
 				96C2118B28E347F0008024AA /* CombineObserver */,
 				96C2118D28E347F0008024AA /* SwiftObserver */,
-				96EF440A29129DD000EB93D1 /* ProcessServiceClient */,
-				96EF440C29129DD000EB93D1 /* ProcessServiceContainer */,
-				96EF440E29129DD000EB93D1 /* ProcessServiceServer */,
 				966F39B0291BF54F00198B14 /* FoundationToolz */,
 			);
 			productName = Cocoalytics;
@@ -467,7 +458,6 @@
 				96CA360428E0F92800D71370 /* XCRemoteSwiftPackageReference "LSPServiceKit" */,
 				96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */,
 				96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */,
-				96EF440929129DD000EB93D1 /* XCRemoteSwiftPackageReference "ProcessService" */,
 				966F39AF291BF54F00198B14 /* XCRemoteSwiftPackageReference "FoundationToolz" */,
 			);
 			productRefGroup = 9E95A704218C73C7009A58A9 /* Products */;
@@ -942,14 +932,6 @@
 				kind = branch;
 			};
 		};
-		96EF440929129DD000EB93D1 /* XCRemoteSwiftPackageReference "ProcessService" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ChimeHQ/ProcessService";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.2.6;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1006,21 +988,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */;
 			productName = SwiftLSP;
-		};
-		96EF440A29129DD000EB93D1 /* ProcessServiceClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96EF440929129DD000EB93D1 /* XCRemoteSwiftPackageReference "ProcessService" */;
-			productName = ProcessServiceClient;
-		};
-		96EF440C29129DD000EB93D1 /* ProcessServiceContainer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96EF440929129DD000EB93D1 /* XCRemoteSwiftPackageReference "ProcessService" */;
-			productName = ProcessServiceContainer;
-		};
-		96EF440E29129DD000EB93D1 /* ProcessServiceServer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96EF440929129DD000EB93D1 /* XCRemoteSwiftPackageReference "ProcessService" */;
-			productName = ProcessServiceServer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
