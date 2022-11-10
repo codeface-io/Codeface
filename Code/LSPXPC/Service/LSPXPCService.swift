@@ -6,13 +6,6 @@ import SwiftyToolz
 /// This object implements the protocol which we have defined. It provides the actual behavior for the service. It is 'exported' by the service to make it available to the process hosting the service over an NSXPCConnection.
 class LSPXPCService: NSObject, LSPXPCServiceExportedInterface, NSXPCListenerDelegate
 {
-    override init()
-    {
-        super.init()
-        
-        log("Initializing \(Self.self)")
-    }
-    
     /// The helper receives a connection request when the first actual message is sent. The (main app's) connection object’s resume method does not cause a message to be sent.
 
     /// This method is where the NSXPCListener configures, accepts, and resumes a new incoming NSXPCConnection.
@@ -53,16 +46,13 @@ class LSPXPCService: NSObject, LSPXPCServiceExportedInterface, NSXPCListenerDele
         return true
     }
     
-    @objc func testLSPServer(someParam: String,
-                             with reply: @escaping (String) -> Void)
+    @objc func launchExecutable(withEncodedConfig executableConfigData: Data,
+                                with reply: @escaping (String) -> Void)
     {
-        log("✅ service called with param: \(someParam)")
-        
-        let executableConfig = Executable.Configuration(path: "/usr/bin/xcrun",
-                                                        arguments: ["sourcekit-lsp"])
-        
         do
         {
+            let executableConfig = try Executable.Configuration(jsonData: executableConfigData)
+            
             let newExecutable = try LSP.ServerExecutable(config: executableConfig)
             {
                 lspPacketFromLSPServer in
@@ -98,8 +88,8 @@ class LSPXPCService: NSObject, LSPXPCServiceExportedInterface, NSXPCListenerDele
             
             newExecutable.run()
             
-            log("✅ Launched LSP.ServerExecutable")
-            reply("✅ Launched LSP.ServerExecutable")
+            log("✅ Launched executable: \(executableConfig.path) \(executableConfig.arguments.joined(separator: " "))")
+            reply("ok")
             
             testCallingClient()
         }

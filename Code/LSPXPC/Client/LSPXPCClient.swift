@@ -1,3 +1,4 @@
+import FoundationToolz
 import Foundation
 import Combine
 import SwiftyToolz
@@ -8,7 +9,6 @@ class LSPXPCClient: NSObject, LSPXPCClientExportedInterface
     {
         super.init()
         
-        log("Initializing \(Self.self)")
         /**
          "the main application and the helper have an instance of NSXPCConnection. The main application creates its connection object itself, which causes the helper to launch."
          
@@ -18,6 +18,10 @@ class LSPXPCClient: NSObject, LSPXPCClientExportedInterface
         /// To use the service from an application or other process, use NSXPCConnection to establish a connection to the service by doing something like this:
         
         connection.remoteObjectInterface = NSXPCInterface(with: LSPXPCServiceExportedInterface.self)
+        
+        /// If you want to allow the helper process to call methods on an object in your application, you must set the exportedInterface and exportedObject properties before calling resume.
+        connection.exportedInterface = NSXPCInterface(with: LSPXPCClientExportedInterface.self)
+        connection.exportedObject = self
         
         /**
          called when the process on the other end of the connection has crashed or has otherwise closed its connection.
@@ -35,11 +39,6 @@ class LSPXPCClient: NSObject, LSPXPCClientExportedInterface
          */
         connection.invalidationHandler = {  }
         
-        /// If you want to allow the helper process to call methods on an object in your application, you must set the exportedInterface and exportedObject properties before calling resume.
-        connection.exportedInterface = NSXPCInterface(with: LSPXPCClientExportedInterface.self)
-        connection.exportedObject = self
-        log("Client did set exported interface and object")
-        
         connection.activate()
     }
     
@@ -47,17 +46,29 @@ class LSPXPCClient: NSObject, LSPXPCClientExportedInterface
     {
         /// Once you have a connection to the service, you can use it like this:
         
-        guard let proxy = connection.remoteObjectProxy as? LSPXPCServiceExportedInterface else
+        guard let serviceProxy = connection.remoteObjectProxy as? LSPXPCServiceExportedInterface else
         {
             log(error: "Connection has no proxy object set of type \(LSPXPCServiceExportedInterface.self)")
             return
         }
         
-        proxy.testLSPServer(someParam: "test parameter")
+        let executableConfig = Executable.Configuration(path: "/usr/bin/xcrun",
+                                                        arguments: ["sourcekit-lsp"])
+        
+        do
         {
-            serviceReply in
+            let executableConfigData: Data = try executableConfig.encode(options: [])
             
-            log("✅ service replied: " + serviceReply)
+            serviceProxy.launchExecutable(withEncodedConfig: executableConfigData)
+            {
+                serviceReply in
+                
+                log("✅ service replied: " + serviceReply)
+            }
+        }
+        catch
+        {
+            log(error.readable)
         }
     }
     
