@@ -17,7 +17,9 @@ class LSPXPCService: NSObject, LSPXPCServiceExportedInterface, NSXPCListenerDele
 
     /// This method is where the NSXPCListener configures, accepts, and resumes a new incoming NSXPCConnection.
     func listener(_ listener: NSXPCListener,
-                  shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool {
+                  shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool
+    {
+        newConnection.remoteObjectInterface = NSXPCInterface(with: LSPXPCClientExportedInterface.self)
         
         // Configure the connection.
         // First, set the interface that the exported object implements.
@@ -43,7 +45,7 @@ class LSPXPCService: NSObject, LSPXPCServiceExportedInterface, NSXPCListenerDele
         newConnection.invalidationHandler = {  }
         
         // Resuming the connection allows the system to deliver more incoming messages.
-        newConnection.resume()
+        newConnection.activate()
         
         activeXPCConnection = newConnection
         
@@ -96,8 +98,10 @@ class LSPXPCService: NSObject, LSPXPCServiceExportedInterface, NSXPCListenerDele
             
             newExecutable.run()
             
-            log("✅ Initialized LSP.ServerExecutable")
-            reply("✅ Initialized LSP.ServerExecutable")
+            log("✅ Launched LSP.ServerExecutable")
+            reply("✅ Launched LSP.ServerExecutable")
+            
+            testCallingClient()
         }
         catch
         {

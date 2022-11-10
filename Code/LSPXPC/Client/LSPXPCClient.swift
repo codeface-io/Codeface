@@ -38,8 +38,9 @@ class LSPXPCClient: NSObject, LSPXPCClientExportedInterface
         /// If you want to allow the helper process to call methods on an object in your application, you must set the exportedInterface and exportedObject properties before calling resume.
         connection.exportedInterface = NSXPCInterface(with: LSPXPCClientExportedInterface.self)
         connection.exportedObject = self
+        log("Client did set exported interface and object")
         
-        connection.resume()
+        connection.activate()
     }
     
     func callServiceExample()
