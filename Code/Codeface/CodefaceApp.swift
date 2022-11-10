@@ -133,7 +133,7 @@ struct CodefaceApp: App
 
 private func createAndTestService(with location: LSP.CodebaseLocation) throws
 {
-    let client = try XPCExecutable.Client(serviceBundleID: "com.flowtoolz.codeface.XPCExecutable")
+    let client = try XPCExecutable.Client(serviceBundleID: "com.flowtoolz.codeface.CodefaceHelper")
     
     let serviceProxy = client.serviceProxy
     
