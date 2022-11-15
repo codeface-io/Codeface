@@ -1,4 +1,5 @@
 import ProcessServiceClient
+import ProcessServiceShared
 import Foundation
 import SwiftyToolz
 
@@ -6,19 +7,30 @@ func RunProcessServiceTest()
 {
     Task
     {
-        let params = Process.ExecutionParameters(path: "/usr/bin/xcrun",
+        let parameters = Process.ExecutionParameters(path: "/usr/bin/xcrun",
                                                  arguments: ["sourcekit-lsp"])
         
         do
         {
             let remoteProcess = HostedProcess(named: "com.flowtoolz.codeface.CodefaceHelper",
-                                              parameters: params)
+                                              parameters: parameters)
             
-            let stdOut = try await remoteProcess.runAndReadStdout()
+            let connection = await remoteProcess.connection
             
-            let stdOutString = String(data: stdOut, encoding: .utf8) ?? "nothing"
+            try await connection.withContinuation
+            {
+                (service: ProcessServiceXPCProtocol, continuation) in
+                
+                log("✅ retrieved service proxy")
+                
+                service.launchProcess(at: URL(fileURLWithPath: parameters.path),
+                                      arguments: parameters.arguments,
+                                      environment: parameters.environment,
+                                      currentDirectoryURL: parameters.currentDirectoryURL,
+                                      reply: continuation.resumingHandler)
+            }
             
-            log("✅ stdOut: \(stdOutString)")
+//            try await remoteProcess.launch()
         }
         catch
         {
