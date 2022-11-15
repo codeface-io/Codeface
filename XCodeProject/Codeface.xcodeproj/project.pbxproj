@@ -129,7 +129,7 @@
 		964308A4254B7B070026E56C /* CodefaceDocumentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceDocumentContentView.swift; sourceTree = "<group>"; };
 		9648CBAD28BCB3A30011D3C7 /* SidebarAnalysisContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarAnalysisContent.swift; sourceTree = "<group>"; };
 		9648CBAF28BCB3DC0011D3C7 /* SidebarArtifactList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarArtifactList.swift; sourceTree = "<group>"; };
-		966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = XPCExecutableClientExportedInterface.swift; path = "../../Main App/XPCExecutableClientExportedInterface.swift"; sourceTree = "<group>"; };
+		966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutableClientExportedInterface.swift; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
 		968EA5C228DCD24500FE8A9B /* ContentNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentNavigationView.swift; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
