@@ -24,7 +24,7 @@ extension XPCExecutable
         
         let serviceProxy = client.serviceProxy
         
-        log("✅ Did create NSConnection and retrieve service proxy")
+        log("✅ Did create NSXPCConnection and retrieve service proxy")
         
         log("Gonna launch executable via service proxy ...")
         

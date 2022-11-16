@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		9606D887289A4549002B71E5 /* Xcode14Experiments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9606D886289A4549002B71E5 /* Xcode14Experiments.swift */; };
 		960730B628982F3C008F1D7C /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B528982F3C008F1D7C /* Arrow.swift */; };
-		96081D012922431C00A562BA /* ProcessServiceClient in Frameworks */ = {isa = PBXBuildFile; productRef = 96081D002922431C00A562BA /* ProcessServiceClient */; };
-		96081D032922431C00A562BA /* ProcessServiceContainer in Frameworks */ = {isa = PBXBuildFile; productRef = 96081D022922431C00A562BA /* ProcessServiceContainer */; };
-		96081D052922431C00A562BA /* ProcessServiceServer in Frameworks */ = {isa = PBXBuildFile; productRef = 96081D042922431C00A562BA /* ProcessServiceServer */; };
 		960A7AA428AB875100F334CA /* DependencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA328AB875100F334CA /* DependencyView.swift */; };
 		960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */; };
 		960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAB28ABB07800F334CA /* TreeMap.swift */; };
@@ -134,7 +131,6 @@
 		966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutableClientExportedInterface.swift; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
 		968EA5C228DCD24500FE8A9B /* ContentNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentNavigationView.swift; sourceTree = "<group>"; };
-		96C267C32923C84F0035341B /* ProcessService */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ProcessService; path = ../../ProcessService; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
 		96D8DB1C28A1503C00B84B45 /* PathBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBarView.swift; sourceTree = "<group>"; };
 		96E479CF28359C9900762FD7 /* AnimatableLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableLine.swift; sourceTree = "<group>"; };
@@ -175,12 +171,9 @@
 				96C2118C28E347F0008024AA /* CombineObserver in Frameworks */,
 				9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */,
 				966F39B1291BF54F00198B14 /* FoundationToolz in Frameworks */,
-				96081D052922431C00A562BA /* ProcessServiceServer in Frameworks */,
 				96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */,
-				96081D032922431C00A562BA /* ProcessServiceContainer in Frameworks */,
 				961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */,
 				96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */,
-				96081D012922431C00A562BA /* ProcessServiceClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,7 +314,6 @@
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
-				96C267C32923C84F0035341B /* ProcessService */,
 				9E00727A218E250E0094BD1C /* Code */,
 				9E95A705218C73C7009A58A9 /* Codeface */,
 				96143EFF290ED68A008CA3C2 /* CodefaceHelper */,
@@ -419,9 +411,6 @@
 				96C2118B28E347F0008024AA /* CombineObserver */,
 				96C2118D28E347F0008024AA /* SwiftObserver */,
 				966F39B0291BF54F00198B14 /* FoundationToolz */,
-				96081D002922431C00A562BA /* ProcessServiceClient */,
-				96081D022922431C00A562BA /* ProcessServiceContainer */,
-				96081D042922431C00A562BA /* ProcessServiceServer */,
 			);
 			productName = Cocoalytics;
 			productReference = 9E95A703218C73C7009A58A9 /* Codeface.app */;
@@ -485,7 +474,6 @@
 				96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */,
 				96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */,
 				966F39AF291BF54F00198B14 /* XCRemoteSwiftPackageReference "FoundationToolz" */,
-				96081CFF2922431C00A562BA /* XCRemoteSwiftPackageReference "ProcessService" */,
 			);
 			productRefGroup = 9E95A704218C73C7009A58A9 /* Products */;
 			projectDirPath = "";
@@ -918,14 +906,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		96081CFF2922431C00A562BA /* XCRemoteSwiftPackageReference "ProcessService" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ChimeHQ/ProcessService";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.2.6;
-			};
-		};
 		9656A69D25287F0D00D4CF26 /* XCRemoteSwiftPackageReference "SwiftyToolz" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/flowtoolz/SwiftyToolz.git";
@@ -977,21 +957,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		96081D002922431C00A562BA /* ProcessServiceClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96081CFF2922431C00A562BA /* XCRemoteSwiftPackageReference "ProcessService" */;
-			productName = ProcessServiceClient;
-		};
-		96081D022922431C00A562BA /* ProcessServiceContainer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96081CFF2922431C00A562BA /* XCRemoteSwiftPackageReference "ProcessService" */;
-			productName = ProcessServiceContainer;
-		};
-		96081D042922431C00A562BA /* ProcessServiceServer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96081CFF2922431C00A562BA /* XCRemoteSwiftPackageReference "ProcessService" */;
-			productName = ProcessServiceServer;
-		};
 		961AAD652899C553001CFF67 /* CodefaceCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CodefaceCore;

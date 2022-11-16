@@ -18,7 +18,8 @@ struct CodefaceApp: App
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
             CodefaceDocumentView(codebaseFile: $0.$document)
-                .sheet(isPresented: $isPresentingCodebaseLocator) {
+                .sheet(isPresented: $isPresentingCodebaseLocator)
+                {
                     CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
                     {
                         focusedDocument?.loadNewProcessor(forCodebaseFrom: $0)
