@@ -24,11 +24,11 @@ extension XPCExecutable
         
         let serviceProxy = client.serviceProxy
         
-        log("✅ Did create NSXPCConnection and retrieve service proxy")
+        log("✅ Created NSXPCConnection and retrieved service proxy")
         
-        log("Gonna launch executable via service proxy ...")
+        log("Gonna launch sourcekit-lsp via service proxy ...")
         
-        serviceProxy.launchExecutable(with: .init(path: "/usr/bin/xcrun", arguments: ["sourcekit-lsp"]))
+        serviceProxy.launchExecutable(.sourceKitLSP)
         {
             error in
             

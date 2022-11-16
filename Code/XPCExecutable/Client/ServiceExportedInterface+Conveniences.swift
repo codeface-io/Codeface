@@ -3,7 +3,7 @@ import Foundation
 
 extension XPCExecutableServiceExportedInterface
 {
-    func launchExecutable(with config: Executable.Configuration,
+    func launchExecutable(_ config: Executable.Configuration,
                           handleCompletion: @escaping (Error?) -> Void)
     {
         // TODO: This should all use async/await, but we need to handle timeouts in case XPC fails, see "Pitfall": https://www.chimehq.com/blog/extensionkit-xpc
