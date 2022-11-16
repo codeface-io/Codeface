@@ -8,7 +8,7 @@ func RunProcessServiceTest()
     Task
     {
         let parameters = Process.ExecutionParameters(path: "/usr/bin/xcrun",
-                                                 arguments: ["sourcekit-lsp"])
+                                                     arguments: ["sourcekit-lsp"])
         
         do
         {
@@ -30,7 +30,7 @@ func RunProcessServiceTest()
                                       reply: continuation.resumingHandler)
             }
             
-//            try await remoteProcess.launch()
+            // try await remoteProcess.launch()
         }
         catch
         {
