@@ -24,6 +24,10 @@ extension XPCExecutable
         
         let serviceProxy = client.serviceProxy
         
+        log("✅ Did create NSConnection and retrieve service proxy")
+        
+        log("Gonna launch executable via service proxy ...")
+        
         serviceProxy.launchExecutable(with: .init(path: "/usr/bin/xcrun", arguments: ["sourcekit-lsp"]))
         {
             error in
