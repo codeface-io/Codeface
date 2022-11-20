@@ -99,7 +99,7 @@ struct CodefaceApp: App
                 #if DEBUG
                 Button("Test XPC Service With Last Codebase")
                 {
-                    RunProcessServiceTest()
+                    runProcessServiceTest()
 //                    XPCExecutable.testForCodeface()
                 }
                 .keyboardShortcut("t")
