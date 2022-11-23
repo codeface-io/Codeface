@@ -24,7 +24,7 @@ final class ServiceDelegate: NSObject, NSXPCListenerDelegate
     {
         do
         {
-            self.exportedService = try newConnection.configureProcessServiceServer()
+            _ = try newConnection.configureProcessServiceServer()
         }
         catch
         {
@@ -38,6 +38,4 @@ final class ServiceDelegate: NSObject, NSXPCListenerDelegate
 
         return true
     }
-    
-    private var exportedService: ProcessServiceXPCProtocol?
 }

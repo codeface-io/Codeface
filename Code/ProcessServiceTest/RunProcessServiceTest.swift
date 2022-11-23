@@ -26,12 +26,6 @@ enum ProcessServiceTest
     {
         // launch and observe an lsp-server via an XPC service
         
-        let lspServerParams = Process.ExecutionParameters(path: "/usr/bin/xcrun",
-                                                          arguments: ["sourcekit-lsp"])
-        
-        let hostedProcess = HostedProcess(named: "com.flowtoolz.codeface.CodefaceHelper",
-                                          parameters: lspServerParams)
-        
         try await hostedProcess.launch()
 
         observation = try await hostedProcess.processEventPublisher.sink
@@ -54,10 +48,7 @@ enum ProcessServiceTest
         // send initialize request to lsp-server with codebase location and parent/client process id
         
         let location = try CodebaseLocationPersister.loadCodebaseLocation()
-        
-        let serviceProcessID = await hostedProcess.serviceProcessID
-        let initializeRequest = LSP.Message.request(.initialize(folder: location.folder,
-                                                                clientProcessID: serviceProcessID))
+        let initializeRequest = LSP.Message.request(.initialize(folder: location.folder))
         let packetData = try LSP.Packet(initializeRequest).data
         
         try await hostedProcess.write(packetData)
@@ -69,4 +60,7 @@ enum ProcessServiceTest
     }
     
     private static var observation: AnyCancellable? = nil
+    private static let hostedProcess = HostedProcess(named: "com.flowtoolz.codeface.CodefaceHelper",
+                                                     parameters: .init(path: "/usr/bin/xcrun",
+                                                                       arguments: ["sourcekit-lsp"]))
 }
