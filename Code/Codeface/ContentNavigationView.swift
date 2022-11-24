@@ -1,4 +1,4 @@
-import SwiftUIToolz
+import SwiftUIToolzOLD
 import SwiftUI
 import CodefaceCore
 
@@ -13,7 +13,7 @@ struct ContentNavigationView: View
             .frame(minWidth: 250)
             .toolbar {
                 ToolbarItemGroup(placement: .primaryAction) {
-                    Button(action: toggleSidebar)
+                    Button(action: NSApp.toggleSidebar)
                     {
                         Image(systemName: "sidebar.leading")
                     }

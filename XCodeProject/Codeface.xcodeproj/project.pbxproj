@@ -40,10 +40,10 @@
 		966F39B3291BF56200198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B2291BF56200198B14 /* FoundationToolz */; };
 		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
 		968EA5C328DCD24500FE8A9B /* ContentNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EA5C228DCD24500FE8A9B /* ContentNavigationView.swift */; };
+		96B8B53E292F9C630020D594 /* SwiftUIToolzOLD in Frameworks */ = {isa = PBXBuildFile; productRef = 96B8B53D292F9C630020D594 /* SwiftUIToolzOLD */; };
 		96C2118C28E347F0008024AA /* CombineObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118B28E347F0008024AA /* CombineObserver */; };
 		96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118D28E347F0008024AA /* SwiftObserver */; };
 		96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 96CA360528E0F92800D71370 /* LSPServiceKit */; };
-		96CFBB3328B57D480051C318 /* SwiftUIToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 96CFBB3228B57D480051C318 /* SwiftUIToolz */; };
 		96CFBB3628B582D20051C318 /* ArtifactViewModel+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */; };
 		96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1C28A1503C00B84B45 /* PathBarView.swift */; };
 		96DC635528E100D900DD5BEB /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96DC635428E100D900DD5BEB /* SwiftLSP */; };
@@ -168,10 +168,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				96DC635528E100D900DD5BEB /* SwiftLSP in Frameworks */,
-				96CFBB3328B57D480051C318 /* SwiftUIToolz in Frameworks */,
 				96C2118C28E347F0008024AA /* CombineObserver in Frameworks */,
 				9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */,
 				966F39B1291BF54F00198B14 /* FoundationToolz in Frameworks */,
+				96B8B53E292F9C630020D594 /* SwiftUIToolzOLD in Frameworks */,
 				96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */,
 				961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */,
 				96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */,
@@ -409,13 +409,13 @@
 			packageProductDependencies = (
 				9656A69E25287F0D00D4CF26 /* SwiftyToolz */,
 				961AAD652899C553001CFF67 /* CodefaceCore */,
-				96CFBB3228B57D480051C318 /* SwiftUIToolz */,
 				96CA360528E0F92800D71370 /* LSPServiceKit */,
 				96DC635428E100D900DD5BEB /* SwiftLSP */,
 				96C2118B28E347F0008024AA /* CombineObserver */,
 				96C2118D28E347F0008024AA /* SwiftObserver */,
 				966F39B0291BF54F00198B14 /* FoundationToolz */,
 				960C5F7229254DC700449C95 /* ProcessServiceClient */,
+				96B8B53D292F9C630020D594 /* SwiftUIToolzOLD */,
 			);
 			productName = Cocoalytics;
 			productReference = 9E95A703218C73C7009A58A9 /* Codeface.app */;
@@ -474,12 +474,12 @@
 			mainGroup = 9E95A6FA218C73C7009A58A9;
 			packageReferences = (
 				9656A69D25287F0D00D4CF26 /* XCRemoteSwiftPackageReference "SwiftyToolz" */,
-				96CFBB3128B57D480051C318 /* XCRemoteSwiftPackageReference "SwiftUIToolz" */,
 				96CA360428E0F92800D71370 /* XCRemoteSwiftPackageReference "LSPServiceKit" */,
 				96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */,
 				96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */,
 				966F39AF291BF54F00198B14 /* XCRemoteSwiftPackageReference "FoundationToolz" */,
 				960C5F7129254DC700449C95 /* XCRemoteSwiftPackageReference "ProcessService" */,
+				96B8B53C292F9C630020D594 /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */,
 			);
 			productRefGroup = 9E95A704218C73C7009A58A9 /* Products */;
 			projectDirPath = "";
@@ -933,6 +933,14 @@
 				kind = branch;
 			};
 		};
+		96B8B53C292F9C630020D594 /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/flowtoolz/SwiftUIToolzOLD";
+			requirement = {
+				kind = exactVersion;
+				version = 0.3.0;
+			};
+		};
 		96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/codeface-io/SwiftObserver";
@@ -944,14 +952,6 @@
 		96CA360428E0F92800D71370 /* XCRemoteSwiftPackageReference "LSPServiceKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/codeface-io/LSPServiceKit";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		96CFBB3128B57D480051C318 /* XCRemoteSwiftPackageReference "SwiftUIToolz" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/flowtoolz/SwiftUIToolz";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -1007,6 +1007,11 @@
 			package = 966F39AF291BF54F00198B14 /* XCRemoteSwiftPackageReference "FoundationToolz" */;
 			productName = FoundationToolz;
 		};
+		96B8B53D292F9C630020D594 /* SwiftUIToolzOLD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96B8B53C292F9C630020D594 /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */;
+			productName = SwiftUIToolzOLD;
+		};
 		96C2118B28E347F0008024AA /* CombineObserver */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */;
@@ -1021,11 +1026,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 96CA360428E0F92800D71370 /* XCRemoteSwiftPackageReference "LSPServiceKit" */;
 			productName = LSPServiceKit;
-		};
-		96CFBB3228B57D480051C318 /* SwiftUIToolz */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96CFBB3128B57D480051C318 /* XCRemoteSwiftPackageReference "SwiftUIToolz" */;
-			productName = SwiftUIToolz;
 		};
 		96DC635428E100D900DD5BEB /* SwiftLSP */ = {
 			isa = XCSwiftPackageProductDependency;
