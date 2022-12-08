@@ -18,7 +18,6 @@
 		960C5F7029254D7C00449C95 /* ProcessServiceTestMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96081D072922475700A562BA /* ProcessServiceTestMain.swift */; };
 		960C5F7329254DC700449C95 /* ProcessServiceClient in Frameworks */ = {isa = PBXBuildFile; productRef = 960C5F7229254DC700449C95 /* ProcessServiceClient */; };
 		960C5F7729254DE100449C95 /* ProcessServiceServer in Frameworks */ = {isa = PBXBuildFile; productRef = 960C5F7629254DE100449C95 /* ProcessServiceServer */; };
-		96143F09290ED68A008CA3C2 /* CodefaceHelper.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 96143EFE290ED68A008CA3C2 /* CodefaceHelper.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 961AAD652899C553001CFF67 /* CodefaceCore */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
@@ -60,13 +59,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		96143F07290ED68A008CA3C2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E95A6FB218C73C7009A58A9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 96143EFD290ED68A008CA3C2;
-			remoteInfo = LSPXPCService;
-		};
 		9E95A714218C73CA009A58A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9E95A6FB218C73C7009A58A9 /* Project object */;
@@ -77,17 +69,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		96143F0A290ED68A008CA3C2 /* Embed XPC Services */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
-			dstSubfolderSpec = 16;
-			files = (
-				96143F09290ED68A008CA3C2 /* CodefaceHelper.xpc in Embed XPC Services */,
-			);
-			name = "Embed XPC Services";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9E984A2A219F28C300AFE752 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -398,12 +379,10 @@
 				9E95A700218C73C7009A58A9 /* Frameworks */,
 				9E95A701218C73C7009A58A9 /* Resources */,
 				9E984A2A219F28C300AFE752 /* Embed Frameworks */,
-				96143F0A290ED68A008CA3C2 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				96143F08290ED68A008CA3C2 /* PBXTargetDependency */,
 			);
 			name = Codeface;
 			packageProductDependencies = (
@@ -577,11 +556,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		96143F08290ED68A008CA3C2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 96143EFD290ED68A008CA3C2 /* CodefaceHelper */;
-			targetProxy = 96143F07290ED68A008CA3C2 /* PBXContainerItemProxy */;
-		};
 		9E95A715218C73CA009A58A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9E95A702218C73C7009A58A9 /* Codeface */;
@@ -772,7 +746,6 @@
 		9E95A71D218C73CA009A58A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Codeface/Codeface.entitlements;
 				CODE_SIGN_IDENTITY = "-";
@@ -799,7 +772,6 @@
 		9E95A71E218C73CA009A58A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Codeface/Codeface.entitlements;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
