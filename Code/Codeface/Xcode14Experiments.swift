@@ -1,0 +1,131 @@
+import SwiftUI
+
+struct CodefaceView14: View
+{
+    var body: some View
+    {
+        NavigationSplitView(columnVisibility: $columnVisibility)
+        {
+            List(Item.all, selection: $selectedItem)
+            {
+                NavigationLink($0.name, value: $0)
+            }
+        }
+        detail:
+        {
+            InspectorView(item: selectedItem)
+                .animation(.default, value: selectedItem)
+        }
+    }
+
+    @State var selectedItem: Item? = nil
+    @State var columnVisibility = NavigationSplitViewVisibility.all
+}
+
+struct InspectorView: View {
+
+    var body: some View {
+        
+        GeometryReader { geo in
+            
+            HStack(spacing: 0) {
+                
+                //Main
+                VStack {
+                    Text(item?.text ?? "No item selected. Select Item 1.")
+                        .font(.title)
+                        .padding()
+                    
+                    let subitems = item?.subitems ?? []
+                    
+                    List(subitems, id: \.self) { num in
+                        Text("Subitem \(num)")
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                // Inspector
+                HStack(spacing: 0) {
+                    Divider()
+                        .frame(minWidth: 0)
+                    
+                    List {
+                        if let item {
+                            Text("\(item.name) Inspector Element 1")
+                            Text("\(item.name) Inspector Element 2")
+                            Text("\(item.name) Inspector Element 3")
+                            Text("\(item.name) Inspector Element 4")
+                            Text("\(item.name) Inspector Element 5")
+                        } else {
+                            Text("No item selected")
+                        }
+                    }
+                    .listStyle(.sidebar)
+                }
+                .frame(width: showInspector ? max(250, geo.size.width / 4) : 0)
+                .opacity(showInspector ? 1 : 0)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .toolbar {
+                ToolbarItemGroup(placement: .automatic) {
+                    
+                    SearchField()
+                    
+                    Button {
+                        withAnimation {
+                            showInspector.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "sidebar.right")
+                    }
+                }
+            }
+        }
+    }
+    
+    let item: Item?
+    
+    
+    @State private var showInspector = false
+}
+
+struct SearchField: View {
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.primary.opacity(0.55))
+            
+            TextField("Search",
+                      text: $searchTerm,
+                      prompt: Text("Enter search term"))
+            .textFieldStyle(.plain)
+        }
+        .padding(6)
+        .background(RoundedRectangle(cornerRadius: 6).fill(.clear)) // use this to color the bg
+        .overlay {
+            RoundedRectangle(cornerRadius: 6)
+                .stroke(.primary.opacity(0.08))
+        }
+    }
+    
+    @State var searchTerm = ""
+}
+
+struct Item: Hashable, Identifiable
+{
+    static let all: [Item] =
+    [
+        .init(name: "Item 1",
+              text: "If you select Item 2, then this content will animate into ...",
+             subitems: [0, 1, 3, 4, 6, 7, 9, 10, 12]),
+        .init(name: "Item 2",
+              text: "... this one because both are in a structurally identical view.",
+             subitems: [0, 2, 3, 5, 6, 8, 9, 11, 12])
+    ]
+    
+    let id = UUID()
+    let name: String
+    let text: String
+    let subitems: [Int]
+}

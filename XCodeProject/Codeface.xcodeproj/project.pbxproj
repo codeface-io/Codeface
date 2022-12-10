@@ -262,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
+				9606D886289A4549002B71E5 /* Xcode14Experiments.swift */,
 				9639C27128D761A000779BA5 /* CodefaceDocumentView.swift */,
 				964308A4254B7B070026E56C /* CodefaceDocumentContentView.swift */,
 				968EA5C228DCD24500FE8A9B /* ContentNavigationView.swift */,
@@ -274,7 +275,6 @@
 		9E00727A218E250E0094BD1C /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				9606D886289A4549002B71E5 /* Xcode14Experiments.swift */,
 				96E863D12844125500BCCE66 /* Codeface */,
 				96D8DB1928A1500D00B84B45 /* Sidebar Content Views */,
 				96E479D52835A53200762FD7 /* Artifact Views */,
