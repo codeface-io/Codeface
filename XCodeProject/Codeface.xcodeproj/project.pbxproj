@@ -14,10 +14,6 @@
 		960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAB28ABB07800F334CA /* TreeMap.swift */; };
 		960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAD28ABB0A000F334CA /* CodeView.swift */; };
 		960BBE9629004F9000F9DC2A /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960BBE9529004F9000F9DC2A /* Help.swift */; };
-		960C5F6F29254D7900449C95 /* RunProcessServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96081CFD292242E100A562BA /* RunProcessServiceTest.swift */; };
-		960C5F7029254D7C00449C95 /* ProcessServiceTestMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96081D072922475700A562BA /* ProcessServiceTestMain.swift */; };
-		960C5F7329254DC700449C95 /* ProcessServiceClient in Frameworks */ = {isa = PBXBuildFile; productRef = 960C5F7229254DC700449C95 /* ProcessServiceClient */; };
-		960C5F7729254DE100449C95 /* ProcessServiceServer in Frameworks */ = {isa = PBXBuildFile; productRef = 960C5F7629254DE100449C95 /* ProcessServiceServer */; };
 		961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 961AAD652899C553001CFF67 /* CodefaceCore */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		961EFF34284FB90E00DB7FE9 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF33284FB90E00DB7FE9 /* SidebarRow.swift */; };
@@ -39,7 +35,6 @@
 		966F39B3291BF56200198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B2291BF56200198B14 /* FoundationToolz */; };
 		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
 		968EA5C328DCD24500FE8A9B /* ContentNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EA5C228DCD24500FE8A9B /* ContentNavigationView.swift */; };
-		96A606BF2944A39B00CD2A06 /* CodefaceHelper.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 96143EFE290ED68A008CA3C2 /* CodefaceHelper.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		96B8B53E292F9C630020D594 /* SwiftUIToolzOLD in Frameworks */ = {isa = PBXBuildFile; productRef = 96B8B53D292F9C630020D594 /* SwiftUIToolzOLD */; };
 		96C2118C28E347F0008024AA /* CombineObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118B28E347F0008024AA /* CombineObserver */; };
 		96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118D28E347F0008024AA /* SwiftObserver */; };
@@ -60,13 +55,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		96A606C02944A39B00CD2A06 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E95A6FB218C73C7009A58A9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 96143EFD290ED68A008CA3C2;
-			remoteInfo = CodefaceHelper;
-		};
 		9E95A714218C73CA009A58A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9E95A6FB218C73C7009A58A9 /* Project object */;
@@ -77,17 +65,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		96A606C22944A39B00CD2A06 /* Embed XPC Services */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
-			dstSubfolderSpec = 16;
-			files = (
-				96A606BF2944A39B00CD2A06 /* CodefaceHelper.xpc in Embed XPC Services */,
-			);
-			name = "Embed XPC Services";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9E984A2A219F28C300AFE752 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -132,7 +109,6 @@
 		968EA5C228DCD24500FE8A9B /* ContentNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentNavigationView.swift; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
 		96D8DB1C28A1503C00B84B45 /* PathBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBarView.swift; sourceTree = "<group>"; };
-		96DA6F9B292A897F00242A5B /* ProcessService */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ProcessService; path = ../../ProcessService; sourceTree = "<group>"; };
 		96E479CF28359C9900762FD7 /* AnimatableLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableLine.swift; sourceTree = "<group>"; };
 		96E479D128359CCE00762FD7 /* ArtifactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactView.swift; sourceTree = "<group>"; };
 		96E479D32835A1DB00762FD7 /* ArtifactIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactIcon.swift; sourceTree = "<group>"; };
@@ -159,7 +135,6 @@
 				966F39B3291BF56200198B14 /* FoundationToolz in Frameworks */,
 				966F39AE291BF42900198B14 /* SwiftLSP in Frameworks */,
 				966F39AC291BF32600198B14 /* SwiftyToolz in Frameworks */,
-				960C5F7729254DE100449C95 /* ProcessServiceServer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +150,6 @@
 				96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */,
 				961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */,
 				96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */,
-				960C5F7329254DC700449C95 /* ProcessServiceClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +290,6 @@
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
-				96DA6F9B292A897F00242A5B /* ProcessService */,
 				9E00727A218E250E0094BD1C /* Code */,
 				9E95A705218C73C7009A58A9 /* Codeface */,
 				96143EFF290ED68A008CA3C2 /* CodefaceHelper */,
@@ -384,7 +357,6 @@
 				966F39AB291BF32600198B14 /* SwiftyToolz */,
 				966F39AD291BF42900198B14 /* SwiftLSP */,
 				966F39B2291BF56200198B14 /* FoundationToolz */,
-				960C5F7629254DE100449C95 /* ProcessServiceServer */,
 			);
 			productName = LSPXPCService;
 			productReference = 96143EFE290ED68A008CA3C2 /* CodefaceHelper.xpc */;
@@ -398,12 +370,10 @@
 				9E95A700218C73C7009A58A9 /* Frameworks */,
 				9E95A701218C73C7009A58A9 /* Resources */,
 				9E984A2A219F28C300AFE752 /* Embed Frameworks */,
-				96A606C22944A39B00CD2A06 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				96A606C12944A39B00CD2A06 /* PBXTargetDependency */,
 			);
 			name = Codeface;
 			packageProductDependencies = (
@@ -414,7 +384,6 @@
 				96C2118B28E347F0008024AA /* CombineObserver */,
 				96C2118D28E347F0008024AA /* SwiftObserver */,
 				966F39B0291BF54F00198B14 /* FoundationToolz */,
-				960C5F7229254DC700449C95 /* ProcessServiceClient */,
 				96B8B53D292F9C630020D594 /* SwiftUIToolzOLD */,
 			);
 			productName = Cocoalytics;
@@ -478,7 +447,6 @@
 				96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */,
 				96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */,
 				966F39AF291BF54F00198B14 /* XCRemoteSwiftPackageReference "FoundationToolz" */,
-				960C5F7129254DC700449C95 /* XCRemoteSwiftPackageReference "ProcessService" */,
 				96B8B53C292F9C630020D594 /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */,
 			);
 			productRefGroup = 9E95A704218C73C7009A58A9 /* Products */;
@@ -522,7 +490,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				960C5F7029254D7C00449C95 /* ProcessServiceTestMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,7 +514,6 @@
 				9629D5B729252A2C006B1E98 /* XPCExecutableClientExportedInterface.swift in Sources */,
 				960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */,
 				963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */,
-				960C5F6F29254D7900449C95 /* RunProcessServiceTest.swift in Sources */,
 				9648CBAE28BCB3A30011D3C7 /* SidebarAnalysisContent.swift in Sources */,
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
 				964308A5254B7B070026E56C /* CodefaceDocumentContentView.swift in Sources */,
@@ -577,11 +543,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		96A606C12944A39B00CD2A06 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 96143EFD290ED68A008CA3C2 /* CodefaceHelper */;
-			targetProxy = 96A606C02944A39B00CD2A06 /* PBXContainerItemProxy */;
-		};
 		9E95A715218C73CA009A58A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9E95A702218C73C7009A58A9 /* Codeface */;
@@ -907,14 +868,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		960C5F7129254DC700449C95 /* XCRemoteSwiftPackageReference "ProcessService" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ChimeHQ/ProcessService";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.6;
-			};
-		};
 		9656A69D25287F0D00D4CF26 /* XCRemoteSwiftPackageReference "SwiftyToolz" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/flowtoolz/SwiftyToolz.git";
@@ -966,16 +919,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		960C5F7229254DC700449C95 /* ProcessServiceClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 960C5F7129254DC700449C95 /* XCRemoteSwiftPackageReference "ProcessService" */;
-			productName = ProcessServiceClient;
-		};
-		960C5F7629254DE100449C95 /* ProcessServiceServer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 960C5F7129254DC700449C95 /* XCRemoteSwiftPackageReference "ProcessService" */;
-			productName = ProcessServiceServer;
-		};
 		961AAD652899C553001CFF67 /* CodefaceCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CodefaceCore;

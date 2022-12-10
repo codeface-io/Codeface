@@ -3,6 +3,10 @@ import SwiftLSP
 import Foundation
 import SwiftyToolz
 
+/**
+ To work on this experiment, embedd XPC service target "CodefaceHelper" in app target "Codeface" via Targets -> Codeface -> Frameworks, Libraries, and Embedded Content
+*/
+
 extension XPCExecutable
 {
     static func testForCodeface()

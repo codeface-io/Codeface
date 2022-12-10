@@ -5,6 +5,14 @@ import SwiftLSP
 import Foundation
 import SwiftyToolz
 
+/**
+ To work on this experiment
+ 1. Add ProcessService package to the project
+ 2. Add this file to app target "Codeface"
+ 3. Add "ProcessServiceTestMain.swift" to XPC service target "CodefaceHelper"
+ 4. Embedd XPC service target "CodefaceHelper" in app target "Codeface" via Targets -> Codeface -> Frameworks, Libraries, and Embedded Content
+*/
+
 enum ProcessServiceTest
 {
     static func run()

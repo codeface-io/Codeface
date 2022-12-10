@@ -96,14 +96,14 @@ struct CodefaceApp: App
                 .keyboardShortcut("r")
                 .disabled(focusedDocument == nil || !CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
                 
-                #if DEBUG
-                Button("Test XPC Service With Last Codebase")
-                {
-                    ProcessServiceTest.run()
-//                    XPCExecutable.testForCodeface()
-                }
-                .keyboardShortcut("t")
-                #endif
+//                #if DEBUG
+//                Button("Test XPC Service With Last Codebase")
+//                {
+//                    ProcessServiceTest.run()
+////                    XPCExecutable.testForCodeface()
+//                }
+//                .keyboardShortcut("t")
+//                #endif
 
                 Divider()
             }
