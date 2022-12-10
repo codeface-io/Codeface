@@ -16,6 +16,11 @@ struct CodefaceView14: View
             InspectorView(item: selectedItem)
                 .animation(.default, value: selectedItem)
         }
+        .onAppear {
+            Task {
+                selectedItem = .all.first
+            }
+        }
     }
 
     @State var selectedItem: Item? = nil
@@ -41,6 +46,7 @@ struct InspectorView: View {
                     List(subitems, id: \.self) { num in
                         Text("Subitem \(num)")
                     }
+                    .focusable(false)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -60,6 +66,7 @@ struct InspectorView: View {
                             Text("No item selected")
                         }
                     }
+                    .focusable(false)
                     .listStyle(.sidebar)
                 }
                 .frame(width: showInspector ? max(250, geo.size.width / 4) : 0)
@@ -67,24 +74,20 @@ struct InspectorView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .toolbar {
-                ToolbarItemGroup(placement: .automatic) {
-                    
-                    SearchField()
-                    
-                    Button {
-                        withAnimation {
-                            showInspector.toggle()
-                        }
-                    } label: {
-                        Image(systemName: "sidebar.right")
+                SearchField()
+                
+                Button {
+                    withAnimation {
+                        showInspector.toggle()
                     }
+                } label: {
+                    Image(systemName: "sidebar.right")
                 }
             }
         }
     }
     
     let item: Item?
-    
     
     @State private var showInspector = false
 }
@@ -107,6 +110,7 @@ struct SearchField: View {
             RoundedRectangle(cornerRadius: 6)
                 .stroke(.primary.opacity(0.08))
         }
+        .frame(minWidth: 200)
     }
     
     @State var searchTerm = ""
