@@ -13,7 +13,8 @@ struct CodefaceView14: View
         }
         detail:
         {
-            InspectorView(item: selectedItem)
+            InspectorView(item: selectedItem,
+                          showsInspector: $showsInspector)
                 .animation(.default, value: selectedItem)
         }
         .onAppear {
@@ -24,7 +25,9 @@ struct CodefaceView14: View
     }
 
     @State var selectedItem: Item? = nil
-    @State var columnVisibility = NavigationSplitViewVisibility.all
+    
+    @Binding var columnVisibility: NavigationSplitViewVisibility
+    @Binding var showsInspector: Bool
 }
 
 struct InspectorView: View {
@@ -69,8 +72,8 @@ struct InspectorView: View {
                     .focusable(false)
                     .listStyle(.sidebar)
                 }
-                .frame(width: showInspector ? max(250, geo.size.width / 4) : 0)
-                .opacity(showInspector ? 1 : 0)
+                .frame(width: showsInspector ? max(250, geo.size.width / 4) : 0)
+                .opacity(showsInspector ? 1 : 0)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .toolbar {
@@ -79,7 +82,7 @@ struct InspectorView: View {
                 
                 Button {
                     withAnimation {
-                        showInspector.toggle()
+                        showsInspector.toggle()
                     }
                 } label: {
                     Image(systemName: "sidebar.right")
@@ -90,7 +93,7 @@ struct InspectorView: View {
     
     let item: Item?
     
-    @State private var showInspector = false
+    @Binding var showsInspector: Bool
 }
 
 struct SearchField: View {

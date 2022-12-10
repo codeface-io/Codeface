@@ -19,7 +19,8 @@ struct CodefaceApp: App
         {
             _ in
             
-            CodefaceView14()
+            CodefaceView14(columnVisibility: $columnVisibility,
+                           showsInspector: $showsInspector)
             
 //            CodefaceDocumentView(codebaseFile: $0.$document)
 //                .sheet(isPresented: $isPresentingCodebaseLocator)
@@ -35,7 +36,7 @@ struct CodefaceApp: App
         {
             SidebarCommands()
 
-            CommandGroup(before: .sidebar)
+            CommandGroup(replacing: .sidebar)
             {
                 Button("Switch Display Mode")
                 {
@@ -43,8 +44,33 @@ struct CodefaceApp: App
                 }
                 .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut(.space, modifiers: .shift)
-
+                
                 Divider()
+
+                Button("\(columnVisibility == .all ? "Hide" : "Show") Navigator")
+                {
+                    withAnimation
+                    {
+                        if columnVisibility == .all
+                        {
+                            columnVisibility = .detailOnly
+                        }
+                        else
+                        {
+                            columnVisibility = .all
+                        }
+                    }
+                }
+                .keyboardShortcut("0", modifiers: .command)
+                
+                Button("\(showsInspector ? "Hide" : "Show") Inspector")
+                {
+                    withAnimation
+                    {
+                        showsInspector.toggle()
+                    }
+                }
+                .keyboardShortcut("0", modifiers: [.option, .command])
             }
             
             CommandGroup(replacing: .help)
@@ -125,6 +151,9 @@ struct CodefaceApp: App
     @State private var isPresentingFolderImporter = false
     
     // MARK: - Basics
+    
+    @State var columnVisibility = NavigationSplitViewVisibility.all
+    @State var showsInspector = false
     
     @FocusedValue(\.document) var focusedDocument: CodefaceDocument?
 }
