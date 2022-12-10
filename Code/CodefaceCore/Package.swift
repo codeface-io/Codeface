@@ -15,23 +15,23 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/codeface-io/LSPServiceKit.git",
-            branch: "master"
+            exact: "0.2.0"
         ),
         .package(
             url: "https://github.com/codeface-io/SwiftLSP.git",
-            branch: "master"
+            exact: "0.3.4"
         ),
         .package(
             url: "https://github.com/flowtoolz/FoundationToolz.git",
-            branch: "master"
+            exact: "0.1.3"
         ),
         .package(
             url: "https://github.com/codeface-io/SwiftNodes.git",
-            branch: "master"
+            exact: "0.3.3"
         ),
         .package(
             url: "https://github.com/flowtoolz/SwiftyToolz.git",
-            branch: "master"
+            exact: "0.2.0"
         ),
         .package(
             url: "https://github.com/apple/swift-collections.git",
