@@ -142,7 +142,7 @@ struct DocumentProcessingView: View
                                             Text("Inspector Element 5")
                                         }
                                         .focusable(false)
-                                        .listStyle(.sidebar)
+//                                        .listStyle(.plain)
                                     }
                                     .frame(width: showsInspector ? max(250, geo.size.width / 4) : 0)
                                     .opacity(showsInspector ? 1 : 0)
