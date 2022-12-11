@@ -1,6 +1,7 @@
 import SwiftUIToolzOLD
 import SwiftUI
 import SwiftLSP
+import SwiftyToolz
 import CodefaceCore
 
 struct DocumentProcessingView: View
@@ -134,17 +135,67 @@ struct DocumentProcessingView: View
                                         Divider()
                                             .frame(minWidth: 0)
                                         
-                                        List {
-                                            Text("Inspector Element 1")
-                                            Text("Inspector Element 2")
-                                            Text("Inspector Element 3")
-                                            Text("Inspector Element 4")
-                                            Text("Inspector Element 5")
+                                        List
+                                        {
+                                            Label
+                                            {
+                                                Text(artifactVM.codeArtifact.name)
+                                            }
+                                            icon:
+                                            {
+                                                ArtifactIcon(artifact: artifactVM, isSelected: false)
+                                            }
+                                            .font(.title3)
+                                            
+                                            Text(artifactVM.codeArtifact.kindName)
+                                                .foregroundColor(.secondary)
+                                                .font(.title3)
+                                            
+                                            Divider()
+                                            
+                                            HStack {
+                                                Label("Lines of code:",
+                                                      systemImage: "text.alignleft")
+                                                Spacer()
+                                                Text("\(artifactVM.codeArtifact.linesOfCode)")
+                                                    .foregroundColor(.init(artifactVM.linesOfCodeColor))
+                                            }
+                                            .font(.title3)
+                                            
+                                            Divider()
+                                            
+                                            HStack {
+                                                Label("Is itself in cycles:",
+                                                      systemImage: "arrow.rectanglepath")
+                                                Spacer()
+                                                
+                                                let isInCycle = artifactVM.codeArtifact.metrics.isInACycle ?? false
+                                                
+                                                let cycleColor: SwiftyToolz.Color = isInCycle ? .rgb(1, 0, 0) : .rgb(0, 1, 0)
+                                                
+                                                Text("\(isInCycle ? "Yes" : "No")")
+                                                    .foregroundColor(SwiftUI.Color(cycleColor))
+                                            }
+                                            .font(.title3)
+                                            
+                                            HStack {
+                                                Label("Code of parts in cycles:",
+                                                      systemImage: "arrow.3.trianglepath")
+                                                Spacer()
+                                                
+                                                let cyclicPortion = artifactVM.codeArtifact.metrics.portionOfPartsInCycles
+                                                
+                                                let cycleColor = Color.rgb(0, 1, 0)
+                                                    .mixed(with: cyclicPortion, of: .rgb(1, 0, 0))
+                                                
+                                                Text("\(Int(cyclicPortion * 100))%")
+                                                    .foregroundColor(SwiftUI.Color(cycleColor))
+                                            }
+                                            .font(.title3)
                                         }
                                         .focusable(false)
-//                                        .listStyle(.plain)
                                     }
-                                    .frame(width: showsInspector ? max(250, geo.size.width / 4) : 0)
+                                    .frame(width: showsInspector ? max(250, geo.size.width / 5) : 0)
                                     .opacity(showsInspector ? 1 : 0)
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
