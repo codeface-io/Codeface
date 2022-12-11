@@ -36,6 +36,8 @@ struct DocumentProcessingView: View
                                      isSelected: artifactVM == codefaceDocument.selectedArtifact)
                     }
                 }
+                .navigationSplitViewColumnWidth(min: 250, ideal: 250)
+                
 //                .onChange(of: isSearching)
 //                {
 //                    [isSearching] isSearchingNow in
@@ -179,8 +181,9 @@ struct DocumentProcessingView: View
                                             .font(.title3)
                                             
                                             HStack {
-                                                Label("Code of parts in cycles:",
+                                                Label("Parts in cycles:",
                                                       systemImage: "arrow.3.trianglepath")
+                                                
                                                 Spacer()
                                                 
                                                 let cyclicPortion = artifactVM.codeArtifact.metrics.portionOfPartsInCycles
