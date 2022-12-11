@@ -8,6 +8,6 @@ extension ArtifactViewModel: Hashable
     public nonisolated static func == (lhs: ArtifactViewModel,
                                        rhs: ArtifactViewModel) -> Bool
     {
-        lhs === rhs
+        lhs.id == rhs.id
     }
 }

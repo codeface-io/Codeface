@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CodefaceView14: View
+struct ProofOfConceptView: View
 {
     var body: some View
     {
@@ -13,8 +13,7 @@ struct CodefaceView14: View
         }
         detail:
         {
-            InspectorView(item: selectedItem,
-                          showsInspector: $showsInspector)
+            InspectorView(showsInspector: $showsInspector)
                 .animation(.default, value: selectedItem)
         }
         .onAppear {
@@ -40,16 +39,13 @@ struct InspectorView: View {
                 
                 //Main
                 VStack {
-                    Text(item?.text ?? "No item selected. Select Item 1.")
+                    Spacer()
+                    
+                    Text("Content goes here")
                         .font(.title)
                         .padding()
                     
-                    let subitems = item?.subitems ?? []
-                    
-                    List(subitems, id: \.self) { num in
-                        Text("Subitem \(num)")
-                    }
-                    .focusable(false)
+                    Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -59,15 +55,11 @@ struct InspectorView: View {
                         .frame(minWidth: 0)
                     
                     List {
-                        if let item {
-                            Text("\(item.name) Inspector Element 1")
-                            Text("\(item.name) Inspector Element 2")
-                            Text("\(item.name) Inspector Element 3")
-                            Text("\(item.name) Inspector Element 4")
-                            Text("\(item.name) Inspector Element 5")
-                        } else {
-                            Text("No item selected")
-                        }
+                        Text("Inspector Element 1")
+                        Text("Inspector Element 2")
+                        Text("Inspector Element 3")
+                        Text("Inspector Element 4")
+                        Text("Inspector Element 5")
                     }
                     .focusable(false)
                     .listStyle(.sidebar)
@@ -91,38 +83,7 @@ struct InspectorView: View {
         }
     }
     
-    let item: Item?
-    
     @Binding var showsInspector: Bool
-}
-
-struct SearchField: View {
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.primary.opacity(0.55))
-            
-            TextField("Search Field",
-                      text: $searchTerm,
-                      prompt: Text("Enter search term"))
-            .focused($isFocused)
-            .textFieldStyle(.plain)
-        }
-        .padding(6)
-        .background {
-            RoundedRectangle(cornerRadius: 6)
-                .fill(isFocused ? Color.primary.opacity(0.05) : .clear) // use this to color the bg
-        }
-        .overlay {
-            RoundedRectangle(cornerRadius: 6)
-                .stroke(.primary.opacity(0.08))
-        }
-        .frame(minWidth: 200)
-    }
-    
-    @FocusState private var isFocused: Bool
-    @State var searchTerm = ""
 }
 
 struct Item: Hashable, Identifiable

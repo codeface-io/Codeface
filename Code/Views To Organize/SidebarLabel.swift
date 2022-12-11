@@ -26,6 +26,6 @@ struct SidebarLabel: View
         }
     }
     
-    @State var artifact: ArtifactViewModel
+    @ObservedObject var artifact: ArtifactViewModel
     let isSelected: Bool
 }

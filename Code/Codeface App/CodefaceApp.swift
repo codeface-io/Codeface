@@ -17,20 +17,17 @@ struct CodefaceApp: App
     {
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
-            _ in
-            
-            CodefaceView14(columnVisibility: $columnVisibility,
-                           showsInspector: $showsInspector)
-            
-//            CodefaceDocumentView(codebaseFile: $0.$document)
-//                .sheet(isPresented: $isPresentingCodebaseLocator)
-//                {
-//                    CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
-//                    {
-//                        focusedDocument?.loadNewProcessor(forCodebaseFrom: $0)
-//                    }
-//                    .padding()
-//                }
+            CodefaceDocumentView(codebaseFile: $0.$document,
+                                 columnVisibility: $columnVisibility,
+                                 showsInspector: $showsInspector)
+                .sheet(isPresented: $isPresentingCodebaseLocator)
+                {
+                    CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
+                    {
+                        focusedDocument?.loadNewProcessor(forCodebaseFrom: $0)
+                    }
+                    .padding()
+                }
         }
         .commands
         {

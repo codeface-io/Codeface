@@ -2,6 +2,11 @@ import SwiftLSP
 import Foundation
 import SwiftyToolz
 
+//extension ArtifactViewModel: Equatable
+//{
+//    
+//}
+
 @MainActor
 public class ArtifactViewModel: Identifiable, ObservableObject
 {
