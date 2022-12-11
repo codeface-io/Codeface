@@ -58,120 +58,125 @@ struct DocumentProcessingView: View
             {
                 if let artifactVM = codefaceDocument.selectedArtifact
                 {
-                    if artifactVM.filteredParts.isEmpty
-                    {
-                        let contentIsFilteredOut = !artifactVM.passesSearchFilter || !artifactVM.parts.isEmpty
+                    VStack(spacing: 0) {
                         
-                        if contentIsFilteredOut
+                        PathBarView(overviewBar: processorVM.pathBar)
+                        
+                        if artifactVM.filteredParts.isEmpty
                         {
-                            VStack(alignment: .center)
+                            let contentIsFilteredOut = !artifactVM.passesSearchFilter || !artifactVM.parts.isEmpty
+                            
+                            if contentIsFilteredOut
                             {
-                                Label("No Search Results", systemImage: "xmark.rectangle")
-                                    .foregroundColor(.secondary)
-                                    .font(.system(.title))
-                                    .padding(.bottom)
-                                
-                                Text(artifactVM.codeArtifact.name + " does not contain the term \"\(processorVM.appliedSearchTerm ?? "")\"")
-                                    .foregroundColor(.secondary)
-                                    .padding(.bottom)
-                                
-                                Button("Remove Search Filter", role: .destructive)
+                                VStack(alignment: .center)
                                 {
-                                    processorVM.removeSearchFilter()
+                                    Label("No Search Results", systemImage: "xmark.rectangle")
+                                        .foregroundColor(.secondary)
+                                        .font(.system(.title))
+                                        .padding(.bottom)
+                                    
+                                    Text(artifactVM.codeArtifact.name + " does not contain the term \"\(processorVM.appliedSearchTerm ?? "")\"")
+                                        .foregroundColor(.secondary)
+                                        .padding(.bottom)
+                                    
+                                    Button("Remove Search Filter", role: .destructive)
+                                    {
+                                        processorVM.removeSearchFilter()
+                                    }
                                 }
+                                .padding()
                             }
-                            .padding()
-                        }
-                        else if case .symbol = artifactVM.kind
-                        {
-                            CodeView(artifact: artifactVM)
+                            else if case .symbol = artifactVM.kind
+                            {
+                                CodeView(artifact: artifactVM)
+                            }
+                            else
+                            {
+                                VStack
+                                {
+                                    Label("Empty " + artifactVM.codeArtifact.kindName, systemImage: "xmark.rectangle")
+                                        .foregroundColor(.secondary)
+                                        .font(.system(.title))
+                                        .padding(.bottom)
+                                    
+                                    if serverManager.serverIsWorking
+                                    {
+                                        Text(artifactVM.codeArtifact.name + " contains no further symbols.")
+                                            .foregroundColor(.secondary)
+                                    }
+                                    else
+                                    {
+                                        LSPServiceHint()
+                                    }
+                                }
+                                .padding(50)
+                            }
                         }
                         else
                         {
-                            VStack
-                            {
-                                Label("Empty " + artifactVM.codeArtifact.kindName, systemImage: "xmark.rectangle")
-                                    .foregroundColor(.secondary)
-                                    .font(.system(.title))
-                                    .padding(.bottom)
+                            GeometryReader { geo in
                                 
-                                if serverManager.serverIsWorking
-                                {
-                                    Text(artifactVM.codeArtifact.name + " contains no further symbols.")
-                                        .foregroundColor(.secondary)
-                                }
-                                else
-                                {
-                                    LSPServiceHint()
-                                }
-                            }
-                            .padding(50)
-                        }
-                    }
-                    else
-                    {
-                        GeometryReader { geo in
-                            
-                            HStack(spacing: 0) {
-                                
-                                //Main
-                                VStack {
-                                    switch processorVM.displayMode
-                                    {
-                                    case .treeMap: TreeMap(rootArtifactVM: artifactVM,
-                                                           viewModel: processorVM)
-                                    case .code: CodeView(artifact: artifactVM)
+                                HStack(spacing: 0) {
+                                    
+                                    //Main
+                                    VStack {
+                                        switch processorVM.displayMode
+                                        {
+                                        case .treeMap: TreeMap(rootArtifactVM: artifactVM,
+                                                               viewModel: processorVM)
+                                        case .code: CodeView(artifact: artifactVM)
+                                        }
                                     }
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    
+                                    // Inspector
+                                    HStack(spacing: 0) {
+                                        Divider()
+                                            .frame(minWidth: 0)
+                                        
+                                        List {
+                                            Text("Inspector Element 1")
+                                            Text("Inspector Element 2")
+                                            Text("Inspector Element 3")
+                                            Text("Inspector Element 4")
+                                            Text("Inspector Element 5")
+                                        }
+                                        .focusable(false)
+                                        .listStyle(.sidebar)
+                                    }
+                                    .frame(width: showsInspector ? max(250, geo.size.width / 4) : 0)
+                                    .opacity(showsInspector ? 1 : 0)
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-                                // Inspector
-                                HStack(spacing: 0) {
-                                    Divider()
-                                        .frame(minWidth: 0)
+                                .toolbar {
+                                    //                                Button(action: { codefaceDocument.loadProcessorForLastCodebase() })
+                                    //                                {
+                                    //                                    Image(systemName: "arrow.clockwise")
+                                    //                                }
+                                    //                                .disabled(!CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
+                                    //                                .help("Import the last imported folder again")
+                                    //
+                                    //                                Spacer()
                                     
-                                    List {
-                                        Text("Inspector Element 1")
-                                        Text("Inspector Element 2")
-                                        Text("Inspector Element 3")
-                                        Text("Inspector Element 4")
-                                        Text("Inspector Element 5")
+                                    if let searchTerm = processorVM.appliedSearchTerm, !searchTerm.isEmpty
+                                    {
+                                        FilterRemovalButton(processorVM: processorVM)
                                     }
-                                    .focusable(false)
-                                    .listStyle(.sidebar)
-                                }
-                                .frame(width: showsInspector ? max(250, geo.size.width / 4) : 0)
-                                .opacity(showsInspector ? 1 : 0)
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .toolbar {
-//                                Button(action: { codefaceDocument.loadProcessorForLastCodebase() })
-//                                {
-//                                    Image(systemName: "arrow.clockwise")
-//                                }
-//                                .disabled(!CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
-//                                .help("Import the last imported folder again")
-//
-//                                Spacer()
-                                
-                                if let searchTerm = processorVM.appliedSearchTerm, !searchTerm.isEmpty
-                                {
-                                    FilterRemovalButton(processorVM: processorVM)
-                                }
-                                
-                                // TODO: fext field in toolbar does not recognize its focus ...
-                                SearchField()
-                                
-                                Spacer()
-                                
-                                DisplayModePicker(displayMode: $processorVM.displayMode)
-                                
-                                Button {
-                                    withAnimation {
-                                        showsInspector.toggle()
+                                    
+                                    // TODO: fext field in toolbar does not recognize its focus ...
+                                    SearchField()
+                                    
+                                    Spacer()
+                                    
+                                    DisplayModePicker(displayMode: $processorVM.displayMode)
+                                    
+                                    Button {
+                                        withAnimation {
+                                            showsInspector.toggle()
+                                        }
+                                    } label: {
+                                        Image(systemName: "sidebar.right")
                                     }
-                                } label: {
-                                    Image(systemName: "sidebar.right")
                                 }
                             }
                         }

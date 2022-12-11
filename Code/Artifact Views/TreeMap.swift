@@ -4,14 +4,10 @@ import CodefaceCore
 struct TreeMap: View
 {
     var body: some View
-    {
-            VStack(spacing: 0)
-            {
-                PathBarView(overviewBar: viewModel.pathBar)
-
-                RootArtifactContentView(artifact: rootArtifactVM, viewModel: viewModel)
-                    .padding(ArtifactViewModel.padding)
-            }
+    {        
+        RootArtifactContentView(artifact: rootArtifactVM, viewModel: viewModel)
+            .padding(ArtifactViewModel.padding)
+        
             .frame(minWidth: 300, minHeight: 300)
             .background(Color(white: colorScheme == .dark ? 0 : 0.6))
     }
