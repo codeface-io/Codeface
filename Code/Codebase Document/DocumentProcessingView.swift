@@ -231,6 +231,7 @@ struct DocumentProcessingView: View
                                     } label: {
                                         Image(systemName: "sidebar.right")
                                     }
+                                    .help("Toggle the inspector on the right (⌥⌘0)")
                                 }
                             }
                         }
