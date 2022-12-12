@@ -33,11 +33,17 @@ public actor ProjectProcessor: ObservableObject
     
     public func run() async
     {
+        log("gonna retrieve codebase")
+        
         // get codebase
         guard let codebase = await retrieveCodebase() else { return }
         
+        log("did retrieve codebase")
+        
         // generate architecture
         let codebaseArchitecture = generateArchitecture(from: codebase)
+        
+        log("did generate architecture codebase")
         
         // analyze architecture
         state = .visualizingCodebaseArchitecture(.calculateMetrics)
@@ -62,13 +68,19 @@ public actor ProjectProcessor: ObservableObject
         switch state
         {
         case .didLocateCodebase(let codebaseLocation):
+            log("processor state: did locate codebase")
+            
             state = .retrievingCodebase(.readFolder)
             guard let codebase = readCodebaseFolder(from: codebaseLocation) else { return nil }
+            
+            log("did read codebase folder")
             
             do
             {
                 state = .retrievingCodebase(.connectToLSPServer)
                 let server = try await LSP.ServerManager.shared.initializeServer(for: codebaseLocation)
+                
+                log("did connect to server")
                 
                 state = .retrievingCodebase(.retrieveSymbols)
 //                var stopWatch = StopWatch()

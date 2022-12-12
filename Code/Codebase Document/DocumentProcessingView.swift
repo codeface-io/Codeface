@@ -168,7 +168,7 @@ struct DocumentProcessingView: View
                                             
                                             HStack {
                                                 Label("Is itself in cycles:",
-                                                      systemImage: "arrow.rectanglepath")
+                                                      systemImage: "exclamationmark.arrow.triangle.2.circlepath")
                                                 Spacer()
                                                 
                                                 let isInCycle = artifactVM.codeArtifact.metrics.isInACycle ?? false
