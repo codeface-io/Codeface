@@ -55,19 +55,9 @@ struct DocumentProcessingView: View
                             PathBarView(overviewBar: processorVM.pathBar)
                             
                             HStack {
-                                SearchField(searchTerm: $searchTerm,
-                                            processorVM: processorVM)
+                                SearchField(processorVM: processorVM)
                                     .padding([.bottom], 8)
                                     .padding([.leading, .trailing])
-                                    .onChange(of: searchTerm)
-                                {
-                                    newSearchTerm in
-                                    
-                                    withAnimation(.easeInOut)
-                                    {
-                                        processorVM.userChanged(searchTerm: newSearchTerm)
-                                    }
-                                }
                             }
                         }
                         .background(Color(NSColor.controlBackgroundColor))
@@ -260,8 +250,6 @@ struct DocumentProcessingView: View
     @Binding var showsInspector: Bool
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
-    
-    @State private var searchTerm = ""
     
 //    @FocusState private var listIsInFocus
 }

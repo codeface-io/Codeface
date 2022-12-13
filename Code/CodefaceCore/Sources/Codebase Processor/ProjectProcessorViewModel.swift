@@ -38,24 +38,25 @@ public class ProjectProcessorViewModel: ObservableObject
     public func removeSearchFilter()
     {
         updateArtifacts(withSearchTerm: "", allPass: true)
-        isTypingSearch = false
+        searchVM.isTypingSearch = false
+        searchVM.searchTerm = ""
     }
     
     public func searchFieldObtainedFocus()
     {
-        isTypingSearch = true
+        searchVM.isTypingSearch = true
     }
     
-    public func userChanged(searchTerm: String)
+    public func userChangedSearchTerm()
     {
-        isTypingSearch = true
-        updateArtifacts(withSearchTerm: searchTerm, allPass: false)
+        searchVM.isTypingSearch = true
+        updateArtifacts(withSearchTerm: searchVM.searchTerm, allPass: false)
     }
     
-    public func searchFieldLostFocus(witchSearchTerm searchTerm: String)
+    public func submit()
     {
-        isTypingSearch = false
-        updateArtifacts(withSearchTerm: searchTerm, allPass: false)
+        searchVM.isTypingSearch = false
+        updateArtifacts(withSearchTerm: searchVM.searchTerm, allPass: false)
     }
     
     private func updateArtifacts(withSearchTerm searchTerm: String,
@@ -68,7 +69,7 @@ public class ProjectProcessorViewModel: ObservableObject
         }
     }
     
-    @Published public var isTypingSearch: Bool = false
+    public let searchVM = SearchVM()
     
     // MARK: - Active Analysis
     
@@ -120,3 +121,7 @@ private extension ProjectProcessor.State
     }
 }
 
+public class SearchVM: ObservableObject {
+    @Published public var searchTerm = ""
+    @Published public var isTypingSearch: Bool = false
+}

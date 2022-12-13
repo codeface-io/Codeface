@@ -16,7 +16,7 @@ struct RootArtifactContentView: View
                 {
                     ArtifactContentView(artifactVM: artifact,
                                         pathBar: viewModel.pathBar,
-                                        ignoreSearchFilter: viewModel.isTypingSearch,
+                                        ignoreSearchFilter: viewModel.searchVM.isTypingSearch,
                                         bgBrightness: colorScheme == .dark ? 0 : 0.6)
                     .drawingGroup()
                 }
@@ -46,10 +46,10 @@ struct RootArtifactContentView: View
                 withAnimation(.easeInOut(duration: 1))
                 {
                     artifact.updateLayout(forScopeSize: newSize.size,
-                                          ignoreSearchFilter: viewModel.isTypingSearch)
+                                          ignoreSearchFilter: viewModel.searchVM.isTypingSearch)
                 }
             }
-            .onReceive(viewModel.$isTypingSearch.removeDuplicates().dropFirst())
+            .onReceive(viewModel.searchVM.$isTypingSearch.removeDuplicates().dropFirst())
             {
                 isTyping in
                 
@@ -67,7 +67,7 @@ struct RootArtifactContentView: View
 //                print("attempt to layout \(artifact.codeArtifact.name) because view did appear")
                 
                 artifact.updateLayout(forScopeSize: geo.size.size,
-                                      ignoreSearchFilter: viewModel.isTypingSearch,
+                                      ignoreSearchFilter: viewModel.searchVM.isTypingSearch,
                                       forceUpdate: true)
             }
         }
