@@ -46,7 +46,6 @@
 		96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA394E282C2AF2002B033E /* ArtifactContentView.swift */; };
 		96EB5997294628390050254E /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EB5996294628390050254E /* SearchField.swift */; };
 		96EB599A29462C160050254E /* FocusedValues+CodefaceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EB599929462C160050254E /* FocusedValues+CodefaceDocument.swift */; };
-		96EB599C29462F7C0050254E /* FilterRemovalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EB599B29462F7C0050254E /* FilterRemovalButton.swift */; };
 		96FC8C3F284BEB9000AD7DD2 /* CodebaseLocatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC8C3E284BEB9000AD7DD2 /* CodebaseLocatorView.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceApp.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
@@ -112,7 +111,6 @@
 		96EA394E282C2AF2002B033E /* ArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactContentView.swift; sourceTree = "<group>"; };
 		96EB5996294628390050254E /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		96EB599929462C160050254E /* FocusedValues+CodefaceDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusedValues+CodefaceDocument.swift"; sourceTree = "<group>"; };
-		96EB599B29462F7C0050254E /* FilterRemovalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRemovalButton.swift; sourceTree = "<group>"; };
 		96EF44102912A64500EB93D1 /* CodefaceHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodefaceHelper.entitlements; sourceTree = "<group>"; };
 		96FC8C3E284BEB9000AD7DD2 /* CodebaseLocatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseLocatorView.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceApp.swift; sourceTree = "<group>"; };
@@ -233,7 +231,6 @@
 				96E479DC2835B36C00762FD7 /* SidebarLabel.swift */,
 				96E479DA2835B33600762FD7 /* DisplayModePicker.swift */,
 				96EB5996294628390050254E /* SearchField.swift */,
-				96EB599B29462F7C0050254E /* FilterRemovalButton.swift */,
 			);
 			path = "Views To Organize";
 			sourceTree = "<group>";
@@ -526,7 +523,6 @@
 				96E479DB2835B33600762FD7 /* DisplayModePicker.swift in Sources */,
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
 				9629D5AE29252A1E006B1E98 /* ServiceExportedInterface+Conveniences.swift in Sources */,
-				96EB599C29462F7C0050254E /* FilterRemovalButton.swift in Sources */,
 				96E479D42835A1DB00762FD7 /* ArtifactIcon.swift in Sources */,
 				9629D5B929252A2C006B1E98 /* XPCExecutable.swift in Sources */,
 				960BBE9629004F9000F9DC2A /* Help.swift in Sources */,

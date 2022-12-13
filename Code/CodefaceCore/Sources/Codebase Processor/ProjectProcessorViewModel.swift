@@ -38,17 +38,24 @@ public class ProjectProcessorViewModel: ObservableObject
     public func removeSearchFilter()
     {
         updateArtifacts(withSearchTerm: "", allPass: true)
-        appliedSearchTerm = nil
         isTypingSearch = false
+    }
+    
+    public func searchFieldObtainedFocus()
+    {
+        isTypingSearch = true
     }
     
     public func userChanged(searchTerm: String)
     {
-        guard isTypingSearch else { return }
-        
+        isTypingSearch = true
         updateArtifacts(withSearchTerm: searchTerm, allPass: false)
-        
-        appliedSearchTerm = searchTerm
+    }
+    
+    public func searchFieldLostFocus(witchSearchTerm searchTerm: String)
+    {
+        isTypingSearch = false
+        updateArtifacts(withSearchTerm: searchTerm, allPass: false)
     }
     
     private func updateArtifacts(withSearchTerm searchTerm: String,
@@ -62,7 +69,6 @@ public class ProjectProcessorViewModel: ObservableObject
     }
     
     @Published public var isTypingSearch: Bool = false
-    @Published public var appliedSearchTerm: String?
     
     // MARK: - Active Analysis
     

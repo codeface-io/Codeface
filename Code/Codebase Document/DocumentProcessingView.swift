@@ -38,18 +38,6 @@ struct DocumentProcessingView: View
                 }
                 .navigationSplitViewColumnWidth(min: 250, ideal: 250)
                 
-//                .onChange(of: isSearching)
-//                {
-//                    [isSearching] isSearchingNow in
-//                    
-//                    guard isSearching != isSearchingNow else { return }
-//                    
-//                    analysisVM.isTypingSearch = isSearchingNow
-//                }
-//                .onReceive(analysisVM.$isTypingSearch)
-//                {
-//                    if !$0 { dismissSearch() }
-//                }
 //                .onAppear
 //                {
 //                    selectedArtifact = rootArtifact
@@ -63,7 +51,26 @@ struct DocumentProcessingView: View
                 {
                     VStack(spacing: 0) {
                         
-                        PathBarView(overviewBar: processorVM.pathBar)
+                        Group {
+                            PathBarView(overviewBar: processorVM.pathBar)
+                            
+                            HStack {
+                                SearchField(searchTerm: $searchTerm,
+                                            processorVM: processorVM)
+                                    .padding([.bottom], 8)
+                                    .padding([.leading, .trailing])
+                                    .onChange(of: searchTerm)
+                                {
+                                    newSearchTerm in
+                                    
+                                    withAnimation(.easeInOut)
+                                    {
+                                        processorVM.userChanged(searchTerm: newSearchTerm)
+                                    }
+                                }
+                            }
+                        }
+                        .background(Color(NSColor.controlBackgroundColor))
                         
                         if artifactVM.filteredParts.isEmpty
                         {
@@ -73,12 +80,14 @@ struct DocumentProcessingView: View
                             {
                                 VStack(alignment: .center)
                                 {
+                                    Spacer()
+                                    
                                     Label("No Search Results", systemImage: "xmark.rectangle")
                                         .foregroundColor(.secondary)
                                         .font(.system(.title))
                                         .padding(.bottom)
                                     
-                                    Text(artifactVM.codeArtifact.name + " does not contain the term \"\(processorVM.appliedSearchTerm ?? "")\"")
+                                    Text(artifactVM.codeArtifact.name + " does not contain the search term")
                                         .foregroundColor(.secondary)
                                         .padding(.bottom)
                                     
@@ -86,6 +95,8 @@ struct DocumentProcessingView: View
                                     {
                                         processorVM.removeSearchFilter()
                                     }
+                                    
+                                    Spacer()
                                 }
                                 .padding()
                             }
@@ -121,7 +132,7 @@ struct DocumentProcessingView: View
                                 
                                 HStack(spacing: 0) {
                                     
-                                    //Main
+                                    // Main
                                     VStack {
                                         switch processorVM.displayMode
                                         {
@@ -133,73 +144,68 @@ struct DocumentProcessingView: View
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                                     
                                     // Inspector
-                                    HStack(spacing: 0) {
-                                        Divider()
-                                            .frame(minWidth: 0)
-                                        
-                                        List
+                                    List
+                                    {
+                                        Label
                                         {
-                                            Label
-                                            {
-                                                Text(artifactVM.codeArtifact.name)
-                                            }
-                                            icon:
-                                            {
-                                                ArtifactIcon(artifact: artifactVM, isSelected: false)
-                                            }
-                                            .font(.title3)
-                                            
-                                            Text(artifactVM.codeArtifact.kindName)
-                                                .foregroundColor(.secondary)
-                                                .font(.title3)
-                                            
-                                            Divider()
-                                            
-                                            HStack {
-                                                Label("Lines of code:",
-                                                      systemImage: "text.alignleft")
-                                                Spacer()
-                                                Text("\(artifactVM.codeArtifact.linesOfCode)")
-                                                    .foregroundColor(.init(artifactVM.linesOfCodeColor))
-                                            }
-                                            .font(.title3)
-                                            
-                                            Divider()
-                                            
-                                            HStack {
-                                                Label("Is itself in cycles:",
-                                                      systemImage: "exclamationmark.arrow.triangle.2.circlepath")
-                                                Spacer()
-                                                
-                                                let isInCycle = artifactVM.codeArtifact.metrics.isInACycle ?? false
-                                                
-                                                let cycleColor: SwiftyToolz.Color = isInCycle ? .rgb(1, 0, 0) : .rgb(0, 1, 0)
-                                                
-                                                Text("\(isInCycle ? "Yes" : "No")")
-                                                    .foregroundColor(SwiftUI.Color(cycleColor))
-                                            }
-                                            .font(.title3)
-                                            
-                                            HStack {
-                                                Label("Parts in cycles:",
-                                                      systemImage: "arrow.3.trianglepath")
-                                                
-                                                Spacer()
-                                                
-                                                let cyclicPortion = artifactVM.codeArtifact.metrics.portionOfPartsInCycles
-                                                
-                                                let cycleColor = Color.rgb(0, 1, 0)
-                                                    .mixed(with: cyclicPortion, of: .rgb(1, 0, 0))
-                                                
-                                                Text("\(Int(cyclicPortion * 100))%")
-                                                    .foregroundColor(SwiftUI.Color(cycleColor))
-                                            }
-                                            .font(.title3)
+                                            Text(artifactVM.codeArtifact.name)
                                         }
-                                        .focusable(false)
+                                    icon:
+                                        {
+                                            ArtifactIcon(artifact: artifactVM, isSelected: false)
+                                        }
+                                        .font(.title3)
+                                        
+                                        Text(artifactVM.codeArtifact.kindName)
+                                            .foregroundColor(.secondary)
+                                            .font(.title3)
+                                        
+                                        Divider()
+                                        
+                                        HStack {
+                                            Label("Lines of code:",
+                                                  systemImage: "text.alignleft")
+                                            Spacer()
+                                            Text("\(artifactVM.codeArtifact.linesOfCode)")
+                                                .foregroundColor(.init(artifactVM.linesOfCodeColor))
+                                        }
+                                        .font(.title3)
+                                        
+                                        Divider()
+                                        
+                                        HStack {
+                                            Label("Is itself in cycles:",
+                                                  systemImage: "exclamationmark.arrow.triangle.2.circlepath")
+                                            Spacer()
+                                            
+                                            let isInCycle = artifactVM.codeArtifact.metrics.isInACycle ?? false
+                                            
+                                            let cycleColor: SwiftyToolz.Color = isInCycle ? .rgb(1, 0, 0) : .rgb(0, 1, 0)
+                                            
+                                            Text("\(isInCycle ? "Yes" : "No")")
+                                                .foregroundColor(SwiftUI.Color(cycleColor))
+                                        }
+                                        .font(.title3)
+                                        
+                                        HStack {
+                                            Label("Parts in cycles:",
+                                                  systemImage: "arrow.3.trianglepath")
+                                            
+                                            Spacer()
+                                            
+                                            let cyclicPortion = artifactVM.codeArtifact.metrics.portionOfPartsInCycles
+                                            
+                                            let cycleColor = Color.rgb(0, 1, 0)
+                                                .mixed(with: cyclicPortion, of: .rgb(1, 0, 0))
+                                            
+                                            Text("\(Int(cyclicPortion * 100))%")
+                                                .foregroundColor(SwiftUI.Color(cycleColor))
+                                        }
+                                        .font(.title3)
                                     }
+                                    .focusable(false)
+                                    .background(.green)
                                     .frame(width: showsInspector ? max(250, geo.size.width / 5) : 0)
-                                    .opacity(showsInspector ? 1 : 0)
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .toolbar {
@@ -211,14 +217,6 @@ struct DocumentProcessingView: View
                                     //                                .help("Import the last imported folder again")
                                     //
                                     //                                Spacer()
-                                    
-                                    if let searchTerm = processorVM.appliedSearchTerm, !searchTerm.isEmpty
-                                    {
-                                        FilterRemovalButton(processorVM: processorVM)
-                                    }
-                                    
-                                    // TODO: fext field in toolbar does not recognize its focus ...
-                                    SearchField()
                                     
                                     Spacer()
                                     
@@ -242,28 +240,6 @@ struct DocumentProcessingView: View
                     Text("Select a code artifact in the navigator on the left.")
                 }
             }
-//            .searchable(text: $searchTerm,
-//                        placement: .toolbar,
-//                        prompt: searchPrompt)
-//            .onSubmit(of: .search)
-//            {
-//                processorVM.isTypingSearch = false
-//            }
-//            .onChange(of: searchTerm)
-//            {
-//                [searchTerm] newSearchTerm in
-//                
-//                guard searchTerm != newSearchTerm else { return }
-//                
-//                withAnimation(.easeInOut)
-//                {
-//                    processorVM.userChanged(searchTerm: newSearchTerm)
-//                }
-//            }
-//            .onReceive(processorVM.$isTypingSearch)
-//            {
-//                if $0 { searchTerm = processorVM.appliedSearchTerm ?? "" }
-//            }
         case .failed(let errorMessage):
             VStack(alignment: .leading)
             {
@@ -285,8 +261,8 @@ struct DocumentProcessingView: View
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
     
-//    @Environment(\.isSearching) private var isSearching
-//    @Environment(\.dismissSearch) private var dismissSearch
+    @State private var searchTerm = ""
+    
 //    @FocusState private var listIsInFocus
 }
 

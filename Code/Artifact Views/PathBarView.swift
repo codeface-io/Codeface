@@ -28,9 +28,7 @@ struct PathBarView: View
         }
         .padding(.leading)
         .frame(height: 29)
-        .background(colorScheme == .dark ? Color(white: 0.08) : Color(NSColor.controlBackgroundColor))
     }
     
     @ObservedObject var overviewBar: PathBar
-    @Environment(\.colorScheme) private var colorScheme
 }

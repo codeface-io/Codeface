@@ -69,9 +69,6 @@ struct InspectorView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .toolbar {
-                // TODO: fext field in toolbar does not recognize its focus ...
-                SearchField()
-                
                 Button {
                     withAnimation {
                         showsInspector.toggle()
@@ -84,6 +81,7 @@ struct InspectorView: View {
     }
     
     @Binding var showsInspector: Bool
+    @State private var searchTerm = ""
 }
 
 struct Item: Hashable, Identifiable

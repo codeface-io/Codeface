@@ -49,19 +49,6 @@ struct RootArtifactContentView: View
                                           ignoreSearchFilter: viewModel.isTypingSearch)
                 }
             }
-            .onReceive(viewModel.$appliedSearchTerm.removeDuplicates().dropFirst())
-            {
-                newTerm in
-                
-//                print("attempt to layout \(artifact.codeArtifact.name) because search term changed to " + (newTerm ?? "nil"))
-
-                withAnimation(.easeInOut(duration: 1))
-                {
-                    artifact.updateLayout(forScopeSize: geo.size.size,
-                                          ignoreSearchFilter: viewModel.isTypingSearch,
-                                          forceUpdate: true)
-                }
-            }
             .onReceive(viewModel.$isTypingSearch.removeDuplicates().dropFirst())
             {
                 isTyping in
