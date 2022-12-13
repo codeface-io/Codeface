@@ -60,6 +60,8 @@ struct CodefaceApp: App
                 }
                 .keyboardShortcut("0", modifiers: .command)
                 
+                // FIXME: the following commands are only available when there is a projectProcessorVM, i.e. when some artifact is selected, but apparently focusedDocument as a @FocusedValue is not being observed! so the button disabling does not work.
+                
                 Button("\(showsInspector ? "Hide" : "Show") Inspector")
                 {
                     withAnimation
@@ -67,7 +69,20 @@ struct CodefaceApp: App
                         showsInspector.toggle()
                     }
                 }
+                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("0", modifiers: [.option, .command])
+                
+                Button("Toggle Search Filter")
+                {
+                    withAnimation
+                    {
+                        focusedDocument?.projectProcessorVM?.searchVM.showsSearchBar.toggle()
+                    }
+                }
+                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .keyboardShortcut("f", modifiers: .command)
+                
+                Divider()
             }
             
             CommandGroup(replacing: .help)
