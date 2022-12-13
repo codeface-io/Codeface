@@ -56,9 +56,13 @@ struct DocumentProcessingView: View
                             
                             HStack {
                                 SearchField(processorVM: processorVM)
-                                    .padding([.bottom], 8)
+                                    .padding(.top, 1)
+                                    .padding(.bottom, 6)
                                     .padding([.leading, .trailing])
                             }
+                            .frame(height: searchVM.showsSearchBar ? nil : 0)
+                            .focusable(searchVM.showsSearchBar)
+                            .clipShape(Rectangle())
                         }
                         .background(Color(NSColor.controlBackgroundColor))
                         
@@ -208,6 +212,15 @@ struct DocumentProcessingView: View
                                     //
                                     //                                Spacer()
                                     
+                                    Button {
+                                        withAnimation {
+                                            searchVM.showsSearchBar.toggle()
+                                        }
+                                    } label: {
+                                        Image(systemName: "magnifyingglass")
+                                    }
+                                    .help("Toggle the search bar")
+                                    
                                     Spacer()
                                     
                                     DisplayModePicker(displayMode: $processorVM.displayMode)
@@ -245,6 +258,7 @@ struct DocumentProcessingView: View
     
     @ObservedObject var codefaceDocument: CodefaceDocument
     @ObservedObject var processorVM: ProjectProcessorViewModel
+    @ObservedObject var searchVM: SearchVM
     
     @Binding var columnVisibility: NavigationSplitViewVisibility
     @Binding var showsInspector: Bool

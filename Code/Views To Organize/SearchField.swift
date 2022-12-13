@@ -71,6 +71,11 @@ struct SearchField: View {
                 .stroke(.primary.opacity(0.2))
         }
         .frame(minWidth: 200)
+        .onChange(of: searchVM.showsSearchBar) { newValue in
+            if !newValue {
+                isFocused = false
+            }
+        }
     }
     
     @MainActor

@@ -122,6 +122,7 @@ private extension ProjectProcessor.State
 }
 
 public class SearchVM: ObservableObject {
+    @Published public var showsSearchBar = true
     @Published public var searchTerm = ""
     @Published public var isTypingSearch: Bool = false
 }
