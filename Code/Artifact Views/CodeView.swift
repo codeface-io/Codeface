@@ -9,6 +9,8 @@ struct CodeView: View
         {
             TextEditor(text: .constant(code))
                 .font(.system(.body, design: .monospaced))
+                .scrollContentBackground(.hidden) // must be hidden to see background
+                .background(colorScheme == .dark ? .black : .white) 
         }
         else
         {
@@ -30,4 +32,6 @@ struct CodeView: View
     }
     
     let artifact: ArtifactViewModel
+    
+    @Environment(\.colorScheme) private var colorScheme
 }
