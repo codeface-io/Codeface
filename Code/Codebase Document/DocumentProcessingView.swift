@@ -37,13 +37,12 @@ struct DocumentProcessingView: View
                     }
                 }
                 .navigationSplitViewColumnWidth(min: 250, ideal: 250)
-                
-//                .onAppear
-//                {
-//                    selectedArtifact = rootArtifact
-//                    listIsInFocus = true
-//                }
-//                .focused($listIsInFocus)
+                .focused($listIsInFocus)
+                .onAppear
+                {
+                    listIsInFocus = true
+                    Task { codefaceDocument.selectedArtifact = rootArtifact }
+                }
             }
             detail:
             {
@@ -280,7 +279,7 @@ struct DocumentProcessingView: View
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
     
-//    @FocusState private var listIsInFocus
+    @FocusState private var listIsInFocus
 }
 
 extension ArtifactViewModel
