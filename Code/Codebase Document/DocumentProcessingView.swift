@@ -54,14 +54,23 @@ struct DocumentProcessingView: View
                         Group {
                             PathBarView(overviewBar: processorVM.pathBar)
                             
-                            HStack {
+                            HStack(alignment: .firstTextBaseline) {
                                 SearchField(processorVM: processorVM)
                                     .padding(.top, 1)
-                                    .padding(.bottom, 6)
-                                    .padding([.leading, .trailing])
+                                    .padding([.bottom, .trailing], 6)
+                                    .padding([.leading])
+                                
+                                Button("Done")
+                                {
+                                    withAnimation
+                                    {
+                                        processorVM.searchVM.searchBarIsShown = false
+                                    }
+                                }
+                                .padding(.trailing)
                             }
-                            .frame(height: searchVM.showsSearchBar ? nil : 0)
-                            .focusable(searchVM.showsSearchBar)
+                            .frame(height: processorVM.searchVM.searchBarIsShown ? nil : 0)
+                            .focusable(processorVM.searchVM.searchBarIsShown)
                             .clipShape(Rectangle())
                         }
                         .background(Color(NSColor.controlBackgroundColor))
@@ -87,7 +96,7 @@ struct DocumentProcessingView: View
                                     
                                     Button("Remove Search Filter", role: .destructive)
                                     {
-                                        processorVM.removeSearchFilter()
+                                        processorVM.clearSearchField()
                                     }
                                     
                                     Spacer()
@@ -202,7 +211,8 @@ struct DocumentProcessingView: View
                                     .frame(width: showsInspector ? max(250, geo.size.width / 5) : 0)
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .toolbar {
+                                .toolbar
+                                {
                                     //                                Button(action: { codefaceDocument.loadProcessorForLastCodebase() })
                                     //                                {
                                     //                                    Image(systemName: "arrow.clockwise")
@@ -212,27 +222,33 @@ struct DocumentProcessingView: View
                                     //
                                     //                                Spacer()
                                     
-                                    Button {
-                                        withAnimation {
-                                            searchVM.showsSearchBar.toggle()
+                                    ToolbarItemGroup(placement: ToolbarItemPlacement.secondaryAction)
+                                    {
+                                        Button {
+                                            withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration)) {
+                                                processorVM.searchVM.searchBarIsShown.toggle()
+                                            }
+                                        } label: {
+                                            Image(systemName: "magnifyingglass")
                                         }
-                                    } label: {
-                                        Image(systemName: "magnifyingglass")
+                                        .help("Toggle the search bar")
+                                        
+                                        DisplayModePicker(displayMode: $processorVM.displayMode)
                                     }
-                                    .help("Toggle the search bar")
                                     
-                                    Spacer()
-                                    
-                                    DisplayModePicker(displayMode: $processorVM.displayMode)
-                                    
-                                    Button {
-                                        withAnimation {
-                                            showsInspector.toggle()
+                                    ToolbarItemGroup(placement: ToolbarItemPlacement.primaryAction)
+                                    {
+                                        Spacer()
+                                        
+                                        Button {
+                                            withAnimation {
+                                                showsInspector.toggle()
+                                            }
+                                        } label: {
+                                            Image(systemName: "sidebar.right")
                                         }
-                                    } label: {
-                                        Image(systemName: "sidebar.right")
+                                        .help("Toggle the inspector on the right (⌥⌘0)")
                                     }
-                                    .help("Toggle the inspector on the right (⌥⌘0)")
                                 }
                             }
                         }
@@ -258,7 +274,6 @@ struct DocumentProcessingView: View
     
     @ObservedObject var codefaceDocument: CodefaceDocument
     @ObservedObject var processorVM: ProjectProcessorViewModel
-    @ObservedObject var searchVM: SearchVM
     
     @Binding var columnVisibility: NavigationSplitViewVisibility
     @Binding var showsInspector: Bool

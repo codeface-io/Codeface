@@ -40,7 +40,6 @@ struct CodefaceDocumentContentView: View
         {
             DocumentProcessingView(codefaceDocument: codefaceDocument,
                                    processorVM: processorVM,
-                                   searchVM: processorVM.searchVM,
                                    columnVisibility: $columnVisibility,
                                    showsInspector: $showsInspector)
         }

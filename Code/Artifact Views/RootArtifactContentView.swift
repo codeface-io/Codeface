@@ -49,7 +49,7 @@ struct RootArtifactContentView: View
                                           ignoreSearchFilter: viewModel.searchVM.isTypingSearch)
                 }
             }
-            .onReceive(viewModel.searchVM.$isTypingSearch.removeDuplicates().dropFirst())
+            .onReceive(viewModel.$searchVM.map({ $0.isTypingSearch }).removeDuplicates().dropFirst())
             {
                 isTyping in
                 

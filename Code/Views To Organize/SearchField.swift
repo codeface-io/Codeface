@@ -1,60 +1,65 @@
 import SwiftUI
 import CodefaceCore
 
-struct SearchField: View {
-    
-    internal init(processorVM: ProjectProcessorViewModel) {
+struct SearchField: View
+{
+    init(processorVM: ProjectProcessorViewModel)
+    {
         self.processorVM = processorVM
-        self.searchVM = processorVM.searchVM
+        _searchTerm = State(wrappedValue: processorVM.searchVM.searchTerm)
     }
     
-    var body: some View {
-        HStack {
+    var body: some View
+    {
+        HStack(alignment: .firstTextBaseline)
+        {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.secondary)
             
             TextField("Search Field",
-                      text: $searchVM.searchTerm,
+                      text: $searchTerm,
                       prompt: Text("Enter search term"))
-            .onChange(of: searchVM.searchTerm) { newSearchTerm in
-                processorVM.userChangedSearchTerm()
-                showSubmitButton = !processorVM.searchVM.searchTerm.isEmpty
-            }
+            .textFieldStyle(.plain)
+            .foregroundColor(.accentColor)
             .focused($isFocused)
             .onChange(of: isFocused)
             {
-                isFocusedNow in
-                
-                if isFocusedNow
-                {
-                    processorVM.searchFieldObtainedFocus()
-                    
-                    if !searchVM.searchTerm.isEmpty {
-                        showSubmitButton = true
-                    }
-                }
-                else if showSubmitButton
-                {
-                    submit()
-                }
+                processorVM.userChanged(fieldIsFocused: $0)
             }
-            .textFieldStyle(.plain)
-            .foregroundColor(.accentColor)
-            .onSubmit { submit() }
-            
-            if showSubmitButton
+            .onChange(of: processorVM.searchVM.fieldIsFocused)
             {
-                Button(systemImageName: "return") { submit() }
-                    .buttonStyle(.plain)
-                    .focusable(false)
+                isFocused = $0
+            }
+            .onChange(of: searchTerm)
+            {
+                processorVM.write(searchTerm: $0)
+            }
+            .onChange(of: processorVM.searchVM.searchTerm)
+            {
+                searchTerm = $0
+            }
+            .onSubmit
+            {
+                processorVM.submitSearchTerm()
             }
             
-            if !searchVM.searchTerm.isEmpty
+            if processorVM.searchVM.submitButtonIsShown
             {
-                Button(systemImageName: "xmark.circle.fill") {
+                Button(systemImageName: "return")
+                {
+                    processorVM.submitSearchTerm()
+                }
+                .buttonStyle(.plain)
+                .focusable(false)
+            }
+            
+            if !processorVM.searchVM.searchTerm.isEmpty
+            {
+                Button(systemImageName: "xmark.circle.fill")
+                {
                     withAnimation(.easeInOut(duration: 1.5))
                     {
-                        processorVM.removeSearchFilter()
+                        processorVM.clearSearchField()
                     }
                 }
                 .buttonStyle(.plain)
@@ -62,37 +67,35 @@ struct SearchField: View {
             }
         }
         .padding(3)
-        .background {
+        .background
+        {
             RoundedRectangle(cornerRadius: 6)
-                .fill(.primary.opacity(0.04)) // use this to color the bg
+                .fill(.primary.opacity(0.04))
         }
-        .overlay {
+        .overlay
+        {
             RoundedRectangle(cornerRadius: 6)
                 .stroke(.primary.opacity(0.2))
         }
         .frame(minWidth: 200)
-        .onChange(of: searchVM.showsSearchBar) { searchBarIsNowShown in
-            isFocused = searchBarIsNowShown
-        }
     }
     
-    @MainActor
-    private func submit()
-    {
-        showSubmitButton = false
-        processorVM.submit()
-        isFocused = false
-    }
+    @ObservedObject
+    var processorVM: ProjectProcessorViewModel
     
-    @FocusState private var isFocused: Bool
-    @State private var showSubmitButton = false
-    let processorVM: ProjectProcessorViewModel
-    @ObservedObject private var searchVM: SearchVM
+    @FocusState
+    private var isFocused: Bool
+    
+    @State
+    private var searchTerm: String
 }
 
-extension Button where Label == Image {
-    init(systemImageName: String, action: @escaping () -> Void) {
-        self = Button(action: action) {
+extension Button where Label == Image
+{
+    init(systemImageName: String, action: @escaping () -> Void)
+    {
+        self = Button(action: action)
+        {
             Image(systemName: systemImageName)
         }
     }

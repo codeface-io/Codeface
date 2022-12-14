@@ -35,11 +35,41 @@ public class ProjectProcessorViewModel: ObservableObject
     
     // MARK: - Search
     
-    public func removeSearchFilter()
+    public func userWantsToFindAndFilter()
+    {
+        if !searchVM.searchBarIsShown
+        {
+            searchVM.searchBarIsShown = true
+        }
+        else
+        {
+            searchVM.fieldIsFocused = true
+        }
+    }
+    
+    public func clearSearchField()
     {
         updateArtifacts(withSearchTerm: "", allPass: true)
         searchVM.isTypingSearch = false
         searchVM.searchTerm = ""
+    }
+    
+    public func userChanged(fieldIsFocused: Bool)
+    {
+        searchVM.fieldIsFocused = fieldIsFocused
+        
+        if fieldIsFocused
+        {
+            searchFieldObtainedFocus()
+            
+            if !searchVM.searchTerm.isEmpty {
+                searchVM.submitButtonIsShown = true
+            }
+        }
+        else if searchVM.submitButtonIsShown
+        {
+            submit()
+        }
     }
     
     public func searchFieldObtainedFocus()
@@ -47,10 +77,26 @@ public class ProjectProcessorViewModel: ObservableObject
         searchVM.isTypingSearch = true
     }
     
+    public func write(searchTerm: String)
+    {
+        guard searchVM.searchTerm != searchTerm else { return }
+        
+        searchVM.searchTerm = searchTerm
+        userChangedSearchTerm()
+        searchVM.submitButtonIsShown = !searchVM.searchTerm.isEmpty
+    }
+    
     public func userChangedSearchTerm()
     {
         searchVM.isTypingSearch = true
         updateArtifacts(withSearchTerm: searchVM.searchTerm, allPass: false)
+    }
+    
+    public func submitSearchTerm()
+    {
+        searchVM.submitButtonIsShown = false
+        submit()
+        searchVM.fieldIsFocused = false
     }
     
     public func submit()
@@ -69,7 +115,7 @@ public class ProjectProcessorViewModel: ObservableObject
         }
     }
     
-    public let searchVM = SearchVM()
+    @Published public var searchVM = SearchVM()
     
     // MARK: - Active Analysis
     
@@ -121,8 +167,21 @@ private extension ProjectProcessor.State
     }
 }
 
-public class SearchVM: ObservableObject {
-    @Published public var showsSearchBar = true
-    @Published public var searchTerm = ""
-    @Published public var isTypingSearch: Bool = false
+public struct SearchVM
+{
+    public var searchBarIsShown = false
+    {
+        didSet
+        {
+            guard oldValue != searchBarIsShown else { return }
+            fieldIsFocused = searchBarIsShown
+        }
+    }
+    
+    public var fieldIsFocused = false
+    public var submitButtonIsShown = false
+    public fileprivate(set) var searchTerm = ""
+    public var isTypingSearch = false
+    
+    public static let visibilityToggleAnimationDuration: Double = 0.15
 }

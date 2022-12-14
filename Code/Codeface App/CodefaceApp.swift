@@ -69,17 +69,17 @@ struct CodefaceApp: App
                         showsInspector.toggle()
                     }
                 }
-                .disabled(focusedDocument?.projectProcessorVM == nil)
+//                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("0", modifiers: [.option, .command])
                 
-                Button("Toggle Search Filter")
+                Button("Find and filter")
                 {
-                    withAnimation
+                    withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
                     {
-                        focusedDocument?.projectProcessorVM?.searchVM.showsSearchBar.toggle()
+                        focusedDocument?.projectProcessorVM?.userWantsToFindAndFilter()
                     }
                 }
-                .disabled(focusedDocument?.projectProcessorVM == nil)
+//                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("f", modifiers: .command)
                 
                 Divider()
