@@ -19,8 +19,6 @@ struct SearchField: View
             TextField("Search Field",
                       text: $searchTerm,
                       prompt: Text("Enter search term"))
-            .textFieldStyle(.plain)
-            .foregroundColor(.accentColor)
             .focused($isFocused)
             .onChange(of: isFocused)
             {
@@ -41,6 +39,13 @@ struct SearchField: View
             .onSubmit
             {
                 processorVM.submitSearchTerm()
+            }
+            .onChange(of: processorVM.searchVM.fieldShouldFocusNow) { _ in
+                isFocused = false
+                
+                Task {
+                    isFocused = true
+                }
             }
             
             if processorVM.searchVM.submitButtonIsShown

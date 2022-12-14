@@ -66,6 +66,7 @@ struct DocumentProcessingView: View
                                         processorVM.searchVM.searchBarIsShown = false
                                     }
                                 }
+                                .focusable(false)
                                 .padding(.trailing)
                             }
                             .frame(height: processorVM.searchVM.searchBarIsShown ? nil : 0)
