@@ -61,7 +61,7 @@ struct DocumentProcessingView: View
                                 
                                 Button("Done")
                                 {
-                                    withAnimation
+                                    withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
                                     {
                                         processorVM.searchVM.searchBarIsShown = false
                                     }
