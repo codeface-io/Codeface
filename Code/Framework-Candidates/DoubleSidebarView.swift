@@ -12,11 +12,13 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         self.leftSidebar = leftSidebar
         self.rightSidebar = rightSidebar
         
-        let leftWidth = viewModel.showsLeftSidebar ? SidebarLayout.leftDefaultWidth : 0
-        _leftSidebarLayout = State(wrappedValue: SidebarLayout(side: .left, currentWidth: leftWidth))
+        let leftWidth: Double? = viewModel.showsLeftSidebar ? nil : 0
+        _leftSidebarLayout = State(wrappedValue: SidebarLayout(side: .left,
+                                                               currentWidth: leftWidth))
         
-        let rightWidth = viewModel.showsRightSidebar ? SidebarLayout.rightDefaultWidth : 0
-        _rightSidebarLayout = State(wrappedValue: SidebarLayout(side: .right, currentWidth: rightWidth))
+        let rightWidth: Double? = viewModel.showsRightSidebar ? nil : 0
+        _rightSidebarLayout = State(wrappedValue: SidebarLayout(side: .right,
+                                                                currentWidth: rightWidth))
     }
     
     public var body: some View
@@ -141,12 +143,23 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     @ViewBuilder public let rightSidebar: () -> RightSidebar
     @State private var rightSidebarLayout: SidebarLayout
     
-    struct SidebarLayout {
+    struct SidebarLayout
+    {
+        internal init(side: Side,
+                      widthWhenVisible: Double? = nil,
+                      currentWidth: Double? = nil)
+        {
+            self.side = side
+            self.widthWhenVisible = widthWhenVisible ?? side.defaultWidth
+            self.currentWidth = currentWidth ?? side.defaultWidth
+        }
         
-        mutating func endDragging() {
+        
+        mutating func endDragging()
+        {
             let widthDragDelta = side == .left ? dragOffset : -dragOffset
             
-            if currentWidth + widthDragDelta > minimumWidth {
+            if currentWidth + widthDragDelta > Self.minimumWidth {
                 currentWidth += widthDragDelta
                 widthWhenVisible = currentWidth
             } else {
@@ -157,10 +170,10 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         }
         
         var isVisible: Bool {
-            get { currentWidth == widthWhenVisible }
+            get { currentWidth >= Self.minimumWidth }
             
             set {
-                if currentWidth == widthWhenVisible {
+                if currentWidth >= Self.minimumWidth {
                     currentWidth = 0
                 } else {
                     currentWidth = widthWhenVisible
@@ -169,16 +182,26 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         }
         
         let side: Side
-        enum Side { case left, right }
         
-        var widthWhenVisible: Double = rightDefaultWidth
-        var currentWidth: Double = rightDefaultWidth
+        enum Side
+        {
+            var defaultWidth: Double
+            {
+                switch self
+                {
+                case .left: return 300
+                case .right: return 250
+                }
+            }
+            
+            case left, right
+        }
+        
+        var widthWhenVisible: Double
+        var currentWidth: Double
         var dragOffset: Double = 0
         
-        let minimumWidth: Double = 100
-        
-        static var leftDefaultWidth: Double { 300 }
-        static var rightDefaultWidth: Double { 250 }
+        static var minimumWidth: Double { 100 }
     }
 }
 
