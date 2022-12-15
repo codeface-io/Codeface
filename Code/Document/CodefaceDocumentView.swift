@@ -34,7 +34,7 @@ struct CodefaceDocumentContentView: View
     {
         if let processorVM = codefaceDocument.projectProcessorVM
         {
-            DocumentProcessingView(codefaceDocument: codefaceDocument,
+            CodebaseProcessingView(codefaceDocument: codefaceDocument,
                                    processorVM: processorVM,
                                    sidebarViewModel: sidebarViewModel)
         }

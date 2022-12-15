@@ -1,55 +1,5 @@
 import SwiftUI
 
-struct ProofOfConceptView: View {
-    
-    var body: some View {
-        DoubleSidebarView(viewModel: sidebarViewModel) {
-            VStack {
-                Text("Left sidebar: \(selectedStringLeft ?? "Nothing selected")")
-                Text("Right sidebar: \(selectedStringRight ?? "Nothing selected")")
-                
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .padding()
-
-                    TextField("Search term field",
-                              text: $searchTerm,
-                              prompt: Text("Type search term"))
-                    .padding()
-                    .focused($fieldIsFocused)
-                }
-            }
-        } leftSidebar: {
-            NavigationStack {
-                List(["a", "b", "c"], id: \.self, selection: $selectedStringLeft) {
-                    NavigationLink($0, value: $0)
-                }
-            }
-        } rightSidebar: {
-            NavigationStack {
-                List(["1", "2", "3"], id: \.self, selection: $selectedStringRight) {
-                    NavigationLink($0, value: $0)
-                }
-            }
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .secondaryAction) {
-                Button("Focus Field") {
-                    fieldIsFocused = true
-                }
-            }
-        }
-    }
-    
-    @StateObject var sidebarViewModel = DoubleSidebarViewModel()
-    
-    @FocusState private var fieldIsFocused: Bool
-    @State private var searchTerm = ""
-    
-    @State private var selectedStringLeft: String? = nil
-    @State private var selectedStringRight: String? = nil
-}
-
 public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: View>: View
 {
     init(viewModel: DoubleSidebarViewModel,
