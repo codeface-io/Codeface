@@ -25,23 +25,27 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         {
             HStack(spacing: 0)
             {
-                leftSidebar()
-                    .listStyle(.sidebar)
-                    .frame(width: leftSidebarLayout.currentWidth + leftSidebarLayout.dragOffset)
-                    .focused($focus, equals: .leftSidebar)
+                HStack(spacing: 0)
+                {
+                    leftSidebar()
+                    Divider()
+                }
+                .listStyle(.sidebar)
+                .frame(width: leftSidebarLayout.currentWidth + leftSidebarLayout.dragOffset)
+                .focused($focus, equals: .leftSidebar)
 
-                Divider()
-                
                 content()
                     .frame(minWidth: minimumContentWidth, maxWidth: .infinity)
                     .focused($focus, equals: .content)
 
-                Divider()
-
-                rightSidebar()
-                    .listStyle(.sidebar)
-                    .frame(width: rightSidebarLayout.currentWidth - rightSidebarLayout.dragOffset)
-                    .focused($focus, equals: .rightSidebar)
+                HStack(spacing: 0)
+                {
+                    Divider()
+                    rightSidebar()
+                }
+                .listStyle(.sidebar)
+                .frame(width: rightSidebarLayout.currentWidth - rightSidebarLayout.dragOffset)
+                .focused($focus, equals: .rightSidebar)
             }
 
             GeometryReader { geo in
