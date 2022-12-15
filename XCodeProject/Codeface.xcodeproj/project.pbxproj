@@ -314,7 +314,6 @@
 				960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */,
 				960A7AA328AB875100F334CA /* DependencyView.swift */,
 				96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */,
-				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 			);
 			path = "Architecture Views";
 			sourceTree = "<group>";
@@ -346,6 +345,7 @@
 				96E863D12844125500BCCE66 /* App */,
 				961AAD632899C3E6001CFF67 /* CodefaceCore */,
 				96D59CD0294AC26F003C55B5 /* XPC Experiments */,
+				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
 			);
 			name = Code;
 			path = ../Code;

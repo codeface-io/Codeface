@@ -12,10 +12,10 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         self.leftSidebar = leftSidebar
         self.rightSidebar = rightSidebar
         
-        let leftWidth = viewModel.showsLeftSidebar ? SidebarLayout.defaultWidth : 0
+        let leftWidth = viewModel.showsLeftSidebar ? SidebarLayout.leftDefaultWidth : 0
         _leftSidebarLayout = State(wrappedValue: SidebarLayout(side: .left, currentWidth: leftWidth))
         
-        let rightWidth = viewModel.showsRightSidebar ? SidebarLayout.defaultWidth : 0
+        let rightWidth = viewModel.showsRightSidebar ? SidebarLayout.rightDefaultWidth : 0
         _rightSidebarLayout = State(wrappedValue: SidebarLayout(side: .right, currentWidth: rightWidth))
     }
     
@@ -167,13 +167,14 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         let side: Side
         enum Side { case left, right }
         
-        var widthWhenVisible: Double = defaultWidth
-        var currentWidth: Double = defaultWidth
+        var widthWhenVisible: Double = rightDefaultWidth
+        var currentWidth: Double = rightDefaultWidth
         var dragOffset: Double = 0
         
         let minimumWidth: Double = 100
         
-        static var defaultWidth: Double { 250 }
+        static var leftDefaultWidth: Double { 300 }
+        static var rightDefaultWidth: Double { 250 }
     }
 }
 
