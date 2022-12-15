@@ -27,6 +27,30 @@ struct CodefaceApp: App
                     }
                     .padding()
                 }
+                .toolbar
+                {
+                    ToolbarItemGroup(placement: ToolbarItemPlacement.secondaryAction)
+                    {
+                        Button
+                        {
+                            withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
+                            {
+                                focusedDocument?.projectProcessorVM?.searchVM.searchBarIsShown.toggle()
+                            }
+                        }
+                        label:
+                        {
+                            Image(systemName: "magnifyingglass")
+                        }
+                        .help("Toggle the search filter (⇧⌘F)")
+                        
+                        DisplayModePicker(displayMode: .init(get: {
+                            focusedDocument?.projectProcessorVM?.displayMode ?? .code
+                        }, set: { newValue in
+                            focusedDocument?.projectProcessorVM?.displayMode = newValue
+                        }))
+                    }
+                }
         }
         .commands
         {

@@ -74,26 +74,6 @@ struct CodebaseAnalysisContentView: View
                 }
             }
         }
-        .toolbar
-        {
-            ToolbarItemGroup(placement: ToolbarItemPlacement.secondaryAction)
-            {
-                Button
-                {
-                    withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
-                    {
-                        processorVM.searchVM.searchBarIsShown.toggle()
-                    }
-                }
-                label:
-                {
-                    Image(systemName: "magnifyingglass")
-                }
-                .help("Toggle the search filter (⇧⌘F)")
-                
-                DisplayModePicker(displayMode: $processorVM.displayMode)
-            }
-        }
     }
     
     let artifactVM: ArtifactViewModel
