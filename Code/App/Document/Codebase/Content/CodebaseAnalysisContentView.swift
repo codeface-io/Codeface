@@ -85,7 +85,7 @@ struct CodebaseAnalysisContentView: View
                 } label: {
                     Image(systemName: "magnifyingglass")
                 }
-                .help("Toggle the search bar")
+                .help("Toggle the search filter (⇧⌘F)")
                 
                 DisplayModePicker(displayMode: $processorVM.displayMode)
             }

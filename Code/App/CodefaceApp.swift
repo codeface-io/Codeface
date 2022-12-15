@@ -74,6 +74,16 @@ struct CodefaceApp: App
 //                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("f", modifiers: .command)
                 
+                Button("Toggle the search filter")
+                {
+                    withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
+                    {
+                        focusedDocument?.projectProcessorVM?.searchVM.searchBarIsShown.toggle()
+                    }
+                }
+//                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .keyboardShortcut("f", modifiers: [.shift, .command])
+                
                 Divider()
             }
             

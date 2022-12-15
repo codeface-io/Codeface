@@ -21,6 +21,7 @@ struct SearchBarView: View
             }
             .focusable(false)
             .padding(.trailing)
+            .help("Hide the search filter (⇧⌘F)")
         }
         .focusable(processorVM.searchVM.searchBarIsShown)
         .frame(height: processorVM.searchVM.searchBarIsShown ? nil : 0)
