@@ -34,6 +34,11 @@ struct CodebaseNavigatorView: View
             guard let selectedArtifactVM = ArtifactViewModel.byID[$0]?.object else { return }
             codefaceDocument.selectedArtifact = selectedArtifactVM
         }
+        .onAppear
+        {
+            // TODO: this should be done much earlier and not here
+            codefaceDocument.selectedArtifact = rootArtifact
+        }
     }
     
     let rootArtifact: ArtifactViewModel
