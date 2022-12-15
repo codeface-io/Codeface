@@ -19,6 +19,7 @@ struct SearchField: View
             TextField("Search Field",
                       text: $searchTerm,
                       prompt: Text("Enter search term"))
+            .textFieldStyle(.plain)
             .focused($isFocused)
             .onChange(of: isFocused)
             {
@@ -39,13 +40,6 @@ struct SearchField: View
             .onSubmit
             {
                 processorVM.submitSearchTerm()
-            }
-            .onChange(of: processorVM.searchVM.fieldShouldFocusNow) { _ in
-                isFocused = false
-                
-                Task {
-                    isFocused = true
-                }
             }
             
             if processorVM.searchVM.submitButtonIsShown
@@ -75,12 +69,12 @@ struct SearchField: View
         .background
         {
             RoundedRectangle(cornerRadius: 6)
-                .fill(.primary.opacity(0.04))
+                .fill(.primary.opacity(isFocused ? 0.02 : 0.06))
         }
         .overlay
         {
             RoundedRectangle(cornerRadius: 6)
-                .stroke(.primary.opacity(0.2))
+                .stroke(.primary.opacity(0.2), lineWidth: 0.5)
         }
         .frame(minWidth: 200)
     }

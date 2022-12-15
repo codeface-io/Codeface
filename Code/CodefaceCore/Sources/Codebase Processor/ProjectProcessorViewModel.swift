@@ -43,8 +43,7 @@ public class ProjectProcessorViewModel: ObservableObject
         }
         else
         {
-//            searchVM.fieldIsFocused = true
-            searchVM.fieldShouldFocusNow += 1
+            searchVM.fieldIsFocused = true
         }
     }
     
@@ -183,7 +182,6 @@ public struct SearchVM
     public var submitButtonIsShown = false
     public fileprivate(set) var searchTerm = ""
     public var isTypingSearch = false
-    public var fieldShouldFocusNow = 0
     
     public static let visibilityToggleAnimationDuration: Double = 0.15
 }
