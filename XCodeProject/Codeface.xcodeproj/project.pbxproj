@@ -347,8 +347,8 @@
 			isa = PBXGroup;
 			children = (
 				96E863D12844125500BCCE66 /* App */,
-				96D59CD0294AC26F003C55B5 /* XPC Experiments */,
 				961AAD632899C3E6001CFF67 /* CodefaceCore */,
+				96D59CD0294AC26F003C55B5 /* XPC Experiments */,
 			);
 			name = Code;
 			path = ../Code;
