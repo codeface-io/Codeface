@@ -7,8 +7,7 @@ struct CodefaceDocumentView: View
     var body: some View
     {
         CodefaceDocumentContentView(codefaceDocument: codefaceDocument,
-                                    columnVisibility: $columnVisibility,
-                                    showsInspector: $showsInspector)
+                                    sidebarViewModel: sidebarViewModel)
             .focusedSceneValue(\.document, codefaceDocument)
             .onReceive(codefaceDocument.$codebase) {
                 if let updatedCodebase = $0
@@ -26,11 +25,8 @@ struct CodefaceDocumentView: View
     
     @StateObject private var codefaceDocument = CodefaceDocument()
     @Binding var codebaseFile: CodebaseFileDocument
-    @Binding var columnVisibility: NavigationSplitViewVisibility
-    @Binding var showsInspector: Bool
+    let sidebarViewModel: DoubleSidebarViewModel
 }
-
-
 
 struct CodefaceDocumentContentView: View
 {
@@ -40,8 +36,7 @@ struct CodefaceDocumentContentView: View
         {
             DocumentProcessingView(codefaceDocument: codefaceDocument,
                                    processorVM: processorVM,
-                                   columnVisibility: $columnVisibility,
-                                   showsInspector: $showsInspector)
+                                   sidebarViewModel: sidebarViewModel)
         }
         else // no processor in the document
         {
@@ -77,8 +72,7 @@ struct CodefaceDocumentContentView: View
     }
     
     @ObservedObject var codefaceDocument: CodefaceDocument
-    @Binding var columnVisibility: NavigationSplitViewVisibility
-    @Binding var showsInspector: Bool
+    let sidebarViewModel: DoubleSidebarViewModel
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }

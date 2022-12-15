@@ -17,23 +17,16 @@ struct CodefaceApp: App
     {
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
-            _ in
-            
-            
-            
-            ProofOfConceptView()
-            
-//            CodefaceDocumentView(codebaseFile: $0.$document,
-//                                 columnVisibility: $columnVisibility,
-//                                 showsInspector: $showsInspector)
-//                .sheet(isPresented: $isPresentingCodebaseLocator)
-//                {
-//                    CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
-//                    {
-//                        focusedDocument?.loadNewProcessor(forCodebaseFrom: $0)
-//                    }
-//                    .padding()
-//                }
+            CodefaceDocumentView(codebaseFile: $0.$document,
+                                 sidebarViewModel: sidebarViewModel)
+                .sheet(isPresented: $isPresentingCodebaseLocator)
+                {
+                    CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
+                    {
+                        focusedDocument?.loadNewProcessor(forCodebaseFrom: $0)
+                    }
+                    .padding()
+                }
         }
         .commands
         {
@@ -50,29 +43,22 @@ struct CodefaceApp: App
                 
                 Divider()
 
-                Button("\(columnVisibility == .all ? "Hide" : "Show") Navigator")
+                Button("\(sidebarViewModel.showsLeftSidebar ? "Hide" : "Show") Navigator")
                 {
                     withAnimation
                     {
-                        if columnVisibility == .all
-                        {
-                            columnVisibility = .detailOnly
-                        }
-                        else
-                        {
-                            columnVisibility = .all
-                        }
+                        sidebarViewModel.showsLeftSidebar.toggle()
                     }
                 }
                 .keyboardShortcut("0", modifiers: .command)
                 
                 // FIXME: the following commands are only available when there is a projectProcessorVM, i.e. when some artifact is selected, but apparently focusedDocument as a @FocusedValue is not being observed! so the button disabling does not work.
                 
-                Button("\(showsInspector ? "Hide" : "Show") Inspector")
+                Button("\(sidebarViewModel.showsRightSidebar ? "Hide" : "Show") Inspector")
                 {
                     withAnimation
                     {
-                        showsInspector.toggle()
+                        sidebarViewModel.showsRightSidebar.toggle()
                     }
                 }
 //                .disabled(focusedDocument?.projectProcessorVM == nil)
@@ -170,8 +156,7 @@ struct CodefaceApp: App
     
     // MARK: - Basics
     
-    @State var columnVisibility = NavigationSplitViewVisibility.all
-    @State var showsInspector = false
+    @StateObject var sidebarViewModel = DoubleSidebarViewModel()
     
     @FocusedValue(\.document) var focusedDocument: CodefaceDocument?
 }
