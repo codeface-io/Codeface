@@ -16,23 +16,25 @@ struct CodebaseAnalysisContentView: View
                 
                 if contentIsFilteredOut
                 {
-                    VStack(alignment: .center)
+                    VStack
                     {
                         Spacer()
                         
                         Label("No Search Results", systemImage: "xmark.rectangle")
                             .foregroundColor(.secondary)
-                            .font(.system(.title))
+                            .font(.title)
                             .padding(.bottom)
                         
-                        Text(artifactVM.codeArtifact.name + " does not contain the search term")
+                        Text(artifactVM.codeArtifact.name + " does not contain \"\(processorVM.searchVM.searchTerm)\"")
                             .foregroundColor(.secondary)
                             .padding(.bottom)
+                            .font(.title3)
                         
-                        Button("Remove Search Filter", role: .destructive)
+                        Button("Clear Search Filter", role: .destructive)
                         {
                             processorVM.clearSearchField()
                         }
+                        .font(.title3)
                         
                         Spacer()
                     }

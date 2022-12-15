@@ -17,7 +17,21 @@ struct CodebaseAnalysisView: View
                 }
                 else
                 {
-                    Text("Select a code artifact in the navigator on the left.")
+                    VStack
+                    {
+                        Spacer()
+                        
+                        Label("Nothing Selected", systemImage: "xmark.rectangle")
+                            .font(.title)
+                        
+                        Text("Select a code artifact in the navigator on the left.")
+                            .font(.title3)
+                            .padding(.top)
+                        
+                        Spacer()
+                    }
+                    .foregroundColor(.secondary)
+                    .padding()
                 }
             }
         }
