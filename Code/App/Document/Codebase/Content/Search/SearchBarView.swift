@@ -1,10 +1,12 @@
 import SwiftUI
 import CodefaceCore
 
-struct SearchBarView: View {
-    
-    var body: some View {
-        HStack(alignment: .firstTextBaseline) {
+struct SearchBarView: View
+{
+    var body: some View
+    {
+        HStack(alignment: .firstTextBaseline)
+        {
             SearchField(processorVM: processorVM)
                 .padding(.top, 1)
                 .padding([.bottom, .trailing], 6)
@@ -20,8 +22,8 @@ struct SearchBarView: View {
             .focusable(false)
             .padding(.trailing)
         }
-        .frame(height: processorVM.searchVM.searchBarIsShown ? nil : 0)
         .focusable(processorVM.searchVM.searchBarIsShown)
+        .frame(height: processorVM.searchVM.searchBarIsShown ? nil : 0)
         .clipShape(Rectangle())
     }
     

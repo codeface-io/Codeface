@@ -2,17 +2,13 @@ import SwiftUI
 import CodefaceCore
 import SwiftLSP
 
-struct CodebaseAnalysisContentView: View {
-    
-    var body: some View {
-    
-        VStack(spacing: 0) {
-        
-            Group {
-                PathBarView(overviewBar: processorVM.pathBar)
-                SearchBarView(processorVM: processorVM)
-            }
-            .background(Color(NSColor.controlBackgroundColor))
+struct CodebaseAnalysisContentView: View
+{
+    var body: some View
+    {
+        VStack(spacing: 0)
+        {
+            CodebaseAnalysisContentPanel(processorVM: processorVM)
             
             if artifactVM.filteredParts.isEmpty
             {
@@ -70,32 +66,28 @@ struct CodebaseAnalysisContentView: View {
             }
             else
             {
-                HStack(spacing: 0)
+                switch processorVM.displayMode
                 {
-                    switch processorVM.displayMode
-                    {
-                    case .treeMap: TreeMap(rootArtifactVM: artifactVM,
-                                           viewModel: processorVM)
-                    case .code: CodeView(artifact: artifactVM)
-                    }
+                case .treeMap: TreeMap(rootArtifactVM: artifactVM,
+                                       viewModel: processorVM)
+                case .code: CodeView(artifact: artifactVM)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .toolbar
-                {
-                    ToolbarItemGroup(placement: ToolbarItemPlacement.secondaryAction)
-                    {
-                        Button {
-                            withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration)) {
-                                processorVM.searchVM.searchBarIsShown.toggle()
-                            }
-                        } label: {
-                            Image(systemName: "magnifyingglass")
-                        }
-                        .help("Toggle the search bar")
-                        
-                        DisplayModePicker(displayMode: $processorVM.displayMode)
+            }
+        }
+        .toolbar
+        {
+            ToolbarItemGroup(placement: ToolbarItemPlacement.secondaryAction)
+            {
+                Button {
+                    withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration)) {
+                        processorVM.searchVM.searchBarIsShown.toggle()
                     }
+                } label: {
+                    Image(systemName: "magnifyingglass")
                 }
+                .help("Toggle the search bar")
+                
+                DisplayModePicker(displayMode: $processorVM.displayMode)
             }
         }
     }
@@ -106,4 +98,19 @@ struct CodebaseAnalysisContentView: View {
     @ObservedObject var processorVM: ProjectProcessorViewModel
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
+}
+
+struct CodebaseAnalysisContentPanel: View
+{
+    var body: some View
+    {
+        VStack(spacing: 0)
+        {
+            PathBarView(overviewBar: processorVM.pathBar)
+            SearchBarView(processorVM: processorVM)
+        }
+        .background(Color(NSColor.controlBackgroundColor))
+    }
+    
+    @ObservedObject var processorVM: ProjectProcessorViewModel
 }
