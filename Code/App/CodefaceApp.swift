@@ -64,6 +64,8 @@ struct CodefaceApp: App
 //                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("0", modifiers: [.option, .command])
                 
+                Divider()
+                
                 Button("Find and filter")
                 {
                     withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
@@ -104,6 +106,7 @@ struct CodefaceApp: App
                 Button("Open a Codebase File ...") {
                     NSDocumentController.shared.openDocument(nil)
                 }
+                .keyboardShortcut("o")
                 
                 // TODO: Bring back menu item "Open Recent" programmatically!
             }

@@ -78,11 +78,15 @@ struct CodebaseAnalysisContentView: View
         {
             ToolbarItemGroup(placement: ToolbarItemPlacement.secondaryAction)
             {
-                Button {
-                    withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration)) {
+                Button
+                {
+                    withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
+                    {
                         processorVM.searchVM.searchBarIsShown.toggle()
                     }
-                } label: {
+                }
+                label:
+                {
                     Image(systemName: "magnifyingglass")
                 }
                 .help("Toggle the search filter (⇧⌘F)")
