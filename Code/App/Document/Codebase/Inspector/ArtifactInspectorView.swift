@@ -14,7 +14,8 @@ struct ArtifactInspectorView: View
             }
             icon:
             {
-                ArtifactIcon(artifact: artifactVM, isSelected: false)
+                Image(systemName: artifactVM.iconSystemImageName)
+                    .foregroundColor(.init(artifactVM.iconFillColor))
             }
             .font(.title3)
             

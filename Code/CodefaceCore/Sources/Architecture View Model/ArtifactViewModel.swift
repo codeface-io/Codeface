@@ -2,11 +2,6 @@ import SwiftLSP
 import Foundation
 import SwiftyToolz
 
-//extension ArtifactViewModel: Equatable
-//{
-//    
-//}
-
 @MainActor
 public class ArtifactViewModel: Identifiable, ObservableObject
 {
@@ -43,6 +38,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject
         kind = .folder(folderArtifact)
         
         for part in parts { part.scope = self }
+        
+        Self.byID[id] = Weak(self)
     }
     
     private init(fileArtifact: CodeFileArtifact)
@@ -69,6 +66,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject
         kind = .file(fileArtifact)
         
         for part in parts { part.scope = self }
+        
+        Self.byID[id] = Weak(self)
     }
     
     private init(symbolArtifact: CodeSymbolArtifact)
@@ -86,7 +85,21 @@ public class ArtifactViewModel: Identifiable, ObservableObject
         kind = .symbol(symbolArtifact)
         
         for part in parts { part.scope = self }
+        
+        Self.byID[id] = Weak(self)
     }
+    
+    deinit {
+        Task {
+            await MainActor.run {
+                Self.byID[id] = nil
+            }
+        }
+    }
+    
+    public static var byID = [CodeArtifact.ID: Weak<ArtifactViewModel>]()
+    
+    
     
     // MARK: - Geometry: Basics
     

@@ -4,11 +4,13 @@ import SwiftyToolz
 
 struct CodebaseNavigatorView: View
 {
-    init(rootArtifact: ArtifactViewModel, codefaceDocument: CodefaceDocument) {
+    init(rootArtifact: ArtifactViewModel,
+         codefaceDocument: CodefaceDocument)
+    {
         self.rootArtifact = rootArtifact
         self.codefaceDocument = codefaceDocument
         
-        _selectedArtifact = State(wrappedValue: rootArtifact)
+        _selectedArtifactID = State(wrappedValue: rootArtifact.id)
     }
     
     var body: some View
@@ -17,41 +19,31 @@ struct CodebaseNavigatorView: View
         {
             List([rootArtifact],
                  children: \.children,
-                 selection: $selectedArtifact)
+                 selection: $selectedArtifactID)
             {
                 artifactVM in
 
-                NavigationLink(value: artifactVM)
+                NavigationLink(value: artifactVM.id)
                 {
-                    SidebarLabel(artifact: artifactVM,
-                                 isSelected: artifactVM == codefaceDocument.selectedArtifact)
+                    SidebarLabel(artifact: artifactVM)
                 }
             }
-        }.onChange(of: codefaceDocument.selectedArtifact) { newSelection in
-            guard newSelection != selectedArtifact else { return }
-            
-            if let newSelection {
-                log("CodefaceDocument.selectedArtifact was programmatically set to \(newSelection.codeArtifact.name)")
-                selectedArtifact = newSelection
-            } else {
-                log(warning: "CodefaceDocument.selectedArtifact was programmatically set nil. This should not happen.")
-            }
-        }.onAppear {
-            codefaceDocument.selectedArtifact = selectedArtifact
-        }.onChange(of: selectedArtifact) {
-            log("Navigator selection was interactively set to \($0.codeArtifact.name)")
-            codefaceDocument.selectedArtifact = $0
+        }
+        .onChange(of: selectedArtifactID)
+        {
+            guard let selectedArtifactVM = ArtifactViewModel.byID[$0]?.object else { return }
+            codefaceDocument.selectedArtifact = selectedArtifactVM
         }
     }
     
     let rootArtifact: ArtifactViewModel
     
     // TODO: directly bind our selection to a non-optional selection in the CodefaceDocument or some other view model. there should always be a selection in the context of the whole codebase analysis view since the data always has a root artifact!
-    @ObservedObject var codefaceDocument: CodefaceDocument
+    var codefaceDocument: CodefaceDocument
     
-    @State private var selectedArtifact: ArtifactViewModel
+    // FIXME: as soon as we use anything other than the plain String ID as selection type, the list UI fucks up and rows cannot be selected anymore after a while ... we can't even wrap the id in a struct that only contains the id and is hashable by the id ... WTF apple ... this means we can only retrieve the actual selected artifact by hashing it via its ID, which then requires cache invalidation and weak references ... 🤮
+    @State private var selectedArtifactID: CodeArtifact.ID
 }
-
 
 private extension ArtifactViewModel
 {

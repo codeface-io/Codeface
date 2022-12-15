@@ -19,7 +19,8 @@ struct CodeView: View
                 Label {
                     Text(artifact.codeArtifact.name)
                 } icon: {
-                    ArtifactIcon(artifact: artifact, isSelected: false)
+                    Image(systemName: artifact.iconSystemImageName)
+                        .foregroundColor(.init(artifact.iconFillColor))
                 }
                 .font(.system(.title))
                 

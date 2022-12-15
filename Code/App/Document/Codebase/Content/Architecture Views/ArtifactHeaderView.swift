@@ -7,7 +7,8 @@ struct ArtifactHeaderView: View
     {
         HStack(alignment: .firstTextBaseline, spacing: 0)
         {
-            ArtifactIcon(artifact: artifactVM, isSelected: false)
+            Image(systemName: artifactVM.iconSystemImageName)
+                .foregroundColor(.init(artifactVM.iconFillColor))
             
             Text(artifactVM.displayName)
                 .frame(maxWidth: .infinity, alignment: .leading)

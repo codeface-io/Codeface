@@ -16,16 +16,16 @@ struct SidebarLabel: View
                 Spacer()
                 
                 Text("\(loc)")
-                    .foregroundColor(isSelected ? .primary : .init(artifact.linesOfCodeColor))
+                    .foregroundColor(.init(artifact.linesOfCodeColor))
                     .monospacedDigit()
             }
         }
         icon:
         {
-            ArtifactIcon(artifact: artifact, isSelected: isSelected)
+            Image(systemName: artifact.iconSystemImageName)
+                .foregroundColor(.init(artifact.iconFillColor))
         }
     }
     
     @ObservedObject var artifact: ArtifactViewModel
-    let isSelected: Bool
 }

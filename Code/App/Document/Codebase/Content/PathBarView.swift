@@ -18,7 +18,8 @@ struct PathBarView: View
                         .imageScale(.large)
                         .padding([.leading, .trailing], 3)
                 }
-                ArtifactIcon(artifact: vm, isSelected: false)
+                Image(systemName: vm.iconSystemImageName)
+                    .foregroundColor(.init(vm.iconFillColor))
                     .padding(.trailing, 3)
                 Text(vm.codeArtifact.name)
                     .font(.callout)
