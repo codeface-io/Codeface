@@ -17,16 +17,21 @@ struct CodeView: View
         {
             VStack
             {
+                Spacer ()
+                
                 Label {
                     Text(artifact.codeArtifact.name)
                 } icon: {
                     Image(systemName: artifact.iconSystemImageName)
                         .foregroundColor(.init(artifact.iconFillColor))
                 }
-                .font(.system(.title))
+                .font(.title)
                 
                 Text("Select a contained file or symbol to show their code.")
+                    .font(.title3)
                     .padding(.top)
+                
+                Spacer()
             }
             .foregroundColor(.secondary)
             .padding()
