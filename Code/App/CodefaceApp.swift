@@ -34,12 +34,19 @@ struct CodefaceApp: App
 
             CommandGroup(replacing: .sidebar)
             {
-                Button("Switch Display Mode")
+                Button("Switch to Next Display Mode")
                 {
                     focusedDocument?.switchDisplayMode()
                 }
                 .disabled(focusedDocument?.projectProcessorVM == nil)
-                .keyboardShortcut(.space, modifiers: .shift)
+                .keyboardShortcut(.rightArrow, modifiers: .command)
+                
+                Button("Switch to Previous Display Mode")
+                {
+                    focusedDocument?.switchDisplayMode()
+                }
+                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .keyboardShortcut(.leftArrow, modifiers: .command)
                 
                 Divider()
 
