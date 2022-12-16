@@ -27,12 +27,14 @@ struct CodebaseNavigatorView: View
                 {
                     SidebarLabel(artifact: artifactVM)
                 }
+                .onChange(of: selectedArtifactID)
+                {
+                    if $0 == artifactVM.id
+                    {
+                        codefaceDocument.selectedArtifact = artifactVM
+                    }
+                }
             }
-        }
-        .onChange(of: selectedArtifactID)
-        {
-            guard let selectedArtifactVM = ArtifactViewModel.byID[$0]?.object else { return }
-            codefaceDocument.selectedArtifact = selectedArtifactVM
         }
         .onAppear
         {
