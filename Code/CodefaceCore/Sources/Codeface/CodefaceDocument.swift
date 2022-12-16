@@ -121,11 +121,6 @@ public class CodefaceDocument: ObservableObject
     
     // MARK: - Project Processor View Model
     
-    public func switchDisplayMode()
-    {
-        projectProcessorVM?.switchDisplayMode()
-    }
-    
     func set(processorVM: ProjectProcessorViewModel)
     {
         self.projectProcessorVM = processorVM

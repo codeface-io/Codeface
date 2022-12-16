@@ -52,11 +52,7 @@ struct CodefaceApp: App
                         .help("Toggle the search filter (⇧⌘F)")
                         .focusable(false)
 
-                        DisplayModePicker(displayMode: .init(get: {
-                            focusedDocument?.projectProcessorVM?.displayMode ?? .code
-                        }, set: { newValue in
-                            focusedDocument?.projectProcessorVM?.displayMode = newValue
-                        }))
+                        DisplayModePicker(displayMode: $displayOptions.displayMode)
                     }
                 }
         }
@@ -112,23 +108,20 @@ struct CodefaceApp: App
                         sidebarViewModel.showsRightSidebar.toggle()
                     }
                 }
-//                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("0", modifiers: [.option, .command])
                 
                 Divider()
                 
                 Button("Switch to Next Display Mode")
                 {
-                    focusedDocument?.switchDisplayMode()
+                    displayOptions.switchDisplayMode()
                 }
-                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut(.rightArrow, modifiers: .command)
 
                 Button("Switch to Previous Display Mode")
                 {
-                    focusedDocument?.switchDisplayMode()
+                    displayOptions.switchDisplayMode()
                 }
-                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut(.leftArrow, modifiers: .command)
 
                 Divider()

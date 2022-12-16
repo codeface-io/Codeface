@@ -11,7 +11,6 @@ struct DisplayModePicker: View
         }
         .pickerStyle(.segmented)
         .help("Switch between architecture and code (⌘→, ⌘←)")
-        .focusable(false)
     }
     
     @Binding var displayMode: DisplayMode

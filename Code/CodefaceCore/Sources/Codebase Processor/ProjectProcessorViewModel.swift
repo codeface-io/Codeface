@@ -108,17 +108,6 @@ public class ProjectProcessorViewModel: ObservableObject
     
     // MARK: - Other Elements
     
-    func switchDisplayMode()
-    {
-        switch displayMode
-        {
-        case .code: displayMode = .treeMap
-        case .treeMap: displayMode = .code
-        }
-    }
-    
-    @Published public var displayMode: DisplayMode = .treeMap
-    
     public let pathBar = PathBar()
 }
 

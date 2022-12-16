@@ -70,7 +70,7 @@ struct CodebaseAnalysisContentView: View
             }
             else
             {
-                switch processorVM.displayMode
+                switch displayOptions.displayMode
                 {
                 case .treeMap: TreeMap(rootArtifactVM: artifactVM,
                                        viewModel: processorVM)
@@ -86,6 +86,8 @@ struct CodebaseAnalysisContentView: View
     @ObservedObject var processorVM: ProjectProcessorViewModel
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
+    
+    @ObservedObject private var displayOptions = DisplayOptions.shared
 }
 
 struct CodebaseAnalysisContentPanel: View
