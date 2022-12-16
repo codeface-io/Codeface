@@ -14,7 +14,7 @@ struct SearchBarView: View
             
             Button("Done")
             {
-                withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
+                withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                 {
                     processorVM.hideSearchBar()
                 }
@@ -23,8 +23,8 @@ struct SearchBarView: View
             .padding(.trailing)
             .help("Hide the search filter (⇧⌘F)")
         }
-        .focusable(processorVM.searchVM.searchBarIsShown)
-        .frame(height: processorVM.searchVM.searchBarIsShown ? nil : 0)
+        .focusable(processorVM.searchVM.barIsShown)
+        .frame(height: processorVM.searchVM.barIsShown ? nil : 0)
         .clipShape(Rectangle())
     }
     

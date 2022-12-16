@@ -54,7 +54,7 @@ struct RootArtifactContentView: View
                                           ignoreSearchFilter: viewModel.searchVM.fieldIsFocused)
                 }
             }
-            .onReceive(viewModel.$searchVM.map({ $0.searchTerm }).removeDuplicates().dropFirst())
+            .onReceive(viewModel.$searchVM.map({ $0.term }).removeDuplicates().dropFirst())
             {
                 newTerm in
                 

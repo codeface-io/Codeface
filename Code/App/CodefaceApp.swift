@@ -33,7 +33,7 @@ struct CodefaceApp: App
                     {
                         Button
                         {
-                            withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
+                            withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                             {
                                 focusedDocument?.projectProcessorVM?.toggleSearchBar()
                             }
@@ -100,7 +100,7 @@ struct CodefaceApp: App
                 
                 Button("Find and filter")
                 {
-                    withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
+                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                     {
                         focusedDocument?.projectProcessorVM?.startTypingSearchTerm()
                     }
@@ -110,7 +110,7 @@ struct CodefaceApp: App
                 
                 Button("Toggle the search filter")
                 {
-                    withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
+                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                     {
                         focusedDocument?.projectProcessorVM?.toggleSearchBar()
                     }

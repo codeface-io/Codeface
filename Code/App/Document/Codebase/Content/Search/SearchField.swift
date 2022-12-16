@@ -7,7 +7,7 @@ struct SearchField: View
     init(processorVM: ProjectProcessorViewModel)
     {
         self.processorVM = processorVM
-        _searchTerm = State(wrappedValue: processorVM.searchVM.searchTerm)
+        _searchTerm = State(wrappedValue: processorVM.searchVM.term)
     }
     
     var body: some View
@@ -24,7 +24,7 @@ struct SearchField: View
             .focused($isFocused)
             .onChange(of: isFocused)
             {
-                // we have to write the view model async (later) to not screw SwiftUI (and focus management)
+                // ❗️ we have to write the view model async (later) to not screw up focus management
                 newFocus in Task { processorVM.set(fieldIsFocused: newFocus) }
             }
             .onReceive(processorVM.$searchVM.dropFirst().map({ $0.fieldIsFocused }).removeDuplicates())
@@ -33,23 +33,23 @@ struct SearchField: View
             }
             .onChange(of: searchTerm)
             {
-                // we have to write the view model async (later) to not screw SwiftUI (and focus management)
+                // ❗️ we have to write the view model async (later) to not screw up focus management
                 newTerm in Task { processorVM.set(searchTerm: newTerm) }
             }
-            .onReceive(processorVM.$searchVM.dropFirst().map({ $0.searchTerm }).removeDuplicates())
+            .onReceive(processorVM.$searchVM.dropFirst().map({ $0.term }).removeDuplicates())
             {
                 searchTerm = $0
             }
             .onSubmit
             {
-                // we don't wait for the view model here just to avoid a little visual hickup
+                // we don't wait for the view model here in order to avoid a certain visual hickup
                 isFocused = false
                 
-                // we have to write the view model async (later) to not screw SwiftUI (and focus management)
+                // ❗️ we have to write the view model async (later) to not screw up focus management
                 Task { processorVM.submitSearchTerm() }
             }
             
-            if !processorVM.searchVM.searchTerm.isEmpty
+            if !processorVM.searchVM.term.isEmpty
             {
                 Button(systemImageName: "xmark.circle.fill")
                 {
@@ -76,6 +76,7 @@ struct SearchField: View
         .frame(minWidth: 200)
     }
     
+    /// ❗️ we can **not** make processorVM an `@ObservedObject` and simply use `onChange(of:)` for observing the search VM since that would also screw up focus management ...
     let processorVM: ProjectProcessorViewModel
     
     @FocusState

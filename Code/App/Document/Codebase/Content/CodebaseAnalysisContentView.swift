@@ -25,7 +25,7 @@ struct CodebaseAnalysisContentView: View
                             .font(.title)
                             .padding(.bottom)
                         
-                        Text(artifactVM.codeArtifact.name + " does not contain \"\(processorVM.searchVM.searchTerm)\"")
+                        Text(artifactVM.codeArtifact.name + " does not contain \"\(processorVM.searchVM.term)\"")
                             .foregroundColor(.secondary)
                             .padding(.bottom)
                             .font(.title3)

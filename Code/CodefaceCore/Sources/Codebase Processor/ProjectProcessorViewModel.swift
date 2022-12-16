@@ -37,20 +37,20 @@ public class ProjectProcessorViewModel: ObservableObject
     
     public func startTypingSearchTerm()
     {
-        searchVM.searchBarIsShown = true
+        searchVM.barIsShown = true
         set(fieldIsFocused: true)
     }
     
     public func toggleSearchBar()
     {
-        if searchVM.searchBarIsShown { set(fieldIsFocused: false) }
-        searchVM.searchBarIsShown.toggle()
+        if searchVM.barIsShown { set(fieldIsFocused: false) }
+        searchVM.barIsShown.toggle()
     }
     
     public func hideSearchBar()
     {
         set(fieldIsFocused: false)
-        searchVM.searchBarIsShown = false
+        searchVM.barIsShown = false
     }
     
     public func set(fieldIsFocused: Bool)
@@ -62,8 +62,8 @@ public class ProjectProcessorViewModel: ObservableObject
     
     public func set(searchTerm: String)
     {
-        guard searchVM.searchTerm != searchTerm else { return }
-        searchVM.searchTerm = searchTerm
+        guard searchVM.term != searchTerm else { return }
+        searchVM.term = searchTerm
         updateSearchFilter()
     }
     
@@ -78,9 +78,9 @@ public class ProjectProcessorViewModel: ObservableObject
         if case .didVisualizeCodebaseArchitecture(_, let rootViewModel) = processorState
         {
             // TODO: rather "clear search results" when term is empty
-            rootViewModel.updateSearchResults(withSearchTerm: searchVM.searchTerm)
+            rootViewModel.updateSearchResults(withSearchTerm: searchVM.term)
             
-            rootViewModel.updateSearchFilter(allPass: searchVM.searchTerm.isEmpty)
+            rootViewModel.updateSearchFilter(allPass: searchVM.term.isEmpty)
         }
     }
     
@@ -139,18 +139,9 @@ private extension ProjectProcessor.State
 @MainActor
 public struct SearchVM
 {
-    public var searchBarIsShown = false
-    
+    public var barIsShown = false
     public var fieldIsFocused = false
-    {
-        didSet
-        {
-            print("field is focused was set to \(fieldIsFocused)")
-        }
-    }
+    public var term = ""
     
-    
-    public var searchTerm = ""
-    
-    public static let visibilityToggleAnimationDuration: Double = 0.15
+    public static let toggleAnimationDuration: Double = 0.15
 }
