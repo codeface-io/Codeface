@@ -12,13 +12,11 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         self.leftSidebar = leftSidebar
         self.rightSidebar = rightSidebar
         
-        let leftWidth: Double? = viewModel.showsLeftSidebar ? nil : 0
-        _leftSidebarLayout = State(wrappedValue: SidebarLayout(side: .left,
-                                                               currentWidth: leftWidth))
+        _leftCurrentWidth = SceneStorage(wrappedValue: viewModel.showsLeftSidebar ? Self.leftDefaultWidth : 0,
+                                         "leftCurrentWidth")
         
-        let rightWidth: Double? = viewModel.showsRightSidebar ? nil : 0
-        _rightSidebarLayout = State(wrappedValue: SidebarLayout(side: .right,
-                                                                currentWidth: rightWidth))
+        _rightCurrentWidth = SceneStorage(wrappedValue: viewModel.showsRightSidebar ? Self.rightDefaultWidth : 0,
+                                          "rightCurrentWidth")
     }
     
     public var body: some View
@@ -33,7 +31,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                     Divider()
                 }
                 .listStyle(.sidebar)
-                .frame(width: leftSidebarLayout.currentWidth + leftSidebarLayout.dragOffset)
+                .frame(width: leftCurrentWidth + leftDragOffset)
                 .focused($focus, equals: .leftSidebar)
 
                 content()
@@ -46,51 +44,59 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                     rightSidebar()
                 }
                 .listStyle(.sidebar)
-                .frame(width: rightSidebarLayout.currentWidth - rightSidebarLayout.dragOffset)
+                .frame(width: rightCurrentWidth - rightDragOffset)
                 .focused($focus, equals: .rightSidebar)
             }
 
-            GeometryReader { geo in
+            GeometryReader
+            {
+                geo in
                 
                 DragHandle()
-                    .position(x: leftSidebarLayout.currentWidth + 0.5 + leftSidebarLayout.dragOffset,
+                    .position(x: leftCurrentWidth + 0.5 + leftDragOffset,
                               y: geo.size.height / 2)
                     .gesture(
                         DragGesture()
-                            .onChanged {
-                                let potentialLeftWidth = leftSidebarLayout.currentWidth + $0.translation.width
-                                let potentialRightPosition = geo.size.width - rightSidebarLayout.widthWhenVisible
+                            .onChanged
+                            {
+                                let potentialLeftWidth = leftCurrentWidth + $0.translation.width
+                                let potentialRightPosition = geo.size.width - rightWidthWhenVisible
                                 
                                 guard potentialRightPosition - potentialLeftWidth >= minimumContentWidth else { return }
                                 
-                                leftSidebarLayout.dragOffset = $0.translation.width
+                                leftDragOffset = $0.translation.width
                             }
-                            .onEnded { _ in withAnimation { leftSidebarLayout.endDragging() } }
+                            .onEnded { _ in endDraggingLeft() }
                     )
 
                 DragHandle()
-                    .position(x: (geo.size.width - (rightSidebarLayout.currentWidth + 0.5)) + rightSidebarLayout.dragOffset,
+                    .position(x: (geo.size.width - (rightCurrentWidth + 0.5)) + rightDragOffset,
                               y: geo.size.height / 2)
                     .gesture(
                         DragGesture()
-                            .onChanged {
-                                let potentialLeftWidth = leftSidebarLayout.widthWhenVisible
-                                let potentialRightPosition = (geo.size.width - rightSidebarLayout.currentWidth) + $0.translation.width
+                            .onChanged
+                            {
+                                let potentialLeftWidth = leftWidthWhenVisible
+                                let potentialRightPosition = (geo.size.width - rightCurrentWidth) + $0.translation.width
                                 
                                 guard potentialRightPosition - potentialLeftWidth >= minimumContentWidth else { return }
                                 
-                                rightSidebarLayout.dragOffset = $0.translation.width
+                                rightDragOffset = $0.translation.width
                             }
-                            .onEnded { _ in withAnimation { rightSidebarLayout.endDragging() } }
+                            .onEnded { _ in endDraggingRight() }
                     )
             }
         }
-        .toolbar {
-            ToolbarItemGroup(placement: .navigation) {
-                Button(systemImageName: "sidebar.left") {
-                    withAnimation {
-                        leftSidebarLayout.isVisible.toggle()
-                        viewModel.showsLeftSidebar = leftSidebarLayout.isVisible
+        .toolbar
+        {
+            ToolbarItemGroup(placement: .navigation)
+            {
+                Button(systemImageName: "sidebar.left")
+                {
+                    withAnimation
+                    {
+                        toggleLeft()
+                        viewModel.showsLeftSidebar = leftIsVisible
                     }
                 }
                 .help("Toggle Navigator (⌘0)")
@@ -98,111 +104,131 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                 Spacer()
             }
 
-            ToolbarItemGroup(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .primaryAction)
+            {
                 Spacer()
 
-                Button(systemImageName: "sidebar.right") {
-                    withAnimation {
-                        rightSidebarLayout.isVisible.toggle()
-                        viewModel.showsRightSidebar = rightSidebarLayout.isVisible
+                Button(systemImageName: "sidebar.right")
+                {
+                    withAnimation
+                    {
+                        toggleRight()
+                        viewModel.showsRightSidebar = rightIsVisible
                     }
                 }
                 .help("Toggle Inspector (⌥⌘0)")
             }
         }
-        .onChange(of: viewModel.showsLeftSidebar) { showLeftSidebar in
-            guard showLeftSidebar != leftSidebarLayout.isVisible else { return }
-            withAnimation { leftSidebarLayout.isVisible = showLeftSidebar }
+        .onChange(of: viewModel.showsLeftSidebar)
+        {
+            showLeftSidebar in
+            
+            if showLeftSidebar != leftIsVisible
+            {
+                withAnimation { set(leftIsVisible: showLeftSidebar) }
+            }
         }
-        .onChange(of: viewModel.showsRightSidebar) { showRightSidebar in
-            guard showRightSidebar != rightSidebarLayout.isVisible else { return }
-            withAnimation { rightSidebarLayout.isVisible = showRightSidebar }
+        .onChange(of: viewModel.showsRightSidebar)
+        {
+            showsRightSidebar in
+            
+            if showsRightSidebar != rightIsVisible
+            {
+                withAnimation { set(rightIsVisible: showsRightSidebar) }
+            }
         }
-        .onAppear {
+        .onAppear
+        {
             focus = .leftSidebar
         }
     }
     
-    @ObservedObject var viewModel: DoubleSidebarViewModel
-    
-    // focus
+    // MARK: - Focus
     
     @FocusState private var focus: Focus?
     private enum Focus: Int, Hashable { case leftSidebar, content, rightSidebar }
     
-    // content
+    // MARK: - Content
     
     @ViewBuilder public let content: () -> Content
     private let minimumContentWidth = 300.0
     
-    // sidebars
+    // MARK: - Left Sidebar
     
     @ViewBuilder public let leftSidebar: () -> LeftSidebar
-    @State private var leftSidebarLayout: SidebarLayout
+        
+    func endDraggingLeft()
+    {
+        if leftCurrentWidth + leftDragOffset > Self.minimumWidth
+        {
+            leftCurrentWidth += leftDragOffset
+            leftWidthWhenVisible = leftCurrentWidth
+            leftDragOffset = 0
+        }
+        else
+        {
+            withAnimation
+            {
+                leftCurrentWidth = 0
+                leftDragOffset = 0
+            }
+        }
+    }
+
+    func toggleLeft() { set(leftIsVisible: !leftIsVisible) }
+    
+    func set(leftIsVisible newValue: Bool)
+    {
+        leftCurrentWidth = newValue ? leftWidthWhenVisible : 0
+    }
+    
+    var leftIsVisible: Bool { leftCurrentWidth >= Self.minimumWidth }
+    
+    @SceneStorage("leftWidthWhenVisible") var leftWidthWhenVisible = leftDefaultWidth
+    @SceneStorage var leftCurrentWidth: Double
+    @State var leftDragOffset: Double = 0
+    static var leftDefaultWidth : Double { 300 }
+    
+    // MARK: - Right Sidebar
     
     @ViewBuilder public let rightSidebar: () -> RightSidebar
-    @State private var rightSidebarLayout: SidebarLayout
-    
-    struct SidebarLayout
+        
+    func endDraggingRight()
     {
-        internal init(side: Side,
-                      widthWhenVisible: Double? = nil,
-                      currentWidth: Double? = nil)
+        if rightCurrentWidth - rightDragOffset > Self.minimumWidth
         {
-            self.side = side
-            self.widthWhenVisible = widthWhenVisible ?? side.defaultWidth
-            self.currentWidth = currentWidth ?? side.defaultWidth
+            rightCurrentWidth -= rightDragOffset
+            rightWidthWhenVisible = rightCurrentWidth
+            rightDragOffset = 0
         }
-        
-        
-        mutating func endDragging()
+        else
         {
-            let widthDragDelta = side == .left ? dragOffset : -dragOffset
-            
-            if currentWidth + widthDragDelta > Self.minimumWidth {
-                currentWidth += widthDragDelta
-                widthWhenVisible = currentWidth
-            } else {
-                currentWidth = 0
-            }
-            
-            dragOffset = 0
-        }
-        
-        var isVisible: Bool {
-            get { currentWidth >= Self.minimumWidth }
-            
-            set {
-                if currentWidth >= Self.minimumWidth {
-                    currentWidth = 0
-                } else {
-                    currentWidth = widthWhenVisible
-                }
-            }
-        }
-        
-        let side: Side
-        
-        enum Side
-        {
-            var defaultWidth: Double
+            withAnimation
             {
-                switch self
-                {
-                case .left: return 300
-                case .right: return 250
-                }
+                rightCurrentWidth = 0
+                rightDragOffset = 0
             }
-            
-            case left, right
         }
-        
-        var widthWhenVisible: Double
-        var currentWidth: Double
-        var dragOffset: Double = 0
-        
-        static var minimumWidth: Double { 100 }
     }
+    
+    func toggleRight() { set(rightIsVisible: !rightIsVisible) }
+    
+    func set(rightIsVisible newValue: Bool)
+    {
+        rightCurrentWidth = newValue ? rightWidthWhenVisible : 0
+    }
+    
+    var rightIsVisible: Bool { rightCurrentWidth >= Self.minimumWidth }
+        
+    @SceneStorage("rightWidthWhenVisible") var rightWidthWhenVisible = rightDefaultWidth
+    @SceneStorage var rightCurrentWidth: Double
+    @State var rightDragOffset: Double = 0
+    static var rightDefaultWidth : Double { 250 }
+    
+    // MARK: - General
+    
+    @ObservedObject var viewModel: DoubleSidebarViewModel
+    static var minimumWidth: Double { 100 }
 }
 
 class DoubleSidebarViewModel: ObservableObject
@@ -211,14 +237,17 @@ class DoubleSidebarViewModel: ObservableObject
     @Published var showsRightSidebar: Bool = false
 }
 
-struct DragHandle: View {
-    var body: some View {
+struct DragHandle: View
+{
+    var body: some View
+    {
         Rectangle()
             .fill(.clear)
             .frame(maxHeight: .infinity)
             .frame(width: 9)
-            .onHover { isHovering in
-                if isHovering { NSCursor.resizeLeftRight.push() }
+            .onHover
+            {
+                if $0 { NSCursor.resizeLeftRight.push() }
                 else { NSCursor.pop() }
             }
     }
