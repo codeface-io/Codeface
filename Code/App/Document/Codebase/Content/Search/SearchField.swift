@@ -24,17 +24,17 @@ struct SearchField: View
             .focused($isFocused)
             .onChange(of: isFocused)
             {
-                print("view observes system/user: \($0)")
-                processorVM.set(fieldIsFocused: $0)
+                // we have to write the view model async (later) to not screw SwiftUI (and focus management)
+                newFocus in Task { processorVM.set(fieldIsFocused: newFocus) }
             }
             .onReceive(processorVM.$searchVM.dropFirst().map({ $0.fieldIsFocused }).removeDuplicates())
             {
-                print("view observes model: \($0)")
                 isFocused = $0
             }
             .onChange(of: searchTerm)
             {
-                processorVM.set(searchTerm: $0)
+                // we have to write the view model async (later) to not screw SwiftUI (and focus management)
+                newTerm in Task { processorVM.set(searchTerm: newTerm) }
             }
             .onReceive(processorVM.$searchVM.dropFirst().map({ $0.searchTerm }).removeDuplicates())
             {
@@ -42,8 +42,11 @@ struct SearchField: View
             }
             .onSubmit
             {
+                // we don't wait for the view model here just to avoid a little visual hickup
                 isFocused = false
-                processorVM.submitSearchTerm()
+                
+                // we have to write the view model async (later) to not screw SwiftUI (and focus management)
+                Task { processorVM.submitSearchTerm() }
             }
             
             if !processorVM.searchVM.searchTerm.isEmpty
