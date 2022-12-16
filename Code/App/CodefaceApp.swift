@@ -13,8 +13,15 @@ struct CodefaceApp: App
         ReadableError.readableMessageForError = { $0.localizedDescription }
     }
     
+//    var body: some Scene
+//    {
+//        WindowGroup {
+//            ProofOfConceptView()
+//        }
+//    }
+    
     var body: some Scene
-    {
+    {   
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
             CodefaceDocumentView(codebaseFile: $0.$document,
@@ -44,7 +51,7 @@ struct CodefaceApp: App
                         }
                         .help("Toggle the search filter (⇧⌘F)")
                         .focusable(false)
-                        
+
                         DisplayModePicker(displayMode: .init(get: {
                             focusedDocument?.projectProcessorVM?.displayMode ?? .code
                         }, set: { newValue in
@@ -65,14 +72,14 @@ struct CodefaceApp: App
                 }
                 .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut(.rightArrow, modifiers: .command)
-                
+
                 Button("Switch to Previous Display Mode")
                 {
                     focusedDocument?.switchDisplayMode()
                 }
                 .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut(.leftArrow, modifiers: .command)
-                
+
                 Divider()
 
                 Button("\(sidebarViewModel.showsLeftSidebar ? "Hide" : "Show") Navigator")
@@ -83,9 +90,9 @@ struct CodefaceApp: App
                     }
                 }
                 .keyboardShortcut("0", modifiers: .command)
-                
+
                 // FIXME: the following commands are only available when there is a projectProcessorVM, i.e. when some artifact is selected, but apparently focusedDocument as a @FocusedValue is not being observed! so the button disabling does not work.
-                
+
                 Button("\(sidebarViewModel.showsRightSidebar ? "Hide" : "Show") Inspector")
                 {
                     withAnimation
@@ -95,9 +102,9 @@ struct CodefaceApp: App
                 }
 //                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("0", modifiers: [.option, .command])
-                
+
                 Divider()
-                
+
                 Button("Find and filter")
                 {
                     withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
@@ -107,7 +114,7 @@ struct CodefaceApp: App
                 }
 //                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("f", modifiers: .command)
-                
+
                 Button("Toggle the search filter")
                 {
                     withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
@@ -117,32 +124,32 @@ struct CodefaceApp: App
                 }
 //                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("f", modifiers: [.shift, .command])
-                
+
                 Divider()
             }
-            
+
             CommandGroup(replacing: .help)
             {
                 HelpLink.lspService
-                
+
                 HelpLink.documentation
             }
-            
+
             CommandGroup(replacing: .newItem)
             {
                 Button("New Empty Codebase File") {
                     NSDocumentController.shared.newDocument(nil)
                 }
                 .keyboardShortcut("n")
-                
+
                 Button("Open a Codebase File ...") {
                     NSDocumentController.shared.openDocument(nil)
                 }
                 .keyboardShortcut("o")
-                
+
                 // TODO: Bring back menu item "Open Recent" programmatically!
             }
-            
+
             CommandGroup(before: .undoRedo)
             {
                 Button("Import Code Folder...")
@@ -150,7 +157,7 @@ struct CodefaceApp: App
                     isPresentingCodebaseLocator = true
                 }
                 .disabled(focusedDocument == nil)
-                
+
                 Button("Import Swift Package Folder...")
                 {
                     isPresentingFolderImporter = true
@@ -164,10 +171,10 @@ struct CodefaceApp: App
                     {
                         return log(error: "Could not select code folder")
                     }
-                    
+
                     focusedDocument?.loadProcessorForSwiftPackage(from: folderURL)
                 }
-                
+
                 Button("Import \(lastFolderName) Again")
                 {
                     focusedDocument?.loadProcessorForLastCodebase()
@@ -177,7 +184,7 @@ struct CodefaceApp: App
 
                 Divider()
             }
-            
+
             #if DEBUG
             CommandMenu("Develop")
             {
@@ -185,7 +192,7 @@ struct CodefaceApp: App
                 {
                     focusedDocument?.selectedArtifact = nil
                 }
-                
+
                 Button("Test XPC Service With Last Codebase")
                 {
 //                    ProcessServiceTest.run()

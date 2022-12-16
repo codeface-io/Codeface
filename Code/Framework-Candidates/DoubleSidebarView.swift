@@ -12,101 +12,74 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         self.leftSidebar = leftSidebar
         self.rightSidebar = rightSidebar
         
-        _leftCurrentWidth = SceneStorage(wrappedValue: viewModel.showsLeftSidebar ? Self.leftDefaultWidth : 0,
-                                         "leftCurrentWidth")
-        
         _rightCurrentWidth = SceneStorage(wrappedValue: viewModel.showsRightSidebar ? Self.rightDefaultWidth : 0,
                                           "rightCurrentWidth")
     }
     
     public var body: some View
     {
-        ZStack
+        NavigationSplitView(columnVisibility: $columnVisibility)
         {
-            HStack(spacing: 0)
-            {
-                HStack(spacing: 0)
-                {
-                    leftSidebar().frame(maxWidth: .infinity)
-                    
-                    Divider()
-                }
+            leftSidebar()
+                .navigationSplitViewColumnWidth(min: Self.minimumWidth,
+                                                ideal: 300,
+                                                max: 600)
                 .listStyle(.sidebar)
-                .frame(width: leftCurrentWidth + leftDragOffset)
                 .focused($focus, equals: .leftSidebar)
-
-                content()
-                    .frame(minWidth: minimumContentWidth,
-                           maxWidth: .infinity)
-                    .focused($focus, equals: .content)
-
+                .focusable(false)
+                
+        }
+        detail:
+        {
+            // TODO: rather use HSplitView and get dragging for free?!
+            ZStack
+            {
                 HStack(spacing: 0)
                 {
-                    Divider()
+                    content()
+                        .frame(minWidth: minimumContentWidth,
+                               maxWidth: .infinity)
+                        .background(focus == .content ? .green : .clear)
+                        .focused($focus, equals: .content)
+                        .focusable(false)
                     
-                    rightSidebar().frame(maxWidth: .infinity)
+                    HStack(spacing: 0)
+                    {
+                        Divider()
+                        
+                        rightSidebar()
+                            .frame(maxWidth: .infinity)
+                    }
+                    .frame(minWidth: Self.minimumWidth)
+                    .frame(width: rightCurrentWidth - rightDragOffset)
+                    .clipShape(Rectangle())
+                    .focused($focus, equals: .rightSidebar)
                 }
-                .listStyle(.sidebar)
-                .frame(width: rightCurrentWidth - rightDragOffset)
-                .focused($focus, equals: .rightSidebar)
-            }
-
-            GeometryReader
-            {
-                geo in
                 
-                DragHandle()
-                    .position(x: leftCurrentWidth + leftDragOffset,
-                              y: geo.size.height / 2)
-                    .gesture(
-                        DragGesture()
-                            .onChanged
-                            {
-                                let potentialLeftWidth = leftCurrentWidth + $0.translation.width
-                                let potentialRightPosition = geo.size.width - rightWidthWhenVisible
-                                
-                                guard potentialRightPosition - potentialLeftWidth >= minimumContentWidth else { return }
-                                
-                                leftDragOffset = $0.translation.width
-                            }
-                            .onEnded { _ in endDraggingLeft() }
-                    )
+                GeometryReader
+                {
+                    geo in
 
-                DragHandle()
-                    .position(x: (geo.size.width - rightCurrentWidth) + rightDragOffset,
-                              y: geo.size.height / 2)
-                    .gesture(
-                        DragGesture()
-                            .onChanged
-                            {
-                                let potentialLeftWidth = leftWidthWhenVisible
-                                let potentialRightPosition = (geo.size.width - rightCurrentWidth) + $0.translation.width
-                                
-                                guard potentialRightPosition - potentialLeftWidth >= minimumContentWidth else { return }
-                                
-                                rightDragOffset = $0.translation.width
-                            }
-                            .onEnded { _ in endDraggingRight() }
-                    )
+                    DragHandle()
+                        .position(x: (geo.size.width - rightCurrentWidth) + rightDragOffset,
+                                  y: geo.size.height / 2)
+                        .gesture(
+                            DragGesture()
+                                .onChanged
+                                {
+                                    let potentialRightPosition = (geo.size.width - rightCurrentWidth) + $0.translation.width
+
+                                    guard potentialRightPosition >= minimumContentWidth else { return }
+
+                                    rightDragOffset = $0.translation.width
+                                }
+                                .onEnded { _ in endDraggingRight() }
+                        )
+                }
             }
         }
         .toolbar
         {
-            ToolbarItemGroup(placement: .navigation)
-            {
-                Button(systemImageName: "sidebar.left")
-                {
-                    withAnimation
-                    {
-                        toggleLeft()
-                        viewModel.showsLeftSidebar = leftIsVisible
-                    }
-                }
-                .help("Toggle Navigator (⌘0)")
-                
-                Spacer()
-            }
-
             ToolbarItemGroup(placement: .primaryAction)
             {
                 Spacer()
@@ -124,17 +97,17 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         }
         .onChange(of: viewModel.showsLeftSidebar)
         {
-            showLeftSidebar in
+            showsLeftSidebar in
             
-            if showLeftSidebar != leftIsVisible
+            withAnimation
             {
-                withAnimation { set(leftIsVisible: showLeftSidebar) }
+                columnVisibility = showsLeftSidebar ? .doubleColumn : .detailOnly
             }
         }
         .onChange(of: viewModel.showsRightSidebar)
         {
             showsRightSidebar in
-            
+
             if showsRightSidebar != rightIsVisible
             {
                 withAnimation { set(rightIsVisible: showsRightSidebar) }
@@ -164,40 +137,10 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     private let minimumContentWidth = 300.0
     
     // MARK: - Left Sidebar
-    
-    @ViewBuilder public let leftSidebar: () -> LeftSidebar
-        
-    func endDraggingLeft()
-    {
-        if leftCurrentWidth + leftDragOffset > Self.minimumWidth
-        {
-            leftCurrentWidth += leftDragOffset
-            leftWidthWhenVisible = leftCurrentWidth
-            leftDragOffset = 0
-        }
-        else
-        {
-            withAnimation
-            {
-                leftCurrentWidth = 0
-                leftDragOffset = 0
-            }
-        }
-    }
 
-    func toggleLeft() { set(leftIsVisible: !leftIsVisible) }
+    @ViewBuilder public let leftSidebar: () -> LeftSidebar
     
-    func set(leftIsVisible newValue: Bool)
-    {
-        leftCurrentWidth = newValue ? leftWidthWhenVisible : 0
-    }
-    
-    var leftIsVisible: Bool { leftCurrentWidth >= Self.minimumWidth }
-    
-    @SceneStorage("leftWidthWhenVisible") var leftWidthWhenVisible = leftDefaultWidth
-    @SceneStorage var leftCurrentWidth: Double
-    @State var leftDragOffset: Double = 0
-    static var leftDefaultWidth : Double { 300 }
+    @State var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     
     // MARK: - Right Sidebar
     
@@ -238,7 +181,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     // MARK: - General
     
     @ObservedObject var viewModel: DoubleSidebarViewModel
-    static var minimumWidth: Double { 100 }
+    static var minimumWidth: Double { 200 }
 }
 
 class DoubleSidebarViewModel: ObservableObject

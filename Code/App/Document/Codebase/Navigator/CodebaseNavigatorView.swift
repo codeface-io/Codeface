@@ -15,24 +15,21 @@ struct CodebaseNavigatorView: View
     
     var body: some View
     {
-        NavigationStack
+        List([rootArtifact],
+             children: \.children,
+             selection: $selectedArtifactID)
         {
-            List([rootArtifact],
-                 children: \.children,
-                 selection: $selectedArtifactID)
-            {
-                artifactVM in
+            artifactVM in
 
-                NavigationLink(value: artifactVM.id)
+            NavigationLink(value: artifactVM.id)
+            {
+                SidebarLabel(artifact: artifactVM)
+            }
+            .onChange(of: selectedArtifactID)
+            {
+                if $0 == artifactVM.id
                 {
-                    SidebarLabel(artifact: artifactVM)
-                }
-                .onChange(of: selectedArtifactID)
-                {
-                    if $0 == artifactVM.id
-                    {
-                        codefaceDocument.selectedArtifact = artifactVM
-                    }
+                    codefaceDocument.selectedArtifact = artifactVM
                 }
             }
         }
