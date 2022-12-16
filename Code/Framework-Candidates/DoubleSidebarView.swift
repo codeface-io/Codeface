@@ -27,7 +27,8 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
             {
                 HStack(spacing: 0)
                 {
-                    leftSidebar()
+                    leftSidebar().frame(maxWidth: .infinity)
+                    
                     Divider()
                 }
                 .listStyle(.sidebar)
@@ -35,13 +36,15 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                 .focused($focus, equals: .leftSidebar)
 
                 content()
-                    .frame(minWidth: minimumContentWidth, maxWidth: .infinity)
+                    .frame(minWidth: minimumContentWidth,
+                           maxWidth: .infinity)
                     .focused($focus, equals: .content)
 
                 HStack(spacing: 0)
                 {
                     Divider()
-                    rightSidebar()
+                    
+                    rightSidebar().frame(maxWidth: .infinity)
                 }
                 .listStyle(.sidebar)
                 .frame(width: rightCurrentWidth - rightDragOffset)
@@ -53,7 +56,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                 geo in
                 
                 DragHandle()
-                    .position(x: leftCurrentWidth + 0.5 + leftDragOffset,
+                    .position(x: leftCurrentWidth + leftDragOffset,
                               y: geo.size.height / 2)
                     .gesture(
                         DragGesture()
@@ -70,7 +73,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                     )
 
                 DragHandle()
-                    .position(x: (geo.size.width - (rightCurrentWidth + 0.5)) + rightDragOffset,
+                    .position(x: (geo.size.width - rightCurrentWidth) + rightDragOffset,
                               y: geo.size.height / 2)
                     .gesture(
                         DragGesture()
@@ -141,12 +144,19 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         {
             focus = .leftSidebar
         }
+        .onChange(of: focus)
+        {
+            [focus] newFocus in
+
+            let contentOrRightLostFocus = newFocus == nil && focus != .leftSidebar
+            if contentOrRightLostFocus { self.focus = .leftSidebar }
+        }
     }
     
     // MARK: - Focus
     
     @FocusState private var focus: Focus?
-    private enum Focus: Int, Hashable { case leftSidebar, content, rightSidebar }
+    private enum Focus: String, Hashable { case leftSidebar, content, rightSidebar }
     
     // MARK: - Content
     

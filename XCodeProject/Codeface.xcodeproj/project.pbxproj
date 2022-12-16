@@ -28,6 +28,7 @@
 		966F39AE291BF42900198B14 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39AD291BF42900198B14 /* SwiftLSP */; };
 		966F39B1291BF54F00198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B0291BF54F00198B14 /* FoundationToolz */; };
 		966F39B3291BF56200198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B2291BF56200198B14 /* FoundationToolz */; };
+		9675A0B7294CE1C900C784AA /* ProofOfConceptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675A0B6294CE1C900C784AA /* ProofOfConceptView.swift */; };
 		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
 		968EA5C328DCD24500FE8A9B /* CodebaseProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EA5C228DCD24500FE8A9B /* CodebaseProcessingView.swift */; };
 		96B8B53E292F9C630020D594 /* SwiftUIToolzOLD in Frameworks */ = {isa = PBXBuildFile; productRef = 96B8B53D292F9C630020D594 /* SwiftUIToolzOLD */; };
@@ -103,6 +104,7 @@
 		9639C27128D761A000779BA5 /* CodefaceDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceDocumentView.swift; sourceTree = "<group>"; };
 		963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseFileDocument.swift; sourceTree = "<group>"; };
 		966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutableClientExportedInterface.swift; sourceTree = "<group>"; };
+		9675A0B6294CE1C900C784AA /* ProofOfConceptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofOfConceptView.swift; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
 		968EA5C228DCD24500FE8A9B /* CodebaseProcessingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessingView.swift; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
+				9675A0B6294CE1C900C784AA /* ProofOfConceptView.swift */,
 				96FC8C3E284BEB9000AD7DD2 /* CodebaseLocatorView.swift */,
 				96EB5998294629D50050254E /* Document */,
 			);
@@ -591,6 +594,7 @@
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
 				9629D5AE29252A1E006B1E98 /* ServiceExportedInterface+Conveniences.swift in Sources */,
 				9629D5B929252A2C006B1E98 /* XPCExecutable.swift in Sources */,
+				9675A0B7294CE1C900C784AA /* ProofOfConceptView.swift in Sources */,
 				960BBE9629004F9000F9DC2A /* LSPServiceHint.swift in Sources */,
 				9639C27228D761A000779BA5 /* CodefaceDocumentView.swift in Sources */,
 				960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */,

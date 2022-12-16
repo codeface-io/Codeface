@@ -34,6 +34,7 @@ struct CodebaseAnalysisContentView: View
                         {
                             processorVM.set(searchTerm: "")
                         }
+                        .focusable(false)
                         .font(.title3)
                         
                         Spacer()

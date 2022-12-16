@@ -23,7 +23,6 @@ struct SearchBarView: View
             .padding(.trailing)
             .help("Hide the search filter (⇧⌘F)")
         }
-        .focusable(processorVM.searchVM.barIsShown)
         .frame(height: processorVM.searchVM.barIsShown ? nil : 0)
         .clipShape(Rectangle())
     }
