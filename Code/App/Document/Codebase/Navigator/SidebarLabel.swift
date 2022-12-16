@@ -11,10 +11,10 @@ struct SidebarLabel: View
             Text(artifact.codeArtifact.name)
                 .font(.system(.title3, design: artifact.fontDesign))
             
-            if let loc = artifact.codeArtifact.linesOfCode
+            if DisplayOptions.shared.showLoC, let loc = artifact.codeArtifact.linesOfCode
             {
                 Spacer()
-                
+
                 Text("\(loc)")
                     .foregroundColor(.init(artifact.linesOfCodeColor))
                     .monospacedDigit()
@@ -28,4 +28,5 @@ struct SidebarLabel: View
     }
     
     @ObservedObject var artifact: ArtifactViewModel
+    @ObservedObject var displayOptions = DisplayOptions.shared
 }

@@ -21,7 +21,7 @@ struct CodefaceApp: App
 //    }
     
     var body: some Scene
-    {   
+    {
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
             CodefaceDocumentView(codebaseFile: $0.$document,
@@ -66,6 +66,57 @@ struct CodefaceApp: App
 
             CommandGroup(replacing: .sidebar)
             {
+                Button("Find and filter")
+                {
+                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
+                    {
+                        focusedDocument?.projectProcessorVM?.startTypingSearchTerm()
+                    }
+                }
+//                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .keyboardShortcut("f", modifiers: .command)
+
+                Button("Toggle the Search Filter")
+                {
+                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
+                    {
+                        focusedDocument?.projectProcessorVM?.toggleSearchBar()
+                    }
+                }
+//                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .keyboardShortcut("f", modifiers: [.shift, .command])
+
+                Divider()
+                
+                Button("\(displayOptions.showLoC ? "Hide" : "Show") Lines of Code in Navigator")
+                {
+                    displayOptions.showLoC.toggle()
+                }
+                .keyboardShortcut("l", modifiers: .command)
+                
+                Button("\(sidebarViewModel.showsLeftSidebar ? "Hide" : "Show") the Navigator")
+                {
+                    withAnimation
+                    {
+                        sidebarViewModel.showsLeftSidebar.toggle()
+                    }
+                }
+                .keyboardShortcut("0", modifiers: .command)
+
+                // FIXME: some commands are only available when there is a projectProcessorVM, i.e. when some artifact is selected, but apparently focusedDocument as a @FocusedValue is not being observed! so the button disabling does not work.
+
+                Button("\(sidebarViewModel.showsRightSidebar ? "Hide" : "Show") the Inspector")
+                {
+                    withAnimation
+                    {
+                        sidebarViewModel.showsRightSidebar.toggle()
+                    }
+                }
+//                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .keyboardShortcut("0", modifiers: [.option, .command])
+                
+                Divider()
+                
                 Button("Switch to Next Display Mode")
                 {
                     focusedDocument?.switchDisplayMode()
@@ -79,51 +130,6 @@ struct CodefaceApp: App
                 }
                 .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut(.leftArrow, modifiers: .command)
-
-                Divider()
-
-                Button("\(sidebarViewModel.showsLeftSidebar ? "Hide" : "Show") Navigator")
-                {
-                    withAnimation
-                    {
-                        sidebarViewModel.showsLeftSidebar.toggle()
-                    }
-                }
-                .keyboardShortcut("0", modifiers: .command)
-
-                // FIXME: the following commands are only available when there is a projectProcessorVM, i.e. when some artifact is selected, but apparently focusedDocument as a @FocusedValue is not being observed! so the button disabling does not work.
-
-                Button("\(sidebarViewModel.showsRightSidebar ? "Hide" : "Show") Inspector")
-                {
-                    withAnimation
-                    {
-                        sidebarViewModel.showsRightSidebar.toggle()
-                    }
-                }
-//                .disabled(focusedDocument?.projectProcessorVM == nil)
-                .keyboardShortcut("0", modifiers: [.option, .command])
-
-                Divider()
-
-                Button("Find and filter")
-                {
-                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
-                    {
-                        focusedDocument?.projectProcessorVM?.startTypingSearchTerm()
-                    }
-                }
-//                .disabled(focusedDocument?.projectProcessorVM == nil)
-                .keyboardShortcut("f", modifiers: .command)
-
-                Button("Toggle the search filter")
-                {
-                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
-                    {
-                        focusedDocument?.projectProcessorVM?.toggleSearchBar()
-                    }
-                }
-//                .disabled(focusedDocument?.projectProcessorVM == nil)
-                .keyboardShortcut("f", modifiers: [.shift, .command])
 
                 Divider()
             }
@@ -216,6 +222,8 @@ struct CodefaceApp: App
     @State private var isPresentingFolderImporter = false
     
     // MARK: - Basics
+    
+    @ObservedObject private var displayOptions = DisplayOptions.shared
     
     @StateObject var sidebarViewModel = DoubleSidebarViewModel()
     
