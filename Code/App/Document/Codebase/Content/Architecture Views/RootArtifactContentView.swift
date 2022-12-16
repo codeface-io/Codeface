@@ -25,14 +25,19 @@ struct RootArtifactContentView: View
                     VStack
                     {
                         Spacer()
+                        
                         HStack
                         {
                             Spacer()
+                            
                             Text("Couldn't find layout that fits within \(Int(geo.size.width))×\(Int(geo.size.height)) points")
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.secondary)
+                                .font(.title3)
+                            
                             Spacer()
                         }
+                        
                         Spacer()
                     }
                 }
@@ -62,9 +67,19 @@ struct RootArtifactContentView: View
                                           forceUpdate: true)
                 }
             }
+            .onChange(of: artifact)
+            {
+                newArtifact in
+                
+//                print("attempt to layout new artifact \(newArtifact.codeArtifact.name)")
+                
+                newArtifact.updateLayout(forScopeSize: geo.size.size,
+                                         ignoreSearchFilter: viewModel.searchVM.isTypingSearch,
+                                         forceUpdate: true)
+            }
             .onAppear
             {
-//                print("attempt to layout \(artifact.codeArtifact.name) because view did appear")
+//                print("attempt to layout artifact \(artifact.codeArtifact.name) because view appeared")
                 
                 artifact.updateLayout(forScopeSize: geo.size.size,
                                       ignoreSearchFilter: viewModel.searchVM.isTypingSearch,
