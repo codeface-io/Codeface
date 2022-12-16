@@ -4,10 +4,11 @@ import CodefaceCore
 struct SearchField: View
 {
     @MainActor
-    init(processorVM: ProjectProcessorViewModel)
+    init(processorVM: ProjectProcessorViewModel, artifactName: String)
     {
         self.processorVM = processorVM
         _searchTerm = State(wrappedValue: processorVM.searchVM.term)
+        self.artifactName = artifactName
     }
     
     var body: some View
@@ -19,7 +20,7 @@ struct SearchField: View
             
             TextField("Search Field",
                       text: $searchTerm,
-                      prompt: Text("Enter search term"))
+                      prompt: Text("Find in \(artifactName)"))
             .textFieldStyle(.plain)
             .focused($isFocused)
             .onChange(of: isFocused)
@@ -58,11 +59,13 @@ struct SearchField: View
                         processorVM.set(searchTerm: "")
                     }
                 }
+                .foregroundColor(.secondary)
                 .buttonStyle(.plain)
                 .focusable(false)
             }
         }
-        .padding(3)
+        .padding([.leading, .trailing], 6)
+        .frame(minWidth: 200, maxHeight: .infinity)
         .background
         {
             RoundedRectangle(cornerRadius: 6)
@@ -73,7 +76,6 @@ struct SearchField: View
             RoundedRectangle(cornerRadius: 6)
                 .stroke(.primary.opacity(0.2), lineWidth: 0.5)
         }
-        .frame(minWidth: 200)
     }
     
     /// ❗️ we can **not** make processorVM an `@ObservedObject` and simply use `onChange(of:)` for observing the search VM since that would also screw up focus management ...
@@ -84,6 +86,8 @@ struct SearchField: View
     
     @State
     private var searchTerm: String
+    
+    let artifactName: String
 }
 
 extension Button where Label == Image

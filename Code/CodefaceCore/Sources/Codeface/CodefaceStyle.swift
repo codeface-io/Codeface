@@ -13,4 +13,6 @@ public enum CodefaceStyle
         .in(light: .bytes(255, 59, 48),
             darkness: .bytes(255, 69, 58))
     }
+    
+    public static var fontSize: Double { 15 }
 }

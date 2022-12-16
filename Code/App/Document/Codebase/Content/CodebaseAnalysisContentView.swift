@@ -8,7 +8,8 @@ struct CodebaseAnalysisContentView: View
     {
         VStack(spacing: 0)
         {
-            CodebaseAnalysisContentPanel(processorVM: processorVM)
+            CodebaseAnalysisContentPanel(processorVM: processorVM,
+                                         artifactName: artifactVM.codeArtifact.name)
             
             if artifactVM.filteredParts.isEmpty
             {
@@ -94,10 +95,13 @@ struct CodebaseAnalysisContentPanel: View
         VStack(spacing: 0)
         {
             PathBarView(overviewBar: processorVM.pathBar)
-            SearchBarView(processorVM: processorVM)
+            SearchBarView(processorVM: processorVM,
+                          artifactName: artifactName)
         }
         .background(Color(NSColor.controlBackgroundColor))
     }
     
     @ObservedObject var processorVM: ProjectProcessorViewModel
+    
+    let artifactName: String
 }
