@@ -35,72 +35,41 @@ public class ProjectProcessorViewModel: ObservableObject
     
     // MARK: - Search
     
-    public func userWantsToFindAndFilter()
+    public func startTypingSearchTerm()
     {
-        if !searchVM.searchBarIsShown
-        {
-            searchVM.searchBarIsShown = true
-        }
-        else
-        {
-            searchVM.fieldIsFocused = true
-        }
+        searchVM.searchBarIsShown = true
+        set(fieldIsFocused: true)
     }
     
-    public func clearSearchField()
+    public func toggleSearchBar()
     {
-        searchVM.searchTerm = ""
-        updateSearchFilter()
+        if searchVM.searchBarIsShown { set(fieldIsFocused: false) }
+        searchVM.searchBarIsShown.toggle()
     }
     
-    public func userChanged(fieldIsFocused: Bool)
+    public func hideSearchBar()
     {
+        set(fieldIsFocused: false)
+        searchVM.searchBarIsShown = false
+    }
+    
+    public func set(fieldIsFocused: Bool)
+    {
+        guard searchVM.fieldIsFocused != fieldIsFocused else { return }
         searchVM.fieldIsFocused = fieldIsFocused
-        
-        if fieldIsFocused
-        {
-            searchFieldObtainedFocus()
-            
-            if !searchVM.searchTerm.isEmpty {
-                searchVM.submitButtonIsShown = true
-            }
-        }
-        else if searchVM.submitButtonIsShown
-        {
-            submit()
-        }
+        if !fieldIsFocused { submitSearchTerm() }
     }
     
-    public func searchFieldObtainedFocus()
-    {
-        searchVM.isTypingSearch = true
-    }
-    
-    public func write(searchTerm: String)
+    public func set(searchTerm: String)
     {
         guard searchVM.searchTerm != searchTerm else { return }
-        
         searchVM.searchTerm = searchTerm
-        userChangedSearchTerm()
-        searchVM.submitButtonIsShown = !searchVM.searchTerm.isEmpty
-    }
-    
-    public func userChangedSearchTerm()
-    {
-        searchVM.isTypingSearch = true
         updateSearchFilter()
     }
     
     public func submitSearchTerm()
     {
-        searchVM.submitButtonIsShown = false
-        submit()
         searchVM.fieldIsFocused = false
-    }
-    
-    public func submit()
-    {
-        searchVM.isTypingSearch = false
         updateSearchFilter()
     }
     
@@ -167,21 +136,21 @@ private extension ProjectProcessor.State
     }
 }
 
+@MainActor
 public struct SearchVM
 {
     public var searchBarIsShown = false
+    
+    public var fieldIsFocused = false
     {
         didSet
         {
-            guard oldValue != searchBarIsShown else { return }
-            fieldIsFocused = searchBarIsShown
+            print("field is focused was set to \(fieldIsFocused)")
         }
     }
     
-    public var fieldIsFocused = false
-    public var submitButtonIsShown = false
-    public fileprivate(set) var searchTerm = ""
-    public var isTypingSearch = false
+    
+    public var searchTerm = ""
     
     public static let visibilityToggleAnimationDuration: Double = 0.15
 }

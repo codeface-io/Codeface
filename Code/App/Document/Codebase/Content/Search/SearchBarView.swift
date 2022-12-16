@@ -16,7 +16,7 @@ struct SearchBarView: View
             {
                 withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
                 {
-                    processorVM.searchVM.searchBarIsShown = false
+                    processorVM.hideSearchBar()
                 }
             }
             .focusable(false)

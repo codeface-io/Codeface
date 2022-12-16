@@ -3,6 +3,7 @@ import CodefaceCore
 
 struct SearchField: View
 {
+    @MainActor
     init(processorVM: ProjectProcessorViewModel)
     {
         self.processorVM = processorVM
@@ -23,42 +24,35 @@ struct SearchField: View
             .focused($isFocused)
             .onChange(of: isFocused)
             {
-                processorVM.userChanged(fieldIsFocused: $0)
+                print("view observes system/user: \($0)")
+                processorVM.set(fieldIsFocused: $0)
             }
-            .onChange(of: processorVM.searchVM.fieldIsFocused)
+            .onReceive(processorVM.$searchVM.dropFirst().map({ $0.fieldIsFocused }).removeDuplicates())
             {
+                print("view observes model: \($0)")
                 isFocused = $0
             }
             .onChange(of: searchTerm)
             {
-                processorVM.write(searchTerm: $0)
+                processorVM.set(searchTerm: $0)
             }
-            .onChange(of: processorVM.searchVM.searchTerm)
+            .onReceive(processorVM.$searchVM.dropFirst().map({ $0.searchTerm }).removeDuplicates())
             {
                 searchTerm = $0
             }
             .onSubmit
             {
+                isFocused = false
                 processorVM.submitSearchTerm()
-            }
-            
-            if processorVM.searchVM.submitButtonIsShown
-            {
-                Button(systemImageName: "return")
-                {
-                    processorVM.submitSearchTerm()
-                }
-                .buttonStyle(.plain)
-                .focusable(false)
             }
             
             if !processorVM.searchVM.searchTerm.isEmpty
             {
                 Button(systemImageName: "xmark.circle.fill")
                 {
-                    withAnimation(.easeInOut(duration: 1.5))
+                    withAnimation(.easeInOut(duration: 1))
                     {
-                        processorVM.clearSearchField()
+                        processorVM.set(searchTerm: "")
                     }
                 }
                 .buttonStyle(.plain)
@@ -79,8 +73,7 @@ struct SearchField: View
         .frame(minWidth: 200)
     }
     
-    @ObservedObject
-    var processorVM: ProjectProcessorViewModel
+    let processorVM: ProjectProcessorViewModel
     
     @FocusState
     private var isFocused: Bool

@@ -32,7 +32,7 @@ struct CodebaseAnalysisContentView: View
                         
                         Button("Clear Search Filter", role: .destructive)
                         {
-                            processorVM.clearSearchField()
+                            processorVM.set(searchTerm: "")
                         }
                         .font(.title3)
                         

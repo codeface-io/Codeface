@@ -35,7 +35,7 @@ struct CodefaceApp: App
                         {
                             withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
                             {
-                                focusedDocument?.projectProcessorVM?.searchVM.searchBarIsShown.toggle()
+                                focusedDocument?.projectProcessorVM?.toggleSearchBar()
                             }
                         }
                         label:
@@ -43,6 +43,7 @@ struct CodefaceApp: App
                             Image(systemName: "magnifyingglass")
                         }
                         .help("Toggle the search filter (⇧⌘F)")
+                        .focusable(false)
                         
                         DisplayModePicker(displayMode: .init(get: {
                             focusedDocument?.projectProcessorVM?.displayMode ?? .code
@@ -101,7 +102,7 @@ struct CodefaceApp: App
                 {
                     withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
                     {
-                        focusedDocument?.projectProcessorVM?.userWantsToFindAndFilter()
+                        focusedDocument?.projectProcessorVM?.startTypingSearchTerm()
                     }
                 }
 //                .disabled(focusedDocument?.projectProcessorVM == nil)
@@ -111,7 +112,7 @@ struct CodefaceApp: App
                 {
                     withAnimation(.easeInOut(duration: SearchVM.visibilityToggleAnimationDuration))
                     {
-                        focusedDocument?.projectProcessorVM?.searchVM.searchBarIsShown.toggle()
+                        focusedDocument?.projectProcessorVM?.toggleSearchBar()
                     }
                 }
 //                .disabled(focusedDocument?.projectProcessorVM == nil)

@@ -16,7 +16,7 @@ struct RootArtifactContentView: View
                 {
                     ArtifactContentView(artifactVM: artifact,
                                         pathBar: viewModel.pathBar,
-                                        ignoreSearchFilter: viewModel.searchVM.isTypingSearch,
+                                        ignoreSearchFilter: viewModel.searchVM.fieldIsFocused,
                                         bgBrightness: colorScheme == .dark ? 0 : 0.6)
                     .drawingGroup()
                 }
@@ -51,14 +51,14 @@ struct RootArtifactContentView: View
                 withAnimation(.easeInOut(duration: 1))
                 {
                     artifact.updateLayout(forScopeSize: newSize.size,
-                                          ignoreSearchFilter: viewModel.searchVM.isTypingSearch)
+                                          ignoreSearchFilter: viewModel.searchVM.fieldIsFocused)
                 }
             }
             .onReceive(viewModel.$searchVM.map({ $0.searchTerm }).removeDuplicates().dropFirst())
             {
                 newTerm in
                 
-                guard !viewModel.searchVM.isTypingSearch else { return }
+                guard !viewModel.searchVM.fieldIsFocused else { return }
                 
                 withAnimation(.easeInOut(duration: 1))
                 {
@@ -67,7 +67,7 @@ struct RootArtifactContentView: View
                                           forceUpdate: true)
                 }
             }
-            .onReceive(viewModel.$searchVM.map({ $0.isTypingSearch }).removeDuplicates().dropFirst())
+            .onReceive(viewModel.$searchVM.map({ $0.fieldIsFocused }).removeDuplicates().dropFirst())
             {
                 isTyping in
                 
@@ -87,7 +87,7 @@ struct RootArtifactContentView: View
 //                print("attempt to layout new artifact \(newArtifact.codeArtifact.name)")
                 
                 newArtifact.updateLayout(forScopeSize: geo.size.size,
-                                         ignoreSearchFilter: viewModel.searchVM.isTypingSearch,
+                                         ignoreSearchFilter: viewModel.searchVM.fieldIsFocused,
                                          forceUpdate: true)
             }
             .onAppear
@@ -95,7 +95,7 @@ struct RootArtifactContentView: View
 //                print("attempt to layout artifact \(artifact.codeArtifact.name) because view appeared")
                 
                 artifact.updateLayout(forScopeSize: geo.size.size,
-                                      ignoreSearchFilter: viewModel.searchVM.isTypingSearch,
+                                      ignoreSearchFilter: viewModel.searchVM.fieldIsFocused,
                                       forceUpdate: true)
             }
         }
