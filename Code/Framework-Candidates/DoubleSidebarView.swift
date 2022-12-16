@@ -37,9 +37,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                 HStack(spacing: 0)
                 {
                     content()
-                        .frame(minWidth: minimumContentWidth,
-                               maxWidth: .infinity)
-                        .background(focus == .content ? .green : .clear)
+                        .frame(minWidth: minimumContentWidth, maxWidth: .infinity)
                         .focused($focus, equals: .content)
                         .focusable(false)
                     
@@ -134,7 +132,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     // MARK: - Content
     
     @ViewBuilder public let content: () -> Content
-    private let minimumContentWidth = 300.0
+    private let minimumContentWidth = 200.0
     
     // MARK: - Left Sidebar
 
