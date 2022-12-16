@@ -54,6 +54,19 @@ struct RootArtifactContentView: View
                                           ignoreSearchFilter: viewModel.searchVM.isTypingSearch)
                 }
             }
+            .onReceive(viewModel.$searchVM.map({ $0.searchTerm }).removeDuplicates().dropFirst())
+            {
+                newTerm in
+                
+                guard !viewModel.searchVM.isTypingSearch else { return }
+                
+                withAnimation(.easeInOut(duration: 1))
+                {
+                    artifact.updateLayout(forScopeSize: geo.size.size,
+                                          ignoreSearchFilter: true,
+                                          forceUpdate: true)
+                }
+            }
             .onReceive(viewModel.$searchVM.map({ $0.isTypingSearch }).removeDuplicates().dropFirst())
             {
                 isTyping in

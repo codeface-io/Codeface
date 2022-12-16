@@ -49,9 +49,8 @@ public class ProjectProcessorViewModel: ObservableObject
     
     public func clearSearchField()
     {
-        updateArtifacts(withSearchTerm: "", allPass: true)
-        searchVM.isTypingSearch = false
         searchVM.searchTerm = ""
+        updateSearchFilter()
     }
     
     public func userChanged(fieldIsFocused: Bool)
@@ -89,7 +88,7 @@ public class ProjectProcessorViewModel: ObservableObject
     public func userChangedSearchTerm()
     {
         searchVM.isTypingSearch = true
-        updateArtifacts(withSearchTerm: searchVM.searchTerm, allPass: false)
+        updateSearchFilter()
     }
     
     public func submitSearchTerm()
@@ -102,16 +101,17 @@ public class ProjectProcessorViewModel: ObservableObject
     public func submit()
     {
         searchVM.isTypingSearch = false
-        updateArtifacts(withSearchTerm: searchVM.searchTerm, allPass: false)
+        updateSearchFilter()
     }
     
-    private func updateArtifacts(withSearchTerm searchTerm: String,
-                                 allPass: Bool)
+    private func updateSearchFilter()
     {
         if case .didVisualizeCodebaseArchitecture(_, let rootViewModel) = processorState
         {
-            rootViewModel.updateSearchResults(withSearchTerm: searchTerm)
-            rootViewModel.updateSearchFilter(allPass: allPass)
+            // TODO: rather "clear search results" when term is empty
+            rootViewModel.updateSearchResults(withSearchTerm: searchVM.searchTerm)
+            
+            rootViewModel.updateSearchFilter(allPass: searchVM.searchTerm.isEmpty)
         }
     }
     
