@@ -35,25 +35,42 @@ struct CodefaceApp: App
                     }
                     .padding()
                 }
+            
                 .toolbar
                 {
-                    ToolbarItemGroup(placement: ToolbarItemPlacement.secondaryAction)
+                    
+                    ToolbarItemGroup(placement: .secondaryAction)
                     {
-                        Button
+                        Button(systemImageName: "magnifyingglass")
                         {
                             withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                             {
                                 focusedDocument?.projectProcessorVM?.toggleSearchBar()
                             }
                         }
-                        label:
-                        {
-                            Image(systemName: "magnifyingglass")
-                        }
                         .help("Toggle the search filter (⇧⌘F)")
                         .focusable(false)
+                        
+//                        Button("Search Filter: \(focusedDocument?.projectProcessorVM?.searchVM.term ?? "none")")
+//                        {
+//                            focusedDocument?.projectProcessorVM?.set(searchTerm: "")
+//                        }
+                    }
+                    
+                    ToolbarItemGroup(placement: .primaryAction)
+                    {
+                        Spacer()
 
                         DisplayModePicker(displayMode: $displayOptions.displayMode)
+                        
+                        Button(systemImageName: "sidebar.right")
+                        {
+                            withAnimation
+                            {
+                                sidebarViewModel.showsRightSidebar.toggle()
+                            }
+                        }
+                        .help("Toggle Inspector (⌥⌘0)")
                     }
                 }
         }

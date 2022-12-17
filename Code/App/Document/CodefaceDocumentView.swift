@@ -9,13 +9,15 @@ struct CodefaceDocumentView: View
         CodefaceDocumentContentView(codefaceDocument: codefaceDocument,
                                     sidebarViewModel: sidebarViewModel)
             .focusedSceneValue(\.document, codefaceDocument)
-            .onReceive(codefaceDocument.$codebase) {
+            .onReceive(codefaceDocument.$codebase)
+            {
                 if let updatedCodebase = $0
                 {
                     codebaseFile.codebase = updatedCodebase
                 }
             }
-            .onAppear {
+            .onAppear
+            {
                 if let codebase = codebaseFile.codebase
                 {
                     codefaceDocument.loadProcessor(for: codebase)

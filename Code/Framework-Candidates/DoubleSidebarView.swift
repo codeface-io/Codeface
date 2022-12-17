@@ -53,6 +53,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                         content()
                             .frame(width: (geo.size.width - (rightCurrentWidth - rightDragOffset)) - 1)
                             .frame(maxHeight: .infinity)
+                            .background(Color(NSColor.windowBackgroundColor))
                             .focused($focus, equals: .content)
                             .focusable(false)
                         
@@ -86,23 +87,6 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                                 .onEnded { _ in endDraggingRight() }
                         )
                 }
-            }
-        }
-        .toolbar
-        {
-            ToolbarItemGroup(placement: .primaryAction)
-            {
-                Spacer()
-
-                Button(systemImageName: "sidebar.right")
-                {
-                    withAnimation
-                    {
-                        toggleRight()
-                        viewModel.showsRightSidebar = rightIsVisible
-                    }
-                }
-                .help("Toggle Inspector (⌥⌘0)")
             }
         }
         .onChange(of: viewModel.showsLeftSidebar)
@@ -179,8 +163,6 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
             }
         }
     }
-    
-    func toggleRight() { set(rightIsVisible: !rightIsVisible) }
     
     func set(rightIsVisible newValue: Bool)
     {
