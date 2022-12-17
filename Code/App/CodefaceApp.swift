@@ -35,12 +35,20 @@ struct CodefaceApp: App
                     }
                     .padding()
                 }
-            
                 .toolbar
                 {
-                    
                     ToolbarItemGroup(placement: .secondaryAction)
                     {
+                        if let processorVM = focusedDocument?.projectProcessorVM
+                        {
+                            ToolbarSearchButtons(processorVM: processorVM)
+                        }
+                    }
+                    
+                    ToolbarItemGroup(placement: .primaryAction)
+                    {
+                        Spacer()
+                        
                         Button(systemImageName: "magnifyingglass")
                         {
                             withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
@@ -48,19 +56,8 @@ struct CodefaceApp: App
                                 focusedDocument?.projectProcessorVM?.toggleSearchBar()
                             }
                         }
-                        .help("Toggle the search filter (⇧⌘F)")
-                        .focusable(false)
+                        .help("Toggle the Search Filter (⇧⌘F)")
                         
-//                        Button("Search Filter: \(focusedDocument?.projectProcessorVM?.searchVM.term ?? "none")")
-//                        {
-//                            focusedDocument?.projectProcessorVM?.set(searchTerm: "")
-//                        }
-                    }
-                    
-                    ToolbarItemGroup(placement: .primaryAction)
-                    {
-                        Spacer()
-
                         DisplayModePicker(displayMode: $displayOptions.displayMode)
                         
                         Button(systemImageName: "sidebar.right")
@@ -236,8 +233,6 @@ struct CodefaceApp: App
     // MARK: - Basics
     
     @ObservedObject private var displayOptions = DisplayOptions.shared
-    
     @StateObject var sidebarViewModel = DoubleSidebarViewModel()
-    
-    @FocusedValue(\.document) var focusedDocument: CodefaceDocument?
+    @FocusedObject var focusedDocument: CodefaceDocument?
 }

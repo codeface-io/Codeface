@@ -8,7 +8,8 @@ struct CodefaceDocumentView: View
     {
         CodefaceDocumentContentView(codefaceDocument: codefaceDocument,
                                     sidebarViewModel: sidebarViewModel)
-            .focusedSceneValue(\.document, codefaceDocument)
+        .focusedObject(codefaceDocument)
+            .focusedObject(codefaceDocument)
             .onReceive(codefaceDocument.$codebase)
             {
                 if let updatedCodebase = $0
