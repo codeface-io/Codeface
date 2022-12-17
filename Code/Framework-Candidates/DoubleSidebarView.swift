@@ -31,40 +31,52 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         }
         detail:
         {
-            // TODO: rather use HSplitView and get dragging for free?!
             ZStack
             {
-                HStack(spacing: 0)
-                {
-                    content()
-                        .frame(minWidth: minimumContentWidth, maxWidth: .infinity)
-                        .focused($focus, equals: .content)
-                        .focusable(false)
-                    
-                    HStack(spacing: 0)
-                    {
-                        Divider()
-                        
-                        rightSidebar()
-                            .frame(maxWidth: .infinity)
-                    }
-                    .frame(minWidth: Self.minimumWidth)
-                    .frame(width: rightCurrentWidth - rightDragOffset)
-                    .clipShape(Rectangle())
-                    .focused($focus, equals: .rightSidebar)
-                }
-                
                 GeometryReader
                 {
                     geo in
+                    
+                    HStack(spacing: 0)
+                    {
+                        Spacer()
+                        
+                        rightSidebar()
+                            .frame(width: max(Self.minimumWidth, rightCurrentWidth - rightDragOffset))
+                            .frame(maxHeight: .infinity)
+                            .focused($focus, equals: .rightSidebar)
+                            .focusable(false)
+                    }
+                    
+                    HStack(spacing: 0)
+                    {
+                        content()
+                            .frame(width: (geo.size.width - (rightCurrentWidth - rightDragOffset)) - 1)
+                            .frame(maxHeight: .infinity)
+                            .focused($focus, equals: .content)
+                            .focusable(false)
+                        
+                        Rectangle()
+                            .fill(colorScheme == .dark ? .black : Color(white: 0.8706))
+                            .frame(width: 1)
+                            .frame(maxHeight: .infinity)
+                        
+                        Spacer()
+                    }
 
                     DragHandle()
-                        .position(x: (geo.size.width - rightCurrentWidth) + rightDragOffset,
+                        .position(x: (geo.size.width - (rightCurrentWidth - rightDragOffset)) - 0.5,
                                   y: geo.size.height / 2)
                         .gesture(
                             DragGesture()
                                 .onChanged
                                 {
+                                    if !isDragging
+                                    {
+                                        isDragging = true
+                                        NSCursor.resizeLeftRight.push()
+                                    }
+                                    
                                     let potentialRightPosition = (geo.size.width - rightCurrentWidth) + $0.translation.width
 
                                     guard potentialRightPosition >= minimumContentWidth else { return }
@@ -143,9 +155,15 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     // MARK: - Right Sidebar
     
     @ViewBuilder public let rightSidebar: () -> RightSidebar
+    
+    @State private var isDragging = false
         
     func endDraggingRight()
     {
+        NSCursor.pop()
+        
+        isDragging = false
+        
         if rightCurrentWidth - rightDragOffset > Self.minimumWidth
         {
             rightCurrentWidth -= rightDragOffset
@@ -179,7 +197,8 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     // MARK: - General
     
     @ObservedObject var viewModel: DoubleSidebarViewModel
-    static var minimumWidth: Double { 200 }
+    static var minimumWidth: Double { 250 }
+    @Environment(\.colorScheme) var colorScheme
 }
 
 class DoubleSidebarViewModel: ObservableObject
@@ -195,7 +214,7 @@ struct DragHandle: View
         Rectangle()
             .fill(.clear)
             .frame(maxHeight: .infinity)
-            .frame(width: 9)
+            .frame(width: 10)
             .onHover
             {
                 if $0 { NSCursor.resizeLeftRight.push() }

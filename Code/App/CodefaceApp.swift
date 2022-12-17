@@ -20,6 +20,7 @@ struct CodefaceApp: App
 //        }
 //    }
     
+    //*
     var body: some Scene
     {
         DocumentGroup(newDocument: CodebaseFileDocument())
@@ -203,6 +204,7 @@ struct CodefaceApp: App
             #endif
         }
     }
+    // */
     
     private var lastFolderName: String
     {

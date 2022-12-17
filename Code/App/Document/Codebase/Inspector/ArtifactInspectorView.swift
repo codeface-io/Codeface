@@ -50,7 +50,8 @@ struct ArtifactInspectorView: View
             }
             .font(.title3)
             
-            HStack {
+            HStack
+            {
                 Label("Parts in cycles:",
                       systemImage: "arrow.3.trianglepath")
                 
@@ -66,8 +67,11 @@ struct ArtifactInspectorView: View
             }
             .font(.title3)
         }
-        .focusable(false)
+        .scrollContentBackground(.hidden)
+        .background(Color(white: colorScheme == .dark ? 0.1568 : 0.9647))
     }
     
     let artifactVM: ArtifactViewModel
+    
+    @Environment(\.colorScheme) private var colorScheme
 }
