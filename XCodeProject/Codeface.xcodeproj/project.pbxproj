@@ -55,6 +55,7 @@
 		96F19FB8294E642C00E441AC /* ToolbarFilterIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F19FB7294E642C00E441AC /* ToolbarFilterIndicator.swift */; };
 		96FC8C3F284BEB9000AD7DD2 /* CodebaseLocatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC8C3E284BEB9000AD7DD2 /* CodebaseLocatorView.swift */; };
 		96FF8A43294E9FE500D06E36 /* SwiftUIToolzOLD in Frameworks */ = {isa = PBXBuildFile; productRef = 96FF8A42294E9FE500D06E36 /* SwiftUIToolzOLD */; };
+		96FF8A45294F876100D06E36 /* CodefaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FF8A44294F876100D06E36 /* CodefaceStyle.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceApp.swift */; };
 		9E95A709218C73CA009A58A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E95A708218C73CA009A58A9 /* Assets.xcassets */; };
 		9E95A718218C73CA009A58A9 /* CodefaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A717218C73CA009A58A9 /* CodefaceTests.swift */; };
@@ -129,6 +130,7 @@
 		96EF44102912A64500EB93D1 /* CodefaceHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodefaceHelper.entitlements; sourceTree = "<group>"; };
 		96F19FB7294E642C00E441AC /* ToolbarFilterIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarFilterIndicator.swift; sourceTree = "<group>"; };
 		96FC8C3E284BEB9000AD7DD2 /* CodebaseLocatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseLocatorView.swift; sourceTree = "<group>"; };
+		96FF8A44294F876100D06E36 /* CodefaceStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodefaceStyle.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceApp.swift; sourceTree = "<group>"; };
 		9E27839C229ECDF1006ACB18 /* Codeface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codeface.entitlements; sourceTree = "<group>"; };
 		9E95A703218C73C7009A58A9 /* Codeface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeface.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,6 +344,7 @@
 				96FC8C3E284BEB9000AD7DD2 /* CodebaseLocatorView.swift */,
 				96EB5998294629D50050254E /* Document */,
 				9675A0BC294D228C00C784AA /* Display Options */,
+				96FF8A44294F876100D06E36 /* CodefaceStyle.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				9675A0B7294CE1C900C784AA /* ProofOfConceptView.swift in Sources */,
 				960BBE9629004F9000F9DC2A /* LSPServiceHint.swift in Sources */,
 				9639C27228D761A000779BA5 /* CodefaceDocumentView.swift in Sources */,
+				96FF8A45294F876100D06E36 /* CodefaceStyle.swift in Sources */,
 				960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */,
 				96D59CC5294AB8DE003C55B5 /* ArtifactInspectorView.swift in Sources */,
 				96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */,
@@ -701,6 +705,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = codefaceAccentColor;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -765,6 +770,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = codefaceAccentColor;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1001,7 +1007,7 @@
 			repositoryURL = "https://github.com/flowtoolz/SwiftUIToolzOLD";
 			requirement = {
 				kind = exactVersion;
-				version = 0.3.3;
+				version = 0.3.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

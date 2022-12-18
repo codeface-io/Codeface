@@ -25,10 +25,20 @@ struct ArtifactInspectorView: View
             
             Divider()
             
-            HStack {
-                Label("Lines of code:",
-                      systemImage: "text.alignleft")
+            HStack
+            {
+                Label
+                {
+                    Text("Lines of code:")
+                }
+                icon:
+                {
+                    Image(systemName: "text.alignleft")
+                        .foregroundColor(.secondary)
+                }
+                
                 Spacer()
+                
                 Text("\(artifactVM.codeArtifact.linesOfCode)")
                     .foregroundColor(.init(artifactVM.linesOfCodeColor))
             }
@@ -36,9 +46,18 @@ struct ArtifactInspectorView: View
             
             Divider()
             
-            HStack {
-                Label("Is itself in cycles:",
-                      systemImage: "exclamationmark.arrow.triangle.2.circlepath")
+            HStack
+            {
+                Label
+                {
+                    Text("Is itself in cycles:")
+                }
+                icon:
+                {
+                    Image(systemName: "exclamationmark.arrow.triangle.2.circlepath")
+                        .foregroundColor(.secondary)
+                }
+                
                 Spacer()
                 
                 let isInCycle = artifactVM.codeArtifact.metrics.isInACycle ?? false
@@ -52,8 +71,15 @@ struct ArtifactInspectorView: View
             
             HStack
             {
-                Label("Parts in cycles:",
-                      systemImage: "arrow.3.trianglepath")
+                Label
+                {
+                    Text("Parts in cycles:")
+                }
+                icon:
+                {
+                    Image(systemName: "arrow.3.trianglepath")
+                        .foregroundColor(.secondary)
+                }
                 
                 Spacer()
                 

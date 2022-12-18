@@ -2,6 +2,7 @@ import SwiftUI
 import CodefaceCore
 import SwiftLSP
 import SwiftyToolz
+import SwiftUIToolzOLD
 
 struct ArtifactView: View
 {
@@ -42,7 +43,7 @@ struct ArtifactView: View
             .opacity(artifactVM.containsSearchTermRegardlessOfParts ?? false ? colorScheme == .dark ? 1 : 0.2 : 0)
             .blendMode(colorScheme == .dark ? .multiply : .normal)
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(Color(borderColor(for: colorScheme)),
+                .strokeBorder(borderColor(for: colorScheme),
                               lineWidth: 1,
                               antialiased: true)))
         .background(RoundedRectangle(cornerRadius: 5)
@@ -50,13 +51,23 @@ struct ArtifactView: View
         .framePosition(artifactVM.frameInScopeContent)
     }
     
-    private func borderColor(for colorScheme: ColorScheme) -> UXColor
+    private func borderColor(for colorScheme: ColorScheme) -> SwiftUI.Color
     {
-        if artifactVM.isInFocus { return .system(.accent) }
+        if artifactVM.isInFocus { return .accentColor }
         
         let errorPortion = artifactVM.codeArtifact.metrics.portionOfPartsInCycles
         
-        return .dynamic(defaultBorderColor.mixed(with: errorPortion, of: CodefaceStyle.warningRed))
+        let nsDefaultBorderColor = NSColor(defaultBorderColor)
+        
+        guard let nsFinalColor = nsDefaultBorderColor.blended(withFraction: errorPortion,
+                                                              of: .systemRed)
+        else
+        {
+            log(warning: "Could not blend NSColors")
+            return Color(nsDefaultBorderColor)
+        }
+        
+        return Color(nsFinalColor)
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel

@@ -17,12 +17,11 @@ struct DependencyView: View
     {
         if isHighlighted
         {
-            return .dynamic(CodefaceStyle.accent.mixed(with: isPartOfCycle ? 0.5 : 0,
-                                                       of: CodefaceStyle.warningRed))
+            return isPartOfCycle ? .system(.purple) : .system(.accent)
         }
         else
         {
-            return isPartOfCycle ? .dynamic(CodefaceStyle.warningRed) : .rgba(.gray(brightness: defaultBrightness))
+            return isPartOfCycle ? .system(.red) : .rgba(.gray(brightness: defaultBrightness))
         }
     }
     

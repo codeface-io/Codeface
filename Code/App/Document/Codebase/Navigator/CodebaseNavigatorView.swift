@@ -24,6 +24,7 @@ struct CodebaseNavigatorView: View
             NavigationLink(value: artifactVM.id)
             {
                 SidebarLabel(artifact: artifactVM)
+//                    .listRowBackground(nil)
             }
             .onChange(of: selectedArtifactID)
             {
