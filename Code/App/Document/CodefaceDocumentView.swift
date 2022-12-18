@@ -9,26 +9,65 @@ struct CodefaceDocumentView: View
         CodefaceDocumentContentView(codefaceDocument: codefaceDocument,
                                     sidebarViewModel: sidebarViewModel)
         .focusedObject(codefaceDocument)
-            .focusedObject(codefaceDocument)
-            .onReceive(codefaceDocument.$codebase)
+        .toolbar
+        {
+            ToolbarItemGroup(placement: .secondaryAction)
             {
-                if let updatedCodebase = $0
+                if let processorVM = codefaceDocument.projectProcessorVM
                 {
-                    codebaseFile.codebase = updatedCodebase
+                    ToolbarFilterIndicator(processorVM: processorVM)
                 }
             }
-            .onAppear
+            
+            ToolbarItemGroup(placement: .primaryAction)
             {
-                if let codebase = codebaseFile.codebase
+                Spacer()
+                
+                Button(systemImageName: "magnifyingglass")
                 {
-                    codefaceDocument.loadProcessor(for: codebase)
+                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
+                    {
+                        codefaceDocument.projectProcessorVM?.toggleSearchBar()
+                    }
                 }
+                .help("Toggle the Search Filter (⇧⌘F)")
+                .disabled(codefaceDocument.projectProcessorVM == nil)
+                
+                DisplayModePicker(displayMode: $displayOptions.displayMode)
+                    .disabled(codefaceDocument.projectProcessorVM == nil)
+                
+                Button(systemImageName: "sidebar.right")
+                {
+                    withAnimation
+                    {
+                        sidebarViewModel.showsRightSidebar.toggle()
+                    }
+                }
+                .help("Toggle Inspector (⌥⌘0)")
+                .disabled(codefaceDocument.projectProcessorVM == nil)
             }
+        }
+        .onReceive(codefaceDocument.$codebase)
+        {
+            if let updatedCodebase = $0
+            {
+                codebaseFile.codebase = updatedCodebase
+            }
+        }
+        .onAppear
+        {
+            if let codebase = codebaseFile.codebase
+            {
+                codefaceDocument.loadProcessor(for: codebase)
+            }
+        }
     }
     
-    @StateObject private var codefaceDocument = CodefaceDocument()
     @Binding var codebaseFile: CodebaseFileDocument
     let sidebarViewModel: DoubleSidebarViewModel
+    
+    @StateObject private var codefaceDocument = CodefaceDocument()
+    @ObservedObject private var displayOptions = DisplayOptions.shared
 }
 
 struct CodefaceDocumentContentView: View

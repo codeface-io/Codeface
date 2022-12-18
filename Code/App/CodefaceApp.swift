@@ -41,44 +41,6 @@ struct CodefaceApp: App
                     }
                     .padding()
                 }
-                .toolbar
-                {
-                    ToolbarItemGroup(placement: .secondaryAction)
-                    {
-                        if let processorVM = focusedDocument?.projectProcessorVM
-                        {
-                            ToolbarFilterIndicator(processorVM: processorVM)
-                        }
-                    }
-                    
-                    ToolbarItemGroup(placement: .primaryAction)
-                    {
-                        Spacer()
-                        
-                        Button(systemImageName: "magnifyingglass")
-                        {
-                            withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
-                            {
-                                focusedDocument?.projectProcessorVM?.toggleSearchBar()
-                            }
-                        }
-                        .help("Toggle the Search Filter (⇧⌘F)")
-                        .disabled(focusedDocument?.projectProcessorVM == nil)
-                        
-                        DisplayModePicker(displayMode: $displayOptions.displayMode)
-                            .disabled(focusedDocument?.projectProcessorVM == nil)
-                        
-                        Button(systemImageName: "sidebar.right")
-                        {
-                            withAnimation
-                            {
-                                sidebarViewModel.showsRightSidebar.toggle()
-                            }
-                        }
-                        .help("Toggle Inspector (⌥⌘0)")
-                        .disabled(focusedDocument?.projectProcessorVM == nil)
-                    }
-                }
         }
         .commands // FIXME: appropriate menu option disablings
         {
