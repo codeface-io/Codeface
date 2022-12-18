@@ -42,7 +42,7 @@ struct CodefaceApp: App
                     .padding()
                 }
         }
-        .commands // FIXME: appropriate menu option disablings
+        .commands
         {
             CommandGroup(after: .toolbar)
             {
@@ -53,7 +53,7 @@ struct CodefaceApp: App
                         focusedDocument?.projectProcessorVM?.startTypingSearchTerm()
                     }
                 }
-//                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("f")
 
                 Button("Toggle the Search Filter")
@@ -63,7 +63,7 @@ struct CodefaceApp: App
                         focusedDocument?.projectProcessorVM?.toggleSearchBar()
                     }
                 }
-//                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("f", modifiers: [.shift, .command])
             }
             
@@ -76,6 +76,7 @@ struct CodefaceApp: App
                     displayOptions.showLoC.toggle()
                 }
                 .keyboardShortcut("l", modifiers: .command)
+                .disabled(focusedDocument?.projectProcessorVM == nil)
                 
                 Button("\(sidebarViewModel.showsLeftSidebar ? "Hide" : "Show") the Navigator")
                 {
@@ -85,6 +86,7 @@ struct CodefaceApp: App
                     }
                 }
                 .keyboardShortcut("0", modifiers: .command)
+                .disabled(focusedDocument?.projectProcessorVM == nil)
 
                 Button("\(sidebarViewModel.showsRightSidebar ? "Hide" : "Show") the Inspector")
                 {
@@ -94,6 +96,7 @@ struct CodefaceApp: App
                     }
                 }
                 .keyboardShortcut("0", modifiers: [.option, .command])
+                .disabled(focusedDocument?.projectProcessorVM == nil)
                 
                 Divider()
                 
@@ -102,12 +105,14 @@ struct CodefaceApp: App
                     displayOptions.switchDisplayMode()
                 }
                 .keyboardShortcut(.rightArrow, modifiers: .command)
+                .disabled(focusedDocument?.projectProcessorVM == nil)
 
                 Button("Switch to Previous Display Mode")
                 {
                     displayOptions.switchDisplayMode()
                 }
                 .keyboardShortcut(.leftArrow, modifiers: .command)
+                .disabled(focusedDocument?.projectProcessorVM == nil)
 
                 Divider()
                 
