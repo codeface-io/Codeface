@@ -11,9 +11,6 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         self.content = content
         self.leftSidebar = leftSidebar
         self.rightSidebar = rightSidebar
-        
-        _rightCurrentWidth = SceneStorage(wrappedValue: viewModel.showsRightSidebar ? Self.rightDefaultWidth : 0,
-                                          "rightCurrentWidth")
     }
     
     public var body: some View
@@ -78,7 +75,9 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                                         NSCursor.resizeLeftRight.push()
                                     }
                                     
-                                    let potentialRightPosition = (geo.size.width - rightCurrentWidth) + $0.translation.width
+                                    let widthWithoutDrag = viewModel.showsRightSidebar ? rightWidthWhenVisible : 0
+                                    
+                                    let potentialRightPosition = (geo.size.width - widthWithoutDrag) + $0.translation.width
 
                                     guard potentialRightPosition >= minimumContentWidth else { return }
 
@@ -96,15 +95,6 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
             withAnimation
             {
                 columnVisibility = showsLeftSidebar ? .doubleColumn : .detailOnly
-            }
-        }
-        .onChange(of: viewModel.showsRightSidebar)
-        {
-            showsRightSidebar in
-
-            if showsRightSidebar != rightIsVisible
-            {
-                withAnimation { set(rightIsVisible: showsRightSidebar) }
             }
         }
         .onAppear
@@ -142,51 +132,52 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     
     @State private var isDragging = false
         
-    func endDraggingRight()
+    private func endDraggingRight()
     {
         NSCursor.pop()
-        
         isDragging = false
         
-        if rightCurrentWidth - rightDragOffset > Self.minimumWidth
+        let draggedWidth = rightCurrentWidth - rightDragOffset
+        
+        let expanded = draggedWidth >= Self.minimumWidth
+        
+        if expanded
         {
-            rightCurrentWidth -= rightDragOffset
-            rightWidthWhenVisible = rightCurrentWidth
+            rightWidthWhenVisible = draggedWidth
             rightDragOffset = 0
+            viewModel.showsRightSidebar = true
         }
         else
         {
             withAnimation
             {
-                rightCurrentWidth = 0
                 rightDragOffset = 0
+                viewModel.showsRightSidebar = false
             }
         }
     }
-    
-    func set(rightIsVisible newValue: Bool)
+
+    var rightCurrentWidth: Double
     {
-        rightCurrentWidth = newValue ? rightWidthWhenVisible : 0
+        viewModel.showsRightSidebar ? rightWidthWhenVisible : 0
     }
     
-    var rightIsVisible: Bool { rightCurrentWidth >= Self.minimumWidth }
-        
-    @SceneStorage("rightWidthWhenVisible") var rightWidthWhenVisible = rightDefaultWidth
-    @SceneStorage var rightCurrentWidth: Double
+    @SceneStorage("rightWidthWhenVisible") var rightWidthWhenVisible = defaultWidth
+    
     @State var rightDragOffset: Double = 0
-    static var rightDefaultWidth : Double { 250 }
+    static var defaultWidth: Double { 250 }
+    static var minimumWidth: Double { 200 }
     
     // MARK: - General
     
     @ObservedObject var viewModel: DoubleSidebarViewModel
-    static var minimumWidth: Double { 250 }
     @Environment(\.colorScheme) var colorScheme
 }
 
 class DoubleSidebarViewModel: ObservableObject
 {
     @Published var showsLeftSidebar: Bool = true
-    @Published var showsRightSidebar: Bool = false
+    @AppStorage("Show Right Sidebar") var showsRightSidebar: Bool = false
 }
 
 struct DragHandle: View

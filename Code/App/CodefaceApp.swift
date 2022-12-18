@@ -47,7 +47,7 @@ struct CodefaceApp: App
                     {
                         if let processorVM = focusedDocument?.projectProcessorVM
                         {
-                            ToolbarSearchButtons(processorVM: processorVM)
+                            ToolbarFilterIndicator(processorVM: processorVM)
                         }
                     }
                     
@@ -77,7 +77,7 @@ struct CodefaceApp: App
                     }
                 }
         }
-        .commands
+        .commands // FIXME: appropriate menu option disablings
         {
             CommandGroup(after: .toolbar)
             {
@@ -120,8 +120,6 @@ struct CodefaceApp: App
                     }
                 }
                 .keyboardShortcut("0", modifiers: .command)
-
-                // FIXME: some commands are only available when there is a projectProcessorVM, i.e. when some artifact is selected, but apparently focusedDocument as a @FocusedValue is not being observed! so the button disabling does not work.
 
                 Button("\(sidebarViewModel.showsRightSidebar ? "Hide" : "Show") the Inspector")
                 {

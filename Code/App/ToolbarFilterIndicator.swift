@@ -1,12 +1,10 @@
 import SwiftUI
 import CodefaceCore
 
-struct ToolbarSearchButtons: View
+struct ToolbarFilterIndicator: View
 {
     var body: some View
     {
-        
-        
         if !processorVM.searchVM.term.isEmpty
         {
             Button
