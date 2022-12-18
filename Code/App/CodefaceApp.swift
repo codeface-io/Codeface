@@ -79,9 +79,7 @@ struct CodefaceApp: App
         }
         .commands
         {
-            SidebarCommands()
-
-            CommandGroup(replacing: .sidebar)
+            CommandGroup(after: .toolbar)
             {
                 Button("Find and filter")
                 {
@@ -91,7 +89,7 @@ struct CodefaceApp: App
                     }
                 }
 //                .disabled(focusedDocument?.projectProcessorVM == nil)
-                .keyboardShortcut("f", modifiers: .command)
+                .keyboardShortcut("f")
 
                 Button("Toggle the Search Filter")
                 {
@@ -102,9 +100,12 @@ struct CodefaceApp: App
                 }
 //                .disabled(focusedDocument?.projectProcessorVM == nil)
                 .keyboardShortcut("f", modifiers: [.shift, .command])
+            }
+            
+            ToolbarCommands()
 
-                Divider()
-                
+            CommandGroup(replacing: .sidebar)
+            {
                 Button("\(displayOptions.showLoC ? "Hide" : "Show") Lines of Code in Navigator")
                 {
                     displayOptions.showLoC.toggle()
