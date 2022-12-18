@@ -33,14 +33,6 @@ struct CodefaceApp: App
         {
             CodefaceDocumentView(codebaseFile: $0.$document,
                                  sidebarViewModel: sidebarViewModel)
-                .sheet(isPresented: $isPresentingCodebaseLocator)
-                {
-                    CodebaseLocatorView(isBeingPresented: $isPresentingCodebaseLocator)
-                    {
-                        focusedDocument?.loadNewProcessor(forCodebaseFrom: $0)
-                    }
-                    .padding()
-                }
         }
         .commands
         {
@@ -151,26 +143,15 @@ struct CodefaceApp: App
             {
                 Button("Import Code Folder...")
                 {
-                    isPresentingCodebaseLocator = true
+                    focusedDocument?.isPresentingCodebaseLocator = true
                 }
                 .disabled(focusedDocument == nil)
 
                 Button("Import Swift Package Folder...")
                 {
-                    isPresentingFolderImporter = true
+                    focusedDocument?.isPresentingFolderImporter = true
                 }
                 .disabled(focusedDocument == nil)
-                .fileImporter(isPresented: $isPresentingFolderImporter,
-                              allowedContentTypes: [.directory],
-                              allowsMultipleSelection: false)
-                {
-                    guard let folderURL = (try? $0.get())?.first else
-                    {
-                        return log(error: "Could not select code folder")
-                    }
-
-                    focusedDocument?.loadProcessorForSwiftPackage(from: folderURL)
-                }
 
                 Button("Import \(lastFolderName) Again")
                 {
@@ -207,11 +188,6 @@ struct CodefaceApp: App
     {
         CodebaseLocationPersister.cachedLocation?.folder.lastPathComponent ?? "Last Folder"
     }
-    
-    // MARK: - Load Codebase from Folder
-    
-    @State private var isPresentingCodebaseLocator = false
-    @State private var isPresentingFolderImporter = false
     
     // MARK: - Basics
     

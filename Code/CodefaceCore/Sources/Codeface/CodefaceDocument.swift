@@ -127,4 +127,9 @@ public class CodefaceDocument: ObservableObject
     }
     
     @Published public private(set) var projectProcessorVM: ProjectProcessorViewModel? = nil
+    
+    // MARK: - Import Views
+    
+    @Published public var isPresentingCodebaseLocator = false
+    @Published public var isPresentingFolderImporter = false
 }

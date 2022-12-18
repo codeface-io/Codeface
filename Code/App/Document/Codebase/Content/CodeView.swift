@@ -11,7 +11,7 @@ struct CodeView: View
                 .font(.system(size: CodefaceStyle.fontSize, design: .monospaced))
                 .scrollContentBackground(.hidden) // must be hidden to see background
                 .padding(.leading)
-                .background(colorScheme == .dark ? .black : .white) 
+                .background(colorScheme == .dark ? .black : .white)
         }
         else
         {

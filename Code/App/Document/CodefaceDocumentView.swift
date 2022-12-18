@@ -1,6 +1,7 @@
 import SwiftUI
 import CodefaceCore
 import SwiftLSP
+import SwiftyToolz
 
 struct CodefaceDocumentView: View
 {
@@ -9,6 +10,25 @@ struct CodefaceDocumentView: View
         CodefaceDocumentContentView(codefaceDocument: codefaceDocument,
                                     sidebarViewModel: sidebarViewModel)
         .focusedObject(codefaceDocument)
+        .fileImporter(isPresented: $codefaceDocument.isPresentingFolderImporter,
+                      allowedContentTypes: [.directory],
+                      allowsMultipleSelection: false)
+        {
+            guard let folderURL = (try? $0.get())?.first else
+            {
+                return log(error: "Could not select code folder")
+            }
+
+            codefaceDocument.loadProcessorForSwiftPackage(from: folderURL)
+        }
+        .sheet(isPresented: $codefaceDocument.isPresentingCodebaseLocator)
+        {
+            CodebaseLocatorView(isBeingPresented: $codefaceDocument.isPresentingCodebaseLocator)
+            {
+                codefaceDocument.loadNewProcessor(forCodebaseFrom: $0)
+            }
+            .padding()
+        }
         .toolbar
         {
             ToolbarItemGroup(placement: .secondaryAction)
