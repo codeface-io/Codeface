@@ -63,24 +63,39 @@ struct ProofOfConceptView: View
         
         DoubleSidebarView(viewModel: sidebarsVM)
         {
-            TextField("Text Field Content", text: $textContent)
-                .focused($contentIsFocused)
-                .onSubmit {
-                    contentIsFocused = false
+            VStack
+            {
+                HStack {
+                    Text("HUHU")
+                    Spacer()
                 }
+                
+                TextField("Text Field Content", text: $textContent)
+                    .focused($contentIsFocused)
+                    .onSubmit {
+                        contentIsFocused = false
+                    }
+                Spacer()
+            }
+            .frame(maxHeight: .infinity)
+            .ignoresSafeArea(.all, edges: [.top])
+            .background(.black)
         }
         leftSidebar:
         {
-            TextField("Text Field Left", text: $textLeft)
-                .focused($leftIsFocused)
-                .onSubmit {
-                    leftIsFocused = false
-                }
-                .toolbar {
-                    Button("Start Typing") {
-                        Task { contentIsFocused = true }
+            VStack
+            {
+                TextField("Text Field Left", text: $textLeft)
+                    .focused($leftIsFocused)
+                    .onSubmit {
+                        leftIsFocused = false
                     }
-                }
+                    .toolbar {
+                        Button("Start Typing") {
+                            Task { contentIsFocused = true }
+                        }
+                    }
+            }
         }
         rightSidebar:
         {

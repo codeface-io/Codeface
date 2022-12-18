@@ -6,9 +6,7 @@ import SwiftyToolz
 @MainActor
 public class CodefaceDocument: ObservableObject
 {
-    public init() {
-        print("🤮")
-    }
+    public init() {}
     
     // MARK: - Load Processor for Codebase from Location
     
