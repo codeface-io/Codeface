@@ -63,8 +63,10 @@ struct CodefaceApp: App
                             }
                         }
                         .help("Toggle the Search Filter (⇧⌘F)")
+                        .disabled(focusedDocument?.projectProcessorVM == nil)
                         
                         DisplayModePicker(displayMode: $displayOptions.displayMode)
+                            .disabled(focusedDocument?.projectProcessorVM == nil)
                         
                         Button(systemImageName: "sidebar.right")
                         {
@@ -74,6 +76,7 @@ struct CodefaceApp: App
                             }
                         }
                         .help("Toggle Inspector (⌥⌘0)")
+                        .disabled(focusedDocument?.projectProcessorVM == nil)
                     }
                 }
         }
@@ -162,12 +165,14 @@ struct CodefaceApp: App
 
             CommandGroup(replacing: .newItem)
             {
-                Button("New Empty Codebase File") {
+                Button("New Empty Codebase File")
+                {
                     NSDocumentController.shared.newDocument(nil)
                 }
                 .keyboardShortcut("n")
 
-                Button("Open a Codebase File ...") {
+                Button("Open a Codebase File ...")
+                {
                     NSDocumentController.shared.openDocument(nil)
                 }
                 .keyboardShortcut("o")
