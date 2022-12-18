@@ -150,7 +150,7 @@ struct CodefaceApp: App
                 
                 Button("Toggle Fullscreen")
                 {
-                    Task { NSApp.toggleSidebar() }
+                    Task { NSApp.toggleFullscreen() }
                 }
                 .keyboardShortcut("f", modifiers: [.control, .command])
             }
