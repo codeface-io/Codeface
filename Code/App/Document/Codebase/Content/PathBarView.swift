@@ -32,7 +32,7 @@ struct PathBarView: View
             Spacer()
         }
         .padding([.leading, .trailing])
-        .frame(height: 29)
+        .frame(height: 28)
     }
     
     @ObservedObject var overviewBar: PathBar

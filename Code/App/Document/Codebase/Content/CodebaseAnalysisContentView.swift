@@ -97,8 +97,11 @@ struct CodebaseAnalysisContentPanel: View
         VStack(spacing: 0)
         {
             PathBarView(overviewBar: processorVM.pathBar)
+            
             SearchBarView(processorVM: processorVM,
                           artifactName: artifactName)
+            
+            Divider()
         }
         .background(Color(NSColor.controlBackgroundColor))
     }
