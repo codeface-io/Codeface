@@ -11,6 +11,9 @@ struct CodefaceApp: App
     init()
     {
         ReadableError.readableMessageForError = { $0.localizedDescription }
+        
+        /// we provide our own menu option for fullscreen because the one from SwiftUI disappears as soon as we interact with any views ... 🤮
+        UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
     }
     
 //    var body: some Scene
@@ -140,6 +143,12 @@ struct CodefaceApp: App
                 .keyboardShortcut(.leftArrow, modifiers: .command)
 
                 Divider()
+                
+                Button("Toggle Fullscreen")
+                {
+                    Task { NSApp.toggleSidebar() }
+                }
+                .keyboardShortcut("f", modifiers: [.control, .command])
             }
 
             CommandGroup(replacing: .help)
