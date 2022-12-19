@@ -43,8 +43,8 @@ public class ProjectProcessorViewModel: ObservableObject
     
     public func toggleSearchBar()
     {
-        if searchVM.barIsShown { set(fieldIsFocused: false) }
-        searchVM.barIsShown.toggle()
+        searchVM.barIsShown.toggle()   
+        set(fieldIsFocused: searchVM.barIsShown)
     }
     
     public func hideSearchBar()
