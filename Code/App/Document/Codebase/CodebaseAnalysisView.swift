@@ -5,7 +5,8 @@ struct CodebaseAnalysisView: View
 {
     var body: some View
     {
-        DoubleSidebarView(viewModel: sidebarViewModel)
+        DoubleSidebarView(showLeftSidebar: $codefaceDocument.showsLeftSidebar,
+                          showRightSidebar: $codefaceDocument.showsRightSidebar)
         {
             Group
             {
@@ -56,7 +57,6 @@ struct CodebaseAnalysisView: View
         }
     }
     
-    let sidebarViewModel: DoubleSidebarViewModel
     let rootArtifact: ArtifactViewModel
     
     @ObservedObject var codefaceDocument: CodefaceDocument

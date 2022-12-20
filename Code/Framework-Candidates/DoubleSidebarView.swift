@@ -2,16 +2,16 @@ import SwiftUI
 
 public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: View>: View
 {
-    init(viewModel: DoubleSidebarViewModel,
-         content: @escaping () -> Content,
-         leftSidebar: @escaping () -> LeftSidebar,
-         rightSidebar: @escaping () -> RightSidebar)
-    {
-        self.viewModel = viewModel
-        self.content = content
-        self.leftSidebar = leftSidebar
-        self.rightSidebar = rightSidebar
-    }
+//    init(viewModel: DoubleSidebarViewModel,
+//         content: @escaping () -> Content,
+//         leftSidebar: @escaping () -> LeftSidebar,
+//         rightSidebar: @escaping () -> RightSidebar)
+//    {
+//        self.viewModel = viewModel
+//        self.content = content
+//        self.leftSidebar = leftSidebar
+//        self.rightSidebar = rightSidebar
+//    }
     
     public var body: some View
     {
@@ -75,7 +75,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                                         NSCursor.resizeLeftRight.push()
                                     }
                                     
-                                    let widthWithoutDrag = viewModel.showsRightSidebar ? rightWidthWhenVisible : 0
+                                    let widthWithoutDrag = showRightSidebar ? rightWidthWhenVisible : 0
                                     
                                     let potentialRightPosition = (geo.size.width - widthWithoutDrag) + $0.translation.width
 
@@ -88,7 +88,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                 }
             }
         }
-        .onChange(of: viewModel.showsLeftSidebar)
+        .onChange(of: showLeftSidebar)
         {
             showsLeftSidebar in
             
@@ -96,6 +96,12 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
             {
                 columnVisibility = showsLeftSidebar ? .doubleColumn : .detailOnly
             }
+        }
+        .onChange(of: columnVisibility)
+        {
+            newValue in
+            
+            showLeftSidebar = newValue == .all || newValue == .doubleColumn
         }
         .onAppear
         {
@@ -114,6 +120,11 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     
     @FocusState private var focus: Focus?
     private enum Focus: String, Hashable { case leftSidebar, content, rightSidebar }
+    
+    // MARK: - Display Options
+    
+    @Binding var showLeftSidebar: Bool
+    @Binding var showRightSidebar: Bool
     
     // MARK: - Content
     
@@ -145,21 +156,21 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         {
             rightWidthWhenVisible = draggedWidth
             rightDragOffset = 0
-            viewModel.showsRightSidebar = true
+            showRightSidebar = true
         }
         else
         {
             withAnimation
             {
                 rightDragOffset = 0
-                viewModel.showsRightSidebar = false
+                showRightSidebar = false
             }
         }
     }
 
     var rightCurrentWidth: Double
     {
-        viewModel.showsRightSidebar ? rightWidthWhenVisible : 0
+        showRightSidebar ? rightWidthWhenVisible : 0
     }
     
     @SceneStorage("rightWidthWhenVisible") var rightWidthWhenVisible = defaultWidth
@@ -170,14 +181,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     
     // MARK: - General
     
-    @ObservedObject var viewModel: DoubleSidebarViewModel
     @Environment(\.colorScheme) var colorScheme
-}
-
-class DoubleSidebarViewModel: ObservableObject
-{
-    @Published var showsLeftSidebar: Bool = true
-    @AppStorage("Show Right Sidebar") var showsRightSidebar: Bool = false
 }
 
 struct DragHandle: View

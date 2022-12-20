@@ -132,4 +132,9 @@ public class CodefaceDocument: ObservableObject
     
     @Published public var isPresentingCodebaseLocator = false
     @Published public var isPresentingFolderImporter = false
+    
+    // MARK: - Display Options
+    
+    @Published public var showsLeftSidebar: Bool = true
+    @Published public var showsRightSidebar: Bool = false
 }

@@ -7,8 +7,7 @@ struct CodefaceDocumentView: View
 {
     var body: some View
     {
-        CodefaceDocumentContentView(codefaceDocument: codefaceDocument,
-                                    sidebarViewModel: sidebarViewModel)
+        CodefaceDocumentContentView(codefaceDocument: codefaceDocument)
         .focusedSceneObject(codefaceDocument)
         .fileImporter(isPresented: $codefaceDocument.isPresentingFolderImporter,
                       allowedContentTypes: [.directory],
@@ -38,11 +37,11 @@ struct CodefaceDocumentView: View
                     ToolbarFilterIndicator(processorVM: processorVM)
                 }
             }
-            
+
             ToolbarItemGroup(placement: .primaryAction)
             {
                 Spacer()
-                
+
                 Button(systemImageName: "magnifyingglass")
                 {
                     withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
@@ -52,15 +51,15 @@ struct CodefaceDocumentView: View
                 }
                 .help("Toggle the Search Filter (⇧⌘F)")
                 .disabled(codefaceDocument.projectProcessorVM == nil)
-                
+
                 DisplayModePicker(displayMode: $displayOptions.displayMode)
                     .disabled(codefaceDocument.projectProcessorVM == nil)
-                
+
                 Button(systemImageName: "sidebar.right")
                 {
                     withAnimation
                     {
-                        sidebarViewModel.showsRightSidebar.toggle()
+                        codefaceDocument.showsRightSidebar.toggle()
                     }
                 }
                 .help("Toggle Inspector (⌥⌘0)")
@@ -84,8 +83,6 @@ struct CodefaceDocumentView: View
     }
     
     @Binding var codebaseFile: CodebaseFileDocument
-    let sidebarViewModel: DoubleSidebarViewModel
-    
     @StateObject private var codefaceDocument = CodefaceDocument()
     @ObservedObject private var displayOptions = DisplayOptions.shared
 }
@@ -97,8 +94,7 @@ struct CodefaceDocumentContentView: View
         if let processorVM = codefaceDocument.projectProcessorVM
         {
             CodebaseProcessingView(codefaceDocument: codefaceDocument,
-                                   processorVM: processorVM,
-                                   sidebarViewModel: sidebarViewModel)
+                                   processorVM: processorVM)
         }
         else // no processor in the document
         {
@@ -134,7 +130,5 @@ struct CodefaceDocumentContentView: View
     }
     
     @ObservedObject var codefaceDocument: CodefaceDocument
-    let sidebarViewModel: DoubleSidebarViewModel
-    
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }

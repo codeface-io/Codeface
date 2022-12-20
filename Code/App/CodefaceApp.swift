@@ -31,8 +31,7 @@ struct CodefaceApp: App
     {
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
-            CodefaceDocumentView(codebaseFile: $0.$document,
-                                 sidebarViewModel: sidebarViewModel)
+            CodefaceDocumentView(codebaseFile: $0.$document)
         }
         .commands
         {
@@ -70,21 +69,21 @@ struct CodefaceApp: App
                 .keyboardShortcut("l", modifiers: .command)
                 .disabled(focusedDocument?.projectProcessorVM == nil)
                 
-                Button("\(sidebarViewModel.showsLeftSidebar ? "Hide" : "Show") the Navigator")
+                Button("\((focusedDocument?.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
                 {
                     withAnimation
                     {
-                        sidebarViewModel.showsLeftSidebar.toggle()
+                        focusedDocument?.showsLeftSidebar.toggle()
                     }
                 }
                 .keyboardShortcut("0", modifiers: .command)
                 .disabled(focusedDocument?.projectProcessorVM == nil)
 
-                Button("\(sidebarViewModel.showsRightSidebar ? "Hide" : "Show") the Inspector")
+                Button("\((focusedDocument?.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
                 {
                     withAnimation
                     {
-                        sidebarViewModel.showsRightSidebar.toggle()
+                        focusedDocument?.showsRightSidebar.toggle()
                     }
                 }
                 .keyboardShortcut("0", modifiers: [.option, .command])
@@ -192,6 +191,5 @@ struct CodefaceApp: App
     // MARK: - Basics
     
     @ObservedObject private var displayOptions = DisplayOptions.shared
-    @StateObject var sidebarViewModel = DoubleSidebarViewModel()
     @FocusedObject var focusedDocument: CodefaceDocument?
 }

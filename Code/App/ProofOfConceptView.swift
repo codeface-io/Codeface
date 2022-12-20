@@ -61,7 +61,8 @@ struct ProofOfConceptView: View
         
         
         
-        DoubleSidebarView(viewModel: sidebarsVM)
+        DoubleSidebarView(showLeftSidebar: $showLeftSidebar,
+                          showRightSidebar: $showRightSidebar)
         {
             VStack
             {
@@ -105,7 +106,8 @@ struct ProofOfConceptView: View
     
     @State var selection: String? = nil
     
-    @StateObject private var sidebarsVM = DoubleSidebarViewModel()
+    @State private var showLeftSidebar: Bool = true
+    @State private var showRightSidebar: Bool = false
     
     @State var textLeft = ""
     @FocusState var leftIsFocused: Bool

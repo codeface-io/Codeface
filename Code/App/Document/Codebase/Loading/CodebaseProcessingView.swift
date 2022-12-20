@@ -25,8 +25,7 @@ struct CodebaseProcessingView: View
                                 secondaryText: step.rawValue).padding()
             
         case .didVisualizeCodebaseArchitecture(_, let rootArtifact):
-            CodebaseAnalysisView(sidebarViewModel: sidebarViewModel,
-                                 rootArtifact: rootArtifact,
+            CodebaseAnalysisView(rootArtifact: rootArtifact,
                                  codefaceDocument: codefaceDocument,
                                  processorVM: processorVM)
             
@@ -45,6 +44,4 @@ struct CodebaseProcessingView: View
     
     @ObservedObject var codefaceDocument: CodefaceDocument
     @ObservedObject var processorVM: ProjectProcessorViewModel
-    
-    let sidebarViewModel: DoubleSidebarViewModel
 }
