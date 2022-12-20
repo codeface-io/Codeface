@@ -8,78 +8,78 @@ struct CodefaceDocumentView: View
     var body: some View
     {
         CodefaceDocumentContentView(codefaceDocument: codefaceDocument)
-        .focusedSceneObject(codefaceDocument)
-        .fileImporter(isPresented: $codefaceDocument.isPresentingFolderImporter,
-                      allowedContentTypes: [.directory],
-                      allowsMultipleSelection: false)
-        {
-            guard let folderURL = (try? $0.get())?.first else
+            .focusedSceneObject(codefaceDocument)
+            .fileImporter(isPresented: $codefaceDocument.isPresentingFolderImporter,
+                          allowedContentTypes: [.directory],
+                          allowsMultipleSelection: false)
             {
-                return log(error: "Could not select code folder")
-            }
-
-            codefaceDocument.loadProcessorForSwiftPackage(from: folderURL)
-        }
-        .sheet(isPresented: $codefaceDocument.isPresentingCodebaseLocator)
-        {
-            CodebaseLocatorView(isBeingPresented: $codefaceDocument.isPresentingCodebaseLocator)
-            {
-                codefaceDocument.loadNewProcessor(forCodebaseFrom: $0)
-            }
-            .padding()
-        }
-        .toolbar
-        {
-            ToolbarItemGroup(placement: .secondaryAction)
-            {
-                if let processorVM = codefaceDocument.projectProcessorVM
+                guard let folderURL = (try? $0.get())?.first else
                 {
-                    ToolbarFilterIndicator(processorVM: processorVM)
+                    return log(error: "Could not select code folder")
                 }
+                
+                codefaceDocument.loadProcessorForSwiftPackage(from: folderURL)
             }
-
-            ToolbarItemGroup(placement: .primaryAction)
+            .sheet(isPresented: $codefaceDocument.isPresentingCodebaseLocator)
             {
-                Spacer()
-
-                Button(systemImageName: "magnifyingglass")
+                CodebaseLocatorView(isBeingPresented: $codefaceDocument.isPresentingCodebaseLocator)
                 {
-                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
+                    codefaceDocument.loadNewProcessor(forCodebaseFrom: $0)
+                }
+                .padding()
+            }
+            .toolbar
+            {
+                ToolbarItemGroup(placement: .secondaryAction)
+                {
+                    if let processorVM = codefaceDocument.projectProcessorVM
                     {
-                        codefaceDocument.projectProcessorVM?.toggleSearchBar()
+                        ToolbarFilterIndicator(processorVM: processorVM)
                     }
                 }
-                .help("Toggle the Search Filter (⇧⌘F)")
-                .disabled(codefaceDocument.projectProcessorVM == nil)
-
-                DisplayModePicker(displayMode: $displayOptions.displayMode)
+                
+                ToolbarItemGroup(placement: .primaryAction)
+                {
+                    Spacer()
+                    
+                    Button(systemImageName: "magnifyingglass")
+                    {
+                        withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
+                        {
+                            codefaceDocument.projectProcessorVM?.toggleSearchBar()
+                        }
+                    }
+                    .help("Toggle the Search Filter (⇧⌘F)")
                     .disabled(codefaceDocument.projectProcessorVM == nil)
-
-                Button(systemImageName: "sidebar.right")
-                {
-                    withAnimation
+                    
+                    DisplayModePicker(displayMode: $displayOptions.displayMode)
+                        .disabled(codefaceDocument.projectProcessorVM == nil)
+                    
+                    Button(systemImageName: "sidebar.right")
                     {
-                        codefaceDocument.showsRightSidebar.toggle()
+                        withAnimation
+                        {
+                            codefaceDocument.showsRightSidebar.toggle()
+                        }
                     }
+                    .help("Toggle Inspector (⌥⌘0)")
+                    .disabled(codefaceDocument.projectProcessorVM == nil)
                 }
-                .help("Toggle Inspector (⌥⌘0)")
-                .disabled(codefaceDocument.projectProcessorVM == nil)
             }
-        }
-        .onReceive(codefaceDocument.$codebase)
-        {
-            if let updatedCodebase = $0
+            .onReceive(codefaceDocument.$codebase)
             {
-                codebaseFile.codebase = updatedCodebase
+                if let updatedCodebase = $0
+                {
+                    codebaseFile.codebase = updatedCodebase
+                }
             }
-        }
-        .onAppear
-        {
-            if let codebase = codebaseFile.codebase
+            .onAppear
             {
-                codefaceDocument.loadProcessor(for: codebase)
+                if let codebase = codebaseFile.codebase
+                {
+                    codefaceDocument.loadProcessor(for: codebase)
+                }
             }
-        }
     }
     
     @Binding var codebaseFile: CodebaseFileDocument
