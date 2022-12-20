@@ -1,4 +1,4 @@
-enum DisplayMode: String, CaseIterable, Identifiable
+public enum DisplayMode: String, CaseIterable, Identifiable
 {
     public var id: Self { self }
     

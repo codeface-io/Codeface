@@ -52,7 +52,7 @@ struct CodefaceDocumentView: View
                     .help("Toggle the Search Filter (⇧⌘F)")
                     .disabled(codefaceDocument.projectProcessorVM == nil)
                     
-                    DisplayModePicker(displayMode: $displayOptions.displayMode)
+                    DisplayModePicker(displayMode: $codefaceDocument.displayMode)
                         .disabled(codefaceDocument.projectProcessorVM == nil)
                     
                     Button(systemImageName: "sidebar.right")
@@ -84,7 +84,6 @@ struct CodefaceDocumentView: View
     
     @Binding var codebaseFile: CodebaseFileDocument
     @StateObject private var codefaceDocument = CodefaceDocument()
-    @ObservedObject private var displayOptions = DisplayOptions.shared
 }
 
 struct CodefaceDocumentContentView: View

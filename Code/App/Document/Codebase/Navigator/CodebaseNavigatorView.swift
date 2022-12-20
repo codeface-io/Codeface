@@ -5,12 +5,14 @@ import SwiftyToolz
 struct CodebaseNavigatorView: View
 {
     init(rootArtifact: ArtifactViewModel,
-         codefaceDocument: CodefaceDocument)
+         codefaceDocument: CodefaceDocument,
+         showsLinesOfCode: Binding<Bool>)
     {
         self.rootArtifact = rootArtifact
         self.codefaceDocument = codefaceDocument
         
         _selectedArtifactID = State(wrappedValue: rootArtifact.id)
+        _showsLinesOfCode = showsLinesOfCode
     }
     
     var body: some View
@@ -23,7 +25,8 @@ struct CodebaseNavigatorView: View
 
             NavigationLink(value: artifactVM.id)
             {
-                SidebarLabel(artifact: artifactVM)
+                SidebarLabel(artifact: artifactVM,
+                             showsLinesOfCode: $showsLinesOfCode)
 //                    .listRowBackground(nil)
             }
             .onChange(of: selectedArtifactID)
@@ -45,6 +48,8 @@ struct CodebaseNavigatorView: View
     
     // TODO: directly bind our selection to a non-optional selection in the CodefaceDocument or some other view model. there should always be a selection in the context of the whole codebase analysis view since the data always has a root artifact!
     var codefaceDocument: CodefaceDocument
+    
+    @Binding var showsLinesOfCode: Bool
     
     // FIXME: as soon as we use anything other than the plain String ID as selection type, the list UI fucks up and rows cannot be selected anymore after a while ... we can't even wrap the id in a struct that only contains the id and is hashable by the id ... WTF apple ... this means every row has to observe the selected ID and set its view model as selected in the document when the ID matches ...
     @State private var selectedArtifactID: CodeArtifact.ID

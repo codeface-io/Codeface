@@ -62,9 +62,9 @@ struct CodefaceApp: App
 
             CommandGroup(replacing: .sidebar)
             {
-                Button("\(displayOptions.showLoC ? "Hide" : "Show") Lines of Code in Navigator")
+                Button("\((focusedDocument?.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
                 {
-                    displayOptions.showLoC.toggle()
+                    focusedDocument?.showLoC.toggle()
                 }
                 .keyboardShortcut("l", modifiers: .command)
                 .disabled(focusedDocument?.projectProcessorVM == nil)
@@ -93,14 +93,14 @@ struct CodefaceApp: App
                 
                 Button("Switch to Next Display Mode")
                 {
-                    displayOptions.switchDisplayMode()
+                    focusedDocument?.switchDisplayMode()
                 }
                 .keyboardShortcut(.rightArrow, modifiers: .command)
                 .disabled(focusedDocument?.projectProcessorVM == nil)
 
                 Button("Switch to Previous Display Mode")
                 {
-                    displayOptions.switchDisplayMode()
+                    focusedDocument?.switchDisplayMode()
                 }
                 .keyboardShortcut(.leftArrow, modifiers: .command)
                 .disabled(focusedDocument?.projectProcessorVM == nil)
@@ -190,6 +190,5 @@ struct CodefaceApp: App
     
     // MARK: - Basics
     
-    @ObservedObject private var displayOptions = DisplayOptions.shared
     @FocusedObject var focusedDocument: CodefaceDocument?
 }

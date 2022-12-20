@@ -11,7 +11,7 @@ struct SidebarLabel: View
             Text(artifact.codeArtifact.name)
                 .font(.system(.title3, design: artifact.fontDesign))
             
-            if DisplayOptions.shared.showLoC, let loc = artifact.codeArtifact.linesOfCode
+            if showsLinesOfCode, let loc = artifact.codeArtifact.linesOfCode
             {
                 Spacer()
 
@@ -28,5 +28,5 @@ struct SidebarLabel: View
     }
     
     @ObservedObject var artifact: ArtifactViewModel
-    @ObservedObject var displayOptions = DisplayOptions.shared
+    @Binding var showsLinesOfCode: Bool
 }

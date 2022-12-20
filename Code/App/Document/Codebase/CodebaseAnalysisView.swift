@@ -39,7 +39,8 @@ struct CodebaseAnalysisView: View
         leftSidebar:
         {
             CodebaseNavigatorView(rootArtifact: rootArtifact,
-                                  codefaceDocument: codefaceDocument)
+                                  codefaceDocument: codefaceDocument,
+                                  showsLinesOfCode: $codefaceDocument.showLoC)
         }
         rightSidebar:
         {
