@@ -185,7 +185,14 @@ struct CodefaceApp: App
     
     private var lastFolderName: String
     {
-        CodebaseLocationPersister.cachedLocation?.folder.lastPathComponent ?? "Last Folder"
+        if let lastFolder = focusedDocument?.lastLocation?.folder
+        {
+            return "\"" + lastFolder.lastPathComponent + "\""
+        }
+        else
+        {
+            return "Last Folder"
+        }
     }
     
     // MARK: - Basics

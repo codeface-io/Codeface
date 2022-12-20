@@ -6,7 +6,10 @@ import SwiftyToolz
 @MainActor
 public class CodefaceDocument: ObservableObject
 {
-    public init() {}
+    public init()
+    {
+        _lastLocation = Published(initialValue: try? CodebaseLocationPersister.loadCodebaseLocation())
+    }
     
     // MARK: - Load Processor for Codebase from Location
     
@@ -47,7 +50,10 @@ public class CodefaceDocument: ObservableObject
     private func loadProcessor(forCodebaseFrom location: LSP.CodebaseLocation) throws
     {
         load(try .init(codebaseLocation: location))
+        lastLocation = location
     }
+    
+    @Published public var lastLocation: LSP.CodebaseLocation?
     
     // MARK: - Load Processor for Codebase from File
     
