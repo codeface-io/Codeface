@@ -83,13 +83,13 @@ public class DocumentWindow: ObservableObject
     
     // MARK: - Load Processor
     
-    private func load(_ processor: ProjectProcessor)
+    private func load(_ processor: CodebaseProcessor)
     {
         selectedArtifact = nil
         
         Task
         {
-            self.set(processorVM: await ProjectProcessorViewModel(processor: processor)) 
+            self.set(processorVM: await CodebaseProcessorViewModel(processor: processor)) 
             self.bindCodebaseToProjectProcessorVM()
             await processor.run()
         }
@@ -126,14 +126,14 @@ public class DocumentWindow: ObservableObject
         }
     }
     
-    // MARK: - Project Processor View Model
+    // MARK: - Codebase Processor View Model
     
-    func set(processorVM: ProjectProcessorViewModel)
+    func set(processorVM: CodebaseProcessorViewModel)
     {
         self.projectProcessorVM = processorVM
     }
     
-    @Published public private(set) var projectProcessorVM: ProjectProcessorViewModel? = nil
+    @Published public private(set) var projectProcessorVM: CodebaseProcessorViewModel? = nil
     
     // MARK: - Import Views
     

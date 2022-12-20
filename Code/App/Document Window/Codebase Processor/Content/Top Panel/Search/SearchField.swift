@@ -4,7 +4,7 @@ import CodefaceCore
 struct SearchField: View
 {
     @MainActor
-    init(processorVM: ProjectProcessorViewModel, artifactName: String)
+    init(processorVM: CodebaseProcessorViewModel, artifactName: String)
     {
         self.processorVM = processorVM
         _searchTerm = State(wrappedValue: processorVM.searchVM.term)
@@ -79,7 +79,7 @@ struct SearchField: View
     }
     
     /// ❗️ we can **not** make processorVM an `@ObservedObject` and simply use `onChange(of:)` for observing the search VM since that would also screw up focus management ...
-    let processorVM: ProjectProcessorViewModel
+    let processorVM: CodebaseProcessorViewModel
     
     @FocusState
     private var isFocused: Bool

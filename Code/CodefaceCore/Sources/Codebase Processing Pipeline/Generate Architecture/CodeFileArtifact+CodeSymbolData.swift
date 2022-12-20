@@ -1,4 +1,4 @@
-extension CodeFileArtifact
+public extension CodeFileArtifact
 {
     convenience init(codeFile: CodeFile,
                      scope: any CodeArtifact,

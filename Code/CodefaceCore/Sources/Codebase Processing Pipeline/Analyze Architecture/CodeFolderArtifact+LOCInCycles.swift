@@ -1,4 +1,4 @@
-extension CodeFolderArtifact
+public extension CodeFolderArtifact
 {
     func calculateCycleMetricsRecursively()
     {

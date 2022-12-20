@@ -1,4 +1,4 @@
-extension CodeSymbolArtifact
+public extension CodeSymbolArtifact
 {
     convenience init(symbolData: CodeSymbolData,
                      scope: any CodeArtifact,

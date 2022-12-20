@@ -1,5 +1,6 @@
 import Combine
 import OrderedCollections
+import CodefaceCore
 
 @MainActor
 public class PathBar: ObservableObject

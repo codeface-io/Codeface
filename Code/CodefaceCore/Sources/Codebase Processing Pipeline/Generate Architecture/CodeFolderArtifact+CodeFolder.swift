@@ -1,4 +1,4 @@
-extension CodeFolderArtifact
+public extension CodeFolderArtifact
 {
     convenience init(codeFolder: CodeFolder,
                      scope: (any CodeArtifact)?,

@@ -2,9 +2,9 @@ import Foundation
 import Combine
 
 @MainActor
-public class ProjectProcessorViewModel: ObservableObject
+public class CodebaseProcessorViewModel: ObservableObject
 {
-    public init(processor: ProjectProcessor) async
+    public init(processor: CodebaseProcessor) async
     {
         self.activeProcessor = processor
         let currentProcessorState = await processor.state
@@ -91,7 +91,7 @@ public class ProjectProcessorViewModel: ObservableObject
     public var codebaseDisplayName: String { codebaseName ?? "Untitled Codebase" }
     private var codebaseName: String?
     
-    private func processorDidUpdate(toNewState newState: ProjectProcessor.State)
+    private func processorDidUpdate(toNewState newState: CodebaseProcessor.State)
     {
         if codebaseName == nil, let newCodebaseName = newState.codebaseName
         {
@@ -101,17 +101,17 @@ public class ProjectProcessorViewModel: ObservableObject
         processorState = newState
     }
     
-    @Published public private(set) var processorState: ProjectProcessor.State
+    @Published public private(set) var processorState: CodebaseProcessor.State
     private var stateObservation: AnyCancellable?
     
-    private let activeProcessor: ProjectProcessor
+    private let activeProcessor: CodebaseProcessor
     
     // MARK: - Other Elements
     
     public let pathBar = PathBar()
 }
 
-private extension ProjectProcessor.State
+private extension CodebaseProcessor.State
 {
     var codebaseName: String?
     {

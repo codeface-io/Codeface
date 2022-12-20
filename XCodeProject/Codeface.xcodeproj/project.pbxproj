@@ -26,6 +26,10 @@
 		964464B22951D4090004382F /* DisplayModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B12951D4090004382F /* DisplayModePicker.swift */; };
 		964464B6295201660004382F /* DocumentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B5295200FC0004382F /* DocumentWindow.swift */; };
 		964464B72952016E0004382F /* DisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B4295200FC0004382F /* DisplayMode.swift */; };
+		964464BE295204DB0004382F /* CodebaseAnalysisContentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464BD295204DB0004382F /* CodebaseAnalysisContentPanel.swift */; };
+		964464BF295204F70004382F /* PathBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464BA295204900004382F /* PathBar.swift */; };
+		964464C02952052C0004382F /* CodebaseProcessorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464BB295204900004382F /* CodebaseProcessorViewModel.swift */; };
+		964464C12952052F0004382F /* CodebaseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B9295204900004382F /* CodebaseProcessor.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
 		966F39AC291BF32600198B14 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39AB291BF32600198B14 /* SwiftyToolz */; };
 		966F39AE291BF42900198B14 /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39AD291BF42900198B14 /* SwiftLSP */; };
@@ -109,6 +113,10 @@
 		964464B12951D4090004382F /* DisplayModePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayModePicker.swift; sourceTree = "<group>"; };
 		964464B4295200FC0004382F /* DisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMode.swift; sourceTree = "<group>"; };
 		964464B5295200FC0004382F /* DocumentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentWindow.swift; sourceTree = "<group>"; };
+		964464B9295204900004382F /* CodebaseProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessor.swift; sourceTree = "<group>"; };
+		964464BA295204900004382F /* PathBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBar.swift; sourceTree = "<group>"; };
+		964464BB295204900004382F /* CodebaseProcessorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorViewModel.swift; sourceTree = "<group>"; };
+		964464BD295204DB0004382F /* CodebaseAnalysisContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseAnalysisContentPanel.swift; sourceTree = "<group>"; };
 		966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutableClientExportedInterface.swift; sourceTree = "<group>"; };
 		9675A0B6294CE1C900C784AA /* ProofOfConceptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofOfConceptView.swift; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
@@ -211,6 +219,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		964464BC295204BC0004382F /* Top Panel */ = {
+			isa = PBXGroup;
+			children = (
+				964464BD295204DB0004382F /* CodebaseAnalysisContentPanel.swift */,
+				96D59CBF294AB811003C55B5 /* Search */,
+				96D8DB1C28A1503C00B84B45 /* PathBarView.swift */,
+				964464BA295204900004382F /* PathBar.swift */,
+			);
+			path = "Top Panel";
+			sourceTree = "<group>";
+		};
 		966F39B4291C03DE00198B14 /* XPCExecutable */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,10 +291,9 @@
 			isa = PBXGroup;
 			children = (
 				96D59CC2294AB895003C55B5 /* CodebaseAnalysisContentView.swift */,
+				964464BC295204BC0004382F /* Top Panel */,
 				960BBE9529004F9000F9DC2A /* LSPServiceHint.swift */,
 				96D59CD1294AC36A003C55B5 /* HelpLink.swift */,
-				96D8DB1C28A1503C00B84B45 /* PathBarView.swift */,
-				96D59CBF294AB811003C55B5 /* Search */,
 				96E479D52835A53200762FD7 /* Architecture Views */,
 				960A7AAD28ABB0A000F334CA /* CodeView.swift */,
 			);
@@ -299,17 +317,19 @@
 			path = "XPC Experiments";
 			sourceTree = "<group>";
 		};
-		96D8DB1928A1500D00B84B45 /* Codebase */ = {
+		96D8DB1928A1500D00B84B45 /* Codebase Processor */ = {
 			isa = PBXGroup;
 			children = (
+				964464BB295204900004382F /* CodebaseProcessorViewModel.swift */,
 				96D59CCC294ABD23003C55B5 /* Loading */,
 				96D59CC6294AB9F8003C55B5 /* CodebaseAnalysisView.swift */,
 				96D59CCD294ABD4C003C55B5 /* Navigator */,
 				96D59CCE294ABD65003C55B5 /* Content */,
 				96D59CCF294ABD79003C55B5 /* Inspector */,
+				964464B9295204900004382F /* CodebaseProcessor.swift */,
 				963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */,
 			);
-			path = Codebase;
+			path = "Codebase Processor";
 			sourceTree = "<group>";
 		};
 		96E479D52835A53200762FD7 /* Architecture Views */ = {
@@ -346,7 +366,7 @@
 				964464B5295200FC0004382F /* DocumentWindow.swift */,
 				964464B12951D4090004382F /* DisplayModePicker.swift */,
 				964464B4295200FC0004382F /* DisplayMode.swift */,
-				96D8DB1928A1500D00B84B45 /* Codebase */,
+				96D8DB1928A1500D00B84B45 /* Codebase Processor */,
 			);
 			path = "Document Window";
 			sourceTree = "<group>";
@@ -584,9 +604,11 @@
 				96FC8C3F284BEB9000AD7DD2 /* CodebaseLocator.swift in Sources */,
 				96EB5997294628390050254E /* SearchField.swift in Sources */,
 				96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */,
+				964464C12952052F0004382F /* CodebaseProcessor.swift in Sources */,
 				964464B6295201660004382F /* DocumentWindow.swift in Sources */,
 				968EA5C328DCD24500FE8A9B /* CodebaseProcessingView.swift in Sources */,
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
+				964464C02952052C0004382F /* CodebaseProcessorViewModel.swift in Sources */,
 				960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
 				9629D5AD29252A1E006B1E98 /* TestXPCExecutableForCodeface.swift in Sources */,
@@ -597,9 +619,11 @@
 				96D59CC1294AB82D003C55B5 /* SearchBarView.swift in Sources */,
 				963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */,
 				96D59CCB294ABC1F003C55B5 /* DoubleSidebarView.swift in Sources */,
+				964464BF295204F70004382F /* PathBar.swift in Sources */,
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
 				9629D5AC29252A1E006B1E98 /* Client.swift in Sources */,
 				96D59CD2294AC36A003C55B5 /* HelpLink.swift in Sources */,
+				964464BE295204DB0004382F /* CodebaseAnalysisContentPanel.swift in Sources */,
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
 				9629D5AE29252A1E006B1E98 /* ServiceExportedInterface+Conveniences.swift in Sources */,
 				9629D5B929252A2C006B1E98 /* XPCExecutable.swift in Sources */,

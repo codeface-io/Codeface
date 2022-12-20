@@ -1,7 +1,7 @@
 import Foundation
 import SwiftLSP
 
-extension CodeFolder
+public extension CodeFolder
 {
     func retrieveSymbolReferences(from server: LSP.Server,
                                   codebaseRootFolder: URL) async throws

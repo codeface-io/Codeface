@@ -1,6 +1,7 @@
 import SwiftUI
 import CodefaceCore
 import SwiftLSP
+import CodefaceCore
 
 struct CodebaseAnalysisContentView: View
 {
@@ -83,28 +84,7 @@ struct CodebaseAnalysisContentView: View
     let artifactVM: ArtifactViewModel
     
     @ObservedObject var codefaceDocument: DocumentWindow
-    @ObservedObject var processorVM: ProjectProcessorViewModel
+    @ObservedObject var processorVM: CodebaseProcessorViewModel
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
-}
-
-struct CodebaseAnalysisContentPanel: View
-{
-    var body: some View
-    {
-        VStack(spacing: 0)
-        {
-            PathBarView(overviewBar: processorVM.pathBar)
-            
-            SearchBarView(processorVM: processorVM,
-                          artifactName: artifactName)
-            
-            Divider()
-        }
-        .background(Color(NSColor.controlBackgroundColor))
-    }
-    
-    @ObservedObject var processorVM: ProjectProcessorViewModel
-    
-    let artifactName: String
 }

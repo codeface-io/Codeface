@@ -2,7 +2,7 @@ import FoundationToolz
 import Foundation
 import SwiftyToolz
 
-extension CodeFolder
+public extension CodeFolder
 {
     convenience init?(_ folderURL: URL, codeFileEndings: [String]) throws
     {

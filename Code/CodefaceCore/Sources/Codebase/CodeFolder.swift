@@ -20,7 +20,7 @@ extension CodeFolder
 
 public class CodeFolder: Codable
 {
-    var looksLikeAPackage: Bool
+    public var looksLikeAPackage: Bool
     {
         if name.lowercased().contains("package") { return true }
         

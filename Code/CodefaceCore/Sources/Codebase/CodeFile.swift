@@ -1,6 +1,6 @@
 import SwiftLSP
 
-class CodeFile: Codable
+public class CodeFile: Codable
 {
     init(name: String, code: String)
     {

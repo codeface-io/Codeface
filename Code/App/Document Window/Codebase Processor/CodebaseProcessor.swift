@@ -4,8 +4,9 @@ import FoundationToolz
 import Foundation
 import Combine
 import SwiftyToolz
+import CodefaceCore
 
-public actor ProjectProcessor: ObservableObject
+public actor CodebaseProcessor: ObservableObject
 {
     // MARK: - Initialize
 

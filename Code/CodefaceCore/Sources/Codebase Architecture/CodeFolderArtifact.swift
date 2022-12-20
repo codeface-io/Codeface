@@ -3,7 +3,7 @@ import SwiftNodes
 
 public class CodeFolderArtifact: Identifiable
 {
-    internal init(name: String, scope: (any CodeArtifact)?)
+    public init(name: String, scope: (any CodeArtifact)?)
     {
         self.name = name
         self.scope = scope

@@ -2,7 +2,7 @@ import SwiftLSP
 import SwiftNodes
 import SwiftyToolz
 
-extension CodeFolderArtifact
+public extension CodeFolderArtifact
 {
     func addSymbolDependencies(symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
     {

@@ -43,5 +43,5 @@ struct CodebaseProcessingView: View
     }
     
     @ObservedObject var codefaceDocument: DocumentWindow
-    @ObservedObject var processorVM: ProjectProcessorViewModel
+    @ObservedObject var processorVM: CodebaseProcessorViewModel
 }

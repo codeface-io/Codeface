@@ -1,7 +1,7 @@
 import SwiftLSP
 import SwiftyToolz
 
-class CodeSymbolData: Codable
+public class CodeSymbolData: Codable
 {
     init?(lspDocumentySymbol: LSPDocumentSymbol)
     {
