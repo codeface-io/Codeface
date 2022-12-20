@@ -79,7 +79,7 @@ struct ArtifactInspectorView: View
                     .foregroundColor(SwiftUI.Color(cycleColor))
             }
             
-            LabeledContent("Parts in Cycles")
+            LabeledContent("Cyclic Code in Parts")
             {
                 let cyclicPortion = artifactVM.codeArtifact.metrics.portionOfPartsInCycles
                 
