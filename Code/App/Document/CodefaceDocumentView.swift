@@ -9,7 +9,7 @@ struct CodefaceDocumentView: View
     {
         CodefaceDocumentContentView(codefaceDocument: codefaceDocument,
                                     sidebarViewModel: sidebarViewModel)
-        .focusedObject(codefaceDocument)
+        .focusedSceneObject(codefaceDocument)
         .fileImporter(isPresented: $codefaceDocument.isPresentingFolderImporter,
                       allowedContentTypes: [.directory],
                       allowsMultipleSelection: false)
