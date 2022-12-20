@@ -18,13 +18,10 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         NavigationSplitView(columnVisibility: $columnVisibility)
         {
             leftSidebar()
-                .navigationSplitViewColumnWidth(min: Self.minimumWidth,
-                                                ideal: 300,
-                                                max: 600)
+                .navigationSplitViewColumnWidth(min: 200, ideal: 300)
                 .listStyle(.sidebar)
                 .focused($focus, equals: .leftSidebar)
                 .focusable(false)
-                
         }
         detail:
         {
@@ -39,7 +36,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                         Spacer()
                         
                         rightSidebar()
-                            .frame(width: max(Self.minimumWidth, rightCurrentWidth - rightDragOffset))
+                            .frame(width: max(Self.rightMinimumWidth, rightCurrentWidth - rightDragOffset))
                             .frame(maxHeight: .infinity)
                             .focused($focus, equals: .rightSidebar)
                             .focusable(false)
@@ -53,6 +50,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                             .background(Color(NSColor.windowBackgroundColor))
                             .focused($focus, equals: .content)
                             .focusable(false)
+                            .clipShape(Rectangle())
                         
                         Rectangle()
                             .fill(colorScheme == .dark ? .black : Color(white: 0.8706))
@@ -69,9 +67,9 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                             DragGesture()
                                 .onChanged
                                 {
-                                    if !isDragging
+                                    if !rightIsDragging
                                     {
-                                        isDragging = true
+                                        rightIsDragging = true
                                         NSCursor.resizeLeftRight.push()
                                     }
                                     
@@ -79,7 +77,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                                     
                                     let potentialRightPosition = (geo.size.width - widthWithoutDrag) + $0.translation.width
 
-                                    guard potentialRightPosition >= minimumContentWidth else { return }
+                                    guard potentialRightPosition >= Self.minimumContentWidth else { return }
 
                                     rightDragOffset = $0.translation.width
                                 }
@@ -129,7 +127,7 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     // MARK: - Content
     
     @ViewBuilder public let content: () -> Content
-    private let minimumContentWidth = 200.0
+    static var minimumContentWidth: Double { 200.0 }
     
     // MARK: - Left Sidebar
 
@@ -141,16 +139,16 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
     
     @ViewBuilder public let rightSidebar: () -> RightSidebar
     
-    @State private var isDragging = false
+    @State private var rightIsDragging = false
         
     private func endDraggingRight()
     {
         NSCursor.pop()
-        isDragging = false
+        rightIsDragging = false
         
         let draggedWidth = rightCurrentWidth - rightDragOffset
         
-        let expanded = draggedWidth >= Self.minimumWidth
+        let expanded = draggedWidth >= Self.rightMinimumWidth
         
         if expanded
         {
@@ -173,11 +171,11 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         showRightSidebar ? rightWidthWhenVisible : 0
     }
     
-    @SceneStorage("rightWidthWhenVisible") var rightWidthWhenVisible = defaultWidth
+    @SceneStorage("rightWidthWhenVisible") var rightWidthWhenVisible = rightDefaultWidth
     
     @State var rightDragOffset: Double = 0
-    static var defaultWidth: Double { 250 }
-    static var minimumWidth: Double { 200 }
+    static var rightDefaultWidth: Double { 250 }
+    static var rightMinimumWidth: Double { 200 }
     
     // MARK: - General
     

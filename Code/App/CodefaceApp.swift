@@ -197,5 +197,5 @@ struct CodefaceApp: App
     
     // MARK: - Basics
     
-    @FocusedObject var focusedDocument: CodefaceDocument?
+    @FocusedObject private var focusedDocument: CodefaceDocument?
 }
