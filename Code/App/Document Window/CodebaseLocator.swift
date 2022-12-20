@@ -3,7 +3,7 @@ import LSPServiceKit
 import SwiftLSP
 import SwiftyToolz
 
-struct CodebaseLocatorView: View
+struct CodebaseLocator: View
 {
     var body: some View
     {

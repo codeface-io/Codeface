@@ -8,7 +8,7 @@ import SwiftyToolz
 public actor ProjectProcessor: ObservableObject
 {
     // MARK: - Initialize
-    
+
     public init(codebase: CodeFolder)
     {
         self.init(state: .didRetrieveCodebase(codebase))
@@ -162,7 +162,7 @@ public actor ProjectProcessor: ObservableObject
     
     public enum State
     {
-        var codebase: CodeFolder?
+        public var codebase: CodeFolder?
         {
             switch self
             {

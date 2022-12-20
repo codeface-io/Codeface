@@ -31,7 +31,7 @@ struct CodefaceApp: App
     {
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
-            CodefaceDocumentView(codebaseFile: $0.$document)
+            DocumentWindowView(codebaseFile: $0.$document)
         }
         .commands
         {
@@ -41,20 +41,20 @@ struct CodefaceApp: App
                 {
                     withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                     {
-                        focusedDocument?.projectProcessorVM?.startTypingSearchTerm()
+                        focusedDocumentWindow?.projectProcessorVM?.startTypingSearchTerm()
                     }
                 }
-                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
                 .keyboardShortcut("f")
 
                 Button("Toggle the Search Filter")
                 {
                     withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                     {
-                        focusedDocument?.projectProcessorVM?.toggleSearchBar()
+                        focusedDocumentWindow?.projectProcessorVM?.toggleSearchBar()
                     }
                 }
-                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
                 .keyboardShortcut("f", modifiers: [.shift, .command])
             }
             
@@ -62,48 +62,48 @@ struct CodefaceApp: App
 
             CommandGroup(replacing: .sidebar)
             {
-                Button("\((focusedDocument?.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
+                Button("\((focusedDocumentWindow?.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
                 {
-                    focusedDocument?.showLoC.toggle()
+                    focusedDocumentWindow?.showLoC.toggle()
                 }
                 .keyboardShortcut("l", modifiers: .command)
-                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
                 
-                Button("\((focusedDocument?.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
+                Button("\((focusedDocumentWindow?.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
                 {
                     withAnimation
                     {
-                        focusedDocument?.showsLeftSidebar.toggle()
+                        focusedDocumentWindow?.showsLeftSidebar.toggle()
                     }
                 }
                 .keyboardShortcut("0", modifiers: .command)
-                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
 
-                Button("\((focusedDocument?.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
+                Button("\((focusedDocumentWindow?.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
                 {
                     withAnimation
                     {
-                        focusedDocument?.showsRightSidebar.toggle()
+                        focusedDocumentWindow?.showsRightSidebar.toggle()
                     }
                 }
                 .keyboardShortcut("0", modifiers: [.option, .command])
-                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
                 
                 Divider()
                 
                 Button("Switch to Next Display Mode")
                 {
-                    focusedDocument?.switchDisplayMode()
+                    focusedDocumentWindow?.switchDisplayMode()
                 }
                 .keyboardShortcut(.rightArrow, modifiers: .command)
-                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
 
                 Button("Switch to Previous Display Mode")
                 {
-                    focusedDocument?.switchDisplayMode()
+                    focusedDocumentWindow?.switchDisplayMode()
                 }
                 .keyboardShortcut(.leftArrow, modifiers: .command)
-                .disabled(focusedDocument?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
 
                 Divider()
                 
@@ -142,22 +142,22 @@ struct CodefaceApp: App
             {
                 Button("Import Code Folder...")
                 {
-                    focusedDocument?.isPresentingCodebaseLocator = true
+                    focusedDocumentWindow?.isPresentingCodebaseLocator = true
                 }
-                .disabled(focusedDocument == nil)
+                .disabled(focusedDocumentWindow == nil)
 
                 Button("Import Swift Package Folder...")
                 {
-                    focusedDocument?.isPresentingFolderImporter = true
+                    focusedDocumentWindow?.isPresentingFolderImporter = true
                 }
-                .disabled(focusedDocument == nil)
+                .disabled(focusedDocumentWindow == nil)
 
                 Button("Import \(lastFolderName) Again")
                 {
-                    focusedDocument?.loadProcessorForLastCodebase()
+                    focusedDocumentWindow?.loadProcessorForLastCodebase()
                 }
                 .keyboardShortcut("r")
-                .disabled(focusedDocument == nil || !CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
+                .disabled(focusedDocumentWindow == nil || !CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
 
                 Divider()
             }
@@ -167,7 +167,7 @@ struct CodefaceApp: App
             {
                 Button("Clear Selection")
                 {
-                    focusedDocument?.selectedArtifact = nil
+                    focusedDocumentWindow?.selectedArtifact = nil
                 }
 
                 Button("Test XPC Service With Last Codebase")
@@ -185,7 +185,7 @@ struct CodefaceApp: App
     
     private var lastFolderName: String
     {
-        if let lastFolder = focusedDocument?.lastLocation?.folder
+        if let lastFolder = focusedDocumentWindow?.lastLocation?.folder
         {
             return "\"" + lastFolder.lastPathComponent + "\""
         }
@@ -197,5 +197,5 @@ struct CodefaceApp: App
     
     // MARK: - Basics
     
-    @FocusedObject private var focusedDocument: CodefaceDocument?
+    @FocusedObject private var focusedDocumentWindow: DocumentWindow?
 }

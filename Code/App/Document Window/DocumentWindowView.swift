@@ -3,13 +3,13 @@ import CodefaceCore
 import SwiftLSP
 import SwiftyToolz
 
-struct CodefaceDocumentView: View
+struct DocumentWindowView: View
 {
     var body: some View
     {
-        CodefaceDocumentContentView(codefaceDocument: codefaceDocument)
-            .focusedSceneObject(codefaceDocument)
-            .fileImporter(isPresented: $codefaceDocument.isPresentingFolderImporter,
+        DocumentWindowContentView(codefaceDocument: documentWindow)
+            .focusedSceneObject(documentWindow)
+            .fileImporter(isPresented: $documentWindow.isPresentingFolderImporter,
                           allowedContentTypes: [.directory],
                           allowsMultipleSelection: false)
             {
@@ -18,13 +18,13 @@ struct CodefaceDocumentView: View
                     return log(error: "Could not select code folder")
                 }
                 
-                codefaceDocument.loadProcessorForSwiftPackage(from: folderURL)
+                documentWindow.loadProcessorForSwiftPackage(from: folderURL)
             }
-            .sheet(isPresented: $codefaceDocument.isPresentingCodebaseLocator)
+            .sheet(isPresented: $documentWindow.isPresentingCodebaseLocator)
             {
-                CodebaseLocatorView(isBeingPresented: $codefaceDocument.isPresentingCodebaseLocator)
+                CodebaseLocator(isBeingPresented: $documentWindow.isPresentingCodebaseLocator)
                 {
-                    codefaceDocument.loadNewProcessor(forCodebaseFrom: $0)
+                    documentWindow.loadNewProcessor(forCodebaseFrom: $0)
                 }
                 .padding()
             }
@@ -32,7 +32,7 @@ struct CodefaceDocumentView: View
             {
                 ToolbarItemGroup(placement: .secondaryAction)
                 {
-                    if let processorVM = codefaceDocument.projectProcessorVM
+                    if let processorVM = documentWindow.projectProcessorVM
                     {
                         ToolbarFilterIndicator(processorVM: processorVM)
                     }
@@ -46,27 +46,27 @@ struct CodefaceDocumentView: View
                     {
                         withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                         {
-                            codefaceDocument.projectProcessorVM?.toggleSearchBar()
+                            documentWindow.projectProcessorVM?.toggleSearchBar()
                         }
                     }
                     .help("Toggle the Search Filter (⇧⌘F)")
-                    .disabled(codefaceDocument.projectProcessorVM == nil)
+                    .disabled(documentWindow.projectProcessorVM == nil)
                     
-                    DisplayModePicker(displayMode: $codefaceDocument.displayMode)
-                        .disabled(codefaceDocument.projectProcessorVM == nil)
+                    DisplayModePicker(displayMode: $documentWindow.displayMode)
+                        .disabled(documentWindow.projectProcessorVM == nil)
                     
                     Button(systemImageName: "sidebar.right")
                     {
                         withAnimation
                         {
-                            codefaceDocument.showsRightSidebar.toggle()
+                            documentWindow.showsRightSidebar.toggle()
                         }
                     }
                     .help("Toggle Inspector (⌥⌘0)")
-                    .disabled(codefaceDocument.projectProcessorVM == nil)
+                    .disabled(documentWindow.projectProcessorVM == nil)
                 }
             }
-            .onReceive(codefaceDocument.$codebase)
+            .onReceive(documentWindow.$codebase)
             {
                 if let updatedCodebase = $0
                 {
@@ -77,16 +77,16 @@ struct CodefaceDocumentView: View
             {
                 if let codebase = codebaseFile.codebase
                 {
-                    codefaceDocument.loadProcessor(for: codebase)
+                    documentWindow.loadProcessor(for: codebase)
                 }
             }
     }
     
     @Binding var codebaseFile: CodebaseFileDocument
-    @StateObject private var codefaceDocument = CodefaceDocument()
+    @StateObject private var documentWindow = DocumentWindow()
 }
 
-struct CodefaceDocumentContentView: View
+struct DocumentWindowContentView: View
 {
     var body: some View
     {
@@ -128,6 +128,6 @@ struct CodefaceDocumentContentView: View
         }
     }
     
-    @ObservedObject var codefaceDocument: CodefaceDocument
+    @ObservedObject var codefaceDocument: DocumentWindow
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }

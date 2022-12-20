@@ -85,7 +85,7 @@ public class ArtifactViewModel: Identifiable, ObservableObject
     
     // MARK: - Geometry: Basics
     
-    var lastScopeContentSize: Size? = nil
+    public var lastScopeContentSize: Size? = nil
     @Published public var frameInScopeContent = Rectangle.zero
     {
         didSet

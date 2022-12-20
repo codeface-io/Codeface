@@ -60,6 +60,6 @@ struct CodebaseAnalysisView: View
     
     let rootArtifact: ArtifactViewModel
     
-    @ObservedObject var codefaceDocument: CodefaceDocument
+    @ObservedObject var codefaceDocument: DocumentWindow
     @ObservedObject var processorVM: ProjectProcessorViewModel
 }

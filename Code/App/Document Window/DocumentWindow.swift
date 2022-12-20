@@ -2,9 +2,10 @@ import SwiftLSP
 import Foundation
 import Combine
 import SwiftyToolz
+import CodefaceCore
 
 @MainActor
-public class CodefaceDocument: ObservableObject
+public class DocumentWindow: ObservableObject
 {
     public init()
     {

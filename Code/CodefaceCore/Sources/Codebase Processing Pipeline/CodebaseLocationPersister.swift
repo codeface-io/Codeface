@@ -7,7 +7,7 @@ public enum CodebaseLocationPersister
 {
     public static var hasPersistedLastCodebaseLocation: Bool { persistedCodebaseLocationData != nil }
     
-    static func persist(_ location: LSP.CodebaseLocation) throws
+    public static func persist(_ location: LSP.CodebaseLocation) throws
     {
         let bookmarkData = try location.folder.bookmarkData(options: .withSecurityScope,
                                                             includingResourceValuesForKeys: nil,
