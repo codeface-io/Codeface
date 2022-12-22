@@ -102,7 +102,7 @@ struct RootArtifactContentView: View
     }
     
     @ObservedObject var artifact: ArtifactViewModel
-    var viewModel: CodebaseProcessorViewModel
+    var viewModel: CodebaseProcessor
     @Environment(\.colorScheme) var colorScheme
 }
 

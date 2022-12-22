@@ -16,7 +16,7 @@ struct CodebaseAnalysisContentPanel: View
         .background(Color(NSColor.controlBackgroundColor))
     }
     
-    @ObservedObject var processorVM: CodebaseProcessorViewModel
+    @ObservedObject var processorVM: CodebaseProcessor
     
     let artifactName: String
 }

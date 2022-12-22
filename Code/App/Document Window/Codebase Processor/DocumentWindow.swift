@@ -9,6 +9,8 @@ public class DocumentWindow: ObservableObject
 {
     public init()
     {
+        codebaseProcessor = CodebaseProcessor()
+        
         _lastLocation = Published(initialValue: try? CodebaseLocationPersister.loadCodebaseLocation())
     }
     
@@ -23,7 +25,7 @@ public class DocumentWindow: ObservableObject
     
     public func loadProcessorForLastCodebaseIfNoneIsLoaded()
     {
-        if CodebaseLocationPersister.hasPersistedLastCodebaseLocation, projectProcessorVM == nil
+        if CodebaseLocationPersister.hasPersistedLastCodebaseLocation, codebaseProcessor == nil
         {
             loadProcessorForLastCodebase()
         }
@@ -50,7 +52,12 @@ public class DocumentWindow: ObservableObject
     
     private func loadProcessor(forCodebaseFrom location: LSP.CodebaseLocation) throws
     {
-        load(try .init(codebaseLocation: location))
+        guard FileManager.default.itemExists(location.folder) else
+        {
+            throw "Project folder does not exist: " + location.folder.absoluteString
+        }
+        
+        load(.didLocateCodebase(location))
         lastLocation = location
     }
     
@@ -77,21 +84,21 @@ public class DocumentWindow: ObservableObject
     
     public func loadProcessor(for codebase: CodeFolder)
     {
-        load(.init(codebase: codebase))
+        load(.didRetrieveCodebase(codebase))
         self.codebase = codebase
     }
     
     // MARK: - Load Processor
     
-    private func load(_ processor: CodebaseProcessor)
+    private func load(_ state: ProcessorState)
     {
         selectedArtifact = nil
+        codebaseProcessor.state = state
+        bindCodebaseToProjectProcessorVM()
         
         Task
         {
-            self.set(processorVM: await CodebaseProcessorViewModel(processor: processor)) 
-            self.bindCodebaseToProjectProcessorVM()
-            await processor.run()
+            await codebaseProcessor.run()
         }
     }
     
@@ -99,13 +106,13 @@ public class DocumentWindow: ObservableObject
     
     public var defaultProjectFileName: String
     {
-        (projectProcessorVM?.codebaseDisplayName ?? "Codebase")
+        codebaseProcessor.codebaseDisplayName
     }
     
     private func bindCodebaseToProjectProcessorVM()
     {
         codebaseObservation?.cancel()
-        codebaseObservation = projectProcessorVM?.$processorState
+        codebaseObservation = codebaseProcessor.$state
             .map { $0.codebase }
             .assign(to: \.codebase, on: self)
     }
@@ -122,18 +129,13 @@ public class DocumentWindow: ObservableObject
             guard oldValue !== selectedArtifact else { return }
 //            print("selected \(selectedArtifact?.codeArtifact.name ?? "nil")")
             oldValue?.lastScopeContentSize = nil
-            projectProcessorVM?.pathBar.select(selectedArtifact)
+            codebaseProcessor.pathBar.select(selectedArtifact)
         }
     }
     
-    // MARK: - Codebase Processor View Model
+    // MARK: - Codebase Processor
     
-    func set(processorVM: CodebaseProcessorViewModel)
-    {
-        self.projectProcessorVM = processorVM
-    }
-    
-    @Published public private(set) var projectProcessorVM: CodebaseProcessorViewModel? = nil
+    public private(set) var codebaseProcessor: CodebaseProcessor
     
     // MARK: - Import Views
     

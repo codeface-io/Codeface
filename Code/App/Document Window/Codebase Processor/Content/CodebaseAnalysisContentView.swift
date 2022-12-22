@@ -84,7 +84,7 @@ struct CodebaseAnalysisContentView: View
     let artifactVM: ArtifactViewModel
     
     @ObservedObject var codefaceDocument: DocumentWindow
-    @ObservedObject var processorVM: CodebaseProcessorViewModel
+    @ObservedObject var processorVM: CodebaseProcessor
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }

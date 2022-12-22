@@ -28,5 +28,5 @@ struct ToolbarFilterIndicator: View
         }
     }
     
-    @ObservedObject var processorVM: CodebaseProcessorViewModel
+    @ObservedObject var processorVM: CodebaseProcessor
 }

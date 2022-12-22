@@ -41,20 +41,20 @@ struct CodefaceApp: App
                 {
                     withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                     {
-                        focusedDocumentWindow?.projectProcessorVM?.startTypingSearchTerm()
+                        focusedDocumentWindow?.codebaseProcessor.startTypingSearchTerm()
                     }
                 }
-                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
                 .keyboardShortcut("f")
 
                 Button("Toggle the Search Filter")
                 {
                     withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
                     {
-                        focusedDocumentWindow?.projectProcessorVM?.toggleSearchBar()
+                        focusedDocumentWindow?.codebaseProcessor.toggleSearchBar()
                     }
                 }
-                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
                 .keyboardShortcut("f", modifiers: [.shift, .command])
             }
             
@@ -67,7 +67,7 @@ struct CodefaceApp: App
                     focusedDocumentWindow?.showLoC.toggle()
                 }
                 .keyboardShortcut("l", modifiers: .command)
-                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
                 
                 Button("\((focusedDocumentWindow?.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
                 {
@@ -77,7 +77,7 @@ struct CodefaceApp: App
                     }
                 }
                 .keyboardShortcut("0", modifiers: .command)
-                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
 
                 Button("\((focusedDocumentWindow?.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
                 {
@@ -87,7 +87,7 @@ struct CodefaceApp: App
                     }
                 }
                 .keyboardShortcut("0", modifiers: [.option, .command])
-                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
                 
                 Divider()
                 
@@ -96,14 +96,14 @@ struct CodefaceApp: App
                     focusedDocumentWindow?.switchDisplayMode()
                 }
                 .keyboardShortcut(.rightArrow, modifiers: .command)
-                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
 
                 Button("Switch to Previous Display Mode")
                 {
                     focusedDocumentWindow?.switchDisplayMode()
                 }
                 .keyboardShortcut(.leftArrow, modifiers: .command)
-                .disabled(focusedDocumentWindow?.projectProcessorVM == nil)
+                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
 
                 Divider()
                 
@@ -162,23 +162,23 @@ struct CodefaceApp: App
                 Divider()
             }
 
-            #if DEBUG
-            CommandMenu("Develop")
-            {
-                Button("Clear Selection")
-                {
-                    focusedDocumentWindow?.selectedArtifact = nil
-                }
-
-                Button("Test XPC Service With Last Codebase")
-                {
-//                    ProcessServiceTest.run()
-//                    XPCExecutable.testForCodeface()
-                }
-                .keyboardShortcut("t")
-                .disabled(true)
-            }
-            #endif
+//            #if DEBUG
+//            CommandMenu("Develop")
+//            {
+//                Button("Clear Selection")
+//                {
+//                    focusedDocumentWindow?.selectedArtifact = nil
+//                }
+//
+//                Button("Test XPC Service With Last Codebase")
+//                {
+////                    ProcessServiceTest.run()
+////                    XPCExecutable.testForCodeface()
+//                }
+//                .keyboardShortcut("t")
+//                .disabled(true)
+//            }
+//            #endif
         }
     }
     // */

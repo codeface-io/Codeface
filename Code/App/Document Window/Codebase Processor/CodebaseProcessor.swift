@@ -1,34 +1,68 @@
-import LSPServiceKit
-import SwiftLSP
-import FoundationToolz
 import Foundation
 import Combine
-import SwiftyToolz
 import CodefaceCore
+import SwiftLSP
+import SwiftyToolz
 
-public actor CodebaseProcessor: ObservableObject
+@MainActor
+public class CodebaseProcessor: ObservableObject
 {
-    // MARK: - Initialize
-
-    public init(codebase: CodeFolder)
+    // MARK: - Path Bar
+    
+    public let pathBar = PathBar()
+    
+    // MARK: - Search
+    
+    public func startTypingSearchTerm()
     {
-        self.init(state: .didRetrieveCodebase(codebase))
+        searchVM.barIsShown = true
+        set(fieldIsFocused: true)
     }
     
-    public init(codebaseLocation: LSP.CodebaseLocation) throws
+    public func toggleSearchBar()
     {
-        guard FileManager.default.itemExists(codebaseLocation.folder) else
+        searchVM.barIsShown.toggle()   
+        set(fieldIsFocused: searchVM.barIsShown)
+    }
+    
+    public func hideSearchBar()
+    {
+        set(fieldIsFocused: false)
+        searchVM.barIsShown = false
+    }
+    
+    public func set(fieldIsFocused: Bool)
+    {
+        guard searchVM.fieldIsFocused != fieldIsFocused else { return }
+        searchVM.fieldIsFocused = fieldIsFocused
+        if !fieldIsFocused { submitSearchTerm() }
+    }
+    
+    public func set(searchTerm: String)
+    {
+        guard searchVM.term != searchTerm else { return }
+        searchVM.term = searchTerm
+        updateSearchFilter()
+    }
+    
+    public func submitSearchTerm()
+    {
+        searchVM.fieldIsFocused = false
+        updateSearchFilter()
+    }
+    
+    private func updateSearchFilter()
+    {
+        if case .didVisualizeCodebaseArchitecture(_, let rootViewModel) = state
         {
-            throw "Project folder does not exist: " + codebaseLocation.folder.absoluteString
+            // TODO: rather "clear search results" when term is empty
+            rootViewModel.updateSearchResults(withSearchTerm: searchVM.term)
+            
+            rootViewModel.updateSearchFilter(allPass: searchVM.term.isEmpty)
         }
-        
-        self.init(state: .didLocateCodebase(codebaseLocation))
     }
     
-    private init(state: State)
-    {
-        _state = Published(initialValue: state)
-    }
+    @Published public var searchVM = SearchVM()
     
     // MARK: - Run Processing
     
@@ -57,9 +91,9 @@ public actor CodebaseProcessor: ObservableObject
         codebaseArchitecture.traverseDepthFirst { $0.sort() }
         
         state = .visualizingCodebaseArchitecture(.createViewModels)
-        let architectureViewModel = await ArtifactViewModel(folderArtifact: codebaseArchitecture,
-                                                            isPackage: codebase.looksLikeAPackage)
-        await architectureViewModel.addDependencies()
+        let architectureViewModel = ArtifactViewModel(folderArtifact: codebaseArchitecture,
+                                                      isPackage: codebase.looksLikeAPackage)
+        architectureViewModel.addDependencies()
         
         state = .didVisualizeCodebaseArchitecture(codebase, architectureViewModel)
     }
@@ -157,45 +191,9 @@ public actor CodebaseProcessor: ObservableObject
         return codebaseArchitecture
     }
     
-    // MARK: - Publish Current State
+    // MARK: - State
     
-    @Published public private(set) var state: State
+    public var codebaseDisplayName: String { state.codebaseName ?? "Untitled Codebase" }
     
-    public enum State
-    {
-        public var codebase: CodeFolder?
-        {
-            switch self
-            {
-            case .didRetrieveCodebase(let codebase): return codebase
-            case .didVisualizeCodebaseArchitecture(let codebase, _): return codebase
-            default: return nil
-            }
-        }
-        
-        case didLocateCodebase(LSP.CodebaseLocation),
-             retrievingCodebase(CodebaseRetrievalStep),
-             didRetrieveCodebase(CodeFolder),
-             visualizingCodebaseArchitecture(CodebaseArchitectureVisualizationStep),
-             didVisualizeCodebaseArchitecture(CodeFolder, ArtifactViewModel),
-             failed(String)
-        
-        public enum CodebaseRetrievalStep: String, Equatable
-        {
-            case readFolder = "Reading raw data from codebase folder",
-                 connectToLSPServer = "Connecting to LSP server",
-                 retrieveSymbols = "Retrieving symbols from LSP server",
-                 retrieveReferences = "Retrieving symbol references from LSP server"
-        }
-        
-        public enum CodebaseArchitectureVisualizationStep: String, Equatable
-        {
-            case generateArchitecture = "Extracting basic codebase architecture",
-                 addSiblingSymbolDependencies = "Adding dependencies between sibling symbols",
-                 calculateHigherLevelDependencies = "Calculating higher level dependencies",
-                 calculateMetrics = "Calculating metrics",
-                 sortCodeArtifacts = "Sorting code artifacts",
-                 createViewModels = "Generating code artifact view models"
-        }
-    }
+    @Published public var state = ProcessorState.empty
 }

@@ -40,7 +40,7 @@ struct SearchBarView: View
         .clipShape(Rectangle())
     }
     
-    @ObservedObject var processorVM: CodebaseProcessorViewModel
+    @ObservedObject var processorVM: CodebaseProcessor
     
     let artifactName: String
 }

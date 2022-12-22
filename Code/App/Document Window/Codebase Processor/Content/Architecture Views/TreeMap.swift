@@ -12,6 +12,6 @@ struct TreeMap: View
     }
     
     let rootArtifactVM: ArtifactViewModel
-    @ObservedObject var viewModel: CodebaseProcessorViewModel
+    @ObservedObject var viewModel: CodebaseProcessor
     @Environment(\.colorScheme) var colorScheme
 }
