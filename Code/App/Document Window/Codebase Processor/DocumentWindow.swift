@@ -96,10 +96,7 @@ public class DocumentWindow: ObservableObject
         codebaseProcessor.state = state
         bindCodebaseToProjectProcessorVM()
         
-        Task
-        {
-            await codebaseProcessor.run()
-        }
+        codebaseProcessor.run()
     }
     
     // MARK: - Observable Codebase

@@ -18,12 +18,9 @@ struct CodefaceApp: App
     
 //    var body: some Scene
 //    {
-//        DocumentGroup(newDocument: CodebaseFileDocument()) { _ in
-//            ProofOfConceptView()
-//                .toolbar(.hidden, for: .windowToolbar)
+//        WindowGroup {
+//            ConcurrencyPOCView()
 //        }
-//        .windowStyle(.hiddenTitleBar)
-//        .windowToolbarStyle(.unified)
 //    }
     
     //*

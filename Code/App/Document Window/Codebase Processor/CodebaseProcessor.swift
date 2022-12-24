@@ -66,36 +66,39 @@ public class CodebaseProcessor: ObservableObject
     
     // MARK: - Run Processing
     
-    public func run() async
+    public func run()
     {
-        log("gonna retrieve codebase")
-        
-        // get codebase
-        guard let codebase = await retrieveCodebase() else { return }
-        
-        log("did retrieve codebase")
-        
-        // generate architecture
-        let codebaseArchitecture = generateArchitecture(from: codebase)
-        
-        log("did generate architecture codebase")
-        
-        // analyze architecture
-        state = .visualizingCodebaseArchitecture(.calculateMetrics)
-        codebaseArchitecture.calculateSizeMetricsRecursively()
-        codebaseArchitecture.recursivelyPruneDependenciesAndCalculateDependencyMetrics()
-        codebaseArchitecture.calculateCycleMetricsRecursively()
-        
-        // visualize architecture
-        state = .visualizingCodebaseArchitecture(.sortCodeArtifacts)
-        codebaseArchitecture.traverseDepthFirst { $0.sort() }
-        
-        state = .visualizingCodebaseArchitecture(.createViewModels)
-        let architectureViewModel = ArtifactViewModel(folderArtifact: codebaseArchitecture,
-                                                      isPackage: codebase.looksLikeAPackage)
-        architectureViewModel.addDependencies()
-        
-        state = .didVisualizeCodebaseArchitecture(codebase, architectureViewModel)
+        Task(priority: .background)
+        {
+            log("gonna retrieve codebase")
+            
+            // get codebase
+            guard let codebase = await retrieveCodebase() else { return }
+            
+            log("did retrieve codebase")
+            
+            // generate architecture
+            let codebaseArchitecture = generateArchitecture(from: codebase)
+            
+            log("did generate architecture codebase")
+            
+            // analyze architecture
+            state = .visualizingCodebaseArchitecture(.calculateMetrics)
+            codebaseArchitecture.calculateSizeMetricsRecursively()
+            codebaseArchitecture.recursivelyPruneDependenciesAndCalculateDependencyMetrics()
+            codebaseArchitecture.calculateCycleMetricsRecursively()
+            
+            // visualize architecture
+            state = .visualizingCodebaseArchitecture(.sortCodeArtifacts)
+            codebaseArchitecture.traverseDepthFirst { $0.sort() }
+            
+            state = .visualizingCodebaseArchitecture(.createViewModels)
+            let architectureViewModel = ArtifactViewModel(folderArtifact: codebaseArchitecture,
+                                                          isPackage: codebase.looksLikeAPackage)
+            architectureViewModel.addDependencies()
+            
+            state = .didVisualizeCodebaseArchitecture(codebase, architectureViewModel)
+        }
     }
     
     private func retrieveCodebase() async -> CodeFolder?

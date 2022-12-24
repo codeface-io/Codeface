@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ProofOfConceptView: View
+struct NavigationAndFocusPOCView: View
 {
     var body: some View
     {
