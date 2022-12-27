@@ -1,4 +1,4 @@
-public struct Metrics
+public struct Metrics: Sendable
 {
     // MARK: - Qualitative Metrics
     

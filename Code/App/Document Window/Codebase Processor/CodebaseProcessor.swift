@@ -68,19 +68,13 @@ public class CodebaseProcessor: ObservableObject
     
     public func run()
     {
-        Task(priority: .background)
+        Task // to enter an async context
         {
-            log("gonna retrieve codebase")
-            
             // get codebase
             guard let codebase = await retrieveCodebase() else { return }
-            
-            log("did retrieve codebase")
-            
+
             // generate architecture
-            let codebaseArchitecture = generateArchitecture(from: codebase)
-            
-            log("did generate architecture codebase")
+            let codebaseArchitecture = await generateArchitecture(from: codebase)
             
             // analyze architecture
             state = .visualizingCodebaseArchitecture(.calculateMetrics)
@@ -106,45 +100,41 @@ public class CodebaseProcessor: ObservableObject
         switch state
         {
         case .didLocateCodebase(let codebaseLocation):
-            log("processor state: did locate codebase")
-            
             state = .retrievingCodebase(.readFolder)
-            guard let codebase = readCodebaseFolder(from: codebaseLocation) else { return nil }
-            
-            log("did read codebase folder")
+            guard let codebaseWithoutSymbols = readCodebaseFolder(from: codebaseLocation) else
+            {
+                return nil
+            }
             
             do
             {
                 state = .retrievingCodebase(.connectToLSPServer)
                 let server = try await LSP.ServerManager.shared.initializeServer(for: codebaseLocation)
                 
-                log("did connect to server")
+                state = .retrievingCodebase(.retrieveSymbolsAndRefs)
                 
-                state = .retrievingCodebase(.retrieveSymbols)
-//                var stopWatch = StopWatch()
-                try await codebase.retrieveSymbolData(from: server,
-                                                      codebaseRootFolder: codebaseLocation.folder)
-//                stopWatch.measure("Retrieving Symbols")
+                let codebase = try await CodeFolder.retrieveSymbolsAndReferences(for: codebaseWithoutSymbols,
+                                                                       from: server,
+                                                                       codebaseRootFolder: codebaseLocation.folder)
                 
-                state = .retrievingCodebase(.retrieveReferences)
-//                stopWatch.restart()
-                try await codebase.retrieveSymbolReferences(from: server,
-                                                            codebaseRootFolder: codebaseLocation.folder)
-//                stopWatch.measure("Retrieving Symbol References")
+                state = .didRetrieveCodebase(codebase)
+                return codebase
             }
             catch
             {
                 log(warning: "Cannot talk to LSP server: " + error.readable.message)
                 LSP.ServerManager.shared.serverIsWorking = false
+                
+                state = .didRetrieveCodebase(codebaseWithoutSymbols)
+                return codebaseWithoutSymbols
             }
             
-            state = .didRetrieveCodebase(codebase)
-            
-            return codebase
         case .didRetrieveCodebase(let codebase):
             return codebase
+            
         case .didVisualizeCodebaseArchitecture(let codebase, _):
             return codebase
+            
         default:
             log(error: "Processor can't start processing as it is in state \(state)")
             return nil
@@ -155,15 +145,7 @@ public class CodebaseProcessor: ObservableObject
     {
         do
         {
-            return try codebaseLocation.folder.mapSecurityScoped
-            {
-                guard let codeFolder = try CodeFolder($0, codeFileEndings: codebaseLocation.codeFileEndings) else
-                {
-                    throw "Project folder contains no code files with the specified file endings\nFolder: \($0.absoluteString)\nFile endings: \(codebaseLocation.codeFileEndings)"
-                }
-                
-                return codeFolder
-            }
+            return try ProcessingSteps.readFolder(from: codebaseLocation)
         }
         catch
         {
@@ -173,25 +155,24 @@ public class CodebaseProcessor: ObservableObject
         }
     }
     
-    private func generateArchitecture(from codebase: CodeFolder) -> CodeFolderArtifact
+    private func generateArchitecture(from codebase: CodeFolder) async -> CodeFolderArtifact
     {
         // generate basic hierarchy
         state = .visualizingCodebaseArchitecture(.generateArchitecture)
         var symbolDataHash = [CodeSymbolArtifact: CodeSymbolData]()
-        let codebaseArchitecture = CodeFolderArtifact(codeFolder: codebase,
-                                                      scope: nil,
-                                                      symbolDataHash: &symbolDataHash)
+        let architecture = ProcessingSteps.generateArchitecture(from: codebase,
+                                                                using: &symbolDataHash)
         
         // add dependencies between sibling symbols
         state = .visualizingCodebaseArchitecture(.addSiblingSymbolDependencies)
-        codebaseArchitecture.addSymbolDependencies(symbolDataHash: symbolDataHash)
-        symbolDataHash.removeAll()
+        ProcessingSteps.addSymbolDependencies(in: architecture,
+                                              using: &symbolDataHash)
         
         // add dependencies on higher levels (across scopes)
         state = .visualizingCodebaseArchitecture(.calculateHigherLevelDependencies)
-        codebaseArchitecture.addCrossScopeDependencies()
+        await ProcessingSteps.addHigherLevelDependencies(in: architecture)
         
-        return codebaseArchitecture
+        return architecture
     }
     
     // MARK: - State
@@ -199,4 +180,44 @@ public class CodebaseProcessor: ObservableObject
     public var codebaseDisplayName: String { state.codebaseName ?? "Untitled Codebase" }
     
     @Published public var state = ProcessorState.empty
+}
+
+enum ProcessingSteps // some temporary namespace to offload the actual processing from the main actor
+{
+    static func readFolder(from location: LSP.CodebaseLocation) throws -> CodeFolder?
+    {
+        try location.folder.mapSecurityScoped
+        {
+            guard let codeFolder = try CodeFolder($0, codeFileEndings: location.codeFileEndings) else
+            {
+                throw "Project folder contains no code files with the specified file endings\nFolder: \($0.absoluteString)\nFile endings: \(location.codeFileEndings)"
+            }
+            
+            return codeFolder
+        }
+    }
+    
+    static func generateArchitecture(from folder: CodeFolder,
+                                     using symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData]) -> CodeFolderArtifact
+    {
+        CodeFolderArtifact(codeFolder: folder,
+                           scope: nil,
+                           symbolDataHash: &symbolDataHash)
+    }
+    
+    static func addSymbolDependencies(in architecture: CodeFolderArtifact,
+                                using symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData])
+    {
+        architecture.addSymbolDependencies(symbolDataHash: symbolDataHash)
+        symbolDataHash.removeAll()
+    }
+    
+    static func addHigherLevelDependencies(in architecture: CodeFolderArtifact) async
+    {
+        await Task.detached
+        {
+            architecture.addCrossScopeDependencies()
+        }
+        .value
+    }
 }

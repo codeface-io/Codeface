@@ -1,23 +1,24 @@
 import SwiftLSP
 import SwiftyToolz
 
-public class CodeSymbolData: Codable
+public final class CodeSymbolData: Codable, Sendable
 {
-    init?(lspDocumentySymbol: LSPDocumentSymbol)
+    init(lspDocumentySymbol: LSPDocumentSymbol,
+         referenceLocations: [ReferenceLocation],
+         children: [CodeSymbolData]) throws
     {
         guard let decodedKind = lspDocumentySymbol.decodedKind else
         {
-            log(error: "Could not decode LSP document symbol kind of value \(lspDocumentySymbol.kind)")
-            return nil
+            throw "Could not decode LSP document symbol kind of value \(lspDocumentySymbol.kind)"
         }
         
         name = lspDocumentySymbol.name
         kind = decodedKind
         range = lspDocumentySymbol.range
         selectionRange = lspDocumentySymbol.selectionRange
+        self.references = referenceLocations.isEmpty ? nil : referenceLocations
         
-        let createdChildren = lspDocumentySymbol.children.compactMap(CodeSymbolData.init)
-        children = createdChildren.isEmpty ? nil : createdChildren
+        self.children = children.isEmpty ? nil : children
     }
     
     let name: String
@@ -25,9 +26,9 @@ public class CodeSymbolData: Codable
     let range: LSPRange
     let selectionRange: LSPRange
     let children: [CodeSymbolData]?
-    var references: [ReferenceLocation]?
+    let references: [ReferenceLocation]?
     
-    struct ReferenceLocation: Codable
+    public struct ReferenceLocation: Codable, Sendable
     {
         /// without root folder, like: `"SubfolderOfRoot/Deeper/Subfolders/myFile.swift"`
         let filePathRelativeToRoot: String

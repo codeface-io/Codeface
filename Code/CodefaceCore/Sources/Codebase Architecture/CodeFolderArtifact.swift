@@ -1,7 +1,7 @@
 import Foundation
 import SwiftNodes
 
-public class CodeFolderArtifact: Identifiable
+public final class CodeFolderArtifact: Identifiable, Sendable
 {
     public init(name: String, scope: (any CodeArtifact)?)
     {

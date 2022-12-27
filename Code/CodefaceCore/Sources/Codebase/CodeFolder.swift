@@ -18,7 +18,7 @@ extension CodeFolder
     }
 }
 
-public class CodeFolder: Codable
+public final class CodeFolder: Codable, Sendable
 {
     public var looksLikeAPackage: Bool
     {

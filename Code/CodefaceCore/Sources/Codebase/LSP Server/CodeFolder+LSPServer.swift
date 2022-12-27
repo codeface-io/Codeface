@@ -1,97 +1,120 @@
 import Foundation
 import SwiftLSP
+import SwiftyToolz
 
 public extension CodeFolder
 {
-    func retrieveSymbolReferences(from server: LSP.Server,
-                                  codebaseRootFolder: URL) async throws
+    static func retrieveSymbolsAndReferences(for folder: CodeFolder,
+                                             inParentFolderPath parentPath: String? = nil,
+                                             from server: LSP.Server,
+                                             codebaseRootFolder: URL) async throws -> CodeFolder
     {
-        try await forEachFileAndItsRelativeFolderPath(folderPath: nil)
+        let parentPathWithSlash = parentPath?.appending("/") ?? ""
+        let folderPath = parentPathWithSlash + folder.name
+        
+        var resultingSubFolders = [CodeFolder]()
+        
+        for subfolder in (folder.subfolders ?? [])
         {
-            folderPath, file in
-
-            let fileUri = fileURI(forFilePath: folderPath + file.name,
-                                  inFolder: codebaseRootFolder)
+            /// recursive call
+            resultingSubFolders += try await retrieveSymbolsAndReferences(for: subfolder,
+                                                                inParentFolderPath: folderPath,
+                                                                from: server,
+                                                                codebaseRootFolder: codebaseRootFolder)
+        }
+        
+        var resultingFiles = [CodeFile]()
+        
+        for file in (folder.files ?? [])
+        {
+            let fileUri = fileURI(forFilePath: folderPath + "/" + file.name,
+                                  inRootFolder: codebaseRootFolder)
             
-            let absoluteRootFolderPath = codebaseRootFolder.absoluteString
+            try await server.notifyDidOpen(fileUri, containingText: file.code)
             
-            try await server.notifyDidOpen(fileUri,
-                                           containingText: file.lines.joined(separator: "\n"))
+            let retrievedSymbols = try await server.requestSymbols(in: fileUri)
             
-            for symbol in (file.symbols ?? [])
+            var symbolDataArray = [CodeSymbolData]()
+            
+            for retrievedSymbol in retrievedSymbols
             {
-                try await symbol.traverseDepthFirst
-                {
-                    try await $0.retrieveReferences(in: fileUri,
-                                                    codebaseRootPathAbsolute: absoluteRootFolderPath,
-                                                    from: server)
-                }
+                symbolDataArray += try await CodeSymbolData(lspDocumentSymbol: retrievedSymbol,
+                                                            enclosingFile: fileUri,
+                                                            codebaseRootPathAbsolute: codebaseRootFolder.absoluteString,
+                                                            server: server)
             }
+            
+            /**
+             this is where the magic happens: we create a new file instance in which the symbol data is not nil anymore. this quasi copying allows the symbols property to be constant and CodeFile and CodeFolder to be `Sendable`
+             */
+            resultingFiles += CodeFile(name: file.name,
+                                       code: file.code,
+                                       symbols: symbolDataArray)
         }
+        
+        return CodeFolder(name: folder.name,
+                          files: resultingFiles,
+                          subfolders: resultingSubFolders)
     }
     
-    func retrieveSymbolData(from server: LSP.Server,
-                            codebaseRootFolder: URL) async throws
+    private static func fileURI(forFilePath filePath: String,
+                                inRootFolder rootFolder: URL) -> String
     {
-        try await forEachFileAndItsRelativeFolderPath(folderPath: nil)
+        rootFolder.appendingPathComponent(filePath).absoluteString
+    }
+}
+
+extension CodeSymbolData
+{
+    convenience init(lspDocumentSymbol: LSPDocumentSymbol,
+                     enclosingFile: LSPDocumentUri,
+                     codebaseRootPathAbsolute: String,
+                     server: LSP.Server) async throws
+    {
+        /// depth first recursive calls
+        var resultingChildren = [CodeSymbolData]()
+        
+        for child in lspDocumentSymbol.children
         {
-            folderPath, file in
-            
-            let fileUri = fileURI(forFilePath: folderPath + file.name,
-                                  inFolder: codebaseRootFolder)
-            
-            try await server.notifyDidOpen(fileUri,
-                                           containingText: file.lines.joined(separator: "\n"))
-            
-            let retrievedSymbols = try await server.requestSymbols(in: fileUri).compactMap(CodeSymbolData.init)
-            file.symbols = retrievedSymbols.isEmpty ? nil : retrievedSymbols
+            resultingChildren += try await CodeSymbolData(lspDocumentSymbol: child,
+                                                          enclosingFile: enclosingFile,
+                                                          codebaseRootPathAbsolute: codebaseRootPathAbsolute,
+                                                          server: server)
         }
+        
+        /// retrieve references
+        let referenceLocations = try await CodeSymbolData.retrieveReferences(for: lspDocumentSymbol,
+                                                                             in: enclosingFile,
+                                                                             codebaseRootPathAbsolute: codebaseRootPathAbsolute,
+                                                                             from: server)
+        
+        /// call designated initializer
+        try self.init(lspDocumentySymbol: lspDocumentSymbol,
+                      referenceLocations: referenceLocations ?? [],
+                      children: resultingChildren)
     }
     
-    private func fileURI(forFilePath filePath: String, inFolder folder: URL) -> String
+    static func retrieveReferences(for lspDocumentSymbol: LSPDocumentSymbol,
+                                   in enclosingFile: LSPDocumentUri,
+                                   codebaseRootPathAbsolute: String,
+                                   from server: LSP.Server) async throws -> [ReferenceLocation]?
     {
-        folder.appendingPathComponent(filePath).absoluteString
-    }
-}
-
-private extension CodeSymbolData
-{
-    func traverseDepthFirst(_ visit: (CodeSymbolData) async throws -> Void) async rethrows
-    {
-        for child in (children ?? []) { try await child.traverseDepthFirst(visit) }
-        try await visit(self)
-    }
-}
-
-private extension CodeSymbolData
-{
-    func retrieveReferences(in enclosingFile: LSPDocumentUri,
-                            codebaseRootPathAbsolute: String,
-                            from server: LSP.Server) async throws
-    {
-        guard kind != .Namespace else
+        guard lspDocumentSymbol.decodedKind != .Namespace else
         {
             // TODO: sourcekit-lsp detects many wrong dependencies onto namespaces which are Swift extensions ...
-            return
+            return nil
         }
         
         // TODO: contact sourcekit-lsp team about this, maybe open an issue on github ...
         // sourcekit-lsp suggests a few wrong references where there is one of those issues: a) extension of Variable -> Var namespace declaration (plain wrong) b) class Variable -> namespace Var (wrong direction) or c) all range properties are -1 (invalid)
         
-        let retrievedLSPReferences = try await server.requestReferences(forSymbolSelectionRange: selectionRange,
-                                                                        in: enclosingFile)
+        let retrievedReferences = try await server.requestReferences(forSymbolSelectionRange: lspDocumentSymbol.selectionRange,
+                                                                     in: enclosingFile)
         
-        if retrievedLSPReferences.isEmpty
+        return retrievedReferences.map
         {
-            references = nil
-        }
-        else
-        {
-            references = retrievedLSPReferences.map
-            {
-                ReferenceLocation(lspLocation: $0,
-                                  codebaseRootPathAbsolute: codebaseRootPathAbsolute)
-            }
+            ReferenceLocation(lspLocation: $0,
+                              codebaseRootPathAbsolute: codebaseRootPathAbsolute)
         }
     }
 }

@@ -1,15 +1,19 @@
 import SwiftLSP
+import FoundationToolz
 
-public class CodeFile: Codable
+public final class CodeFile: Codable, Sendable
 {
-    init(name: String, code: String)
+    init(name: String, code: String, symbols: [CodeSymbolData]? = nil)
     {
         self.name = name
         self.code = code
+        self.symbols = symbols
     }
     
     let name: String
+    
+    var lines: [String] { code.lines }
     let code: String
-    var lines: [String] { code.components(separatedBy: .newlines) }
-    var symbols: [CodeSymbolData]? = nil
+    
+    let symbols: [CodeSymbolData]?
 }

@@ -45,8 +45,7 @@ public enum ProcessorState
     {
         case readFolder = "Reading raw data from codebase folder",
              connectToLSPServer = "Connecting to LSP server",
-             retrieveSymbols = "Retrieving symbols from LSP server",
-             retrieveReferences = "Retrieving symbol references from LSP server"
+             retrieveSymbolsAndRefs = "Retrieving symbols and their references from LSP server"
     }
     
     public enum CodebaseArchitectureVisualizationStep: String, Equatable
