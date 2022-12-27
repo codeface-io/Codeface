@@ -16,7 +16,7 @@ public final class CodeSymbolData: Codable, Sendable
         kind = decodedKind
         range = lspDocumentySymbol.range
         selectionRange = lspDocumentySymbol.selectionRange
-        self.references = referenceLocations.isEmpty ? nil : referenceLocations
+        references = referenceLocations.isEmpty ? nil : referenceLocations
         
         self.children = children.isEmpty ? nil : children
     }
@@ -25,7 +25,7 @@ public final class CodeSymbolData: Codable, Sendable
     let kind: LSPDocumentSymbol.SymbolKind
     let range: LSPRange
     let selectionRange: LSPRange
-    let children: [CodeSymbolData]?
+    
     let references: [ReferenceLocation]?
     
     public struct ReferenceLocation: Codable, Sendable
@@ -35,4 +35,6 @@ public final class CodeSymbolData: Codable, Sendable
         
         let range: LSPRange
     }
+    
+    let children: [CodeSymbolData]?
 }
