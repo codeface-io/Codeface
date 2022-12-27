@@ -1,11 +1,11 @@
 import SwiftLSP
 import SwiftyToolz
 
-public final class CodeSymbolData: Codable, Sendable
+public final class CodeSymbol: Codable, Sendable
 {
     init(lspDocumentySymbol: LSPDocumentSymbol,
          referenceLocations: [ReferenceLocation],
-         children: [CodeSymbolData]) throws
+         children: [CodeSymbol]) throws
     {
         guard let decodedKind = lspDocumentySymbol.decodedKind else
         {
@@ -36,5 +36,5 @@ public final class CodeSymbolData: Codable, Sendable
         let range: LSPRange
     }
     
-    let children: [CodeSymbolData]?
+    let children: [CodeSymbol]?
 }

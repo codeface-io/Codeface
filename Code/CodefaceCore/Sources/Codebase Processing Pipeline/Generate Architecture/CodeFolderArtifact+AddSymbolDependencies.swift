@@ -4,7 +4,7 @@ import SwiftyToolz
 
 public extension CodeFolderArtifact
 {
-    func addSymbolDependencies(symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
+    func addSymbolDependencies(symbolDataHash: [CodeSymbolArtifact: CodeSymbol])
     {
         let fileHash = CodeFileArtifactHashmap(root: self)
         
@@ -13,7 +13,7 @@ public extension CodeFolderArtifact
     }
     
     private func addSymbolDependencies(using fileHash: CodeFileArtifactHashmap,
-                                       symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
+                                       symbolDataHash: [CodeSymbolArtifact: CodeSymbol])
     {
         for part in partGraph.values
         {
@@ -33,7 +33,7 @@ public extension CodeFolderArtifact
 private extension Graph where NodeValue == CodeSymbolArtifact, NodeID == CodeArtifact.ID
 {
     func addSymbolDependencies(fileHash: CodeFileArtifactHashmap,
-                               symbolDataHash: [CodeSymbolArtifact: CodeSymbolData])
+                               symbolDataHash: [CodeSymbolArtifact: CodeSymbol])
     {
         for symbolNode in nodesByID.values
         {
@@ -73,7 +73,7 @@ private extension Graph where NodeValue == CodeSymbolArtifact, NodeID == CodeArt
 private extension CodeSymbolArtifact
 {
     func getIngoing(fileHash: CodeFileArtifactHashmap,
-                    symbolDataHash: [CodeSymbolArtifact: CodeSymbolData]) -> IngoingDependencies
+                    symbolDataHash: [CodeSymbolArtifact: CodeSymbol]) -> IngoingDependencies
     {
         guard let symbolData = symbolDataHash[self] else
         {

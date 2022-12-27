@@ -2,7 +2,7 @@ import FoundationToolz
 import SwiftLSP
 import SwiftyToolz
 
-extension CodeSymbolData
+extension CodeSymbol
 {
     convenience init(lspDocumentSymbol: LSPDocumentSymbol,
                      enclosingFile: LSPDocumentUri,
@@ -10,18 +10,18 @@ extension CodeSymbolData
                      server: LSP.Server) async throws
     {
         /// depth first recursive calls
-        var resultingChildren = [CodeSymbolData]()
+        var resultingChildren = [CodeSymbol]()
         
         for child in lspDocumentSymbol.children
         {
-            resultingChildren += try await CodeSymbolData(lspDocumentSymbol: child,
+            resultingChildren += try await CodeSymbol(lspDocumentSymbol: child,
                                                           enclosingFile: enclosingFile,
                                                           codebaseRootPathAbsolute: codebaseRootPathAbsolute,
                                                           server: server)
         }
         
         /// retrieve references
-        let referenceLocations = try await CodeSymbolData.retrieveReferences(for: lspDocumentSymbol,
+        let referenceLocations = try await CodeSymbol.retrieveReferences(for: lspDocumentSymbol,
                                                                              in: enclosingFile,
                                                                              codebaseRootPathAbsolute: codebaseRootPathAbsolute,
                                                                              from: server)
@@ -57,7 +57,7 @@ extension CodeSymbolData
     }
 }
 
-private extension CodeSymbolData.ReferenceLocation
+private extension CodeSymbol.ReferenceLocation
 {
     init(lspLocation: LSPLocation, codebaseRootPathAbsolute: String)
     {

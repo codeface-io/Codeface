@@ -1,9 +1,9 @@
 public extension CodeSymbolArtifact
 {
-    convenience init(symbolData: CodeSymbolData,
+    convenience init(symbolData: CodeSymbol,
                      scope: any CodeArtifact,
                      enclosingFile: CodeFile,
-                     symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData])
+                     symbolDataHash: inout [CodeSymbolArtifact: CodeSymbol])
     {
         // base case: create this symbol
         let codeLines = enclosingFile.lines[symbolData.range.start.line ... symbolData.range.end.line]

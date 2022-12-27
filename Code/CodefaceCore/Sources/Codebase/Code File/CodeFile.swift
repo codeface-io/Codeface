@@ -5,7 +5,7 @@ public final class CodeFile: Codable, Sendable
 {
     init(name: String,
          code: String,
-         symbols: [CodeSymbolData]? = nil)
+         symbols: [CodeSymbol]? = nil)
     {
         self.name = name
         self.code = code
@@ -17,5 +17,5 @@ public final class CodeFile: Codable, Sendable
     var lines: [String] { code.lines }
     let code: String
     
-    let symbols: [CodeSymbolData]?
+    let symbols: [CodeSymbol]?
 }

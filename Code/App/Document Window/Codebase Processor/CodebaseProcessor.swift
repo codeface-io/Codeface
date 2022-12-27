@@ -159,7 +159,7 @@ public class CodebaseProcessor: ObservableObject
     {
         // generate basic hierarchy
         state = .visualizingCodebaseArchitecture(.generateArchitecture)
-        var symbolDataHash = [CodeSymbolArtifact: CodeSymbolData]()
+        var symbolDataHash = [CodeSymbolArtifact: CodeSymbol]()
         let architecture = ProcessingSteps.generateArchitecture(from: codebase,
                                                                 using: &symbolDataHash)
         
@@ -198,7 +198,7 @@ enum ProcessingSteps // some temporary namespace to offload the actual processin
     }
     
     static func generateArchitecture(from folder: CodeFolder,
-                                     using symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData]) -> CodeFolderArtifact
+                                     using symbolDataHash: inout [CodeSymbolArtifact: CodeSymbol]) -> CodeFolderArtifact
     {
         CodeFolderArtifact(codeFolder: folder,
                            scope: nil,
@@ -206,7 +206,7 @@ enum ProcessingSteps // some temporary namespace to offload the actual processin
     }
     
     static func addSymbolDependencies(in architecture: CodeFolderArtifact,
-                                using symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData])
+                                using symbolDataHash: inout [CodeSymbolArtifact: CodeSymbol])
     {
         architecture.addSymbolDependencies(symbolDataHash: symbolDataHash)
         symbolDataHash.removeAll()

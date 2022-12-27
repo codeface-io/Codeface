@@ -2,7 +2,7 @@ public extension CodeFileArtifact
 {
     convenience init(codeFile: CodeFile,
                      scope: any CodeArtifact,
-                     symbolDataHash: inout [CodeSymbolArtifact: CodeSymbolData])
+                     symbolDataHash: inout [CodeSymbolArtifact: CodeSymbol])
     {
         self.init(name: codeFile.name,
                   codeLines: codeFile.code.components(separatedBy: .newlines),

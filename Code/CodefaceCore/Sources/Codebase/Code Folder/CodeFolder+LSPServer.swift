@@ -34,11 +34,11 @@ public extension CodeFolder
             
             let retrievedSymbols = try await server.requestSymbols(in: fileUri)
             
-            var symbolDataArray = [CodeSymbolData]()
+            var symbolDataArray = [CodeSymbol]()
             
             for retrievedSymbol in retrievedSymbols
             {
-                symbolDataArray += try await CodeSymbolData(lspDocumentSymbol: retrievedSymbol,
+                symbolDataArray += try await CodeSymbol(lspDocumentSymbol: retrievedSymbol,
                                                             enclosingFile: fileUri,
                                                             codebaseRootPathAbsolute: codebaseRootFolder.absoluteString,
                                                             server: server)
