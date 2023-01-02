@@ -1,9 +1,9 @@
+@BackgroundActor
 public extension CodeSymbolArtifact
 {
     convenience init(symbolData: CodeSymbol,
                      scope: any CodeArtifact,
-                     enclosingFile: CodeFile,
-                     symbolDataHash: inout [CodeSymbolArtifact: CodeSymbol])
+                     enclosingFile: CodeFile)
     {
         // base case: create this symbol
         let codeLines = enclosingFile.lines[symbolData.range.start.line ... symbolData.range.end.line]
@@ -20,11 +20,14 @@ public extension CodeSymbolArtifact
         {
             subsymbolGraph.insert(.init(symbolData: childSymbolData,
                                         scope: self,
-                                        enclosingFile: enclosingFile,
-                                        symbolDataHash: &symbolDataHash))
+                                        enclosingFile: enclosingFile))
         }
         
         // remember symbol data, so we can add dependencies to the artifact hierarchy later
-        symbolDataHash[self] = symbolData
+//        symbolDataHash[self] = symbolData
+        
+        Self.symbolHash[self] = symbolData
     }
+    
+    static var symbolHash = [CodeSymbolArtifact: CodeSymbol]()
 }

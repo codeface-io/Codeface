@@ -1,3 +1,4 @@
+@BackgroundActor
 public extension CodeFolderArtifact
 {
     func calculateSizeMetricsRecursively()
@@ -6,6 +7,7 @@ public extension CodeFolderArtifact
     }
 }
 
+@BackgroundActor
 private extension CodeArtifact
 {
     func calculateSizeMetrics()

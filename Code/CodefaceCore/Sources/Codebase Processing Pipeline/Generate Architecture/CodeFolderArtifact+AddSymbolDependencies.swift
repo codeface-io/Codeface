@@ -2,53 +2,50 @@ import SwiftLSP
 import SwiftNodes
 import SwiftyToolz
 
+@BackgroundActor
 public extension CodeFolderArtifact
 {
-    func addSymbolDependencies(symbolDataHash: [CodeSymbolArtifact: CodeSymbol])
+    func addSymbolDependencies()
     {
         let fileHash = CodeFileArtifactHashmap(root: self)
         
-        addSymbolDependencies(using: fileHash,
-                              symbolDataHash: symbolDataHash)
+        addSymbolDependencies(using: fileHash)
+        
+        CodeSymbolArtifact.symbolHash.removeAll()
     }
     
-    private func addSymbolDependencies(using fileHash: CodeFileArtifactHashmap,
-                                       symbolDataHash: [CodeSymbolArtifact: CodeSymbol])
+    private func addSymbolDependencies(using fileHash: CodeFileArtifactHashmap)
     {
         for part in partGraph.values
         {
             switch part.kind
             {
             case .subfolder(let subfolder):
-                subfolder.addSymbolDependencies(using: fileHash,
-                                                symbolDataHash: symbolDataHash)
+                subfolder.addSymbolDependencies(using: fileHash)
             case .file(let file):
-                file.symbolGraph.addSymbolDependencies(fileHash: fileHash,
-                                                       symbolDataHash: symbolDataHash)
+                file.symbolGraph.addSymbolDependencies(fileHash: fileHash)
             }
         }
     }
 }
 
+@BackgroundActor
 private extension Graph where NodeValue == CodeSymbolArtifact, NodeID == CodeArtifact.ID
 {
-    func addSymbolDependencies(fileHash: CodeFileArtifactHashmap,
-                               symbolDataHash: [CodeSymbolArtifact: CodeSymbol])
+    func addSymbolDependencies(fileHash: CodeFileArtifactHashmap)
     {
         for symbolNode in nodesByID.values
         {
             let symbol = symbolNode.value
             
-            symbol.subsymbolGraph.addSymbolDependencies(fileHash: fileHash,
-                                                        symbolDataHash: symbolDataHash)
+            symbol.subsymbolGraph.addSymbolDependencies(fileHash: fileHash)
         }
         
         for symbolNode in nodesByID.values
         {
             let symbol = symbolNode.value
             
-            let ingoing = symbol.getIngoing(fileHash: fileHash,
-                                            symbolDataHash: symbolDataHash)
+            let ingoing = symbol.getIngoing(fileHash: fileHash)
             
             for outOfScopeAncestor in ingoing.outOfScope
             {
@@ -70,12 +67,12 @@ private extension Graph where NodeValue == CodeSymbolArtifact, NodeID == CodeArt
     }
 }
 
+@BackgroundActor
 private extension CodeSymbolArtifact
 {
-    func getIngoing(fileHash: CodeFileArtifactHashmap,
-                    symbolDataHash: [CodeSymbolArtifact: CodeSymbol]) -> IngoingDependencies
+    func getIngoing(fileHash: CodeFileArtifactHashmap) -> IngoingDependencies
     {
-        guard let symbolData = symbolDataHash[self] else
+        guard let symbolData = Self.symbolHash[self] else
         {
             log(error: "no symbol data exists for this symbol artifact")
             return .empty

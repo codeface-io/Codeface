@@ -1,3 +1,4 @@
+import FoundationToolz
 import Foundation
 import Combine
 import CodefaceCore
@@ -76,20 +77,36 @@ public class CodebaseProcessor: ObservableObject
             // generate architecture
             let codebaseArchitecture = await generateArchitecture(from: codebase)
             
-            // analyze architecture
+            // calculate metrics
             state = .visualizingCodebaseArchitecture(.calculateMetrics)
-            codebaseArchitecture.calculateSizeMetricsRecursively()
-            codebaseArchitecture.recursivelyPruneDependenciesAndCalculateDependencyMetrics()
-            codebaseArchitecture.calculateCycleMetricsRecursively()
             
-            // visualize architecture
+            await BackgroundActor.run
+            {
+                codebaseArchitecture.calculateSizeMetricsRecursively()
+                codebaseArchitecture.recursivelyPruneDependenciesAndCalculateDependencyMetrics()
+                codebaseArchitecture.calculateCycleMetricsRecursively()
+            }
+            
+            // sort artifacts
             state = .visualizingCodebaseArchitecture(.sortCodeArtifacts)
-            codebaseArchitecture.traverseDepthFirst { $0.sort() }
             
+            await BackgroundActor.run
+            {
+                codebaseArchitecture.traverseDepthFirst { $0.sort() }
+            }
+            
+            // create view model
+            // TODO: to put view model creation onto the background actor, we have to split it in two: 1) a dumb view state object that runs on the main actor and 2) a view model object that does the computations and runs on the background actor and is observed by the state object. however: even for a large codebase (sourcekit-lsp) creating the view model and adding its dependencies each only take 10 mili seconds, so offloading this to the background isn't super essential.
             state = .visualizingCodebaseArchitecture(.createViewModels)
+            
+            var stopWatch = StopWatch()
             let architectureViewModel = ArtifactViewModel(folderArtifact: codebaseArchitecture,
                                                           isPackage: codebase.looksLikeAPackage)
+            stopWatch.measure("Creating View Model")
+            
+            stopWatch.restart()
             architectureViewModel.addDependencies()
+            stopWatch.measure("Adding Dependencies To View Model")
             
             state = .didVisualizeCodebaseArchitecture(codebase, architectureViewModel)
         }
@@ -101,7 +118,7 @@ public class CodebaseProcessor: ObservableObject
         {
         case .didLocateCodebase(let codebaseLocation):
             state = .retrievingCodebase(.readFolder)
-            guard let codebaseWithoutSymbols = readCodebaseFolder(from: codebaseLocation) else
+            guard let codebaseWithoutSymbols = await readCodebaseFolder(from: codebaseLocation) else
             {
                 return nil
             }
@@ -113,9 +130,9 @@ public class CodebaseProcessor: ObservableObject
                 
                 state = .retrievingCodebase(.retrieveSymbolsAndRefs)
                 
-                let codebase = try await CodeFolder.retrieveSymbolsAndReferences(for: codebaseWithoutSymbols,
-                                                                       from: server,
-                                                                       codebaseRootFolder: codebaseLocation.folder)
+                let codebase = try await ProcessingSteps.retrieveSymbolsAndReferences(for: codebaseWithoutSymbols,
+                                                                                      from: server,
+                                                                                      codebaseRootFolder: codebaseLocation.folder)
                 
                 state = .didRetrieveCodebase(codebase)
                 return codebase
@@ -141,11 +158,11 @@ public class CodebaseProcessor: ObservableObject
         }
     }
     
-    private func readCodebaseFolder(from codebaseLocation: LSP.CodebaseLocation) -> CodeFolder?
+    private func readCodebaseFolder(from codebaseLocation: LSP.CodebaseLocation) async -> CodeFolder?
     {
         do
         {
-            return try ProcessingSteps.readFolder(from: codebaseLocation)
+            return try await ProcessingSteps.readFolder(from: codebaseLocation)
         }
         catch
         {
@@ -159,14 +176,11 @@ public class CodebaseProcessor: ObservableObject
     {
         // generate basic hierarchy
         state = .visualizingCodebaseArchitecture(.generateArchitecture)
-        var symbolDataHash = [CodeSymbolArtifact: CodeSymbol]()
-        let architecture = ProcessingSteps.generateArchitecture(from: codebase,
-                                                                using: &symbolDataHash)
+        let architecture = await ProcessingSteps.generateArchitecture(from: codebase)
         
         // add dependencies between sibling symbols
         state = .visualizingCodebaseArchitecture(.addSiblingSymbolDependencies)
-        ProcessingSteps.addSymbolDependencies(in: architecture,
-                                              using: &symbolDataHash)
+        await ProcessingSteps.addSymbolDependencies(in: architecture)
         
         // add dependencies on higher levels (across scopes)
         state = .visualizingCodebaseArchitecture(.calculateHigherLevelDependencies)
@@ -182,6 +196,7 @@ public class CodebaseProcessor: ObservableObject
     @Published public var state = ProcessorState.empty
 }
 
+@BackgroundActor
 enum ProcessingSteps // some temporary namespace to offload the actual processing from the main actor
 {
     static func readFolder(from location: LSP.CodebaseLocation) throws -> CodeFolder?
@@ -197,27 +212,27 @@ enum ProcessingSteps // some temporary namespace to offload the actual processin
         }
     }
     
-    static func generateArchitecture(from folder: CodeFolder,
-                                     using symbolDataHash: inout [CodeSymbolArtifact: CodeSymbol]) -> CodeFolderArtifact
+    static func retrieveSymbolsAndReferences(for codebase: CodeFolder,
+                                             from server: LSP.Server,
+                                             codebaseRootFolder: URL) async throws -> CodeFolder
     {
-        CodeFolderArtifact(codeFolder: folder,
-                           scope: nil,
-                           symbolDataHash: &symbolDataHash)
+        try await codebase.retrieveSymbolsAndReferences(from: server,
+                                                        codebaseRootFolder: codebaseRootFolder)
     }
     
-    static func addSymbolDependencies(in architecture: CodeFolderArtifact,
-                                using symbolDataHash: inout [CodeSymbolArtifact: CodeSymbol])
+    static func generateArchitecture(from folder: CodeFolder) -> CodeFolderArtifact
     {
-        architecture.addSymbolDependencies(symbolDataHash: symbolDataHash)
-        symbolDataHash.removeAll()
+        CodeSymbolArtifact.symbolHash.removeAll()
+        return CodeFolderArtifact(codeFolder: folder, scope: nil)
     }
     
-    static func addHigherLevelDependencies(in architecture: CodeFolderArtifact) async
+    static func addSymbolDependencies(in architecture: CodeFolderArtifact)
     {
-        await Task.detached
-        {
-            architecture.addCrossScopeDependencies()
-        }
-        .value
+        architecture.addSymbolDependencies()
+    }
+    
+    static func addHigherLevelDependencies(in architecture: CodeFolderArtifact)
+    {
+        architecture.addCrossScopeDependencies()
     }
 }

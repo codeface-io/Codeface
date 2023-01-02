@@ -4,31 +4,29 @@ import SwiftyToolz
 
 public extension CodeFolder
 {
-    static func retrieveSymbolsAndReferences(for folder: CodeFolder,
-                                             inParentFolderPath parentPath: String? = nil,
-                                             from server: LSP.Server,
-                                             codebaseRootFolder: URL) async throws -> CodeFolder
+    func retrieveSymbolsAndReferences(inParentFolderPath parentPath: String? = nil,
+                                      from server: LSP.Server,
+                                      codebaseRootFolder: URL) async throws -> CodeFolder
     {
         let parentPathWithSlash = parentPath?.appending("/") ?? ""
-        let folderPath = parentPathWithSlash + folder.name
+        let folderPath = parentPathWithSlash + name
         
         var resultingSubFolders = [CodeFolder]()
         
-        for subfolder in (folder.subfolders ?? [])
+        for subfolder in (subfolders ?? [])
         {
             /// recursive call
-            resultingSubFolders += try await retrieveSymbolsAndReferences(for: subfolder,
-                                                                inParentFolderPath: folderPath,
-                                                                from: server,
-                                                                codebaseRootFolder: codebaseRootFolder)
+            resultingSubFolders += try await subfolder.retrieveSymbolsAndReferences(inParentFolderPath: folderPath,
+                                                                                    from: server,
+                                                                                    codebaseRootFolder: codebaseRootFolder)
         }
         
         var resultingFiles = [CodeFile]()
         
-        for file in (folder.files ?? [])
+        for file in (files ?? [])
         {
-            let fileUri = fileURI(forFilePath: folderPath + "/" + file.name,
-                                  inRootFolder: codebaseRootFolder)
+            let fileUri = CodeFolder.fileURI(forFilePath: folderPath + "/" + file.name,
+                                             inRootFolder: codebaseRootFolder)
             
             try await server.notifyDidOpen(fileUri, containingText: file.code)
             
@@ -39,9 +37,9 @@ public extension CodeFolder
             for retrievedSymbol in retrievedSymbols
             {
                 symbolDataArray += try await CodeSymbol(lspDocumentSymbol: retrievedSymbol,
-                                                            enclosingFile: fileUri,
-                                                            codebaseRootPathAbsolute: codebaseRootFolder.absoluteString,
-                                                            server: server)
+                                                        enclosingFile: fileUri,
+                                                        codebaseRootPathAbsolute: codebaseRootFolder.absoluteString,
+                                                        server: server)
             }
             
             /**
@@ -52,7 +50,7 @@ public extension CodeFolder
                                        symbols: symbolDataArray)
         }
         
-        return CodeFolder(name: folder.name,
+        return CodeFolder(name: name,
                           files: resultingFiles,
                           subfolders: resultingSubFolders)
     }

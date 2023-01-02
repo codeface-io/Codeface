@@ -1,6 +1,7 @@
 import SwiftNodes
 import OrderedCollections
 
+@BackgroundActor
 public extension CodeFolderArtifact
 {
     func recursivelyPruneDependenciesAndCalculateDependencyMetrics()
@@ -21,6 +22,7 @@ public extension CodeFolderArtifact
     }
 }
 
+@BackgroundActor
 private extension CodeFileArtifact
 {
     func recursivelyPruneDependenciesAndCalculateDependencyMetrics()
@@ -31,6 +33,7 @@ private extension CodeFileArtifact
     }
 }
 
+@BackgroundActor
 private extension CodeSymbolArtifact
 {
     func recursivelyPruneDependenciesAndCalculateDependencyMetrics()
@@ -41,6 +44,7 @@ private extension CodeSymbolArtifact
     }
 }
 
+@BackgroundActor
 private extension Graph where NodeValue: CodeArtifact & Identifiable
 {
     func pruneDependenciesAndCalculateDependencyMetrics()

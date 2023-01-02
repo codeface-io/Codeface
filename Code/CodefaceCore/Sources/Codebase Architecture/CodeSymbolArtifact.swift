@@ -2,7 +2,7 @@ import SwiftLSP
 import Foundation
 import SwiftNodes
 
-public class CodeSymbolArtifact: Identifiable, Hashable
+public final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
 {
     // MARK: - Initialization
     
@@ -20,10 +20,6 @@ public class CodeSymbolArtifact: Identifiable, Hashable
         self.code = code
         self.scope = scope
     }
-    
-    // MARK: - Metrics
-    
-    public var metrics = Metrics()
     
     // MARK: - Graph Structure
     

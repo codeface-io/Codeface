@@ -4,6 +4,20 @@ public extension CodeArtifact
 {
     var linesOfCode: Int { metrics.linesOfCode ?? 0 }
     
+    @BackgroundActor
+    var metrics: Metrics
+    {
+        get
+        {
+            ArtifactMetricCache.shared[id]
+        }
+        
+        set
+        {
+            ArtifactMetricCache.shared[id] = newValue
+        }
+    }
+    
     func contains(_ otherArtifact: any CodeArtifact) -> Bool
     {
         if otherArtifact === self { return true }

@@ -8,11 +8,7 @@ public final class CodeFolderArtifact: Identifiable, Sendable
         self.name = name
         self.scope = scope
     }
-    
-    // MARK: - Metrics
-    
-    public var metrics = Metrics()
-    
+
     // MARK: - Graph Structure
     
     public weak var scope: (any CodeArtifact)?

@@ -2,7 +2,8 @@ public struct Metrics: Sendable
 {
     // MARK: - Qualitative Metrics
     
-    public lazy var portionOfPartsInCycles: Double = {
+    public lazy var portionOfPartsInCycles: Double =
+    {
         guard let partLOCs = linesOfCodeOfParts, partLOCs > 0,
               let partLOCsInCycles = linesOfCodeOfPartsInCycles
         else { return 0 }
