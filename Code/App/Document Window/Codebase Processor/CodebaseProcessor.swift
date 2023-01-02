@@ -1,7 +1,6 @@
 import FoundationToolz
 import Foundation
 import Combine
-import CodefaceCore
 import SwiftLSP
 import SwiftyToolz
 
@@ -196,8 +195,9 @@ public class CodebaseProcessor: ObservableObject
     @Published public var state = ProcessorState.empty
 }
 
+/// Namespace to offload the actual processing from the main actor
 @BackgroundActor
-enum ProcessingSteps // some temporary namespace to offload the actual processing from the main actor
+enum ProcessingSteps
 {
     static func readFolder(from location: LSP.CodebaseLocation) throws -> CodeFolder?
     {

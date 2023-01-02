@@ -1,6 +1,5 @@
 import SwiftUI
 import SwiftyToolz
-import CodefaceCore
 
 struct DependencyView: View
 {

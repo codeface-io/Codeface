@@ -1,7 +1,6 @@
 import SwiftUI
 import FoundationToolz
 import UniformTypeIdentifiers
-import CodefaceCore
 
 @available(macOS 11.0, *)
 public struct CodebaseFileDocument: FileDocument, Codable

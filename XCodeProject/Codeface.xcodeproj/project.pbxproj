@@ -13,7 +13,19 @@
 		960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAB28ABB07800F334CA /* TreeMap.swift */; };
 		960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAD28ABB0A000F334CA /* CodeView.swift */; };
 		960BBE9629004F9000F9DC2A /* LSPServiceHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960BBE9529004F9000F9DC2A /* LSPServiceHint.swift */; };
-		961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 961AAD652899C553001CFF67 /* CodefaceCore */; };
+		96106E5A2962DEAD0002F13C /* SwiftNodes in Frameworks */ = {isa = PBXBuildFile; productRef = 96106E592962DEAD0002F13C /* SwiftNodes */; };
+		96106E5B2962DED10002F13C /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D32962DB8000DF8A43 /* Metrics.swift */; };
+		96106E5C2962DED40002F13C /* ArtifactMetricCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D42962DB8000DF8A43 /* ArtifactMetricCache.swift */; };
+		96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyPruningAndMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyPruningAndMetrics.swift */; };
+		96106E5E2962DEDD0002F13C /* CodeFolderArtifact+SizeMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D92962DB8000DF8A43 /* CodeFolderArtifact+SizeMetrics.swift */; };
+		96106E5F2962DEEE0002F13C /* CodeFolderArtifact+AddScrossScopeDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D72962DB8000DF8A43 /* CodeFolderArtifact+AddScrossScopeDependencies.swift */; };
+		96106E602962DEEE0002F13C /* CodeFolderArtifact+LOCInCycles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */; };
+		96106E612962DEF20002F13C /* CodebaseLocationPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134E02962DB8000DF8A43 /* CodebaseLocationPersister.swift */; };
+		96106E622962DF1C0002F13C /* CodeFileArtifactHashmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DB2962DB8000DF8A43 /* CodeFileArtifactHashmap.swift */; };
+		96106E632962DF1C0002F13C /* CodeFileArtifact+CodeSymbolData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DC2962DB8000DF8A43 /* CodeFileArtifact+CodeSymbolData.swift */; };
+		96106E642962DF1C0002F13C /* CodeFolderArtifact+CodeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DE2962DB8000DF8A43 /* CodeFolderArtifact+CodeFolder.swift */; };
+		96106E652962DF1C0002F13C /* CodeFolderArtifact+AddSymbolDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DD2962DB8000DF8A43 /* CodeFolderArtifact+AddSymbolDependencies.swift */; };
+		96106E662962DF1C0002F13C /* CodeSymbolArtifact+CodeSymbolData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DF2962DB8000DF8A43 /* CodeSymbolArtifact+CodeSymbolData.swift */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		9629D5AC29252A1E006B1E98 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F0E290EDC32008CA3C2 /* Client.swift */; };
 		9629D5AD29252A1E006B1E98 /* TestXPCExecutableForCodeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96081CFB29223D9100A562BA /* TestXPCExecutableForCodeface.swift */; };
@@ -53,6 +65,30 @@
 		96D59CD2294AC36A003C55B5 /* HelpLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CD1294AC36A003C55B5 /* HelpLink.swift */; };
 		96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1C28A1503C00B84B45 /* PathBarView.swift */; };
 		96DC635528E100D900DD5BEB /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96DC635428E100D900DD5BEB /* SwiftLSP */; };
+		96E134FF2962DC2300DF8A43 /* BackgroundActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134EB2962DC2200DF8A43 /* BackgroundActor.swift */; };
+		96E135022962DC8300DF8A43 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 96E135012962DC8300DF8A43 /* OrderedCollections */; };
+		96E135032962DD4900DF8A43 /* ArtifactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F82962DC2200DF8A43 /* ArtifactViewModel.swift */; };
+		96E135042962DD5500DF8A43 /* ArtifactViewModel+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F92962DC2300DF8A43 /* ArtifactViewModel+Hashable.swift */; };
+		96E135052962DD5900DF8A43 /* ArtifactViewModel+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134FE2962DC2300DF8A43 /* ArtifactViewModel+AddDependencies.swift */; };
+		96E135062962DD5900DF8A43 /* ArtifactViewModel+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134FA2962DC2300DF8A43 /* ArtifactViewModel+Search.swift */; };
+		96E135072962DD5900DF8A43 /* ArtifactViewModel+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134FD2962DC2300DF8A43 /* ArtifactViewModel+Layout.swift */; };
+		96E135082962DD5900DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134FC2962DC2300DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift */; };
+		96E135092962DD5900DF8A43 /* ArtifactViewModel+LayoutDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134FB2962DC2300DF8A43 /* ArtifactViewModel+LayoutDependencies.swift */; };
+		96E1350A2962DD6200DF8A43 /* CodeFolder+LoadFromURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134E52962DC2200DF8A43 /* CodeFolder+LoadFromURL.swift */; };
+		96E1350B2962DD6200DF8A43 /* CodeFolder+LSPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134E32962DC2200DF8A43 /* CodeFolder+LSPServer.swift */; };
+		96E1350C2962DD6200DF8A43 /* CodeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134E42962DC2200DF8A43 /* CodeFolder.swift */; };
+		96E1350D2962DD6700DF8A43 /* CodeSymbolData+LSP Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134E72962DC2200DF8A43 /* CodeSymbolData+LSP Server.swift */; };
+		96E1350E2962DD6700DF8A43 /* CodeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134E82962DC2200DF8A43 /* CodeSymbol.swift */; };
+		96E1350F2962DD6C00DF8A43 /* CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134EA2962DC2200DF8A43 /* CodeFile.swift */; };
+		96E135102962DD7A00DF8A43 /* CodeFileArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134ED2962DC2200DF8A43 /* CodeFileArtifact.swift */; };
+		96E135112962DD7A00DF8A43 /* CodeSymbolArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134EE2962DC2200DF8A43 /* CodeSymbolArtifact.swift */; };
+		96E135122962DD7A00DF8A43 /* SearchableCodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F42962DC2200DF8A43 /* SearchableCodeArtifact.swift */; };
+		96E135132962DD7A00DF8A43 /* CodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F62962DC2200DF8A43 /* CodeArtifact.swift */; };
+		96E135142962DD7A00DF8A43 /* CodeFolderArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F52962DC2200DF8A43 /* CodeFolderArtifact.swift */; };
+		96E135152962DD7F00DF8A43 /* GraphNode+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F12962DC2200DF8A43 /* GraphNode+Sort.swift */; };
+		96E135162962DD7F00DF8A43 /* CodeSymbolArtifact+CodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F22962DC2200DF8A43 /* CodeSymbolArtifact+CodeArtifact.swift */; };
+		96E135172962DD7F00DF8A43 /* CodeFolderArtifact+CodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F02962DC2200DF8A43 /* CodeFolderArtifact+CodeArtifact.swift */; };
+		96E135182962DD7F00DF8A43 /* CodeFileArtifact+CodeArtifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F32962DC2200DF8A43 /* CodeFileArtifact+CodeArtifact.swift */; };
 		96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CF28359C9900762FD7 /* AnimatableLine.swift */; };
 		96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479D128359CCE00762FD7 /* ArtifactView.swift */; };
 		96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479DC2835B36C00762FD7 /* SidebarLabel.swift */; };
@@ -109,7 +145,6 @@
 		96143F04290ED68A008CA3C2 /* Service+main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Service+main.swift"; sourceTree = "<group>"; };
 		96143F06290ED68A008CA3C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96143F0E290EDC32008CA3C2 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
-		961AAD632899C3E6001CFF67 /* CodefaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CodefaceCore; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		9639C27128D761A000779BA5 /* DocumentWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentWindowView.swift; sourceTree = "<group>"; };
 		963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseFileDocument.swift; sourceTree = "<group>"; };
@@ -135,6 +170,41 @@
 		96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleSidebarView.swift; sourceTree = "<group>"; };
 		96D59CD1294AC36A003C55B5 /* HelpLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLink.swift; sourceTree = "<group>"; };
 		96D8DB1C28A1503C00B84B45 /* PathBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBarView.swift; sourceTree = "<group>"; };
+		96E134D32962DB8000DF8A43 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
+		96E134D42962DB8000DF8A43 /* ArtifactMetricCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactMetricCache.swift; sourceTree = "<group>"; };
+		96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+LOCInCycles.swift"; sourceTree = "<group>"; };
+		96E134D72962DB8000DF8A43 /* CodeFolderArtifact+AddScrossScopeDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+AddScrossScopeDependencies.swift"; sourceTree = "<group>"; };
+		96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyPruningAndMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+DependencyPruningAndMetrics.swift"; sourceTree = "<group>"; };
+		96E134D92962DB8000DF8A43 /* CodeFolderArtifact+SizeMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+SizeMetrics.swift"; sourceTree = "<group>"; };
+		96E134DB2962DB8000DF8A43 /* CodeFileArtifactHashmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileArtifactHashmap.swift; sourceTree = "<group>"; };
+		96E134DC2962DB8000DF8A43 /* CodeFileArtifact+CodeSymbolData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileArtifact+CodeSymbolData.swift"; sourceTree = "<group>"; };
+		96E134DD2962DB8000DF8A43 /* CodeFolderArtifact+AddSymbolDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+AddSymbolDependencies.swift"; sourceTree = "<group>"; };
+		96E134DE2962DB8000DF8A43 /* CodeFolderArtifact+CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+CodeFolder.swift"; sourceTree = "<group>"; };
+		96E134DF2962DB8000DF8A43 /* CodeSymbolArtifact+CodeSymbolData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeSymbolArtifact+CodeSymbolData.swift"; sourceTree = "<group>"; };
+		96E134E02962DB8000DF8A43 /* CodebaseLocationPersister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseLocationPersister.swift; sourceTree = "<group>"; };
+		96E134E32962DC2200DF8A43 /* CodeFolder+LSPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+LSPServer.swift"; sourceTree = "<group>"; };
+		96E134E42962DC2200DF8A43 /* CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolder.swift; sourceTree = "<group>"; };
+		96E134E52962DC2200DF8A43 /* CodeFolder+LoadFromURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolder+LoadFromURL.swift"; sourceTree = "<group>"; };
+		96E134E72962DC2200DF8A43 /* CodeSymbolData+LSP Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeSymbolData+LSP Server.swift"; sourceTree = "<group>"; };
+		96E134E82962DC2200DF8A43 /* CodeSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSymbol.swift; sourceTree = "<group>"; };
+		96E134EA2962DC2200DF8A43 /* CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFile.swift; sourceTree = "<group>"; };
+		96E134EB2962DC2200DF8A43 /* BackgroundActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundActor.swift; sourceTree = "<group>"; };
+		96E134ED2962DC2200DF8A43 /* CodeFileArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileArtifact.swift; sourceTree = "<group>"; };
+		96E134EE2962DC2200DF8A43 /* CodeSymbolArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSymbolArtifact.swift; sourceTree = "<group>"; };
+		96E134F02962DC2200DF8A43 /* CodeFolderArtifact+CodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+CodeArtifact.swift"; sourceTree = "<group>"; };
+		96E134F12962DC2200DF8A43 /* GraphNode+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphNode+Sort.swift"; sourceTree = "<group>"; };
+		96E134F22962DC2200DF8A43 /* CodeSymbolArtifact+CodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeSymbolArtifact+CodeArtifact.swift"; sourceTree = "<group>"; };
+		96E134F32962DC2200DF8A43 /* CodeFileArtifact+CodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileArtifact+CodeArtifact.swift"; sourceTree = "<group>"; };
+		96E134F42962DC2200DF8A43 /* SearchableCodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableCodeArtifact.swift; sourceTree = "<group>"; };
+		96E134F52962DC2200DF8A43 /* CodeFolderArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFolderArtifact.swift; sourceTree = "<group>"; };
+		96E134F62962DC2200DF8A43 /* CodeArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifact.swift; sourceTree = "<group>"; };
+		96E134F82962DC2200DF8A43 /* ArtifactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactViewModel.swift; sourceTree = "<group>"; };
+		96E134F92962DC2300DF8A43 /* ArtifactViewModel+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+Hashable.swift"; sourceTree = "<group>"; };
+		96E134FA2962DC2300DF8A43 /* ArtifactViewModel+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+Search.swift"; sourceTree = "<group>"; };
+		96E134FB2962DC2300DF8A43 /* ArtifactViewModel+LayoutDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+LayoutDependencies.swift"; sourceTree = "<group>"; };
+		96E134FC2962DC2300DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+LayoutArtifacts.swift"; sourceTree = "<group>"; };
+		96E134FD2962DC2300DF8A43 /* ArtifactViewModel+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+Layout.swift"; sourceTree = "<group>"; };
+		96E134FE2962DC2300DF8A43 /* ArtifactViewModel+AddDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+AddDependencies.swift"; sourceTree = "<group>"; };
 		96E479CF28359C9900762FD7 /* AnimatableLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableLine.swift; sourceTree = "<group>"; };
 		96E479D128359CCE00762FD7 /* ArtifactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactView.swift; sourceTree = "<group>"; };
 		96E479DC2835B36C00762FD7 /* SidebarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarLabel.swift; sourceTree = "<group>"; };
@@ -180,8 +250,9 @@
 				96C2118C28E347F0008024AA /* CombineObserver in Frameworks */,
 				9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */,
 				966F39B1291BF54F00198B14 /* FoundationToolz in Frameworks */,
+				96E135022962DC8300DF8A43 /* OrderedCollections in Frameworks */,
+				96106E5A2962DEAD0002F13C /* SwiftNodes in Frameworks */,
 				96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */,
-				961AAD662899C553001CFF67 /* CodefaceCore in Frameworks */,
 				96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,10 +421,129 @@
 				964464B5295200FC0004382F /* DocumentWindow.swift */,
 				964464BB295204900004382F /* CodebaseProcessor.swift */,
 				965795B02954687300CB9F3F /* ProcessorState.swift */,
+				96E134D12962DB8000DF8A43 /* Codebase Processing Pipeline */,
 				965795B22954697700CB9F3F /* SearchVM.swift */,
 				963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */,
 			);
 			path = "Codebase Processor";
+			sourceTree = "<group>";
+		};
+		96E134D12962DB8000DF8A43 /* Codebase Processing Pipeline */ = {
+			isa = PBXGroup;
+			children = (
+				96E134D22962DB8000DF8A43 /* Metrics */,
+				96E134D52962DB8000DF8A43 /* Analyze Architecture */,
+				96E134DA2962DB8000DF8A43 /* Generate Architecture */,
+				96E134E02962DB8000DF8A43 /* CodebaseLocationPersister.swift */,
+			);
+			path = "Codebase Processing Pipeline";
+			sourceTree = "<group>";
+		};
+		96E134D22962DB8000DF8A43 /* Metrics */ = {
+			isa = PBXGroup;
+			children = (
+				96E134D32962DB8000DF8A43 /* Metrics.swift */,
+				96E134D42962DB8000DF8A43 /* ArtifactMetricCache.swift */,
+			);
+			path = Metrics;
+			sourceTree = "<group>";
+		};
+		96E134D52962DB8000DF8A43 /* Analyze Architecture */ = {
+			isa = PBXGroup;
+			children = (
+				96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */,
+				96E134D72962DB8000DF8A43 /* CodeFolderArtifact+AddScrossScopeDependencies.swift */,
+				96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyPruningAndMetrics.swift */,
+				96E134D92962DB8000DF8A43 /* CodeFolderArtifact+SizeMetrics.swift */,
+			);
+			path = "Analyze Architecture";
+			sourceTree = "<group>";
+		};
+		96E134DA2962DB8000DF8A43 /* Generate Architecture */ = {
+			isa = PBXGroup;
+			children = (
+				96E134DB2962DB8000DF8A43 /* CodeFileArtifactHashmap.swift */,
+				96E134DC2962DB8000DF8A43 /* CodeFileArtifact+CodeSymbolData.swift */,
+				96E134DD2962DB8000DF8A43 /* CodeFolderArtifact+AddSymbolDependencies.swift */,
+				96E134DE2962DB8000DF8A43 /* CodeFolderArtifact+CodeFolder.swift */,
+				96E134DF2962DB8000DF8A43 /* CodeSymbolArtifact+CodeSymbolData.swift */,
+			);
+			path = "Generate Architecture";
+			sourceTree = "<group>";
+		};
+		96E134E12962DC2200DF8A43 /* Codebase */ = {
+			isa = PBXGroup;
+			children = (
+				96E134E22962DC2200DF8A43 /* Code Folder */,
+				96E134E62962DC2200DF8A43 /* Code Symbol */,
+				96E134E92962DC2200DF8A43 /* Code File */,
+			);
+			path = Codebase;
+			sourceTree = "<group>";
+		};
+		96E134E22962DC2200DF8A43 /* Code Folder */ = {
+			isa = PBXGroup;
+			children = (
+				96E134E32962DC2200DF8A43 /* CodeFolder+LSPServer.swift */,
+				96E134E42962DC2200DF8A43 /* CodeFolder.swift */,
+				96E134E52962DC2200DF8A43 /* CodeFolder+LoadFromURL.swift */,
+			);
+			path = "Code Folder";
+			sourceTree = "<group>";
+		};
+		96E134E62962DC2200DF8A43 /* Code Symbol */ = {
+			isa = PBXGroup;
+			children = (
+				96E134E72962DC2200DF8A43 /* CodeSymbolData+LSP Server.swift */,
+				96E134E82962DC2200DF8A43 /* CodeSymbol.swift */,
+			);
+			path = "Code Symbol";
+			sourceTree = "<group>";
+		};
+		96E134E92962DC2200DF8A43 /* Code File */ = {
+			isa = PBXGroup;
+			children = (
+				96E134EA2962DC2200DF8A43 /* CodeFile.swift */,
+			);
+			path = "Code File";
+			sourceTree = "<group>";
+		};
+		96E134EC2962DC2200DF8A43 /* Codebase Architecture */ = {
+			isa = PBXGroup;
+			children = (
+				96E134ED2962DC2200DF8A43 /* CodeFileArtifact.swift */,
+				96E134EE2962DC2200DF8A43 /* CodeSymbolArtifact.swift */,
+				96E134EF2962DC2200DF8A43 /* CodeArtifact Conformances */,
+				96E134F42962DC2200DF8A43 /* SearchableCodeArtifact.swift */,
+				96E134F52962DC2200DF8A43 /* CodeFolderArtifact.swift */,
+				96E134F62962DC2200DF8A43 /* CodeArtifact.swift */,
+			);
+			path = "Codebase Architecture";
+			sourceTree = "<group>";
+		};
+		96E134EF2962DC2200DF8A43 /* CodeArtifact Conformances */ = {
+			isa = PBXGroup;
+			children = (
+				96E134F02962DC2200DF8A43 /* CodeFolderArtifact+CodeArtifact.swift */,
+				96E134F12962DC2200DF8A43 /* GraphNode+Sort.swift */,
+				96E134F22962DC2200DF8A43 /* CodeSymbolArtifact+CodeArtifact.swift */,
+				96E134F32962DC2200DF8A43 /* CodeFileArtifact+CodeArtifact.swift */,
+			);
+			path = "CodeArtifact Conformances";
+			sourceTree = "<group>";
+		};
+		96E134F72962DC2200DF8A43 /* Architecture View Model */ = {
+			isa = PBXGroup;
+			children = (
+				96E134F82962DC2200DF8A43 /* ArtifactViewModel.swift */,
+				96E134F92962DC2300DF8A43 /* ArtifactViewModel+Hashable.swift */,
+				96E134FA2962DC2300DF8A43 /* ArtifactViewModel+Search.swift */,
+				96E134FB2962DC2300DF8A43 /* ArtifactViewModel+LayoutDependencies.swift */,
+				96E134FC2962DC2300DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift */,
+				96E134FD2962DC2300DF8A43 /* ArtifactViewModel+Layout.swift */,
+				96E134FE2962DC2300DF8A43 /* ArtifactViewModel+AddDependencies.swift */,
+			);
+			path = "Architecture View Model";
 			sourceTree = "<group>";
 		};
 		96E479D52835A53200762FD7 /* Architecture Views */ = {
@@ -375,6 +565,10 @@
 			children = (
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
 				96EB5998294629D50050254E /* Document Window */,
+				96E134F72962DC2200DF8A43 /* Architecture View Model */,
+				96E134E12962DC2200DF8A43 /* Codebase */,
+				96E134EC2962DC2200DF8A43 /* Codebase Architecture */,
+				96E134EB2962DC2200DF8A43 /* BackgroundActor.swift */,
 				96FF8A44294F876100D06E36 /* CodefaceStyle.swift */,
 			);
 			path = App;
@@ -404,7 +598,6 @@
 			isa = PBXGroup;
 			children = (
 				96E863D12844125500BCCE66 /* App */,
-				961AAD632899C3E6001CFF67 /* CodefaceCore */,
 				96D59CD0294AC26F003C55B5 /* XPC Experiments */,
 				96F5E7F12957197500181473 /* Proofs of Concept */,
 				9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */,
@@ -510,13 +703,14 @@
 			name = Codeface;
 			packageProductDependencies = (
 				9656A69E25287F0D00D4CF26 /* SwiftyToolz */,
-				961AAD652899C553001CFF67 /* CodefaceCore */,
 				96CA360528E0F92800D71370 /* LSPServiceKit */,
 				96DC635428E100D900DD5BEB /* SwiftLSP */,
 				96C2118B28E347F0008024AA /* CombineObserver */,
 				96C2118D28E347F0008024AA /* SwiftObserver */,
 				966F39B0291BF54F00198B14 /* FoundationToolz */,
 				96FF8A42294E9FE500D06E36 /* SwiftUIToolzOLD */,
+				96E135012962DC8300DF8A43 /* OrderedCollections */,
+				96106E592962DEAD0002F13C /* SwiftNodes */,
 			);
 			productName = Cocoalytics;
 			productReference = 9E95A703218C73C7009A58A9 /* Codeface.app */;
@@ -580,6 +774,8 @@
 				96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */,
 				966F39AF291BF54F00198B14 /* XCRemoteSwiftPackageReference "FoundationToolz" */,
 				96F19FBA294E9EAB00E441AC /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */,
+				96E135002962DC8300DF8A43 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				96106E582962DEAD0002F13C /* XCRemoteSwiftPackageReference "SwiftNodes" */,
 			);
 			productRefGroup = 9E95A704218C73C7009A58A9 /* Products */;
 			projectDirPath = "";
@@ -631,50 +827,85 @@
 			files = (
 				96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */,
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
+				96E1350D2962DD6700DF8A43 /* CodeSymbolData+LSP Server.swift in Sources */,
 				96D59CC7294AB9F8003C55B5 /* CodebaseAnalysisView.swift in Sources */,
+				96106E602962DEEE0002F13C /* CodeFolderArtifact+LOCInCycles.swift in Sources */,
+				96106E632962DF1C0002F13C /* CodeFileArtifact+CodeSymbolData.swift in Sources */,
+				96E1350C2962DD6200DF8A43 /* CodeFolder.swift in Sources */,
+				96E135142962DD7A00DF8A43 /* CodeFolderArtifact.swift in Sources */,
 				96CFBB3628B582D20051C318 /* ArtifactViewModel+SwiftUI.swift in Sources */,
+				96E135042962DD5500DF8A43 /* ArtifactViewModel+Hashable.swift in Sources */,
 				965795B32954697700CB9F3F /* SearchVM.swift in Sources */,
+				96E135172962DD7F00DF8A43 /* CodeFolderArtifact+CodeArtifact.swift in Sources */,
+				96106E5C2962DED40002F13C /* ArtifactMetricCache.swift in Sources */,
 				965795B12954687300CB9F3F /* ProcessorState.swift in Sources */,
 				96D59CC3294AB895003C55B5 /* CodebaseAnalysisContentView.swift in Sources */,
+				96106E662962DF1C0002F13C /* CodeSymbolArtifact+CodeSymbolData.swift in Sources */,
+				96E135072962DD5900DF8A43 /* ArtifactViewModel+Layout.swift in Sources */,
 				96F19FB8294E642C00E441AC /* ToolbarFilterIndicator.swift in Sources */,
+				96106E5F2962DEEE0002F13C /* CodeFolderArtifact+AddScrossScopeDependencies.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				96FC8C3F284BEB9000AD7DD2 /* CodebaseLocator.swift in Sources */,
+				96E135052962DD5900DF8A43 /* ArtifactViewModel+AddDependencies.swift in Sources */,
 				96EB5997294628390050254E /* SearchField.swift in Sources */,
+				96E135062962DD5900DF8A43 /* ArtifactViewModel+Search.swift in Sources */,
+				96106E5E2962DEDD0002F13C /* CodeFolderArtifact+SizeMetrics.swift in Sources */,
+				96106E642962DF1C0002F13C /* CodeFolderArtifact+CodeFolder.swift in Sources */,
 				96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */,
 				964464B6295201660004382F /* DocumentWindow.swift in Sources */,
 				968EA5C328DCD24500FE8A9B /* CodebaseProcessingView.swift in Sources */,
 				96F5E7F02957191E00181473 /* ConcurrencyPOC.swift in Sources */,
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
+				96E135132962DD7A00DF8A43 /* CodeArtifact.swift in Sources */,
+				96106E652962DF1C0002F13C /* CodeFolderArtifact+AddSymbolDependencies.swift in Sources */,
 				964464C02952052C0004382F /* CodebaseProcessor.swift in Sources */,
 				960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */,
+				96E135102962DD7A00DF8A43 /* CodeFileArtifact.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
+				96E135112962DD7A00DF8A43 /* CodeSymbolArtifact.swift in Sources */,
 				9629D5AD29252A1E006B1E98 /* TestXPCExecutableForCodeface.swift in Sources */,
+				96E135152962DD7F00DF8A43 /* GraphNode+Sort.swift in Sources */,
 				968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */,
+				96E1350A2962DD6200DF8A43 /* CodeFolder+LoadFromURL.swift in Sources */,
 				9629D5B829252A2C006B1E98 /* XPCExecutableServiceExportedInterface.swift in Sources */,
 				9629D5B729252A2C006B1E98 /* XPCExecutableClientExportedInterface.swift in Sources */,
 				960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */,
+				96E134FF2962DC2300DF8A43 /* BackgroundActor.swift in Sources */,
 				96D59CC1294AB82D003C55B5 /* SearchBarView.swift in Sources */,
+				96E135082962DD5900DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,
 				963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */,
 				96D59CCB294ABC1F003C55B5 /* DoubleSidebarView.swift in Sources */,
+				96E135032962DD4900DF8A43 /* ArtifactViewModel.swift in Sources */,
 				965795AE2954652C00CB9F3F /* EmptyProcesorView.swift in Sources */,
 				964464BF295204F70004382F /* PathBar.swift in Sources */,
+				96E1350B2962DD6200DF8A43 /* CodeFolder+LSPServer.swift in Sources */,
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
 				9629D5AC29252A1E006B1E98 /* Client.swift in Sources */,
 				96D59CD2294AC36A003C55B5 /* HelpLink.swift in Sources */,
 				964464BE295204DB0004382F /* CodebaseAnalysisContentPanel.swift in Sources */,
+				96106E612962DEF20002F13C /* CodebaseLocationPersister.swift in Sources */,
+				96E135122962DD7A00DF8A43 /* SearchableCodeArtifact.swift in Sources */,
+				96E1350F2962DD6C00DF8A43 /* CodeFile.swift in Sources */,
+				96E135182962DD7F00DF8A43 /* CodeFileArtifact+CodeArtifact.swift in Sources */,
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
 				9629D5AE29252A1E006B1E98 /* ServiceExportedInterface+Conveniences.swift in Sources */,
 				9629D5B929252A2C006B1E98 /* XPCExecutable.swift in Sources */,
 				9675A0B7294CE1C900C784AA /* NavigationAndFocusPOCView.swift in Sources */,
+				96E135162962DD7F00DF8A43 /* CodeSymbolArtifact+CodeArtifact.swift in Sources */,
 				960BBE9629004F9000F9DC2A /* LSPServiceHint.swift in Sources */,
+				96E1350E2962DD6700DF8A43 /* CodeSymbol.swift in Sources */,
 				9639C27228D761A000779BA5 /* DocumentWindowView.swift in Sources */,
 				96FF8A45294F876100D06E36 /* CodefaceStyle.swift in Sources */,
 				960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */,
 				96D59CC5294AB8DE003C55B5 /* ArtifactInspectorView.swift in Sources */,
 				964464B22951D4090004382F /* DisplayModePicker.swift in Sources */,
 				964464B72952016E0004382F /* DisplayMode.swift in Sources */,
+				96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyPruningAndMetrics.swift in Sources */,
 				96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */,
+				96106E622962DF1C0002F13C /* CodeFileArtifactHashmap.swift in Sources */,
+				96106E5B2962DED10002F13C /* Metrics.swift in Sources */,
 				96D59CC9294ABB13003C55B5 /* CodebaseNavigatorView.swift in Sources */,
+				96E135092962DD5900DF8A43 /* ArtifactViewModel+LayoutDependencies.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1016,6 +1247,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		96106E582962DEAD0002F13C /* XCRemoteSwiftPackageReference "SwiftNodes" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/codeface-io/SwiftNodes";
+			requirement = {
+				kind = exactVersion;
+				version = 0.3.3;
+			};
+		};
 		9656A69D25287F0D00D4CF26 /* XCRemoteSwiftPackageReference "SwiftyToolz" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/flowtoolz/SwiftyToolz.git";
@@ -1056,6 +1295,14 @@
 				version = 0.3.4;
 			};
 		};
+		96E135002962DC8300DF8A43 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.2;
+			};
+		};
 		96F19FBA294E9EAB00E441AC /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/flowtoolz/SwiftUIToolzOLD";
@@ -1067,9 +1314,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		961AAD652899C553001CFF67 /* CodefaceCore */ = {
+		96106E592962DEAD0002F13C /* SwiftNodes */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = CodefaceCore;
+			package = 96106E582962DEAD0002F13C /* XCRemoteSwiftPackageReference "SwiftNodes" */;
+			productName = SwiftNodes;
 		};
 		9656A69E25287F0D00D4CF26 /* SwiftyToolz */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1115,6 +1363,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */;
 			productName = SwiftLSP;
+		};
+		96E135012962DC8300DF8A43 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96E135002962DC8300DF8A43 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
 		};
 		96FF8A42294E9FE500D06E36 /* SwiftUIToolzOLD */ = {
 			isa = XCSwiftPackageProductDependency;

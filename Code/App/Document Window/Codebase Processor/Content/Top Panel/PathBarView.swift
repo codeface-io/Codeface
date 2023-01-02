@@ -1,5 +1,4 @@
 import SwiftUI
-import CodefaceCore
 
 struct PathBarView: View
 {

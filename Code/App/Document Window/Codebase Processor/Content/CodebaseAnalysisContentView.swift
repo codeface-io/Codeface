@@ -1,7 +1,5 @@
 import SwiftUI
-import CodefaceCore
 import SwiftLSP
-import CodefaceCore
 
 struct CodebaseAnalysisContentView: View
 {
