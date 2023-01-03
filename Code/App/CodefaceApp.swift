@@ -35,7 +35,7 @@ struct CodefaceApp: App
             {
                 Button("Find and filter")
                 {
-                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
+                    withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
                     {
                         focusedDocumentWindow?.codebaseProcessor.startTypingSearchTerm()
                     }
@@ -45,7 +45,7 @@ struct CodefaceApp: App
 
                 Button("Toggle the Search Filter")
                 {
-                    withAnimation(.easeInOut(duration: SearchVM.toggleAnimationDuration))
+                    withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
                     {
                         focusedDocumentWindow?.codebaseProcessor.toggleSearchBar()
                     }
