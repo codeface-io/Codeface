@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftyToolz
 
-struct ArtifactInspectorView: View
+struct CodebaseInspectorView: View
 {
     var body: some View
     {

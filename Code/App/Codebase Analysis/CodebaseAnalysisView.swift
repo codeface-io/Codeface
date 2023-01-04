@@ -11,7 +11,7 @@ struct CodebaseAnalysisView: View
             {
                 if let artifactVM = processor.selectedArtifact
                 {
-                    CodebaseAnalysisContentView(artifactVM: artifactVM,
+                    CodebaseCentralView(artifactVM: artifactVM,
                                                 processorVM: processor)
                 }
                 else
@@ -44,7 +44,7 @@ struct CodebaseAnalysisView: View
         {
             if let artifactVM = processor.selectedArtifact
             {
-                ArtifactInspectorView(artifactVM: artifactVM)
+                CodebaseInspectorView(artifactVM: artifactVM)
             }
             else
             {

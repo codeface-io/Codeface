@@ -58,7 +58,7 @@
 		96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 96CA360528E0F92800D71370 /* LSPServiceKit */; };
 		96CFBB3628B582D20051C318 /* ArtifactViewModel+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */; };
 		96D59CC1294AB82D003C55B5 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC0294AB82D003C55B5 /* SearchBarView.swift */; };
-		96D59CC3294AB895003C55B5 /* CodebaseAnalysisContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC2294AB895003C55B5 /* CodebaseAnalysisContentView.swift */; };
+		96D59CC3294AB895003C55B5 /* CodebaseCentralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC2294AB895003C55B5 /* CodebaseCentralView.swift */; };
 		96D59CC5294AB8DE003C55B5 /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC4294AB8DE003C55B5 /* InspectorView.swift */; };
 		96D59CC7294AB9F8003C55B5 /* CodebaseAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC6294AB9F8003C55B5 /* CodebaseAnalysisView.swift */; };
 		96D59CC9294ABB13003C55B5 /* CodebaseNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC8294ABB13003C55B5 /* CodebaseNavigatorView.swift */; };
@@ -163,7 +163,7 @@
 		968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorView.swift; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
 		96D59CC0294AB82D003C55B5 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
-		96D59CC2294AB895003C55B5 /* CodebaseAnalysisContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseAnalysisContentView.swift; sourceTree = "<group>"; };
+		96D59CC2294AB895003C55B5 /* CodebaseCentralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseCentralView.swift; sourceTree = "<group>"; };
 		96D59CC4294AB8DE003C55B5 /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
 		96D59CC6294AB9F8003C55B5 /* CodebaseAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseAnalysisView.swift; sourceTree = "<group>"; };
 		96D59CC8294ABB13003C55B5 /* CodebaseNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseNavigatorView.swift; sourceTree = "<group>"; };
@@ -408,17 +408,17 @@
 			children = (
 				96D59CC6294AB9F8003C55B5 /* CodebaseAnalysisView.swift */,
 				96D59CCD294ABD4C003C55B5 /* Navigator View */,
-				965A7ADC2964A541006C5A3A /* Content View */,
+				965A7ADC2964A541006C5A3A /* Central View */,
 				96D59CC4294AB8DE003C55B5 /* InspectorView.swift */,
 				96E134F72962DC2200DF8A43 /* Artifact View Model */,
 			);
 			path = "Codebase Analysis";
 			sourceTree = "<group>";
 		};
-		965A7ADC2964A541006C5A3A /* Content View */ = {
+		965A7ADC2964A541006C5A3A /* Central View */ = {
 			isa = PBXGroup;
 			children = (
-				96D59CC2294AB895003C55B5 /* CodebaseAnalysisContentView.swift */,
+				96D59CC2294AB895003C55B5 /* CodebaseCentralView.swift */,
 				960BBE9529004F9000F9DC2A /* LSPServiceHint.swift */,
 				96D59CD1294AC36A003C55B5 /* HelpLink.swift */,
 				964464BC295204BC0004382F /* Top Panel */,
@@ -426,7 +426,7 @@
 				960A7AAD28ABB0A000F334CA /* CodeView.swift */,
 				96FF8A44294F876100D06E36 /* ContentViewStyle.swift */,
 			);
-			path = "Content View";
+			path = "Central View";
 			sourceTree = "<group>";
 		};
 		965A7ADD2964A6B2006C5A3A /* Codebase Processor */ = {
@@ -835,7 +835,7 @@
 				96E135172962DD7F00DF8A43 /* CodeFolderArtifact+CodeArtifact.swift in Sources */,
 				96106E5C2962DED40002F13C /* CodeArtifactMetricsCache.swift in Sources */,
 				965795B12954687300CB9F3F /* CodebaseProcessorState.swift in Sources */,
-				96D59CC3294AB895003C55B5 /* CodebaseAnalysisContentView.swift in Sources */,
+				96D59CC3294AB895003C55B5 /* CodebaseCentralView.swift in Sources */,
 				96106E662962DF1C0002F13C /* CodeSymbolArtifact+CodeSymbol.swift in Sources */,
 				96E135072962DD5900DF8A43 /* ArtifactViewModel+Layout.swift in Sources */,
 				96F19FB8294E642C00E441AC /* ToolbarFilterIndicator.swift in Sources */,

@@ -1,14 +1,14 @@
 import SwiftUI
 import SwiftLSP
 
-struct CodebaseAnalysisContentView: View
+struct CodebaseCentralView: View
 {
     var body: some View
     {
         VStack(spacing: 0)
         {
-            CodebaseAnalysisContentPanel(processorVM: processorVM,
-                                         artifactName: artifactVM.codeArtifact.name)
+            TopPanel(processorVM: processorVM,
+                     artifactName: artifactVM.codeArtifact.name)
             
             if artifactVM.filteredParts.isEmpty
             {

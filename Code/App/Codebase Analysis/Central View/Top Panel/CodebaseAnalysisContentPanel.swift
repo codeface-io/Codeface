@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CodebaseAnalysisContentPanel: View
+struct TopPanel: View
 {
     var body: some View
     {
