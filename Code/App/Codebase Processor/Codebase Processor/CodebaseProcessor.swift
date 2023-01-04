@@ -7,9 +7,14 @@ import SwiftyToolz
 @MainActor
 public class CodebaseProcessor: ObservableObject
 {
+    init(selectionPublisher: any Publisher<ArtifactViewModel?, Never>)
+    {
+        pathBar = PathBar(selectionPublisher: selectionPublisher)
+    }
+    
     // MARK: - Path Bar
     
-    public let pathBar = PathBar()
+    public let pathBar: PathBar
     
     // MARK: - Search
     

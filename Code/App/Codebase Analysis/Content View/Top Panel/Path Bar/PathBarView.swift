@@ -7,9 +7,9 @@ struct PathBarView: View
     {
         HStack(alignment: .firstTextBaseline, spacing: 0)
         {
-            ForEach(artifactVMStack.indices, id: \.self)
+            ForEach(overviewBar.artifactVMStack.indices, id: \.self)
             {
-                let artifact = artifactVMStack[$0]
+                let artifact = overviewBar.artifactVMStack[$0]
                 
                 if $0 > 0
                 {
@@ -35,7 +35,7 @@ struct PathBarView: View
         .frame(height: 28)
     }
     
-    @State var artifactVMStack = [ArtifactViewModel]()
+    @ObservedObject var overviewBar: PathBar
 }
 
 extension ArtifactViewModel

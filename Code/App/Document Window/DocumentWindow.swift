@@ -115,6 +115,13 @@ public class DocumentWindow: ObservableObject
     private var codebaseObservation: AnyCancellable?
     @Published public private(set) var codebase: CodeFolder?
     
+    // MARK: - Codebase Processor
+    
+    public private(set) lazy var codebaseProcessor: CodebaseProcessor =
+    {
+        CodebaseProcessor(selectionPublisher: $selectedArtifact)
+    }()
+    
     // MARK: - Selection View Model
     
     @Published public var selectedArtifact: ArtifactViewModel? = nil
@@ -123,13 +130,8 @@ public class DocumentWindow: ObservableObject
         {
             guard oldValue !== selectedArtifact else { return }
             oldValue?.lastScopeContentSize = nil
-            codebaseProcessor.pathBar.select(selectedArtifact)
         }
     }
-    
-    // MARK: - Codebase Processor
-    
-    public private(set) var codebaseProcessor = CodebaseProcessor()
     
     // MARK: - Import Views
     
