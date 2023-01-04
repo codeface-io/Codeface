@@ -12,7 +12,7 @@ struct CodebaseAnalysisView: View
                 if let artifactVM = processor.selectedArtifact
                 {
                     CodebaseAnalysisContentView(artifactVM: artifactVM,
-                                                codefaceDocument: documentWindow,
+                                                displayMode: $documentWindow.displayMode,
                                                 processorVM: processor)
                 }
                 else

@@ -69,7 +69,7 @@ struct CodebaseAnalysisContentView: View
             }
             else
             {
-                switch codefaceDocument.displayMode
+                switch displayMode
                 {
                 case .treeMap: TreeMap(rootArtifactVM: artifactVM,
                                        viewModel: processorVM)
@@ -81,7 +81,7 @@ struct CodebaseAnalysisContentView: View
     
     let artifactVM: ArtifactViewModel
     
-    @ObservedObject var codefaceDocument: DocumentWindow
+    @Binding var displayMode: DisplayMode
     @ObservedObject var processorVM: CodebaseProcessor
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
