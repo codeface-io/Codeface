@@ -28,7 +28,6 @@ struct CodebaseProcessorView: View
             
         case .didVisualizeCodebaseArchitecture(_, let rootArtifact):
             CodebaseAnalysisView(rootArtifact: rootArtifact,
-                                 documentWindow: documentWindow,
                                  processor: codebaseProcessor)
             
         case .failed(let errorMessage):
@@ -44,6 +43,5 @@ struct CodebaseProcessorView: View
         }
     }
     
-    @ObservedObject var documentWindow: DocumentWindow
     @ObservedObject var codebaseProcessor: CodebaseProcessor
 }

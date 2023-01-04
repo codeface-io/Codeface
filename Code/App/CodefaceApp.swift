@@ -65,21 +65,21 @@ struct CodefaceApp: App
                 .keyboardShortcut("l", modifiers: .command)
                 .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
                 
-                Button("\((focusedDocumentWindow?.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
+                Button("\((focusedDocumentWindow?.codebaseProcessor.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
                 {
                     withAnimation
                     {
-                        focusedDocumentWindow?.showsLeftSidebar.toggle()
+                        focusedDocumentWindow?.codebaseProcessor.showsLeftSidebar.toggle()
                     }
                 }
                 .keyboardShortcut("0", modifiers: .command)
                 .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
 
-                Button("\((focusedDocumentWindow?.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
+                Button("\((focusedDocumentWindow?.codebaseProcessor.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
                 {
                     withAnimation
                     {
-                        focusedDocumentWindow?.showsRightSidebar.toggle()
+                        focusedDocumentWindow?.codebaseProcessor.showsRightSidebar.toggle()
                     }
                 }
                 .keyboardShortcut("0", modifiers: [.option, .command])
@@ -89,14 +89,14 @@ struct CodefaceApp: App
                 
                 Button("Switch to Next Display Mode")
                 {
-                    focusedDocumentWindow?.switchDisplayMode()
+                    focusedDocumentWindow?.codebaseProcessor.switchDisplayMode()
                 }
                 .keyboardShortcut(.rightArrow, modifiers: .command)
                 .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
 
                 Button("Switch to Previous Display Mode")
                 {
-                    focusedDocumentWindow?.switchDisplayMode()
+                    focusedDocumentWindow?.codebaseProcessor.switchDisplayMode()
                 }
                 .keyboardShortcut(.leftArrow, modifiers: .command)
                 .disabled(focusedDocumentWindow?.codebaseProcessor == nil)

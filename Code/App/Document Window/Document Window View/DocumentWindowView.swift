@@ -6,8 +6,7 @@ struct DocumentWindowView: View
 {
     var body: some View
     {
-        CodebaseProcessorView(documentWindow: documentWindow,
-                              codebaseProcessor: documentWindow.codebaseProcessor)
+        CodebaseProcessorView(codebaseProcessor: documentWindow.codebaseProcessor)
             .focusedSceneObject(documentWindow)
             .fileImporter(isPresented: $documentWindow.isPresentingFolderImporter,
                           allowedContentTypes: [.directory],
@@ -52,13 +51,17 @@ struct DocumentWindowView: View
                     .help("Toggle the Search Filter (⇧⌘F)")
 //                    .disabled(!documentWindow.projectProcessorVM.activeProcessor.isEmpty)
                     
-                    DisplayModePicker(displayMode: $documentWindow.displayMode)
+                    DisplayModePicker(displayMode: .init(get: {
+                        documentWindow.codebaseProcessor.displayMode
+                    }, set: { newDisplayMode in
+                        documentWindow.codebaseProcessor.displayMode = newDisplayMode
+                    }))
                     
                     Button(systemImageName: "sidebar.right")
                     {
                         withAnimation
                         {
-                            documentWindow.showsRightSidebar.toggle()
+                            documentWindow.codebaseProcessor.showsRightSidebar.toggle()
                         }
                     }
                     .help("Toggle Inspector (⌥⌘0)")

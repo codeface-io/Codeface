@@ -122,20 +122,4 @@ public class DocumentWindow: ObservableObject
     
     @Published public var isPresentingCodebaseLocator = false
     @Published public var isPresentingFolderImporter = false
-    
-    // MARK: - Display Options
-    
-    @Published public var showsLeftSidebar: Bool = true
-    @Published public var showsRightSidebar: Bool = false
-    
-    public func switchDisplayMode()
-    {
-        switch displayMode
-        {
-        case .code: displayMode = .treeMap
-        case .treeMap: displayMode = .code
-        }
-    }
-    
-    @Published public var displayMode: DisplayMode = .treeMap
 }

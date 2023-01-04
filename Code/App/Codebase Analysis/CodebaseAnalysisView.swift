@@ -4,15 +4,14 @@ struct CodebaseAnalysisView: View
 {
     var body: some View
     {
-        DoubleSidebarView(showLeftSidebar: $documentWindow.showsLeftSidebar,
-                          showRightSidebar: $documentWindow.showsRightSidebar)
+        DoubleSidebarView(showLeftSidebar: $processor.showsLeftSidebar,
+                          showRightSidebar: $processor.showsRightSidebar)
         {
             Group
             {
                 if let artifactVM = processor.selectedArtifact
                 {
                     CodebaseAnalysisContentView(artifactVM: artifactVM,
-                                                displayMode: $documentWindow.displayMode,
                                                 processorVM: processor)
                 }
                 else
@@ -55,7 +54,6 @@ struct CodebaseAnalysisView: View
     }
     
     let rootArtifact: ArtifactViewModel
-    
-    @ObservedObject var documentWindow: DocumentWindow
+
     @ObservedObject var processor: CodebaseProcessor
 }
