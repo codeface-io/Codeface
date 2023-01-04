@@ -8,8 +8,6 @@ public class DocumentWindow: ObservableObject
 {
     public init()
     {
-        codebaseProcessor = CodebaseProcessor()
-        
         _lastLocation = Published(initialValue: try? CodebaseLocationPersister.loadCodebaseLocation())
     }
     
@@ -124,7 +122,6 @@ public class DocumentWindow: ObservableObject
         didSet
         {
             guard oldValue !== selectedArtifact else { return }
-//            print("selected \(selectedArtifact?.codeArtifact.name ?? "nil")")
             oldValue?.lastScopeContentSize = nil
             codebaseProcessor.pathBar.select(selectedArtifact)
         }
@@ -132,7 +129,7 @@ public class DocumentWindow: ObservableObject
     
     // MARK: - Codebase Processor
     
-    public private(set) var codebaseProcessor: CodebaseProcessor
+    public private(set) var codebaseProcessor = CodebaseProcessor()
     
     // MARK: - Import Views
     

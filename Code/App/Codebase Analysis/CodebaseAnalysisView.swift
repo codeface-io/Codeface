@@ -4,15 +4,15 @@ struct CodebaseAnalysisView: View
 {
     var body: some View
     {
-        DoubleSidebarView(showLeftSidebar: $codefaceDocument.showsLeftSidebar,
-                          showRightSidebar: $codefaceDocument.showsRightSidebar)
+        DoubleSidebarView(showLeftSidebar: $documentWindow.showsLeftSidebar,
+                          showRightSidebar: $documentWindow.showsRightSidebar)
         {
             Group
             {
-                if let artifactVM = codefaceDocument.selectedArtifact
+                if let artifactVM = documentWindow.selectedArtifact
                 {
                     CodebaseAnalysisContentView(artifactVM: artifactVM,
-                                                codefaceDocument: codefaceDocument,
+                                                codefaceDocument: documentWindow,
                                                 processorVM: processorVM)
                 }
                 else
@@ -38,27 +38,24 @@ struct CodebaseAnalysisView: View
         leftSidebar:
         {
             CodebaseNavigatorView(rootArtifact: rootArtifact,
-                                  codefaceDocument: codefaceDocument,
-                                  showsLinesOfCode: $codefaceDocument.showLoC)
+                                  codefaceDocument: documentWindow,
+                                  showsLinesOfCode: $documentWindow.showLoC)
         }
         rightSidebar:
         {
-            Group
+            if let artifactVM = documentWindow.selectedArtifact
             {
-                if let artifactVM = codefaceDocument.selectedArtifact
-                {
-                    ArtifactInspectorView(artifactVM: artifactVM)
-                }
-                else
-                {
-                    Text("Select a code artifact in the Navigator.")
-                }
+                ArtifactInspectorView(artifactVM: artifactVM)
+            }
+            else
+            {
+                Text("Select a code artifact in the Navigator.")
             }
         }
     }
     
     let rootArtifact: ArtifactViewModel
     
-    @ObservedObject var codefaceDocument: DocumentWindow
+    @ObservedObject var documentWindow: DocumentWindow
     @ObservedObject var processorVM: CodebaseProcessor
 }

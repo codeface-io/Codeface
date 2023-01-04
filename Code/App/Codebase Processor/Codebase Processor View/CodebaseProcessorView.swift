@@ -28,7 +28,7 @@ struct CodebaseProcessorView: View
             
         case .didVisualizeCodebaseArchitecture(_, let rootArtifact):
             CodebaseAnalysisView(rootArtifact: rootArtifact,
-                                 codefaceDocument: documentWindow,
+                                 documentWindow: documentWindow,
                                  processorVM: codebaseProcessor)
             
         case .failed(let errorMessage):

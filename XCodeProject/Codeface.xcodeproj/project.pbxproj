@@ -349,9 +349,8 @@
 			isa = PBXGroup;
 			children = (
 				964464BD295204DB0004382F /* CodebaseAnalysisContentPanel.swift */,
+				965A7AE02965A3E3006C5A3A /* Path Bar */,
 				96D59CBF294AB811003C55B5 /* Search */,
-				96D8DB1C28A1503C00B84B45 /* PathBarView.swift */,
-				964464BA295204900004382F /* PathBar.swift */,
 			);
 			path = "Top Panel";
 			sourceTree = "<group>";
@@ -449,6 +448,15 @@
 				963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */,
 			);
 			path = "Document Window View";
+			sourceTree = "<group>";
+		};
+		965A7AE02965A3E3006C5A3A /* Path Bar */ = {
+			isa = PBXGroup;
+			children = (
+				96D8DB1C28A1503C00B84B45 /* PathBarView.swift */,
+				964464BA295204900004382F /* PathBar.swift */,
+			);
+			path = "Path Bar";
 			sourceTree = "<group>";
 		};
 		966F39B4291C03DE00198B14 /* XPCExecutable */ = {
