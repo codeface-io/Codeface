@@ -125,13 +125,6 @@ public class DocumentWindow: ObservableObject
     // MARK: - Selection View Model
     
     @Published public var selectedArtifact: ArtifactViewModel? = nil
-    {
-        didSet
-        {
-            guard oldValue !== selectedArtifact else { return }
-            oldValue?.lastScopeContentSize = nil
-        }
-    }
     
     // MARK: - Import Views
     
