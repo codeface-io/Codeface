@@ -29,7 +29,7 @@ struct SearchBarView: View
                 }
                 .help("Hide the search filter (⇧⌘F)")
             }
-            .font(.system(size: ContentViewStyle.fontSize))
+            .font(.system(size: CentralViewStyle.fontSize))
             .frame(height: 29)
             .padding(.top, 1)
             .padding(.bottom, 6)

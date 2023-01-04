@@ -7,7 +7,7 @@ struct CodeView: View
         if let code = artifact.codeArtifact.code
         {
             TextEditor(text: .constant("\n" + code))
-                .font(.system(size: ContentViewStyle.fontSize, design: .monospaced))
+                .font(.system(size: CentralViewStyle.fontSize, design: .monospaced))
                 .scrollContentBackground(.hidden) // must be hidden to see background
                 .padding(.leading)
                 .background(colorScheme == .dark ? .black : .white)
