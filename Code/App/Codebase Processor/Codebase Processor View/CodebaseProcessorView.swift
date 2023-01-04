@@ -29,7 +29,7 @@ struct CodebaseProcessorView: View
         case .didVisualizeCodebaseArchitecture(_, let rootArtifact):
             CodebaseAnalysisView(rootArtifact: rootArtifact,
                                  documentWindow: documentWindow,
-                                 processorVM: codebaseProcessor)
+                                 processor: codebaseProcessor)
             
         case .failed(let errorMessage):
             VStack(alignment: .leading)

@@ -9,11 +9,11 @@ struct CodebaseAnalysisView: View
         {
             Group
             {
-                if let artifactVM = documentWindow.selectedArtifact
+                if let artifactVM = processor.selectedArtifact
                 {
                     CodebaseAnalysisContentView(artifactVM: artifactVM,
                                                 codefaceDocument: documentWindow,
-                                                processorVM: processorVM)
+                                                processorVM: processor)
                 }
                 else
                 {
@@ -38,12 +38,12 @@ struct CodebaseAnalysisView: View
         leftSidebar:
         {
             CodebaseNavigatorView(rootArtifact: rootArtifact,
-                                  codefaceDocument: documentWindow,
-                                  showsLinesOfCode: $documentWindow.showLoC)
+                                  selectedArtifact: $processor.selectedArtifact,
+                                  showsLinesOfCode: $processor.showLoC)
         }
         rightSidebar:
         {
-            if let artifactVM = documentWindow.selectedArtifact
+            if let artifactVM = processor.selectedArtifact
             {
                 ArtifactInspectorView(artifactVM: artifactVM)
             }
@@ -57,5 +57,5 @@ struct CodebaseAnalysisView: View
     let rootArtifact: ArtifactViewModel
     
     @ObservedObject var documentWindow: DocumentWindow
-    @ObservedObject var processorVM: CodebaseProcessor
+    @ObservedObject var processor: CodebaseProcessor
 }

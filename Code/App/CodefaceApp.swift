@@ -58,9 +58,9 @@ struct CodefaceApp: App
 
             CommandGroup(replacing: .sidebar)
             {
-                Button("\((focusedDocumentWindow?.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
+                Button("\((focusedDocumentWindow?.codebaseProcessor.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
                 {
-                    focusedDocumentWindow?.showLoC.toggle()
+                    focusedDocumentWindow?.codebaseProcessor.showLoC.toggle()
                 }
                 .keyboardShortcut("l", modifiers: .command)
                 .disabled(focusedDocumentWindow?.codebaseProcessor == nil)

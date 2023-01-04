@@ -4,14 +4,13 @@ import SwiftyToolz
 struct CodebaseNavigatorView: View
 {
     init(rootArtifact: ArtifactViewModel,
-         codefaceDocument: DocumentWindow,
+         selectedArtifact: Binding<ArtifactViewModel?>,
          showsLinesOfCode: Binding<Bool>)
     {
         self.rootArtifact = rootArtifact
-        self.codefaceDocument = codefaceDocument
-        
-        _selectedArtifactID = State(wrappedValue: rootArtifact.id)
+        _selectedArtifact = selectedArtifact
         _showsLinesOfCode = showsLinesOfCode
+        _selectedArtifactID = State(wrappedValue: rootArtifact.id)
     }
     
     var body: some View
@@ -32,21 +31,21 @@ struct CodebaseNavigatorView: View
             {
                 if $0 == artifactVM.id
                 {
-                    codefaceDocument.selectedArtifact = artifactVM
+                    selectedArtifact = artifactVM
                 }
             }
         }
         .onAppear
         {
             // TODO: this should be done much earlier and not here
-            codefaceDocument.selectedArtifact = rootArtifact
+            selectedArtifact = rootArtifact
         }
     }
     
     let rootArtifact: ArtifactViewModel
     
-    // TODO: directly bind our selection to a non-optional selection in the CodefaceDocument or some other view model. there should always be a selection in the context of the whole codebase analysis view since the data always has a root artifact!
-    var codefaceDocument: DocumentWindow
+    // TODO: directly bind our selection to a non-optional selection. there should always be a selection in the context of the whole codebase analysis view since the data always has a root artifact!
+    @Binding var selectedArtifact: ArtifactViewModel?
     
     @Binding var showsLinesOfCode: Bool
     

@@ -7,14 +7,12 @@ import SwiftyToolz
 @MainActor
 public class CodebaseProcessor: ObservableObject
 {
-    init(selectionPublisher: any Publisher<ArtifactViewModel?, Never>)
-    {
-        pathBar = PathBar(selectionPublisher: selectionPublisher)
-    }
-    
     // MARK: - Path Bar
     
-    public let pathBar: PathBar
+    public private(set) lazy var pathBar: PathBar =
+    {
+        PathBar(selectionPublisher: $selectedArtifact)
+    }()
     
     // MARK: - Search
     
@@ -198,4 +196,9 @@ public class CodebaseProcessor: ObservableObject
     public var codebaseDisplayName: String { state.codebaseName ?? "Untitled Codebase" }
     
     @Published public var state = CodebaseProcessorState.empty
+    
+    // MARK: - Analysis Display Options
+    
+    @Published public var selectedArtifact: ArtifactViewModel? = nil
+    @Published public var showLoC: Bool = false
 }

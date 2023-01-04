@@ -22,8 +22,7 @@ public class DocumentWindow: ObservableObject
     
     public func loadProcessorForLastCodebaseIfNoneIsLoaded()
     {
-        if CodebaseLocationPersister.hasPersistedLastCodebaseLocation,
-            codebaseProcessor == nil
+        if CodebaseLocationPersister.hasPersistedLastCodebaseLocation
         {
             loadProcessorForLastCodebase()
         }
@@ -90,7 +89,7 @@ public class DocumentWindow: ObservableObject
     
     private func load(_ state: CodebaseProcessorState)
     {
-        selectedArtifact = nil
+        codebaseProcessor.selectedArtifact = nil
         codebaseProcessor.state = state
         bindCodebaseToProjectProcessorVM()
         
@@ -117,14 +116,7 @@ public class DocumentWindow: ObservableObject
     
     // MARK: - Codebase Processor
     
-    public private(set) lazy var codebaseProcessor: CodebaseProcessor =
-    {
-        CodebaseProcessor(selectionPublisher: $selectedArtifact)
-    }()
-    
-    // MARK: - Selection View Model
-    
-    @Published public var selectedArtifact: ArtifactViewModel? = nil
+    public let codebaseProcessor = CodebaseProcessor()
     
     // MARK: - Import Views
     
@@ -135,8 +127,6 @@ public class DocumentWindow: ObservableObject
     
     @Published public var showsLeftSidebar: Bool = true
     @Published public var showsRightSidebar: Bool = false
-    
-    @Published public var showLoC: Bool = false
     
     public func switchDisplayMode()
     {
