@@ -10,12 +10,12 @@ final class CodeFileArtifact: Identifiable, Sendable
     {
         self.name = name
         self.lines = codeLines
-        self.scope = scope
+        self.scope = .init(artifact: scope)
     }
     
     // MARK: - Tree Structure
     
-    weak var scope: (any CodeArtifact)?
+    let scope: ScopeReference
     var symbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
     
     // MARK: - Basics

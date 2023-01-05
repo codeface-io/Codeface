@@ -6,15 +6,15 @@ final class CodeFolderArtifact: Identifiable, Sendable
     init(name: String, scope: (any CodeArtifact)?)
     {
         self.name = name
-        self.scope = scope
+        self.scope = .init(artifact: scope)
     }
 
     // MARK: - Graph Structure
     
-    weak var scope: (any CodeArtifact)?
+    let scope: ScopeReference
     var partGraph = Graph<CodeArtifact.ID, Part>()
     
-    class Part: CodeArtifact, Identifiable, Hashable
+    final class Part: CodeArtifact, Identifiable, Hashable
     {
         // MARK: Hashability
         
@@ -35,7 +35,7 @@ final class CodeFolderArtifact: Identifiable, Sendable
         
         func sort() { codeArtifact.sort() }
         var parts: [any CodeArtifact] { codeArtifact.parts }
-        var scope: (any CodeArtifact)? { codeArtifact.scope }
+        var scope: ScopeReference { codeArtifact.scope }
         var name: String { codeArtifact.name }
         var kindName: String { codeArtifact.kindName }
         var code: String? { codeArtifact.code }

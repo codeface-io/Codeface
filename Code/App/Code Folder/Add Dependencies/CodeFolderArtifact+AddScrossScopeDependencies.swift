@@ -51,8 +51,8 @@ private extension CodeSymbolArtifact
         assert(self !== targetSymbol, "source and target symbol are the same")
         assert(!sourcePath.isEmpty, "source path is empty")
         assert(!targetPath.isEmpty, "target path is empty")
-        assert(sourcePath.last === scope, "source scope is not last in path")
-        assert(targetPath.last === targetSymbol.scope, "target scope is not last in path")
+        assert(sourcePath.last === scope.artifact, "source scope is not last in path")
+        assert(targetPath.last === targetSymbol.scope.artifact, "target scope is not last in path")
         assert(sourcePath[0] === targetPath[0], "source path root != target path root")
         
         // find latest (deepest) common scope
@@ -89,7 +89,7 @@ private extension CodeArtifact
 {
     func getScopePath() -> [any CodeArtifact]
     {
-        guard let scope else { return [] }
-        return scope.getScopePath() + scope
+        guard let scopeArtifact = scope.artifact else { return [] }
+        return scopeArtifact.getScopePath() + scopeArtifact
     }
 }

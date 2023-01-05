@@ -118,7 +118,7 @@ private extension CodeSymbolArtifact
             //                print("found dependency 🎉\nfrom \(referencingSymbolArtifact.name) of type \(referencingSymbolArtifact.kindName) on line \(referencingLocation.range.start.line) in \(referencingLocation.uri)\nonto \(name) of type \(kindName) on line \(positionInFile) in \(file)\n")
             //            }
             
-            if scope === dependingSymbol.scope
+            if scope.artifact === dependingSymbol.scope.artifact
             {
                 result.inScope += dependingSymbol
             }

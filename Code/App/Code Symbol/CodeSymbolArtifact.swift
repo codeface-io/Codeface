@@ -18,12 +18,12 @@ final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
         self.range = range
         self.selectionRange = selectionRange
         self.code = code
-        self.scope = scope
+        self.scope = .init(artifact: scope)
     }
     
     // MARK: - Graph Structure
     
-    weak var scope: (any CodeArtifact)?
+    let scope: ScopeReference
     var subsymbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
     var outOfScopeDependencies = Set<CodeSymbolArtifact>()
     
