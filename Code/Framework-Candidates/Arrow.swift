@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftyToolz
 import simd
 
+/* produces concurrency warnings for reasons i could not quickly discern
 struct ArrowPreview: PreviewProvider {
     static var previews: some View {
         ZStack {
@@ -18,6 +19,7 @@ struct ArrowPreview: PreviewProvider {
         }
     }
 }
+*/
 
 struct Arrow: Shape
 {
