@@ -1,5 +1,6 @@
 import Foundation
 import SwiftLSP
+import SwiftyToolz
 
 /// Namespace to get the actual processing off the main actor
 @BackgroundActor

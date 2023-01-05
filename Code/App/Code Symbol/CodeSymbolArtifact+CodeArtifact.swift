@@ -1,4 +1,5 @@
 import SwiftLSP
+import SwiftyToolz
 
 extension CodeSymbolArtifact: SearchableCodeArtifact
 {
