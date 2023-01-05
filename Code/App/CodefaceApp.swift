@@ -37,20 +37,20 @@ struct CodefaceApp: App
                 {
                     withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
                     {
-                        focusedDocumentWindow?.codebaseProcessor.startTypingSearchTerm()
+                        analysis?.startTypingSearchTerm()
                     }
                 }
-                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
+                .disabled(analysis == nil)
                 .keyboardShortcut("f")
 
                 Button("Toggle the Search Filter")
                 {
                     withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
                     {
-                        focusedDocumentWindow?.codebaseProcessor.toggleSearchBar()
+                        analysis?.toggleSearchBar()
                     }
                 }
-                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
+                .disabled(analysis == nil)
                 .keyboardShortcut("f", modifiers: [.shift, .command])
             }
             
@@ -58,48 +58,48 @@ struct CodefaceApp: App
 
             CommandGroup(replacing: .sidebar)
             {
-                Button("\((focusedDocumentWindow?.codebaseProcessor.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
+                Button("\((analysis?.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
                 {
-                    focusedDocumentWindow?.codebaseProcessor.showLoC.toggle()
+                    analysis?.showLoC.toggle()
                 }
                 .keyboardShortcut("l", modifiers: .command)
-                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
+                .disabled(analysis == nil)
                 
-                Button("\((focusedDocumentWindow?.codebaseProcessor.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
+                Button("\((analysis?.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
                 {
                     withAnimation
                     {
-                        focusedDocumentWindow?.codebaseProcessor.showsLeftSidebar.toggle()
+                        analysis?.showsLeftSidebar.toggle()
                     }
                 }
                 .keyboardShortcut("0", modifiers: .command)
-                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
+                .disabled(analysis == nil)
 
-                Button("\((focusedDocumentWindow?.codebaseProcessor.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
+                Button("\((analysis?.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
                 {
                     withAnimation
                     {
-                        focusedDocumentWindow?.codebaseProcessor.showsRightSidebar.toggle()
+                        analysis?.showsRightSidebar.toggle()
                     }
                 }
                 .keyboardShortcut("0", modifiers: [.option, .command])
-                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
+                .disabled(analysis == nil)
                 
                 Divider()
                 
                 Button("Switch to Next Display Mode")
                 {
-                    focusedDocumentWindow?.codebaseProcessor.switchDisplayMode()
+                    analysis?.switchDisplayMode()
                 }
                 .keyboardShortcut(.rightArrow, modifiers: .command)
-                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
+                .disabled(analysis == nil)
 
                 Button("Switch to Previous Display Mode")
                 {
-                    focusedDocumentWindow?.codebaseProcessor.switchDisplayMode()
+                    analysis?.switchDisplayMode()
                 }
                 .keyboardShortcut(.leftArrow, modifiers: .command)
-                .disabled(focusedDocumentWindow?.codebaseProcessor == nil)
+                .disabled(analysis == nil)
 
                 Divider()
                 
@@ -192,6 +192,11 @@ struct CodefaceApp: App
     }
     
     // MARK: - Basics
+    
+    private var analysis: CodebaseAnalysis?
+    {
+        focusedDocumentWindow?.codebaseProcessor.state.analysis
+    }
     
     @FocusedObject private var focusedDocumentWindow: DocumentWindow?
 }

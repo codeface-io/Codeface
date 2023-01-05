@@ -1,6 +1,6 @@
 import SwiftLSP
 
-public enum CodebaseProcessorState
+enum CodebaseProcessorState
 {
     public var codebaseName: String?
     {
@@ -8,17 +8,8 @@ public enum CodebaseProcessorState
         {
         case .didLocateCodebase(let location): return location.folder.lastPathComponent
         case .didRetrieveCodebase(let codebase): return codebase.name
-        case .didVisualizeCodebaseArchitecture(let codebase, _): return codebase.name
+        case .analyzingCodebaseArchitecture(let codebase, _): return codebase.name
         default: return nil
-        }
-    }
-    
-    public var isEmpty: Bool
-    {
-        switch self
-        {
-        case .empty: return true
-        default: return false
         }
     }
     
@@ -27,9 +18,19 @@ public enum CodebaseProcessorState
         switch self
         {
         case .didRetrieveCodebase(let codebase): return codebase
-        case .didVisualizeCodebaseArchitecture(let codebase, _): return codebase
+        case .analyzingCodebaseArchitecture(let codebase, _): return codebase
         default: return nil
         }
+    }
+    
+    public var analysis: CodebaseAnalysis?
+    {
+        if case .analyzingCodebaseArchitecture(_, let analysis) = self
+        {
+            return analysis
+        }
+        
+        return nil
     }
     
     case empty,
@@ -37,7 +38,7 @@ public enum CodebaseProcessorState
          retrievingCodebase(CodebaseRetrievalStep),
          didRetrieveCodebase(CodeFolder),
          visualizingCodebaseArchitecture(CodebaseArchitectureVisualizationStep),
-         didVisualizeCodebaseArchitecture(CodeFolder, ArtifactViewModel),
+         analyzingCodebaseArchitecture(CodeFolder, CodebaseAnalysis),
          failed(String)
     
     public enum CodebaseRetrievalStep: String, Equatable

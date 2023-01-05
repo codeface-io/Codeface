@@ -7,66 +7,6 @@ import SwiftyToolz
 @MainActor
 public class CodebaseProcessor: ObservableObject
 {
-    // MARK: - Path Bar
-    
-    public private(set) lazy var pathBar: PathBar =
-    {
-        PathBar(selectionPublisher: $selectedArtifact)
-    }()
-    
-    // MARK: - Search
-    
-    public func startTypingSearchTerm()
-    {
-        search.barIsShown = true
-        set(fieldIsFocused: true)
-    }
-    
-    public func toggleSearchBar()
-    {
-        search.barIsShown.toggle()   
-        set(fieldIsFocused: search.barIsShown)
-    }
-    
-    public func hideSearchBar()
-    {
-        set(fieldIsFocused: false)
-        search.barIsShown = false
-    }
-    
-    public func set(fieldIsFocused: Bool)
-    {
-        guard search.fieldIsFocused != fieldIsFocused else { return }
-        search.fieldIsFocused = fieldIsFocused
-        if !fieldIsFocused { submitSearchTerm() }
-    }
-    
-    public func set(searchTerm: String)
-    {
-        guard search.term != searchTerm else { return }
-        search.term = searchTerm
-        updateSearchFilter()
-    }
-    
-    public func submitSearchTerm()
-    {
-        search.fieldIsFocused = false
-        updateSearchFilter()
-    }
-    
-    private func updateSearchFilter()
-    {
-        if case .didVisualizeCodebaseArchitecture(_, let rootViewModel) = state
-        {
-            // TODO: rather "clear search results" when term is empty
-            rootViewModel.updateSearchResults(withSearchTerm: search.term)
-            
-            rootViewModel.updateSearchFilter(allPass: search.term.isEmpty)
-        }
-    }
-    
-    @Published public var search = Search()
-    
     // MARK: - Run Processing
     
     public func run()
@@ -110,7 +50,7 @@ public class CodebaseProcessor: ObservableObject
             architectureViewModel.addDependencies()
             stopWatch.measure("Adding Dependencies To View Model")
             
-            state = .didVisualizeCodebaseArchitecture(codebase, architectureViewModel)
+            state = .analyzingCodebaseArchitecture(codebase, .init(rootArtifact: architectureViewModel))
         }
     }
     
@@ -151,7 +91,7 @@ public class CodebaseProcessor: ObservableObject
         case .didRetrieveCodebase(let codebase):
             return codebase
             
-        case .didVisualizeCodebaseArchitecture(let codebase, _):
+        case .analyzingCodebaseArchitecture(let codebase, _):
             return codebase
             
         default:
@@ -195,24 +135,5 @@ public class CodebaseProcessor: ObservableObject
     
     public var codebaseDisplayName: String { state.codebaseName ?? "Untitled Codebase" }
     
-    @Published public var state = CodebaseProcessorState.empty
-    
-    // MARK: - Analysis Display Options
-    
-    @Published public var showsLeftSidebar: Bool = true
-    @Published public var showsRightSidebar: Bool = false
-    
-    public func switchDisplayMode()
-    {
-        switch displayMode
-        {
-        case .code: displayMode = .treeMap
-        case .treeMap: displayMode = .code
-        }
-    }
-    
-    @Published public var displayMode: DisplayMode = .treeMap
-    
-    @Published public var selectedArtifact: ArtifactViewModel? = nil
-    @Published public var showLoC: Bool = false
+    @Published var state = CodebaseProcessorState.empty
 }

@@ -7,12 +7,11 @@ struct CodebaseCentralView: View
     {
         VStack(spacing: 0)
         {
-            TopPanel(processorVM: processorVM,
-                     artifactName: artifactVM.codeArtifact.name)
+            TopPanel(analysis: analysis)
             
-            if artifactVM.filteredParts.isEmpty
+            if analysis.selectedArtifact.filteredParts.isEmpty
             {
-                let contentIsFilteredOut = !artifactVM.passesSearchFilter || !artifactVM.parts.isEmpty
+                let contentIsFilteredOut = !analysis.selectedArtifact.passesSearchFilter || !analysis.selectedArtifact.parts.isEmpty
                 
                 if contentIsFilteredOut
                 {
@@ -25,14 +24,14 @@ struct CodebaseCentralView: View
                             .font(.title)
                             .padding(.bottom)
                         
-                        Text(artifactVM.codeArtifact.name + " does not contain \"\(processorVM.search.term)\"")
+                        Text(analysis.selectedArtifact.codeArtifact.name + " does not contain \"\(analysis.search.term)\"")
                             .foregroundColor(.secondary)
                             .padding(.bottom)
                             .font(.title3)
                         
                         Button("Clear Search Filter", role: .destructive)
                         {
-                            processorVM.set(searchTerm: "")
+                            analysis.set(searchTerm: "")
                         }
                         .focusable(false)
                         .font(.title3)
@@ -41,22 +40,22 @@ struct CodebaseCentralView: View
                     }
                     .padding()
                 }
-                else if case .symbol = artifactVM.kind
+                else if case .symbol = analysis.selectedArtifact.kind
                 {
-                    CodeView(artifact: artifactVM)
+                    CodeView(artifact: analysis.selectedArtifact)
                 }
                 else
                 {
                     VStack
                     {
-                        Label("Empty " + artifactVM.codeArtifact.kindName, systemImage: "xmark.rectangle")
+                        Label("Empty " + analysis.selectedArtifact.codeArtifact.kindName, systemImage: "xmark.rectangle")
                             .foregroundColor(.secondary)
                             .font(.system(.title))
                             .padding(.bottom)
                         
                         if serverManager.serverIsWorking
                         {
-                            Text(artifactVM.codeArtifact.name + " contains no further symbols.")
+                            Text(analysis.selectedArtifact.codeArtifact.name + " contains no further symbols.")
                                 .foregroundColor(.secondary)
                         }
                         else
@@ -69,19 +68,16 @@ struct CodebaseCentralView: View
             }
             else
             {
-                switch processorVM.displayMode
+                switch analysis.displayMode
                 {
-                case .treeMap: TreeMap(rootArtifactVM: artifactVM,
-                                       viewModel: processorVM)
-                case .code: CodeView(artifact: artifactVM)
+                case .treeMap: TreeMap(analysis: analysis)
+                case .code: CodeView(artifact: analysis.selectedArtifact)
                 }
             }
         }
     }
     
-    let artifactVM: ArtifactViewModel
-    
-    @ObservedObject var processorVM: CodebaseProcessor
+    @ObservedObject var analysis: CodebaseAnalysis
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }

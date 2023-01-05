@@ -14,8 +14,8 @@ struct RootArtifactContentView: View
                 if artifact.showsContent
                 {
                     ArtifactContentView(artifactVM: artifact,
-                                        pathBar: viewModel.pathBar,
-                                        ignoreSearchFilter: viewModel.search.fieldIsFocused,
+                                        pathBar: analysis.pathBar,
+                                        ignoreSearchFilter: analysis.search.fieldIsFocused,
                                         bgBrightness: colorScheme == .dark ? 0 : 0.6)
                     .drawingGroup()
                 }
@@ -50,14 +50,14 @@ struct RootArtifactContentView: View
                 withAnimation(.easeInOut(duration: 1))
                 {
                     artifact.updateLayout(forScopeSize: newSize.size,
-                                          ignoreSearchFilter: viewModel.search.fieldIsFocused)
+                                          ignoreSearchFilter: analysis.search.fieldIsFocused)
                 }
             }
-            .onReceive(viewModel.$search.map({ $0.term }).removeDuplicates().dropFirst())
+            .onReceive(analysis.$search.map({ $0.term }).removeDuplicates().dropFirst())
             {
                 newTerm in
                 
-                guard !viewModel.search.fieldIsFocused else { return }
+                guard !analysis.search.fieldIsFocused else { return }
                 
                 withAnimation(.easeInOut(duration: 1))
                 {
@@ -66,7 +66,7 @@ struct RootArtifactContentView: View
                                           forceUpdate: true)
                 }
             }
-            .onReceive(viewModel.$search.map({ $0.fieldIsFocused }).removeDuplicates().dropFirst())
+            .onReceive(analysis.$search.map({ $0.fieldIsFocused }).removeDuplicates().dropFirst())
             {
                 isTyping in
                 
@@ -86,7 +86,7 @@ struct RootArtifactContentView: View
 //                print("attempt to layout new artifact \(newArtifact.codeArtifact.name)")
                 
                 newArtifact.updateLayout(forScopeSize: geo.size.size,
-                                         ignoreSearchFilter: viewModel.search.fieldIsFocused,
+                                         ignoreSearchFilter: analysis.search.fieldIsFocused,
                                          forceUpdate: true)
             }
             .onAppear
@@ -94,14 +94,14 @@ struct RootArtifactContentView: View
 //                print("attempt to layout artifact \(artifact.codeArtifact.name) because view appeared")
                 
                 artifact.updateLayout(forScopeSize: geo.size.size,
-                                      ignoreSearchFilter: viewModel.search.fieldIsFocused,
+                                      ignoreSearchFilter: analysis.search.fieldIsFocused,
                                       forceUpdate: true)
             }
         }
     }
     
     @ObservedObject var artifact: ArtifactViewModel
-    var viewModel: CodebaseProcessor
+    var analysis: CodebaseAnalysis
     @Environment(\.colorScheme) var colorScheme
 }
 

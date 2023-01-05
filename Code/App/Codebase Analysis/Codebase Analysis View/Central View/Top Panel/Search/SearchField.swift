@@ -3,10 +3,10 @@ import SwiftUI
 struct SearchField: View
 {
     @MainActor
-    init(processorVM: CodebaseProcessor, artifactName: String)
+    init(analysis: CodebaseAnalysis, artifactName: String)
     {
-        self.processorVM = processorVM
-        _searchTerm = State(wrappedValue: processorVM.search.term)
+        self.analysis = analysis
+        _searchTerm = State(wrappedValue: analysis.search.term)
         self.artifactName = artifactName
     }
     
@@ -25,18 +25,18 @@ struct SearchField: View
             .onChange(of: isFocused)
             {
                 // ❗️ we have to write the view model async (later) to not screw up focus management
-                newFocus in Task { processorVM.set(fieldIsFocused: newFocus) }
+                newFocus in Task { analysis.set(fieldIsFocused: newFocus) }
             }
-            .onReceive(processorVM.$search.dropFirst().map({ $0.fieldIsFocused }).removeDuplicates())
+            .onReceive(analysis.$search.dropFirst().map({ $0.fieldIsFocused }).removeDuplicates())
             {
                 isFocused = $0
             }
             .onChange(of: searchTerm)
             {
                 // ❗️ we have to write the view model async (later) to not screw up focus management
-                newTerm in Task { processorVM.set(searchTerm: newTerm) }
+                newTerm in Task { analysis.set(searchTerm: newTerm) }
             }
-            .onReceive(processorVM.$search.dropFirst().map({ $0.term }).removeDuplicates())
+            .onReceive(analysis.$search.dropFirst().map({ $0.term }).removeDuplicates())
             {
                 searchTerm = $0
             }
@@ -46,16 +46,16 @@ struct SearchField: View
                 isFocused = false
                 
                 // ❗️ we have to write the view model async (later) to not screw up focus management
-                Task { processorVM.submitSearchTerm() }
+                Task { analysis.submitSearchTerm() }
             }
             
-            if !processorVM.search.term.isEmpty
+            if !analysis.search.term.isEmpty
             {
                 Button(systemImageName: "xmark.circle.fill")
                 {
                     withAnimation(.easeInOut(duration: 1))
                     {
-                        processorVM.set(searchTerm: "")
+                        analysis.set(searchTerm: "")
                     }
                 }
                 .foregroundColor(.secondary)
@@ -77,8 +77,8 @@ struct SearchField: View
         }
     }
     
-    /// ❗️ we can **not** make processorVM an `@ObservedObject` and simply use `onChange(of:)` for observing the search VM since that would also screw up focus management ...
-    let processorVM: CodebaseProcessor
+    /// ❗️ we can **not** make analysis an `@ObservedObject` and simply use `onChange(of:)` for observing `Search` since that would also screw up focus management ...
+    let analysis: CodebaseAnalysis
     
     @FocusState
     private var isFocused: Bool

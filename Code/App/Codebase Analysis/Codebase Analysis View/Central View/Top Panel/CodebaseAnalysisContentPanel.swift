@@ -6,17 +6,15 @@ struct TopPanel: View
     {
         VStack(spacing: 0)
         {
-            PathBarView(overviewBar: processorVM.pathBar)
+            PathBarView(overviewBar: analysis.pathBar)
             
-            SearchBarView(processorVM: processorVM,
-                          artifactName: artifactName)
+            SearchBarView(analysis: analysis,
+                          artifactName: analysis.selectedArtifact.codeArtifact.name)
             
             Divider()
         }
         .background(Color(NSColor.controlBackgroundColor))
     }
     
-    @ObservedObject var processorVM: CodebaseProcessor
-    
-    let artifactName: String
+    @ObservedObject var analysis: CodebaseAnalysis
 }

@@ -31,9 +31,9 @@ struct DocumentWindowView: View
             {
                 ToolbarItemGroup(placement: .secondaryAction)
                 {
-                    if !documentWindow.codebaseProcessor.search.term.isEmpty
+                    if let analysis, !analysis.search.term.isEmpty
                     {
-                        ToolbarFilterIndicator(processorVM: documentWindow.codebaseProcessor)
+                        ToolbarFilterIndicator(analysis: analysis)
                     }
                 }
                 
@@ -45,26 +45,28 @@ struct DocumentWindowView: View
                     {
                         withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
                         {
-                            documentWindow.codebaseProcessor.toggleSearchBar()
+                            analysis?.toggleSearchBar()
                         }
                     }
                     .help("Toggle the Search Filter (⇧⌘F)")
-//                    .disabled(!documentWindow.projectProcessorVM.activeProcessor.isEmpty)
+                    .disabled(analysis == nil)
                     
                     DisplayModePicker(displayMode: .init(get: {
-                        documentWindow.codebaseProcessor.displayMode
+                        analysis?.displayMode ?? .treeMap
                     }, set: { newDisplayMode in
-                        documentWindow.codebaseProcessor.displayMode = newDisplayMode
+                        analysis?.displayMode = newDisplayMode
                     }))
+                    .disabled(analysis == nil)
                     
                     Button(systemImageName: "sidebar.right")
                     {
                         withAnimation
                         {
-                            documentWindow.codebaseProcessor.showsRightSidebar.toggle()
+                            analysis?.showsRightSidebar.toggle()
                         }
                     }
                     .help("Toggle Inspector (⌥⌘0)")
+                    .disabled(analysis == nil)
                 }
             }
             .onReceive(documentWindow.$codebase)
@@ -81,6 +83,11 @@ struct DocumentWindowView: View
                     documentWindow.loadProcessor(for: codebase)
                 }
             }
+    }
+    
+    private var analysis: CodebaseAnalysis?
+    {
+        documentWindow.codebaseProcessor.state.analysis
     }
     
     @Binding var codebaseFile: CodebaseFileDocument

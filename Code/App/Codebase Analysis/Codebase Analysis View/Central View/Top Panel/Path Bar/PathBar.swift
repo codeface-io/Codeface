@@ -6,7 +6,7 @@ public class PathBar: ObservableObject
 {
     // MARK: - Initialize
     
-    init(selectionPublisher: any Publisher<ArtifactViewModel?, Never>)
+    init(selectionPublisher: any Publisher<ArtifactViewModel, Never>)
     {
         self.selectionPublisher = selectionPublisher
         observeSelection()
@@ -30,7 +30,7 @@ public class PathBar: ObservableObject
         artifactVMStack.elements = artifactVM?.getPath() ?? []
     }
     
-    var selectionPublisher: any Publisher<ArtifactViewModel?, Never>
+    var selectionPublisher: any Publisher<ArtifactViewModel, Never>
     
     // MARK: - Manage Whole Stack
 

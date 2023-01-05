@@ -26,20 +26,11 @@ struct CodebaseProcessorView: View
             LoadingProgressView(primaryText: "Analyzing " + codebaseProcessor.codebaseDisplayName,
                                 secondaryText: step.rawValue).padding()
             
-        case .didVisualizeCodebaseArchitecture(_, let rootArtifact):
-            CodebaseAnalysisView(rootArtifact: rootArtifact,
-                                 processor: codebaseProcessor)
+        case .analyzingCodebaseArchitecture(_, let analysis):
+            CodebaseAnalysisView(analysis: analysis)
             
         case .failed(let errorMessage):
-            VStack(alignment: .leading)
-            {
-                Text("An error occured while loading the codebase:")
-                    .foregroundColor(Color(NSColor.systemRed))
-                    .padding(.bottom)
-
-                Text(errorMessage)
-            }
-            .padding()
+            ProcessingFailureView(errorMessage: errorMessage).padding()
         }
     }
     

@@ -89,7 +89,6 @@ public class DocumentWindow: ObservableObject
     
     private func load(_ state: CodebaseProcessorState)
     {
-        codebaseProcessor.selectedArtifact = nil
         codebaseProcessor.state = state
         bindCodebaseToProjectProcessorVM()
         

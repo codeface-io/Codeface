@@ -4,46 +4,21 @@ struct CodebaseAnalysisView: View
 {
     var body: some View
     {
-        DoubleSidebarView(showLeftSidebar: $processor.showsLeftSidebar,
-                          showRightSidebar: $processor.showsRightSidebar)
+        DoubleSidebarView(showLeftSidebar: $analysis.showsLeftSidebar,
+                          showRightSidebar: $analysis.showsRightSidebar)
         {
-            if let artifactVM = processor.selectedArtifact
-            {
-                CodebaseCentralView(artifactVM: artifactVM,
-                                    processorVM: processor)
-            }
-            else
-            {
-                VStack
-                {
-                    Spacer()
-                    
-                    Label("Nothing Selected", systemImage: "xmark.rectangle")
-                        .font(.title)
-                    
-                    Text("Select a code artifact in the navigator on the left.")
-                        .font(.title3)
-                        .padding(.top)
-                    
-                    Spacer()
-                }
-                .foregroundColor(.secondary)
-                .padding()
-            }
+            CodebaseCentralView(analysis: analysis)
         }
         leftSidebar:
         {
-            CodebaseNavigatorView(rootArtifact: rootArtifact,
-                                  selectedArtifact: $processor.selectedArtifact,
-                                  showsLinesOfCode: $processor.showLoC)
+            CodebaseNavigatorView(analysis: analysis,
+                                  showsLinesOfCode: $analysis.showLoC)
         }
         rightSidebar:
         {
-            CodebaseInspectorView(processor: processor)
+            CodebaseInspectorView(selectedArtifact: analysis.selectedArtifact)
         }
     }
     
-    let rootArtifact: ArtifactViewModel
-
-    @ObservedObject var processor: CodebaseProcessor
+    @ObservedObject var analysis: CodebaseAnalysis
 }

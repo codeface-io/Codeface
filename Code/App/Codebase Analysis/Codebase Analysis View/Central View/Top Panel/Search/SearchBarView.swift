@@ -8,14 +8,13 @@ struct SearchBarView: View
         {
             HStack // field & button
             {
-                SearchField(processorVM: processorVM,
-                            artifactName: artifactName)
+                SearchField(analysis: analysis, artifactName: artifactName)
                 
                 Button("Done")
                 {
                     withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
                     {
-                        processorVM.hideSearchBar()
+                        analysis.hideSearchBar()
                     }
                 }
                 .focusable(false)
@@ -35,11 +34,11 @@ struct SearchBarView: View
             .padding(.bottom, 6)
             .padding([.leading, .trailing])
         }
-        .frame(height: processorVM.search.barIsShown ? nil : 0)
+        .frame(height: analysis.search.barIsShown ? nil : 0)
         .clipShape(Rectangle())
     }
     
-    @ObservedObject var processorVM: CodebaseProcessor
+    @ObservedObject var analysis: CodebaseAnalysis
     
     let artifactName: String
 }

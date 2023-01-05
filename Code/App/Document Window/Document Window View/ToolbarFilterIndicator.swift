@@ -4,11 +4,11 @@ struct ToolbarFilterIndicator: View
 {
     var body: some View
     {
-        if !processorVM.search.term.isEmpty
+        if !analysis.search.term.isEmpty
         {
             Button
             {
-                processorVM.set(searchTerm: "")
+                analysis.set(searchTerm: "")
             }
             label:
             {
@@ -16,7 +16,7 @@ struct ToolbarFilterIndicator: View
                 {
                     Text("Search Filter:")
                     
-                    Text(processorVM.search.term)
+                    Text(analysis.search.term)
                         .foregroundColor(.accentColor)
                     
                     Image(systemName: "xmark")
@@ -27,5 +27,5 @@ struct ToolbarFilterIndicator: View
         }
     }
     
-    @ObservedObject var processorVM: CodebaseProcessor
+    @ObservedObject var analysis: CodebaseAnalysis
 }
