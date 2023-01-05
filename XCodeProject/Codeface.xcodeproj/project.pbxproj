@@ -405,7 +405,6 @@
 			children = (
 				965A7ADA2964A3F8006C5A3A /* Codebase Processor View */,
 				965A7ADD2964A6B2006C5A3A /* Codebase Processor */,
-				965795AF2954661700CB9F3F /* Display Mode */,
 			);
 			path = "Codebase Processor";
 			sourceTree = "<group>";
@@ -426,6 +425,7 @@
 			children = (
 				965A7AE42965D991006C5A3A /* Codebase Analysis View */,
 				9619A2B12966E57700863BC0 /* CodebaseAnalysis.swift */,
+				965795AF2954661700CB9F3F /* Display Mode */,
 			);
 			path = "Codebase Analysis";
 			sourceTree = "<group>";
