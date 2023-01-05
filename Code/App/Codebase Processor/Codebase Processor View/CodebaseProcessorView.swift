@@ -26,7 +26,7 @@ struct CodebaseProcessorView: View
             LoadingProgressView(primaryText: "Analyzing " + codebaseProcessor.codebaseDisplayName,
                                 secondaryText: step.rawValue).padding()
             
-        case .analyzingCodebaseArchitecture(_, let analysis):
+        case .analyzingCodebaseArchitecture(let analysis):
             CodebaseAnalysisView(analysis: analysis)
             
         case .failed(let errorMessage):

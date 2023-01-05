@@ -13,6 +13,8 @@ public class CodebaseProcessor: ObservableObject
     {
         Task // to enter an async context
         {
+            // TODO: consider state here, not just in retrieveCodebase()
+            
             // get codebase
             guard let codebase = await retrieveCodebase() else { return }
 
@@ -50,7 +52,7 @@ public class CodebaseProcessor: ObservableObject
             architectureViewModel.addDependencies()
             stopWatch.measure("Adding Dependencies To View Model")
             
-            state = .analyzingCodebaseArchitecture(codebase, .init(rootArtifact: architectureViewModel))
+            state = .analyzingCodebaseArchitecture(.init(rootArtifact: architectureViewModel))
         }
     }
     
@@ -89,9 +91,6 @@ public class CodebaseProcessor: ObservableObject
             }
             
         case .didRetrieveCodebase(let codebase):
-            return codebase
-            
-        case .analyzingCodebaseArchitecture(let codebase, _):
             return codebase
             
         default:

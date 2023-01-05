@@ -8,7 +8,7 @@ enum CodebaseProcessorState
         {
         case .didLocateCodebase(let location): return location.folder.lastPathComponent
         case .didRetrieveCodebase(let codebase): return codebase.name
-        case .analyzingCodebaseArchitecture(let codebase, _): return codebase.name
+        case .analyzingCodebaseArchitecture(let analysis): return analysis.rootArtifact.codeArtifact.name
         default: return nil
         }
     }
@@ -18,18 +18,13 @@ enum CodebaseProcessorState
         switch self
         {
         case .didRetrieveCodebase(let codebase): return codebase
-        case .analyzingCodebaseArchitecture(let codebase, _): return codebase
         default: return nil
         }
     }
     
     public var analysis: CodebaseAnalysis?
     {
-        if case .analyzingCodebaseArchitecture(_, let analysis) = self
-        {
-            return analysis
-        }
-        
+        if case .analyzingCodebaseArchitecture(let analysis) = self { return analysis }
         return nil
     }
     
@@ -38,7 +33,7 @@ enum CodebaseProcessorState
          retrievingCodebase(CodebaseRetrievalStep),
          didRetrieveCodebase(CodeFolder),
          visualizingCodebaseArchitecture(CodebaseArchitectureVisualizationStep),
-         analyzingCodebaseArchitecture(CodeFolder, CodebaseAnalysis),
+         analyzingCodebaseArchitecture(CodebaseAnalysis),
          failed(String)
     
     public enum CodebaseRetrievalStep: String, Equatable
