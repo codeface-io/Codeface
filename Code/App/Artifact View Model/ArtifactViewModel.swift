@@ -7,16 +7,17 @@ class ArtifactViewModel: Identifiable, ObservableObject
 {
     // MARK: - Initialization
     
-    init(folderArtifact: CodeFolderArtifact, isPackage: Bool)
+    init(folderArtifact: CodeFolderArtifact, isPackage: Bool) async
     {
         // create child presentations for parts recursively
-        self.parts = folderArtifact.partGraph.values.map
+        self.parts = await folderArtifact.partGraph.values.asyncMap
         {
             switch $0.kind
             {
-            case .file(let file): return .init(fileArtifact: file)
-            case .subfolder(let subfolder): return .init(folderArtifact: subfolder,
-                                                         isPackage: false)
+            case .file(let file):
+                return await .init(fileArtifact: file)
+            case .subfolder(let subfolder):
+                return await .init(folderArtifact: subfolder, isPackage: false)
             }
         }
         
@@ -35,17 +36,19 @@ class ArtifactViewModel: Identifiable, ObservableObject
         
         linesOfCodeColor = .system(.gray)
         
+        metrics = await folderArtifact.metrics
+        
         kind = .folder(folderArtifact)
         
         for part in parts { part.scope = self }
     }
     
-    private init(fileArtifact: CodeFileArtifact)
+    private init(fileArtifact: CodeFileArtifact) async
     {
         // create child presentations for symbols recursively
-        self.parts = fileArtifact.symbolGraph.values.map
+        self.parts = await fileArtifact.symbolGraph.values.asyncMap
         {
-            ArtifactViewModel(symbolArtifact: $0)
+            await ArtifactViewModel(symbolArtifact: $0)
         }
         
         if fileArtifact.name.hasSuffix(".swift")
@@ -59,24 +62,28 @@ class ArtifactViewModel: Identifiable, ObservableObject
             iconFillColor = .rgba(.white)
         }
             
-        linesOfCodeColor = .system(systemColor(forLinesOfCode: fileArtifact.linesOfCode))
+        linesOfCodeColor = .system(systemColor(forLinesOfCode: await fileArtifact.linesOfCode))
+        
+        metrics = await fileArtifact.metrics
         
         kind = .file(fileArtifact)
         
         for part in parts { part.scope = self }
     }
     
-    private init(symbolArtifact: CodeSymbolArtifact)
+    private init(symbolArtifact: CodeSymbolArtifact) async
     {
         // create child presentations for subsymbols recursively
-        self.parts = symbolArtifact.subsymbolGraph.values.map
+        self.parts = await symbolArtifact.subsymbolGraph.values.asyncMap
         {
-            ArtifactViewModel(symbolArtifact: $0)
+            await ArtifactViewModel(symbolArtifact: $0)
         }
         
         self.iconSystemImageName = symbolIconSystemImageName(for: symbolArtifact.kind)
         self.iconFillColor = symbolIconFillColor(for: symbolArtifact.kind)
         linesOfCodeColor = .system(.gray)
+        
+        metrics = await symbolArtifact.metrics
         
         kind = .symbol(symbolArtifact)
         
@@ -147,6 +154,8 @@ class ArtifactViewModel: Identifiable, ObservableObject
     var partsContainSearchTerm: Bool?
     
     // MARK: - Basics
+    
+    let metrics: Metrics
     
     var scope: ArtifactViewModel?
     let parts: [ArtifactViewModel]

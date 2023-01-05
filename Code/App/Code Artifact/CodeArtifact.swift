@@ -7,8 +7,6 @@ protocol SearchableCodeArtifact: CodeArtifact
 
 extension CodeArtifact
 {
-    var linesOfCode: Int { metrics.linesOfCode ?? 0 }
-    
     func contains(_ otherArtifact: any CodeArtifact) -> Bool
     {
         if otherArtifact === self { return true }
@@ -23,11 +21,11 @@ extension CodeArtifact
     }
 }
 
-public protocol CodeArtifact: AnyObject, Hashable
+protocol CodeArtifact: AnyObject, Hashable
 {
     // analysis
+    @BackgroundActor
     func sort()
-    var metrics: Metrics { get set }
     
     // hierarchy
     var scope: (any CodeArtifact)? { get }

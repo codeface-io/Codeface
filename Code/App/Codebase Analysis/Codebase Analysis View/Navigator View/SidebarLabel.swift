@@ -10,11 +10,11 @@ struct SidebarLabel: View
             Text(artifact.codeArtifact.name)
                 .font(.system(.title3, design: artifact.fontDesign))
             
-            if showsLinesOfCode, let loc = artifact.codeArtifact.linesOfCode
+            if showsLinesOfCode, let linesOfCode = artifact.metrics.linesOfCode
             {
                 Spacer()
 
-                Text("\(loc)")
+                Text("\(linesOfCode)")
                     .foregroundColor(.init(artifact.linesOfCodeColor))
                     .monospacedDigit()
             }

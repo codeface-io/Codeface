@@ -11,20 +11,18 @@ extension CodeFolder
         let parentPathWithSlash = parentPath?.appending("/") ?? ""
         let folderPath = parentPathWithSlash + name
         
-        var resultingSubFolders = [CodeFolder]()
-        
-        for subfolder in (subfolders ?? [])
+        /// recursive calls
+        let resultingSubFolders: [CodeFolder] = try await (subfolders ?? []).asyncMap
         {
-            /// recursive call
-            resultingSubFolders += try await subfolder.retrieveSymbolsAndReferences(inParentFolderPath: folderPath,
-                                                                                    from: server,
-                                                                                    codebaseRootFolder: codebaseRootFolder)
+            try await $0.retrieveSymbolsAndReferences(inParentFolderPath: folderPath,
+                                                      from: server,
+                                                      codebaseRootFolder: codebaseRootFolder)
         }
         
-        var resultingFiles = [CodeFile]()
-        
-        for file in (files ?? [])
+        let resultingFiles: [CodeFile] = try await (files ?? []).asyncMap
         {
+            file in
+            
             let fileUri = CodeFolder.fileURI(forFilePath: folderPath + "/" + file.name,
                                              inRootFolder: codebaseRootFolder)
             
@@ -32,22 +30,20 @@ extension CodeFolder
             
             let retrievedSymbols = try await server.requestSymbols(in: fileUri)
             
-            var symbolDataArray = [CodeSymbol]()
-            
-            for retrievedSymbol in retrievedSymbols
+            let symbolDataArray: [CodeSymbol] = try await retrievedSymbols.asyncMap
             {
-                symbolDataArray += try await CodeSymbol(lspDocumentSymbol: retrievedSymbol,
-                                                        enclosingFile: fileUri,
-                                                        codebaseRootPathAbsolute: codebaseRootFolder.absoluteString,
-                                                        server: server)
+                try await CodeSymbol(lspDocumentSymbol: $0,
+                                     enclosingFile: fileUri,
+                                     codebaseRootPathAbsolute: codebaseRootFolder.absoluteString,
+                                     server: server)
             }
             
             /**
              this is where the magic happens: we create a new file instance in which the symbol data is not nil anymore. this quasi copying allows the symbols property to be constant and CodeFile and CodeFolder to be `Sendable`
              */
-            resultingFiles += CodeFile(name: file.name,
-                                       code: file.code,
-                                       symbols: symbolDataArray)
+            return CodeFile(name: file.name,
+                            code: file.code,
+                            symbols: symbolDataArray)
         }
         
         return CodeFolder(name: name,
@@ -70,21 +66,19 @@ private extension CodeSymbol
                      server: LSP.Server) async throws
     {
         /// depth first recursive calls
-        var resultingChildren = [CodeSymbol]()
-        
-        for child in lspDocumentSymbol.children
+        var resultingChildren: [CodeSymbol] = try await lspDocumentSymbol.children.asyncMap
         {
-            resultingChildren += try await CodeSymbol(lspDocumentSymbol: child,
-                                                          enclosingFile: enclosingFile,
-                                                          codebaseRootPathAbsolute: codebaseRootPathAbsolute,
-                                                          server: server)
+            try await CodeSymbol(lspDocumentSymbol: $0,
+                                 enclosingFile: enclosingFile,
+                                 codebaseRootPathAbsolute: codebaseRootPathAbsolute,
+                                 server: server)
         }
         
         /// retrieve references
         let referenceLocations = try await CodeSymbol.retrieveReferences(for: lspDocumentSymbol,
-                                                                             in: enclosingFile,
-                                                                             codebaseRootPathAbsolute: codebaseRootPathAbsolute,
-                                                                             from: server)
+                                                                         in: enclosingFile,
+                                                                         codebaseRootPathAbsolute: codebaseRootPathAbsolute,
+                                                                         from: server)
         
         /// call designated initializer
         try self.init(lspDocumentySymbol: lspDocumentSymbol,

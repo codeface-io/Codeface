@@ -1,13 +1,9 @@
 import SwiftNodes
 
-extension GraphNode: Comparable where Value: CodeArtifact
+@BackgroundActor
+extension GraphNode where Value: CodeArtifact
 {
-    public static func < (lhs: Node, rhs: Node) -> Bool
-    {
-        lhs.goesBefore(rhs)
-    }
-    
-    private func goesBefore(_ nextNode: Node) -> Bool
+    func goesBefore(_ nextNode: Node) -> Bool
     {
         let nextArtifact = nextNode.value
         let thisArtifact = value

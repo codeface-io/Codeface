@@ -23,12 +23,6 @@ final class CodeFolderArtifact: Identifiable, Sendable
         
         // MARK: CodeArtifact Protocol
         
-        var metrics: Metrics
-        {
-            get { codeArtifact.metrics }
-            set { codeArtifact.metrics = newValue }
-        }
-        
         func addPartDependency(from sourceID: ID, to targetID: ID)
         {
             codeArtifact.addPartDependency(from: sourceID, to: targetID)

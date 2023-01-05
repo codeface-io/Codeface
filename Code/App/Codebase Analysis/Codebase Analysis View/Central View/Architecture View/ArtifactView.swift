@@ -54,7 +54,7 @@ struct ArtifactView: View
     {
         if artifactVM.isInFocus { return .accentColor }
         
-        let errorPortion = artifactVM.codeArtifact.metrics.portionOfPartsInCycles
+        let errorPortion = artifactVM.metrics.portionOfPartsInCycles
         
         let nsDefaultBorderColor = NSColor(defaultBorderColor)
         

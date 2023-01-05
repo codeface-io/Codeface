@@ -35,7 +35,7 @@ struct CodebaseInspectorView: View
             {
                 Text(selectedArtifact.codeArtifact.kindName)
             }
-
+            
             Divider()
             
             Label
@@ -51,7 +51,7 @@ struct CodebaseInspectorView: View
             
             LabeledContent("Lines of Code")
             {
-                Text("\(selectedArtifact.codeArtifact.linesOfCode)")
+                Text("\(selectedArtifact.metrics.linesOfCode ?? 0)")
                     .foregroundColor(.init(selectedArtifact.linesOfCodeColor))
             }
             
@@ -67,10 +67,10 @@ struct CodebaseInspectorView: View
             }
             .font(.title3)
             .foregroundColor(.secondary)
-            
+
             LabeledContent("Is Itself in Cycles")
             {
-                let isInCycle = selectedArtifact.codeArtifact.metrics.isInACycle ?? false
+                let isInCycle = selectedArtifact.metrics.isInACycle ?? false
                 
                 let cycleColor: SwiftyToolz.Color = isInCycle ? .rgb(1, 0, 0) : .rgb(0, 1, 0)
                 
@@ -80,7 +80,7 @@ struct CodebaseInspectorView: View
             
             LabeledContent("Cyclic Code in Parts")
             {
-                let cyclicPortion = selectedArtifact.codeArtifact.metrics.portionOfPartsInCycles
+                let cyclicPortion = selectedArtifact.metrics.portionOfPartsInCycles
                 
                 let cycleColor = Color.rgb(0, 1, 0)
                     .mixed(with: cyclicPortion, of: .rgb(1, 0, 0))

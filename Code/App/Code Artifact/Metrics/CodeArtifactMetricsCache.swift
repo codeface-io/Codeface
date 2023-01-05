@@ -1,13 +1,3 @@
-extension CodeArtifact
-{
-    @BackgroundActor
-    var metrics: Metrics
-    {
-        get { CodeArtifactMetricsCache.shared[id] }
-        set { CodeArtifactMetricsCache.shared[id] = newValue }
-    }
-}
-
 @BackgroundActor
 class CodeArtifactMetricsCache
 {

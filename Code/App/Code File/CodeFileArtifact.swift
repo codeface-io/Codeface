@@ -2,7 +2,7 @@ import Foundation
 import SwiftLSP
 import SwiftNodes
 
-class CodeFileArtifact: Identifiable
+final class CodeFileArtifact: Identifiable, Sendable
 {
     init(name: String,
          codeLines: [String],
@@ -12,10 +12,6 @@ class CodeFileArtifact: Identifiable
         self.lines = codeLines
         self.scope = scope
     }
-    
-    // MARK: - Metrics
-    
-    var metrics = Metrics()
     
     // MARK: - Tree Structure
     

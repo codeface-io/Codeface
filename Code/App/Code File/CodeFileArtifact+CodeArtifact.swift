@@ -10,7 +10,7 @@ extension CodeFileArtifact: CodeArtifact
 {
     func sort()
     {
-        symbolGraph.sort(by: <)
+        symbolGraph.sort { $0.goesBefore($1) }
     }
     
     var parts: [any CodeArtifact]

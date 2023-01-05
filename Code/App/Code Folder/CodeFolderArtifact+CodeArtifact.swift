@@ -7,7 +7,7 @@ extension CodeFolderArtifact: CodeArtifact
 {
     func sort()
     {
-        partGraph.sort(by: <)
+        partGraph.sort { $0.goesBefore($1) }
     }
     
     var parts: [any CodeArtifact]

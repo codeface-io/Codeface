@@ -1,6 +1,6 @@
 extension ArtifactViewModel: Hashable
 {
-    func hash(into hasher: inout Hasher)
+    nonisolated func hash(into hasher: inout Hasher)
     {
         hasher.combine(id)
     }

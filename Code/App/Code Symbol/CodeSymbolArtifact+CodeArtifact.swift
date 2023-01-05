@@ -10,9 +10,10 @@ extension CodeSymbolArtifact: SearchableCodeArtifact
 
 extension CodeSymbolArtifact: CodeArtifact
 {
+    @BackgroundActor
     func sort()
     {
-        subsymbolGraph.sort(by: <)
+        subsymbolGraph.sort { a, b in a.goesBefore(b) }
     }
     
     var parts: [any CodeArtifact]

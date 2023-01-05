@@ -44,8 +44,8 @@ class CodebaseProcessor: ObservableObject
             state = .visualizingCodebaseArchitecture(.createViewModels)
             
             var stopWatch = StopWatch()
-            let architectureViewModel = ArtifactViewModel(folderArtifact: codebaseArchitecture,
-                                                          isPackage: codebase.looksLikeAPackage)
+            let architectureViewModel = await ArtifactViewModel(folderArtifact: codebaseArchitecture,
+                                                                isPackage: codebase.looksLikeAPackage)
             stopWatch.measure("Creating View Model")
             
             stopWatch.restart()

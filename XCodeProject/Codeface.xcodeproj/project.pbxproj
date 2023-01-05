@@ -28,6 +28,8 @@
 		96106E662962DF1C0002F13C /* CodeSymbolArtifact+CodeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DF2962DB8000DF8A43 /* CodeSymbolArtifact+CodeSymbol.swift */; };
 		9619A2B22966E57700863BC0 /* CodebaseAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619A2B12966E57700863BC0 /* CodebaseAnalysis.swift */; };
 		9619A2B42966E87C00863BC0 /* ProcessingFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619A2B32966E87C00863BC0 /* ProcessingFailureView.swift */; };
+		9619A2B629670B6800863BC0 /* Sequence+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619A2B529670B6800863BC0 /* Sequence+Async.swift */; };
+		9619A2B92967104E00863BC0 /* CodeArtifact+Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619A2B82967104E00863BC0 /* CodeArtifact+Metrics.swift */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
 		9629D5AC29252A1E006B1E98 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F0E290EDC32008CA3C2 /* Client.swift */; };
 		9629D5AD29252A1E006B1E98 /* TestXPCExecutableForCodeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96081CFB29223D9100A562BA /* TestXPCExecutableForCodeface.swift */; };
@@ -148,6 +150,8 @@
 		96143F0E290EDC32008CA3C2 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		9619A2B12966E57700863BC0 /* CodebaseAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseAnalysis.swift; sourceTree = "<group>"; };
 		9619A2B32966E87C00863BC0 /* ProcessingFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingFailureView.swift; sourceTree = "<group>"; };
+		9619A2B529670B6800863BC0 /* Sequence+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Async.swift"; sourceTree = "<group>"; };
+		9619A2B82967104E00863BC0 /* CodeArtifact+Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeArtifact+Metrics.swift"; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		9639C27128D761A000779BA5 /* DocumentWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentWindowView.swift; sourceTree = "<group>"; };
 		963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseFileDocument.swift; sourceTree = "<group>"; };
@@ -293,9 +297,8 @@
 			isa = PBXGroup;
 			children = (
 				96E134F12962DC2200DF8A43 /* GraphNode+CodeArtifact.swift */,
-				96E134D42962DB8000DF8A43 /* CodeArtifactMetricsCache.swift */,
+				9619A2B72967101300863BC0 /* Metrics */,
 				96E134F62962DC2200DF8A43 /* CodeArtifact.swift */,
-				96E134D32962DB8000DF8A43 /* Metrics.swift */,
 			);
 			path = "Code Artifact";
 			sourceTree = "<group>";
@@ -340,6 +343,16 @@
 				96143F02290ED68A008CA3C2 /* Service.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		9619A2B72967101300863BC0 /* Metrics */ = {
+			isa = PBXGroup;
+			children = (
+				9619A2B82967104E00863BC0 /* CodeArtifact+Metrics.swift */,
+				96E134D42962DB8000DF8A43 /* CodeArtifactMetricsCache.swift */,
+				96E134D32962DB8000DF8A43 /* Metrics.swift */,
+			);
+			path = Metrics;
 			sourceTree = "<group>";
 		};
 		961AAD642899C553001CFF67 /* Frameworks */ = {
@@ -677,6 +690,7 @@
 				96E134EB2962DC2200DF8A43 /* BackgroundActor.swift */,
 				96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */,
 				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
+				9619A2B529670B6800863BC0 /* Sequence+Async.swift */,
 			);
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
@@ -876,6 +890,7 @@
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
 				96E135132962DD7A00DF8A43 /* CodeArtifact.swift in Sources */,
 				96106E652962DF1C0002F13C /* CodeFolderArtifact+AddSymbolDependencies.swift in Sources */,
+				9619A2B92967104E00863BC0 /* CodeArtifact+Metrics.swift in Sources */,
 				9619A2B22966E57700863BC0 /* CodebaseAnalysis.swift in Sources */,
 				964464C02952052C0004382F /* CodebaseProcessor.swift in Sources */,
 				9619A2B42966E87C00863BC0 /* ProcessingFailureView.swift in Sources */,
@@ -915,6 +930,7 @@
 				960BBE9629004F9000F9DC2A /* LSPServiceHint.swift in Sources */,
 				96E1350E2962DD6700DF8A43 /* CodeSymbol.swift in Sources */,
 				9639C27228D761A000779BA5 /* DocumentWindowView.swift in Sources */,
+				9619A2B629670B6800863BC0 /* Sequence+Async.swift in Sources */,
 				96FF8A45294F876100D06E36 /* ContentViewStyle.swift in Sources */,
 				960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */,
 				96D59CC5294AB8DE003C55B5 /* CodebaseInspectorView.swift in Sources */,

@@ -62,12 +62,12 @@ extension ArtifactViewModel
         // tree map algorithm
         let (partsA, partsB) = split(parts)
         
-        let lastComponentA = partsA.last?.codeArtifact.metrics.componentRank
-        let firstComponentB = partsB.first?.codeArtifact.metrics.componentRank
+        let lastComponentA = partsA.last?.metrics.componentRank
+        let firstComponentB = partsB.first?.metrics.componentRank
         let isSplitBetweenComponents = lastComponentA == nil || firstComponentB == nil || lastComponentA != firstComponentB
         
-        let locA = partsA.sum { $0.codeArtifact.linesOfCode }
-        let locB = partsB.sum { $0.codeArtifact.linesOfCode }
+        let locA = partsA.sum { $0.metrics.linesOfCode ?? 0 }
+        let locB = partsB.sum { $0.metrics.linesOfCode ?? 0 }
         
         let fractionA = Double(locA) / Double(locA + locB)
         
@@ -103,11 +103,11 @@ extension ArtifactViewModel
             return (parts, [])
         }
         
-        let partsSpanMultipleComponents = firstPart.codeArtifact.metrics.componentRank != lastPart.codeArtifact.metrics.componentRank
+        let partsSpanMultipleComponents = firstPart.metrics.componentRank != lastPart.metrics.componentRank
         
-        let partsSpanMultipleSCCs = firstPart.codeArtifact.metrics.sccIndexTopologicallySorted != lastPart.codeArtifact.metrics.sccIndexTopologicallySorted
+        let partsSpanMultipleSCCs = firstPart.metrics.sccIndexTopologicallySorted != lastPart.metrics.sccIndexTopologicallySorted
         
-        let halfTotalLOC = (parts.sum { $0.codeArtifact.linesOfCode }) / 2
+        let halfTotalLOC = (parts.sum { $0.metrics.linesOfCode ?? 0 }) / 2
         
         var partsALOC = 0
         var minDifferenceToHalfTotalLOC = Int.max
@@ -120,8 +120,8 @@ extension ArtifactViewModel
                 // if parts span multiple components, we only cut between components
                 if index == parts.count - 1 { continue }
                 
-                let thisPartComponent = parts[index].codeArtifact.metrics.componentRank
-                let nextPartComponent = parts[index + 1].codeArtifact.metrics.componentRank
+                let thisPartComponent = parts[index].metrics.componentRank
+                let nextPartComponent = parts[index + 1].metrics.componentRank
                 let indexIsEndOfComponent = thisPartComponent != nextPartComponent
                 
                 if !indexIsEndOfComponent { continue }
@@ -131,15 +131,15 @@ extension ArtifactViewModel
                 // if parts span multiple SCCs, we only cut between SCCs
                 if index == parts.count - 1 { continue }
                 
-                let thisPartSCC = parts[index].codeArtifact.metrics.sccIndexTopologicallySorted
-                let nextPartSCC = parts[index + 1].codeArtifact.metrics.sccIndexTopologicallySorted
+                let thisPartSCC = parts[index].metrics.sccIndexTopologicallySorted
+                let nextPartSCC = parts[index + 1].metrics.sccIndexTopologicallySorted
                 let indexIsEndOfSCC = thisPartSCC != nextPartSCC
                 
                 if !indexIsEndOfSCC { continue }
             }
             
             let part = parts[index]
-            partsALOC += part.codeArtifact.linesOfCode
+            partsALOC += part.metrics.linesOfCode ?? 0
             let differenceToHalfTotalLOC = abs(halfTotalLOC - partsALOC)
             if differenceToHalfTotalLOC < minDifferenceToHalfTotalLOC
             {
