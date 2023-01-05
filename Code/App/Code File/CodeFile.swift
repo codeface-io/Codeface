@@ -1,7 +1,7 @@
 import SwiftLSP
 import FoundationToolz
 
-public final class CodeFile: Codable, Sendable
+final class CodeFile: Codable, Sendable
 {
     init(name: String,
          code: String,

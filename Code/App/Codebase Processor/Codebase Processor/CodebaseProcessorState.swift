@@ -2,7 +2,7 @@ import SwiftLSP
 
 enum CodebaseProcessorState
 {
-    public var codebaseName: String?
+    var codebaseName: String?
     {
         switch self
         {
@@ -13,7 +13,7 @@ enum CodebaseProcessorState
         }
     }
     
-    public var codebase: CodeFolder?
+    var codebase: CodeFolder?
     {
         switch self
         {
@@ -22,7 +22,7 @@ enum CodebaseProcessorState
         }
     }
     
-    public var analysis: CodebaseAnalysis?
+    var analysis: CodebaseAnalysis?
     {
         if case .analyzingCodebaseArchitecture(let analysis) = self { return analysis }
         return nil
@@ -36,14 +36,14 @@ enum CodebaseProcessorState
          analyzingCodebaseArchitecture(CodebaseAnalysis),
          failed(String)
     
-    public enum CodebaseRetrievalStep: String, Equatable
+    enum CodebaseRetrievalStep: String, Equatable
     {
         case readFolder = "Reading raw data from codebase folder",
              connectToLSPServer = "Connecting to LSP server",
              retrieveSymbolsAndRefs = "Retrieving symbols and their references from LSP server"
     }
     
-    public enum CodebaseArchitectureVisualizationStep: String, Equatable
+    enum CodebaseArchitectureVisualizationStep: String, Equatable
     {
         case generateArchitecture = "Extracting basic codebase architecture",
              addSiblingSymbolDependencies = "Adding dependencies between sibling symbols",

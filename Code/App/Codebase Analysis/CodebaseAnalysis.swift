@@ -11,39 +11,39 @@ class CodebaseAnalysis: ObservableObject
     
     // MARK: - Search
     
-    public func startTypingSearchTerm()
+    func startTypingSearchTerm()
     {
         search.barIsShown = true
         set(fieldIsFocused: true)
     }
     
-    public func toggleSearchBar()
+    func toggleSearchBar()
     {
         search.barIsShown.toggle()
         set(fieldIsFocused: search.barIsShown)
     }
     
-    public func hideSearchBar()
+    func hideSearchBar()
     {
         set(fieldIsFocused: false)
         search.barIsShown = false
     }
     
-    public func set(fieldIsFocused: Bool)
+    func set(fieldIsFocused: Bool)
     {
         guard search.fieldIsFocused != fieldIsFocused else { return }
         search.fieldIsFocused = fieldIsFocused
         if !fieldIsFocused { submitSearchTerm() }
     }
     
-    public func set(searchTerm: String)
+    func set(searchTerm: String)
     {
         guard search.term != searchTerm else { return }
         search.term = searchTerm
         updateSearchFilter()
     }
     
-    public func submitSearchTerm()
+    func submitSearchTerm()
     {
         search.fieldIsFocused = false
         updateSearchFilter()
@@ -57,11 +57,11 @@ class CodebaseAnalysis: ObservableObject
         rootArtifact.updateSearchFilter(allPass: search.term.isEmpty)
     }
     
-    @Published public var search = Search()
+    @Published var search = Search()
     
     // MARK: - Path Bar
     
-    public private(set) lazy var pathBar: PathBar =
+    private(set) lazy var pathBar: PathBar =
     {
         PathBar(selectionPublisher: $selectedArtifact)
     }()
@@ -73,11 +73,11 @@ class CodebaseAnalysis: ObservableObject
     
     // MARK: - Display Options
     
-    @Published public var showsLeftSidebar: Bool = true
-    @Published public var showsRightSidebar: Bool = false
-    @Published public var showLoC: Bool = false
+    @Published var showsLeftSidebar: Bool = true
+    @Published var showsRightSidebar: Bool = false
+    @Published var showLoC: Bool = false
     
-    public func switchDisplayMode()
+    func switchDisplayMode()
     {
         switch displayMode
         {
@@ -86,5 +86,5 @@ class CodebaseAnalysis: ObservableObject
         }
     }
     
-    @Published public var displayMode: DisplayMode = .treeMap
+    @Published var displayMode: DisplayMode = .treeMap
 }

@@ -3,11 +3,11 @@ import Foundation
 import SwiftyToolz
 
 @MainActor
-public class ArtifactViewModel: Identifiable, ObservableObject
+class ArtifactViewModel: Identifiable, ObservableObject
 {
     // MARK: - Initialization
     
-    public init(folderArtifact: CodeFolderArtifact, isPackage: Bool)
+    init(folderArtifact: CodeFolderArtifact, isPackage: Bool)
     {
         // create child presentations for parts recursively
         self.parts = folderArtifact.partGraph.values.map
@@ -85,8 +85,8 @@ public class ArtifactViewModel: Identifiable, ObservableObject
     
     // MARK: - Geometry: Basics
     
-    public var lastScopeContentSize: Size? = nil
-    @Published public var frameInScopeContent = Rectangle.zero
+    var lastScopeContentSize: Size? = nil
+    @Published var frameInScopeContent = Rectangle.zero
     {
         didSet
         {
@@ -94,9 +94,9 @@ public class ArtifactViewModel: Identifiable, ObservableObject
         }
     }
     
-    @Published public var showsContent = false
-    public var contentFrame = Rectangle.zero
-    @Published public var gapBetweenParts: Double?
+    @Published var showsContent = false
+    var contentFrame = Rectangle.zero
+    @Published var gapBetweenParts: Double?
     
     // MARK: - Geometry: Properties Derived (Cached) From Frame
     
@@ -118,43 +118,43 @@ public class ArtifactViewModel: Identifiable, ObservableObject
                                        shouldCollapseVertically ? height - 2 * Self.padding : fontSize))
     }
     
-    public var fontSize: Double = 0
-    public var shouldCollapseHorizontally = false
-    public var shouldCollapseVertically = false
-    public var shouldShowName = true
+    var fontSize: Double = 0
+    var shouldCollapseHorizontally = false
+    var shouldCollapseVertically = false
+    var shouldShowName = true
     
-    public var headerFrame = Rectangle.zero
+    var headerFrame = Rectangle.zero
     
     // MARK: - Geometry: Static Parameters
     
-    public static var padding: Double = 16
+    static var padding: Double = 16
     static var minWidth: Double = 30
     static var minHeight: Double = 30
     
     // MARK: - Colors & Symbols
     
-    @Published public var isInFocus = false
+    @Published var isInFocus = false
     
-    public let iconSystemImageName: String
-    public let iconFillColor: UXColor
-    public let linesOfCodeColor: UXColor
+    let iconSystemImageName: String
+    let iconFillColor: UXColor
+    let linesOfCodeColor: UXColor
     
     // MARK: - Search
     
-    @Published public var passesSearchFilter = true
+    @Published var passesSearchFilter = true
     
-    public var containsSearchTermRegardlessOfParts: Bool?
+    var containsSearchTermRegardlessOfParts: Bool?
     var partsContainSearchTerm: Bool?
     
     // MARK: - Basics
     
-    public var scope: ArtifactViewModel?
-    public let parts: [ArtifactViewModel]
-    public var partDependencies = [DependencyVM]()
+    var scope: ArtifactViewModel?
+    let parts: [ArtifactViewModel]
+    var partDependencies = [DependencyVM]()
     
-    public nonisolated var id: String { codeArtifact.id }
+    nonisolated var id: String { codeArtifact.id }
     
-    public nonisolated var codeArtifact: any SearchableCodeArtifact
+    nonisolated var codeArtifact: any SearchableCodeArtifact
     {
         switch kind
         {
@@ -164,9 +164,9 @@ public class ArtifactViewModel: Identifiable, ObservableObject
         }
     }
     
-    public let kind: Kind
+    let kind: Kind
     
-    public enum Kind
+    enum Kind
     {
         case folder(CodeFolderArtifact),
              file(CodeFileArtifact),
@@ -174,7 +174,7 @@ public class ArtifactViewModel: Identifiable, ObservableObject
     }
 }
 
-public class DependencyVM: ObservableObject, Identifiable
+class DependencyVM: ObservableObject, Identifiable
 {
     internal init(sourcePart: ArtifactViewModel,
                   targetPart: ArtifactViewModel,
@@ -184,15 +184,15 @@ public class DependencyVM: ObservableObject, Identifiable
         self.weight = weight
     }
     
-    public let id = UUID()
+    let id = UUID()
     
-    public let sourcePart: ArtifactViewModel
-    @Published public var sourcePoint: Point = .zero
+    let sourcePart: ArtifactViewModel
+    @Published var sourcePoint: Point = .zero
     
-    public let targetPart: ArtifactViewModel
-    @Published public var targetPoint: Point = .zero
+    let targetPart: ArtifactViewModel
+    @Published var targetPoint: Point = .zero
     
-    public let weight: Int
+    let weight: Int
 }
 
 private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String

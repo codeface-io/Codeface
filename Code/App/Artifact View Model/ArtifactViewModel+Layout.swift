@@ -1,7 +1,7 @@
 import Foundation
 import SwiftyToolz
 
-public extension ArtifactViewModel
+extension ArtifactViewModel
 {
     func updateLayout(forScopeSize scopeSize: Size,
                       ignoreSearchFilter: Bool,

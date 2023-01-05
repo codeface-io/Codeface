@@ -1,6 +1,6 @@
-public final class CodeFolder: Codable, Sendable
+final class CodeFolder: Codable, Sendable
 {
-    public var looksLikeAPackage: Bool
+    var looksLikeAPackage: Bool
     {
         if name.lowercased().contains("package") { return true }
         
@@ -16,7 +16,7 @@ public final class CodeFolder: Codable, Sendable
         self.subfolders = subfolders.isEmpty ? nil : subfolders
     }
     
-    public let name: String
+    let name: String
     let files: [CodeFile]?
     let subfolders: [CodeFolder]?
 }

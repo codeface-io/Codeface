@@ -4,23 +4,23 @@ import Combine
 import SwiftyToolz
 
 @MainActor
-public class DocumentWindow: ObservableObject
+class DocumentWindow: ObservableObject
 {
-    public init()
+    init()
     {
         _lastLocation = Published(initialValue: try? CodebaseLocationPersister.loadCodebaseLocation())
     }
     
     // MARK: - Load Processor for Codebase from Location
     
-    public func loadProcessorForSwiftPackage(from folderURL: URL)
+    func loadProcessorForSwiftPackage(from folderURL: URL)
     {
         loadNewProcessor(forCodebaseFrom: .init(folder: folderURL,
                                                 languageName: "Swift",
                                                 codeFileEndings: ["swift"]))
     }
     
-    public func loadProcessorForLastCodebaseIfNoneIsLoaded()
+    func loadProcessorForLastCodebaseIfNoneIsLoaded()
     {
         if CodebaseLocationPersister.hasPersistedLastCodebaseLocation
         {
@@ -28,7 +28,7 @@ public class DocumentWindow: ObservableObject
         }
     }
     
-    public func loadProcessorForLastCodebase()
+    func loadProcessorForLastCodebase()
     {
         do
         {
@@ -37,7 +37,7 @@ public class DocumentWindow: ObservableObject
         catch { log(error.readable) }
     }
     
-    public func loadNewProcessor(forCodebaseFrom location: LSP.CodebaseLocation)
+    func loadNewProcessor(forCodebaseFrom location: LSP.CodebaseLocation)
     {
         do
         {
@@ -58,11 +58,11 @@ public class DocumentWindow: ObservableObject
         lastLocation = location
     }
     
-    @Published public var lastLocation: LSP.CodebaseLocation?
+    @Published var lastLocation: LSP.CodebaseLocation?
     
     // MARK: - Load Processor for Codebase from File
     
-    public func loadProcessor(forCodebaseFrom fileURL: URL)
+    func loadProcessor(forCodebaseFrom fileURL: URL)
     {
         guard let fileData = Data(from: fileURL) else
         {
@@ -79,7 +79,7 @@ public class DocumentWindow: ObservableObject
         loadProcessor(for: codebase)
     }
     
-    public func loadProcessor(for codebase: CodeFolder)
+    func loadProcessor(for codebase: CodeFolder)
     {
         load(.didRetrieveCodebase(codebase))
         self.codebase = codebase
@@ -97,7 +97,7 @@ public class DocumentWindow: ObservableObject
     
     // MARK: - Observable Codebase
     
-    public var defaultProjectFileName: String
+    var defaultProjectFileName: String
     {
         codebaseProcessor.codebaseDisplayName
     }
@@ -111,14 +111,14 @@ public class DocumentWindow: ObservableObject
     }
     
     private var codebaseObservation: AnyCancellable?
-    @Published public private(set) var codebase: CodeFolder?
+    @Published private(set) var codebase: CodeFolder?
     
     // MARK: - Codebase Processor
     
-    public let codebaseProcessor = CodebaseProcessor()
+    let codebaseProcessor = CodebaseProcessor()
     
     // MARK: - Import Views
     
-    @Published public var isPresentingCodebaseLocator = false
-    @Published public var isPresentingFolderImporter = false
+    @Published var isPresentingCodebaseLocator = false
+    @Published var isPresentingFolderImporter = false
 }

@@ -2,16 +2,16 @@ import SwiftLSP
 import Foundation
 import SwiftNodes
 
-public final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
+final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
 {
     // MARK: - Initialization
     
-    public init(name: String,
-                kind: LSPDocumentSymbol.SymbolKind?,
-                range: LSPRange,
-                selectionRange: LSPRange,
-                code: String,
-                scope: any CodeArtifact)
+    init(name: String,
+         kind: LSPDocumentSymbol.SymbolKind?,
+         range: LSPRange,
+         selectionRange: LSPRange,
+         code: String,
+         scope: any CodeArtifact)
     {
         self.name = name
         self.kind = kind
@@ -23,16 +23,16 @@ public final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
     
     // MARK: - Graph Structure
     
-    public weak var scope: (any CodeArtifact)?
-    public var subsymbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
-    public var outOfScopeDependencies = Set<CodeSymbolArtifact>()
+    weak var scope: (any CodeArtifact)?
+    var subsymbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
+    var outOfScopeDependencies = Set<CodeSymbolArtifact>()
     
     // MARK: - Basics
     
-    public let id = UUID().uuidString
-    public let name: String
-    public let kind: LSPDocumentSymbol.SymbolKind?
-    public let range: LSPRange
-    public let selectionRange: LSPRange
-    public let code: String?
+    let id = UUID().uuidString
+    let name: String
+    let kind: LSPDocumentSymbol.SymbolKind?
+    let range: LSPRange
+    let selectionRange: LSPRange
+    let code: String?
 }

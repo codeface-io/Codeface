@@ -413,7 +413,6 @@
 			children = (
 				965A7AE42965D991006C5A3A /* Codebase Analysis View */,
 				9619A2B12966E57700863BC0 /* CodebaseAnalysis.swift */,
-				96E134F72962DC2200DF8A43 /* Artifact View Model */,
 			);
 			path = "Codebase Analysis";
 			sourceTree = "<group>";
@@ -595,6 +594,7 @@
 				965A7AD629649FB7006C5A3A /* Document Window */,
 				965A7AD72964A236006C5A3A /* Codebase Processor */,
 				965A7ADB2964A4E8006C5A3A /* Codebase Analysis */,
+				96E134F72962DC2200DF8A43 /* Artifact View Model */,
 				96E134E22962DC2200DF8A43 /* Code Folder */,
 				96E134E92962DC2200DF8A43 /* Code File */,
 				96106E6729634D9B0002F13C /* Code Symbol */,

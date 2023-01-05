@@ -1,9 +1,9 @@
 import Foundation
 import SwiftNodes
 
-public final class CodeFolderArtifact: Identifiable, Sendable
+final class CodeFolderArtifact: Identifiable, Sendable
 {
-    public init(name: String, scope: (any CodeArtifact)?)
+    init(name: String, scope: (any CodeArtifact)?)
     {
         self.name = name
         self.scope = scope
@@ -11,41 +11,41 @@ public final class CodeFolderArtifact: Identifiable, Sendable
 
     // MARK: - Graph Structure
     
-    public weak var scope: (any CodeArtifact)?
-    public var partGraph = Graph<CodeArtifact.ID, Part>()
+    weak var scope: (any CodeArtifact)?
+    var partGraph = Graph<CodeArtifact.ID, Part>()
     
-    public class Part: CodeArtifact, Identifiable, Hashable
+    class Part: CodeArtifact, Identifiable, Hashable
     {
         // MARK: Hashability
         
-        public func hash(into hasher: inout Hasher) { hasher.combine(id) }
-        public static func == (lhs: Part, rhs: Part) -> Bool { lhs.id == rhs.id }
+        func hash(into hasher: inout Hasher) { hasher.combine(id) }
+        static func == (lhs: Part, rhs: Part) -> Bool { lhs.id == rhs.id }
         
         // MARK: CodeArtifact Protocol
         
-        public var metrics: Metrics
+        var metrics: Metrics
         {
             get { codeArtifact.metrics }
             set { codeArtifact.metrics = newValue }
         }
         
-        public func addPartDependency(from sourceID: ID, to targetID: ID)
+        func addPartDependency(from sourceID: ID, to targetID: ID)
         {
             codeArtifact.addPartDependency(from: sourceID, to: targetID)
         }
         
-        public var intrinsicSizeInLinesOfCode: Int?
+        var intrinsicSizeInLinesOfCode: Int?
         {
             codeArtifact.intrinsicSizeInLinesOfCode
         }
         
-        public func sort() { codeArtifact.sort() }
-        public var parts: [any CodeArtifact] { codeArtifact.parts }
-        public var scope: (any CodeArtifact)? { codeArtifact.scope }
-        public var name: String { codeArtifact.name }
-        public var kindName: String { codeArtifact.kindName }
-        public var code: String? { codeArtifact.code }
-        public var id: String { codeArtifact.id }
+        func sort() { codeArtifact.sort() }
+        var parts: [any CodeArtifact] { codeArtifact.parts }
+        var scope: (any CodeArtifact)? { codeArtifact.scope }
+        var name: String { codeArtifact.name }
+        var kindName: String { codeArtifact.kindName }
+        var code: String? { codeArtifact.code }
+        var id: String { codeArtifact.id }
         
         // MARK: Actual Artifact
         
@@ -58,11 +58,11 @@ public final class CodeFolderArtifact: Identifiable, Sendable
             }
         }
         
-        public init(kind: Kind) { self.kind = kind }
+        init(kind: Kind) { self.kind = kind }
         
-        public let kind: Kind
+        let kind: Kind
         
-        public enum Kind
+        enum Kind
         {
             case subfolder(CodeFolderArtifact), file(CodeFileArtifact)
         }
@@ -70,6 +70,6 @@ public final class CodeFolderArtifact: Identifiable, Sendable
     
     // MARK: - Basics
     
-    public let id = UUID().uuidString
-    public let name: String
+    let id = UUID().uuidString
+    let name: String
 }

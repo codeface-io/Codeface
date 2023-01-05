@@ -2,7 +2,7 @@ import Combine
 import OrderedCollections
 
 @MainActor
-public class PathBar: ObservableObject
+class PathBar: ObservableObject
 {
     // MARK: - Initialize
     
@@ -34,14 +34,14 @@ public class PathBar: ObservableObject
     
     // MARK: - Manage Whole Stack
 
-    public func add(_ artifactVM: ArtifactViewModel)
+    func add(_ artifactVM: ArtifactViewModel)
     {
         remove(artifactVM)
 
         artifactVMStack.append(artifactVM)
     }
 
-    public func remove(_ artifactVM: ArtifactViewModel)
+    func remove(_ artifactVM: ArtifactViewModel)
     {
         if let firstIndex = artifactVMStack.firstIndex(of: artifactVM)
         {
@@ -50,6 +50,6 @@ public class PathBar: ObservableObject
         }
     }
     
-    @Published public private(set) var artifactVMStack = OrderedSet<ArtifactViewModel>()
+    @Published private(set) var artifactVMStack = OrderedSet<ArtifactViewModel>()
 }
 

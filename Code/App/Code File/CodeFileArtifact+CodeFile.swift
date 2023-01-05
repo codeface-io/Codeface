@@ -1,5 +1,5 @@
 @BackgroundActor
-public extension CodeFileArtifact
+extension CodeFileArtifact
 {
     convenience init(codeFile: CodeFile,
                      scope: any CodeArtifact)

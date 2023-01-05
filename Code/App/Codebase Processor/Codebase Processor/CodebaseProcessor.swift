@@ -5,11 +5,11 @@ import SwiftLSP
 import SwiftyToolz
 
 @MainActor
-public class CodebaseProcessor: ObservableObject
+class CodebaseProcessor: ObservableObject
 {
     // MARK: - Run Processing
     
-    public func run()
+    func run()
     {
         Task // to enter an async context
         {
@@ -132,7 +132,7 @@ public class CodebaseProcessor: ObservableObject
     
     // MARK: - State
     
-    public var codebaseDisplayName: String { state.codebaseName ?? "Untitled Codebase" }
+    var codebaseDisplayName: String { state.codebaseName ?? "Untitled Codebase" }
     
     @Published var state = CodebaseProcessorState.empty
 }

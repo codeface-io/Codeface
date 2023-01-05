@@ -2,7 +2,7 @@ import SwiftNodes
 import OrderedCollections
 
 @BackgroundActor
-public extension CodeFolderArtifact
+extension CodeFolderArtifact
 {
     func recursivelyPruneDependenciesAndCalculateDependencyMetrics()
     {

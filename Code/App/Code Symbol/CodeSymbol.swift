@@ -1,7 +1,7 @@
 import SwiftLSP
 import SwiftyToolz
 
-public final class CodeSymbol: Codable, Sendable
+final class CodeSymbol: Codable, Sendable
 {
     init(lspDocumentySymbol: LSPDocumentSymbol,
          referenceLocations: [ReferenceLocation],
@@ -28,7 +28,7 @@ public final class CodeSymbol: Codable, Sendable
     
     let references: [ReferenceLocation]?
     
-    public struct ReferenceLocation: Codable, Sendable
+    struct ReferenceLocation: Codable, Sendable
     {
         /// without root folder, like: `"SubfolderOfRoot/Deeper/Subfolders/myFile.swift"`
         let filePathRelativeToRoot: String

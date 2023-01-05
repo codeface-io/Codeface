@@ -3,11 +3,11 @@ import SwiftLSP
 import FoundationToolz
 import Foundation
 
-public enum CodebaseLocationPersister
+enum CodebaseLocationPersister
 {
-    public static var hasPersistedLastCodebaseLocation: Bool { persistedCodebaseLocationData != nil }
+    static var hasPersistedLastCodebaseLocation: Bool { persistedCodebaseLocationData != nil }
     
-    public static func persist(_ location: LSP.CodebaseLocation) throws
+    static func persist(_ location: LSP.CodebaseLocation) throws
     {
         let bookmarkData = try location.folder.bookmarkData(options: .withSecurityScope,
                                                             includingResourceValuesForKeys: nil,
@@ -19,7 +19,7 @@ public enum CodebaseLocationPersister
         persistedCodebaseLocationData = try persistedLocation.encode() as Data
     }
     
-    public static func loadCodebaseLocation() throws -> LSP.CodebaseLocation
+    static func loadCodebaseLocation() throws -> LSP.CodebaseLocation
     {
         guard let locationData = persistedCodebaseLocationData else
         {

@@ -1,20 +1,13 @@
 import SwiftyToolz
 
-public protocol SearchableCodeArtifact: CodeArtifact
+protocol SearchableCodeArtifact: CodeArtifact
 {
     func contains(fileLine: Int) -> Bool
 }
 
-public extension CodeArtifact
+extension CodeArtifact
 {
     var linesOfCode: Int { metrics.linesOfCode ?? 0 }
-    
-    @BackgroundActor
-    var metrics: Metrics
-    {
-        get { CodeArtifactMetricsCache.shared[id] }
-        set { CodeArtifactMetricsCache.shared[id] = newValue }
-    }
     
     func contains(_ otherArtifact: any CodeArtifact) -> Bool
     {

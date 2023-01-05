@@ -2,7 +2,7 @@ public struct Metrics: Sendable
 {
     // MARK: - Qualitative Metrics
     
-    public lazy var portionOfPartsInCycles: Double =
+    lazy var portionOfPartsInCycles: Double =
     {
         guard let partLOCs = linesOfCodeOfParts, partLOCs > 0,
               let partLOCsInCycles = linesOfCodeOfPartsInCycles
@@ -11,22 +11,22 @@ public struct Metrics: Sendable
         return Double(partLOCsInCycles) / Double(partLOCs)
     }()
     
-    public var linesOfCodeInCycles: Int
+    var linesOfCodeInCycles: Int
     {
         isInACycle ?? false ? linesOfCode ?? 0 : linesOfCodeOfPartsInCycles ?? 0
     }
     
-    public var isInACycle: Bool?
-    public var linesOfCodeOfPartsInCycles: Int?
+    var isInACycle: Bool?
+    var linesOfCodeOfPartsInCycles: Int?
     
     // MARK: - Size
     
-    public var linesOfCode: Int?
-    public var linesOfCodeOfParts: Int?
-    public var sizeRelativeToAllPartsInScope: Double?
+    var linesOfCode: Int?
+    var linesOfCodeOfParts: Int?
+    var sizeRelativeToAllPartsInScope: Double?
     
     // MARK: - Dependency "Ranking"
     
-    public var componentRank: Int?
-    public var sccIndexTopologicallySorted: Int?
+    var componentRank: Int?
+    var sccIndexTopologicallySorted: Int?
 }

@@ -3,7 +3,7 @@ import SwiftNodes
 import SwiftyToolz
 
 @BackgroundActor
-public extension CodeFolderArtifact
+extension CodeFolderArtifact
 {
     func addSymbolDependencies()
     {

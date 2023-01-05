@@ -1,5 +1,5 @@
 @BackgroundActor
-public extension CodeFolderArtifact
+extension CodeFolderArtifact
 {
     convenience init(codeFolder: CodeFolder,
                      scope: (any CodeArtifact)?)

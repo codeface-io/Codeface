@@ -1,7 +1,7 @@
 import SwiftLSP
 import SwiftyToolz
 
-public extension CodeFolderArtifact
+extension CodeFolderArtifact
 {
     func addCrossScopeDependencies()
     {

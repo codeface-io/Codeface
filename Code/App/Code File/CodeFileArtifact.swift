@@ -2,7 +2,7 @@ import Foundation
 import SwiftLSP
 import SwiftNodes
 
-public class CodeFileArtifact: Identifiable
+class CodeFileArtifact: Identifiable
 {
     init(name: String,
          codeLines: [String],
@@ -15,18 +15,18 @@ public class CodeFileArtifact: Identifiable
     
     // MARK: - Metrics
     
-    public var metrics = Metrics()
+    var metrics = Metrics()
     
     // MARK: - Tree Structure
     
-    public weak var scope: (any CodeArtifact)?
-    public var symbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
+    weak var scope: (any CodeArtifact)?
+    var symbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
     
     // MARK: - Basics
     
-    public let name: String
-    public var code: String? { lines.joined(separator: "\n") }
+    let name: String
+    var code: String? { lines.joined(separator: "\n") }
     let lines: [String]
     
-    public let id = UUID().uuidString
+    let id = UUID().uuidString
 }

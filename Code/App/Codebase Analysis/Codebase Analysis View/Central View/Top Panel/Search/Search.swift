@@ -1,9 +1,9 @@
 @MainActor
-public struct Search
+struct Search
 {
-    public var barIsShown = false
-    public var fieldIsFocused = false
-    public var term = ""
+    var barIsShown = false
+    var fieldIsFocused = false
+    var term = ""
     
-    public static let toggleAnimationDuration: Double = 0.15
+    static let toggleAnimationDuration: Double = 0.15
 }

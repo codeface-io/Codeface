@@ -2,7 +2,7 @@ import Foundation
 import SwiftLSP
 import SwiftyToolz
 
-public extension CodeFolder
+extension CodeFolder
 {
     func retrieveSymbolsAndReferences(inParentFolderPath parentPath: String? = nil,
                                       from server: LSP.Server,

@@ -1,6 +1,6 @@
 import SwiftyToolz
 
-public extension ArtifactViewModel
+extension ArtifactViewModel
 {
     func addDependencies()
     {

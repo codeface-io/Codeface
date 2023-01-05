@@ -1,5 +1,5 @@
 @BackgroundActor
-public extension CodeSymbolArtifact
+extension CodeSymbolArtifact
 {
     convenience init(symbolData: CodeSymbol,
                      scope: any CodeArtifact,
