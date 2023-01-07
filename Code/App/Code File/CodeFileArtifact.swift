@@ -16,7 +16,7 @@ final class CodeFileArtifact: Identifiable, Sendable
     // MARK: - Tree Structure
     
     let scope: ScopeReference
-    var symbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
+    let symbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
     
     // MARK: - Basics
     

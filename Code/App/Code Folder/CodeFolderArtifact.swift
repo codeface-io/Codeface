@@ -12,7 +12,7 @@ final class CodeFolderArtifact: Identifiable, Sendable
     // MARK: - Graph Structure
     
     let scope: ScopeReference
-    var partGraph = Graph<CodeArtifact.ID, Part>()
+    let partGraph = Graph<CodeArtifact.ID, Part>()
     
     final class Part: CodeArtifact, Identifiable, Hashable
     {

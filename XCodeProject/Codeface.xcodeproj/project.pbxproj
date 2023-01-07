@@ -580,13 +580,13 @@
 		96E134F72962DC2200DF8A43 /* Artifact View Model */ = {
 			isa = PBXGroup;
 			children = (
-				96E134F82962DC2200DF8A43 /* ArtifactViewModel.swift */,
 				96E134F92962DC2300DF8A43 /* ArtifactViewModel+Hashable.swift */,
 				96E134FA2962DC2300DF8A43 /* ArtifactViewModel+Search.swift */,
 				96E134FB2962DC2300DF8A43 /* ArtifactViewModel+LayoutDependencies.swift */,
 				96E134FC2962DC2300DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift */,
 				96E134FD2962DC2300DF8A43 /* ArtifactViewModel+Layout.swift */,
 				96E134FE2962DC2300DF8A43 /* ArtifactViewModel+AddDependencies.swift */,
+				96E134F82962DC2200DF8A43 /* ArtifactViewModel.swift */,
 			);
 			path = "Artifact View Model";
 			sourceTree = "<group>";
