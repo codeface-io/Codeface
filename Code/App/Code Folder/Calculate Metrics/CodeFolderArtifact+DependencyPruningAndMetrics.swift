@@ -46,9 +46,9 @@ private extension CodeSymbolArtifact
 }
 
 @BackgroundActor
-private extension Graph where NodeValue: CodeArtifact & Identifiable
+private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == CodeArtifact.ID
 {
-    func pruneDependenciesAndCalculateDependencyMetrics()
+    mutating func pruneDependenciesAndCalculateDependencyMetrics()
     {
         // write component ranks sorted by component size
         let components = findComponents()
@@ -73,7 +73,8 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable
         // analyze each component
         for component in components
         {
-            let componentGraph = copy(includedNodes: OrderedSet(component))
+            let componentIDs = Set(component.map({ $0.id }))
+            let componentGraph = subGraph(nodeIDs: componentIDs)
             let componentCondensationGraph = componentGraph.makeCondensationGraph()
 
             // write scc numbers sorted by topology
@@ -101,14 +102,15 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable
             for componentDependency in componentGraph.edges
             {
                 // make sure this is a dependency between different condensation nodes and not within a SCC
-                let origin = componentDependency.origin
-                let destination = componentDependency.destination
+                let originMetrics = CodeArtifactMetricsCache.shared[componentDependency.originID]
+                let destinationMetrics = CodeArtifactMetricsCache.shared[componentDependency.destinationID]
+                
 
-                guard let sourceSCCIndex = origin.value.metrics.sccIndexTopologicallySorted,
-                      let targetSCCIndex = destination.value.metrics.sccIndexTopologicallySorted
+                guard let sourceSCCIndex = originMetrics.sccIndexTopologicallySorted,
+                      let targetSCCIndex = destinationMetrics.sccIndexTopologicallySorted
                 else
                 {
-                    fatalError("At this point, artifacts shoud have their scc index set")
+                    fatalError("Artifacts don't have their scc index set (but must have at this point)")
                 }
 
                 let isDependencyWithinSCC = sourceSCCIndex == targetSCCIndex
@@ -123,7 +125,7 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable
 
                 if essentialEdge == nil
                 {
-                    remove(componentDependency)
+                    removeEdge(with: componentDependency.id)
                 }
             }
         }

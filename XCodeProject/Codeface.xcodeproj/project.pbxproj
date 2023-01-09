@@ -1270,7 +1270,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftNodes";
 			requirement = {
 				kind = exactVersion;
-				version = 0.3.4;
+				version = 0.4.1;
 			};
 		};
 		9656A69D25287F0D00D4CF26 /* XCRemoteSwiftPackageReference "SwiftyToolz" */ = {
@@ -1318,7 +1318,7 @@
 			repositoryURL = "https://github.com/apple/swift-collections.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.2;
+				version = 1.0.4;
 			};
 		};
 		96F19FBA294E9EAB00E441AC /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */ = {

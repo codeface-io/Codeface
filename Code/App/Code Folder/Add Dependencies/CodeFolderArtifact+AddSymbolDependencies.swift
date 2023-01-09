@@ -32,7 +32,7 @@ extension CodeFolderArtifact
 @BackgroundActor
 private extension Graph where NodeValue == CodeSymbolArtifact, NodeID == CodeArtifact.ID
 {
-    func addSymbolDependencies(fileHash: CodeFileArtifactHashmap)
+    mutating func addSymbolDependencies(fileHash: CodeFileArtifactHashmap)
     {
         for symbolNode in nodesByID.values
         {
@@ -56,7 +56,7 @@ private extension Graph where NodeValue == CodeSymbolArtifact, NodeID == CodeArt
             {
                 if let ancestorSymbolNode = node(for: inScopeAncestor.id)
                 {
-                    addEdge(from: ancestorSymbolNode, to: symbolNode)
+                    addEdge(from: ancestorSymbolNode.id, to: symbolNode.id)
                 }
                 else
                 {

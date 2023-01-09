@@ -24,11 +24,11 @@ extension ArtifactViewModel
             case .folder(let folder):
                 for dependency in folder.partGraph.edges
                 {
-                    guard let originVM = viewModelHashMap[dependency.origin.value.id],
-                          let destinationVM = viewModelHashMap[dependency.destination.value.id]
+                    guard let originVM = viewModelHashMap[dependency.originID],
+                          let destinationVM = viewModelHashMap[dependency.destinationID]
                     else
                     {
-                        log(error: "Could not find VMs for dependency from \(dependency.origin.value.kindName) to \(dependency.destination.value.kindName)")
+                        log(error: "Could not find VMs for dependency from \(dependency.originID) to \(dependency.destinationID)")
                         continue
                     }
                     
@@ -40,8 +40,8 @@ extension ArtifactViewModel
             case .file(let file):
                 for dependency in file.symbolGraph.edges
                 {
-                    guard let originVM = viewModelHashMap[dependency.origin.value.id],
-                          let destinationVM = viewModelHashMap[dependency.destination.value.id]
+                    guard let originVM = viewModelHashMap[dependency.originID],
+                          let destinationVM = viewModelHashMap[dependency.destinationID]
                     else { continue }
                     
                     artifactVM.partDependencies += .init(sourcePart: originVM,
@@ -52,8 +52,8 @@ extension ArtifactViewModel
             case .symbol(let symbol):
                 for dependency in symbol.subsymbolGraph.edges
                 {
-                    guard let originVM = viewModelHashMap[dependency.origin.value.id],
-                          let destinationVM = viewModelHashMap[dependency.destination.value.id]
+                    guard let originVM = viewModelHashMap[dependency.originID],
+                          let destinationVM = viewModelHashMap[dependency.destinationID]
                     else { continue }
                     
                     artifactVM.partDependencies += .init(sourcePart: originVM,

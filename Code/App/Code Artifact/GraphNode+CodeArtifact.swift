@@ -26,16 +26,16 @@ extension GraphNode where Value: CodeArtifact
         }
         
         // in- and outgoing dependencies
-        let inA = ancestors.count
-        let inB = nextNode.ancestors.count
+        let inA = ancestorIDs.count
+        let inB = nextNode.ancestorIDs.count
         
         if inA != inB
         {
             return inA < inB
         }
         
-        let outA = descendants.count
-        let outB = nextNode.descendants.count
+        let outA = descendantIDs.count
+        let outB = nextNode.descendantIDs.count
         
         if outA != outB
         {
