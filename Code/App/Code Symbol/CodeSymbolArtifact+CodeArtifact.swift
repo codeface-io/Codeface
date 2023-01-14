@@ -14,7 +14,8 @@ extension CodeSymbolArtifact: CodeArtifact
     @BackgroundActor
     func sort()
     {
-        subsymbolGraph.sort { a, b in a.goesBefore(b) }
+        // FIXME: sorting could be moved to the vie model as it is a matter of graphical representation (?)
+//        subsymbolGraph.sort { a, b in a.goesBefore(b) }
     }
     
     var parts: [any CodeArtifact]

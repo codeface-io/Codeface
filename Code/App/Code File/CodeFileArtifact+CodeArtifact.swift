@@ -10,7 +10,8 @@ extension CodeFileArtifact: CodeArtifact
 {
     func sort()
     {
-        symbolGraph.sort { $0.goesBefore($1) }
+        // FIXME: sorting could be moved to the vie model as it is a matter of graphical representation (?)
+//        symbolGraph.sort { $0.goesBefore($1) }
     }
     
     var parts: [any CodeArtifact]

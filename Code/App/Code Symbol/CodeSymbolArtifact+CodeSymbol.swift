@@ -26,8 +26,6 @@ extension CodeSymbolArtifact
         }
         
         // remember symbol data, so we can add dependencies to the artifact hierarchy later
-//        symbolDataHash[self] = symbolData
-        
         Self.symbolHash[self] = symbolData
     }
     

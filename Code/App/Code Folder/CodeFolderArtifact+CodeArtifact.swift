@@ -7,7 +7,8 @@ extension CodeFolderArtifact: CodeArtifact
 {
     func sort()
     {
-        partGraph.sort { $0.goesBefore($1) }
+        // FIXME: sorting could be moved to the vie model as it is a matter of graphical representation (?)
+//        partGraph.sort { $0.goesBefore($1) }
     }
     
     var parts: [any CodeArtifact]

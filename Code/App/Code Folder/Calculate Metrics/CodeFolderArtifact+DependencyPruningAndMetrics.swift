@@ -105,7 +105,6 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
                 let originMetrics = CodeArtifactMetricsCache.shared[componentDependency.originID]
                 let destinationMetrics = CodeArtifactMetricsCache.shared[componentDependency.destinationID]
                 
-
                 guard let sourceSCCIndex = originMetrics.sccIndexTopologicallySorted,
                       let targetSCCIndex = destinationMetrics.sccIndexTopologicallySorted
                 else

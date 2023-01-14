@@ -17,7 +17,7 @@ class CodebaseProcessor: ObservableObject
             
             // get codebase
             guard let codebase = await retrieveCodebase() else { return }
-
+            
             // generate architecture
             let codebaseArchitecture = await generateArchitecture(from: codebase)
             
@@ -75,8 +75,8 @@ class CodebaseProcessor: ObservableObject
                 state = .retrievingCodebase(.retrieveSymbolsAndRefs)
                 
                 let codebase = try await CodebaseProcessorSteps.retrieveSymbolsAndReferences(for: codebaseWithoutSymbols,
-                                                                                      from: server,
-                                                                                      codebaseRootFolder: codebaseLocation.folder)
+                                                                                             from: server,
+                                                                                             codebaseRootFolder: codebaseLocation.folder)
                 
                 state = .didRetrieveCodebase(codebase)
                 return codebase
