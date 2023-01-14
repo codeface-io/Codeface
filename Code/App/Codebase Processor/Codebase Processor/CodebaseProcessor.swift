@@ -121,11 +121,14 @@ class CodebaseProcessor: ObservableObject
         
         // add dependencies between sibling symbols
         state = .visualizingCodebaseArchitecture(.addSiblingSymbolDependencies)
-        await CodebaseProcessorSteps.addSymbolDependencies(in: architecture)
+        var outOfScopeDependenciesHash = [CodeSymbolArtifact: Set<CodeSymbolArtifact>]()
+        await CodebaseProcessorSteps.addSymbolDependencies(in: architecture,
+                                                           outOfScopeDependenciesHash: &outOfScopeDependenciesHash)
         
         // add dependencies on higher levels (across scopes)
         state = .visualizingCodebaseArchitecture(.calculateHigherLevelDependencies)
-        await CodebaseProcessorSteps.addHigherLevelDependencies(in: architecture)
+        await CodebaseProcessorSteps.addHigherLevelDependencies(in: architecture,
+                                                                outOfScopeDependenciesHash: outOfScopeDependenciesHash)
         
         return architecture
     }

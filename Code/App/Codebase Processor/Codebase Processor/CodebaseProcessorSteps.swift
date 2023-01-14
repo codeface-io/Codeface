@@ -33,13 +33,15 @@ enum CodebaseProcessorSteps
         return CodeFolderArtifact(codeFolder: folder, scope: nil)
     }
     
-    static func addSymbolDependencies(in architecture: CodeFolderArtifact)
+    static func addSymbolDependencies(in architecture: CodeFolderArtifact,
+                                      outOfScopeDependenciesHash: inout [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
     {
-        architecture.addSymbolDependencies()
+        architecture.addSymbolDependencies(outOfScopeDependenciesHash: &outOfScopeDependenciesHash)
     }
     
-    static func addHigherLevelDependencies(in architecture: CodeFolderArtifact)
+    static func addHigherLevelDependencies(in architecture: CodeFolderArtifact,
+                                           outOfScopeDependenciesHash: [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
     {
-        architecture.addCrossScopeDependencies()
+        architecture.addCrossScopeDependencies(outOfScopeDependenciesHash: outOfScopeDependenciesHash)
     }
 }

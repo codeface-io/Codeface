@@ -5,25 +5,29 @@ import SwiftyToolz
 @BackgroundActor
 extension CodeFolderArtifact
 {
-    func addSymbolDependencies()
+    func addSymbolDependencies(outOfScopeDependenciesHash: inout [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
     {
         let fileHash = CodeFileArtifactHashmap(root: self)
         
-        addSymbolDependencies(using: fileHash)
+        addSymbolDependencies(using: fileHash,
+                              outOfScopeDependenciesHash: &outOfScopeDependenciesHash)
         
         CodeSymbolArtifact.symbolHash.removeAll()
     }
     
-    private func addSymbolDependencies(using fileHash: CodeFileArtifactHashmap)
+    private func addSymbolDependencies(using fileHash: CodeFileArtifactHashmap,
+                                       outOfScopeDependenciesHash: inout [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
     {
         for part in partGraph.values
         {
             switch part.kind
             {
             case .subfolder(let subfolder):
-                subfolder.addSymbolDependencies(using: fileHash)
+                subfolder.addSymbolDependencies(using: fileHash,
+                                                outOfScopeDependenciesHash: &outOfScopeDependenciesHash)
             case .file(let file):
-                file.symbolGraph.addSymbolDependencies(fileHash: fileHash)
+                file.symbolGraph.addSymbolDependencies(fileHash: fileHash,
+                                                       outOfScopeDependenciesHash: &outOfScopeDependenciesHash)
             }
         }
     }
@@ -32,13 +36,15 @@ extension CodeFolderArtifact
 @BackgroundActor
 private extension Graph where NodeValue == CodeSymbolArtifact, NodeID == CodeArtifact.ID
 {
-    mutating func addSymbolDependencies(fileHash: CodeFileArtifactHashmap)
+    mutating func addSymbolDependencies(fileHash: CodeFileArtifactHashmap,
+                                        outOfScopeDependenciesHash: inout [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
     {
         for symbolNode in nodesByID.values
         {
             let symbol = symbolNode.value
             
-            symbol.subsymbolGraph.addSymbolDependencies(fileHash: fileHash)
+            symbol.subsymbolGraph.addSymbolDependencies(fileHash: fileHash,
+                                                        outOfScopeDependenciesHash: &outOfScopeDependenciesHash)
         }
         
         for symbolNode in nodesByID.values
@@ -49,7 +55,7 @@ private extension Graph where NodeValue == CodeSymbolArtifact, NodeID == CodeArt
             
             for outOfScopeAncestor in ingoing.outOfScope
             {
-                outOfScopeAncestor.outOfScopeDependencies += symbol
+                outOfScopeDependenciesHash[outOfScopeAncestor, default: []] += symbol
             }
             
             for inScopeAncestor in ingoing.inScope

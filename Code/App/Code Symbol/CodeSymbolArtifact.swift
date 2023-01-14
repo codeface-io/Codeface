@@ -25,7 +25,6 @@ final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
     
     let scope: ScopeReference
     var subsymbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
-    var outOfScopeDependencies = Set<CodeSymbolArtifact>()
     
     // MARK: - Basics
     

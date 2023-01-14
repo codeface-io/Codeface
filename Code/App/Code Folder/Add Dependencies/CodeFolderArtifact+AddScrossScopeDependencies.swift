@@ -3,16 +3,16 @@ import SwiftyToolz
 
 extension CodeFolderArtifact
 {
-    func addCrossScopeDependencies()
+    func addCrossScopeDependencies(outOfScopeDependenciesHash: [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
     {
         for partNode in partGraph.nodesByID.values
         {
             switch partNode.value.kind
             {
             case .subfolder(let subfolder):
-                subfolder.addCrossScopeDependencies()
+                subfolder.addCrossScopeDependencies(outOfScopeDependenciesHash: outOfScopeDependenciesHash)
             case .file(let file):
-                file.addCrossScopeDependencies()
+                file.addCrossScopeDependencies(outOfScopeDependenciesHash: outOfScopeDependenciesHash)
             }
         }
     }
@@ -20,23 +20,25 @@ extension CodeFolderArtifact
 
 private extension CodeFileArtifact
 {
-    func addCrossScopeDependencies()
+    func addCrossScopeDependencies(outOfScopeDependenciesHash: [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
     {
         for symbolNode in symbolGraph.nodesByID.values
         {
-            symbolNode.value.addCrossScopeDependencies()
+            symbolNode.value.addCrossScopeDependencies(outOfScopeDependenciesHash: outOfScopeDependenciesHash)
         }
     }
 }
 
 private extension CodeSymbolArtifact
 {
-    func addCrossScopeDependencies()
+    func addCrossScopeDependencies(outOfScopeDependenciesHash: [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
     {
         for subsymbolNode in subsymbolGraph.nodesByID.values
         {
-            subsymbolNode.value.addCrossScopeDependencies()
+            subsymbolNode.value.addCrossScopeDependencies(outOfScopeDependenciesHash: outOfScopeDependenciesHash)
         }
+        
+        let outOfScopeDependencies = outOfScopeDependenciesHash[self] ?? []
         
         outOfScopeDependencies.forEach(handle(externalDependency:))
     }
