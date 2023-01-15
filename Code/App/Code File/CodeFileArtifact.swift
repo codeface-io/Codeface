@@ -4,18 +4,14 @@ import SwiftNodes
 
 final class CodeFileArtifact: Identifiable, Sendable
 {
-    init(name: String,
-         codeLines: [String],
-         scope: any CodeArtifact)
+    init(name: String, codeLines: [String])
     {
         self.name = name
         self.lines = codeLines
-        self.scope = .init(artifact: scope)
     }
     
     // MARK: - Tree Structure
     
-    let scope: ScopeReference
     var symbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
     
     // MARK: - Basics

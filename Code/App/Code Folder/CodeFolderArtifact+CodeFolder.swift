@@ -3,19 +3,22 @@ import SwiftyToolz
 @BackgroundActor
 extension CodeFolderArtifact
 {
-    convenience init(codeFolder: CodeFolder,
-                     scope: (any CodeArtifact)?)
+    convenience init(codeFolder: CodeFolder, filePathRelativeToRoot: String)
     {
-        self.init(name: codeFolder.name, scope: scope)
+        let filePathWithSlash = filePathRelativeToRoot.isEmpty ? "" : filePathRelativeToRoot + "/"
+        
+        self.init(name: codeFolder.name)
         
         let partArray = (codeFolder.subfolders ?? []).map
         {
-            Part(kind: .subfolder(CodeFolderArtifact(codeFolder: $0, scope: self)))
+            Part(kind: .subfolder(.init(codeFolder: $0,
+                                        filePathRelativeToRoot: filePathWithSlash + $0.name)))
         }
         +
         (codeFolder.files ?? []).map
         {
-            Part(kind: .file(CodeFileArtifact(codeFile: $0, scope: self)))
+            Part(kind: .file(.init(codeFile: $0,
+                                   filePathRelativeToRoot: filePathWithSlash + $0.name)))
         }
         
         for part in partArray

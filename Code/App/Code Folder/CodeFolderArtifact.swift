@@ -3,15 +3,13 @@ import SwiftNodes
 
 final class CodeFolderArtifact: Identifiable, Sendable
 {
-    init(name: String, scope: (any CodeArtifact)?)
+    init(name: String)
     {
         self.name = name
-        self.scope = .init(artifact: scope)
     }
 
     // MARK: - Graph Structure
     
-    let scope: ScopeReference
     var partGraph = Graph<CodeArtifact.ID, Part>()
     
     final class Part: CodeArtifact, Identifiable, Hashable
@@ -35,7 +33,6 @@ final class CodeFolderArtifact: Identifiable, Sendable
         
         func sort() { codeArtifact.sort() }
         var parts: [any CodeArtifact] { codeArtifact.parts }
-        var scope: ScopeReference { codeArtifact.scope }
         var name: String { codeArtifact.name }
         var kindName: String { codeArtifact.kindName }
         var code: String? { codeArtifact.code }

@@ -1,20 +1,28 @@
 import SwiftyToolz
 
+/**
+ TODO:
+ * translate initialization algorithm from symbol level to here and folder
+ */
+
 @BackgroundActor
 extension CodeFileArtifact
 {
-    convenience init(codeFile: CodeFile,
-                     scope: any CodeArtifact)
+    convenience init(codeFile: CodeFile, filePathRelativeToRoot: String)
     {
         self.init(name: codeFile.name,
-                  codeLines: codeFile.code.components(separatedBy: .newlines),
-                  scope: scope)
+                  codeLines: codeFile.lines)
         
-        for symbolData in (codeFile.symbols ?? [])
+        for codeSymbol in (codeFile.symbols ?? [])
         {
-            symbolGraph.insert(.init(symbolData: symbolData,
-                                     scope: self,
-                                     enclosingFile: codeFile))
+            var additionalReferences = [CodeSymbol.ReferenceLocation]()
+            
+            symbolGraph.insert(.init(symbol: codeSymbol,
+                                     enclosingFile: codeFile,
+                                     filePathRelativeToRoot: filePathRelativeToRoot,
+                                     additionalReferences: &additionalReferences))
+            
+            let allReferences = (codeSymbol.references ?? []) + additionalReferences
         }
     }
 }

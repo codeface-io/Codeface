@@ -18,13 +18,10 @@
 		96106E5C2962DED40002F13C /* CodeArtifactMetricsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D42962DB8000DF8A43 /* CodeArtifactMetricsCache.swift */; };
 		96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyPruningAndMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyPruningAndMetrics.swift */; };
 		96106E5E2962DEDD0002F13C /* CodeFolderArtifact+SizeMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D92962DB8000DF8A43 /* CodeFolderArtifact+SizeMetrics.swift */; };
-		96106E5F2962DEEE0002F13C /* CodeFolderArtifact+AddScrossScopeDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D72962DB8000DF8A43 /* CodeFolderArtifact+AddScrossScopeDependencies.swift */; };
 		96106E602962DEEE0002F13C /* CodeFolderArtifact+LOCInCycles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */; };
 		96106E612962DEF20002F13C /* CodebaseLocationPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134E02962DB8000DF8A43 /* CodebaseLocationPersister.swift */; };
-		96106E622962DF1C0002F13C /* CodeFileArtifactHashmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DB2962DB8000DF8A43 /* CodeFileArtifactHashmap.swift */; };
 		96106E632962DF1C0002F13C /* CodeFileArtifact+CodeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DC2962DB8000DF8A43 /* CodeFileArtifact+CodeFile.swift */; };
 		96106E642962DF1C0002F13C /* CodeFolderArtifact+CodeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DE2962DB8000DF8A43 /* CodeFolderArtifact+CodeFolder.swift */; };
-		96106E652962DF1C0002F13C /* CodeFolderArtifact+AddSymbolDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DD2962DB8000DF8A43 /* CodeFolderArtifact+AddSymbolDependencies.swift */; };
 		96106E662962DF1C0002F13C /* CodeSymbolArtifact+CodeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134DF2962DB8000DF8A43 /* CodeSymbolArtifact+CodeSymbol.swift */; };
 		9619A2B22966E57700863BC0 /* CodebaseAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619A2B12966E57700863BC0 /* CodebaseAnalysis.swift */; };
 		9619A2B42966E87C00863BC0 /* ProcessingFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619A2B32966E87C00863BC0 /* ProcessingFailureView.swift */; };
@@ -178,12 +175,9 @@
 		96E134D32962DB8000DF8A43 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		96E134D42962DB8000DF8A43 /* CodeArtifactMetricsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifactMetricsCache.swift; sourceTree = "<group>"; };
 		96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+LOCInCycles.swift"; sourceTree = "<group>"; };
-		96E134D72962DB8000DF8A43 /* CodeFolderArtifact+AddScrossScopeDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+AddScrossScopeDependencies.swift"; sourceTree = "<group>"; };
 		96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyPruningAndMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+DependencyPruningAndMetrics.swift"; sourceTree = "<group>"; };
 		96E134D92962DB8000DF8A43 /* CodeFolderArtifact+SizeMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+SizeMetrics.swift"; sourceTree = "<group>"; };
-		96E134DB2962DB8000DF8A43 /* CodeFileArtifactHashmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeFileArtifactHashmap.swift; sourceTree = "<group>"; };
 		96E134DC2962DB8000DF8A43 /* CodeFileArtifact+CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileArtifact+CodeFile.swift"; sourceTree = "<group>"; };
-		96E134DD2962DB8000DF8A43 /* CodeFolderArtifact+AddSymbolDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+AddSymbolDependencies.swift"; sourceTree = "<group>"; };
 		96E134DE2962DB8000DF8A43 /* CodeFolderArtifact+CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+CodeFolder.swift"; sourceTree = "<group>"; };
 		96E134DF2962DB8000DF8A43 /* CodeSymbolArtifact+CodeSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeSymbolArtifact+CodeSymbol.swift"; sourceTree = "<group>"; };
 		96E134E02962DB8000DF8A43 /* CodebaseLocationPersister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseLocationPersister.swift; sourceTree = "<group>"; };
@@ -306,16 +300,6 @@
 				96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */,
 			);
 			path = "Architecture View";
-			sourceTree = "<group>";
-		};
-		96106E6C296361A40002F13C /* Add Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				96E134D72962DB8000DF8A43 /* CodeFolderArtifact+AddScrossScopeDependencies.swift */,
-				96E134DD2962DB8000DF8A43 /* CodeFolderArtifact+AddSymbolDependencies.swift */,
-				96E134DB2962DB8000DF8A43 /* CodeFileArtifactHashmap.swift */,
-			);
-			path = "Add Dependencies";
 			sourceTree = "<group>";
 		};
 		96143EFF290ED68A008CA3C2 /* CodefaceHelper */ = {
@@ -556,7 +540,6 @@
 			isa = PBXGroup;
 			children = (
 				96E134D52962DB8000DF8A43 /* Calculate Metrics */,
-				96106E6C296361A40002F13C /* Add Dependencies */,
 				965A7AD52964992C006C5A3A /* Load */,
 				96E134F02962DC2200DF8A43 /* CodeFolderArtifact+CodeArtifact.swift */,
 				96E134DE2962DB8000DF8A43 /* CodeFolderArtifact+CodeFolder.swift */,
@@ -859,7 +842,6 @@
 				96106E662962DF1C0002F13C /* CodeSymbolArtifact+CodeSymbol.swift in Sources */,
 				96E135072962DD5900DF8A43 /* ArtifactViewModel+Layout.swift in Sources */,
 				96F19FB8294E642C00E441AC /* ToolbarFilterIndicator.swift in Sources */,
-				96106E5F2962DEEE0002F13C /* CodeFolderArtifact+AddScrossScopeDependencies.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				96FC8C3F284BEB9000AD7DD2 /* CodebaseLocator.swift in Sources */,
 				96E135052962DD5900DF8A43 /* ArtifactViewModel+AddDependencies.swift in Sources */,
@@ -873,7 +855,6 @@
 				96F5E7F02957191E00181473 /* ConcurrencyPOC.swift in Sources */,
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
 				96E135132962DD7A00DF8A43 /* CodeArtifact.swift in Sources */,
-				96106E652962DF1C0002F13C /* CodeFolderArtifact+AddSymbolDependencies.swift in Sources */,
 				9619A2B92967104E00863BC0 /* CodeArtifact+Metrics.swift in Sources */,
 				9619A2B22966E57700863BC0 /* CodebaseAnalysis.swift in Sources */,
 				964464C02952052C0004382F /* CodebaseProcessor.swift in Sources */,
@@ -920,7 +901,6 @@
 				964464B72952016E0004382F /* DisplayMode.swift in Sources */,
 				96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyPruningAndMetrics.swift in Sources */,
 				96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */,
-				96106E622962DF1C0002F13C /* CodeFileArtifactHashmap.swift in Sources */,
 				96106E5B2962DED10002F13C /* Metrics.swift in Sources */,
 				96D59CC9294ABB13003C55B5 /* CodebaseNavigatorView.swift in Sources */,
 				96E135092962DD5900DF8A43 /* ArtifactViewModel+LayoutDependencies.swift in Sources */,

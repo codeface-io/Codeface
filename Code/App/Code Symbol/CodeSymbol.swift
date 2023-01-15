@@ -1,6 +1,9 @@
 import SwiftLSP
 import SwiftyToolz
 
+/**
+ ⛔️ Do not change! This is part of the ".codebase" file format.
+ */
 final class CodeSymbol: Codable, Sendable
 {
     init(lspDocumentySymbol: LSPDocumentSymbol,

@@ -29,19 +29,6 @@ enum CodebaseProcessorSteps
     
     static func generateArchitecture(from folder: CodeFolder) -> CodeFolderArtifact
     {
-        CodeSymbolArtifact.symbolHash.removeAll()
-        return CodeFolderArtifact(codeFolder: folder, scope: nil)
-    }
-    
-    static func addSymbolDependencies(in architecture: CodeFolderArtifact,
-                                      outOfScopeDependenciesHash: inout [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
-    {
-        architecture.addSymbolDependencies(outOfScopeDependenciesHash: &outOfScopeDependenciesHash)
-    }
-    
-    static func addHigherLevelDependencies(in architecture: CodeFolderArtifact,
-                                           outOfScopeDependenciesHash: [CodeSymbolArtifact: Set<CodeSymbolArtifact>])
-    {
-        architecture.addCrossScopeDependencies(outOfScopeDependenciesHash: outOfScopeDependenciesHash)
+        return CodeFolderArtifact(codeFolder: folder, filePathRelativeToRoot: "")
     }
 }

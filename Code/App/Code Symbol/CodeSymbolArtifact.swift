@@ -1,5 +1,4 @@
 import SwiftLSP
-import Foundation
 import SwiftNodes
 
 final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
@@ -11,24 +10,23 @@ final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
          range: LSPRange,
          selectionRange: LSPRange,
          code: String,
-         scope: any CodeArtifact)
+         subsymbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact>)
     {
         self.name = name
         self.kind = kind
         self.range = range
         self.selectionRange = selectionRange
         self.code = code
-        self.scope = .init(artifact: scope)
+        self.subsymbolGraph = subsymbolGraph
     }
     
     // MARK: - Graph Structure
     
-    let scope: ScopeReference
-    var subsymbolGraph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
+    var subsymbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact>
     
     // MARK: - Basics
     
-    let id = UUID().uuidString
+    let id: CodeArtifact.ID = .randomID()
     let name: String
     let kind: LSPDocumentSymbol.SymbolKind?
     let range: LSPRange

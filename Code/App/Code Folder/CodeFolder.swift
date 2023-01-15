@@ -1,3 +1,6 @@
+/**
+ ⛔️ Do not change! This is part of the ".codebase" file format.
+ */
 final class CodeFolder: Codable, Sendable
 {
     var looksLikeAPackage: Bool

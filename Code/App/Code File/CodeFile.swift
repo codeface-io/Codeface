@@ -1,6 +1,9 @@
 import SwiftLSP
 import FoundationToolz
 
+/**
+ ⛔️ Do not change! This is part of the ".codebase" file format.
+ */
 final class CodeFile: Codable, Sendable
 {
     init(name: String,

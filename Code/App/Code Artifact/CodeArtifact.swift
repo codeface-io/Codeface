@@ -7,13 +7,6 @@ protocol SearchableCodeArtifact: CodeArtifact
 
 extension CodeArtifact
 {
-    func contains(_ otherArtifact: any CodeArtifact) -> Bool
-    {
-        if otherArtifact === self { return true }
-        guard let otherArtifactScope = otherArtifact.scope.artifact else { return false }
-        return self === otherArtifactScope ? true : contains(otherArtifactScope)
-    }
-    
     func traverseDepthFirst(_ visit: (any CodeArtifact) -> Void)
     {
         parts.forEach { $0.traverseDepthFirst(visit) }
@@ -26,9 +19,6 @@ protocol CodeArtifact: AnyObject, Hashable, Sendable
     // analysis
     @BackgroundActor
     func sort()
-    
-    // hierarchy
-    var scope: ScopeReference { get }
 
     // TODO: replace parts and addPartDependency by returning the whole graph
     var parts: [any CodeArtifact] { get }
@@ -45,9 +35,4 @@ protocol CodeArtifact: AnyObject, Hashable, Sendable
     // identity
     var id: ID { get }
     typealias ID = String
-}
-
-struct ScopeReference: Sendable
-{
-    weak var artifact: (any CodeArtifact)?
 }
