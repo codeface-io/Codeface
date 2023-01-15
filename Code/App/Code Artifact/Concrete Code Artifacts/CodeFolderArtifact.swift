@@ -21,11 +21,6 @@ final class CodeFolderArtifact: Identifiable, Sendable
         
         // MARK: CodeArtifact Protocol
         
-        func addPartDependency(from sourceID: ID, to targetID: ID)
-        {
-            codeArtifact.addPartDependency(from: sourceID, to: targetID)
-        }
-        
         var intrinsicSizeInLinesOfCode: Int?
         {
             codeArtifact.intrinsicSizeInLinesOfCode

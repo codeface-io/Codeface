@@ -22,7 +22,6 @@ protocol CodeArtifact: AnyObject, Hashable, Sendable
 
     // TODO: replace parts and addPartDependency by returning the whole graph
     var parts: [any CodeArtifact] { get }
-    func addPartDependency(from: ID, to: ID)
     
 //    var test: Graph<CodeArtifact> { get }
     
