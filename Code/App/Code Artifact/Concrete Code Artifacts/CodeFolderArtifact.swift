@@ -3,14 +3,16 @@ import SwiftNodes
 
 final class CodeFolderArtifact: Identifiable, Sendable
 {
-    init(name: String)
+    init(name: String,
+         partGraph: Graph<CodeArtifact.ID, Part>)
     {
         self.name = name
+        self.partGraph = partGraph
     }
 
     // MARK: - Graph Structure
     
-    var partGraph = Graph<CodeArtifact.ID, Part>()
+    let partGraph: Graph<CodeArtifact.ID, Part>
     
     final class Part: CodeArtifact, Identifiable, Hashable
     {

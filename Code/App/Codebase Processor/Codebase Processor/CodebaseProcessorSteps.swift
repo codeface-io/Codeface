@@ -29,6 +29,10 @@ enum CodebaseProcessorSteps
     
     static func generateArchitecture(from folder: CodeFolder) -> CodeFolderArtifact
     {
-        return CodeFolderArtifact(codeFolder: folder, filePathRelativeToRoot: "")
+        var extraReferences = [CodeSymbol.ReferenceLocation]()
+        
+        return CodeFolderArtifact(codeFolder: folder,
+                                  filePathRelativeToRoot: "",
+                                  additionalReferences: &extraReferences)
     }
 }
