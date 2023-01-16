@@ -19,11 +19,6 @@ extension CodeFileArtifact: CodeArtifact
         symbolGraph.nodesByID.values.map { $0.value }
     }
     
-    func addPartDependency(from sourceID: ID, to targetID: ID)
-    {
-        symbolGraph.addEdge(from: sourceID, to: targetID)
-    }
-    
     var intrinsicSizeInLinesOfCode: Int? { lines.count }
     
     var kindName: String { "File" }

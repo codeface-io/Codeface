@@ -23,11 +23,6 @@ extension CodeSymbolArtifact: CodeArtifact
         subsymbolGraph.nodesByID.values.map { $0.value }
     }
     
-    func addPartDependency(from sourceID: ID, to targetID: ID)
-    {
-        subsymbolGraph.addEdge(from: sourceID, to: targetID)
-    }
-    
     var intrinsicSizeInLinesOfCode: Int? { (range.end.line - range.start.line) + 1 }
     
     static var kindNames: [String] { LSPDocumentSymbol.SymbolKind.names }

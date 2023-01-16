@@ -16,11 +16,6 @@ extension CodeFolderArtifact: CodeArtifact
         partGraph.nodesByID.values.map { $0.value }
     }
     
-    func addPartDependency(from sourceID: ID, to targetID: ID)
-    {
-        partGraph.addEdge(from: sourceID, to: targetID)
-    }
-    
     var intrinsicSizeInLinesOfCode: Int? { nil }
     var kindName: String { "Folder" }
     var code: String? { nil }
