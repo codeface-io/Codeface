@@ -30,7 +30,7 @@ extension CodeSymbolArtifact
             graph.insert(child)
         }
         
-        // base case: create this symbol
+        // base case: create this symbol artifact
         
         for (childID, childReferences) in referencesByChildID
         {
@@ -39,7 +39,7 @@ extension CodeSymbolArtifact
                 if filePathRelativeToRoot == childReference.filePathRelativeToRoot,
                    symbol.range.contains(childReference.range)
                 {
-                    // we found a reference within the scope of this symbol that we initialize
+                    // we found a reference within the scope of this symbol artifact that we initialize
                     
                     // search for a sibling that contains the reference location
                     for sibling in graph.values
