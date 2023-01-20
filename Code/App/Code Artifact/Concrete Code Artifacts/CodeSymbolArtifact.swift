@@ -22,7 +22,7 @@ final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
     
     // MARK: - Graph Structure
     
-    var subsymbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact>
+    let subsymbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact>
     
     // MARK: - Basics
     
