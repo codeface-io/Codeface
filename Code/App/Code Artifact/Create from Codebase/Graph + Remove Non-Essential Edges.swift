@@ -6,7 +6,7 @@ extension Graph
     /**
      Remove edges of the condensation graph that are not in its minimum equivalent graph
      
-     Note that this will not remove any edges that are part of cycles (i.e. part of strongly connected components) as it only considers edges of the condensation graph. This is because it's mathematically as well as conceptually hard to decide which edges in a strongly connected conponent are "non-essential". Mathematically this is the problem of finding the minimum feedback arc set. We recommend dealing with cycles independently of using this function (ideally before).
+     Note that this will not remove any edges that are part of cycles (i.e. part of strongly connected components), as it only considers edges of the condensation graph. This is because it's [algorithmically](https://en.wikipedia.org/wiki/Feedback_arc_set#Hardness) as well as conceptually hard to decide which edges in cycles are "non-essential". We recommend dealing with cycles independently of using this function (ideally before).
      */
     mutating func removeNonEssentialEdges()
     {
