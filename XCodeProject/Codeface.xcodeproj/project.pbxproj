@@ -51,7 +51,6 @@
 		966F39B1291BF54F00198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B0291BF54F00198B14 /* FoundationToolz */; };
 		966F39B3291BF56200198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B2291BF56200198B14 /* FoundationToolz */; };
 		9675A0B7294CE1C900C784AA /* NavigationAndFocusPOCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675A0B6294CE1C900C784AA /* NavigationAndFocusPOCView.swift */; };
-		96880658297AFA570075F8F3 /* Graph + Remove Non-Essential Edges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96880657297AFA570075F8F3 /* Graph + Remove Non-Essential Edges.swift */; };
 		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
 		968EA5C328DCD24500FE8A9B /* CodebaseProcessorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */; };
 		96C2118C28E347F0008024AA /* CombineObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118B28E347F0008024AA /* CombineObserver */; };
@@ -162,7 +161,6 @@
 		965A7AD82964A319006C5A3A /* CodebaseProcessorSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorSteps.swift; sourceTree = "<group>"; };
 		966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutableClientExportedInterface.swift; sourceTree = "<group>"; };
 		9675A0B6294CE1C900C784AA /* NavigationAndFocusPOCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAndFocusPOCView.swift; sourceTree = "<group>"; };
-		96880657297AFA570075F8F3 /* Graph + Remove Non-Essential Edges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Graph + Remove Non-Essential Edges.swift"; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
 		968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorView.swift; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
@@ -316,8 +314,8 @@
 			isa = PBXGroup;
 			children = (
 				96E134F12962DC2200DF8A43 /* GraphNode+CodeArtifact.swift */,
-				96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyMetrics.swift */,
 				96E134D92962DB8000DF8A43 /* CodeFolderArtifact+SizeMetrics.swift */,
+				96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyMetrics.swift */,
 				96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */,
 				9619A2B82967104E00863BC0 /* CodeArtifact+Metrics.swift */,
 				96E134D42962DB8000DF8A43 /* CodeArtifactMetricsCache.swift */,
@@ -339,7 +337,6 @@
 				96E134DE2962DB8000DF8A43 /* CodeFolderArtifact+CodeFolder.swift */,
 				96E134DC2962DB8000DF8A43 /* CodeFileArtifact+CodeFile.swift */,
 				96E134DF2962DB8000DF8A43 /* CodeSymbolArtifact+CodeSymbol.swift */,
-				96880657297AFA570075F8F3 /* Graph + Remove Non-Essential Edges.swift */,
 			);
 			path = "Create from Codebase";
 			sourceTree = "<group>";
@@ -850,7 +847,6 @@
 				96E135052962DD5900DF8A43 /* ArtifactViewModel+AddDependencies.swift in Sources */,
 				96EB5997294628390050254E /* SearchField.swift in Sources */,
 				96E135062962DD5900DF8A43 /* ArtifactViewModel+Search.swift in Sources */,
-				96880658297AFA570075F8F3 /* Graph + Remove Non-Essential Edges.swift in Sources */,
 				96106E5E2962DEDD0002F13C /* CodeFolderArtifact+SizeMetrics.swift in Sources */,
 				96106E642962DF1C0002F13C /* CodeFolderArtifact+CodeFolder.swift in Sources */,
 				96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */,
@@ -1254,7 +1250,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftNodes";
 			requirement = {
 				kind = exactVersion;
-				version = 0.4.1;
+				version = 0.4.3;
 			};
 		};
 		9656A69D25287F0D00D4CF26 /* XCRemoteSwiftPackageReference "SwiftyToolz" */ = {
