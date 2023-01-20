@@ -62,6 +62,8 @@ extension CodeSymbolArtifact
             }
         }
         
+        graph.removeNonEssentialEdges()
+        
         let code = enclosingFile.lines[symbol.range.start.line ... symbol.range.end.line].joined(separator: "\n")
         
         self.init(name: symbol.name,
