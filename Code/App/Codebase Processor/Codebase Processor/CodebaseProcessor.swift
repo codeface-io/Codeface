@@ -27,7 +27,7 @@ class CodebaseProcessor: ObservableObject
             await BackgroundActor.run
             {
                 codebaseArchitecture.calculateSizeMetricsRecursively()
-//                codebaseArchitecture.recursivelyPruneDependenciesAndCalculateDependencyMetrics()
+                codebaseArchitecture.calculateDependencyMetricsRecursively()
                 codebaseArchitecture.calculateCycleMetricsRecursively()
             }
             

@@ -16,7 +16,7 @@
 		96106E5A2962DEAD0002F13C /* SwiftNodes in Frameworks */ = {isa = PBXBuildFile; productRef = 96106E592962DEAD0002F13C /* SwiftNodes */; };
 		96106E5B2962DED10002F13C /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D32962DB8000DF8A43 /* Metrics.swift */; };
 		96106E5C2962DED40002F13C /* CodeArtifactMetricsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D42962DB8000DF8A43 /* CodeArtifactMetricsCache.swift */; };
-		96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyPruningAndMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyPruningAndMetrics.swift */; };
+		96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyMetrics.swift */; };
 		96106E5E2962DEDD0002F13C /* CodeFolderArtifact+SizeMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D92962DB8000DF8A43 /* CodeFolderArtifact+SizeMetrics.swift */; };
 		96106E602962DEEE0002F13C /* CodeFolderArtifact+LOCInCycles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */; };
 		96106E612962DEF20002F13C /* CodebaseLocationPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134E02962DB8000DF8A43 /* CodebaseLocationPersister.swift */; };
@@ -177,7 +177,7 @@
 		96E134D32962DB8000DF8A43 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		96E134D42962DB8000DF8A43 /* CodeArtifactMetricsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifactMetricsCache.swift; sourceTree = "<group>"; };
 		96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+LOCInCycles.swift"; sourceTree = "<group>"; };
-		96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyPruningAndMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+DependencyPruningAndMetrics.swift"; sourceTree = "<group>"; };
+		96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+DependencyMetrics.swift"; sourceTree = "<group>"; };
 		96E134D92962DB8000DF8A43 /* CodeFolderArtifact+SizeMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+SizeMetrics.swift"; sourceTree = "<group>"; };
 		96E134DC2962DB8000DF8A43 /* CodeFileArtifact+CodeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFileArtifact+CodeFile.swift"; sourceTree = "<group>"; };
 		96E134DE2962DB8000DF8A43 /* CodeFolderArtifact+CodeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+CodeFolder.swift"; sourceTree = "<group>"; };
@@ -316,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				96E134F12962DC2200DF8A43 /* GraphNode+CodeArtifact.swift */,
+				96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyMetrics.swift */,
 				96E134D92962DB8000DF8A43 /* CodeFolderArtifact+SizeMetrics.swift */,
 				96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */,
 				9619A2B82967104E00863BC0 /* CodeArtifact+Metrics.swift */,
@@ -555,7 +556,6 @@
 		96E134E92962DC2200DF8A43 /* Code Artifact */ = {
 			isa = PBXGroup;
 			children = (
-				96E134D82962DB8000DF8A43 /* CodeFolderArtifact+DependencyPruningAndMetrics.swift */,
 				9619A2B72967101300863BC0 /* Metrics */,
 				961ED04F29744C4C008C542E /* Code Artifact Conformance */,
 				961ED04E29744BE9008C542E /* Create from Codebase */,
@@ -903,7 +903,7 @@
 				96D59CC5294AB8DE003C55B5 /* CodebaseInspectorView.swift in Sources */,
 				964464B22951D4090004382F /* DisplayModePicker.swift in Sources */,
 				964464B72952016E0004382F /* DisplayMode.swift in Sources */,
-				96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyPruningAndMetrics.swift in Sources */,
+				96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyMetrics.swift in Sources */,
 				96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */,
 				96106E5B2962DED10002F13C /* Metrics.swift in Sources */,
 				96D59CC9294ABB13003C55B5 /* CodebaseNavigatorView.swift in Sources */,
