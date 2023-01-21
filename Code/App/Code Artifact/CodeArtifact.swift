@@ -16,10 +16,6 @@ extension CodeArtifact
 
 protocol CodeArtifact: AnyObject, Hashable, Sendable
 {
-    // analysis
-    @BackgroundActor
-    func sort()
-
     // TODO: replace parts and addPartDependency by returning the whole graph
     var parts: [any CodeArtifact] { get }
     

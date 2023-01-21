@@ -41,6 +41,8 @@ class ArtifactViewModel: Identifiable, ObservableObject
         kind = .folder(folderArtifact)
         
         for part in parts { part.scope = self }
+        
+        parts.sort()
     }
     
     private init(fileArtifact: CodeFileArtifact) async
@@ -69,6 +71,8 @@ class ArtifactViewModel: Identifiable, ObservableObject
         kind = .file(fileArtifact)
         
         for part in parts { part.scope = self }
+        
+        parts.sort()
     }
     
     private init(symbolArtifact: CodeSymbolArtifact) async
@@ -88,6 +92,8 @@ class ArtifactViewModel: Identifiable, ObservableObject
         kind = .symbol(symbolArtifact)
         
         for part in parts { part.scope = self }
+        
+        parts.sort()
     }
     
     // MARK: - Geometry: Basics
@@ -157,8 +163,8 @@ class ArtifactViewModel: Identifiable, ObservableObject
     
     let metrics: Metrics
     
-    var scope: ArtifactViewModel?
-    let parts: [ArtifactViewModel]
+    var scope: ArtifactViewModel? // TODO: this should likely be weak
+    var parts: [ArtifactViewModel]
     var partDependencies = [DependencyVM]()
     
     nonisolated var id: String { codeArtifact.id }
@@ -257,4 +263,13 @@ private func systemColor(forLinesOfCode linesOfCode: Int) -> UXColor.System
     else if linesOfCode < 200 { return .yellow }
     else if linesOfCode < 300 { return .orange }
     else { return .red }
+}
+
+extension ArtifactViewModel: Comparable
+{
+    nonisolated static func < (lhs: ArtifactViewModel,
+                               rhs: ArtifactViewModel) -> Bool
+    {
+        lhs.metrics.sortRank < rhs.metrics.sortRank
+    }
 }

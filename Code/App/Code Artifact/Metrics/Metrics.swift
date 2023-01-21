@@ -19,6 +19,10 @@ struct Metrics: Sendable
     var isInACycle: Bool?
     var linesOfCodeOfPartsInCycles: Int?
     
+    // MARK: - Sort Rank
+    
+    var sortRank: Int = 0
+    
     // MARK: - Size
     
     var linesOfCode: Int?

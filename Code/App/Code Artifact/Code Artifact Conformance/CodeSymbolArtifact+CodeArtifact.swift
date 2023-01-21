@@ -11,13 +11,6 @@ extension CodeSymbolArtifact: SearchableCodeArtifact
 
 extension CodeSymbolArtifact: CodeArtifact
 {
-    @BackgroundActor
-    func sort()
-    {
-        // FIXME: sorting could be moved to the vie model as it is a matter of graphical representation (?)
-//        subsymbolGraph.sort { a, b in a.goesBefore(b) }
-    }
-    
     var parts: [any CodeArtifact]
     {
         subsymbolGraph.nodesByID.values.map { $0.value }

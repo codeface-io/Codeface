@@ -29,14 +29,7 @@ class CodebaseProcessor: ObservableObject
                 codebaseArchitecture.calculateSizeMetricsRecursively()
                 codebaseArchitecture.calculateDependencyMetricsRecursively()
                 codebaseArchitecture.calculateCycleMetricsRecursively()
-            }
-            
-            // sort artifacts
-            state = .visualizingCodebaseArchitecture(.sortCodeArtifacts)
-            
-            await BackgroundActor.run
-            {
-                codebaseArchitecture.traverseDepthFirst { $0.sort() }
+                codebaseArchitecture.calculateSortMetricsRecursively()
             }
             
             // create view model

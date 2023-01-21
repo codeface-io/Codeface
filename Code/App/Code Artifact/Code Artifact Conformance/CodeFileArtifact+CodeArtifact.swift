@@ -8,12 +8,6 @@ extension CodeFileArtifact: SearchableCodeArtifact
 
 extension CodeFileArtifact: CodeArtifact
 {
-    func sort()
-    {
-        // FIXME: sorting could be moved to the vie model as it is a matter of graphical representation (?)
-//        symbolGraph.sort { $0.goesBefore($1) }
-    }
-    
     var parts: [any CodeArtifact]
     {
         symbolGraph.nodesByID.values.map { $0.value }

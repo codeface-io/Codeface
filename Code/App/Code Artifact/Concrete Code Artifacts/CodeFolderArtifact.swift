@@ -28,7 +28,6 @@ final class CodeFolderArtifact: Identifiable, Sendable
             codeArtifact.intrinsicSizeInLinesOfCode
         }
         
-        func sort() { codeArtifact.sort() }
         var parts: [any CodeArtifact] { codeArtifact.parts }
         var name: String { codeArtifact.name }
         var kindName: String { codeArtifact.kindName }

@@ -5,12 +5,6 @@ extension CodeFolderArtifact: SearchableCodeArtifact
 
 extension CodeFolderArtifact: CodeArtifact
 {
-    func sort()
-    {
-        // FIXME: sorting could be moved to the view model as it is a matter of graphical representation (?)
-//        partGraph.sort { $0.goesBefore($1) }
-    }
-    
     var parts: [any CodeArtifact]
     {
         partGraph.nodesByID.values.map { $0.value }

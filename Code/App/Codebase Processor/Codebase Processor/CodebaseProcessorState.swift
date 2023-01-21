@@ -1,5 +1,11 @@
 import SwiftLSP
 
+/** TODO:
+ * Adjust processor states (architecture creation states have merged)
+ * solve last warning
+ * ... ?
+ */
+
 enum CodebaseProcessorState
 {
     var codebaseName: String?
