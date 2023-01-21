@@ -14,22 +14,30 @@ struct CodebaseProcessorView: View
             LoadingProgressView(primaryText: "Project Located",
                                 secondaryText: "✅").padding()
 
-        case .retrievingCodebase(let step):
-            LoadingProgressView(primaryText: "Loading " + codebaseProcessor.codebaseDisplayName,
+        case .retrieveCodebase(let step):
+            LoadingProgressView(primaryText: "Loading Codebase Data",
                                 secondaryText: step.rawValue).padding()
 
         case .didRetrieveCodebase:
-            LoadingProgressView(primaryText: "Project Data Complete",
+            LoadingProgressView(primaryText: "Codebase Data Load",
                                 secondaryText: "✅").padding()
-
-        case .visualizingCodebaseArchitecture(let step):
-            LoadingProgressView(primaryText: "Analyzing " + codebaseProcessor.codebaseDisplayName,
-                                secondaryText: step.rawValue).padding()
             
-        case .analyzingCodebaseArchitecture(let analysis):
+        case .generateArchitecture:
+            LoadingProgressView(primaryText: "Generating Codebase Architecture",
+                                secondaryText: "").padding()
+            
+        case .calculateMetrics:
+            LoadingProgressView(primaryText: "Calculating Codebase Architecture Metrics",
+                                secondaryText: "").padding()
+            
+        case .createViewModels:
+            LoadingProgressView(primaryText: "Generating Codebase Architecture View Models",
+                                secondaryText: "").padding()
+            
+        case .analyzeArchitecture(let analysis):
             CodebaseAnalysisView(analysis: analysis)
             
-        case .failed(let errorMessage):
+        case .didFail(let errorMessage):
             ProcessingFailureView(errorMessage: errorMessage).padding()
         }
     }

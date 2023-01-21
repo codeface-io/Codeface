@@ -9,6 +9,7 @@ struct CodefaceApp: App
 {
     init()
     {
+        // TODO: solve this warning
         ReadableError.readableMessageForError = { $0.localizedDescription }
         
         /// we provide our own menu option for fullscreen because the one from SwiftUI disappears as soon as we interact with any views ... 🤮

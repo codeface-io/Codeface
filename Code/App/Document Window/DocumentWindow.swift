@@ -97,17 +97,16 @@ class DocumentWindow: ObservableObject
     
     // MARK: - Observable Codebase
     
-    var defaultProjectFileName: String
-    {
-        codebaseProcessor.codebaseDisplayName
-    }
-    
     private func bindCodebaseToProjectProcessorVM()
     {
         codebaseObservation?.cancel()
-        codebaseObservation = codebaseProcessor.$state
-            .map { $0.codebase }
-            .assign(to: \.codebase, on: self)
+        codebaseObservation = codebaseProcessor.$state.sink
+        {
+            if case .didRetrieveCodebase(let codebase) = $0
+            {
+                self.codebase = codebase
+            }
+        }
     }
     
     private var codebaseObservation: AnyCancellable?

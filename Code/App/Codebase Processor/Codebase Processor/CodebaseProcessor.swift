@@ -19,33 +19,21 @@ class CodebaseProcessor: ObservableObject
             guard let codebase = await retrieveCodebase() else { return }
             
             // generate architecture
-            let codebaseArchitecture = await generateArchitecture(from: codebase)
+            state = .generateArchitecture
+            let codebaseArchitecture = await CodebaseProcessorSteps.generateArchitecture(from: codebase)
             
             // calculate metrics
-            state = .visualizingCodebaseArchitecture(.calculateMetrics)
-            
-            await BackgroundActor.run
-            {
-                codebaseArchitecture.calculateSizeMetricsRecursively()
-                codebaseArchitecture.calculateDependencyMetricsRecursively()
-                codebaseArchitecture.calculateCycleMetricsRecursively()
-                codebaseArchitecture.calculateSortMetricsRecursively()
-            }
+            state = .calculateMetrics
+            await codebaseArchitecture.calculateMetrics()
             
             // create view model
             // TODO: to put view model creation onto the background actor, we have to split it in two: 1) a dumb view state object that runs on the main actor and 2) a view model object that does the computations and runs on the background actor and is observed by the state object. however: even for a large codebase (sourcekit-lsp) creating the view model and adding its dependencies each only take 10 mili seconds, so offloading this to the background isn't super essential.
-            state = .visualizingCodebaseArchitecture(.createViewModels)
-            
-            var stopWatch = StopWatch()
+            state = .createViewModels
             let architectureViewModel = await ArtifactViewModel(folderArtifact: codebaseArchitecture,
                                                                 isPackage: codebase.looksLikeAPackage)
-            stopWatch.measure("Creating View Model")
-            
-            stopWatch.restart()
             architectureViewModel.addDependencies()
-            stopWatch.measure("Adding Dependencies To View Model")
             
-            state = .analyzingCodebaseArchitecture(.init(rootArtifact: architectureViewModel))
+            state = .analyzeArchitecture(.init(rootArtifact: architectureViewModel))
         }
     }
     
@@ -54,7 +42,7 @@ class CodebaseProcessor: ObservableObject
         switch state
         {
         case .didLocateCodebase(let codebaseLocation):
-            state = .retrievingCodebase(.readFolder)
+            state = .retrieveCodebase(.readFolder)
             guard let codebaseWithoutSymbols = await readCodebaseFolder(from: codebaseLocation) else
             {
                 return nil
@@ -62,10 +50,10 @@ class CodebaseProcessor: ObservableObject
             
             do
             {
-                state = .retrievingCodebase(.connectToLSPServer)
+                state = .retrieveCodebase(.connectToLSPServer)
                 let server = try await LSP.ServerManager.shared.initializeServer(for: codebaseLocation)
                 
-                state = .retrievingCodebase(.retrieveSymbolsAndRefs)
+                state = .retrieveCodebase(.retrieveSymbolsAndRefs)
                 
                 let codebase = try await CodebaseProcessorSteps.retrieveSymbolsAndReferences(for: codebaseWithoutSymbols,
                                                                                              from: server,
@@ -101,21 +89,12 @@ class CodebaseProcessor: ObservableObject
         catch
         {
             log(error.readable.message)
-            state = .failed(error.readable.message)
+            state = .didFail(error.readable.message)
             return nil
         }
     }
     
-    private func generateArchitecture(from codebase: CodeFolder) async -> CodeFolderArtifact
-    {
-        // generate basic hierarchy
-        state = .visualizingCodebaseArchitecture(.generateArchitecture)
-        return await CodebaseProcessorSteps.generateArchitecture(from: codebase)
-    }
-    
     // MARK: - State
-    
-    var codebaseDisplayName: String { state.codebaseName ?? "Untitled Codebase" }
     
     @Published var state = CodebaseProcessorState.empty
 }

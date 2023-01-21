@@ -52,6 +52,7 @@
 		966F39B3291BF56200198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B2291BF56200198B14 /* FoundationToolz */; };
 		9675A0B7294CE1C900C784AA /* NavigationAndFocusPOCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675A0B6294CE1C900C784AA /* NavigationAndFocusPOCView.swift */; };
 		9688065B297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688065A297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift */; };
+		9688065F297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688065E297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift */; };
 		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
 		968EA5C328DCD24500FE8A9B /* CodebaseProcessorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */; };
 		96C2118C28E347F0008024AA /* CombineObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118B28E347F0008024AA /* CombineObserver */; };
@@ -163,6 +164,7 @@
 		966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutableClientExportedInterface.swift; sourceTree = "<group>"; };
 		9675A0B6294CE1C900C784AA /* NavigationAndFocusPOCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAndFocusPOCView.swift; sourceTree = "<group>"; };
 		9688065A297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+SortMetric.swift"; sourceTree = "<group>"; };
+		9688065E297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+CalculateMetrics.swift"; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
 		968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorView.swift; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 		9619A2B72967101300863BC0 /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
+				9688065E297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift */,
 				9688065A297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift */,
 				96E134F12962DC2200DF8A43 /* GraphNode+Sorting.swift */,
 				96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */,
@@ -864,6 +867,7 @@
 				9619A2B42966E87C00863BC0 /* ProcessingFailureView.swift in Sources */,
 				960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */,
 				96E135102962DD7A00DF8A43 /* CodeFileArtifact.swift in Sources */,
+				9688065F297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift in Sources */,
 				9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */,
 				96E135112962DD7A00DF8A43 /* CodeSymbolArtifact.swift in Sources */,
 				9629D5AD29252A1E006B1E98 /* TestXPCExecutableForCodeface.swift in Sources */,
