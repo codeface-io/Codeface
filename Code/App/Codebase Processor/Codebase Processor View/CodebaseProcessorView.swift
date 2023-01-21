@@ -14,25 +14,17 @@ struct CodebaseProcessorView: View
             LoadingProgressView(primaryText: "Project Located",
                                 secondaryText: "✅").padding()
 
-        case .retrieveCodebase(let step):
+        case .retrieveCodebase(let message):
             LoadingProgressView(primaryText: "Loading Codebase Data",
-                                secondaryText: step.rawValue).padding()
+                                secondaryText: message).padding()
 
-        case .didRetrieveCodebase:
-            LoadingProgressView(primaryText: "Codebase Data Load",
-                                secondaryText: "✅").padding()
+        case .processCodebase(_, let progressFeedback):
+            LoadingProgressView(primaryText: progressFeedback.primaryText,
+                                secondaryText: progressFeedback.secondaryText).padding()
             
-        case .generateArchitecture:
-            LoadingProgressView(primaryText: "Generating Codebase Architecture",
-                                secondaryText: "").padding()
-            
-        case .calculateMetrics:
-            LoadingProgressView(primaryText: "Calculating Codebase Architecture Metrics",
-                                secondaryText: "").padding()
-            
-        case .createViewModels:
-            LoadingProgressView(primaryText: "Generating Codebase Architecture View Models",
-                                secondaryText: "").padding()
+        case .processArchitecture(_, _, let progressFeedback):
+            LoadingProgressView(primaryText: progressFeedback.primaryText,
+                                secondaryText: progressFeedback.secondaryText).padding()
             
         case .analyzeArchitecture(let analysis):
             CodebaseAnalysisView(analysis: analysis)

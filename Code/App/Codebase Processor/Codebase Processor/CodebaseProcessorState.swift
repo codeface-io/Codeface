@@ -10,18 +10,15 @@ enum CodebaseProcessorState
     
     case empty,
          didLocateCodebase(LSP.CodebaseLocation),
-         retrieveCodebase(CodebaseRetrievalStep),
-         didRetrieveCodebase(CodeFolder),
-         generateArchitecture,
-         calculateMetrics,
-         createViewModels,
+         retrieveCodebase(String),
+         processCodebase(CodeFolder, ProgressFeedback),
+         processArchitecture(CodeFolder, CodeFolderArtifact, ProgressFeedback),
          analyzeArchitecture(CodebaseAnalysis),
          didFail(String)
     
-    enum CodebaseRetrievalStep: String, Equatable
+    struct ProgressFeedback
     {
-        case readFolder = "Reading raw data from codebase folder",
-             connectToLSPServer = "Connecting to LSP server",
-             retrieveSymbolsAndRefs = "Retrieving symbols and their references from LSP server"
+        let primaryText: String
+        let secondaryText: String
     }
 }

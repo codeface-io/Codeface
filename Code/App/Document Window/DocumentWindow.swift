@@ -81,7 +81,8 @@ class DocumentWindow: ObservableObject
     
     func loadProcessor(for codebase: CodeFolder)
     {
-        load(.didRetrieveCodebase(codebase))
+        load(.processCodebase(codebase,
+                              .init(primaryText: "Did Load Codebase Data", secondaryText: "")))
         self.codebase = codebase
     }
     
@@ -102,7 +103,7 @@ class DocumentWindow: ObservableObject
         codebaseObservation?.cancel()
         codebaseObservation = codebaseProcessor.$state.sink
         {
-            if case .didRetrieveCodebase(let codebase) = $0
+            if case .processCodebase(let codebase, _) = $0
             {
                 self.codebase = codebase
             }
