@@ -3,7 +3,7 @@ import Foundation
 import SwiftyToolz
 
 @MainActor
-class ArtifactViewModel: Identifiable, ObservableObject
+class ArtifactViewModel: Identifiable, ObservableObject, Comparable
 {
     // MARK: - Initialization
     
@@ -94,6 +94,14 @@ class ArtifactViewModel: Identifiable, ObservableObject
         for part in parts { part.scope = self }
         
         parts.sort()
+    }
+    
+    // MARK: - Comparability
+    
+    nonisolated static func < (lhs: ArtifactViewModel,
+                               rhs: ArtifactViewModel) -> Bool
+    {
+        lhs.metrics.sortRank < rhs.metrics.sortRank
     }
     
     // MARK: - Geometry: Basics
@@ -263,13 +271,4 @@ private func systemColor(forLinesOfCode linesOfCode: Int) -> UXColor.System
     else if linesOfCode < 200 { return .yellow }
     else if linesOfCode < 300 { return .orange }
     else { return .red }
-}
-
-extension ArtifactViewModel: Comparable
-{
-    nonisolated static func < (lhs: ArtifactViewModel,
-                               rhs: ArtifactViewModel) -> Bool
-    {
-        lhs.metrics.sortRank < rhs.metrics.sortRank
-    }
 }
