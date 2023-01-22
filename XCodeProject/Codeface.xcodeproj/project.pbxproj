@@ -1258,7 +1258,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftNodes";
 			requirement = {
 				kind = exactVersion;
-				version = 0.4.3;
+				version = 0.4.4;
 			};
 		};
 		9656A69D25287F0D00D4CF26 /* XCRemoteSwiftPackageReference "SwiftyToolz" */ = {
@@ -1266,7 +1266,7 @@
 			repositoryURL = "https://github.com/flowtoolz/SwiftyToolz.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.2.2;
+				version = 0.3.0;
 			};
 		};
 		966F39AF291BF54F00198B14 /* XCRemoteSwiftPackageReference "FoundationToolz" */ = {
@@ -1274,7 +1274,7 @@
 			repositoryURL = "https://github.com/flowtoolz/FoundationToolz";
 			requirement = {
 				kind = exactVersion;
-				version = 0.1.6;
+				version = 0.1.7;
 			};
 		};
 		96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */ = {
@@ -1282,7 +1282,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftObserver";
 			requirement = {
 				kind = exactVersion;
-				version = 7.0.5;
+				version = 7.0.6;
 			};
 		};
 		96CA360428E0F92800D71370 /* XCRemoteSwiftPackageReference "LSPServiceKit" */ = {
@@ -1290,7 +1290,7 @@
 			repositoryURL = "https://github.com/codeface-io/LSPServiceKit";
 			requirement = {
 				kind = exactVersion;
-				version = 0.2.4;
+				version = 0.2.5;
 			};
 		};
 		96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */ = {
@@ -1298,7 +1298,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftLSP";
 			requirement = {
 				kind = exactVersion;
-				version = 0.3.7;
+				version = 0.3.8;
 			};
 		};
 		96E135002962DC8300DF8A43 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
@@ -1314,7 +1314,7 @@
 			repositoryURL = "https://github.com/flowtoolz/SwiftUIToolzOLD";
 			requirement = {
 				kind = exactVersion;
-				version = 0.3.5;
+				version = 0.3.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
