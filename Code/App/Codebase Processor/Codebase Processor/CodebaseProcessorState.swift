@@ -1,3 +1,4 @@
+import LSPServiceKit // TODO: move LSP.CodebaseLocation to SwiftLSP
 import SwiftLSP
 
 enum CodebaseProcessorState
@@ -11,6 +12,7 @@ enum CodebaseProcessorState
     case empty,
          didLocateCodebase(LSP.CodebaseLocation),
          retrieveCodebase(String),
+         didJustRetrieveCodebase(CodeFolder),
          processCodebase(CodeFolder, ProgressFeedback),
          processArchitecture(CodeFolder, CodeFolderArtifact, ProgressFeedback),
          analyzeArchitecture(CodebaseAnalysis),

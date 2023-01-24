@@ -13,10 +13,14 @@ struct CodebaseProcessorView: View
         case .didLocateCodebase:
             LoadingProgressView(primaryText: "Project Located",
                                 secondaryText: "✅").padding()
-
+        
         case .retrieveCodebase(let message):
             LoadingProgressView(primaryText: "Loading Codebase Data",
                                 secondaryText: message).padding()
+            
+        case .didJustRetrieveCodebase:
+            LoadingProgressView(primaryText: "Codebase Loaded",
+                                secondaryText: "✅").padding()
 
         case .processCodebase(_, let progressFeedback):
             LoadingProgressView(primaryText: progressFeedback.primaryText,

@@ -4,6 +4,14 @@ import SwiftyToolz
 
 struct DocumentWindowView: View
 {
+    internal init(codebaseFile: Binding<CodebaseFileDocument>)
+    {
+        _codebaseFile = codebaseFile
+        
+        let codebase = codebaseFile.wrappedValue.codebase
+        _documentWindow = StateObject(wrappedValue: DocumentWindow(codebase: codebase))
+    }
+    
     var body: some View
     {
         CodebaseProcessorView(codebaseProcessor: documentWindow.codebaseProcessor)
@@ -17,13 +25,13 @@ struct DocumentWindowView: View
                     return log(error: "Could not select code folder")
                 }
                 
-                documentWindow.loadProcessorForSwiftPackage(from: folderURL)
+                documentWindow.runProcessorWithSwiftPackageCodebase(at: folderURL)
             }
             .sheet(isPresented: $documentWindow.isPresentingCodebaseLocator)
             {
                 CodebaseLocator(isBeingPresented: $documentWindow.isPresentingCodebaseLocator)
                 {
-                    documentWindow.loadNewProcessor(forCodebaseFrom: $0)
+                    documentWindow.runProcessor(withCodebaseAtNewLocation: $0)
                 }
                 .padding()
             }
@@ -69,18 +77,12 @@ struct DocumentWindowView: View
                     .disabled(analysis == nil)
                 }
             }
-            .onReceive(documentWindow.$codebase)
+            .onReceive(documentWindow.events)
             {
-                if let updatedCodebase = $0
+                switch $0
                 {
-                    codebaseFile.codebase = updatedCodebase
-                }
-            }
-            .onAppear
-            {
-                if let codebase = codebaseFile.codebase
-                {
-                    documentWindow.loadProcessor(for: codebase)
+                case .didRetrieveNewCodebase(let codebase):
+                    codebaseFile.codebase = codebase
                 }
             }
     }
@@ -91,5 +93,5 @@ struct DocumentWindowView: View
     }
     
     @Binding var codebaseFile: CodebaseFileDocument
-    @StateObject private var documentWindow = DocumentWindow()
+    @StateObject private var documentWindow: DocumentWindow
 }

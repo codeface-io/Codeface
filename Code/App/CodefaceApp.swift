@@ -148,7 +148,7 @@ struct CodefaceApp: App
 
                 Button("Import \(lastFolderName) Again")
                 {
-                    focusedDocumentWindow?.loadProcessorForLastCodebase()
+                    focusedDocumentWindow?.runProcessorWithLastCodebase()
                 }
                 .keyboardShortcut("r")
                 .disabled(focusedDocumentWindow == nil || !CodebaseLocationPersister.hasPersistedLastCodebaseLocation)

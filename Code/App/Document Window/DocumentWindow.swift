@@ -1,3 +1,4 @@
+import LSPServiceKit
 import SwiftLSP
 import Foundation
 import Combine
@@ -6,55 +7,74 @@ import SwiftyToolz
 @MainActor
 class DocumentWindow: ObservableObject
 {
-    init()
+    // MARK: - Initialize
+    
+    init(codebase: CodeFolder?)
     {
         _lastLocation = Published(initialValue: try? CodebaseLocationPersister.loadCodebaseLocation())
+        
+        if let codebase { runProcessor(with: codebase) }
+        
+        sendEventWhenProcessorDidRetrieveNewCodebase()
     }
     
-    // MARK: - Load Processor for Codebase from Location
-    
-    func loadProcessorForSwiftPackage(from folderURL: URL)
+    private func sendEventWhenProcessorDidRetrieveNewCodebase()
     {
-        loadNewProcessor(forCodebaseFrom: .init(folder: folderURL,
-                                                languageName: "Swift",
-                                                codeFileEndings: ["swift"]))
-    }
-    
-    func loadProcessorForLastCodebaseIfNoneIsLoaded()
-    {
-        if CodebaseLocationPersister.hasPersistedLastCodebaseLocation
+        processorObservation = codebaseProcessor.$state.sink
         {
-            loadProcessorForLastCodebase()
+            if case .didJustRetrieveCodebase(let codebase) = $0
+            {
+                self.send(.didRetrieveNewCodebase(codebase))
+            }
         }
     }
     
-    func loadProcessorForLastCodebase()
+    private var processorObservation: AnyCancellable?
+    
+    // MARK: - Run Processor with Codebase at Location
+    
+    func runProcessorWithSwiftPackageCodebase(at folderURL: URL)
+    {
+        runProcessor(withCodebaseAtNewLocation: .init(folder: folderURL,
+                                                        languageName: "Swift",
+                                                        codeFileEndings: ["swift"]))
+    }
+    
+    func runProcessorWithLastCodebaseIfNoneIsLoaded()
+    {
+        if CodebaseLocationPersister.hasPersistedLastCodebaseLocation
+        {
+            runProcessorWithLastCodebase()
+        }
+    }
+    
+    func runProcessorWithLastCodebase()
     {
         do
         {
-            try loadProcessor(forCodebaseFrom: CodebaseLocationPersister.loadCodebaseLocation())
+            try runProcessor(withCodebaseAt: CodebaseLocationPersister.loadCodebaseLocation())
         }
         catch { log(error.readable) }
     }
     
-    func loadNewProcessor(forCodebaseFrom location: LSP.CodebaseLocation)
+    func runProcessor(withCodebaseAtNewLocation location: LSP.CodebaseLocation)
     {
         do
         {
-            try loadProcessor(forCodebaseFrom: location)
+            try runProcessor(withCodebaseAt: location)
             try CodebaseLocationPersister.persist(location)
         }
         catch { log(error.readable) }
     }
     
-    private func loadProcessor(forCodebaseFrom location: LSP.CodebaseLocation) throws
+    private func runProcessor(withCodebaseAt location: LSP.CodebaseLocation) throws
     {
         guard FileManager.default.itemExists(location.folder) else
         {
             throw "Project folder does not exist: " + location.folder.absoluteString
         }
         
-        load(.didLocateCodebase(location))
+        runProcessor(from: .didLocateCodebase(location))
         lastLocation = location
     }
     
@@ -62,7 +82,7 @@ class DocumentWindow: ObservableObject
     
     // MARK: - Load Processor for Codebase from File
     
-    func loadProcessor(forCodebaseFrom fileURL: URL)
+    func runProcessor(withCodebaseAt fileURL: URL)
     {
         guard let fileData = Data(from: fileURL) else
         {
@@ -76,42 +96,39 @@ class DocumentWindow: ObservableObject
             return
         }
         
-        loadProcessor(for: codebase)
+        runProcessor(with: codebase)
     }
     
-    func loadProcessor(for codebase: CodeFolder)
+    func runProcessor(with codebase: CodeFolder)
     {
-        load(.processCodebase(codebase,
-                              .init(primaryText: "Did Load Codebase Data", secondaryText: "")))
-        self.codebase = codebase
+        runProcessor(from: .processCodebase(codebase,
+                                            .init(primaryText: "Did Load Codebase Data",
+                                                  secondaryText: "")))
     }
     
     // MARK: - Load Processor
     
-    private func load(_ state: CodebaseProcessorState)
+    private func runProcessor(from state: CodebaseProcessorState)
     {
         codebaseProcessor.state = state
-        bindCodebaseToProjectProcessorVM()
-        
         codebaseProcessor.run()
     }
     
-    // MARK: - Observable Codebase
+    // MARK: - Observable Events
     
-    private func bindCodebaseToProjectProcessorVM()
+    private func send(_ event: Event)
     {
-        codebaseObservation?.cancel()
-        codebaseObservation = codebaseProcessor.$state.sink
-        {
-            if case .processCodebase(let codebase, _) = $0
-            {
-                self.codebase = codebase
-            }
-        }
+        events.send(event)
     }
     
-    private var codebaseObservation: AnyCancellable?
-    @Published private(set) var codebase: CodeFolder?
+    let events = CombineMessenger<Event>()
+    
+    enum Event
+    {
+        case didRetrieveNewCodebase(CodeFolder)
+    }
+    
+    typealias CombineMessenger<Message> = PassthroughSubject<Message, Never>
     
     // MARK: - Codebase Processor
     

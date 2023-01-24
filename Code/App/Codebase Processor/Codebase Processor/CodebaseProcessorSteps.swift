@@ -1,3 +1,4 @@
+import LSPServiceKit
 import Foundation
 import SwiftLSP
 import SwiftyToolz

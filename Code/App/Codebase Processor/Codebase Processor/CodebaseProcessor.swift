@@ -48,6 +48,9 @@ class CodebaseProcessor: ObservableObject
     {
         switch state
         {
+        case .didJustRetrieveCodebase(let codebase):
+            return codebase
+            
         case .didLocateCodebase(let codebaseLocation):
             state = .retrieveCodebase("Reading Raw Data From Codebase Folder")
             guard let codebaseWithoutSymbols = await readCodebaseFolder(from: codebaseLocation) else
@@ -66,8 +69,7 @@ class CodebaseProcessor: ObservableObject
                                                                                              from: server,
                                                                                              codebaseRootFolder: codebaseLocation.folder)
                 
-                state = .processCodebase(codebase, .init(primaryText: "Did Load Codebase Data",
-                                                         secondaryText: ""))
+                state = .didJustRetrieveCodebase(codebase)
                 return codebase
             }
             catch
@@ -75,9 +77,7 @@ class CodebaseProcessor: ObservableObject
                 log(warning: "Cannot talk to LSP server: " + error.readable.message)
                 LSP.ServerManager.shared.serverIsWorking = false
                 
-                state = .processCodebase(codebaseWithoutSymbols,
-                                         .init(primaryText: "Did Load Codebase Data Without Symbols",
-                                               secondaryText: ""))
+                state = .didJustRetrieveCodebase(codebaseWithoutSymbols)
                 return codebaseWithoutSymbols
             }
             
