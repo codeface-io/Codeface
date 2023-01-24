@@ -52,6 +52,7 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
     {
         // write component ranks sorted by component size
         let sortedComponents = findComponents()
+            .map { $0.compactMap({ node(for: $0) }) }
             .map { ($0, $0.sum { $0.value.linesOfCode }) }
             .sorted { $0.1 > $1.1 }
             .map { $0.0 }
@@ -87,8 +88,8 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
 
                 for node in condensationNode.value.nodes
                 {
-                    node.value.metrics.sccIndexTopologicallySorted = condensationNodeIndex
-                    node.value.metrics.isInACycle = condensationNodeContainsCycles
+                    CodeArtifactMetricsCache.shared[node].sccIndexTopologicallySorted = condensationNodeIndex
+                    CodeArtifactMetricsCache.shared[node].isInACycle = condensationNodeContainsCycles
                 }
             }
         }
