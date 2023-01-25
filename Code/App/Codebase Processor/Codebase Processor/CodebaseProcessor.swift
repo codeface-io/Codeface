@@ -13,8 +13,6 @@ class CodebaseProcessor: ObservableObject
     {
         Task // to enter an async context
         {
-            // TODO: consider state here, not just in retrieveCodebase()
-            
             // get codebase
             guard let codebase = await retrieveCodebase() else { return }
             
@@ -31,7 +29,6 @@ class CodebaseProcessor: ObservableObject
             await codebaseArchitecture.calculateMetrics()
             
             // create view model
-            // TODO: to put view model creation onto the background actor, we have to split it in two: 1) a dumb view state object that runs on the main actor and 2) a view model object that does the computations and runs on the background actor and is observed by the state object. however: even for a large codebase (sourcekit-lsp) creating the view model and adding its dependencies each only take 10 mili seconds, so offloading this to the background isn't super essential.
             state = .processArchitecture(codebase,
                                          codebaseArchitecture,
                                          .init(primaryText: "Generating Codebase Architecture View Models",
@@ -88,7 +85,7 @@ class CodebaseProcessor: ObservableObject
             return codebase
             
         default:
-            log(error: "Processor can't start processing as it is in state \(state)")
+            log(error: "Processor can't retrieve codebase as it is in state \(state)")
             return nil
         }
     }

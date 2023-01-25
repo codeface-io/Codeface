@@ -16,9 +16,8 @@ extension CodeArtifact
 
 protocol CodeArtifact: AnyObject, Hashable, Sendable
 {
-    // TODO: replace parts and addPartDependency by returning the whole graph
+    // TODO: rather return the whole graph
     var parts: [any CodeArtifact] { get }
-    
 //    var test: Graph<CodeArtifact> { get }
     
     // basic properties

@@ -1,8 +1,6 @@
 import SwiftNodes
 import SwiftyToolz
 
-// TODO: this is not specific to graph nodes and should be just an extension of CodeArtifact
-
 @BackgroundActor
 extension GraphNode where Value: CodeArtifact
 {

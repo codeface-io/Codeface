@@ -1,6 +1,5 @@
 import SwiftUIToolzOLD
 import SwiftUI
-import LSPServiceKit
 import SwiftLSP
 import SwiftyToolz
 
@@ -128,8 +127,6 @@ struct CodefaceApp: App
                     NSDocumentController.shared.openDocument(nil)
                 }
                 .keyboardShortcut("o")
-
-                // TODO: Bring back menu item "Open Recent" programmatically!
             }
 
             CommandGroup(before: .undoRedo)

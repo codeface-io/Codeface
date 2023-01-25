@@ -1,4 +1,3 @@
-import LSPServiceKit
 import SwiftLSP
 import Foundation
 import Combine

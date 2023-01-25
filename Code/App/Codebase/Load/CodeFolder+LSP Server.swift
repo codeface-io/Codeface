@@ -97,13 +97,6 @@ private extension CodeSymbol
             return nil
         }
         
-        /** TODO: review these issues, potentially contact sourcekit-lsp team or open issues on github ...
-         * sourcekit-lsp suggests a few wrong references where there is one of those issues: a) extension of Variable -> Var namespace declaration (plain wrong) b) class Variable -> namespace Var (wrong direction) or c) all range properties are -1 (invalid)
-         * sourcekit-lsp suggests weird references from Swift SDKs into our code when our code extends basic types like String. we must ignore those references.
-         * srckit-lsp sometimes finds references from OLD files that don't even exist anymore. in that case rebuilding isn't enough. we have to stop the server, delete the package's .build/ folder, rebuild the package and restart the server ... 🤦🏼‍♂️
-         * sourcekit-lsp it suggests that any usage of a type amounts to a reference to every extension of that type, which is simply not true ... it even suggests that different extensions of the same type are references of each other ... seems like it does not really find references of that specific symbol but just all references of the symbol's name (just string matching, no semantics) 🤦🏼‍♂️
-         */
-        
         let retrievedReferences = try await server.requestReferences(forSymbolSelectionRange: lspDocumentSymbol.selectionRange,
                                                                      in: enclosingFile)
         

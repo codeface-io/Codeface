@@ -1,5 +1,4 @@
 import SwiftUI
-import LSPServiceKit
 import SwiftLSP
 import SwiftyToolz
 

@@ -171,7 +171,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
     
     let metrics: Metrics
     
-    var scope: ArtifactViewModel? // TODO: this should likely be weak
+    weak var scope: ArtifactViewModel?
     var parts: [ArtifactViewModel]
     var partDependencies = [DependencyVM]()
     
