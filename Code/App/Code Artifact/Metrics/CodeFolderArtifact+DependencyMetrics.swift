@@ -78,7 +78,7 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
             let sortedCondensationNodes = componentCondensationGraph
                 .findNumberOfNodeAncestors()
                 .sorted { $0.1 < $1.1 }
-                .map { $0.0 }
+                .compactMap { componentCondensationGraph.node(for: $0.0) }
 
             sortedCondensationNodes.forEachIndex
             {
