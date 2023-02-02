@@ -83,12 +83,12 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
             {
                 condensationNode, condensationNodeIndex in
 
-                let condensationNodeContainsCycles = condensationNode.value.nodes.count > 1
+                let condensationNodeContainsCycles = condensationNode.value.nodeIDs.count > 1
 
-                for node in condensationNode.value.nodes
+                for nodeID in condensationNode.value.nodeIDs
                 {
-                    CodeArtifactMetricsCache.shared[node].sccIndexTopologicallySorted = condensationNodeIndex
-                    CodeArtifactMetricsCache.shared[node].isInACycle = condensationNodeContainsCycles
+                    CodeArtifactMetricsCache.shared[nodeID].sccIndexTopologicallySorted = condensationNodeIndex
+                    CodeArtifactMetricsCache.shared[nodeID].isInACycle = condensationNodeContainsCycles
                 }
             }
         }
