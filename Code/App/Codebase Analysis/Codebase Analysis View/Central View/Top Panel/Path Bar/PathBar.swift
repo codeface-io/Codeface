@@ -1,5 +1,4 @@
 import Combine
-import OrderedCollections
 
 @MainActor
 class PathBar: ObservableObject
@@ -27,7 +26,7 @@ class PathBar: ObservableObject
     
     private func select(_ artifactVM: ArtifactViewModel?)
     {
-        artifactVMStack.elements = artifactVM?.getPath() ?? []
+        artifactVMStack = artifactVM?.getPath() ?? []
     }
     
     var selectionPublisher: any Publisher<ArtifactViewModel, Never>
@@ -50,6 +49,6 @@ class PathBar: ObservableObject
         }
     }
     
-    @Published private(set) var artifactVMStack = OrderedSet<ArtifactViewModel>()
+    @Published private(set) var artifactVMStack = [ArtifactViewModel]()
 }
 

@@ -68,7 +68,6 @@
 		96D59CD2294AC36A003C55B5 /* HelpLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CD1294AC36A003C55B5 /* HelpLink.swift */; };
 		96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1C28A1503C00B84B45 /* PathBarView.swift */; };
 		96DC635528E100D900DD5BEB /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96DC635428E100D900DD5BEB /* SwiftLSP */; };
-		96E135022962DC8300DF8A43 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 96E135012962DC8300DF8A43 /* OrderedCollections */; };
 		96E135032962DD4900DF8A43 /* ArtifactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F82962DC2200DF8A43 /* ArtifactViewModel.swift */; };
 		96E135042962DD5500DF8A43 /* ArtifactViewModel+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F92962DC2300DF8A43 /* ArtifactViewModel+Hashable.swift */; };
 		96E135052962DD5900DF8A43 /* ArtifactViewModel+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134FE2962DC2300DF8A43 /* ArtifactViewModel+AddDependencies.swift */; };
@@ -245,7 +244,6 @@
 				96C2118C28E347F0008024AA /* CombineObserver in Frameworks */,
 				9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */,
 				966F39B1291BF54F00198B14 /* FoundationToolz in Frameworks */,
-				96E135022962DC8300DF8A43 /* OrderedCollections in Frameworks */,
 				96106E5A2962DEAD0002F13C /* SwiftNodes in Frameworks */,
 				96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */,
 				96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */,
@@ -715,7 +713,6 @@
 				96C2118D28E347F0008024AA /* SwiftObserver */,
 				966F39B0291BF54F00198B14 /* FoundationToolz */,
 				96FF8A42294E9FE500D06E36 /* SwiftUIToolzOLD */,
-				96E135012962DC8300DF8A43 /* OrderedCollections */,
 				96106E592962DEAD0002F13C /* SwiftNodes */,
 			);
 			productName = Cocoalytics;
@@ -780,7 +777,6 @@
 				96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */,
 				966F39AF291BF54F00198B14 /* XCRemoteSwiftPackageReference "FoundationToolz" */,
 				96F19FBA294E9EAB00E441AC /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */,
-				96E135002962DC8300DF8A43 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				96106E582962DEAD0002F13C /* XCRemoteSwiftPackageReference "SwiftNodes" */,
 			);
 			productRefGroup = 9E95A704218C73C7009A58A9 /* Products */;
@@ -1301,14 +1297,6 @@
 				version = 0.3.8;
 			};
 		};
-		96E135002962DC8300DF8A43 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.4;
-			};
-		};
 		96F19FBA294E9EAB00E441AC /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/flowtoolz/SwiftUIToolzOLD";
@@ -1369,11 +1357,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */;
 			productName = SwiftLSP;
-		};
-		96E135012962DC8300DF8A43 /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96E135002962DC8300DF8A43 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
 		};
 		96FF8A42294E9FE500D06E36 /* SwiftUIToolzOLD */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -1,5 +1,4 @@
 import SwiftUI
-import OrderedCollections
 
 struct PathBarView: View
 {
