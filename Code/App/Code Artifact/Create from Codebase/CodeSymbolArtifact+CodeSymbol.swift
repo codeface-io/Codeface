@@ -62,7 +62,7 @@ extension CodeSymbolArtifact
             }
         }
         
-        graph.removeNonEssentialEdges()
+        graph.filterEssentialEdges()
         
         let code = enclosingFile.lines[symbol.range.start.line ... symbol.range.end.line].joined(separator: "\n")
         

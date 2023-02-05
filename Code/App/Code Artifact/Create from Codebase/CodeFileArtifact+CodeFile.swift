@@ -59,7 +59,7 @@ extension CodeFileArtifact
             }
         }
         
-        graph.removeNonEssentialEdges()
+        graph.filterEssentialEdges()
         
         self.init(name: codeFile.name,
                   codeLines: codeFile.lines,

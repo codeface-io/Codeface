@@ -73,7 +73,7 @@ extension CodeFolderArtifact
             }
         }
         
-        graph.removeNonEssentialEdges()
+        graph.filterEssentialEdges()
         
         self.init(name: codeFolder.name, partGraph: graph)
     }
