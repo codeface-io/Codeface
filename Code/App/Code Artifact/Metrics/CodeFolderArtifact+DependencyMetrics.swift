@@ -70,7 +70,7 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
         for component in sortedComponents
         {
             let componentIDs = Set(component.map({ $0.id }))
-            let componentGraph = subGraph(nodeIDs: componentIDs)
+            let componentGraph = filteredNodes(componentIDs)
             let componentCondensationGraph = componentGraph.makeCondensationGraph()
 
             // write scc numbers sorted by topology
