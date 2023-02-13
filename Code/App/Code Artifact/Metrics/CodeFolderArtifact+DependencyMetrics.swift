@@ -51,7 +51,7 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
     {
         // write component ranks sorted by component size
         let sortedComponents = findComponents()
-            .map { $0.compactMap({ node(for: $0) }) }
+            .map { $0.compactMap({ node(with: $0) }) }
             .map { ($0, $0.sum { $0.value.linesOfCode }) }
             .sorted { $0.1 > $1.1 }
             .map { $0.0 }
@@ -77,7 +77,7 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
             let sortedCondensationNodes = componentCondensationGraph
                 .findNumberOfNodeAncestors()
                 .sorted { $0.1 < $1.1 }
-                .compactMap { componentCondensationGraph.node(for: $0.0) }
+                .compactMap { componentCondensationGraph.node(with: $0.0) }
 
             sortedCondensationNodes.forEachIndex
             {

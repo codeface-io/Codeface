@@ -34,7 +34,7 @@ extension ArtifactViewModel
                     
                     artifactVM.partDependencies += .init(sourcePart: originVM,
                                                          targetPart: destinationVM,
-                                                         weight: dependency.count)
+                                                         weight: dependency.weight)
                 }
                 
             case .file(let file):
@@ -46,7 +46,7 @@ extension ArtifactViewModel
                     
                     artifactVM.partDependencies += .init(sourcePart: originVM,
                                                          targetPart: destinationVM,
-                                                         weight: dependency.count)
+                                                         weight: dependency.weight)
                 }
                 
             case .symbol(let symbol):
@@ -58,7 +58,7 @@ extension ArtifactViewModel
                     
                     artifactVM.partDependencies += .init(sourcePart: originVM,
                                                          targetPart: destinationVM,
-                                                         weight: dependency.count)
+                                                         weight: dependency.weight)
                 }
             }
         }

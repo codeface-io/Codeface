@@ -6,7 +6,7 @@ final class CodeFileArtifact: Identifiable, Sendable
 {
     init(name: String,
          codeLines: [String],
-         symbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact>)
+         symbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact, Int>)
     {
         self.name = name
         self.lines = codeLines
@@ -15,7 +15,7 @@ final class CodeFileArtifact: Identifiable, Sendable
     
     // MARK: - Tree Structure
     
-    let symbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact>
+    let symbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact, Int>
     
     // MARK: - Basics
     

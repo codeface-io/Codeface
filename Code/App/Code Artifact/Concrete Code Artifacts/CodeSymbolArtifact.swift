@@ -10,7 +10,7 @@ final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
          range: LSPRange,
          selectionRange: LSPRange,
          code: String,
-         subsymbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact>)
+         subsymbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact, Int>)
     {
         self.name = name
         self.kind = kind
@@ -22,7 +22,7 @@ final class CodeSymbolArtifact: Identifiable, Hashable, Sendable
     
     // MARK: - Graph Structure
     
-    let subsymbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact>
+    let subsymbolGraph: Graph<CodeArtifact.ID, CodeSymbolArtifact, Int>
     
     // MARK: - Basics
     

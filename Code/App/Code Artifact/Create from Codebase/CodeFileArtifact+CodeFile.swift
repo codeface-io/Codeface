@@ -8,7 +8,7 @@ extension CodeFileArtifact
                      filePathRelativeToRoot: String,
                      additionalReferences: inout [CodeSymbol.ReferenceLocation])
     {
-        var graph = Graph<CodeArtifact.ID, CodeSymbolArtifact>()
+        var graph = Graph<CodeArtifact.ID, CodeSymbolArtifact, Int>()
         var referencesByChildID = [CodeArtifact.ID: [CodeSymbol.ReferenceLocation]]()
         
         // create child symbols recursively – DEPTH FIRST
@@ -46,7 +46,7 @@ extension CodeFileArtifact
                         if sibling.range.contains(childReference.range)
                         {
                             // the sibling references (depends on) the child -> add edge and leave for loop
-                            graph.addEdge(from: sibling.id, to: childID)
+                            graph.add(1, toEdgeFrom: sibling.id, to: childID)
                             break
                         }
                     }

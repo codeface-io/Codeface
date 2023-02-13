@@ -11,7 +11,7 @@ extension CodeFolderArtifact
         let filePathWithSlash = filePathRelativeToRoot.isEmpty ? "" : filePathRelativeToRoot + "/"
         
         var referencesByChildID = [CodeArtifact.ID: [CodeSymbol.ReferenceLocation]]()
-        var graph = Graph<CodeArtifact.ID, Part>()
+        var graph = Graph<CodeArtifact.ID, Part, Int>()
         
         // create child parts recursively – DEPTH FIRST
         
@@ -60,7 +60,7 @@ extension CodeFolderArtifact
                         if childReference.filePathRelativeToRoot.hasPrefix(siblingFilePath)
                         {
                             // the sibling references (depends on) the child -> add edge and leave for loop
-                            graph.addEdge(from: sibling.id, to: childID)
+                            graph.add(1, toEdgeFrom: sibling.id, to: childID)
                             break
                         }
                     }
