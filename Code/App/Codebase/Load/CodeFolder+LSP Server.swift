@@ -8,8 +8,13 @@ extension CodeFolder
                                       from server: LSP.Server,
                                       codebaseRootFolder: URL) async throws -> CodeFolder
     {
-        let parentPathWithSlash = parentPath?.appending("/") ?? ""
-        let folderPath = parentPathWithSlash + name
+        let parentPathWithSlash: String =
+        {
+            if let parentPath, !parentPath.isEmpty { return parentPath.appending("/") }
+            else { return "" }
+        }()
+        
+        let folderPath = parentPath == nil ? "" : parentPathWithSlash + name
         
         /// recursive calls
         let resultingSubFolders: [CodeFolder] = try await (subfolders ?? []).asyncMap
