@@ -4,17 +4,11 @@ import SwiftyToolz
 
 extension CodeFolder
 {
-    func retrieveSymbolsAndReferences(inParentFolderPath parentPath: String? = nil,
+    func retrieveSymbolsAndReferences(inParentFolderPath parentPath: RelativeFilePath = .root,
                                       from server: LSP.Server,
                                       codebaseRootFolder: URL) async throws -> CodeFolder
     {
-        let parentPathWithSlash: String =
-        {
-            if let parentPath, !parentPath.isEmpty { return parentPath.appending("/") }
-            else { return "" }
-        }()
-        
-        let folderPath = parentPath == nil ? "" : parentPathWithSlash + name
+        let folderPath = parentPath + name
         
         /// recursive calls
         let resultingSubFolders: [CodeFolder] = try await (subfolders ?? []).asyncMap
@@ -28,7 +22,7 @@ extension CodeFolder
         {
             file in
             
-            let fileUri = CodeFolder.fileURI(forFilePath: folderPath + "/" + file.name,
+            let fileUri = CodeFolder.fileURI(forFilePath: folderPath + file.name,
                                              inRootFolder: codebaseRootFolder)
             
             try await server.notifyDidOpen(fileUri, containingText: file.code)
@@ -56,10 +50,10 @@ extension CodeFolder
                           subfolders: resultingSubFolders)
     }
     
-    private static func fileURI(forFilePath filePath: String,
+    private static func fileURI(forFilePath filePath: RelativeFilePath,
                                 inRootFolder rootFolder: URL) -> String
     {
-        rootFolder.appendingPathComponent(filePath).absoluteString
+        rootFolder.appendingPathComponent(filePath.string).absoluteString
     }
 }
 

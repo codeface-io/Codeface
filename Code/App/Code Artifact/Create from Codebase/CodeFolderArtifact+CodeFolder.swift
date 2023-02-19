@@ -18,7 +18,7 @@ extension CodeFolderArtifact
             var extraReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = Part(kind: .subfolder(.init(codeFolder: subfolder,
-                                                    pathInRootFolder: pathInRootFolder.appending(subfolder.name),
+                                                    pathInRootFolder: pathInRootFolder + subfolder.name,
                                                     additionalReferences: &extraReferences)))
             
             referencesByChildID[child.id] = extraReferences
@@ -31,7 +31,7 @@ extension CodeFolderArtifact
             var extraReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = Part(kind: .file(.init(codeFile: file,
-                                               pathInRootFolder: pathInRootFolder.appending(file.name),
+                                               pathInRootFolder: pathInRootFolder + file.name,
                                                additionalReferences: &extraReferences)))
             
             referencesByChildID[child.id] = extraReferences
@@ -56,7 +56,7 @@ extension CodeFolderArtifact
                     {
                         if sibling.id == childID { continue } // not a sibling but the same child
                         
-                        let siblingFilePath = pathInRootFolder.appending(sibling.name)
+                        let siblingFilePath = pathInRootFolder + sibling.name
                         
                         if siblingFilePath.contains(childReferencePath)
                         {

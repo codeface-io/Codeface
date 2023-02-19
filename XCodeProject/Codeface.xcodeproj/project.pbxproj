@@ -343,7 +343,6 @@
 				96E134DE2962DB8000DF8A43 /* CodeFolderArtifact+CodeFolder.swift */,
 				96E134DC2962DB8000DF8A43 /* CodeFileArtifact+CodeFile.swift */,
 				96E134DF2962DB8000DF8A43 /* CodeSymbolArtifact+CodeSymbol.swift */,
-				961D497429A26A8A00E95E99 /* RelativeFilePath.swift */,
 			);
 			path = "Create from Codebase";
 			sourceTree = "<group>";
@@ -664,6 +663,7 @@
 			children = (
 				960730B528982F3C008F1D7C /* Arrow.swift */,
 				96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */,
+				961D497429A26A8A00E95E99 /* RelativeFilePath.swift */,
 				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
 			);
 			path = "Framework-Candidates";
