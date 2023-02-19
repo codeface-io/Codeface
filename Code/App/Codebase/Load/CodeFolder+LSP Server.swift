@@ -4,25 +4,25 @@ import SwiftyToolz
 
 extension CodeFolder
 {
-    func retrieveSymbolsAndReferences(inParentFolderPath parentPath: RelativeFilePath = .root,
+    func retrieveSymbolsAndReferences(at path: RelativeFilePath = .root,
                                       from server: LSP.Server,
                                       codebaseRootFolder: URL) async throws -> CodeFolder
     {
-        let folderPath = parentPath + name
-        
         /// recursive calls
         let resultingSubFolders: [CodeFolder] = try await (subfolders ?? []).asyncMap
         {
-            try await $0.retrieveSymbolsAndReferences(inParentFolderPath: folderPath,
-                                                      from: server,
-                                                      codebaseRootFolder: codebaseRootFolder)
+            subfolder in
+            
+            try await subfolder.retrieveSymbolsAndReferences(at: path + subfolder.name,
+                                                             from: server,
+                                                             codebaseRootFolder: codebaseRootFolder)
         }
         
         let resultingFiles: [CodeFile] = try await (files ?? []).asyncMap
         {
             file in
             
-            let fileUri = CodeFolder.fileURI(forFilePath: folderPath + file.name,
+            let fileUri = CodeFolder.fileURI(forFilePath: path + file.name,
                                              inRootFolder: codebaseRootFolder)
             
             try await server.notifyDidOpen(fileUri, containingText: file.code)
