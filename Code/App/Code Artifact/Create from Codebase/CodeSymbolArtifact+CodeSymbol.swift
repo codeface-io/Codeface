@@ -6,7 +6,7 @@ extension CodeSymbolArtifact
 {
     convenience init(symbol: CodeSymbol,
                      enclosingFile: CodeFile,
-                     filePathRelativeToRoot: String,
+                     pathInRootFolder: RelativeFilePath,
                      additionalReferences: inout [CodeSymbol.ReferenceLocation])
     {
         var graph = Graph<CodeArtifact.ID, CodeSymbolArtifact, Int>()
@@ -20,7 +20,7 @@ extension CodeSymbolArtifact
             
             let child = CodeSymbolArtifact(symbol: childSymbol,
                                            enclosingFile: enclosingFile,
-                                           filePathRelativeToRoot: filePathRelativeToRoot,
+                                           pathInRootFolder: pathInRootFolder,
                                            additionalReferences: &extraChildReferences)
             
             let childReferences = (childSymbol.references ?? []) + extraChildReferences
@@ -36,7 +36,7 @@ extension CodeSymbolArtifact
         {
             for childReference in childReferences
             {
-                if filePathRelativeToRoot == childReference.filePathRelativeToRoot,
+                if pathInRootFolder.string == childReference.filePathRelativeToRoot,
                    symbol.range.contains(childReference.range)
                 {
                     // we found a reference within the scope of this symbol artifact that we initialize

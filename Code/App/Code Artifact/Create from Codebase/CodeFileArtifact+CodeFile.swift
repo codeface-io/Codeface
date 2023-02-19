@@ -5,7 +5,7 @@ import SwiftyToolz
 extension CodeFileArtifact
 {
     convenience init(codeFile: CodeFile,
-                     filePathRelativeToRoot: String,
+                     pathInRootFolder: RelativeFilePath,
                      additionalReferences: inout [CodeSymbol.ReferenceLocation])
     {
         var graph = Graph<CodeArtifact.ID, CodeSymbolArtifact, Int>()
@@ -19,7 +19,7 @@ extension CodeFileArtifact
             
             let child = CodeSymbolArtifact(symbol: childSymbol,
                                            enclosingFile: codeFile,
-                                           filePathRelativeToRoot: filePathRelativeToRoot,
+                                           pathInRootFolder: pathInRootFolder,
                                            additionalReferences: &extraReferences)
             
             let childReferences = (childSymbol.references ?? []) + extraReferences
@@ -34,7 +34,7 @@ extension CodeFileArtifact
         {
             for childReference in childReferences
             {
-                if filePathRelativeToRoot == childReference.filePathRelativeToRoot
+                if pathInRootFolder.string == childReference.filePathRelativeToRoot
                 {
                     // we found a reference within the scope of this file artifact that we initialize
                     

@@ -32,7 +32,7 @@ enum CodebaseProcessorSteps
         var extraReferences = [CodeSymbol.ReferenceLocation]()
         
         return CodeFolderArtifact(codeFolder: folder,
-                                  filePathRelativeToRoot: "",
+                                  pathInRootFolder: .root,
                                   additionalReferences: &extraReferences)
     }
 }

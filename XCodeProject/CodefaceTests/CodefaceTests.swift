@@ -51,7 +51,7 @@ class CodefaceTests: XCTestCase
         var extraReferences = [CodeSymbol.ReferenceLocation]()
         
         let folderArtifact = CodeFolderArtifact(codeFolder: folder,
-                                                filePathRelativeToRoot: "",
+                                                pathInRootFolder: .root,
                                                 additionalReferences: &extraReferences)
         
         let nodes = folderArtifact.partGraph.nodes

@@ -5,11 +5,9 @@ import SwiftyToolz
 extension CodeFolderArtifact
 {
     convenience init(codeFolder: CodeFolder,
-                     filePathRelativeToRoot: String,
+                     pathInRootFolder: RelativeFilePath,
                      additionalReferences: inout [CodeSymbol.ReferenceLocation])
     {
-        let filePathWithSlash = filePathRelativeToRoot.isEmpty ? "" : filePathRelativeToRoot + "/"
-        
         var referencesByChildID = [CodeArtifact.ID: [CodeSymbol.ReferenceLocation]]()
         var graph = Graph<CodeArtifact.ID, Part, Int>()
         
@@ -20,7 +18,7 @@ extension CodeFolderArtifact
             var extraReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = Part(kind: .subfolder(.init(codeFolder: subfolder,
-                                                    filePathRelativeToRoot: filePathWithSlash + subfolder.name,
+                                                    pathInRootFolder: pathInRootFolder.appending(subfolder.name),
                                                     additionalReferences: &extraReferences)))
             
             referencesByChildID[child.id] = extraReferences
@@ -33,7 +31,7 @@ extension CodeFolderArtifact
             var extraReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = Part(kind: .file(.init(codeFile: file,
-                                               filePathRelativeToRoot: filePathWithSlash + file.name,
+                                               pathInRootFolder: pathInRootFolder.appending(file.name),
                                                additionalReferences: &extraReferences)))
             
             referencesByChildID[child.id] = extraReferences
@@ -43,19 +41,13 @@ extension CodeFolderArtifact
         
         // base case: create this folder artifact
         
-        let filePathRelativeToRootComponents = filePathRelativeToRoot.components(separatedBy: "/")
-        
         for (childID, childReferences) in referencesByChildID
         {
             for childReference in childReferences
             {
-                let thisIsTheRoot = filePathRelativeToRoot.isEmpty
+                let childReferencePath = RelativeFilePath(string: childReference.filePathRelativeToRoot)
                 
-                let referenceFilePathRelativeToRootComponents = childReference.filePathRelativeToRoot.components(separatedBy: "/")
-                
-                let referenceIsInFilePath = thisIsTheRoot || referenceFilePathRelativeToRootComponents.starts(with: filePathRelativeToRootComponents)
-                
-                if referenceIsInFilePath
+                if pathInRootFolder.contains(childReferencePath)
                 {
                     // we found a reference within the scope of this folder artifact that we initialize
                     
@@ -64,11 +56,11 @@ extension CodeFolderArtifact
                     {
                         if sibling.id == childID { continue } // not a sibling but the same child
                         
-                        let siblingFilePath = filePathWithSlash + sibling.name
+                        let siblingFilePath = pathInRootFolder.appending(sibling.name)
                         
-                        if childReference.filePathRelativeToRoot.hasPrefix(siblingFilePath)
+                        if siblingFilePath.contains(childReferencePath)
                         {
-                            // the sibling references (depends on) the child -> add edge and leave for loop
+                            // the sibling references (depends on) the child -> add edge and leave the for-loop
                             graph.add(1, toEdgeFrom: sibling.id, to: childID)
                             break
                         }
