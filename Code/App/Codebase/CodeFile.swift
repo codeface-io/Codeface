@@ -17,6 +17,18 @@ final class CodeFile: Codable, Sendable
     
     let name: String
     
+    func code(in range: LSPRange) -> String?
+    {
+        let codeLines = lines
+        
+        guard codeLines.indices.contains([range.start.line, range.end.line]) else
+        {
+            return nil
+        }
+        
+        return codeLines[range.start.line ... range.end.line].joined(separator: "\n")
+    }
+    
     var lines: [String] { code.lines }
     let code: String
     

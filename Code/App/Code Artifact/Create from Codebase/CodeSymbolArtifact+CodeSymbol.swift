@@ -12,7 +12,7 @@ extension CodeSymbolArtifact
         var graph = Graph<CodeArtifact.ID, CodeSymbolArtifact, Int>()
         var referencesByChildID = [CodeArtifact.ID: [CodeSymbol.ReferenceLocation]]()
         
-        // create subsymbols recursively – DEPTH FIRST
+        // create subsymbols recursively – RECURSION FIRST
         
         for childSymbol in (symbol.children ?? [])
         {
@@ -64,13 +64,13 @@ extension CodeSymbolArtifact
         
         graph.filterEssentialEdges()
         
-        let code = enclosingFile.lines[symbol.range.start.line ... symbol.range.end.line].joined(separator: "\n")
+        let code = enclosingFile.code(in: symbol.range)
         
         self.init(name: symbol.name,
                   kind: symbol.kind,
                   range: symbol.range,
                   selectionRange: symbol.selectionRange,
-                  code: code,
+                  code: code ?? "",
                   subsymbolGraph: graph)
     }
 }
