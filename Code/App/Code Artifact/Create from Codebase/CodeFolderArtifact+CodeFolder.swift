@@ -20,7 +20,8 @@ extension CodeFolderArtifact
             var extraReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = Part(kind: .subfolder(.init(codeFolder: subfolder,
-                                                   filePathRelativeToRoot: filePathWithSlash + subfolder.name, additionalReferences: &extraReferences)))
+                                                    filePathRelativeToRoot: filePathWithSlash + subfolder.name,
+                                                    additionalReferences: &extraReferences)))
             
             referencesByChildID[child.id] = extraReferences
             
@@ -32,8 +33,8 @@ extension CodeFolderArtifact
             var extraReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = Part(kind: .file(.init(codeFile: file,
-                                   filePathRelativeToRoot: filePathWithSlash + file.name,
-                                   additionalReferences: &extraReferences)))
+                                               filePathRelativeToRoot: filePathWithSlash + file.name,
+                                               additionalReferences: &extraReferences)))
             
             referencesByChildID[child.id] = extraReferences
             
@@ -42,11 +43,19 @@ extension CodeFolderArtifact
         
         // base case: create this folder artifact
         
+        let filePathRelativeToRootComponents = filePathRelativeToRoot.components(separatedBy: "/")
+        
         for (childID, childReferences) in referencesByChildID
         {
             for childReference in childReferences
             {
-                if childReference.filePathRelativeToRoot.hasPrefix(filePathRelativeToRoot)
+                let thisIsTheRoot = filePathRelativeToRoot.isEmpty
+                
+                let referenceFilePathRelativeToRootComponents = childReference.filePathRelativeToRoot.components(separatedBy: "/")
+                
+                let referenceIsInFilePath = thisIsTheRoot || referenceFilePathRelativeToRootComponents.starts(with: filePathRelativeToRootComponents)
+                
+                if referenceIsInFilePath
                 {
                     // we found a reference within the scope of this folder artifact that we initialize
                     
