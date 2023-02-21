@@ -21,10 +21,8 @@ final class CodeFile: Codable, Sendable
     {
         let codeLines = lines
         
-        guard codeLines.indices.contains([range.start.line, range.end.line]) else
-        {
-            return nil
-        }
+        guard codeLines.isValid(index: range.start.line),
+              codeLines.isValid(index: range.end.line) else { return nil }
         
         return codeLines[range.start.line ... range.end.line].joined(separator: "\n")
     }
