@@ -39,42 +39,14 @@ struct DocumentWindowView: View
             {
                 ToolbarItemGroup(placement: .secondaryAction)
                 {
-                    if let analysis, !analysis.search.term.isEmpty
-                    {
-                        ToolbarFilterIndicator(analysis: analysis)
-                    }
+                    SecondaryToolbarButtons(codebaseProcessor: documentWindow.codebaseProcessor)
                 }
                 
                 ToolbarItemGroup(placement: .primaryAction)
                 {
                     Spacer()
                     
-                    Button(systemImageName: "magnifyingglass")
-                    {
-                        withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
-                        {
-                            analysis?.toggleSearchBar()
-                        }
-                    }
-                    .help("Toggle the Search Filter (⇧⌘F)")
-                    .disabled(analysis == nil)
-                    
-                    DisplayModePicker(displayMode: .init(get: {
-                        analysis?.displayMode ?? .treeMap
-                    }, set: { newDisplayMode in
-                        analysis?.displayMode = newDisplayMode
-                    }))
-                    .disabled(analysis == nil)
-                    
-                    Button(systemImageName: "sidebar.right")
-                    {
-                        withAnimation
-                        {
-                            analysis?.showsRightSidebar.toggle()
-                        }
-                    }
-                    .help("Toggle Inspector (⌥⌘0)")
-                    .disabled(analysis == nil)
+                    PrimaryToolbarButtons(codebaseProcessor: documentWindow.codebaseProcessor)
                 }
             }
             .onReceive(documentWindow.events)
@@ -87,11 +59,64 @@ struct DocumentWindowView: View
             }
     }
     
-    private var analysis: CodebaseAnalysis?
-    {
-        documentWindow.codebaseProcessor.state.analysis
-    }
-    
     @Binding var codebaseFile: CodebaseFileDocument
     @StateObject private var documentWindow: DocumentWindow
+}
+
+struct SecondaryToolbarButtons: View
+{
+    var body: some View
+    {
+        if let analysis, !analysis.search.term.isEmpty
+        {
+            ToolbarFilterIndicator(analysis: analysis)
+        }
+    }
+    
+    private var analysis: CodebaseAnalysis?
+    {
+        codebaseProcessor.state.analysis
+    }
+    
+    @ObservedObject var codebaseProcessor: CodebaseProcessor
+}
+
+struct PrimaryToolbarButtons: View
+{
+    var body: some View
+    {
+        Button(systemImageName: "magnifyingglass")
+        {
+            withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
+            {
+                analysis?.toggleSearchBar()
+            }
+        }
+        .help("Toggle the Search Filter (⇧⌘F)")
+        .disabled(analysis == nil)
+        
+        DisplayModePicker(displayMode: .init(get: {
+            analysis?.displayMode ?? .treeMap
+        }, set: { newDisplayMode in
+            analysis?.displayMode = newDisplayMode
+        }))
+        .disabled(analysis == nil)
+        
+        Button(systemImageName: "sidebar.right")
+        {
+            withAnimation
+            {
+                analysis?.showsRightSidebar.toggle()
+            }
+        }
+        .help("Toggle Inspector (⌥⌘0)")
+        .disabled(analysis == nil)
+    }
+    
+    private var analysis: CodebaseAnalysis?
+    {
+        codebaseProcessor.state.analysis
+    }
+    
+    @ObservedObject var codebaseProcessor: CodebaseProcessor
 }
