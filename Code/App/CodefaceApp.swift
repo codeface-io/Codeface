@@ -30,75 +30,22 @@ struct CodefaceApp: App
         {
             CommandGroup(after: .toolbar)
             {
-                Button("Find and filter")
+                if let focusedDocumentWindow
                 {
-                    withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
-                    {
-                        analysis?.startTypingSearchTerm()
-                    }
+                    FindButtons(codebaseProcessor: focusedDocumentWindow.codebaseProcessor)
                 }
-                .disabled(analysis == nil)
-                .keyboardShortcut("f")
-
-                Button("Toggle the Search Filter")
-                {
-                    withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
-                    {
-                        analysis?.toggleSearchBar()
-                    }
-                }
-                .disabled(analysis == nil)
-                .keyboardShortcut("f", modifiers: [.shift, .command])
             }
             
             ToolbarCommands()
 
             CommandGroup(replacing: .sidebar)
             {
-                Button("\((analysis?.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
+                if let focusedDocumentWindow
                 {
-                    analysis?.showLoC.toggle()
+                    ViewButtons(codebaseProcessor: focusedDocumentWindow.codebaseProcessor)
+                    
+                    Divider()
                 }
-                .keyboardShortcut("l", modifiers: .command)
-                .disabled(analysis == nil)
-                
-                Button("\((analysis?.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
-                {
-                    withAnimation
-                    {
-                        analysis?.showsLeftSidebar.toggle()
-                    }
-                }
-                .keyboardShortcut("0", modifiers: .command)
-                .disabled(analysis == nil)
-
-                Button("\((analysis?.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
-                {
-                    withAnimation
-                    {
-                        analysis?.showsRightSidebar.toggle()
-                    }
-                }
-                .keyboardShortcut("0", modifiers: [.option, .command])
-                .disabled(analysis == nil)
-                
-                Divider()
-                
-                Button("Switch to Next Display Mode")
-                {
-                    analysis?.switchDisplayMode()
-                }
-                .keyboardShortcut(.rightArrow, modifiers: .command)
-                .disabled(analysis == nil)
-
-                Button("Switch to Previous Display Mode")
-                {
-                    analysis?.switchDisplayMode()
-                }
-                .keyboardShortcut(.leftArrow, modifiers: .command)
-                .disabled(analysis == nil)
-
-                Divider()
                 
                 Button("Toggle Fullscreen")
                 {
@@ -194,4 +141,93 @@ struct CodefaceApp: App
     }
     
     @FocusedObject private var focusedDocumentWindow: DocumentWindow?
+}
+
+struct FindButtons: View
+{
+    var body: some View
+    {
+        Button("Find and Filter")
+        {
+            withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
+            {
+                analysis?.startTypingSearchTerm()
+            }
+        }
+        .disabled(analysis == nil)
+        .keyboardShortcut("f")
+
+        Button("Toggle the Search Filter")
+        {
+            withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
+            {
+                analysis?.toggleSearchBar()
+            }
+        }
+        .disabled(analysis == nil)
+        .keyboardShortcut("f", modifiers: [.shift, .command])
+    }
+    
+    private var analysis: CodebaseAnalysis?
+    {
+        codebaseProcessor.state.analysis
+    }
+    
+    @ObservedObject var codebaseProcessor: CodebaseProcessor
+}
+
+struct ViewButtons: View
+{
+    var body: some View
+    {
+        Button("\((analysis?.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
+        {
+            analysis?.showLoC.toggle()
+        }
+        .keyboardShortcut("l", modifiers: .command)
+        .disabled(analysis == nil)
+        
+        Button("\((analysis?.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
+        {
+            withAnimation
+            {
+                analysis?.showsLeftSidebar.toggle()
+            }
+        }
+        .keyboardShortcut("0", modifiers: .command)
+        .disabled(analysis == nil)
+
+        Button("\((analysis?.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
+        {
+            withAnimation
+            {
+                analysis?.showsRightSidebar.toggle()
+            }
+        }
+        .keyboardShortcut("0", modifiers: [.option, .command])
+        .disabled(analysis == nil)
+        
+        Divider()
+        
+        Button("Switch to Next Display Mode")
+        {
+            analysis?.switchDisplayMode()
+        }
+        .keyboardShortcut(.rightArrow, modifiers: .command)
+        .disabled(analysis == nil)
+
+        Button("Switch to Previous Display Mode")
+        {
+            analysis?.switchDisplayMode()
+        }
+        .keyboardShortcut(.leftArrow, modifiers: .command)
+        .disabled(analysis == nil)
+    }
+    
+    private var analysis: CodebaseAnalysis?
+    {
+        codebaseProcessor.state.analysis
+    }
+    
+    @ObservedObject var codebaseProcessor: CodebaseProcessor
 }
