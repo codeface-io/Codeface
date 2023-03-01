@@ -4,7 +4,7 @@ struct SecondaryToolbarButtons: View
 {
     var body: some View
     {
-        if let analysis, !analysis.search.term.isEmpty
+        if let analysis
         {
             ToolbarFilterIndicator(analysis: analysis)
         }
