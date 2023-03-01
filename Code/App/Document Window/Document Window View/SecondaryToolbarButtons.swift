@@ -1,5 +1,23 @@
 import SwiftUI
 
+struct SecondaryToolbarButtons: View
+{
+    var body: some View
+    {
+        if let analysis, !analysis.search.term.isEmpty
+        {
+            ToolbarFilterIndicator(analysis: analysis)
+        }
+    }
+    
+    private var analysis: CodebaseAnalysis?
+    {
+        codebaseProcessor.state.analysis
+    }
+    
+    @ObservedObject var codebaseProcessor: CodebaseProcessor
+}
+
 struct ToolbarFilterIndicator: View
 {
     var body: some View
