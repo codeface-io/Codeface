@@ -52,6 +52,8 @@
 		966F39B1291BF54F00198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B0291BF54F00198B14 /* FoundationToolz */; };
 		966F39B3291BF56200198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B2291BF56200198B14 /* FoundationToolz */; };
 		9675A0B7294CE1C900C784AA /* NavigationAndFocusPOCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675A0B6294CE1C900C784AA /* NavigationAndFocusPOCView.swift */; };
+		96842F4629AF53E000FB0439 /* SecondaryToolbarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96842F4529AF53E000FB0439 /* SecondaryToolbarButtons.swift */; };
+		96842F4829AF541700FB0439 /* PrimaryToolbarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96842F4729AF541700FB0439 /* PrimaryToolbarButtons.swift */; };
 		9688065B297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688065A297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift */; };
 		9688065F297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688065E297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift */; };
 		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
@@ -94,7 +96,6 @@
 		96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479DC2835B36C00762FD7 /* SidebarLabel.swift */; };
 		96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA394E282C2AF2002B033E /* ArtifactContentView.swift */; };
 		96EB5997294628390050254E /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EB5996294628390050254E /* SearchField.swift */; };
-		96F19FB8294E642C00E441AC /* ToolbarFilterIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F19FB7294E642C00E441AC /* ToolbarFilterIndicator.swift */; };
 		96F5E7F02957191E00181473 /* ConcurrencyPOC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F5E7EF2957191E00181473 /* ConcurrencyPOC.swift */; };
 		96FC8C3F284BEB9000AD7DD2 /* CodebaseLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC8C3E284BEB9000AD7DD2 /* CodebaseLocator.swift */; };
 		96FF8A43294E9FE500D06E36 /* SwiftUIToolzOLD in Frameworks */ = {isa = PBXBuildFile; productRef = 96FF8A42294E9FE500D06E36 /* SwiftUIToolzOLD */; };
@@ -164,6 +165,8 @@
 		965A7AD82964A319006C5A3A /* CodebaseProcessorSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorSteps.swift; sourceTree = "<group>"; };
 		966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutableClientExportedInterface.swift; sourceTree = "<group>"; };
 		9675A0B6294CE1C900C784AA /* NavigationAndFocusPOCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAndFocusPOCView.swift; sourceTree = "<group>"; };
+		96842F4529AF53E000FB0439 /* SecondaryToolbarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryToolbarButtons.swift; sourceTree = "<group>"; };
+		96842F4729AF541700FB0439 /* PrimaryToolbarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryToolbarButtons.swift; sourceTree = "<group>"; };
 		9688065A297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+SortMetric.swift"; sourceTree = "<group>"; };
 		9688065E297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+CalculateMetrics.swift"; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
@@ -212,7 +215,6 @@
 		96EA394E282C2AF2002B033E /* ArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactContentView.swift; sourceTree = "<group>"; };
 		96EB5996294628390050254E /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		96EF44102912A64500EB93D1 /* CodefaceHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodefaceHelper.entitlements; sourceTree = "<group>"; };
-		96F19FB7294E642C00E441AC /* ToolbarFilterIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarFilterIndicator.swift; sourceTree = "<group>"; };
 		96F5E7EF2957191E00181473 /* ConcurrencyPOC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrencyPOC.swift; sourceTree = "<group>"; };
 		96FC8C3E284BEB9000AD7DD2 /* CodebaseLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseLocator.swift; sourceTree = "<group>"; };
 		96FF8A44294F876100D06E36 /* ContentViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewStyle.swift; sourceTree = "<group>"; };
@@ -464,7 +466,8 @@
 			isa = PBXGroup;
 			children = (
 				9639C27128D761A000779BA5 /* DocumentWindowView.swift */,
-				96F19FB7294E642C00E441AC /* ToolbarFilterIndicator.swift */,
+				96842F4729AF541700FB0439 /* PrimaryToolbarButtons.swift */,
+				96842F4529AF53E000FB0439 /* SecondaryToolbarButtons.swift */,
 				96FC8C3E284BEB9000AD7DD2 /* CodebaseLocator.swift */,
 			);
 			path = "Document Window View";
@@ -846,7 +849,6 @@
 				96D59CC3294AB895003C55B5 /* CodebaseCentralView.swift in Sources */,
 				96106E662962DF1C0002F13C /* CodeSymbolArtifact+CodeSymbol.swift in Sources */,
 				96E135072962DD5900DF8A43 /* ArtifactViewModel+Layout.swift in Sources */,
-				96F19FB8294E642C00E441AC /* ToolbarFilterIndicator.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				961D497529A26A8A00E95E99 /* RelativeFilePath.swift in Sources */,
 				96FC8C3F284BEB9000AD7DD2 /* CodebaseLocator.swift in Sources */,
@@ -892,6 +894,7 @@
 				964464BE295204DB0004382F /* CodebaseAnalysisContentPanel.swift in Sources */,
 				96106E612962DEF20002F13C /* CodebaseLocationPersister.swift in Sources */,
 				96E1350F2962DD6C00DF8A43 /* CodeFile.swift in Sources */,
+				96842F4629AF53E000FB0439 /* SecondaryToolbarButtons.swift in Sources */,
 				96E135182962DD7F00DF8A43 /* CodeFileArtifact+CodeArtifact.swift in Sources */,
 				965A7AD92964A319006C5A3A /* CodebaseProcessorSteps.swift in Sources */,
 				96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */,
@@ -905,6 +908,7 @@
 				96FF8A45294F876100D06E36 /* ContentViewStyle.swift in Sources */,
 				960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */,
 				96D59CC5294AB8DE003C55B5 /* CodebaseInspectorView.swift in Sources */,
+				96842F4829AF541700FB0439 /* PrimaryToolbarButtons.swift in Sources */,
 				964464B22951D4090004382F /* DisplayModePicker.swift in Sources */,
 				964464B72952016E0004382F /* DisplayMode.swift in Sources */,
 				96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyMetrics.swift in Sources */,
