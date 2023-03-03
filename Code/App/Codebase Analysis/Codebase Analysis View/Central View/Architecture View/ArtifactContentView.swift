@@ -27,10 +27,10 @@ struct ArtifactContentView: View
                 {
                     partVM in
                     
-                    ArtifactView(artifactVM: partVM,
+                    ArtifactView(bgBrightness: partBGBrightness,
+                                 artifactVM: partVM,
                                  pathBar: pathBar,
-                                 ignoreSearchFilter: ignoreSearchFilter,
-                                 bgBrightness: partBGBrightness)
+                                 ignoreSearchFilter: ignoreSearchFilter)
                 }
             }
             .frame(width: contentGeometry.size.width,

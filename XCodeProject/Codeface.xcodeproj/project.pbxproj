@@ -58,6 +58,7 @@
 		9688065F297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688065E297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift */; };
 		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
 		968EA5C328DCD24500FE8A9B /* CodebaseProcessorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */; };
+		969A9BF229B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A9BF129B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift */; };
 		96C2118C28E347F0008024AA /* CombineObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118B28E347F0008024AA /* CombineObserver */; };
 		96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118D28E347F0008024AA /* SwiftObserver */; };
 		96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 96CA360528E0F92800D71370 /* LSPServiceKit */; };
@@ -171,6 +172,7 @@
 		9688065E297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+CalculateMetrics.swift"; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
 		968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorView.swift; sourceTree = "<group>"; };
+		969A9BF129B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+BorderColor.swift"; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
 		96D59CC0294AB82D003C55B5 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		96D59CC2294AB895003C55B5 /* CodebaseCentralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseCentralView.swift; sourceTree = "<group>"; };
@@ -575,6 +577,7 @@
 			isa = PBXGroup;
 			children = (
 				96E134F92962DC2300DF8A43 /* ArtifactViewModel+Hashable.swift */,
+				969A9BF129B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift */,
 				96E134FA2962DC2300DF8A43 /* ArtifactViewModel+Search.swift */,
 				96E134FB2962DC2300DF8A43 /* ArtifactViewModel+LayoutDependencies.swift */,
 				96E134FC2962DC2300DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift */,
@@ -861,6 +864,7 @@
 				964464B6295201660004382F /* DocumentWindow.swift in Sources */,
 				968EA5C328DCD24500FE8A9B /* CodebaseProcessorView.swift in Sources */,
 				96F5E7F02957191E00181473 /* ConcurrencyPOC.swift in Sources */,
+				969A9BF229B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift in Sources */,
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
 				96E135132962DD7A00DF8A43 /* CodeArtifact.swift in Sources */,
 				9619A2B92967104E00863BC0 /* CodeArtifact+Metrics.swift in Sources */,

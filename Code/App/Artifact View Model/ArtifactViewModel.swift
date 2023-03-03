@@ -265,7 +265,7 @@ private func symbolIconFillColor(for symbolKind: LSPDocumentSymbol.SymbolKind?) 
     }
 }
 
-private func systemColor(forLinesOfCode linesOfCode: Int) -> UXColor.System
+private func systemColor(forLinesOfCode linesOfCode: Int) -> SystemColor
 {
     if linesOfCode < 100 { return .green }
     else if linesOfCode < 200 { return .yellow }
