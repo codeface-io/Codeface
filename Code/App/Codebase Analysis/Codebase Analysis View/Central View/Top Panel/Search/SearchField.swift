@@ -25,7 +25,13 @@ struct SearchField: View
             .onChange(of: isFocused)
             {
                 // ❗️ we have to write the view model async (later) to not screw up focus management
-                newFocus in Task { analysis.set(fieldIsFocused: newFocus) }
+                newFocus in Task
+                {
+                    withAnimation(.easeInOut(duration: 1))
+                    {
+                        analysis.set(fieldIsFocused: newFocus)
+                    }
+                }
             }
             .onReceive(analysis.$search.dropFirst().map({ $0.fieldIsFocused }).removeDuplicates())
             {
@@ -34,7 +40,15 @@ struct SearchField: View
             .onChange(of: searchTerm)
             {
                 // ❗️ we have to write the view model async (later) to not screw up focus management
-                newTerm in Task { analysis.set(searchTerm: newTerm) }
+                newTerm in
+                
+                Task
+                {
+                    withAnimation(.easeInOut(duration: Search.filterUpdateAnimationDuration))
+                    {
+                        analysis.set(searchTerm: newTerm)
+                    }
+                }
             }
             .onReceive(analysis.$search.dropFirst().map({ $0.term }).removeDuplicates())
             {
@@ -46,14 +60,20 @@ struct SearchField: View
                 isFocused = false
                 
                 // ❗️ we have to write the view model async (later) to not screw up focus management
-                Task { analysis.submitSearchTerm() }
+                Task
+                {
+                    withAnimation(.easeInOut(duration: Search.layoutAnimationDuration))
+                    {
+                        analysis.set(fieldIsFocused: false)
+                    }
+                }
             }
             
             if !analysis.search.term.isEmpty
             {
                 Button(systemImageName: "xmark.circle.fill")
                 {
-                    withAnimation(.easeInOut(duration: 1))
+                    withAnimation(.easeInOut(duration: Search.layoutAnimationDuration))
                     {
                         analysis.set(searchTerm: "")
                     }

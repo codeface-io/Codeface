@@ -26,7 +26,10 @@ struct ToolbarFilterIndicator: View
         {
             Button
             {
-                analysis.set(searchTerm: "")
+                withAnimation(.easeInOut(duration: Search.layoutAnimationDuration))
+                {
+                    analysis.set(searchTerm: "")
+                }
             }
             label:
             {

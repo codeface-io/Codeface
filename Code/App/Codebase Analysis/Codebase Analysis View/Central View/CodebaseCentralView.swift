@@ -31,7 +31,10 @@ struct CodebaseCentralView: View
                         
                         Button("Clear Search Filter", role: .destructive)
                         {
-                            analysis.set(searchTerm: "")
+                            withAnimation(.easeInOut(duration: Search.layoutAnimationDuration))
+                            {
+                                analysis.set(searchTerm: "")
+                            }
                         }
                         .focusable(false)
                         .font(.title3)

@@ -4,7 +4,7 @@ struct TreeMap: View
 {
     var body: some View
     {        
-        RootArtifactContentView(artifact: analysis.selectedArtifact,
+        RootArtifactContentView(artifactVM: analysis.selectedArtifact,
                                 analysis: analysis)
             .padding(ArtifactViewModel.padding)
             .frame(minWidth: 300, minHeight: 300)

@@ -8,9 +8,16 @@ struct PrimaryToolbarButtons: View
         {
             Button(systemImageName: "magnifyingglass")
             {
+                let searchBarWillBeVisible = !analysis.search.barIsShown
+                
                 withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
                 {
-                    analysis.toggleSearchBar()
+                    analysis.set(searchBarIsVisible: searchBarWillBeVisible)
+                }
+                
+                withAnimation(.easeInOut(duration: Search.layoutAnimationDuration))
+                {
+                    analysis.set(fieldIsFocused: searchBarWillBeVisible)
                 }
             }
             .help("Toggle the Search Filter (⇧⌘F)")

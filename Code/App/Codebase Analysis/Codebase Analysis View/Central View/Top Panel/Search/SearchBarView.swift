@@ -14,7 +14,12 @@ struct SearchBarView: View
                 {
                     withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
                     {
-                        analysis.hideSearchBar()
+                        analysis.set(searchBarIsVisible: false)
+                    }
+                    
+                    withAnimation(.easeInOut(duration: Search.layoutAnimationDuration))
+                    {
+                        analysis.set(fieldIsFocused: false)
                     }
                 }
                 .focusable(false)

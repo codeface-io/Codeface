@@ -3,12 +3,21 @@ import SwiftyToolz
 
 extension ArtifactViewModel
 {
-    func updateLayout(forScopeSize scopeSize: Size,
-                      ignoreSearchFilter: Bool,
-                      forceUpdate: Bool = false)
+    func updateLayout(forScopeSize optionalScopeSize: Size? = nil,
+                      ignoreSearchFilter: Bool)
     {
-        guard forceUpdate || scopeSize != lastScopeContentSize else { return }
-        lastScopeContentSize = scopeSize
+        guard let scopeSize = optionalScopeSize ?? lastLayoutConfiguration?.scopeContentSize else
+        {
+            log(warning: "Tried to update layout but no scope size is available")
+            return
+        }
+        
+        let config = LayoutConfiguration(ignoreFilter: ignoreSearchFilter,
+                                         scopeContentSize: scopeSize)
+        
+        guard config != lastLayoutConfiguration else { return }
+        
+        lastLayoutConfiguration = config
         
 //        print("updating layout of \(codeArtifact.name)")
         

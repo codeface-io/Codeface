@@ -11,29 +11,17 @@ class CodebaseAnalysis: ObservableObject
     
     // MARK: - Search
     
-    func startTypingSearchTerm()
+    func set(searchBarIsVisible: Bool)
     {
-        search.barIsShown = true
-        set(fieldIsFocused: true)
-    }
-    
-    func toggleSearchBar()
-    {
-        search.barIsShown.toggle()
-        set(fieldIsFocused: search.barIsShown)
-    }
-    
-    func hideSearchBar()
-    {
-        set(fieldIsFocused: false)
-        search.barIsShown = false
+        search.barIsShown = searchBarIsVisible
     }
     
     func set(fieldIsFocused: Bool)
     {
         guard search.fieldIsFocused != fieldIsFocused else { return }
         search.fieldIsFocused = fieldIsFocused
-        if !fieldIsFocused { submitSearchTerm() }
+        if !fieldIsFocused { updateSearchFilter() }
+        selectedArtifact.updateLayout(ignoreSearchFilter: fieldIsFocused)
     }
     
     func set(searchTerm: String)
@@ -41,12 +29,13 @@ class CodebaseAnalysis: ObservableObject
         guard search.term != searchTerm else { return }
         search.term = searchTerm
         updateSearchFilter()
-    }
-    
-    func submitSearchTerm()
-    {
-        search.fieldIsFocused = false
-        updateSearchFilter()
+        
+        let didClearSearchTermViaButton = searchTerm.isEmpty && !search.fieldIsFocused
+        
+        if didClearSearchTermViaButton
+        {
+            selectedArtifact.updateLayout(ignoreSearchFilter: true)
+        }
     }
     
     private func updateSearchFilter()
@@ -57,7 +46,7 @@ class CodebaseAnalysis: ObservableObject
         rootArtifact.updateSearchFilter(allPass: search.term.isEmpty)
     }
     
-    @Published var search = Search()
+    @Published private(set) var search = Search()
     
     // MARK: - Path Bar
     
