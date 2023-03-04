@@ -12,17 +12,11 @@ extension ArtifactViewModel
             return
         }
         
-        let config = LayoutConfiguration(ignoreFilter: ignoreSearchFilter,
-                                         scopeContentSize: scopeSize)
-        
-        guard config != lastLayoutConfiguration else { return }
-        
-        lastLayoutConfiguration = config
-        
 //        print("updating layout of \(codeArtifact.name)")
         
 //        var stopWatch = StopWatch()
-        updateLayoutOfParts(forScopeSize: scopeSize, ignoreSearchFilter: ignoreSearchFilter)
+        updateLayoutOfParts(forScopeSize: scopeSize,
+                            ignoreSearchFilter: ignoreSearchFilter)
 //        stopWatch.measure("Artifact Layout")
         
 //        stopWatch.restart()
