@@ -1,3 +1,5 @@
+import FoundationToolz
+
 extension CodeFileArtifact: SearchableCodeArtifact
 {
     func contains(fileLine: Int) -> Bool
@@ -15,7 +17,12 @@ extension CodeFileArtifact: CodeArtifact
     
     var intrinsicSizeInLinesOfCode: Int? { lines.count }
     
-    var kindName: String { "File" }
+    var kindName: String
+    {
+        [name.fileExtension()?.capitalized, "File"]
+            .compactMap({ $0 })
+            .joined(separator: " ")
+    }
     
     // MARK: - Hashability
     

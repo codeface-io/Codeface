@@ -20,20 +20,20 @@ struct CodebaseInspectorView: View
             
             LabeledContent("Name")
             {
+                Text(selectedArtifact.codeArtifact.name)   
+            }
+            
+            LabeledContent("Type")
+            {
                 Label
                 {
-                    Text(selectedArtifact.codeArtifact.name)
+                    Text(selectedArtifact.codeArtifact.kindName)
                 }
                 icon:
                 {
                     Image(systemName: selectedArtifact.iconSystemImageName)
                         .foregroundColor(.init(selectedArtifact.iconFillColor))
                 }
-            }
-            
-            LabeledContent("Type")
-            {
-                Text(selectedArtifact.codeArtifact.kindName)
             }
             
             Divider()
