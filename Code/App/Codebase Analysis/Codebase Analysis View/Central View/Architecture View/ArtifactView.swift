@@ -43,6 +43,12 @@ struct ArtifactView: View
         )
         .background(
             RoundedRectangle(cornerRadius: 5)
+                .fill(Color.accentColor)
+                .opacity(artifactVM.containsSearchTermRegardlessOfParts ?? false ? colorScheme == .dark ? 1 : 0.2 : 0)
+                .blendMode(colorScheme == .dark ? .multiply : .normal)
+        )
+        .background(
+            RoundedRectangle(cornerRadius: 5)
                 .fill(Color(white: bgBrightness).opacity(0.9))
         )
         .framePosition(artifactVM.frameInScopeContent)
