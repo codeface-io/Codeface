@@ -8,11 +8,6 @@ struct EmptyProcesorView: View
     {
         VStack
         {
-            if serverManager.serverIsWorking
-            {
-                Spacer()
-            }
-            
             HStack
             {
                 Spacer()
@@ -24,14 +19,7 @@ struct EmptyProcesorView: View
                 Spacer()
             }
             
-            if !serverManager.serverIsWorking
-            {
-                LSPServiceHint()
-            }
-            else
-            {
-                Spacer()
-            }
+            LSPServiceHint()
         }
         .padding(50)
     }
