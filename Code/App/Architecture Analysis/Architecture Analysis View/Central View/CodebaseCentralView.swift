@@ -77,6 +77,8 @@ struct CodebaseCentralView: View
                 case .code: CodeView(artifact: analysis.selectedArtifact)
                 }
             }
+            
+            PurchasePanel()
         }
     }
     
