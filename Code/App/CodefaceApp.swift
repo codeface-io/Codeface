@@ -135,7 +135,7 @@ struct CodefaceApp: App
     
     // MARK: - Basics
     
-    private var analysis: CodebaseAnalysis?
+    private var analysis: ArchitectureAnalysis?
     {
         focusedDocumentWindow?.codebaseProcessor.state.analysis
     }
@@ -186,7 +186,7 @@ struct FindButtons: View
         .keyboardShortcut("f", modifiers: [.shift, .command])
     }
     
-    private var analysis: CodebaseAnalysis?
+    private var analysis: ArchitectureAnalysis?
     {
         codebaseProcessor.state.analysis
     }
@@ -242,7 +242,7 @@ struct ViewButtons: View
         .disabled(analysis == nil)
     }
     
-    private var analysis: CodebaseAnalysis?
+    private var analysis: ArchitectureAnalysis?
     {
         codebaseProcessor.state.analysis
     }

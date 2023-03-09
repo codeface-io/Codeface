@@ -11,6 +11,6 @@ struct TreeMap: View
             .background(Color(white: colorScheme == .dark ? 0 : 0.6))
     }
     
-    @ObservedObject var analysis: CodebaseAnalysis
+    @ObservedObject var analysis: ArchitectureAnalysis
     @Environment(\.colorScheme) var colorScheme
 }

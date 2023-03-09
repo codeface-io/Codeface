@@ -31,7 +31,7 @@ struct CodebaseProcessorView: View
                                 secondaryText: progressFeedback.secondaryText).padding()
             
         case .analyzeArchitecture(let analysis):
-            CodebaseAnalysisView(analysis: analysis)
+            ArchitectureAnalysisView(analysis: analysis)
             
         case .didFail(let errorMessage):
             ProcessingFailureView(errorMessage: errorMessage).padding()

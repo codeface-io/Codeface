@@ -3,7 +3,7 @@ import SwiftyToolz
 
 struct CodebaseNavigatorView: View
 {
-    init(analysis: CodebaseAnalysis,
+    init(analysis: ArchitectureAnalysis,
          showsLinesOfCode: Binding<Bool>)
     {
         self.analysis = analysis
@@ -35,7 +35,7 @@ struct CodebaseNavigatorView: View
         }
     }
     
-    let analysis: CodebaseAnalysis
+    let analysis: ArchitectureAnalysis
     
     // we hold this separately, so we don't have to hold analysis as an ObservedObject since that would fuck up the list UI
     @Binding var showsLinesOfCode: Bool

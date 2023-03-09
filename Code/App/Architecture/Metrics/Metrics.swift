@@ -1,6 +1,6 @@
 struct Metrics: Sendable
 {
-    // MARK: - Qualitative Metrics
+    // MARK: - Cycle Metrics
     
     var portionOfPartsInCycles: Double
     {

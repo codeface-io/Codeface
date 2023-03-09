@@ -10,7 +10,7 @@ struct SecondaryToolbarButtons: View
         }
     }
     
-    private var analysis: CodebaseAnalysis?
+    private var analysis: ArchitectureAnalysis?
     {
         codebaseProcessor.state.analysis
     }
@@ -48,5 +48,5 @@ struct ToolbarFilterIndicator: View
         }
     }
     
-    @ObservedObject var analysis: CodebaseAnalysis
+    @ObservedObject var analysis: ArchitectureAnalysis
 }

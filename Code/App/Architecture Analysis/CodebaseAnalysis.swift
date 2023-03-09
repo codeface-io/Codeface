@@ -1,7 +1,7 @@
 import Combine
 
 @MainActor
-class CodebaseAnalysis: ObservableObject
+class ArchitectureAnalysis: ObservableObject
 {
     init(rootArtifact: ArtifactViewModel)
     {

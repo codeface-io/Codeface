@@ -80,7 +80,7 @@ struct CodebaseCentralView: View
         }
     }
     
-    @ObservedObject var analysis: CodebaseAnalysis
+    @ObservedObject var analysis: ArchitectureAnalysis
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
 }

@@ -3,7 +3,7 @@ import SwiftUI
 struct SearchField: View
 {
     @MainActor
-    init(analysis: CodebaseAnalysis, artifactName: String)
+    init(analysis: ArchitectureAnalysis, artifactName: String)
     {
         self.analysis = analysis
         _searchTerm = State(wrappedValue: analysis.search.term)
@@ -98,7 +98,7 @@ struct SearchField: View
     }
     
     /// ❗️ we can **not** make analysis an `@ObservedObject` and simply use `onChange(of:)` for observing `Search` since that would also screw up focus management ...
-    let analysis: CodebaseAnalysis
+    let analysis: ArchitectureAnalysis
     
     @FocusState
     private var isFocused: Bool

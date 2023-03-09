@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CodebaseAnalysisView: View
+struct ArchitectureAnalysisView: View
 {
     var body: some View
     {
@@ -20,5 +20,5 @@ struct CodebaseAnalysisView: View
         }
     }
     
-    @ObservedObject var analysis: CodebaseAnalysis
+    @ObservedObject var analysis: ArchitectureAnalysis
 }

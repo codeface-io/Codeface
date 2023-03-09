@@ -35,7 +35,7 @@ struct PrimaryToolbarButtons: View
         }
     }
     
-    private var analysis: CodebaseAnalysis?
+    private var analysis: ArchitectureAnalysis?
     {
         codebaseProcessor.state.analysis
     }
@@ -50,5 +50,5 @@ struct UpdatingDisplayModePicker: View
         DisplayModePicker(displayMode: $analysis.displayMode)
     }
     
-    @ObservedObject var analysis: CodebaseAnalysis
+    @ObservedObject var analysis: ArchitectureAnalysis
 }

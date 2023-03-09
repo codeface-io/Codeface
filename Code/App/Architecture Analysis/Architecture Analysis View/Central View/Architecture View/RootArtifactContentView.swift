@@ -73,7 +73,7 @@ struct RootArtifactContentView: View
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel
-    var analysis: CodebaseAnalysis
+    var analysis: ArchitectureAnalysis
     @Environment(\.colorScheme) var colorScheme
 }
 

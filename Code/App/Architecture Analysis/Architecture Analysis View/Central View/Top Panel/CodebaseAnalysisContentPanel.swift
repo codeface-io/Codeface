@@ -16,5 +16,5 @@ struct TopPanel: View
         .background(Color(NSColor.controlBackgroundColor))
     }
     
-    @ObservedObject var analysis: CodebaseAnalysis
+    @ObservedObject var analysis: ArchitectureAnalysis
 }
