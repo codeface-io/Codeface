@@ -3,24 +3,15 @@ import SwiftyToolz
 
 class AppStore: ObservableObject
 {
+    // MARK: - Life Cycle
+    
     static let shared = AppStore()
     
     private init() {}
     
-//    static func bla() async
-//    {
-//        for await verificationResult in Transaction.updates
-//        {
-//            do
-//            {
-//                let transaction = try verificationResult.payloadValue
-//            }
-//            catch
-//            {
-//                log(error.readable)
-//            }
-//        }
-//    }
+    deinit { transactionObserver.cancel() }
+    
+    // MARK: - Purchased Products
     
     func purchase(_ productID: ProductID) async throws
     {
@@ -33,12 +24,12 @@ class AppStore: ObservableObject
         case .success(let verificationResult):
             /// the signed transaction contains the JWS (JSON web signature)
             let transaction = try verificationResult.payloadValue
-            add(purchase: productID)
+            purchasedProducts += productID
             await transaction.finish()
             
         case .userCancelled, .pending:
             #if DEBUG
-            add(purchase: productID) // for testing
+            purchasedProducts += productID // for testing
             #endif
             
         @unknown default:
@@ -46,12 +37,26 @@ class AppStore: ObservableObject
         }
     }
     
-    private func add(purchase: ProductID)
+    private let transactionObserver = Task.detached
     {
-        purchasedProducts += purchase
+        for await verificationResult in Transaction.updates
+        {
+            do
+            {
+                let transaction = try verificationResult.payloadValue
+                AppStore.shared.purchasedProducts += ProductID(transaction.productID)
+                await transaction.finish()
+            }
+            catch
+            {
+                log(error.readable)
+            }
+        }
     }
     
     @Published private(set) var purchasedProducts = Set<ProductID>()
+    
+    // MARK: - Available Products
     
     static func request(_ productID: ProductID) async throws -> Product
     {
@@ -64,11 +69,11 @@ class AppStore: ObservableObject
         
         return product
     }
-}
-
-struct ProductID: Hashable
-{
-    init(_ string: String) { self.string = string }
     
-    let string: String
+    struct ProductID: Hashable
+    {
+        init(_ string: String) { self.string = string }
+        
+        let string: String
+    }
 }

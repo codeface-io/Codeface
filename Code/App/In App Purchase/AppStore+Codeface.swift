@@ -18,7 +18,7 @@ extension AppStore
     }
 }
 
-extension ProductID
+extension AppStore.ProductID
 {
-    static let subscriptionLevel1 = ProductID("io.codeface.subscription.level1")
+    static let subscriptionLevel1 = Self("io.codeface.subscription.level1")
 }
