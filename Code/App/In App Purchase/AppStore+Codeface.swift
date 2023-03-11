@@ -16,6 +16,21 @@ extension AppStore
             }
         }
     }
+    
+    static func forceRestorePurchasedProducts()
+    {
+        Task
+        {
+            do
+            {
+                try await shared.forceRestorePurchasedProducts()
+            }
+            catch
+            {
+                log(error.readable)
+            }
+        }
+    }
 }
 
 extension AppStore.ProductID

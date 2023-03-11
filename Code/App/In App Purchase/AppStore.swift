@@ -57,6 +57,12 @@ class AppStore: ObservableObject
         }
     }
     
+    func forceRestorePurchasedProducts() async throws
+    {
+        try await StoreKit.AppStore.sync()
+        await updatePurchasedProducts()
+    }
+    
     func updatePurchasedProducts() async
     {
         var updatedPurchasedProducts = Set<ProductID>()

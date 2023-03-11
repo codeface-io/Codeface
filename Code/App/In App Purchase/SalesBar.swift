@@ -57,7 +57,7 @@ struct SalesBar: View
                 
                 Button("Restore my Ongoing Sponsorship")
                 {
-                    print("💰")
+                    AppStore.forceRestorePurchasedProducts()
                 }
                 .padding(.bottom, 42)
                 .opacity(isExpanded ? 1 : 0)
