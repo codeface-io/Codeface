@@ -7,7 +7,10 @@ class AppStore: ObservableObject
     
     static let shared = AppStore()
     
-    private init() {}
+    private init()
+    {
+        Task { await AppStore.shared.updatePurchasedProducts() }
+    }
     
     deinit { transactionObserver.cancel() }
     
@@ -52,6 +55,26 @@ class AppStore: ObservableObject
                 log(error.readable)
             }
         }
+    }
+    
+    func updatePurchasedProducts() async
+    {
+        var updatedPurchasedProducts = Set<ProductID>()
+        
+        for await verificationResult in Transaction.currentEntitlements
+        {
+            do
+            {
+                let transaction = try verificationResult.payloadValue
+                updatedPurchasedProducts += ProductID(transaction.productID)
+            }
+            catch
+            {
+                log(error.readable)
+            }
+        }
+        
+        purchasedProducts = updatedPurchasedProducts
     }
     
     @Published private(set) var purchasedProducts = Set<ProductID>()
