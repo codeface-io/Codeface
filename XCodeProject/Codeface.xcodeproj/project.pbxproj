@@ -221,6 +221,7 @@
 		96E479D128359CCE00762FD7 /* ArtifactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactView.swift; sourceTree = "<group>"; };
 		96E479DC2835B36C00762FD7 /* SidebarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarLabel.swift; sourceTree = "<group>"; };
 		96E5A9C229BCC87200B0A913 /* AppStore+Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Codeface.swift"; sourceTree = "<group>"; };
+		96E5A9C629BD171A00B0A913 /* App Store Config.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "App Store Config.storekit"; sourceTree = "<group>"; };
 		96EA394E282C2AF2002B033E /* ArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactContentView.swift; sourceTree = "<group>"; };
 		96EB5996294628390050254E /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		96EF44102912A64500EB93D1 /* CodefaceHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodefaceHelper.entitlements; sourceTree = "<group>"; };
@@ -648,6 +649,7 @@
 			isa = PBXGroup;
 			children = (
 				9E00727A218E250E0094BD1C /* Code */,
+				96E5A9C629BD171A00B0A913 /* App Store Config.storekit */,
 				9E95A705218C73C7009A58A9 /* Codeface */,
 				96143EFF290ED68A008CA3C2 /* CodefaceHelper */,
 				9E95A716218C73CA009A58A9 /* CodefaceTests */,
