@@ -59,6 +59,7 @@
 		9688065F297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688065E297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift */; };
 		968D9C0E28D4E99E000BE520 /* LoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */; };
 		968EA5C328DCD24500FE8A9B /* CodebaseProcessorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */; };
+		9694D6E129BB796C00BBDA31 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9694D6E029BB796C00BBDA31 /* StoreKit.framework */; };
 		969A9BF229B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A9BF129B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift */; };
 		96C2118C28E347F0008024AA /* CombineObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118B28E347F0008024AA /* CombineObserver */; };
 		96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118D28E347F0008024AA /* SwiftObserver */; };
@@ -100,6 +101,7 @@
 		96EB5997294628390050254E /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EB5996294628390050254E /* SearchField.swift */; };
 		96F5E7F02957191E00181473 /* ConcurrencyPOC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F5E7EF2957191E00181473 /* ConcurrencyPOC.swift */; };
 		96FC8C3F284BEB9000AD7DD2 /* CodebaseLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC8C3E284BEB9000AD7DD2 /* CodebaseLocator.swift */; };
+		96FDA72C29BCABCC0020A48F /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FDA72B29BCABCC0020A48F /* PurchaseService.swift */; };
 		96FF8A43294E9FE500D06E36 /* SwiftUIToolzOLD in Frameworks */ = {isa = PBXBuildFile; productRef = 96FF8A42294E9FE500D06E36 /* SwiftUIToolzOLD */; };
 		96FF8A45294F876100D06E36 /* ContentViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FF8A44294F876100D06E36 /* ContentViewStyle.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceApp.swift */; };
@@ -174,6 +176,7 @@
 		9688065E297C31A00075F8F3 /* CodeFolderArtifact+CalculateMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+CalculateMetrics.swift"; sourceTree = "<group>"; };
 		968D9C0D28D4E99E000BE520 /* LoadingProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgressView.swift; sourceTree = "<group>"; };
 		968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorView.swift; sourceTree = "<group>"; };
+		9694D6E029BB796C00BBDA31 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		969A9BF129B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+BorderColor.swift"; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
 		96D59CC0294AB82D003C55B5 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -221,6 +224,7 @@
 		96EF44102912A64500EB93D1 /* CodefaceHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodefaceHelper.entitlements; sourceTree = "<group>"; };
 		96F5E7EF2957191E00181473 /* ConcurrencyPOC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrencyPOC.swift; sourceTree = "<group>"; };
 		96FC8C3E284BEB9000AD7DD2 /* CodebaseLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseLocator.swift; sourceTree = "<group>"; };
+		96FDA72B29BCABCC0020A48F /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
 		96FF8A44294F876100D06E36 /* ContentViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewStyle.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceApp.swift; sourceTree = "<group>"; };
 		9E27839C229ECDF1006ACB18 /* Codeface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codeface.entitlements; sourceTree = "<group>"; };
@@ -247,6 +251,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9694D6E129BB796C00BBDA31 /* StoreKit.framework in Frameworks */,
 				96DC635528E100D900DD5BEB /* SwiftLSP in Frameworks */,
 				96FF8A43294E9FE500D06E36 /* SwiftUIToolzOLD in Frameworks */,
 				96C2118C28E347F0008024AA /* CombineObserver in Frameworks */,
@@ -339,6 +344,7 @@
 		961AAD642899C553001CFF67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9694D6E029BB796C00BBDA31 /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -377,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				9625697629BA5E47002FB7CC /* PurchasePanel.swift */,
+				96FDA72B29BCABCC0020A48F /* PurchaseService.swift */,
 			);
 			path = "In App Purchase";
 			sourceTree = "<group>";
@@ -851,6 +858,7 @@
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
 				96D59CC7294AB9F8003C55B5 /* ArchitectureAnalysisView.swift in Sources */,
 				96106E602962DEEE0002F13C /* CodeFolderArtifact+LOCInCycles.swift in Sources */,
+				96FDA72C29BCABCC0020A48F /* PurchaseService.swift in Sources */,
 				96106E632962DF1C0002F13C /* CodeFileArtifact+CodeFile.swift in Sources */,
 				96E1350C2962DD6200DF8A43 /* CodeFolder.swift in Sources */,
 				96E135142962DD7A00DF8A43 /* CodeFolderArtifact.swift in Sources */,
@@ -1140,13 +1148,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Codeface/Codeface.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer: Sebastian Fichtner (8J9665RC9C)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 27;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 8T3R57GCBV;
 				INFOPLIST_FILE = Codeface/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1156,7 +1165,8 @@
 				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flowtoolz.codeface;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Codeface macOS Development Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Codeface macOS Development Profile";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;

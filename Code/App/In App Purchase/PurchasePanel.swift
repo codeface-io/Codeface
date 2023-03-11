@@ -49,6 +49,11 @@ struct PurchasePanel: View
                 
                 Button("Sonsor Codeface for Only 1$ a Month")
                 {
+                    Task
+                    {
+                        await PurchaseService.testStoreKit()
+                    }
+
                     print("💰")
                 }
                 .padding(.bottom)
