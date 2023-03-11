@@ -97,12 +97,12 @@
 		96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479CF28359C9900762FD7 /* AnimatableLine.swift */; };
 		96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479D128359CCE00762FD7 /* ArtifactView.swift */; };
 		96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E479DC2835B36C00762FD7 /* SidebarLabel.swift */; };
-		96E5A9C329BCC87200B0A913 /* AppStore+Codeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E5A9C229BCC87200B0A913 /* AppStore+Codeface.swift */; };
+		96E5A9C329BCC87200B0A913 /* AppStoreClient+Codeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E5A9C229BCC87200B0A913 /* AppStoreClient+Codeface.swift */; };
 		96EA394F282C2AF2002B033E /* ArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA394E282C2AF2002B033E /* ArtifactContentView.swift */; };
 		96EB5997294628390050254E /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EB5996294628390050254E /* SearchField.swift */; };
 		96F5E7F02957191E00181473 /* ConcurrencyPOC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F5E7EF2957191E00181473 /* ConcurrencyPOC.swift */; };
 		96FC8C3F284BEB9000AD7DD2 /* CodebaseLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC8C3E284BEB9000AD7DD2 /* CodebaseLocator.swift */; };
-		96FDA72C29BCABCC0020A48F /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FDA72B29BCABCC0020A48F /* AppStore.swift */; };
+		96FDA72C29BCABCC0020A48F /* AppStoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FDA72B29BCABCC0020A48F /* AppStoreClient.swift */; };
 		96FF8A43294E9FE500D06E36 /* SwiftUIToolzOLD in Frameworks */ = {isa = PBXBuildFile; productRef = 96FF8A42294E9FE500D06E36 /* SwiftUIToolzOLD */; };
 		96FF8A45294F876100D06E36 /* ContentViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FF8A44294F876100D06E36 /* ContentViewStyle.swift */; };
 		9E007283218E250E0094BD1C /* CodefaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00727C218E250E0094BD1C /* CodefaceApp.swift */; };
@@ -220,14 +220,14 @@
 		96E479CF28359C9900762FD7 /* AnimatableLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableLine.swift; sourceTree = "<group>"; };
 		96E479D128359CCE00762FD7 /* ArtifactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactView.swift; sourceTree = "<group>"; };
 		96E479DC2835B36C00762FD7 /* SidebarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarLabel.swift; sourceTree = "<group>"; };
-		96E5A9C229BCC87200B0A913 /* AppStore+Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStore+Codeface.swift"; sourceTree = "<group>"; };
+		96E5A9C229BCC87200B0A913 /* AppStoreClient+Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStoreClient+Codeface.swift"; sourceTree = "<group>"; };
 		96E5A9C629BD171A00B0A913 /* App Store Config.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "App Store Config.storekit"; sourceTree = "<group>"; };
 		96EA394E282C2AF2002B033E /* ArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactContentView.swift; sourceTree = "<group>"; };
 		96EB5996294628390050254E /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		96EF44102912A64500EB93D1 /* CodefaceHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodefaceHelper.entitlements; sourceTree = "<group>"; };
 		96F5E7EF2957191E00181473 /* ConcurrencyPOC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrencyPOC.swift; sourceTree = "<group>"; };
 		96FC8C3E284BEB9000AD7DD2 /* CodebaseLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseLocator.swift; sourceTree = "<group>"; };
-		96FDA72B29BCABCC0020A48F /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		96FDA72B29BCABCC0020A48F /* AppStoreClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreClient.swift; sourceTree = "<group>"; };
 		96FF8A44294F876100D06E36 /* ContentViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewStyle.swift; sourceTree = "<group>"; };
 		9E00727C218E250E0094BD1C /* CodefaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodefaceApp.swift; sourceTree = "<group>"; };
 		9E27839C229ECDF1006ACB18 /* Codeface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codeface.entitlements; sourceTree = "<group>"; };
@@ -386,8 +386,8 @@
 			isa = PBXGroup;
 			children = (
 				9625697629BA5E47002FB7CC /* SalesBar.swift */,
-				96E5A9C229BCC87200B0A913 /* AppStore+Codeface.swift */,
-				96FDA72B29BCABCC0020A48F /* AppStore.swift */,
+				96E5A9C229BCC87200B0A913 /* AppStoreClient+Codeface.swift */,
+				96FDA72B29BCABCC0020A48F /* AppStoreClient.swift */,
 			);
 			path = "In App Purchase";
 			sourceTree = "<group>";
@@ -863,7 +863,7 @@
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
 				96D59CC7294AB9F8003C55B5 /* ArchitectureAnalysisView.swift in Sources */,
 				96106E602962DEEE0002F13C /* CodeFolderArtifact+LOCInCycles.swift in Sources */,
-				96FDA72C29BCABCC0020A48F /* AppStore.swift in Sources */,
+				96FDA72C29BCABCC0020A48F /* AppStoreClient.swift in Sources */,
 				96106E632962DF1C0002F13C /* CodeFileArtifact+CodeFile.swift in Sources */,
 				96E1350C2962DD6200DF8A43 /* CodeFolder.swift in Sources */,
 				96E135142962DD7A00DF8A43 /* CodeFolderArtifact.swift in Sources */,
@@ -876,7 +876,7 @@
 				96D59CC3294AB895003C55B5 /* CodebaseCentralView.swift in Sources */,
 				96106E662962DF1C0002F13C /* CodeSymbolArtifact+CodeSymbol.swift in Sources */,
 				96E135072962DD5900DF8A43 /* ArtifactViewModel+Layout.swift in Sources */,
-				96E5A9C329BCC87200B0A913 /* AppStore+Codeface.swift in Sources */,
+				96E5A9C329BCC87200B0A913 /* AppStoreClient+Codeface.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				961D497529A26A8A00E95E99 /* RelativeFilePath.swift in Sources */,
 				96FC8C3F284BEB9000AD7DD2 /* CodebaseLocator.swift in Sources */,

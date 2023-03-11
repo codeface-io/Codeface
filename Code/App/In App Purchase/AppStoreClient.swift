@@ -1,15 +1,15 @@
 import StoreKit
 import SwiftyToolz
 
-class AppStore: ObservableObject
+class AppStoreClient: ObservableObject
 {
     // MARK: - Life Cycle
     
-    static let shared = AppStore()
+    static let shared = AppStoreClient()
     
     private init()
     {
-        Task { await AppStore.shared.updatePurchasedProducts() }
+        Task { await AppStoreClient.shared.updatePurchasedProducts() }
     }
     
     deinit { transactionObserver.cancel() }
@@ -47,7 +47,7 @@ class AppStore: ObservableObject
             do
             {
                 let transaction = try verificationResult.payloadValue
-                AppStore.shared.purchasedProducts += ProductID(transaction.productID)
+                AppStoreClient.shared.purchasedProducts += ProductID(transaction.productID)
                 await transaction.finish()
             }
             catch
@@ -59,7 +59,7 @@ class AppStore: ObservableObject
     
     func forceRestorePurchasedProducts() async throws
     {
-        try await StoreKit.AppStore.sync()
+        try await AppStore.sync()
         await updatePurchasedProducts()
     }
     
