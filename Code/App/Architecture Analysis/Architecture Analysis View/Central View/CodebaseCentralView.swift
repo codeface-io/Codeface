@@ -7,7 +7,7 @@ struct CodebaseCentralView: View
     {
         VStack(spacing: 0)
         {
-            TopPanel(analysis: analysis)
+            TopBar(analysis: analysis)
             
             if analysis.selectedArtifact.filteredParts.isEmpty
             {
@@ -78,11 +78,17 @@ struct CodebaseCentralView: View
                 }
             }
             
-            PurchasePanel()
+            if appStore.purchasedProducts.isEmpty
+            {
+                SalesBar()
+            }
         }
+        .animation(.default, value: appStore.purchasedProducts)
     }
     
     @ObservedObject var analysis: ArchitectureAnalysis
     
     @ObservedObject private var serverManager = LSP.ServerManager.shared
+    
+    @ObservedObject var appStore = AppStore.shared
 }

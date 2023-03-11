@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PurchasePanel: View
+struct SalesBar: View
 {
     var body: some View
     {
@@ -47,20 +47,15 @@ struct PurchasePanel: View
                     .aspectRatio(contentMode: .fit)
                     .padding(.top, -10)
                 
-                Button("Sonsor Codeface for Only 1$ a Month")
+                Button("Sponsor the Developer With 2$ a Month")
                 {
-                    Task
-                    {
-                        await PurchaseService.testStoreKit()
-                    }
-
-                    print("💰")
+                    AppStore.purchaseSubscriptionLevel1()
                 }
                 .padding(.bottom)
                 .buttonStyle(.borderedProminent)
                 .opacity(isExpanded ? 1 : 0)
                 
-                Button("Apply an Existing Sponsorship")
+                Button("Restore my Ongoing Sponsorship")
                 {
                     print("💰")
                 }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TopPanel: View
+struct TopBar: View
 {
     var body: some View
     {
