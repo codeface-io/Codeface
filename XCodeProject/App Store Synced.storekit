@@ -1,0 +1,55 @@
+{
+  "identifier" : "E135B29C",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1578175415",
+    "_askToBuyEnabled" : false,
+    "_developerTeamID" : "8T3R57GCBV",
+    "_lastSynchronizedDate" : 700343513.06533396
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21268950",
+      "localizations" : [
+
+      ],
+      "name" : "Codeface Subscriptions",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "1.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6446200754",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Support development and remove the banner",
+              "displayName" : "Sponsor a Coffee",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "io.codeface.subscription.level1",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Codeface Subscription Level 1",
+          "subscriptionGroupID" : "21268950",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}
