@@ -31,17 +31,15 @@ class AppStoreClient: ObservableObject
         switch purchaseResult
         {
         case .success(let verificationResult):
+            print("✨ purchase success")
             /// the signed transaction contains the JWS (JSON web signature)
             let transaction = try verificationResult.payloadValue
             purchasedProducts += productID
             await transaction.finish()
             
         case .userCancelled, .pending:
-            #if DEBUG
-            purchasedProducts += productID // for testing
-            #else
+            print("⋯ purchase cancelled or pending")
             break
-            #endif
             
         @unknown default:
             throw "Unknown purchase result type"
@@ -52,11 +50,15 @@ class AppStoreClient: ObservableObject
     {
         for await verificationResult in Transaction.updates
         {
+            print("↔️ transaction update")
+            
             do
             {
                 let transaction = try verificationResult.payloadValue
                 
                 let productID = ProductID(transaction.productID)
+                
+                print("transaction is revoked: \(transaction.revocationReason != nil)")
                 
                 if transaction.revocationReason == nil
                 {
@@ -80,25 +82,23 @@ class AppStoreClient: ObservableObject
     {
         for await subscriptionStatus in Product.SubscriptionInfo.Status.updates
         {
-            let subIsActive = subscriptionStatus.subscriptionIsEntitledToService
-            
             do
             {
-                let latestTransaction = try subscriptionStatus.transaction.payloadValue
-                let productID = ProductID(latestTransaction.productID)
+                let renewalInfo = try subscriptionStatus.renewalInfo.payloadValue
                 
-                if subIsActive // just to be sure, maybe it was renewed or completed
+                print("↻ subscription status update: \(subscriptionStatus.state.localizedDescription) (will renew: \(renewalInfo.willAutoRenew))")
+                
+                if !subscriptionStatus.subscriptionIsEntitledToService
                 {
-                    AppStoreClient.shared.purchasedProducts += productID
-                }
-                else // detected an expiry / cancellation
-                {
+                    print("💀 subscription ended")
+                    let latestTransaction = try subscriptionStatus.transaction.payloadValue
+                    let productID = ProductID(latestTransaction.productID)
                     AppStoreClient.shared.purchasedProducts -= productID
                 }
             }
             catch
             {
-                log(warning: "Subscription status updated based on an unverified subscription, so we're gonna ignore the update. verification error: " + error.localizedDescription)
+                log(error.readable)
             }
         }
     }
@@ -118,13 +118,29 @@ class AppStoreClient: ObservableObject
             do
             {
                 let transaction = try verificationResult.payloadValue
-                updatedPurchasedProducts += ProductID(transaction.productID)
+                
+                let productID = ProductID(transaction.productID)
+                
+                let product = try await Self.request(productID)
+                
+                if let sub = product.subscription,
+                   let status = try await sub.status.first,
+                   !status.subscriptionIsEntitledToService
+                {
+                    print("🤪 'currentEntitlements' contains a subscription that does not entitle to any services 🤮 thanks apple this is impossible to understand, test and develop")
+                }
+                else
+                {
+                    updatedPurchasedProducts += productID
+                }
             }
             catch
             {
                 log(error.readable)
             }
         }
+        
+        print("↓ downloaded \(updatedPurchasedProducts.count) products")
         
         purchasedProducts = updatedPurchasedProducts
     }
@@ -152,18 +168,6 @@ class AppStoreClient: ObservableObject
         let string: String
     }
 }
-
-//extension VerificationResult
-//{
-//    var payloadValueUnverified: SignedType
-//    {
-//        switch self
-//        {
-//        case .verified(let value): return value
-//        case .unverified(let value, _): return value
-//        }
-//    }
-//}
 
 extension Product.SubscriptionInfo.Status
 {

@@ -9,8 +9,10 @@
   "settings" : {
     "_applicationInternalID" : "1578175415",
     "_askToBuyEnabled" : false,
+    "_compatibilityTimeRate" : 6,
     "_developerTeamID" : "8T3R57GCBV",
-    "_lastSynchronizedDate" : 700343513.06533396
+    "_lastSynchronizedDate" : 700343513.06533396,
+    "_timeRate" : 15
   },
   "subscriptionGroups" : [
     {
