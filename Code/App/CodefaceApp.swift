@@ -22,6 +22,19 @@ struct CodefaceApp: App
     //*
     var body: some Scene
     {
+        Window("Tester Dashboard", id: "debug-log")
+        {
+            Button("Log App Store Transactions History")
+            {
+                AppStoreClient.shared.debugLogAllTransactions()
+            }.padding()
+            
+            List(logViewModel.logEntries.indices, id: \.self)
+            {
+                Text(logViewModel.logEntries[$0].message)
+            }
+        }
+        
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
             DocumentWindowView(codebaseFile: $0.$document)
@@ -83,40 +96,22 @@ struct CodefaceApp: App
                     focusedDocumentWindow?.isPresentingCodebaseLocator = true
                 }
                 .disabled(focusedDocumentWindow == nil)
-
+                
                 Button("Import Swift Package Folder...")
                 {
                     focusedDocumentWindow?.isPresentingFolderImporter = true
                 }
                 .disabled(focusedDocumentWindow == nil)
-
+                
                 Button("Import \(lastFolderName) Again")
                 {
                     focusedDocumentWindow?.runProcessorWithLastCodebase()
                 }
                 .keyboardShortcut("r")
                 .disabled(focusedDocumentWindow == nil || !CodebaseLocationPersister.hasPersistedLastCodebaseLocation)
-
+                
                 Divider()
             }
-
-//            #if DEBUG
-//            CommandMenu("Develop")
-//            {
-//                Button("Clear Selection")
-//                {
-//                    focusedDocumentWindow?.selectedArtifact = nil
-//                }
-//
-//                Button("Test XPC Service With Last Codebase")
-//                {
-////                    ProcessServiceTest.run()
-////                    XPCExecutable.testForCodeface()
-//                }
-//                .keyboardShortcut("t")
-//                .disabled(true)
-//            }
-//            #endif
         }
     }
     // */
@@ -141,6 +136,8 @@ struct CodefaceApp: App
     }
     
     @FocusedObject private var focusedDocumentWindow: DocumentWindow?
+    
+    @StateObject private var logViewModel = LogViewModel()
 }
 
 struct FindButtons: View
@@ -248,4 +245,19 @@ struct ViewButtons: View
     }
     
     @ObservedObject var codebaseProcessor: CodebaseProcessor
+}
+
+class LogViewModel: LogObserver, ObservableObject
+{
+    init()
+    {
+        Log.shared.add(observer: self)
+    }
+    
+    func receive(_ entry: Log.Entry)
+    {
+        logEntries.append(entry)
+    }
+    
+    @Published var logEntries = [Log.Entry]()
 }
