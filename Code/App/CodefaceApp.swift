@@ -8,6 +8,8 @@ struct CodefaceApp: App
 {
     init()
     {
+        LogViewModel.shared.startObservingLog()
+        
         /// we provide our own menu option for fullscreen because the one from SwiftUI disappears as soon as we interact with any views ... 🤮
         UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
     }
@@ -22,24 +24,7 @@ struct CodefaceApp: App
     //*
     var body: some Scene
     {
-        Window("Tester Dashboard", id: "debug-log")
-        {
-            HStack
-            {
-                VStack
-                {
-                    Button("Log App Store Transactions")
-                    {
-                        AppStoreClient.shared.debugLogAllTransactions()
-                    }
-                    .padding()
-                    
-                    Spacer()
-                }
-                
-                LogView()
-            }
-        }
+        TestingDashboardWindow.make()
         
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
@@ -78,6 +63,13 @@ struct CodefaceApp: App
                 HelpLink.lspService
 
                 HelpLink.documentation
+                
+                Divider()
+                
+                Button("Show Testing Dashboard")
+                {
+                    openWindow(id: TestingDashboardWindow.id)
+                }
             }
 
             CommandGroup(replacing: .newItem)
@@ -133,6 +125,8 @@ struct CodefaceApp: App
             return "Last Folder"
         }
     }
+    
+    @Environment(\.openWindow) var openWindow
     
     // MARK: - Basics
     

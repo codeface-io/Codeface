@@ -14,9 +14,9 @@ struct LogView: View
                     Text("Internal Logs")
                         .font(.title2)
                     
-                    ForEach(logViewModel.logEntries.indices, id: \.self)
+                    ForEach(logViewModel.logEntries)
                     {
-                        let entry = logViewModel.logEntries[$0]
+                        entry in
                         
                         Label
                         {
@@ -76,13 +76,17 @@ struct LogView: View
         }
     }
     
-    @StateObject private var logViewModel = LogViewModel()
+    @ObservedObject private var logViewModel = LogViewModel.shared
 }
 
 @MainActor
 class LogViewModel: ObservableObject
 {
-    init()
+    static let shared = LogViewModel()
+    
+    func startObservingLog() {}
+    
+    private init()
     {
         Log.shared.add(observer: self)
         {
@@ -92,7 +96,7 @@ class LogViewModel: ObservableObject
             {
                 await MainActor.run
                 {
-                    self?.logEntries.append(entry)
+                    self?.logEntries.insertSorted(entry)
                 }
             }
         }
