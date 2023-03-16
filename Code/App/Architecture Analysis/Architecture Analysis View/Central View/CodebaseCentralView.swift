@@ -78,17 +78,15 @@ struct CodebaseCentralView: View
                 }
             }
             
-            if appStoreClient.purchasedProducts.isEmpty
+            if appStoreClient.ownedProducts.isEmpty
             {
                 SalesBar()
             }
         }
-        .animation(.default, value: appStoreClient.purchasedProducts)
+        .animation(.default, value: appStoreClient.ownedProducts)
     }
     
     @ObservedObject var analysis: ArchitectureAnalysis
-    
     @ObservedObject private var serverManager = LSP.ServerManager.shared
-    
     @ObservedObject var appStoreClient = AppStoreClient.shared
 }

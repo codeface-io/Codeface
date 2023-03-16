@@ -2,13 +2,13 @@ import SwiftyToolz
 
 extension AppStoreClient
 {
-    static func purchaseSubscriptionLevel1()
+    func purchaseSubscriptionLevel1()
     {
         Task
         {
             do
             {
-                try await shared.purchase(.subscriptionLevel1)
+                try await purchase(product: .subscriptionLevel1)
             }
             catch
             {
@@ -17,13 +17,13 @@ extension AppStoreClient
         }
     }
     
-    static func forceRestorePurchasedProducts()
+    func forceRestorePurchasedProducts()
     {
         Task
         {
             do
             {
-                try await shared.forceRestorePurchasedProducts()
+                try await forceRestoreOwnedProducts()
             }
             catch
             {

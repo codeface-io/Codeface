@@ -10,35 +10,150 @@ class AppStoreClient: ObservableObject
     
     private init()
     {
-        Task { await AppStoreClient.shared.updatePurchasedProducts() }
+        transactionObserver = makeTransactionObserver()
+        subscriptionStatusObserver = makeSubscriptionStatusObserver()
+        
+        Task { await updateOwnedProducts() }
     }
     
     deinit
     {
-        transactionObserver.cancel()
-        subscriptionStatusObserver.cancel()
+        transactionObserver?.cancel()
+        subscriptionStatusObserver?.cancel()
     }
     
-    // MARK: - Purchased Products
+    // MARK: - Observe App Store
     
-    func purchase(_ productID: ProductID) async throws
+    private var transactionObserver: Task<Void, Never>? = nil
+    
+    private func makeTransactionObserver() -> Task<Void, Never>
     {
-        let product = try await Self.request(productID)
+        Task.detached
+        {
+            for await verificationResult in Transaction.updates
+            {
+                log("↔️ transaction update")
+                
+                do
+                {
+                    let transaction = try verificationResult.payloadValue
+                    await self.updateOwnedProducts()
+                    await transaction.finish()
+                }
+                catch
+                {
+                    log(error.readable)
+                }
+            }
+            
+            log(error: "We should never reach the end of this observation task")
+        }
+    }
+    
+    private var subscriptionStatusObserver: Task<Void, Never>? = nil
+    
+    private func makeSubscriptionStatusObserver() -> Task<Void, Never>
+    {
+        Task.detached
+        {
+            for await updatedSubscriptionStatus in SubscriptionStatus.updates
+            {
+                do
+                {
+                    try await self.didReceive(updatedSubscriptionStatus)
+                }
+                catch
+                {
+                    log(error.readable)
+                }
+            }
+            
+            log(error: "We should never reach the end of this observation task")
+        }
+    }
+    
+    private func didReceive(_ updatedSubscriptionStatus: SubscriptionStatus) async throws
+    {
+        let renewalInfo = try updatedSubscriptionStatus.renewalInfo.payloadValue
         
+        log("↻ subscription status update: \(updatedSubscriptionStatus.state.localizedDescription) (will renew: \(renewalInfo.willAutoRenew))")
+        
+        let latestTransaction = try updatedSubscriptionStatus.transaction.payloadValue
+        let productID = ProductID(latestTransaction.productID)
+        
+        if !updatedSubscriptionStatus.subscriptionIsEntitledToService
+        {
+            log("💀 subscription ended")
+            ownedProducts -= productID
+        }
+        else
+        {
+            log("🐣 subscription (re-)started")
+            ownedProducts += productID
+        }
+    }
+    
+    typealias SubscriptionStatus = Product.SubscriptionInfo.Status
+    
+    // MARK: - Manage Owned Products
+    
+    func forceRestoreOwnedProducts() async throws
+    {
+        try await AppStore.sync()
+        await updateOwnedProducts()
+    }
+    
+    func updateOwnedProducts() async
+    {
+        var updatedOwnedProducts = Set<ProductID>()
+        
+        for await verificationResult in Transaction.currentEntitlements
+        {
+            do
+            {
+                let transaction = try verificationResult.payloadValue
+                
+                log("found transaction of owned product: \(transaction.productID)")
+                
+                updatedOwnedProducts += ProductID(transaction.productID)
+            }
+            catch
+            {
+                log(error.readable)
+            }
+        }
+        
+        log("↓ found \(updatedOwnedProducts.count) currently owned products")
+        
+        ownedProducts = updatedOwnedProducts
+    }
+    
+    func purchase(product productID: ProductID) async throws
+    {
+        let product = try await Self.request(product: productID)
+        try await purchase(product)
+    }
+    
+    func purchase(_ product: Product) async throws
+    {
         // FIXME: why the fuck this warning?? the function is not assigned to any actor. why is there a concurrency context switch involved?
         let purchaseResult = try await product.purchase()
         
         switch purchaseResult
         {
         case .success(let verificationResult):
-            print("✨ purchase success")
+            log("✨ purchase success")
             /// the signed transaction contains the JWS (JSON web signature)
             let transaction = try verificationResult.payloadValue
-            purchasedProducts += productID
+            ownedProducts += ProductID(transaction.productID)
             await transaction.finish()
             
-        case .userCancelled, .pending:
-            print("⋯ purchase cancelled or pending")
+        case .userCancelled:
+            log("❌ purchase cancelled")
+            break
+            
+        case .pending:
+            log("⏳ purchase pending")
             break
             
         @unknown default:
@@ -46,112 +161,33 @@ class AppStoreClient: ObservableObject
         }
     }
     
-    private let transactionObserver = Task
+    @Published private(set) var ownedProducts = Set<ProductID>()
+    
+    func debugLogAllTransactions()
     {
-        for await verificationResult in Transaction.updates
+        Task
         {
-            print("↔️ transaction update")
-            
-            do
+            for await verificationResult in Transaction.all
             {
-                let transaction = try verificationResult.payloadValue
-                
-                let productID = ProductID(transaction.productID)
-                
-                print("transaction is revoked: \(transaction.revocationReason != nil)")
-                
-                if transaction.revocationReason == nil
+                do
                 {
-                    AppStoreClient.shared.purchasedProducts += productID
-                    await transaction.finish()
+                    let transaction = try verificationResult.payloadValue
+                    
+                    log("Purchased: \(transaction.purchaseDate.formatted()) Expires: \(transaction.expirationDate?.formatted() ?? "Never")")
                 }
-                else
+                catch
                 {
-                    /// TODO: Is this the proper way to detect revocation? or is it sufficient to observe the `Product.SubscriptionInfo.Status.updates` ? also: we know this transaction is revoked, but we don't know that this is what was updated on it ...
-                    AppStoreClient.shared.purchasedProducts -= productID
-                }                
-            }
-            catch
-            {
-                log(error.readable)
+                    log(error.localizedDescription)
+                }
             }
         }
     }
     
-    private let subscriptionStatusObserver = Task
+    // MARK: - Request Available Products
+    
+    static func request(product productID: ProductID) async throws -> Product
     {
-        for await subscriptionStatus in Product.SubscriptionInfo.Status.updates
-        {
-            do
-            {
-                let renewalInfo = try subscriptionStatus.renewalInfo.payloadValue
-                
-                print("↻ subscription status update: \(subscriptionStatus.state.localizedDescription) (will renew: \(renewalInfo.willAutoRenew))")
-                
-                if !subscriptionStatus.subscriptionIsEntitledToService
-                {
-                    print("💀 subscription ended")
-                    let latestTransaction = try subscriptionStatus.transaction.payloadValue
-                    let productID = ProductID(latestTransaction.productID)
-                    AppStoreClient.shared.purchasedProducts -= productID
-                }
-            }
-            catch
-            {
-                log(error.readable)
-            }
-        }
-    }
-    
-    func forceRestorePurchasedProducts() async throws
-    {
-        try await AppStore.sync()
-        await updatePurchasedProducts()
-    }
-    
-    func updatePurchasedProducts() async
-    {
-        var updatedPurchasedProducts = Set<ProductID>()
-
-        for await verificationResult in Transaction.currentEntitlements
-        {
-            do
-            {
-                let transaction = try verificationResult.payloadValue
-                
-                let productID = ProductID(transaction.productID)
-                
-                let product = try await Self.request(productID)
-                
-                if let sub = product.subscription,
-                   let status = try await sub.status.first,
-                   !status.subscriptionIsEntitledToService
-                {
-                    print("🤪 'currentEntitlements' contains a subscription that does not entitle to any services 🤮 thanks apple this is impossible to understand, test and develop")
-                }
-                else
-                {
-                    updatedPurchasedProducts += productID
-                }
-            }
-            catch
-            {
-                log(error.readable)
-            }
-        }
-        
-        print("↓ downloaded \(updatedPurchasedProducts.count) products")
-        
-        purchasedProducts = updatedPurchasedProducts
-    }
-    
-    @Published private(set) var purchasedProducts = Set<ProductID>()
-    
-    // MARK: - Available Products
-    
-    static func request(_ productID: ProductID) async throws -> Product
-    {
-        let products = try await Product.products(for: [productID.string])
+        let products = try await request(products: [productID])
         
         guard let product = products.first else
         {
@@ -159,6 +195,11 @@ class AppStoreClient: ObservableObject
         }
         
         return product
+    }
+    
+    static func request(products productIDs: [ProductID]) async throws -> [Product]
+    {
+        try await Product.products(for: productIDs.map({ $0.string }))
     }
     
     struct ProductID: Hashable, Sendable
@@ -176,4 +217,3 @@ extension Product.SubscriptionInfo.Status
         state == .subscribed || state == .inGracePeriod
     }
 }
-

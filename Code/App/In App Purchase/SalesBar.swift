@@ -49,7 +49,7 @@ struct SalesBar: View
                 
                 Button("Sponsor the Developer With 2$ a Month")
                 {
-                    AppStoreClient.purchaseSubscriptionLevel1()
+                    AppStoreClient.shared.purchaseSubscriptionLevel1()
                 }
                 .padding(.bottom)
                 .buttonStyle(.borderedProminent)
@@ -57,7 +57,7 @@ struct SalesBar: View
                 
                 Button("Restore my Ongoing Sponsorship")
                 {
-                    AppStoreClient.forceRestorePurchasedProducts()
+                    AppStoreClient.shared.forceRestorePurchasedProducts()
                 }
                 .padding(.bottom, 42)
                 .opacity(isExpanded ? 1 : 0)
