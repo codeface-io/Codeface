@@ -13,6 +13,7 @@
 		960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAB28ABB07800F334CA /* TreeMap.swift */; };
 		960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AAD28ABB0A000F334CA /* CodeView.swift */; };
 		960BBE9629004F9000F9DC2A /* LSPServiceHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960BBE9529004F9000F9DC2A /* LSPServiceHint.swift */; };
+		960C4D6629C3A3A6009282A2 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960C4D6529C3A3A6009282A2 /* LogView.swift */; };
 		96106E5A2962DEAD0002F13C /* SwiftNodes in Frameworks */ = {isa = PBXBuildFile; productRef = 96106E592962DEAD0002F13C /* SwiftNodes */; };
 		96106E5B2962DED10002F13C /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D32962DB8000DF8A43 /* Metrics.swift */; };
 		96106E5C2962DED40002F13C /* CodeArtifactMetricsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134D42962DB8000DF8A43 /* CodeArtifactMetricsCache.swift */; };
@@ -145,6 +146,7 @@
 		960A7AAB28ABB07800F334CA /* TreeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMap.swift; sourceTree = "<group>"; };
 		960A7AAD28ABB0A000F334CA /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		960BBE9529004F9000F9DC2A /* LSPServiceHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSPServiceHint.swift; sourceTree = "<group>"; };
+		960C4D6529C3A3A6009282A2 /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		96143EFE290ED68A008CA3C2 /* CodefaceHelper.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = CodefaceHelper.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		96143F00290ED68A008CA3C2 /* XPCExecutableServiceExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutableServiceExportedInterface.swift; sourceTree = "<group>"; };
 		96143F02290ED68A008CA3C2 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 			isa = PBXGroup;
 			children = (
 				9625697629BA5E47002FB7CC /* SalesBar.swift */,
+				960C4D6529C3A3A6009282A2 /* LogView.swift */,
 				96E5A9C229BCC87200B0A913 /* AppStoreClient+Codeface.swift */,
 				96FDA72B29BCABCC0020A48F /* AppStoreClient.swift */,
 			);
@@ -914,6 +917,7 @@
 				96E135082962DD5900DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,
 				9625697729BA5E47002FB7CC /* SalesBar.swift in Sources */,
 				963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */,
+				960C4D6629C3A3A6009282A2 /* LogView.swift in Sources */,
 				96D59CCB294ABC1F003C55B5 /* DoubleSidebarView.swift in Sources */,
 				96E135032962DD4900DF8A43 /* ArtifactViewModel.swift in Sources */,
 				965795AE2954652C00CB9F3F /* EmptyProcesorView.swift in Sources */,

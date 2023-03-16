@@ -24,14 +24,20 @@ struct CodefaceApp: App
     {
         Window("Tester Dashboard", id: "debug-log")
         {
-            Button("Log App Store Transactions History")
+            HStack
             {
-                AppStoreClient.shared.debugLogAllTransactions()
-            }.padding()
-            
-            List(logViewModel.logEntries.indices, id: \.self)
-            {
-                Text(logViewModel.logEntries[$0].message)
+                VStack
+                {
+                    Button("Log App Store Transactions")
+                    {
+                        AppStoreClient.shared.debugLogAllTransactions()
+                    }
+                    .padding()
+                    
+                    Spacer()
+                }
+                
+                LogView()
             }
         }
         
@@ -136,8 +142,6 @@ struct CodefaceApp: App
     }
     
     @FocusedObject private var focusedDocumentWindow: DocumentWindow?
-    
-    @StateObject private var logViewModel = LogViewModel()
 }
 
 struct FindButtons: View
@@ -245,19 +249,4 @@ struct ViewButtons: View
     }
     
     @ObservedObject var codebaseProcessor: CodebaseProcessor
-}
-
-class LogViewModel: LogObserver, ObservableObject
-{
-    init()
-    {
-        Log.shared.add(observer: self)
-    }
-    
-    func receive(_ entry: Log.Entry)
-    {
-        logEntries.append(entry)
-    }
-    
-    @Published var logEntries = [Log.Entry]()
 }
