@@ -84,6 +84,7 @@ class LogViewModel: ObservableObject
 {
     static let shared = LogViewModel()
     
+    /// just a way to create the instance so we can start the observation on app launch
     func startObservingLog() {}
     
     private init()
@@ -94,10 +95,9 @@ class LogViewModel: ObservableObject
             
             Task
             {
-                await MainActor.run
-                {
-                    self?.logEntries.insertSorted(entry)
-                }
+                @MainActor in // ensure view updates are triggered from main actor
+                
+                self?.logEntries.insertSorted(entry)
             }
         }
     }
