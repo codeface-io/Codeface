@@ -105,27 +105,84 @@ class AppStoreClient: ObservableObject
     
     func updateOwnedProducts() async
     {
-        var updatedOwnedProducts = Set<ProductID>()
+        /**
+         `currentEntitlements` "returns transactions that the customer **may be** entitled to" https://developer.apple.com/videos/play/wwdc2022/110404/
+         
+         But that's just for 2 reasons: 1) non-renewable subs require their own logic to determine when and how long they're valid and 2) app logic might withhold products for whatever other reasons and only offer certain product IDs ...
+         */
+        
+        var transactions = [Transaction]()
         
         for await verificationResult in Transaction.currentEntitlements
         {
             do
             {
-                let transaction = try verificationResult.payloadValue
-                
-                log("found transaction of owned product: \(transaction.productID)")
+                transactions += try verificationResult.payloadValue
+            }
+            catch
+            {
+                log(error: error.localizedDescription)
+            }
+        }
+        
+        var updatedOwnedProducts = Set<ProductID>()
+        
+        for transaction in transactions
+        {
+            log("found transaction of owned product: \(transaction.productID) (expriation date: \(transaction.expirationDate?.formatted() ?? "none"))")
+            
+            do
+            {
+                // FIXME: for whatever reason, current entitlements sometimes returns expired subscription on app launch, at least during Xcode testing (wtf apple? 🤮). to be sure, we check all kind of stuff in here ...
+                try await Self.validate(currentEntitlement: transaction)
                 
                 updatedOwnedProducts += ProductID(transaction.productID)
             }
             catch
             {
-                log(error.readable)
+                log(error: error.localizedDescription)
             }
         }
         
         log("↓ found \(updatedOwnedProducts.count) currently owned products")
         
         ownedProducts = updatedOwnedProducts
+    }
+    
+    private static func validate(currentEntitlement transaction: Transaction) async throws
+    {
+        if transaction.isRevoked
+        {
+            throw "`currentEntitlements` contains a revoked transaction! this should never happen according to Apple's documentation"
+        }
+        
+        if transaction.isExpired
+        {
+            log(warning: "`currentEntitlements` contains and expired transaction! this should never happen according to Apple's documentation. gonna check the actual subscription status of the transaction ...")
+            
+            // we better check the actual status, for it might be in a grace period or somethin ...
+            let product = try await request(product: .init(transaction.productID))
+            
+            guard let subInfo = product.subscription else
+            {
+                throw "the expired transaction has no subscription info. this should never happen since only subscriptions can expire"
+            }
+            
+            let subGroupStatuses = try await subInfo.status
+            
+            let subGroupStatusesString = subGroupStatuses
+                .map { $0.state.localizedDescription }
+                .joined(separator: ", ")
+            
+            if subGroupStatuses.first(where: { $0.subscriptionIsEntitledToService }) == nil
+            {
+                throw "a so called 'current entitlement' is actually an expired subscription with these states (none of which currently entitles to service): " + subGroupStatusesString
+            }
+            else
+            {
+                log("the expired subscription has these states (at least one does indeed entitle to service): " + subGroupStatusesString)
+            }
+        }
     }
     
     func purchase(product productID: ProductID) async throws
@@ -215,5 +272,23 @@ extension Product.SubscriptionInfo.Status
     var subscriptionIsEntitledToService: Bool
     {
         state == .subscribed || state == .inGracePeriod
+    }
+}
+
+extension Transaction
+{
+    var isRevoked: Bool
+    {
+        revocationReason != nil
+    }
+    
+    var isExpired: Bool
+    {
+        if let expirationDate
+        {
+            return Date() >= expirationDate
+        }
+        
+        return false
     }
 }

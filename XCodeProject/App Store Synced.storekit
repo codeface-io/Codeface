@@ -12,6 +12,7 @@
     "_compatibilityTimeRate" : 6,
     "_developerTeamID" : "8T3R57GCBV",
     "_lastSynchronizedDate" : 700343513.06533396,
+    "_renewalBillingIssuesEnabled" : false,
     "_timeRate" : 15
   },
   "subscriptionGroups" : [
