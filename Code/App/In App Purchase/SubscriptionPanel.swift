@@ -1,6 +1,7 @@
 import SwiftUI
+import SwiftyToolz
 
-struct SalesBar: View
+struct SubscriptionPanel: View
 {
     var body: some View
     {
@@ -55,9 +56,16 @@ struct SalesBar: View
                 .buttonStyle(.borderedProminent)
                 .opacity(isExpanded ? 1 : 0)
                 
-                Button("Restore my Ongoing Sponsorship")
+                Button("Restore My Ongoing Sponsorship")
                 {
                     AppStoreClient.shared.forceRestorePurchasedProducts()
+                }
+                .padding(.bottom, 42)
+                .opacity(isExpanded ? 1 : 0)
+                
+                Button("Request Refund For My Ongoing Sponsorship")
+                {
+                    AppStoreClient.shared.refundSubscriptionLevel1()
                 }
                 .padding(.bottom, 42)
                 .opacity(isExpanded ? 1 : 0)

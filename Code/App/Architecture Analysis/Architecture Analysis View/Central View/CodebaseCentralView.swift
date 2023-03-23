@@ -80,7 +80,7 @@ struct CodebaseCentralView: View
             
             if appStoreClient.ownedProducts.isEmpty
             {
-                SalesBar()
+                SubscriptionPanel()
             }
         }
         .animation(.default, value: appStoreClient.ownedProducts)

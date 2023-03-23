@@ -4,31 +4,25 @@ extension AppStoreClient
 {
     func purchaseSubscriptionLevel1()
     {
-        Task
+        tryLog
         {
-            do
-            {
-                try await purchase(product: .subscriptionLevel1)
-            }
-            catch
-            {
-                log(error.readable)
-            }
+            try await self.purchase(.subscriptionLevel1)
+        }
+    }
+    
+    func refundSubscriptionLevel1()
+    {
+        tryLog
+        {
+            try await self.requestRefund(for: .subscriptionLevel1)
         }
     }
     
     func forceRestorePurchasedProducts()
     {
-        Task
+        tryLog
         {
-            do
-            {
-                try await forceRestoreOwnedProducts()
-            }
-            catch
-            {
-                log(error.readable)
-            }
+            try await self.forceRestoreOwnedProducts()
         }
     }
 }

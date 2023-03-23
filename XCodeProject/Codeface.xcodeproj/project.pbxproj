@@ -30,13 +30,15 @@
 		9619A2B92967104E00863BC0 /* CodeArtifact+Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619A2B82967104E00863BC0 /* CodeArtifact+Metrics.swift */; };
 		961D497529A26A8A00E95E99 /* RelativeFilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961D497429A26A8A00E95E99 /* RelativeFilePath.swift */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
-		9625697729BA5E47002FB7CC /* SalesBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625697629BA5E47002FB7CC /* SalesBar.swift */; };
+		9625697729BA5E47002FB7CC /* SubscriptionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625697629BA5E47002FB7CC /* SubscriptionPanel.swift */; };
 		9629D5AC29252A1E006B1E98 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F0E290EDC32008CA3C2 /* Client.swift */; };
 		9629D5AD29252A1E006B1E98 /* TestXPCExecutableForCodeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96081CFB29223D9100A562BA /* TestXPCExecutableForCodeface.swift */; };
 		9629D5AE29252A1E006B1E98 /* ServiceExportedInterface+Conveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96021333291D5CAB0082DEF4 /* ServiceExportedInterface+Conveniences.swift */; };
 		9629D5B729252A2C006B1E98 /* XPCExecutableClientExportedInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */; };
 		9629D5B829252A2C006B1E98 /* XPCExecutableServiceExportedInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F00290ED68A008CA3C2 /* XPCExecutableServiceExportedInterface.swift */; };
 		9629D5B929252A2C006B1E98 /* XPCExecutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96021330291D3CCB0082DEF4 /* XPCExecutable.swift */; };
+		963170E629CC800C00B146D5 /* AppStoreClient+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */; };
+		963170E829CC8C5200B146D5 /* TryLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E729CC8C5200B146D5 /* TryLog.swift */; };
 		9639C27228D761A000779BA5 /* DocumentWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639C27128D761A000779BA5 /* DocumentWindowView.swift */; };
 		963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */; };
 		964464B22951D4090004382F /* DisplayModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B12951D4090004382F /* DisplayModePicker.swift */; };
@@ -160,7 +162,9 @@
 		9619A2B82967104E00863BC0 /* CodeArtifact+Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeArtifact+Metrics.swift"; sourceTree = "<group>"; };
 		961D497429A26A8A00E95E99 /* RelativeFilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeFilePath.swift; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
-		9625697629BA5E47002FB7CC /* SalesBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesBar.swift; sourceTree = "<group>"; };
+		9625697629BA5E47002FB7CC /* SubscriptionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPanel.swift; sourceTree = "<group>"; };
+		963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStoreClient+SwiftUI.swift"; sourceTree = "<group>"; };
+		963170E729CC8C5200B146D5 /* TryLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryLog.swift; sourceTree = "<group>"; };
 		9639C27128D761A000779BA5 /* DocumentWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentWindowView.swift; sourceTree = "<group>"; };
 		963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseFileDocument.swift; sourceTree = "<group>"; };
 		964464B12951D4090004382F /* DisplayModePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayModePicker.swift; sourceTree = "<group>"; };
@@ -390,9 +394,9 @@
 		9625697829BA5E59002FB7CC /* In App Purchase */ = {
 			isa = PBXGroup;
 			children = (
-				9625697629BA5E47002FB7CC /* SalesBar.swift */,
-				960C4D6529C3A3A6009282A2 /* LogView.swift */,
+				9625697629BA5E47002FB7CC /* SubscriptionPanel.swift */,
 				96E5A9C229BCC87200B0A913 /* AppStoreClient+Codeface.swift */,
+				963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */,
 				96FDA72B29BCABCC0020A48F /* AppStoreClient.swift */,
 			);
 			path = "In App Purchase";
@@ -699,9 +703,11 @@
 			isa = PBXGroup;
 			children = (
 				960730B528982F3C008F1D7C /* Arrow.swift */,
+				960C4D6529C3A3A6009282A2 /* LogView.swift */,
 				96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */,
 				961D497429A26A8A00E95E99 /* RelativeFilePath.swift */,
 				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
+				963170E729CC8C5200B146D5 /* TryLog.swift */,
 			);
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
@@ -869,6 +875,7 @@
 			files = (
 				96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */,
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
+				963170E829CC8C5200B146D5 /* TryLog.swift in Sources */,
 				96D59CC7294AB9F8003C55B5 /* ArchitectureAnalysisView.swift in Sources */,
 				96106E602962DEEE0002F13C /* CodeFolderArtifact+LOCInCycles.swift in Sources */,
 				96FDA72C29BCABCC0020A48F /* AppStoreClient.swift in Sources */,
@@ -918,7 +925,7 @@
 				960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */,
 				96D59CC1294AB82D003C55B5 /* SearchBarView.swift in Sources */,
 				96E135082962DD5900DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,
-				9625697729BA5E47002FB7CC /* SalesBar.swift in Sources */,
+				9625697729BA5E47002FB7CC /* SubscriptionPanel.swift in Sources */,
 				963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */,
 				960C4D6629C3A3A6009282A2 /* LogView.swift in Sources */,
 				96D59CCB294ABC1F003C55B5 /* DoubleSidebarView.swift in Sources */,
@@ -945,6 +952,7 @@
 				96E1350E2962DD6700DF8A43 /* CodeSymbol.swift in Sources */,
 				960C4D6B29C3C170009282A2 /* TestingDashboardWindow.swift in Sources */,
 				9639C27228D761A000779BA5 /* DocumentWindowView.swift in Sources */,
+				963170E629CC800C00B146D5 /* AppStoreClient+SwiftUI.swift in Sources */,
 				96FF8A45294F876100D06E36 /* ContentViewStyle.swift in Sources */,
 				960A7AAC28ABB07800F334CA /* TreeMap.swift in Sources */,
 				96D59CC5294AB8DE003C55B5 /* CodebaseInspectorView.swift in Sources */,

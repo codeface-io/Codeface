@@ -158,7 +158,7 @@ class AppStoreClient: ObservableObject
         
         if transaction.isExpired
         {
-            log(warning: "`currentEntitlements` contains and expired transaction! this should never happen according to Apple's documentation. gonna check the actual subscription status of the transaction ...")
+            log(warning: "`currentEntitlements` contains and expired transaction. According to documentation this must be a subscription in the grace period. gonna check the actual subscription status of the transaction ...")
             
             // we better check the actual status, for it might be in a grace period or somethin ...
             let product = try await request(product: .init(transaction.productID))
@@ -185,7 +185,7 @@ class AppStoreClient: ObservableObject
         }
     }
     
-    func purchase(product productID: ProductID) async throws
+    func purchase(_ productID: ProductID) async throws
     {
         let product = try await Self.request(product: productID)
         try await purchase(product)

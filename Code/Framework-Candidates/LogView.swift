@@ -28,8 +28,7 @@ struct LogView: View
                                     .foregroundColor(.secondary)
                             }
                         } icon: {
-                            Image(systemName: Self.systemImageName(for: entry))
-                                .foregroundColor(Self.imageColor(for: entry))
+                            LogIcon(logLevel: entry.level)
                         }
                     }
                 }
@@ -54,29 +53,37 @@ struct LogView: View
         }
     }
     
-    private static func systemImageName(for entry: Log.Entry) -> String
-    {
-        switch entry.level
-        {
-        case .error: return "xmark.octagon.fill"
-        case .warning: return "exclamationmark.triangle.fill"
-        case .info: return "info.circle.fill"
-        case .verbose: return "info.circle"
-        }
-    }
-    
-    private static func imageColor(for entry: Log.Entry) -> SwiftUI.Color
-    {
-        switch entry.level
-        {
-        case .error: return .red
-        case .warning: return .yellow
-        case .info: return .green
-        case .verbose: return .secondary
-        }
-    }
-    
     @ObservedObject private var logViewModel = LogViewModel.shared
+}
+
+struct LogIcon: View
+{
+    init(logLevel: Log.Level)
+    {
+        switch logLevel
+        {
+        case .error:
+            imageName = "xmark.octagon.fill"
+            color = .red
+        case .warning:
+            imageName = "exclamationmark.triangle.fill"
+            color = .yellow
+        case .info:
+            imageName = "info.circle.fill"
+            color = .green
+        case .verbose:
+            imageName = "info.circle"
+            color = .secondary
+        }
+    }
+    
+    var body: some View
+    {
+        Image(systemName: imageName).foregroundColor(color)
+    }
+    
+    private let imageName: String
+    private let color: SwiftUI.Color
 }
 
 @MainActor
@@ -84,7 +91,7 @@ class LogViewModel: ObservableObject
 {
     static let shared = LogViewModel()
     
-    /// just a way to create the instance so we can start the observation on app launch
+    /// just a way to create the instance that allows starting the log observation on app launch
     func startObservingLog() {}
     
     private init()
