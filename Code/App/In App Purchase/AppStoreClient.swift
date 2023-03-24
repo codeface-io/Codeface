@@ -144,7 +144,7 @@ class AppStoreClient: ObservableObject
             }
         }
         
-        log("↓ found \(updatedOwnedProducts.count) currently owned products")
+        log("found \(updatedOwnedProducts.count) currently owned products")
         
         ownedProducts = updatedOwnedProducts
     }
@@ -217,6 +217,8 @@ class AppStoreClient: ObservableObject
             throw "Unknown purchase result type"
         }
     }
+    
+    var ownsProducts: Bool { !ownedProducts.isEmpty }
     
     @Published private(set) var ownedProducts = Set<ProductID>()
     

@@ -2,25 +2,25 @@ import SwiftyToolz
 
 extension AppStoreClient
 {
-    func purchaseSubscriptionLevel1()
+    func purchaseSubscriptionLevel1() async
     {
-        tryLog
+        await tryAwaitLog
         {
             try await self.purchase(.subscriptionLevel1)
         }
     }
     
-    func refundSubscriptionLevel1()
+    func refundSubscriptionLevel1() async
     {
-        tryLog
+        await tryAwaitLog
         {
             try await self.requestRefund(for: .subscriptionLevel1)
         }
     }
     
-    func forceRestorePurchasedProducts()
+    func forceRestorePurchasedProducts() async
     {
-        tryLog
+        await tryAwaitLog
         {
             try await self.forceRestoreOwnedProducts()
         }

@@ -78,12 +78,10 @@ struct CodebaseCentralView: View
                 }
             }
             
-            if appStoreClient.ownedProducts.isEmpty
-            {
-                SubscriptionPanel()
-            }
+            SubscriptionPanel(isExpanded: $analysis.showSubscriptionPanel,
+                              collapsedVisibility: appStoreClient.ownsProducts ? .hidden : .banner)
         }
-        .animation(.default, value: appStoreClient.ownedProducts)
+        .animation(.default, value: analysis.showSubscriptionPanel)
     }
     
     @ObservedObject var analysis: ArchitectureAnalysis

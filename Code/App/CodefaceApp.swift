@@ -235,6 +235,17 @@ struct ViewButtons: View
         }
         .keyboardShortcut(.leftArrow, modifiers: .command)
         .disabled(analysis == nil)
+        
+        if appStoreClient.ownsProducts
+        {
+            Divider()
+            
+            Button("Toggle Subscription Panel")
+            {
+                analysis?.showSubscriptionPanel.toggle()
+            }
+            .keyboardShortcut("s", modifiers: [.control, .command])
+        }
     }
     
     private var analysis: ArchitectureAnalysis?
@@ -243,4 +254,5 @@ struct ViewButtons: View
     }
     
     @ObservedObject var codebaseProcessor: CodebaseProcessor
+    @ObservedObject var appStoreClient = AppStoreClient.shared
 }

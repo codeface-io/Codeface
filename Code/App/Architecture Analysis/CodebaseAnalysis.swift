@@ -65,6 +65,7 @@ class ArchitectureAnalysis: ObservableObject
     @Published var showsLeftSidebar: Bool = true
     @Published var showsRightSidebar: Bool = false
     @Published var showLoC: Bool = false
+    @Published var showSubscriptionPanel = false
     
     func switchDisplayMode()
     {
