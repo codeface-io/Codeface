@@ -17,14 +17,6 @@ extension AppStoreClient
             try await self.requestRefund(for: .subscriptionLevel1)
         }
     }
-    
-    func forceRestorePurchasedProducts() async
-    {
-        await tryAwaitLog
-        {
-            try await self.forceRestoreOwnedProducts()
-        }
-    }
 }
 
 extension AppStoreClient.ProductID

@@ -91,7 +91,7 @@ struct SubscriptionPanel: View
                                 
                                 AsyncButton("Restore My Subscription")
                                 {
-                                    await AppStoreClient.shared.forceRestorePurchasedProducts()
+                                    await AppStoreClient.shared.forceRestoreOwnedProducts()
                                 }
                             }
                         }

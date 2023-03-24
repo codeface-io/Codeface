@@ -97,9 +97,17 @@ class AppStoreClient: ObservableObject
     
     // MARK: - Manage Owned Products
     
-    func forceRestoreOwnedProducts() async throws
+    func forceRestoreOwnedProducts() async
     {
-        try await AppStore.sync()
+        do
+        {
+            try await AppStore.sync()
+        }
+        catch
+        {
+            log("Could not restore products for this reason: " + error.localizedDescription)
+        }
+        
         await updateOwnedProducts()
     }
     
