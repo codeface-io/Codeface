@@ -166,7 +166,7 @@ class AppStoreClient: ObservableObject
         
         if transaction.isExpired
         {
-            log(warning: "`currentEntitlements` contains and expired transaction. According to documentation this must be a subscription in the grace period. gonna check the actual subscription status of the transaction ...")
+            log(warning: "`currentEntitlements` contains an expired transaction. According to documentation this must be a subscription in the grace period. gonna check the actual subscription status of the transaction ...")
             
             // we better check the actual status, for it might be in a grace period or somethin ...
             let product = try await request(product: .init(transaction.productID))
@@ -176,19 +176,19 @@ class AppStoreClient: ObservableObject
                 throw "the expired transaction has no subscription info. this should never happen since only subscriptions can expire"
             }
             
-            let subGroupStatuses = try await subInfo.status
+            let subscriptionGroupStatuses = try await subInfo.status
             
-            let subGroupStatusesString = subGroupStatuses
+            let subGroupStatusesString = subscriptionGroupStatuses
                 .map { $0.state.localizedDescription }
                 .joined(separator: ", ")
             
-            if subGroupStatuses.first(where: { $0.subscriptionIsEntitledToService }) == nil
+            if subscriptionGroupStatuses.first(where: { $0.subscriptionIsEntitledToService }) == nil
             {
                 throw "a so called 'current entitlement' is actually an expired subscription with these states (none of which currently entitles to service): " + subGroupStatusesString
             }
             else
             {
-                log("the expired subscription has these states (at least one does indeed entitle to service): " + subGroupStatusesString)
+                log(warning: "the expired subscription has these states – at least one of which does indeed entitle to service (but then why is it expired??): " + subGroupStatusesString)
             }
         }
     }
@@ -214,7 +214,7 @@ class AppStoreClient: ObservableObject
             await transaction.finish()
             
         case .userCancelled:
-            log("❌ purchase cancelled")
+            log("👋🏻 purchase cancelled")
             break
             
         case .pending:
