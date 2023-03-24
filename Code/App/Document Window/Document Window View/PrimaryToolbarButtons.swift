@@ -28,7 +28,7 @@ struct PrimaryToolbarButtons: View
             {
                 withAnimation
                 {
-                    analysis.showsRightSidebar.toggle()
+                    displayOptions.showsRightSidebar.toggle()
                 }
             }
             .help("Toggle Inspector (⌥⌘0)")
@@ -41,6 +41,7 @@ struct PrimaryToolbarButtons: View
     }
     
     @ObservedObject var codebaseProcessor: CodebaseProcessor
+    @Binding var displayOptions: AnalysisDisplayOptions
 }
 
 struct UpdatingDisplayModePicker: View

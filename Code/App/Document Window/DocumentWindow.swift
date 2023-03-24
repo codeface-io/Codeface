@@ -137,4 +137,8 @@ class DocumentWindow: ObservableObject
     
     @Published var isPresentingCodebaseLocator = false
     @Published var isPresentingFolderImporter = false
+    
+    // MARK: - Display Options
+    
+    @Published var displayOptions = AnalysisDisplayOptions()
 }

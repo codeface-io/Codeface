@@ -32,6 +32,14 @@ struct CodefaceApp: App
         }
         .commands
         {
+            CommandGroup(after: .appInfo)
+            {
+                if let focusedDocumentWindow
+                {
+                    SubscriptionButtons(documentWindow: focusedDocumentWindow)
+                }
+            }
+            
             CommandGroup(after: .toolbar)
             {
                 if let focusedDocumentWindow
@@ -44,9 +52,9 @@ struct CodefaceApp: App
 
             CommandGroup(replacing: .sidebar)
             {
-                if let focusedDocumentWindow
+                if let documentWindow = focusedDocumentWindow
                 {
-                    ViewButtons(codebaseProcessor: focusedDocumentWindow.codebaseProcessor)
+                    ViewButtons(documentWindow: documentWindow)
                     
                     Divider()
                 }
@@ -193,32 +201,35 @@ struct ViewButtons: View
 {
     var body: some View
     {
-        Button("\((analysis?.showLoC ?? false) ? "Hide" : "Show") Lines of Code in Navigator")
+        Button("\(documentWindow.displayOptions.showLoC ? "Hide" : "Show") Lines of Code in Navigator")
         {
-            analysis?.showLoC.toggle()
+            documentWindow.displayOptions.showLoC.toggle()
         }
         .keyboardShortcut("l", modifiers: .command)
-        .disabled(analysis == nil)
         
-        Button("\((analysis?.showsLeftSidebar ?? false) ? "Hide" : "Show") the Navigator")
+        Button("\(documentWindow.displayOptions.showsLeftSidebar ? "Hide" : "Show") the Navigator")
         {
             withAnimation
             {
-                analysis?.showsLeftSidebar.toggle()
+                documentWindow.displayOptions.showsLeftSidebar.toggle()
             }
         }
         .keyboardShortcut("0", modifiers: .command)
-        .disabled(analysis == nil)
 
-        Button("\((analysis?.showsRightSidebar ?? false) ? "Hide" : "Show") the Inspector")
+        Button("\(documentWindow.displayOptions.showsRightSidebar ? "Hide" : "Show") the Inspector")
         {
             withAnimation
             {
-                analysis?.showsRightSidebar.toggle()
+                documentWindow.displayOptions.showsRightSidebar.toggle()
             }
         }
         .keyboardShortcut("0", modifiers: [.option, .command])
-        .disabled(analysis == nil)
+        
+        Button("\(documentWindow.displayOptions.isShowingSubscriptionPanel ? "Hide" : "Show") the Subscription Panel")
+        {
+            documentWindow.displayOptions.isShowingSubscriptionPanel.toggle()
+        }
+        .keyboardShortcut("s", modifiers: [.control, .command])
         
         Divider()
         
@@ -227,32 +238,72 @@ struct ViewButtons: View
             analysis?.switchDisplayMode()
         }
         .keyboardShortcut(.rightArrow, modifiers: .command)
-        .disabled(analysis == nil)
 
         Button("Switch to Previous Display Mode")
         {
             analysis?.switchDisplayMode()
         }
         .keyboardShortcut(.leftArrow, modifiers: .command)
-        .disabled(analysis == nil)
-        
-        if appStoreClient.ownsProducts
-        {
-            Divider()
-            
-            Button("Toggle Subscription Panel")
-            {
-                analysis?.showSubscriptionPanel.toggle()
-            }
-            .keyboardShortcut("s", modifiers: [.control, .command])
-        }
     }
     
     private var analysis: ArchitectureAnalysis?
     {
-        codebaseProcessor.state.analysis
+        documentWindow.codebaseProcessor.state.analysis
     }
     
-    @ObservedObject var codebaseProcessor: CodebaseProcessor
+    @ObservedObject var documentWindow: DocumentWindow
+}
+
+struct SubscriptionButtons: View
+{
+    var body: some View
+    {
+        Menu("Subscription")
+        {
+            Button("\(documentWindow.displayOptions.isShowingSubscriptionPanel ? "Hide" : "Show") the Subscription Panel")
+            {
+                documentWindow.displayOptions.isShowingSubscriptionPanel.toggle()
+            }
+            
+            Divider()
+            
+            Button("Subscribe ..")
+            {
+                Task
+                {
+                    await appStoreClient.purchaseSubscriptionLevel1()
+                }
+            }
+            .disabled(appStoreClient.ownsProducts)
+            
+            Button("Restore a Subscription ...")
+            {
+                Task
+                {
+                    await appStoreClient.forceRestoreOwnedProducts()
+                }
+            }
+            .disabled(appStoreClient.ownsProducts)
+            
+            Divider()
+            
+            Button("Vote On Next Features (Subscribers Only) ...")
+            {
+                
+            }
+            .disabled(!appStoreClient.ownsProducts)
+            
+            Button("Refund a Subscription ...")
+            {
+                Task
+                {
+                    await appStoreClient.refundSubscriptionLevel1()
+                }
+            }
+            .disabled(!appStoreClient.ownsProducts)
+        }
+    }
+    
+    @ObservedObject var documentWindow: DocumentWindow
     @ObservedObject var appStoreClient = AppStoreClient.shared
 }

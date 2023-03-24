@@ -4,15 +4,16 @@ struct ArchitectureAnalysisView: View
 {
     var body: some View
     {
-        DoubleSidebarView(showLeftSidebar: $analysis.showsLeftSidebar,
-                          showRightSidebar: $analysis.showsRightSidebar)
+        DoubleSidebarView(showLeftSidebar: $displayOptions.showsLeftSidebar,
+                          showRightSidebar: $displayOptions.showsRightSidebar)
         {
-            CodebaseCentralView(analysis: analysis)
+            CodebaseCentralView(analysis: analysis,
+                                displayOptions: $displayOptions)
         }
         leftSidebar:
         {
             CodebaseNavigatorView(analysis: analysis,
-                                  showsLinesOfCode: $analysis.showLoC)
+                                  showsLinesOfCode: $displayOptions.showLoC)
         }
         rightSidebar:
         {
@@ -21,4 +22,5 @@ struct ArchitectureAnalysisView: View
     }
     
     @ObservedObject var analysis: ArchitectureAnalysis
+    @Binding var displayOptions: AnalysisDisplayOptions
 }

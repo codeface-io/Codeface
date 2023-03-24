@@ -39,6 +39,7 @@
 		9629D5B929252A2C006B1E98 /* XPCExecutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96021330291D3CCB0082DEF4 /* XPCExecutable.swift */; };
 		963170E629CC800C00B146D5 /* AppStoreClient+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */; };
 		963170E829CC8C5200B146D5 /* TryLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E729CC8C5200B146D5 /* TryLog.swift */; };
+		963170EA29CE0A1100B146D5 /* AnalysisDisplayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E929CE0A1100B146D5 /* AnalysisDisplayOptions.swift */; };
 		9639C27228D761A000779BA5 /* DocumentWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639C27128D761A000779BA5 /* DocumentWindowView.swift */; };
 		963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */; };
 		964464B22951D4090004382F /* DisplayModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B12951D4090004382F /* DisplayModePicker.swift */; };
@@ -165,6 +166,7 @@
 		9625697629BA5E47002FB7CC /* SubscriptionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPanel.swift; sourceTree = "<group>"; };
 		963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStoreClient+SwiftUI.swift"; sourceTree = "<group>"; };
 		963170E729CC8C5200B146D5 /* TryLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryLog.swift; sourceTree = "<group>"; };
+		963170E929CE0A1100B146D5 /* AnalysisDisplayOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDisplayOptions.swift; sourceTree = "<group>"; };
 		9639C27128D761A000779BA5 /* DocumentWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentWindowView.swift; sourceTree = "<group>"; };
 		963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseFileDocument.swift; sourceTree = "<group>"; };
 		964464B12951D4090004382F /* DisplayModePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayModePicker.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				965A7AE42965D991006C5A3A /* Architecture Analysis View */,
 				9619A2B12966E57700863BC0 /* CodebaseAnalysis.swift */,
 				965795AF2954661700CB9F3F /* Display Mode */,
+				963170E929CE0A1100B146D5 /* AnalysisDisplayOptions.swift */,
 			);
 			path = "Architecture Analysis";
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 				96106E642962DF1C0002F13C /* CodeFolderArtifact+CodeFolder.swift in Sources */,
 				96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */,
 				964464B6295201660004382F /* DocumentWindow.swift in Sources */,
+				963170EA29CE0A1100B146D5 /* AnalysisDisplayOptions.swift in Sources */,
 				968EA5C328DCD24500FE8A9B /* CodebaseProcessorView.swift in Sources */,
 				96F5E7F02957191E00181473 /* ConcurrencyPOC.swift in Sources */,
 				969A9BF229B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift in Sources */,

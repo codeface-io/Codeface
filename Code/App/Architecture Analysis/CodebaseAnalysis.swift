@@ -60,12 +60,7 @@ class ArchitectureAnalysis: ObservableObject
     let rootArtifact: ArtifactViewModel
     @Published var selectedArtifact: ArtifactViewModel
     
-    // MARK: - Display Options
-    
-    @Published var showsLeftSidebar: Bool = true
-    @Published var showsRightSidebar: Bool = false
-    @Published var showLoC: Bool = false
-    @Published var showSubscriptionPanel = false
+    // MARK: - Display Mode
     
     func switchDisplayMode()
     {
