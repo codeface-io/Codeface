@@ -267,7 +267,7 @@ struct SubscriptionButtons: View
             
             Divider()
             
-            Button("Subscribe ..")
+            Button("Subscribe ...")
             {
                 Task
                 {

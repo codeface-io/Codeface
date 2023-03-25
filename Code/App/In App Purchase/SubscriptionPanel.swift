@@ -64,6 +64,12 @@ struct SubscriptionPanel: View
                             Text("Become a supporter of this app with 2€ per month")
                                 .foregroundColor(.secondary)
                             
+                            if let subscriptionProduct = appStoreClient.fetchedProducts[.subscriptionLevel1]
+                            {
+                                Text(subscriptionProduct.displayName)
+                                    .font(.title)
+                            }
+                            
                             Spacer()
                             
                             if appStoreClient.ownsProducts
@@ -87,16 +93,18 @@ struct SubscriptionPanel: View
                                 {
                                     await AppStoreClient.shared.purchaseSubscriptionLevel1()
                                 }
-                                .padding(.bottom)
-                                
-                                AsyncButton("Restore My Subscription")
-                                {
-                                    await AppStoreClient.shared.forceRestoreOwnedProducts()
-                                }
+//                                .padding(.bottom)
+//
+//                                AsyncButton("Restore My Subscription")
+//                                {
+//                                    await AppStoreClient.shared.forceRestoreOwnedProducts()
+//                                }
                             }
                         }
                         
-                        VStack(spacing: 20)
+                        Spacer()
+                        
+                        VStack(alignment: .leading, spacing: 20)
                         {
                             BulletPoint("Support further development",
                                         subtitle: "Fund new features and the open-source infrastructure")
@@ -117,12 +125,27 @@ struct SubscriptionPanel: View
                 }
             }
             .padding(.bottom, 50)
+            .padding([.leading, .trailing], 20)
             .frame(height: isExpanded ? nil : 0)
             .clipped()
         }
         .frame(height: height)
         .background(Color(NSColor.controlBackgroundColor))
         .clipped()
+        .onAppear
+        {
+            Task
+            {
+                do
+                {
+                    try await AppStoreClient.shared.fetch(product: .subscriptionLevel1)
+                }
+                catch
+                {
+                    log(error: error.localizedDescription)
+                }
+            }
+        }
     }
     
     private var height: CGFloat?
@@ -167,24 +190,19 @@ struct BulletPoint: View
     
     var body: some View
     {
-        HStack
+        Label
         {
-            Label
+            VStack(alignment: .leading, spacing: 3)
             {
-                VStack(alignment: .leading, spacing: 3)
-                {
-                    Text(title)
-                        .fontWeight(.medium)
-                    
-                    Text(subtitle)
-                        .foregroundColor(.secondary)
-                }
-            } icon: {
-                Image(systemName: "checkmark")
-                    .foregroundColor(.green)
+                Text(title)
+                    .fontWeight(.medium)
+                
+                Text(subtitle)
+                    .foregroundColor(.secondary)
             }
-            
-            Spacer()
+        } icon: {
+            Image(systemName: "checkmark")
+                .foregroundColor(.green)
         }
     }
     

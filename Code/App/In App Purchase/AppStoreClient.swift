@@ -142,7 +142,7 @@ class AppStoreClient: ObservableObject
             do
             {
                 // FIXME: for whatever reason, current entitlements sometimes returns expired subscription on app launch, at least during Xcode testing (wtf apple? 🤮). to be sure, we check all kind of stuff in here ...
-                try await Self.validate(currentEntitlement: transaction)
+                try await validate(currentEntitlement: transaction)
                 
                 updatedOwnedProducts += ProductID(transaction.productID)
             }
@@ -157,7 +157,7 @@ class AppStoreClient: ObservableObject
         ownedProducts = updatedOwnedProducts
     }
     
-    private static func validate(currentEntitlement transaction: Transaction) async throws
+    private func validate(currentEntitlement transaction: Transaction) async throws
     {
         if transaction.isRevoked
         {
@@ -169,7 +169,7 @@ class AppStoreClient: ObservableObject
             log(warning: "`currentEntitlements` contains an expired transaction. According to documentation this must be a subscription in the grace period. gonna check the actual subscription status of the transaction ...")
             
             // we better check the actual status, for it might be in a grace period or somethin ...
-            let product = try await request(product: .init(transaction.productID))
+            let product = try await fetch(product: .init(transaction.productID))
             
             guard let subInfo = product.subscription else
             {
@@ -195,7 +195,7 @@ class AppStoreClient: ObservableObject
     
     func purchase(_ productID: ProductID) async throws
     {
-        let product = try await Self.request(product: productID)
+        let product = try await fetch(product: productID)
         try await purchase(product)
     }
     
@@ -207,18 +207,18 @@ class AppStoreClient: ObservableObject
         switch purchaseResult
         {
         case .success(let verificationResult):
-            log("✨ purchase success")
             /// the signed transaction contains the JWS (JSON web signature)
             let transaction = try verificationResult.payloadValue
+            log("✨ user purchased product: " + product.displayName)
             ownedProducts += ProductID(transaction.productID)
             await transaction.finish()
             
         case .userCancelled:
-            log("👋🏻 purchase cancelled")
+            log("🔙 user cancelled the purchase process for product: " + product.displayName)
             break
             
         case .pending:
-            log("⏳ purchase pending")
+            log("⏳ a purchase process is pending for product: " + product.displayName)
             break
             
         @unknown default:
@@ -252,9 +252,10 @@ class AppStoreClient: ObservableObject
     
     // MARK: - Request Available Products
     
-    static func request(product productID: ProductID) async throws -> Product
+    @discardableResult
+    func fetch(product productID: ProductID) async throws -> Product
     {
-        let products = try await request(products: [productID])
+        let products = try await fetch(products: [productID])
         
         guard let product = products.first else
         {
@@ -264,10 +265,22 @@ class AppStoreClient: ObservableObject
         return product
     }
     
-    static func request(products productIDs: [ProductID]) async throws -> [Product]
+    @discardableResult
+    func fetch(products productIDs: [ProductID]) async throws -> [Product]
     {
-        try await Product.products(for: productIDs.map({ $0.string }))
+        let productIDStrings = productIDs.map { $0.string }
+
+        let newlyFetchedProducts = try await Product.products(for: productIDStrings)
+        
+        for newlyFetchedProduct in newlyFetchedProducts
+        {
+            fetchedProducts[ProductID(newlyFetchedProduct.id)] = newlyFetchedProduct
+        }
+        
+        return newlyFetchedProducts
     }
+    
+    @Published var fetchedProducts = [ProductID: Product]()
     
     struct ProductID: Hashable, Sendable
     {
