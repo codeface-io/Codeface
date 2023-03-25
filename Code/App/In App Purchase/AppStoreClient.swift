@@ -105,7 +105,8 @@ class AppStoreClient: ObservableObject
         }
         catch
         {
-            log("Could not restore products for this reason: " + error.localizedDescription)
+            log(warning: "Could not restore products because of this \"error\", which might just indicate the user cancelled the process: " + error.localizedDescription)
+            return
         }
         
         await updateOwnedProducts()
