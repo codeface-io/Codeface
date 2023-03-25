@@ -57,17 +57,18 @@ struct SubscriptionPanel: View
                     {
                         VStack(alignment: .leading, spacing: 0)
                         {
-                            Text("Codeface Sponsorship")
-                                .font(.title)
-                                .padding(.bottom, 6)
-                            
-                            Text("Become a supporter of this app with 2€ per month")
-                                .foregroundColor(.secondary)
-                            
                             if let subscriptionProduct = appStoreClient.fetchedProducts[.subscriptionLevel1]
                             {
                                 Text(subscriptionProduct.displayName)
                                     .font(.title)
+                                    .padding(.bottom, 6)
+                                
+                                Text(subscriptionProduct.description)
+                                    .foregroundColor(.secondary)
+                            }
+                            else
+                            {
+                                ProgressView().progressViewStyle(.circular)
                             }
                             
                             Spacer()
