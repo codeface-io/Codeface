@@ -11,7 +11,7 @@
     "_askToBuyEnabled" : false,
     "_compatibilityTimeRate" : 6,
     "_developerTeamID" : "8T3R57GCBV",
-    "_lastSynchronizedDate" : 700343513.06533396,
+    "_lastSynchronizedDate" : 701531547.529796,
     "_renewalBillingIssuesEnabled" : false,
     "_timeRate" : 15
   },
@@ -30,15 +30,15 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "1.99",
+          "displayPrice" : "3.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "6446200754",
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Support development and remove the banner",
-              "displayName" : "Sponsor a Coffee",
+              "description" : "Introductory plan for early supporters",
+              "displayName" : "Early Bird",
               "locale" : "en_US"
             }
           ],
