@@ -47,34 +47,44 @@ struct CodebaseCentralView: View
                 {
                     CodeView(artifact: analysis.selectedArtifact)
                 }
-                else
+                else // no filters, just a leaf artifact that is not a symbol
                 {
-                    VStack
+                    switch analysis.displayMode
                     {
-                        Label("Empty " + analysis.selectedArtifact.codeArtifact.kindName, systemImage: "xmark.rectangle")
-                            .foregroundColor(.secondary)
-                            .font(.system(.title))
-                            .padding(.bottom)
-                        
-                        if serverManager.serverIsWorking
+                    case .treeMap:
+                        VStack
                         {
-                            Text(analysis.selectedArtifact.codeArtifact.name + " contains no further symbols.")
+                            Label("Empty " + analysis.selectedArtifact.codeArtifact.kindName,
+                                  systemImage: "xmark.rectangle")
                                 .foregroundColor(.secondary)
+                                .font(.system(.title))
+                                .padding(.bottom)
+                            
+                            if serverManager.serverIsWorking
+                            {
+                                Text(analysis.selectedArtifact.codeArtifact.name + " contains no further symbols.")
+                                    .foregroundColor(.secondary)
+                            }
+                            else
+                            {
+                                LSPServiceHint()
+                            }
                         }
-                        else
-                        {
-                            LSPServiceHint()
-                        }
+                        .padding(50)
+                        
+                    case .code:
+                        CodeView(artifact: analysis.selectedArtifact)
                     }
-                    .padding(50)
                 }
             }
             else
             {
                 switch analysis.displayMode
                 {
-                case .treeMap: TreeMap(analysis: analysis)
-                case .code: CodeView(artifact: analysis.selectedArtifact)
+                case .treeMap:
+                    TreeMap(analysis: analysis)
+                case .code:
+                    CodeView(artifact: analysis.selectedArtifact)
                 }
             }
             
