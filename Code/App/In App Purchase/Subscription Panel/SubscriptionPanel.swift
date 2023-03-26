@@ -119,20 +119,6 @@ struct SubscriptionPanel: View
         .frame(height: height)
         .background(Color(NSColor.controlBackgroundColor))
         .clipped()
-        .onAppear
-        {
-            Task
-            {
-                do
-                {
-                    try await AppStoreClient.shared.fetch(product: .subscriptionLevel1)
-                }
-                catch
-                {
-                    log(error: error.localizedDescription)
-                }
-            }
-        }
     }
     
     private var height: CGFloat?
