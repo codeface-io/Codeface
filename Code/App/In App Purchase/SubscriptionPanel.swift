@@ -166,7 +166,7 @@ struct SubscriptionManagementView: View
 {
     var body: some View
     {
-        let userIsSubscribed = !appStoreClient.owns(subscription)
+        let userIsSubscribed = appStoreClient.owns(subscription)
         
         Text(subscription.displayName)
             .font(.title)
