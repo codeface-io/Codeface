@@ -44,7 +44,7 @@ struct SubscriptionManagementView: View
         
         if userIsSubscribed
         {
-            AsyncButton("Vote on Next Features", colorScheme: .green)
+            AsyncButton("Vote on New Features", colorScheme: .green)
             {
                 openURL(URL(string: FeatureVote.urlString)!)
             }

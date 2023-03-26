@@ -306,7 +306,7 @@ struct SubscriptionButtons: View
             
             Divider()
             
-            Button("Vote On Next Features (Subscribers Only) ...")
+            Button("Vote On New Features (Subscribers Only) ...")
             {
                 openURL(URL(string: FeatureVote.urlString)!)
             }
