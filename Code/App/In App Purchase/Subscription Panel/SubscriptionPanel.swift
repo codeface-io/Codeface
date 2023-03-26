@@ -67,18 +67,14 @@ struct SubscriptionPanel: View
                             }
                             else
                             {
-                                VStack
+                                VStack(alignment: .leading)
                                 {
-                                    Spacer()
+                                    Text("Loading Subscription Infos ...")
                                     
-                                    HStack
+                                    Center
                                     {
-                                        Spacer()
                                         ProgressView().progressViewStyle(.circular)
-                                        Spacer()
                                     }
-                                    
-                                    Spacer()
                                 }
                             }
                         }
