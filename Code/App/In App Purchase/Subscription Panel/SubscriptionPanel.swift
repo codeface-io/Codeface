@@ -19,8 +19,17 @@ struct SubscriptionPanel: View
                         .padding(.leading)
                         .opacity(isExpanded ? 0 : 1)
                 
-                    Text("Sponsor the Development of This App")
-                        .opacity(isExpanded ? 0 : 1)
+                    if let subscription = appStoreClient.fetchedProducts[.subscriptionLevel1]
+                    {
+                        Text(subscription.displayName + " – " + subscription.description)
+                            .opacity(isExpanded ? 0 : 1)
+                    }
+                    else
+                    {
+                        ProgressView().progressViewStyle(.linear)
+                            .padding(.leading)
+                            .opacity(isExpanded ? 0 : 1)
+                    }
                 }
                 
                 Spacer()
