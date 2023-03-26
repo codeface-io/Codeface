@@ -179,14 +179,26 @@ struct CodefaceApp: App
         if !moreWindowsThanTestingDashboardAreOpen()
         {
             log("🪟 gonna open document window because none is open")
+            
+            /// we cannot use `newDocument` here because we can't capture `self` in the Task in the initializer ... there is simply no clean way to trigger `newDocument` on app launch 🤮
             NSDocumentController.shared.newDocument(nil)
         }
     }
     
     private static func moreWindowsThanTestingDashboardAreOpen() -> Bool
     {
-        if NSApp.windows.count > 1 { return true }
-        if NSApp.window(forID: TestingDashboardWindow.id) != nil { return false }
+        if NSApp.windows.count > 1
+        {
+            return true
+        }
+        
+        if NSApp.window(forID: TestingDashboardWindow.id) != nil
+        {
+            return false
+        }
+        
+        print(NSApp.windows.count)
+        
         return NSApp.windows.count == 1
     }
 
