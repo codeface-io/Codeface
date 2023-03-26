@@ -24,6 +24,11 @@ struct CodefaceApp: App
         
         /// we provide our own menu option for fullscreen because the one from SwiftUI disappears as soon as we interact with any views ... 🤮
         UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
+        
+        Task
+        {
+            Self.openDocumentWindowIfNoneIsOpen()
+        }
     }
     
 //    var body: some Scene
@@ -36,8 +41,6 @@ struct CodefaceApp: App
     //*
     var body: some Scene
     {
-        TestingDashboardWindow.make()
-        
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
             DocumentWindowView(codebaseFile: $0.$document)
@@ -131,6 +134,28 @@ struct CodefaceApp: App
                 Divider()
             }
         }
+        .onChange(of: scenePhase)
+        {
+            // since we open a document window if none is open on launch, we know that some window scene is being created and therefore this scenePhase observation fires ...
+            
+            switch $0
+            {
+            case .background:
+                log("app went to background")
+
+            case .inactive:
+                log("app became inactive")
+
+            case .active:
+                log("app became active")
+                Task { TestingDashboardWindow.closeIfOpen() }
+
+            @unknown default:
+                log(warning: "app went to unknow scene phase: \(scenePhase)")
+            }
+        }
+        
+        TestingDashboardWindow.make()
     }
     // */
     
@@ -146,7 +171,25 @@ struct CodefaceApp: App
         }
     }
     
-    @Environment(\.openWindow) var openWindow
+    // MARK: - Window Management On Launch
+    
+    private static func openDocumentWindowIfNoneIsOpen()
+    {
+        if !moreWindowsThanTestingDashboardAreOpen()
+        {
+            log("🪟 gonna open document window because none is open")
+            NSDocumentController.shared.newDocument(nil)
+        }
+    }
+    
+    private static func moreWindowsThanTestingDashboardAreOpen() -> Bool
+    {
+        if NSApp.windows.count > 1 { return true }
+        if NSApp.window(forID: TestingDashboardWindow.id) != nil { return false }
+        return NSApp.windows.count == 1
+    }
+
+    @Environment(\.scenePhase) var scenePhase
     
     // MARK: - Basics
     
@@ -156,6 +199,7 @@ struct CodefaceApp: App
     }
     
     @FocusedObject private var focusedDocumentWindow: DocumentWindow?
+    @Environment(\.openWindow) var openWindow
 }
 
 struct FindButtons: View
