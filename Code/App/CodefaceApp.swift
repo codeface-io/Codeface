@@ -271,7 +271,14 @@ struct SubscriptionButtons: View
             {
                 Task
                 {
-                    await appStoreClient.purchaseSubscriptionLevel1()
+                    do
+                    {
+                        try await appStoreClient.purchase(.subscriptionLevel1)
+                    }
+                    catch
+                    {
+                        log(error: error.localizedDescription)
+                    }
                 }
             }
             .disabled(appStoreClient.ownsProducts)
@@ -289,7 +296,7 @@ struct SubscriptionButtons: View
             
             Button("Vote On Next Features (Subscribers Only) ...")
             {
-                
+                openURL(URL(string: FeatureVote.urlString)!)
             }
             .disabled(!appStoreClient.ownsProducts)
             
@@ -297,7 +304,14 @@ struct SubscriptionButtons: View
             {
                 Task
                 {
-                    await appStoreClient.refundSubscriptionLevel1()
+                    do
+                    {
+                        try await appStoreClient.requestRefund(for: .subscriptionLevel1)
+                    }
+                    catch
+                    {
+                        log(error: error.localizedDescription)
+                    }
                 }
             }
             .disabled(!appStoreClient.ownsProducts)
@@ -306,4 +320,5 @@ struct SubscriptionButtons: View
     
     @ObservedObject var documentWindow: DocumentWindow
     @ObservedObject var appStoreClient = AppStoreClient.shared
+    @Environment(\.openURL) var openURL
 }

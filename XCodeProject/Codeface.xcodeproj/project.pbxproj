@@ -38,7 +38,6 @@
 		9629D5B829252A2C006B1E98 /* XPCExecutableServiceExportedInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F00290ED68A008CA3C2 /* XPCExecutableServiceExportedInterface.swift */; };
 		9629D5B929252A2C006B1E98 /* XPCExecutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96021330291D3CCB0082DEF4 /* XPCExecutable.swift */; };
 		963170E629CC800C00B146D5 /* AppStoreClient+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */; };
-		963170E829CC8C5200B146D5 /* TryLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E729CC8C5200B146D5 /* TryLog.swift */; };
 		963170EA29CE0A1100B146D5 /* AnalysisDisplayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E929CE0A1100B146D5 /* AnalysisDisplayOptions.swift */; };
 		9639C27228D761A000779BA5 /* DocumentWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639C27128D761A000779BA5 /* DocumentWindowView.swift */; };
 		963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */; };
@@ -79,6 +78,7 @@
 		96D59CD2294AC36A003C55B5 /* HelpLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CD1294AC36A003C55B5 /* HelpLink.swift */; };
 		96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1C28A1503C00B84B45 /* PathBarView.swift */; };
 		96DC635528E100D900DD5BEB /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96DC635428E100D900DD5BEB /* SwiftLSP */; };
+		96E0C0BB29D076720087A79F /* FeatureVote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0C0BA29D076720087A79F /* FeatureVote.swift */; };
 		96E135032962DD4900DF8A43 /* ArtifactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F82962DC2200DF8A43 /* ArtifactViewModel.swift */; };
 		96E135042962DD5500DF8A43 /* ArtifactViewModel+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134F92962DC2300DF8A43 /* ArtifactViewModel+Hashable.swift */; };
 		96E135052962DD5900DF8A43 /* ArtifactViewModel+AddDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E134FE2962DC2300DF8A43 /* ArtifactViewModel+AddDependencies.swift */; };
@@ -165,7 +165,6 @@
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
 		9625697629BA5E47002FB7CC /* SubscriptionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPanel.swift; sourceTree = "<group>"; };
 		963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStoreClient+SwiftUI.swift"; sourceTree = "<group>"; };
-		963170E729CC8C5200B146D5 /* TryLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryLog.swift; sourceTree = "<group>"; };
 		963170E929CE0A1100B146D5 /* AnalysisDisplayOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDisplayOptions.swift; sourceTree = "<group>"; };
 		9639C27128D761A000779BA5 /* DocumentWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentWindowView.swift; sourceTree = "<group>"; };
 		963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseFileDocument.swift; sourceTree = "<group>"; };
@@ -199,6 +198,7 @@
 		96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleSidebarView.swift; sourceTree = "<group>"; };
 		96D59CD1294AC36A003C55B5 /* HelpLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLink.swift; sourceTree = "<group>"; };
 		96D8DB1C28A1503C00B84B45 /* PathBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBarView.swift; sourceTree = "<group>"; };
+		96E0C0BA29D076720087A79F /* FeatureVote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureVote.swift; sourceTree = "<group>"; };
 		96E134D32962DB8000DF8A43 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		96E134D42962DB8000DF8A43 /* CodeArtifactMetricsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeArtifactMetricsCache.swift; sourceTree = "<group>"; };
 		96E134D62962DB8000DF8A43 /* CodeFolderArtifact+LOCInCycles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+LOCInCycles.swift"; sourceTree = "<group>"; };
@@ -634,6 +634,7 @@
 				96E134E92962DC2200DF8A43 /* Architecture */,
 				96106E6729634D9B0002F13C /* Codebase */,
 				9625697829BA5E59002FB7CC /* In App Purchase */,
+				96E0C0BA29D076720087A79F /* FeatureVote.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -710,7 +711,6 @@
 				96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */,
 				961D497429A26A8A00E95E99 /* RelativeFilePath.swift */,
 				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
-				963170E729CC8C5200B146D5 /* TryLog.swift */,
 			);
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
@@ -878,7 +878,6 @@
 			files = (
 				96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */,
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
-				963170E829CC8C5200B146D5 /* TryLog.swift in Sources */,
 				96D59CC7294AB9F8003C55B5 /* ArchitectureAnalysisView.swift in Sources */,
 				96106E602962DEEE0002F13C /* CodeFolderArtifact+LOCInCycles.swift in Sources */,
 				96FDA72C29BCABCC0020A48F /* AppStoreClient.swift in Sources */,
@@ -907,6 +906,7 @@
 				964464B6295201660004382F /* DocumentWindow.swift in Sources */,
 				963170EA29CE0A1100B146D5 /* AnalysisDisplayOptions.swift in Sources */,
 				968EA5C328DCD24500FE8A9B /* CodebaseProcessorView.swift in Sources */,
+				96E0C0BB29D076720087A79F /* FeatureVote.swift in Sources */,
 				96F5E7F02957191E00181473 /* ConcurrencyPOC.swift in Sources */,
 				969A9BF229B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift in Sources */,
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,

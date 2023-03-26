@@ -1,3 +1,4 @@
+import StoreKit
 import SwiftUI
 import SwiftyToolz
 
@@ -11,13 +12,16 @@ struct SubscriptionPanel: View
             
             HStack(alignment: .firstTextBaseline)
             {
-                Image(systemName: "cup.and.saucer")
-                    .imageScale(.large)
-                    .padding(.leading)
-                    .opacity(isExpanded ? 0 : 1)
+                if !appStoreClient.ownsProducts
+                {
+                    Image(systemName: "cup.and.saucer")
+                        .imageScale(.large)
+                        .padding(.leading)
+                        .opacity(isExpanded ? 0 : 1)
                 
-                Text("Sponsor the Development of This App")
-                    .opacity(isExpanded ? 0 : 1)
+                    Text("Sponsor the Development of This App")
+                        .opacity(isExpanded ? 0 : 1)
+                }
                 
                 Spacer()
                 
@@ -57,55 +61,24 @@ struct SubscriptionPanel: View
                     {
                         VStack(alignment: .leading, spacing: 0)
                         {
-                            if let subscriptionProduct = appStoreClient.fetchedProducts[.subscriptionLevel1]
+                            if let subscription = appStoreClient.fetchedProducts[.subscriptionLevel1]
                             {
-                                Text(subscriptionProduct.displayName)
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .padding(.bottom, 6)
-                                
-                                Text(subscriptionProduct.description)
-                                    .font(.title3)
-                                    .foregroundColor(.secondary)
-                                    .padding(.bottom)
-                                
-                                Text(subscriptionProduct.displayPrice + " / month")
-                                    .font(.title3)
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.green)
+                                SubscriptionManagementView(subscription: subscription)
                             }
                             else
                             {
-                                HStack
+                                VStack
                                 {
                                     Spacer()
-                                    ProgressView().progressViewStyle(.circular)
+                                    
+                                    HStack
+                                    {
+                                        Spacer()
+                                        ProgressView().progressViewStyle(.circular)
+                                        Spacer()
+                                    }
+                                    
                                     Spacer()
-                                }
-                            }
-                            
-                            Spacer()
-                            
-                            if appStoreClient.ownsProducts
-                            {
-                                Label {
-                                    Text("Subscribed")
-                                } icon: {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(.green)
-                                }
-                                .padding(.bottom)
-                                
-                                AsyncButton("Request Refund")
-                                {
-                                    await AppStoreClient.shared.refundSubscriptionLevel1()
-                                }
-                            }
-                            else
-                            {
-                                AsyncButton("Subscribe", isProminent: true)
-                                {
-                                    await AppStoreClient.shared.purchaseSubscriptionLevel1()
                                 }
                             }
                         }
@@ -134,7 +107,7 @@ struct SubscriptionPanel: View
                 }
             }
             .padding(.bottom, 50)
-            .padding([.leading, .trailing], 20)
+            .padding([.leading, .trailing], 30)
             .frame(height: isExpanded ? nil : 0)
             .clipped()
         }
@@ -189,6 +162,74 @@ struct SubscriptionPanel: View
     @ObservedObject private var appStoreClient = AppStoreClient.shared
 }
 
+struct SubscriptionManagementView: View
+{
+    var body: some View
+    {
+        let userIsSubscribed = !appStoreClient.owns(subscription)
+        
+        Text(subscription.displayName)
+            .font(.title)
+            .fontWeight(.bold)
+            .padding(.bottom, 6)
+        
+        Text(subscription.description)
+            .font(.title3)
+            .foregroundColor(.secondary)
+            .padding(.bottom)
+        
+        let green = Color(.systemGreen)
+        
+        if userIsSubscribed
+        {
+            HStack
+            {
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundColor(green)
+                
+                Text("Subscribed")
+            }
+            .font(.title3)
+            .fontWeight(.medium)
+        }
+        else
+        {
+            Text(subscription.displayPrice + " / month")
+                .font(.title3)
+                .fontWeight(.medium)
+                .foregroundColor(green)
+        }
+        
+        Spacer()
+        
+        if userIsSubscribed
+        {
+            AsyncButton("Vote on Next Features", colorScheme: .green)
+            {
+                openURL(URL(string: FeatureVote.urlString)!)
+            }
+        }
+        else
+        {
+            AsyncButton("Subscribe", colorScheme: .accent)
+            {
+                do
+                {
+                    try await appStoreClient.purchase(subscription)
+                }
+                catch
+                {
+                    log(error: error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    let subscription: Product
+    @ObservedObject private var appStoreClient = AppStoreClient.shared
+    @Environment(\.openURL) var openURL
+}
+
 struct BulletPoint: View
 {
     init(_ title: String, subtitle: String)
@@ -211,7 +252,7 @@ struct BulletPoint: View
             }
         } icon: {
             Image(systemName: "checkmark")
-                .foregroundColor(.green)
+                .foregroundColor(Color(.systemGreen))
         }
     }
     
@@ -222,11 +263,11 @@ struct BulletPoint: View
 struct AsyncButton: View
 {
     internal init(_ title: String,
-                  isProminent: Bool = false,
+                  colorScheme: ColorScheme = .gray,
                   action: @escaping () async -> Void)
     {
         self.title = title
-        self.isProminent = isProminent
+        self.colorScheme = colorScheme
         self.action = action
     }
     
@@ -261,11 +302,23 @@ struct AsyncButton: View
     
     private var color: SwiftUI.Color
     {
-        isProminent ? .accentColor : .init(white: 0.5).opacity(0.75)
+        switch colorScheme
+        {
+        case .accent: return .accentColor
+        case .gray: return .init(white: 0.5).opacity(0.75)
+        case .green: return Color(.systemGreen)
+        }
     }
     
     let title: String
-    let isProminent: Bool
+    
+    let colorScheme: ColorScheme
+    
+    enum ColorScheme
+    {
+        case accent, gray, green
+    }
+    
     let action: () async -> Void
     
     @State private var isWaitingForCompletion = false

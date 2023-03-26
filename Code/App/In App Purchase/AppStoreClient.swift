@@ -196,7 +196,8 @@ class AppStoreClient: ObservableObject
     
     func purchase(_ productID: ProductID) async throws
     {
-        let product = try await fetch(product: productID)
+        
+        let product = try await retrieveProduct(for: productID)
         try await purchase(product)
     }
     
@@ -227,7 +228,20 @@ class AppStoreClient: ObservableObject
         }
     }
     
-    var ownsProducts: Bool { !ownedProducts.isEmpty }
+    func owns(_ product: Product) -> Bool
+    {
+        owns(product: .init(product.id))
+    }
+    
+    func owns(product productID: ProductID) -> Bool
+    {
+        ownedProducts.contains(productID)
+    }
+    
+    var ownsProducts: Bool
+    {
+        !ownedProducts.isEmpty
+    }
     
     @Published private(set) var ownedProducts = Set<ProductID>()
     
@@ -252,6 +266,18 @@ class AppStoreClient: ObservableObject
     }
     
     // MARK: - Request Available Products
+    
+    func retrieveProduct(for productID: ProductID) async throws -> Product
+    {
+        if let cachedProduct = fetchedProducts[productID]
+        {
+            return cachedProduct
+        }
+        else
+        {
+            return try await fetch(product: productID)
+        }
+    }
     
     @discardableResult
     func fetch(product productID: ProductID) async throws -> Product
