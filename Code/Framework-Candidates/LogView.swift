@@ -32,6 +32,7 @@ struct LogView: View
                         }
                     }
                 }
+                .textSelection(.enabled)
                 
                 VStack
                 {
