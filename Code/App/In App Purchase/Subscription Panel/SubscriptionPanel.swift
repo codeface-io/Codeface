@@ -116,8 +116,8 @@ struct SubscriptionPanel: View
             .frame(height: isExpanded ? nil : 0)
             .clipped()
         }
-        .frame(height: height)
-        .background(Color(NSColor.controlBackgroundColor))
+        .frame(maxHeight: height)
+        .background(Color(.controlBackgroundColor))
         .clipped()
     }
     

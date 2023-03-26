@@ -7,7 +7,6 @@ struct TreeMap: View
         RootArtifactContentView(artifactVM: analysis.selectedArtifact,
                                 analysis: analysis)
             .padding(ArtifactViewModel.padding)
-            .frame(minWidth: 300, minHeight: 300)
             .background(Color(white: colorScheme == .dark ? 0 : 0.6))
     }
     
