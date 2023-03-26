@@ -2,21 +2,13 @@
   "colors" : [
     {
       "color" : {
-        "platform" : "osx",
-        "reference" : "systemBlueColor"
-      },
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "215",
+          "green" : "96",
+          "red" : "47"
         }
-      ],
-      "color" : {
-        "platform" : "osx",
-        "reference" : "systemBlueColor"
       },
       "idiom" : "universal"
     }
