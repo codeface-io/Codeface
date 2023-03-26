@@ -53,7 +53,7 @@ struct SubscriptionPanel: View
                 {
                     geo in
                     
-                    HStack(alignment: .firstTextBaseline, spacing: 0.10 * geo.size.height)
+                    HStack(alignment: .firstTextBaseline, spacing: 0.05 * geo.size.height)
                     {
                         VStack(alignment: .leading, spacing: 0)
                         {
@@ -61,14 +61,27 @@ struct SubscriptionPanel: View
                             {
                                 Text(subscriptionProduct.displayName)
                                     .font(.title)
+                                    .fontWeight(.bold)
                                     .padding(.bottom, 6)
                                 
                                 Text(subscriptionProduct.description)
+                                    .font(.title3)
                                     .foregroundColor(.secondary)
+                                    .padding(.bottom)
+                                
+                                Text(subscriptionProduct.displayPrice + " / month")
+                                    .font(.title3)
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.green)
                             }
                             else
                             {
-                                ProgressView().progressViewStyle(.circular)
+                                HStack
+                                {
+                                    Spacer()
+                                    ProgressView().progressViewStyle(.circular)
+                                    Spacer()
+                                }
                             }
                             
                             Spacer()
@@ -94,14 +107,9 @@ struct SubscriptionPanel: View
                                 {
                                     await AppStoreClient.shared.purchaseSubscriptionLevel1()
                                 }
-//                                .padding(.bottom)
-//
-//                                AsyncButton("Restore My Subscription")
-//                                {
-//                                    await AppStoreClient.shared.forceRestoreOwnedProducts()
-//                                }
                             }
                         }
+                        .frame(maxWidth: 260)
                         
                         Spacer()
                         
@@ -227,14 +235,17 @@ struct AsyncButton: View
         ZStack(alignment: .center)
         {
             Text(title)
+                .foregroundColor(.white)
+                .font(.title3)
                 .fontWeight(.semibold)
                 .padding(14.5)
                 .opacity(isWaitingForCompletion ? 0 : 1)
 
             ProgressView().progressViewStyle(.circular)
+                .foregroundColor(.white)
                 .opacity(isWaitingForCompletion ? 1 : 0)
         }
-        .frame(maxWidth: 310)
+        .frame(maxWidth: .infinity)
         .background(RoundedRectangle(cornerRadius: Self.cornerRadius).fill(color))
         .contentShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
         .onTapGesture
@@ -250,7 +261,7 @@ struct AsyncButton: View
     
     private var color: SwiftUI.Color
     {
-        isProminent ? .accentColor : .secondary.opacity(0.5)
+        isProminent ? .accentColor : .init(white: 0.5).opacity(0.75)
     }
     
     let title: String
