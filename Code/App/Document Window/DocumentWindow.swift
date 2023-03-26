@@ -140,5 +140,5 @@ class DocumentWindow: ObservableObject
     
     // MARK: - Display Options
     
-    @Published var displayOptions = AnalysisDisplayOptions()
+    let displayOptions = DocumentWindowDisplayOptions()
 }

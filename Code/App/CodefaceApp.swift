@@ -51,7 +51,7 @@ struct CodefaceApp: App
             {
                 if let focusedDocumentWindow
                 {
-                    SubscriptionButtons(documentWindow: focusedDocumentWindow)
+                    SubscriptionMenu(displayOptions: focusedDocumentWindow.displayOptions)
                 }
             }
             
@@ -59,7 +59,7 @@ struct CodefaceApp: App
             {
                 if let focusedDocumentWindow
                 {
-                    FindButtons(codebaseProcessor: focusedDocumentWindow.codebaseProcessor)
+                    FindAndFilterMenuOptions(codebaseProcessor: focusedDocumentWindow.codebaseProcessor)
                 }
             }
             
@@ -69,7 +69,8 @@ struct CodefaceApp: App
             {
                 if let documentWindow = focusedDocumentWindow
                 {
-                    ViewButtons(documentWindow: documentWindow)
+                    ViewButtons(codebaseProcessor: documentWindow.codebaseProcessor,
+                                displayOptions: documentWindow.displayOptions)
                     
                     Divider()
                 }
@@ -200,181 +201,4 @@ struct CodefaceApp: App
     
     @FocusedObject private var focusedDocumentWindow: DocumentWindow?
     @Environment(\.openWindow) var openWindow
-}
-
-struct FindButtons: View
-{
-    var body: some View
-    {
-        Button("Find and Filter")
-        {
-            withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
-            {
-                analysis?.set(searchBarIsVisible: true)
-            }
-            
-            withAnimation(.easeInOut(duration: Search.layoutAnimationDuration))
-            {
-                analysis?.set(fieldIsFocused: true)
-            }
-        }
-        .disabled(analysis == nil)
-        .keyboardShortcut("f")
-
-        Button("Toggle the Search Filter")
-        {
-            guard let analysis else
-            {
-                log(warning: "When there's no analysis, this menu option shouldn't be displayed.")
-                return
-            }
-            
-            let searchBarWillBeVisible = !analysis.search.barIsShown
-            
-            withAnimation(.easeInOut(duration: Search.toggleAnimationDuration))
-            {
-                analysis.set(searchBarIsVisible: searchBarWillBeVisible)
-            }
-            
-            withAnimation(.easeInOut(duration: Search.layoutAnimationDuration))
-            {
-                analysis.set(fieldIsFocused: searchBarWillBeVisible)
-            }
-        }
-        .disabled(analysis == nil)
-        .keyboardShortcut("f", modifiers: [.shift, .command])
-    }
-    
-    private var analysis: ArchitectureAnalysis?
-    {
-        codebaseProcessor.state.analysis
-    }
-    
-    @ObservedObject var codebaseProcessor: CodebaseProcessor
-}
-
-struct ViewButtons: View
-{
-    var body: some View
-    {
-        Button("\(documentWindow.displayOptions.showLoC ? "Hide" : "Show") Lines of Code in Navigator")
-        {
-            documentWindow.displayOptions.showLoC.toggle()
-        }
-        .keyboardShortcut("l", modifiers: .command)
-        
-        Button("\(documentWindow.displayOptions.showsLeftSidebar ? "Hide" : "Show") the Navigator")
-        {
-            withAnimation
-            {
-                documentWindow.displayOptions.showsLeftSidebar.toggle()
-            }
-        }
-        .keyboardShortcut("0", modifiers: .command)
-
-        Button("\(documentWindow.displayOptions.showsRightSidebar ? "Hide" : "Show") the Inspector")
-        {
-            withAnimation
-            {
-                documentWindow.displayOptions.showsRightSidebar.toggle()
-            }
-        }
-        .keyboardShortcut("0", modifiers: [.option, .command])
-        
-        Button("\(documentWindow.displayOptions.isShowingSubscriptionPanel ? "Hide" : "Show") the Subscription Panel")
-        {
-            documentWindow.displayOptions.isShowingSubscriptionPanel.toggle()
-        }
-        .keyboardShortcut("s", modifiers: [.control, .command])
-        
-        Divider()
-        
-        Button("Switch to Next Display Mode")
-        {
-            analysis?.switchDisplayMode()
-        }
-        .keyboardShortcut(.rightArrow, modifiers: .command)
-
-        Button("Switch to Previous Display Mode")
-        {
-            analysis?.switchDisplayMode()
-        }
-        .keyboardShortcut(.leftArrow, modifiers: .command)
-    }
-    
-    private var analysis: ArchitectureAnalysis?
-    {
-        documentWindow.codebaseProcessor.state.analysis
-    }
-    
-    @ObservedObject var documentWindow: DocumentWindow
-}
-
-struct SubscriptionButtons: View
-{
-    var body: some View
-    {
-        Menu("Subscription")
-        {
-            Button("\(documentWindow.displayOptions.isShowingSubscriptionPanel ? "Hide" : "Show") the Subscription Panel")
-            {
-                documentWindow.displayOptions.isShowingSubscriptionPanel.toggle()
-            }
-            
-            Divider()
-            
-            Button("Subscribe ...")
-            {
-                Task
-                {
-                    do
-                    {
-                        try await appStoreClient.purchase(.subscriptionLevel1)
-                    }
-                    catch
-                    {
-                        log(error: error.localizedDescription)
-                    }
-                }
-            }
-            .disabled(appStoreClient.ownsProducts)
-            
-            Button("Restore a Subscription ...")
-            {
-                Task
-                {
-                    await appStoreClient.forceRestoreOwnedProducts()
-                }
-            }
-            .disabled(appStoreClient.ownsProducts)
-            
-            Divider()
-            
-            Button("Vote On New Features (Subscribers Only) ...")
-            {
-                openURL(URL(string: FeatureVote.urlString)!)
-            }
-            .disabled(!appStoreClient.ownsProducts)
-            
-            Button("Refund a Subscription ...")
-            {
-                Task
-                {
-                    do
-                    {
-                        try await appStoreClient.requestRefund(for: .subscriptionLevel1)
-                    }
-                    catch
-                    {
-                        log(error: error.localizedDescription)
-                    }
-                }
-            }
-            .disabled(!appStoreClient.ownsProducts)
-        }
-    }
-    
-    @ObservedObject var documentWindow: DocumentWindow
-    @ObservedObject var appStoreClient = AppStoreClient.shared
-    @Environment(\.openURL) var openURL
 }

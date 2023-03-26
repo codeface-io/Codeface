@@ -15,7 +15,7 @@ struct DocumentWindowView: View
     var body: some View
     {
         CodebaseProcessorView(codebaseProcessor: documentWindow.codebaseProcessor,
-                              displayOptions: $documentWindow.displayOptions)
+                              displayOptions: documentWindow.displayOptions)
             .focusedSceneObject(documentWindow)
             .fileImporter(isPresented: $documentWindow.isPresentingFolderImporter,
                           allowedContentTypes: [.directory],
@@ -48,7 +48,7 @@ struct DocumentWindowView: View
                     Spacer()
                     
                     PrimaryToolbarButtons(codebaseProcessor: documentWindow.codebaseProcessor,
-                                          displayOptions: $documentWindow.displayOptions)
+                                          displayOptions: documentWindow.displayOptions)
                 }
             }
             .onReceive(documentWindow.events)

@@ -41,7 +41,7 @@ struct PrimaryToolbarButtons: View
     }
     
     @ObservedObject var codebaseProcessor: CodebaseProcessor
-    @Binding var displayOptions: AnalysisDisplayOptions
+    @ObservedObject var displayOptions: DocumentWindowDisplayOptions
 }
 
 struct UpdatingDisplayModePicker: View

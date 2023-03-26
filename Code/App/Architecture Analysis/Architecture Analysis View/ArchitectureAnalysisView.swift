@@ -8,12 +8,12 @@ struct ArchitectureAnalysisView: View
                           showRightSidebar: $displayOptions.showsRightSidebar)
         {
             CodebaseCentralView(analysis: analysis,
-                                displayOptions: $displayOptions)
+                                displayOptions: displayOptions)
         }
         leftSidebar:
         {
             CodebaseNavigatorView(analysis: analysis,
-                                  showsLinesOfCode: $displayOptions.showLoC)
+                                  showsLinesOfCode: $displayOptions.showsLinesOfCode)
         }
         rightSidebar:
         {
@@ -22,5 +22,5 @@ struct ArchitectureAnalysisView: View
     }
     
     @ObservedObject var analysis: ArchitectureAnalysis
-    @Binding var displayOptions: AnalysisDisplayOptions
+    @ObservedObject var displayOptions: DocumentWindowDisplayOptions
 }
