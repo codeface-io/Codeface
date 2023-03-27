@@ -24,13 +24,6 @@ struct CodefaceApp: App
         
         /// we provide our own menu option for fullscreen because the one from SwiftUI disappears as soon as we interact with any views ... 🤮
         UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
-        
-        Task
-        {
-            // FIXME: this waiting is an ugly workaround. without it it's too early to read the windows. NSApp.windows would still be empty because windows from last session would not have been restored yet
-            try await Task.sleep(for: .milliseconds(100))
-            Self.openDocumentWindowIfNoneIsOpen()
-        }
     }
     
 //    var body: some Scene
@@ -137,26 +130,6 @@ struct CodefaceApp: App
                 Divider()
             }
         }
-        .onChange(of: scenePhase)
-        {
-            // since we open a document window if none is open on launch, we know that some window scene is being created and therefore this scenePhase observation fires ...
-            
-            switch $0
-            {
-            case .background:
-                log("app went to background")
-
-            case .inactive:
-                log("app became inactive")
-
-            case .active:
-                log("app became active")
-                Task { TestingDashboardWindow.closeIfOpen() }
-
-            @unknown default:
-                log(warning: "app went to unknow scene phase: \(scenePhase)")
-            }
-        }
         
         TestingDashboardWindow.make()
     }
@@ -174,15 +147,33 @@ struct CodefaceApp: App
         }
     }
     
-    // MARK: - Window Management On Launch
+    // MARK: - Basics
+    
+    private var analysis: ArchitectureAnalysis?
+    {
+        focusedDocumentWindow?.codebaseProcessor.state.analysis
+    }
+    
+    @FocusedObject private var focusedDocumentWindow: DocumentWindow?
+    @Environment(\.openWindow) var openWindow
+    @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) var appDelegate
+}
+
+/// For Window Management On Launch. We have to use the app delegate, because onChange(of: scenePhase) does not work when no window is being opened on launch in the first place ... 🤮
+@MainActor class CodefaceAppDelegate: NSObject, NSApplicationDelegate
+{
+    func applicationDidBecomeActive(_ notification: Notification)
+    {
+        log("app did become active")
+        Self.openDocumentWindowIfNoneIsOpen()
+        TestingDashboardWindow.closeIfOpen()
+    }
     
     private static func openDocumentWindowIfNoneIsOpen()
     {
         if !moreWindowsThanTestingDashboardAreOpen()
         {
             log("🪟 gonna open document window because none is open")
-            
-            /// we cannot use `newDocument` here because we can't capture `self` in the Task in the initializer ... there is simply no clean way to trigger `newDocument` on app launch 🤮
             NSDocumentController.shared.newDocument(nil)
         }
     }
@@ -193,16 +184,4 @@ struct CodefaceApp: App
         if NSApp.window(forID: TestingDashboardWindow.id) != nil { return false }
         return NSApp.windows.count == 1
     }
-
-    @Environment(\.scenePhase) var scenePhase
-    
-    // MARK: - Basics
-    
-    private var analysis: ArchitectureAnalysis?
-    {
-        focusedDocumentWindow?.codebaseProcessor.state.analysis
-    }
-    
-    @FocusedObject private var focusedDocumentWindow: DocumentWindow?
-    @Environment(\.openWindow) var openWindow
 }
