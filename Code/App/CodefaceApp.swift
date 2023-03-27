@@ -27,6 +27,8 @@ struct CodefaceApp: App
         
         Task
         {
+            // FIXME: this waiting is an ugly workaround. without it it's too early to read the windows. NSApp.windows would still be empty because windows from last session would not have been restored yet
+            try await Task.sleep(for: .milliseconds(100))
             Self.openDocumentWindowIfNoneIsOpen()
         }
     }
@@ -187,18 +189,8 @@ struct CodefaceApp: App
     
     private static func moreWindowsThanTestingDashboardAreOpen() -> Bool
     {
-        if NSApp.windows.count > 1
-        {
-            return true
-        }
-        
-        if NSApp.window(forID: TestingDashboardWindow.id) != nil
-        {
-            return false
-        }
-        
-        print(NSApp.windows.count)
-        
+        if NSApp.windows.count > 1 { return true }
+        if NSApp.window(forID: TestingDashboardWindow.id) != nil { return false }
         return NSApp.windows.count == 1
     }
 
