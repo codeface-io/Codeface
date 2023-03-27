@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AsyncButton: View
+struct LargeButton: View
 {
     internal init(_ title: String,
                   colorScheme: ColorScheme = .gray,

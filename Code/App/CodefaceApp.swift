@@ -87,7 +87,7 @@ struct CodefaceApp: App
                 
                 Button("Show Testing Dashboard")
                 {
-                    openWindow(id: TestingDashboardWindow.id)
+                    openWindow(id: TestingDashboard.id)
                 }
             }
 
@@ -131,7 +131,7 @@ struct CodefaceApp: App
             }
         }
         
-        TestingDashboardWindow.make()
+        TestingDashboard()
     }
     // */
     
@@ -157,31 +157,4 @@ struct CodefaceApp: App
     @FocusedObject private var focusedDocumentWindow: DocumentWindow?
     @Environment(\.openWindow) var openWindow
     @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) var appDelegate
-}
-
-/// For Window Management On Launch. We have to use the app delegate, because onChange(of: scenePhase) does not work when no window is being opened on launch in the first place ... 🤮
-@MainActor class CodefaceAppDelegate: NSObject, NSApplicationDelegate
-{
-    func applicationDidBecomeActive(_ notification: Notification)
-    {
-        log("app did become active")
-        Self.openDocumentWindowIfNoneIsOpen()
-        TestingDashboardWindow.closeIfOpen()
-    }
-    
-    private static func openDocumentWindowIfNoneIsOpen()
-    {
-        if !moreWindowsThanTestingDashboardAreOpen()
-        {
-            log("🪟 gonna open document window because none is open")
-            NSDocumentController.shared.newDocument(nil)
-        }
-    }
-    
-    private static func moreWindowsThanTestingDashboardAreOpen() -> Bool
-    {
-        if NSApp.windows.count > 1 { return true }
-        if NSApp.window(forID: TestingDashboardWindow.id) != nil { return false }
-        return NSApp.windows.count == 1
-    }
 }
