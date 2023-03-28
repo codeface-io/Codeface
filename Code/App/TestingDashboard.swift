@@ -8,33 +8,34 @@ struct TestingDashboard: Scene
     {
         Window("Testing Dashboard", id: Self.id)
         {
-            HStack
+            HSplitView
             {
-                VStack(spacing: 20)
+                List
                 {
                     LargeButton("Log App Store Transactions")
                     {
                         AppStoreClient.shared.debugLogAllTransactions()
                     }
+                    .padding(.bottom)
                     
                     LargeButton("Log Window States")
                     {
                         NSApp.debugLogWindows()
                     }
+                    .padding(.bottom)
                     
                     LargeButton("Log Bundle Infos")
                     {
                         Bundle.main.debugLogInfos()
                     }
-                    
-                    Spacer()
                 }
-                .frame(maxWidth: 250)
-                .padding()
+                .frame(minWidth: 100, maxWidth: 350)
+                .listStyle(.sidebar)
                 
                 LogView()
             }
         }
+        .windowStyle(.hiddenTitleBar)
     }
     
     static let id = "testing-dashboard"
