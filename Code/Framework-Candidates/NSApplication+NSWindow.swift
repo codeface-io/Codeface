@@ -11,11 +11,23 @@ extension NSApplication
         }
     }
     
+    func closeWindows(where shouldClose: (NSWindow) -> Bool)
+    {
+        for window in windows
+        {
+            if shouldClose(window)
+            {
+                log("🪟 gonna close window with id: \(window.identifier?.rawValue ?? "nil")")
+                window.close()
+            }
+        }
+    }
+    
     func closeWindowIfOpen(id: String)
     {
         if let window = NSApp.window(withID: id)
         {
-            log("🪟 gonna close window with id '\(id)'")
+            log("🪟 gonna close window with id: \(id)")
             window.close()
         }
     }

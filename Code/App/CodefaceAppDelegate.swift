@@ -25,7 +25,8 @@ import SwiftyToolz
         
         if isFirstActivationAfterLaunch
         {
-            NSApp.closeWindowIfOpen(id: TestingDashboard.id)
+            // we assume that identified windows are auxilliary ones
+            NSApp.closeWindows { $0.identifier != nil }
             hasBecomeActiveAfterLaunch = true
         }
     }
