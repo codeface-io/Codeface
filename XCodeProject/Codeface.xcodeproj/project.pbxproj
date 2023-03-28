@@ -193,7 +193,6 @@
 		964464BD295204DB0004382F /* CodebaseAnalysisContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseAnalysisContentPanel.swift; sourceTree = "<group>"; };
 		9651AC0D29D2F7940054FB52 /* AboutPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPanel.swift; sourceTree = "<group>"; };
 		9651AC1129D310EC0054FB52 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
-		9651AC1329D313460054FB52 /* FoundationToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FoundationToolz; path = ../../FoundationToolz; sourceTree = "<group>"; };
 		9651AC1429D348050054FB52 /* URL+Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Codeface.swift"; sourceTree = "<group>"; };
 		965795AD2954652C00CB9F3F /* EmptyProcesorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyProcesorView.swift; sourceTree = "<group>"; };
 		965795B02954687300CB9F3F /* CodebaseProcessorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorState.swift; sourceTree = "<group>"; };
@@ -220,7 +219,6 @@
 		96D59CD1294AC36A003C55B5 /* DocumentLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLink.swift; sourceTree = "<group>"; };
 		96D8DB1C28A1503C00B84B45 /* PathBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBarView.swift; sourceTree = "<group>"; };
 		96E0C0BA29D076720087A79F /* FeatureVote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureVote.swift; sourceTree = "<group>"; };
-		96E0C0BC29D0800F0087A79F /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
 		96E0C0BD29D0806A0087A79F /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		96E0C0C029D080F10087A79F /* FeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureView.swift; sourceTree = "<group>"; };
 		96E0C0C229D081550087A79F /* SubscriptionManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManagementView.swift; sourceTree = "<group>"; };
@@ -704,8 +702,6 @@
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
-				9651AC1329D313460054FB52 /* FoundationToolz */,
-				96E0C0BC29D0800F0087A79F /* SwiftyToolz */,
 				9E00727A218E250E0094BD1C /* Code */,
 				96E5A9C629BD171A00B0A913 /* App Store Synced.storekit */,
 				96D5515B29BE6565009A7818 /* App Store Testing.storekit */,
@@ -1376,7 +1372,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftNodes";
 			requirement = {
 				kind = exactVersion;
-				version = 0.8.0;
+				version = 0.8.1;
 			};
 		};
 		9656A69D25287F0D00D4CF26 /* XCRemoteSwiftPackageReference "SwiftyToolz" */ = {
@@ -1384,7 +1380,7 @@
 			repositoryURL = "https://github.com/flowtoolz/SwiftyToolz.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.4.0;
+				version = 0.5.0;
 			};
 		};
 		966F39AF291BF54F00198B14 /* XCRemoteSwiftPackageReference "FoundationToolz" */ = {
@@ -1392,7 +1388,7 @@
 			repositoryURL = "https://github.com/flowtoolz/FoundationToolz";
 			requirement = {
 				kind = exactVersion;
-				version = 0.2.0;
+				version = 0.3.0;
 			};
 		};
 		96C2118A28E347F0008024AA /* XCRemoteSwiftPackageReference "SwiftObserver" */ = {
@@ -1400,7 +1396,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftObserver";
 			requirement = {
 				kind = exactVersion;
-				version = 7.0.7;
+				version = 7.0.8;
 			};
 		};
 		96CA360428E0F92800D71370 /* XCRemoteSwiftPackageReference "LSPServiceKit" */ = {
@@ -1408,7 +1404,7 @@
 			repositoryURL = "https://github.com/codeface-io/LSPServiceKit";
 			requirement = {
 				kind = exactVersion;
-				version = 0.3.0;
+				version = 0.3.1;
 			};
 		};
 		96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */ = {
@@ -1416,7 +1412,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftLSP";
 			requirement = {
 				kind = exactVersion;
-				version = 0.3.9;
+				version = 0.3.10;
 			};
 		};
 		96F19FBA294E9EAB00E441AC /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */ = {
@@ -1424,7 +1420,7 @@
 			repositoryURL = "https://github.com/flowtoolz/SwiftUIToolzOLD";
 			requirement = {
 				kind = exactVersion;
-				version = 0.3.7;
+				version = 0.3.8;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
