@@ -10,10 +10,21 @@ enum AboutPanel
         shared.makeKeyAndOrderFront(sender)
     }
     
-    static let shared: NSPanel =
+    static let shared: some NSWindow =
     {
         let panel = NSPanel(contentViewController: NSHostingController(rootView: AboutView()))
-        panel.title = "About \(Bundle.main.name ?? "This App")"
+        
+        panel.styleMask = [
+            .closable,
+            .miniaturizable,
+            .resizable,
+            .titled,
+        ]
+        
+        panel.hidesOnDeactivate = false
+        panel.titlebarSeparatorStyle = .none
+        panel.titleVisibility = .hidden
+        
         return panel
     }()
 }
@@ -24,32 +35,51 @@ struct AboutView: View
     {
         Center
         {
-            VStack(spacing: 10)
+            HStack(alignment: .top, spacing: 0)
             {
                 AppIcon()
-                    .frame(minWidth: 100, minHeight: 100)
+                    .frame(minWidth: 130, minHeight: 130)
+                    .padding(22)
                 
-                if let name = Bundle.main.name
+                VStack(alignment: .leading, spacing: 0)
                 {
-                    Text(name)
-                        .font(.title)
-                        .fixedSize()
+                    if let name = Bundle.main.name
+                    {
+                        Text(name)
+                            .font(.system(size: 38))
+                    }
+                    
+                    if let version = Bundle.main.version,
+                       let buildNumber = Bundle.main.buildNumber
+                    {
+                        Text("Version \(version) (\(buildNumber))")
+                            .foregroundColor(.secondary)
+                            .fontWeight(.light)
+                    }
+                    
+                    Spacer()
+                    
+                    if let copyright = Bundle.main.copyright
+                    {
+                        Text(copyright)
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    Spacer()
+                    
+                    HStack(spacing: 10)
+                    {
+                        DocumentLink.privacyPolicy
+                        
+                        Spacer()
+                        
+                        DocumentLink.licenseAgreement
+                    }
                 }
-                
-                if let version = Bundle.main.version,
-                   let buildNumber = Bundle.main.buildNumber
-                {
-                    Text("Version \(version) (\(buildNumber))")
-                        .fixedSize()
-                }
-                
-                if let copyright = Bundle.main.copyright
-                {
-                    Text(copyright)
-                        .fixedSize()
-                }
+                .padding([.top, .bottom, .trailing])
             }
-            .padding()
+            .frame(minWidth: 515)
         }
     }
 }

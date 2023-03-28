@@ -87,9 +87,9 @@ struct CodefaceApp: App
 
             CommandGroup(replacing: .help)
             {
-                HelpLink.lspService
+                DocumentLink.lspService
 
-                HelpLink.documentation
+                DocumentLink.documentation
                 
                 Divider()
                 

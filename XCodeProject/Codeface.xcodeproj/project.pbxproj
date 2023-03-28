@@ -82,7 +82,7 @@
 		96D59CC7294AB9F8003C55B5 /* ArchitectureAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC6294AB9F8003C55B5 /* ArchitectureAnalysisView.swift */; };
 		96D59CC9294ABB13003C55B5 /* CodebaseNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC8294ABB13003C55B5 /* CodebaseNavigatorView.swift */; };
 		96D59CCB294ABC1F003C55B5 /* DoubleSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */; };
-		96D59CD2294AC36A003C55B5 /* HelpLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CD1294AC36A003C55B5 /* HelpLink.swift */; };
+		96D59CD2294AC36A003C55B5 /* DocumentLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CD1294AC36A003C55B5 /* DocumentLink.swift */; };
 		96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DB1C28A1503C00B84B45 /* PathBarView.swift */; };
 		96DC635528E100D900DD5BEB /* SwiftLSP in Frameworks */ = {isa = PBXBuildFile; productRef = 96DC635428E100D900DD5BEB /* SwiftLSP */; };
 		96E0C0BB29D076720087A79F /* FeatureVote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0C0BA29D076720087A79F /* FeatureVote.swift */; };
@@ -215,7 +215,7 @@
 		96D59CC6294AB9F8003C55B5 /* ArchitectureAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchitectureAnalysisView.swift; sourceTree = "<group>"; };
 		96D59CC8294ABB13003C55B5 /* CodebaseNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseNavigatorView.swift; sourceTree = "<group>"; };
 		96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleSidebarView.swift; sourceTree = "<group>"; };
-		96D59CD1294AC36A003C55B5 /* HelpLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLink.swift; sourceTree = "<group>"; };
+		96D59CD1294AC36A003C55B5 /* DocumentLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLink.swift; sourceTree = "<group>"; };
 		96D8DB1C28A1503C00B84B45 /* PathBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBarView.swift; sourceTree = "<group>"; };
 		96E0C0BA29D076720087A79F /* FeatureVote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureVote.swift; sourceTree = "<group>"; };
 		96E0C0BC29D0800F0087A79F /* SwiftyToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyToolz; path = ../../SwiftyToolz; sourceTree = "<group>"; };
@@ -503,7 +503,6 @@
 			children = (
 				96D59CC2294AB895003C55B5 /* CodebaseCentralView.swift */,
 				960BBE9529004F9000F9DC2A /* LSPServiceHint.swift */,
-				96D59CD1294AC36A003C55B5 /* HelpLink.swift */,
 				964464BC295204BC0004382F /* Top Panel */,
 				96106E6B2963561F0002F13C /* Architecture View */,
 				960A7AAD28ABB0A000F334CA /* CodeView.swift */,
@@ -673,6 +672,7 @@
 				96106E6729634D9B0002F13C /* Codebase */,
 				9625697829BA5E59002FB7CC /* In App Purchase */,
 				963170E929CE0A1100B146D5 /* DocumentWindowDisplayOptions.swift */,
+				96D59CD1294AC36A003C55B5 /* DocumentLink.swift */,
 				96E0C0BA29D076720087A79F /* FeatureVote.swift */,
 			);
 			path = App;
@@ -993,7 +993,7 @@
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
 				9629D5AC29252A1E006B1E98 /* Client.swift in Sources */,
 				9688065B297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift in Sources */,
-				96D59CD2294AC36A003C55B5 /* HelpLink.swift in Sources */,
+				96D59CD2294AC36A003C55B5 /* DocumentLink.swift in Sources */,
 				964464BE295204DB0004382F /* CodebaseAnalysisContentPanel.swift in Sources */,
 				96106E612962DEF20002F13C /* CodebaseLocationPersister.swift in Sources */,
 				96E1350F2962DD6C00DF8A43 /* CodeFile.swift in Sources */,

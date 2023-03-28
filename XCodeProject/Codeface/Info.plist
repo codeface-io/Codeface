@@ -46,7 +46,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2018 Flowtoolz. All rights reserved.</string>
+	<string>Copyright © 2018–2023 Sebastian Fichtner. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>UTExportedTypeDeclarations</key>

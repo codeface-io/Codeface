@@ -54,9 +54,9 @@ struct LSPServiceHint: View
                     .foregroundColor(Color(lspServiceIsRunning ? NSColor.systemGreen : NSColor.systemRed))
             }
             
-            HelpLink.lspService
+            DocumentLink.lspService
             
-            HelpLink.documentation
+            DocumentLink.documentation
         }
         .task { await checkLSPService() }
     }
