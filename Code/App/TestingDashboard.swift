@@ -22,6 +22,11 @@ struct TestingDashboard: Scene
                         NSApp.debugLogWindows()
                     }
                     
+                    LargeButton("Log Bundle Infos")
+                    {
+                        Bundle.main.debugLogInfos()
+                    }
+                    
                     Spacer()
                 }
                 .frame(maxWidth: 250)

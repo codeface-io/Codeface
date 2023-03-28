@@ -52,6 +52,8 @@
 		964464BE295204DB0004382F /* CodebaseAnalysisContentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464BD295204DB0004382F /* CodebaseAnalysisContentPanel.swift */; };
 		964464BF295204F70004382F /* PathBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464BA295204900004382F /* PathBar.swift */; };
 		964464C02952052C0004382F /* CodebaseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464BB295204900004382F /* CodebaseProcessor.swift */; };
+		9651AC0E29D2F7940054FB52 /* AboutPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651AC0D29D2F7940054FB52 /* AboutPanel.swift */; };
+		9651AC1229D310EC0054FB52 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651AC1129D310EC0054FB52 /* AppIcon.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
 		965795AE2954652C00CB9F3F /* EmptyProcesorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965795AD2954652C00CB9F3F /* EmptyProcesorView.swift */; };
 		965795B12954687300CB9F3F /* CodebaseProcessorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965795B02954687300CB9F3F /* CodebaseProcessorState.swift */; };
@@ -188,6 +190,9 @@
 		964464BA295204900004382F /* PathBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBar.swift; sourceTree = "<group>"; };
 		964464BB295204900004382F /* CodebaseProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessor.swift; sourceTree = "<group>"; };
 		964464BD295204DB0004382F /* CodebaseAnalysisContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseAnalysisContentPanel.swift; sourceTree = "<group>"; };
+		9651AC0D29D2F7940054FB52 /* AboutPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPanel.swift; sourceTree = "<group>"; };
+		9651AC1129D310EC0054FB52 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
+		9651AC1329D313460054FB52 /* FoundationToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FoundationToolz; path = ../../FoundationToolz; sourceTree = "<group>"; };
 		965795AD2954652C00CB9F3F /* EmptyProcesorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyProcesorView.swift; sourceTree = "<group>"; };
 		965795B02954687300CB9F3F /* CodebaseProcessorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorState.swift; sourceTree = "<group>"; };
 		965795B22954697700CB9F3F /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -657,6 +662,7 @@
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
 				961BB8F229D1938A005E6080 /* CodefaceAppDelegate.swift */,
 				960C4D6A29C3C170009282A2 /* TestingDashboard.swift */,
+				9651AC0D29D2F7940054FB52 /* AboutPanel.swift */,
 				964151E029D0F968008E6074 /* FindAndFilterMenuOptions.swift */,
 				964151DE29D0F925008E6074 /* ViewMenuOptions.swift */,
 				965A7AD629649FB7006C5A3A /* Document Window */,
@@ -696,6 +702,7 @@
 		9E95A6FA218C73C7009A58A9 = {
 			isa = PBXGroup;
 			children = (
+				9651AC1329D313460054FB52 /* FoundationToolz */,
 				96E0C0BC29D0800F0087A79F /* SwiftyToolz */,
 				9E00727A218E250E0094BD1C /* Code */,
 				96E5A9C629BD171A00B0A913 /* App Store Synced.storekit */,
@@ -748,6 +755,7 @@
 				961D497429A26A8A00E95E99 /* RelativeFilePath.swift */,
 				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
 				961BB8F429D19E1E005E6080 /* NSApplication+NSWindow.swift */,
+				9651AC1129D310EC0054FB52 /* AppIcon.swift */,
 			);
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
@@ -931,6 +939,7 @@
 				96D59CC3294AB895003C55B5 /* CodebaseCentralView.swift in Sources */,
 				96106E662962DF1C0002F13C /* CodeSymbolArtifact+CodeSymbol.swift in Sources */,
 				96E135072962DD5900DF8A43 /* ArtifactViewModel+Layout.swift in Sources */,
+				9651AC1229D310EC0054FB52 /* AppIcon.swift in Sources */,
 				96E5A9C329BCC87200B0A913 /* ProductID+Codeface.swift in Sources */,
 				96E479D228359CCE00762FD7 /* ArtifactView.swift in Sources */,
 				961D497529A26A8A00E95E99 /* RelativeFilePath.swift in Sources */,
@@ -955,6 +964,7 @@
 				9619A2B92967104E00863BC0 /* CodeArtifact+Metrics.swift in Sources */,
 				9619A2B22966E57700863BC0 /* CodebaseAnalysis.swift in Sources */,
 				964464C02952052C0004382F /* CodebaseProcessor.swift in Sources */,
+				9651AC0E29D2F7940054FB52 /* AboutPanel.swift in Sources */,
 				96E0C0C529D084A00087A79F /* Center.swift in Sources */,
 				9619A2B42966E87C00863BC0 /* ProcessingFailureView.swift in Sources */,
 				960A7AAE28ABB0A000F334CA /* CodeView.swift in Sources */,

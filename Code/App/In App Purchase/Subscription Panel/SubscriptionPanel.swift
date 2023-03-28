@@ -58,9 +58,7 @@ struct SubscriptionPanel: View
             
             HStack(spacing: 0)
             {
-                Image("AppIconImage")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                AppIcon()
                 
                 GeometryReader
                 {

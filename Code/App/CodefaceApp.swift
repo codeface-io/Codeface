@@ -42,6 +42,14 @@ struct CodefaceApp: App
         }
         .commands
         {
+            CommandGroup(replacing: .appInfo)
+            {
+                Button("About Codeface")
+                {
+                    AboutPanel.show()
+                }
+            }
+            
             CommandGroup(after: .appInfo)
             {
                 if let focusedDocumentWindow
