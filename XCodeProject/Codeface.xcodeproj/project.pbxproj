@@ -54,6 +54,7 @@
 		964464C02952052C0004382F /* CodebaseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464BB295204900004382F /* CodebaseProcessor.swift */; };
 		9651AC0E29D2F7940054FB52 /* AboutPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651AC0D29D2F7940054FB52 /* AboutPanel.swift */; };
 		9651AC1229D310EC0054FB52 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651AC1129D310EC0054FB52 /* AppIcon.swift */; };
+		9651AC1529D348050054FB52 /* URL+Codeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651AC1429D348050054FB52 /* URL+Codeface.swift */; };
 		9656A69F25287F0D00D4CF26 /* SwiftyToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 9656A69E25287F0D00D4CF26 /* SwiftyToolz */; };
 		965795AE2954652C00CB9F3F /* EmptyProcesorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965795AD2954652C00CB9F3F /* EmptyProcesorView.swift */; };
 		965795B12954687300CB9F3F /* CodebaseProcessorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965795B02954687300CB9F3F /* CodebaseProcessorState.swift */; };
@@ -193,6 +194,7 @@
 		9651AC0D29D2F7940054FB52 /* AboutPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPanel.swift; sourceTree = "<group>"; };
 		9651AC1129D310EC0054FB52 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		9651AC1329D313460054FB52 /* FoundationToolz */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FoundationToolz; path = ../../FoundationToolz; sourceTree = "<group>"; };
+		9651AC1429D348050054FB52 /* URL+Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Codeface.swift"; sourceTree = "<group>"; };
 		965795AD2954652C00CB9F3F /* EmptyProcesorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyProcesorView.swift; sourceTree = "<group>"; };
 		965795B02954687300CB9F3F /* CodebaseProcessorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorState.swift; sourceTree = "<group>"; };
 		965795B22954697700CB9F3F /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -661,7 +663,6 @@
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
 				961BB8F229D1938A005E6080 /* CodefaceAppDelegate.swift */,
 				960C4D6A29C3C170009282A2 /* TestingDashboard.swift */,
-				9651AC0D29D2F7940054FB52 /* AboutPanel.swift */,
 				964151E029D0F968008E6074 /* FindAndFilterMenuOptions.swift */,
 				964151DE29D0F925008E6074 /* ViewMenuOptions.swift */,
 				965A7AD629649FB7006C5A3A /* Document Window */,
@@ -673,6 +674,7 @@
 				9625697829BA5E59002FB7CC /* In App Purchase */,
 				963170E929CE0A1100B146D5 /* DocumentWindowDisplayOptions.swift */,
 				96D59CD1294AC36A003C55B5 /* DocumentLink.swift */,
+				9651AC1429D348050054FB52 /* URL+Codeface.swift */,
 				96E0C0BA29D076720087A79F /* FeatureVote.swift */,
 			);
 			path = App;
@@ -750,6 +752,7 @@
 				960730B528982F3C008F1D7C /* Arrow.swift */,
 				96E0C0C429D084A00087A79F /* Center.swift */,
 				96E0C0BD29D0806A0087A79F /* LargeButton.swift */,
+				9651AC0D29D2F7940054FB52 /* AboutPanel.swift */,
 				960C4D6529C3A3A6009282A2 /* LogView.swift */,
 				96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */,
 				961D497429A26A8A00E95E99 /* RelativeFilePath.swift */,
@@ -990,6 +993,7 @@
 				964464BF295204F70004382F /* PathBar.swift in Sources */,
 				96E1350B2962DD6200DF8A43 /* CodeFolder+LSP Server.swift in Sources */,
 				964151E129D0F968008E6074 /* FindAndFilterMenuOptions.swift in Sources */,
+				9651AC1529D348050054FB52 /* URL+Codeface.swift in Sources */,
 				960A7AA428AB875100F334CA /* DependencyView.swift in Sources */,
 				9629D5AC29252A1E006B1E98 /* Client.swift in Sources */,
 				9688065B297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift in Sources */,

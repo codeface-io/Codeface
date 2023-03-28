@@ -46,7 +46,7 @@ struct CodefaceApp: App
             {
                 Button("About Codeface")
                 {
-                    AboutPanel.show()
+                    openWindow(id: AboutPanel.id)
                 }
             }
             
@@ -140,6 +140,9 @@ struct CodefaceApp: App
         }
         
         TestingDashboard()
+        
+        AboutPanel(privacyPolicyURL: .privacyPolicy,
+                   licenseAgreementURL: .licenseAgreement)
     }
     // */
     

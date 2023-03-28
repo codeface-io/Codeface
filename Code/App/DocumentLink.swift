@@ -3,22 +3,15 @@ import SwiftUI
 struct DocumentLink: View
 {
     static let lspService = DocumentLink("How to Setup LSPService",
-                                         urlString: "https://codeface.io/lspservice/index.html")
+                                         url: .lspService)
     
     static let documentation = DocumentLink("General Codeface Documentation",
-                                            urlString: "https://codeface.io/documentation/index.html")
+                                            url: .documentation)
     
-    static let privacyPolicy = DocumentLink("Privacy Policy",
-                                            urlString: "https://codeface.io/privacy-policy")
-    
-    static let licenseAgreement = DocumentLink("License Agreement",
-                                               urlString: "https://www.apple.com/legal/macapps/stdeula")
-    // alternatively: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-    
-    init(_ text: String, urlString: String)
+    init(_ text: String, url: URL)
     {
         self.text = text
-        self.url = URL(string: urlString)!
+        self.url = url
     }
     
     var body: some View

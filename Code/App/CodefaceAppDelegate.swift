@@ -7,45 +7,29 @@ import SwiftyToolz
     func applicationDidFinishLaunching(_ notification: Notification)
     {
         log("app did finish launching")
-    }
-    
-    func applicationDidBecomeActive(_ notification: Notification)
-    {
-        log("app did become active")
-        setupWindowVisibilityOnAppActivation()
+        Self.closeAuxilliaryWindows()
+        Self.openDocumentWindowIfNoneExist()
     }
     
     // MARK: - Window Management
     
-    private func setupWindowVisibilityOnAppActivation()
+    private static func closeAuxilliaryWindows()
     {
-        Self.openDocumentWindowIfNoneExist()
-        
-        let isFirstActivationAfterLaunch = !hasBecomeActiveAfterLaunch
-        
-        if isFirstActivationAfterLaunch
-        {
-            // we assume that identified windows are auxilliary ones
-            NSApp.closeWindows { $0.identifier != nil }
-            hasBecomeActiveAfterLaunch = true
-        }
+        // we assume that identified windows are auxilliary ones
+        NSApp.closeWindows { $0.identifier != nil }
     }
-    
-    private var hasBecomeActiveAfterLaunch = false
     
     private static func openDocumentWindowIfNoneExist()
     {
-        if !moreWindowsThanTestingDashboardExist()
+        if !unidentifiedWindowsExist()
         {
             log("🪟 gonna open document window because none exists")
-            NSDocumentController.shared.newDocument(nil)
+            NSDocumentController.shared.newDocument(self)
         }
     }
     
-    private static func moreWindowsThanTestingDashboardExist() -> Bool
+    private static func unidentifiedWindowsExist() -> Bool
     {
-        if NSApp.windows.count > 1 { return true }
-        if NSApp.windowExists(withID: TestingDashboard.id) { return false }
-        return NSApp.windows.count == 1
+        NSApp.windows.first { $0.identifier == nil } != nil
     }
 }
