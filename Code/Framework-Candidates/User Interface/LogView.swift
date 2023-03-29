@@ -7,53 +7,55 @@ struct LogView: View
     {
         VStack(alignment: .leading, spacing: 0)
         {
-            ZStack
+            List
             {
-                List
+                Text("Internal Logs")
+                    .font(.title2)
+                
+                ForEach(logViewModel.logEntries.filter({ $0.level >= minimumLogLevel }))
                 {
-                    Text("Internal Logs")
-                        .font(.title2)
+                    entry in
                     
-                    ForEach(logViewModel.logEntries)
+                    Label
                     {
-                        entry in
-                        
-                        Label
+                        VStack(alignment: .leading)
                         {
-                            VStack(alignment: .leading)
-                            {
-                                Text(entry.message)
-                                
-                                Text(entry.context)
-                                    .foregroundColor(.secondary)
-                            }
-                        } icon: {
-                            LogIcon(logLevel: entry.level)
+                            Text(entry.message)
+                            
+                            Text(entry.context)
+                                .foregroundColor(.secondary)
                         }
+                    } icon: {
+                        LogIcon(logLevel: entry.level)
                     }
                 }
-                .textSelection(.enabled)
-                
-                VStack
+            }
+            .textSelection(.enabled)
+            .animation(.default, value: minimumLogLevel)
+        }
+        .toolbar
+        {
+            ToolbarItemGroup(placement: .primaryAction)
+            {
+                Picker("Minimum Log Level", selection: $minimumLogLevel)
                 {
-                    Spacer()
-                    
-                    HStack
+                    ForEach(Log.Level.allCases)
                     {
-                        Spacer()
-                        
-                        Button {
-                            logViewModel.clear()
-                        } label: {
-                            Label("Clear", systemImage: "trash")
-                        }
-                        .padding()
+                        Text($0.displayName).tag($0)
                     }
+                }
+                .lineLimit(1)
+                
+                Button {
+                    logViewModel.clear()
+                } label: {
+                    Label("Clear", systemImage: "trash")
                 }
             }
         }
     }
     
+    @State private var minimumLogLevel = Log.Level.info
     @ObservedObject private var logViewModel = LogViewModel.shared
 }
 

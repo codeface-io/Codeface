@@ -27,7 +27,7 @@ extension AppStoreClient
         switch requestStatus
         {
         case .success:
-            log("Did request refund")
+            log("Did successfully request refund")
         case .userCancelled:
             log("User did cancel refund request")
         @unknown default:

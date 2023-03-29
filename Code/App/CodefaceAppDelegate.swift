@@ -6,12 +6,12 @@ import SwiftyToolz
 {
     func applicationDidFinishLaunching(_ notification: Notification)
     {
-        log("app did finish launching")
+        log(verbose: "app did finish launching")
     }
     
     func applicationDidBecomeActive(_ notification: Notification)
     {
-        log("app did become active")
+        log(verbose: "app did become active")
         
         if didJustLaunch
         {

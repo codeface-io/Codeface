@@ -8,7 +8,7 @@ struct TestingDashboard: Scene
     {
         Window("Testing Dashboard", id: Self.id)
         {
-            HSplitView
+            NavigationSplitView
             {
                 List
                 {
@@ -29,13 +29,15 @@ struct TestingDashboard: Scene
                         Bundle.main.debugLogInfos()
                     }
                 }
-                .frame(minWidth: 100, maxWidth: 350)
                 .listStyle(.sidebar)
-                
+            }
+            detail:
+            {
                 LogView()
             }
         }
-        .windowStyle(.hiddenTitleBar)
+        .windowStyle(.titleBar)
+        .windowToolbarStyle(.unified(showsTitle: true))
     }
     
     static let id = "testing-dashboard"

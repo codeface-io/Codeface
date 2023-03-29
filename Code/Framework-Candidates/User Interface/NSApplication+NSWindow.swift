@@ -7,7 +7,7 @@ extension NSApplication
     {
         for window in windows
         {
-            log("🪟 Window:\n\tid = \(window.identifier?.rawValue ?? "nil")\n\tisVisible = \(window.isVisible)\n\tisKeyWindow = \(window.isKeyWindow)")
+            log(verbose: "🪟 Window:\n\tid = \(window.identifier?.rawValue ?? "nil")\n\tisVisible = \(window.isVisible)\n\tisKeyWindow = \(window.isKeyWindow)")
         }
     }
     
@@ -17,7 +17,7 @@ extension NSApplication
         {
             if shouldClose(window)
             {
-                log("🪟 gonna close window with id: \(window.identifier?.rawValue ?? "nil")")
+                log(verbose: "🪟 gonna close window with id: \(window.identifier?.rawValue ?? "nil")")
                 window.close()
             }
         }
@@ -27,7 +27,7 @@ extension NSApplication
     {
         if let window = NSApp.window(withID: id)
         {
-            log("🪟 gonna close window with id: \(id)")
+            log(verbose: "🪟 gonna close window with id: \(id)")
             window.close()
         }
     }
