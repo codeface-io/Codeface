@@ -77,7 +77,7 @@
          </EnvironmentVariable>
       </EnvironmentVariables>
       <StoreKitConfigurationFileReference
-         identifier = "../../App Store Testing.storekit">
+         identifier = "../../App Store Synced.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
