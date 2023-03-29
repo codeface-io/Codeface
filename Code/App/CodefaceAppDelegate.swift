@@ -7,9 +7,22 @@ import SwiftyToolz
     func applicationDidFinishLaunching(_ notification: Notification)
     {
         log("app did finish launching")
-        Self.closeAuxilliaryWindows()
+    }
+    
+    func applicationDidBecomeActive(_ notification: Notification)
+    {
+        log("app did become active")
+        
+        if didJustLaunch
+        {
+            Self.closeAuxilliaryWindows()
+            didJustLaunch = false
+        }
+        
         Self.openDocumentWindowIfNoneExist()
     }
+    
+    private var didJustLaunch = true
     
     // MARK: - Window Management
     
