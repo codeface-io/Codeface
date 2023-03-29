@@ -43,7 +43,7 @@ struct SubscriptionMenu: View
             
             Button("Vote On New Features (Subscribers Only) ...")
             {
-                openURL(URL(string: FeatureVote.urlString)!)
+                openURL(.featureVote)
             }
             .disabled(!appStoreClient.ownsProducts)
             

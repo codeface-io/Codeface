@@ -46,7 +46,7 @@ struct SubscriptionManagementView: View
         {
             LargeButton("Vote on New Features", colorScheme: .green)
             {
-                openURL(URL(string: FeatureVote.urlString)!)
+                openURL(.featureVote)
             }
         }
         else

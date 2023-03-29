@@ -2,6 +2,8 @@ import Foundation
 
 extension URL
 {
+    static let featureVote = URL(string: "https://flowtoolz.typeform.com/to/afRj6wz4")!
+    
     static let lspService = URL(string: "https://codeface.io/lspservice/index.html")!
     
     static let documentation = URL(string: "https://codeface.io/documentation/index.html")!
