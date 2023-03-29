@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -852,8 +852,9 @@
 		9E95A6FB218C73C7009A58A9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = Flowtoolz;
 				TargetAttributes = {
 					96143EFD290ED68A008CA3C2 = {
@@ -1256,6 +1257,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8T3R57GCBV;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 8T3R57GCBV;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Codeface/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				LD_RUNPATH_SEARCH_PATHS = (
