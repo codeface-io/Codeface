@@ -19,10 +19,17 @@ struct SubscriptionPanel: View
                         .padding(.leading)
                         .opacity(isExpanded ? 0 : 1)
                 
-                    if let subscription = appStoreClient.fetchedProducts[.subscriptionLevel1]
+                    if let subscriptionFetch
                     {
-                        Text(subscription.displayName + " – " + subscription.description)
-                            .opacity(isExpanded ? 0 : 1)
+                        switch subscriptionFetch
+                        {
+                        case .success(let subscription):
+                            Text(subscription.displayName + " – " + subscription.description)
+                                .opacity(isExpanded ? 0 : 1)
+                        case .failure:
+                            Text("Support the Development of Codeface")
+                                .opacity(isExpanded ? 0 : 1)
+                        }
                     }
                     else
                     {
@@ -68,20 +75,50 @@ struct SubscriptionPanel: View
                     {
                         VStack(alignment: .leading, spacing: 0)
                         {
-                            if let subscription = appStoreClient.fetchedProducts[.subscriptionLevel1]
+                            if let subscriptionFetch
                             {
-                                SubscriptionManagementView(subscription: subscription)
+                                switch subscriptionFetch
+                                {
+                                case .success(let subscription):
+                                    SubscriptionManagementView(subscription: subscription)
+                                
+                                case .failure(let error):
+                                    Label
+                                    {
+                                        Text("Couldn't load infos from App Store:")
+                                    }
+                                    icon:
+                                    {
+                                        Image(systemName: "xmark.octagon.fill")
+                                            .foregroundColor(Color(.systemRed))
+                                    }
+                                    .padding(.bottom)
+                                    
+                                    Text(error.localizedDescription)
+                                        .padding(.bottom)
+                                    
+                                    Button {
+                                        Task { await retrieveSubscription() }
+                                    } label: {
+                                        Label("Retry", systemImage: "arrow.clockwise")
+                                    }
+                                }
                             }
                             else
                             {
-                                VStack(alignment: .leading)
+                                Label
                                 {
                                     Text("Loading Subscription Infos ...")
-                                    
-                                    Center
-                                    {
-                                        ProgressView().progressViewStyle(.circular)
-                                    }
+                                }
+                                icon:
+                                {
+                                    Image(systemName: "icloud.and.arrow.down")
+                                        .foregroundColor(.primary)
+                                }
+                                
+                                Center
+                                {
+                                    ProgressView().progressViewStyle(.circular)
                                 }
                             }
                         }
@@ -117,6 +154,28 @@ struct SubscriptionPanel: View
         .frame(maxHeight: height)
         .background(Color(.controlBackgroundColor))
         .clipped()
+        .task
+        {
+            await retrieveSubscription()
+        }
+    }
+    
+    private func retrieveSubscription() async
+    {
+        subscriptionFetch = nil
+        
+        do
+        {
+            let subscriptionProduct = try await appStoreClient.retrieveProduct(for: .subscriptionLevel1)
+            
+            subscriptionFetch = .success(subscriptionProduct)
+        }
+        catch
+        {
+            log(error: "Couldn't get product infos from App Store because of this error:\n\t" + error.localizedDescription)
+            
+            subscriptionFetch = .failure(error)
+        }
     }
     
     private var height: CGFloat?
@@ -147,6 +206,7 @@ struct SubscriptionPanel: View
     {
         case full, banner, hidden
     }
-
+    
+    @State private var subscriptionFetch: Result<Product, Error>? = nil
     @ObservedObject private var appStoreClient = AppStoreClient.shared
 }

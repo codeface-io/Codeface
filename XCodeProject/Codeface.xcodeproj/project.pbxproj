@@ -65,6 +65,7 @@
 		966F39B1291BF54F00198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B0291BF54F00198B14 /* FoundationToolz */; };
 		966F39B3291BF56200198B14 /* FoundationToolz in Frameworks */ = {isa = PBXBuildFile; productRef = 966F39B2291BF56200198B14 /* FoundationToolz */; };
 		9675A0B7294CE1C900C784AA /* NavigationAndFocusPOCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675A0B6294CE1C900C784AA /* NavigationAndFocusPOCView.swift */; };
+		967BFD5C29D4AFE400BD9CA7 /* DocumentLink+Codeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967BFD5B29D4AFE400BD9CA7 /* DocumentLink+Codeface.swift */; };
 		96842F4629AF53E000FB0439 /* SecondaryToolbarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96842F4529AF53E000FB0439 /* SecondaryToolbarButtons.swift */; };
 		96842F4829AF541700FB0439 /* PrimaryToolbarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96842F4729AF541700FB0439 /* PrimaryToolbarButtons.swift */; };
 		9688065B297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688065A297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift */; };
@@ -200,6 +201,7 @@
 		965A7AD82964A319006C5A3A /* CodebaseProcessorSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorSteps.swift; sourceTree = "<group>"; };
 		966F39B7291C045900198B14 /* XPCExecutableClientExportedInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutableClientExportedInterface.swift; sourceTree = "<group>"; };
 		9675A0B6294CE1C900C784AA /* NavigationAndFocusPOCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAndFocusPOCView.swift; sourceTree = "<group>"; };
+		967BFD5B29D4AFE400BD9CA7 /* DocumentLink+Codeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentLink+Codeface.swift"; sourceTree = "<group>"; };
 		96842F4529AF53E000FB0439 /* SecondaryToolbarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryToolbarButtons.swift; sourceTree = "<group>"; };
 		96842F4729AF541700FB0439 /* PrimaryToolbarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryToolbarButtons.swift; sourceTree = "<group>"; };
 		9688065A297C25560075F8F3 /* CodeFolderArtifact+SortMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodeFolderArtifact+SortMetric.swift"; sourceTree = "<group>"; };
@@ -590,6 +592,30 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		967BFD5D29D4B02800BD9CA7 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				961BB8F429D19E1E005E6080 /* NSApplication+NSWindow.swift */,
+				96D59CD1294AC36A003C55B5 /* DocumentLink.swift */,
+				96E0C0C429D084A00087A79F /* Center.swift */,
+				96E0C0BD29D0806A0087A79F /* LargeButton.swift */,
+				9651AC0D29D2F7940054FB52 /* AboutPanel.swift */,
+				960C4D6529C3A3A6009282A2 /* LogView.swift */,
+				96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */,
+				9651AC1129D310EC0054FB52 /* AppIcon.swift */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
+		967BFD5E29D4B09700BD9CA7 /* SwiftUINodes */ = {
+			isa = PBXGroup;
+			children = (
+				960730B528982F3C008F1D7C /* Arrow.swift */,
+				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
+			);
+			path = SwiftUINodes;
+			sourceTree = "<group>";
+		};
 		96D59CBF294AB811003C55B5 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -671,7 +697,7 @@
 				96106E6729634D9B0002F13C /* Codebase */,
 				9625697829BA5E59002FB7CC /* In App Purchase */,
 				963170E929CE0A1100B146D5 /* DocumentWindowDisplayOptions.swift */,
-				96D59CD1294AC36A003C55B5 /* DocumentLink.swift */,
+				967BFD5B29D4AFE400BD9CA7 /* DocumentLink+Codeface.swift */,
 				9651AC1429D348050054FB52 /* URL+Codeface.swift */,
 				96E0C0BA29D076720087A79F /* FeatureVote.swift */,
 			);
@@ -745,16 +771,9 @@
 		9EB8BA5B218E2C78007ED4E7 /* Framework-Candidates */ = {
 			isa = PBXGroup;
 			children = (
-				960730B528982F3C008F1D7C /* Arrow.swift */,
-				96E0C0C429D084A00087A79F /* Center.swift */,
-				96E0C0BD29D0806A0087A79F /* LargeButton.swift */,
-				9651AC0D29D2F7940054FB52 /* AboutPanel.swift */,
-				960C4D6529C3A3A6009282A2 /* LogView.swift */,
-				96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */,
+				967BFD5E29D4B09700BD9CA7 /* SwiftUINodes */,
+				967BFD5D29D4B02800BD9CA7 /* User Interface */,
 				961D497429A26A8A00E95E99 /* RelativeFilePath.swift */,
-				96E479CF28359C9900762FD7 /* AnimatableLine.swift */,
-				961BB8F429D19E1E005E6080 /* NSApplication+NSWindow.swift */,
-				9651AC1129D310EC0054FB52 /* AppIcon.swift */,
 			);
 			path = "Framework-Candidates";
 			sourceTree = "<group>";
@@ -1005,6 +1024,7 @@
 				9629D5B929252A2C006B1E98 /* XPCExecutable.swift in Sources */,
 				9675A0B7294CE1C900C784AA /* NavigationAndFocusPOCView.swift in Sources */,
 				96E135162962DD7F00DF8A43 /* CodeSymbolArtifact+CodeArtifact.swift in Sources */,
+				967BFD5C29D4AFE400BD9CA7 /* DocumentLink+Codeface.swift in Sources */,
 				960BBE9629004F9000F9DC2A /* LSPServiceHint.swift in Sources */,
 				96E1350E2962DD6700DF8A43 /* CodeSymbol.swift in Sources */,
 				960C4D6B29C3C170009282A2 /* TestingDashboard.swift in Sources */,

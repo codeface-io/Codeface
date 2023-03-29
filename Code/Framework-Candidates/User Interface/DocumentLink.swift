@@ -2,12 +2,6 @@ import SwiftUI
 
 struct DocumentLink: View
 {
-    static let lspService = DocumentLink("How to Setup LSPService",
-                                         url: .lspService)
-    
-    static let documentation = DocumentLink("General Codeface Documentation",
-                                            url: .documentation)
-    
     init(_ text: String, url: URL)
     {
         self.text = text

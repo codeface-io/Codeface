@@ -4,11 +4,11 @@ struct Center<Content: View>: View
 {
     var body: some View
     {
-        VStack
+        HStack
         {
             Spacer()
             
-            HStack
+            VStack
             {
                 Spacer()
                 content()

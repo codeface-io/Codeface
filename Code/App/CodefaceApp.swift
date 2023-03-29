@@ -10,18 +10,6 @@ struct CodefaceApp: App
     {
         LogViewModel.shared.startObservingLog()
         
-        Task
-        {
-            do
-            {
-                try await AppStoreClient.shared.fetch(product: .subscriptionLevel1)
-            }
-            catch
-            {
-                log(error: error.localizedDescription)
-            }
-        }
-        
         /// we provide our own menu option for fullscreen because the one from SwiftUI disappears as soon as we interact with any views ... 🤮
         UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
     }
