@@ -19,17 +19,11 @@ struct SubscriptionPanel: View
                         .padding(.leading)
                         .opacity(isExpanded ? 0 : 1)
                 
-                    if let subscriptionFetch
+                    if let bannerText
                     {
-                        switch subscriptionFetch
-                        {
-                        case .success(let subscription):
-                            Text(subscription.displayName + " – " + subscription.description)
-                                .opacity(isExpanded ? 0 : 1)
-                        case .failure:
-                            Text("Support the Development of Codeface")
-                                .opacity(isExpanded ? 0 : 1)
-                        }
+                        Text(bannerText)
+                            .lineLimit(1)
+                            .opacity(isExpanded ? 0 : 1)
                     }
                     else
                     {
@@ -205,6 +199,21 @@ struct SubscriptionPanel: View
     enum Visibility
     {
         case full, banner, hidden
+    }
+    
+    private var bannerText: String?
+    {
+        guard let subscriptionFetch else { return nil }
+        
+        if case .success(let subscription) = subscriptionFetch
+        {
+            return subscription.displayName + " – " + subscription.description
+        }
+        else
+        {
+            // when the fetch failed, we display a default text on the banner instead of error indication
+            return "Support the Development of Codeface"
+        }
     }
     
     @State private var subscriptionFetch: Result<Product, Error>? = nil
