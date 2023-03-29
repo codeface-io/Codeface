@@ -249,8 +249,12 @@ class AppStoreClient: ObservableObject
     {
         Task
         {
+            var numberOfReceivedTransactions = 0
+            
             for await verificationResult in Transaction.all
             {
+                numberOfReceivedTransactions += 1
+                
                 do
                 {
                     let transaction = try verificationResult.payloadValue
@@ -261,6 +265,11 @@ class AppStoreClient: ObservableObject
                 {
                     log(error.localizedDescription)
                 }
+            }
+            
+            if numberOfReceivedTransactions == 0
+            {
+                log("No App Store transactions found")
             }
         }
     }
