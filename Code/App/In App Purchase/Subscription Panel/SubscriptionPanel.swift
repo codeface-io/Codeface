@@ -145,7 +145,7 @@ struct SubscriptionPanel: View
             .frame(height: isExpanded ? nil : 0)
             .clipped()
         }
-        .frame(maxHeight: height)
+        .frame(height: height)
         .background(Color(.controlBackgroundColor))
         .clipped()
         .task
