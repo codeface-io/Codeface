@@ -11,8 +11,8 @@ struct AboutPanel: Scene
         {
             AboutView(privacyPolicyURL: privacyPolicyURL,
                       licenseAgreementURL: licenseAgreementURL)
-                .ignoresSafeArea()
         }
+        .windowResizability(.contentSize)
         .defaultPosition(.topLeading)
         .windowStyle(.hiddenTitleBar)
     }
@@ -29,10 +29,13 @@ struct AboutView: View
     {
         HStack(alignment: .top, spacing: 0)
         {
-            AppIcon()
-                .frame(minWidth: 100, minHeight: 100)
-                .padding([.top, .bottom], 44)
-                .padding([.leading, .trailing], 36)
+            Center
+            {
+                AppIcon()
+                    .frame(width: 120, height: 120)
+            }
+            .ignoresSafeArea()
+            .frame(width: 200, height: 180)
             
             VStack(alignment: .leading, spacing: 0)
             {
@@ -40,6 +43,7 @@ struct AboutView: View
                 {
                     Text(name)
                         .font(.system(size: 38))
+                        .fixedSize()
                 }
                 
                 if let version = Bundle.main.version,
@@ -48,6 +52,7 @@ struct AboutView: View
                     Text("Version \(version) (\(buildNumber))")
                         .foregroundColor(.secondary)
                         .fontWeight(.light)
+                        .fixedSize()
                 }
                 
                 Spacer()
@@ -59,24 +64,26 @@ struct AboutView: View
                         .lineLimit(nil)
                         .font(.footnote)
                         .foregroundColor(.secondary)
+                        .fixedSize()
                 }
                 
                 Spacer()
                 
-                HStack(spacing: 10)
+                HStack(spacing: 40)
                 {
                     DocumentLink("Privacy Policy",
                                  url: privacyPolicyURL)
-                    
-                    Spacer()
+                    .fixedSize()
                     
                     DocumentLink("License Agreement",
                                  url: licenseAgreementURL)
+                    .fixedSize()
                 }
             }
-            .padding([.top, .bottom, .trailing])
+            .padding([.top, .trailing, .bottom])
+            .ignoresSafeArea()
+            .frame(height: 180)
         }
-        .frame(minWidth: 530)
     }
     
     let privacyPolicyURL: URL

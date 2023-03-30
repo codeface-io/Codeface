@@ -12,21 +12,34 @@ struct TestingDashboard: Scene
             {
                 List
                 {
-                    LargeButton("Log App Store Transactions")
+                    Section("Log Current State")
                     {
-                        AppStoreClient.shared.debugLogAllTransactions()
-                    }
-                    .padding(.bottom)
-                    
-                    LargeButton("Log Window States")
-                    {
-                        NSApp.debugLogWindows()
-                    }
-                    .padding(.bottom)
-                    
-                    LargeButton("Log Bundle Infos")
-                    {
-                        Bundle.main.debugLogInfos()
+                        Button {
+                            AppStoreClient.shared.debugLogAllTransactions()
+                        } label: {
+                            Label("App Store Transactions",
+                                  systemImage: "icloud")
+                            .lineLimit(1)
+                        }
+                        .buttonStyle(.link)
+                        
+                        Button {
+                            NSApp.debugLogWindows()
+                        } label: {
+                            Label("Windows",
+                                  systemImage: "macwindow")
+                            .lineLimit(1)
+                        }
+                        .buttonStyle(.link)
+                        
+                        Button {
+                            Bundle.main.debugLogInfos()
+                        } label: {
+                            Label("Main Bundle",
+                                  systemImage: "shippingbox")
+                            .lineLimit(1)
+                        }
+                        .buttonStyle(.link)
                     }
                 }
                 .listStyle(.sidebar)

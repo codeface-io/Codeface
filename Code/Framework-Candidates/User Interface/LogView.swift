@@ -9,10 +9,10 @@ struct LogView: View
         {
             List
             {
-                Text("Internal Logs")
+                Text("Log Messages")
                     .font(.title2)
                 
-                ForEach(logViewModel.logEntries.filter({ $0.level >= minimumLogLevel }))
+                ForEach(logViewModel.filteredLogEntries)
                 {
                     entry in
                     
@@ -31,13 +31,13 @@ struct LogView: View
                 }
             }
             .textSelection(.enabled)
-            .animation(.default, value: minimumLogLevel)
+            .animation(.default, value: logViewModel.minimumLogLevel)
         }
         .toolbar
         {
             ToolbarItemGroup(placement: .primaryAction)
             {
-                Picker("Minimum Log Level", selection: $minimumLogLevel)
+                Picker("Minimum Log Level", selection: $logViewModel.minimumLogLevel)
                 {
                     ForEach(Log.Level.allCases)
                     {
@@ -45,17 +45,19 @@ struct LogView: View
                     }
                 }
                 .lineLimit(1)
+                .frame(minWidth: 100)
+                .help("Minimum Log Level")
                 
                 Button {
                     logViewModel.clear()
                 } label: {
-                    Label("Clear", systemImage: "trash")
+                    Label("Clear Logs", systemImage: "trash")
                 }
+                .help("Clear Logs")
             }
         }
     }
     
-    @State private var minimumLogLevel = Log.Level.info
     @ObservedObject private var logViewModel = LogViewModel.shared
 }
 
@@ -116,6 +118,17 @@ class LogViewModel: ObservableObject
     {
         logEntries.removeAll()
     }
+    
+    var filteredLogEntries: [Log.Entry]
+    {
+        logEntries.filter { $0.level >= minimumLogLevel }
+    }
+    
+    #if DEBUG
+    @Published var minimumLogLevel = Log.Level.verbose
+    #else
+    @Published var minimumLogLevel = Log.Level.info
+    #endif
     
     @Published var logEntries = [Log.Entry]()
 }

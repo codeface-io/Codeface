@@ -5,6 +5,11 @@ extension NSApplication
 {
     func debugLogWindows()
     {
+        guard !windows.isEmpty else
+        {
+            return log("🪟 There are no windows")
+        }
+        
         var output: String = windows.map
         {
             "🪟 Window:\n\tid = \($0.identifier?.rawValue ?? "nil")\n\tisVisible = \($0.isVisible)\n\tisKeyWindow = \($0.isKeyWindow)"

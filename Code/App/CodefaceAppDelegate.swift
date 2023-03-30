@@ -13,13 +13,24 @@ import SwiftyToolz
     {
         log(verbose: "Codeface did become active")
         
-        if didJustLaunch
+        Task
         {
-            Self.closeAuxilliaryWindows()
-            didJustLaunch = false
+            try await Task.sleep(for: .milliseconds(50))
+            Self.openDocumentWindowIfNoneExist()
         }
+    }
+    
+    func applicationWillUpdate(_ notification: Notification)
+    {
         
-        Self.openDocumentWindowIfNoneExist()
+//        log(verbose: "Codeface will update its windows")
+//        log("number of windows: \(NSApp.windows.count)")
+    }
+
+    func applicationDidUpdate(_ notification: Notification)
+    {
+//        log(verbose: "Codeface did update its windows")
+//        log("number of windows: \(NSApp.windows.count)")
     }
     
     func applicationDidResignActive(_ notification: Notification)
@@ -27,15 +38,7 @@ import SwiftyToolz
         log(verbose: "Codeface did become inactive")
     }
     
-    private var didJustLaunch = true
-    
     // MARK: - Window Management
-    
-    private static func closeAuxilliaryWindows()
-    {
-        // we assume that identified windows are auxilliary ones
-        NSApp.closeWindows { $0.identifier != nil }
-    }
     
     private static func openDocumentWindowIfNoneExist()
     {

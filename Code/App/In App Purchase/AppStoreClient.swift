@@ -249,17 +249,16 @@ class AppStoreClient: ObservableObject
     {
         Task
         {
-            var numberOfReceivedTransactions = 0
+            var lines = [String]()
             
             for await verificationResult in Transaction.all
             {
-                numberOfReceivedTransactions += 1
-                
                 do
                 {
                     let transaction = try verificationResult.payloadValue
                     
-                    log("Purchased: \(transaction.purchaseDate.formatted()) Expires: \(transaction.expirationDate?.formatted() ?? "Never")")
+                    lines +=
+                    "ID: \(transaction.productID) Purchased: \(transaction.purchaseDate.formatted()) Expires: \(transaction.expirationDate?.formatted() ?? "Never")"
                 }
                 catch
                 {
@@ -267,9 +266,13 @@ class AppStoreClient: ObservableObject
                 }
             }
             
-            if numberOfReceivedTransactions == 0
+            if lines.count == 0
             {
-                log("No App Store transactions found")
+                log("Found no verified App Store transactions")
+            }
+            else
+            {
+                log(lines.joined(separator: "\n"))
             }
         }
     }
