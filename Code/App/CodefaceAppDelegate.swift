@@ -6,12 +6,12 @@ import SwiftyToolz
 {
     func applicationDidFinishLaunching(_ notification: Notification)
     {
-        log(verbose: "app did finish launching")
+        log(verbose: "Codeface did finish launching")
     }
     
     func applicationDidBecomeActive(_ notification: Notification)
     {
-        log(verbose: "app did become active")
+        log(verbose: "Codeface did become active")
         
         if didJustLaunch
         {
@@ -20,6 +20,11 @@ import SwiftyToolz
         }
         
         Self.openDocumentWindowIfNoneExist()
+    }
+    
+    func applicationDidResignActive(_ notification: Notification)
+    {
+        log(verbose: "Codeface did become inactive")
     }
     
     private var didJustLaunch = true
@@ -36,7 +41,7 @@ import SwiftyToolz
     {
         if !unidentifiedWindowsExist()
         {
-            log("🪟 gonna open document window because none exists")
+            log(verbose: "🪟 gonna open document window because none exists")
             NSDocumentController.shared.newDocument(self)
         }
     }

@@ -274,8 +274,9 @@ class AppStoreClient: ObservableObject
         }
     }
     
-    // MARK: - Request Available Products
+    // MARK: - Fetch and Manage Available Products
     
+    /// Fetch the product if it hasn't been fetched already
     func retrieveProduct(for productID: ProductID) async throws -> Product
     {
         if let cachedProduct = fetchedProducts[productID]
@@ -345,7 +346,7 @@ extension Transaction
     {
         if let expirationDate
         {
-            return Date() >= expirationDate
+            return Date.now >= expirationDate
         }
         
         return false

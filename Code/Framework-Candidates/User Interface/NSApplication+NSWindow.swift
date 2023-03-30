@@ -5,10 +5,13 @@ extension NSApplication
 {
     func debugLogWindows()
     {
-        for window in windows
+        var output: String = windows.map
         {
-            log(verbose: "🪟 Window:\n\tid = \(window.identifier?.rawValue ?? "nil")\n\tisVisible = \(window.isVisible)\n\tisKeyWindow = \(window.isKeyWindow)")
+            "🪟 Window:\n\tid = \($0.identifier?.rawValue ?? "nil")\n\tisVisible = \($0.isVisible)\n\tisKeyWindow = \($0.isKeyWindow)"
         }
+        .joined(separator: "\n")
+        
+        log(output)
     }
     
     func closeWindows(where shouldClose: (NSWindow) -> Bool)
