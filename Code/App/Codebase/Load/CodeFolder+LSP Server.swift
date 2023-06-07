@@ -65,13 +65,13 @@ private extension CodeSymbol
                      server: LSP.Server) async throws
     {
         /// depth first recursive calls
-        let resultingChildren: [CodeSymbol] = try await lspDocumentSymbol.children.asyncMap
+        let resultingChildren: [CodeSymbol] = try await lspDocumentSymbol.children?.asyncMap
         {
             try await CodeSymbol(lspDocumentSymbol: $0,
                                  enclosingFile: enclosingFile,
                                  codebaseRootPathAbsolute: codebaseRootPathAbsolute,
                                  server: server)
-        }
+        } ?? []
         
         /// retrieve references
         let referenceLocations = try await CodeSymbol.retrieveReferences(for: lspDocumentSymbol,
