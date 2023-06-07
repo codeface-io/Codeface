@@ -27,7 +27,38 @@ extension CodeFolder
             
             try await server.notifyDidOpen(fileUri, containingText: file.code)
             
-            let retrievedSymbols = try await server.requestSymbols(in: fileUri)
+            let retrievedSymbols: [LSPDocumentSymbol] = await {
+                do {
+                    let symbols = try await server.requestSymbols(in: fileUri)
+                    log(verbose: "did receive \(symbols.count) symbols for file \(file.name)")
+                    return symbols
+                } catch {
+                    /**
+                     catches error -32007 ("File is not being analyzed") from dart language server and prevents most subsequent such errors
+                     
+                     the issue is supposedly fixed, but it still occured, and our delay and retry successfully handle it: https://github.com/Dart-Code/Dart-Code/issues/3929
+                     */
+                    if let lspError = error as? LSP.ErrorResult,
+                       lspError.code == -32007
+                    {
+                        do {
+                            let milliSecondsToWait = 500
+                            log("↻ Got LSP Error -32007. Will retry requesting symbols from server after \(milliSecondsToWait) ms ...")
+                            try await Task.sleep(for: .milliseconds(500))
+                            let symbols = try await server.requestSymbols(in: fileUri)
+                            log(verbose: "did receive \(symbols.count) symbols (after retry) for file \(file.name)")
+                            return symbols
+                        } catch {
+                            log(error.readable)
+                            return []
+                        }
+                    }
+                    
+                    // requesting symbols from the server may work for some files but not others, in which case we want to continue with the remaining files, so we log the error and assume zero symbols
+                    log(error.readable)
+                    return []
+                }
+            }()
             
             let symbolDataArray: [CodeSymbol] = try await retrievedSymbols.asyncMap
             {
