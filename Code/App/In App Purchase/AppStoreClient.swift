@@ -153,7 +153,7 @@ class AppStoreClient: ObservableObject
             }
         }
         
-        log("found \(updatedOwnedProducts.count) currently owned products")
+        log(verbose: "found \(updatedOwnedProducts.count) currently owned products")
         
         ownedProducts = updatedOwnedProducts
     }
