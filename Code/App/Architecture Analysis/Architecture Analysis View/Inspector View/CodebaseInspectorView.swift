@@ -31,8 +31,7 @@ struct CodebaseInspectorView: View
                 }
                 icon:
                 {
-                    Image(systemName: selectedArtifact.iconSystemImageName)
-                        .foregroundColor(.init(selectedArtifact.iconFillColor))
+                    ArtifactIconView(icon: selectedArtifact.icon, size: 14)
                 }
             }
             

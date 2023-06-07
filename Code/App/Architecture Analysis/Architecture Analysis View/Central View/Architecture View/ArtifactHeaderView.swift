@@ -4,10 +4,12 @@ struct ArtifactHeaderView: View
 {
     var body: some View
     {
-        HStack(alignment: .firstTextBaseline, spacing: 0)
+        let fontSize = artifactVM.fontSize
+        
+        HStack(alignment: .center, spacing: 0)
         {
-            Image(systemName: artifactVM.iconSystemImageName)
-                .foregroundColor(.init(artifactVM.iconFillColor))
+            ArtifactIconView(icon: artifactVM.icon,
+                             size: fontSize)
             
             Text(artifactVM.displayName)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -16,7 +18,7 @@ struct ArtifactHeaderView: View
                 .padding(.leading,
                          artifactVM.shouldCollapseHorizontally ? 0 : artifactVM.fontSize / 7)
         }
-        .font(.system(size: artifactVM.fontSize,
+        .font(.system(size: fontSize,
                       weight: .medium,
                       design: artifactVM.fontDesign))
     }

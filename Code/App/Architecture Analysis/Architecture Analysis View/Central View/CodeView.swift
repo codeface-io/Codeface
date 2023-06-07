@@ -21,8 +21,7 @@ struct CodeView: View
                 Label {
                     Text(artifact.codeArtifact.name)
                 } icon: {
-                    Image(systemName: artifact.iconSystemImageName)
-                        .foregroundColor(.init(artifact.iconFillColor))
+                    ArtifactIconView(icon: artifact.icon)
                 }
                 .font(.title)
                 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960334E92A30C2A5003EA41F /* ArtifactIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960334E82A30C2A5003EA41F /* ArtifactIcon.swift */; };
+		960334EB2A30C2D1003EA41F /* ArtifactIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960334EA2A30C2D1003EA41F /* ArtifactIconView.swift */; };
 		960730B628982F3C008F1D7C /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960730B528982F3C008F1D7C /* Arrow.swift */; };
 		960A7AA428AB875100F334CA /* DependencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA328AB875100F334CA /* DependencyView.swift */; };
 		960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A7AA928AB92AE00F334CA /* ArtifactHeaderView.swift */; };
@@ -153,6 +155,8 @@
 /* Begin PBXFileReference section */
 		96021330291D3CCB0082DEF4 /* XPCExecutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCExecutable.swift; sourceTree = "<group>"; };
 		96021333291D5CAB0082DEF4 /* ServiceExportedInterface+Conveniences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceExportedInterface+Conveniences.swift"; sourceTree = "<group>"; };
+		960334E82A30C2A5003EA41F /* ArtifactIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactIcon.swift; sourceTree = "<group>"; };
+		960334EA2A30C2D1003EA41F /* ArtifactIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactIconView.swift; sourceTree = "<group>"; };
 		960730B528982F3C008F1D7C /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
 		96081CFB29223D9100A562BA /* TestXPCExecutableForCodeface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestXPCExecutableForCodeface.swift; sourceTree = "<group>"; };
 		96081CFD292242E100A562BA /* RunProcessServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunProcessServiceTest.swift; sourceTree = "<group>"; };
@@ -311,6 +315,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		960334E72A30C100003EA41F /* Artifact Icon */ = {
+			isa = PBXGroup;
+			children = (
+				960334EA2A30C2D1003EA41F /* ArtifactIconView.swift */,
+				960334E82A30C2A5003EA41F /* ArtifactIcon.swift */,
+			);
+			path = "Artifact Icon";
+			sourceTree = "<group>";
+		};
 		96081D06292243EB00A562BA /* ProcessServiceTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -691,6 +704,7 @@
 				965A7AD72964A236006C5A3A /* Codebase Processor */,
 				965A7ADB2964A4E8006C5A3A /* Architecture Analysis */,
 				96E134F72962DC2200DF8A43 /* Architecture View Model */,
+				960334E72A30C100003EA41F /* Artifact Icon */,
 				96E134E92962DC2200DF8A43 /* Architecture */,
 				96106E6729634D9B0002F13C /* Codebase */,
 				9625697829BA5E59002FB7CC /* In App Purchase */,
@@ -944,6 +958,7 @@
 				96FDA72C29BCABCC0020A48F /* AppStoreClient.swift in Sources */,
 				96106E632962DF1C0002F13C /* CodeFileArtifact+CodeFile.swift in Sources */,
 				961BB8F329D1938A005E6080 /* CodefaceAppDelegate.swift in Sources */,
+				960334EB2A30C2D1003EA41F /* ArtifactIconView.swift in Sources */,
 				96E1350C2962DD6200DF8A43 /* CodeFolder.swift in Sources */,
 				96E135142962DD7A00DF8A43 /* CodeFolderArtifact.swift in Sources */,
 				96CFBB3628B582D20051C318 /* ArtifactViewModel+SwiftUI.swift in Sources */,
@@ -977,6 +992,7 @@
 				960730B628982F3C008F1D7C /* Arrow.swift in Sources */,
 				96E135132962DD7A00DF8A43 /* CodeArtifact.swift in Sources */,
 				9619A2B92967104E00863BC0 /* CodeArtifact+Metrics.swift in Sources */,
+				960334E92A30C2A5003EA41F /* ArtifactIcon.swift in Sources */,
 				9619A2B22966E57700863BC0 /* CodebaseAnalysis.swift in Sources */,
 				964464C02952052C0004382F /* CodebaseProcessor.swift in Sources */,
 				9651AC0E29D2F7940054FB52 /* AboutPanel.swift in Sources */,

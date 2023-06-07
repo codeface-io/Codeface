@@ -4,7 +4,7 @@ struct PathBarView: View
 {
     var body: some View
     {
-        HStack(alignment: .firstTextBaseline, spacing: 0)
+        HStack(alignment: .center, spacing: 0)
         {
             ForEach(overviewBar.artifactVMStack.indices, id: \.self)
             {
@@ -18,8 +18,7 @@ struct PathBarView: View
                         .padding([.leading, .trailing], 3)
                 }
                 
-                Image(systemName: artifact.iconSystemImageName)
-                    .foregroundColor(.init(artifact.iconFillColor))
+                ArtifactIconView(icon: artifact.icon, size: 14)
                     .padding(.trailing, 3)
                 
                 Text(artifact.codeArtifact.name)

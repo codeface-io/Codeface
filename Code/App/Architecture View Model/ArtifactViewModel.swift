@@ -21,18 +21,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
             }
         }
         
-        if isPackage
-        {
-            iconSystemImageName = "shippingbox.fill"
-            iconFillColor = .dynamic(.in(light: .bytes(167, 129, 79),
-                                         darkness: .bytes(193, 156, 106)))
-        }
-        else
-        {
-            iconSystemImageName = "folder.fill"
-            iconFillColor = .dynamic(.in(light: .bytes(19, 165, 235),
-                                         darkness: .bytes(83, 168, 209)))
-        }
+        icon = isPackage ? .package : .folder
         
         linesOfCodeColor = .system(.gray)
         
@@ -53,16 +42,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
             await ArtifactViewModel(symbolArtifact: $0)
         }
         
-        if fileArtifact.name.hasSuffix(".swift")
-        {
-            iconSystemImageName = "swift"
-            iconFillColor = .rgba(.bytes(251, 139, 57))
-        }
-        else
-        {
-            iconSystemImageName = "doc.fill"
-            iconFillColor = .rgba(.white)
-        }
+        icon = .forFile(named: fileArtifact.name)
             
         linesOfCodeColor = .system(systemColor(forLinesOfCode: await fileArtifact.linesOfCode))
         
@@ -78,13 +58,13 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
     private init(symbolArtifact: CodeSymbolArtifact) async
     {
         // create child presentations for subsymbols recursively
-        self.parts = await symbolArtifact.subsymbolGraph.values.asyncMap
+        parts = await symbolArtifact.subsymbolGraph.values.asyncMap
         {
             await ArtifactViewModel(symbolArtifact: $0)
         }
         
-        self.iconSystemImageName = symbolIconSystemImageName(for: symbolArtifact.kind)
-        self.iconFillColor = symbolIconFillColor(for: symbolArtifact.kind)
+        icon = .for(symbolKind: symbolArtifact.kind)
+        
         linesOfCodeColor = .system(.gray)
         
         metrics = await symbolArtifact.metrics
@@ -162,9 +142,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
     // MARK: - Colors & Symbols
     
     @Published var isInFocus = false
-    
-    let iconSystemImageName: String
-    let iconFillColor: UXColor
+    let icon: ArtifactIcon
     let linesOfCodeColor: UXColor
     
     // MARK: - Search
@@ -223,53 +201,6 @@ class DependencyVM: ObservableObject, Identifiable
     @Published var targetPoint: Point = .zero
     
     let weight: Int
-}
-
-private func symbolIconSystemImageName(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> String
-{
-    guard let symbolKind else { return "questionmark.square.fill" }
-    
-    switch symbolKind
-    {
-    case .File:
-        return "doc.fill"
-    case .Module, .Package:
-        return "shippingbox.fill"
-    case .Null:
-        return "square.fill"
-    default:
-        if let firstCharacter = symbolKind.name.first?.lowercased()
-        {
-            return firstCharacter + ".square.fill"
-        }
-        else
-        {
-            return "questionmark.square.fill"
-        }
-    }
-}
-
-private func symbolIconFillColor(for symbolKind: LSPDocumentSymbol.SymbolKind?) -> UXColor
-{
-    guard let symbolKind else { return .system(.secondaryLabel) }
-    
-    switch symbolKind
-    {
-    case .File, .Module, .Package:
-        return .rgba(.white)
-    case .Class, .Interface, .Struct:
-        return .system(.purple)
-    case .Namespace, .Enum:
-        return .system(.orange)
-    case .Method, .Constructor:
-        return .system(.blue)
-    case .Property, .Field, .EnumMember:
-        return .system(.teal)
-    case .Variable, .Constant, .Function, .Operator:
-        return .system(.green)
-    case .Number, .Boolean, .Array, .Object, .Key, .Null, .Event, .TypeParameter, .String:
-        return .system(.secondaryLabel)
-    }
 }
 
 private func systemColor(forLinesOfCode linesOfCode: Int) -> SystemColor

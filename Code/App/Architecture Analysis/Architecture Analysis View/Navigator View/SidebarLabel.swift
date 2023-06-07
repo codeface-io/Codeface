@@ -21,8 +21,7 @@ struct SidebarLabel: View
         }
         icon:
         {
-            Image(systemName: artifact.iconSystemImageName)
-                .foregroundColor(.init(artifact.iconFillColor))
+            ArtifactIconView(icon: artifact.icon, size: 16)
         }
     }
     
