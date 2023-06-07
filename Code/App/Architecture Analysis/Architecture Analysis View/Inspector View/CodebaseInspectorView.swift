@@ -31,7 +31,7 @@ struct CodebaseInspectorView: View
                 }
                 icon:
                 {
-                    ArtifactIconView(icon: selectedArtifact.icon, size: 14)
+                    ArtifactIconView(icon: selectedArtifact.icon, size: 16)
                 }
             }
             
