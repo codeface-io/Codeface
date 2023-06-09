@@ -27,12 +27,25 @@ extension CodeFolder
             
             try await server.notifyDidOpen(fileUri, containingText: file.code)
             
-            let retrievedSymbols: [LSPDocumentSymbol] = await {
-                do {
+            let retrievedSymbols: [LSPDocumentSymbol]? = await
+            {
+                do
+                {
                     let symbols = try await server.requestSymbols(in: fileUri)
-                    log(verbose: "did receive \(symbols.count) symbols for file \(file.name)")
+                    
+                    if let unwrappedSymbols = symbols
+                    {
+                        log(verbose: "did receive array of \(unwrappedSymbols.count) symbols for file \(file.name)")
+                    }
+                    else
+                    {
+                        log(verbose: "did receive no symbol array for file \(file.name)")
+                    }
+                    
                     return symbols
-                } catch {
+                }
+                catch
+                {
                     /**
                      catches error -32007 ("File is not being analyzed") from dart language server and prevents most subsequent such errors
                      
@@ -41,14 +54,17 @@ extension CodeFolder
                     if let lspError = error as? LSP.ErrorResult,
                        lspError.code == -32007
                     {
-                        do {
+                        do
+                        {
                             let milliSecondsToWait = 500
                             log("↻ Got LSP Error -32007. Will retry requesting symbols from server after \(milliSecondsToWait) ms ...")
                             try await Task.sleep(for: .milliseconds(500))
                             let symbols = try await server.requestSymbols(in: fileUri)
-                            log(verbose: "did receive \(symbols.count) symbols (after retry) for file \(file.name)")
+                            log(verbose: "did receive \(symbols?.count ?? 0) symbols (after retry) for file \(file.name)")
                             return symbols
-                        } catch {
+                        }
+                        catch
+                        {
                             log(error.readable)
                             return []
                         }
@@ -60,7 +76,7 @@ extension CodeFolder
                 }
             }()
             
-            let symbolDataArray: [CodeSymbol] = try await retrievedSymbols.asyncMap
+            let symbolDataArray: [CodeSymbol]? = try await retrievedSymbols?.asyncMap
             {
                 try await CodeSymbol(lspDocumentSymbol: $0,
                                      enclosingFile: fileUri,
