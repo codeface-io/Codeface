@@ -1438,7 +1438,7 @@
 			repositoryURL = "https://github.com/codeface-io/LSPServiceKit";
 			requirement = {
 				kind = exactVersion;
-				version = 0.3.2;
+				version = 0.3.3;
 			};
 		};
 		96DC635328E100D900DD5BEB /* XCRemoteSwiftPackageReference "SwiftLSP" */ = {
@@ -1446,7 +1446,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftLSP";
 			requirement = {
 				kind = exactVersion;
-				version = 0.3.11;
+				version = 0.3.12;
 			};
 		};
 		96F19FBA294E9EAB00E441AC /* XCRemoteSwiftPackageReference "SwiftUIToolzOLD" */ = {
