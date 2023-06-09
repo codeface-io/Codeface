@@ -15,7 +15,7 @@ struct CodebaseLocator: View
                 TextField("Language Name", text: $languageName)
                     .lineLimit(1)
                 
-                TextField("Code File Endings", text: $fileEndings)
+                TextField("Code File Endings", text: $fileEndingsInput)
                     .lineLimit(1)
             }
             .frame(minWidth: 300)
@@ -32,7 +32,7 @@ struct CodebaseLocator: View
                     isPresentingFileImporter = true
                 }
                 .buttonStyle(.borderedProminent)
-                .disabled(languageName.isEmpty || fileEndings.isEmpty)
+                .disabled(languageName.isEmpty || fileEndingsInput.isEmpty)
                 .fileImporter(isPresented: $isPresentingFileImporter,
                               allowedContentTypes: [.directory],
                               allowsMultipleSelection: false,
@@ -52,11 +52,13 @@ struct CodebaseLocator: View
                             throw "Empty array of URLs"
                         }
                         
-                        let fileEndingArray = fileEndings.components(separatedBy: .whitespaces)
+                        let fileEndings = fileEndings(fromInput: fileEndingsInput)
+                        
+                        log("Detected \(fileEndings.count) file endings in user input: \(fileEndings.joined(separator: ", "))")
                         
                         let config = LSP.CodebaseLocation(folder: firstURL,
                                                           languageName: languageName,
-                                                          codeFileEndings: fileEndingArray)
+                                                          codeFileEndings: fileEndings)
                         
                         confirm(config)
                     }
@@ -70,6 +72,13 @@ struct CodebaseLocator: View
     let confirm: (LSP.CodebaseLocation) -> Void
     
     @State private var languageName: String = ""
-    @State private var fileEndings: String = ""
+    @State private var fileEndingsInput: String = ""
     @State private var isPresentingFileImporter = false
+}
+
+private func fileEndings(fromInput input: String) -> [String]
+{
+    input
+        .components(separatedBy: .whitespaces.union(.punctuationCharacters))
+        .filter { !$0.isEmpty }
 }
