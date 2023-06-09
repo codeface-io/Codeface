@@ -54,6 +54,8 @@ struct CodebaseCentralView: View
                     case .treeMap:
                         VStack
                         {
+                            Spacer()
+                            
                             Label("Empty " + analysis.selectedArtifact.codeArtifact.kindName,
                                   systemImage: "xmark.rectangle")
                                 .foregroundColor(.secondary)
@@ -69,6 +71,8 @@ struct CodebaseCentralView: View
                             {
                                 LSPServiceHint()
                             }
+                            
+                            Spacer()
                         }
                         .padding(50)
                         
