@@ -25,47 +25,54 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
         }
         detail:
         {
-            ZStack
+            /**
+             TODO: This navigation stack is only here as a workaround for a bug by Apple. See whether they've fixed it and remove the workaround.
+             
+             https://developer.apple.com/forums/thread/728132
+             */
+            NavigationStack(path: $path.animation(.linear(duration: 0)))
             {
-                GeometryReader
+                ZStack
                 {
-                    geo in
-                    
-                    HStack(spacing: 0)
+                    GeometryReader
                     {
-                        Spacer()
+                        geo in
                         
-                        rightSidebar()
-                            .frame(width: max(Self.rightMinimumWidth, rightCurrentWidth - rightDragOffset))
-                            .frame(maxHeight: .infinity)
-                            .focused($focus, equals: .rightSidebar)
-                            .focusable(false)
-                    }
-                    
-                    HStack(spacing: 0)
-                    {
-                        content()
-                            .frame(width: (geo.size.width - (rightCurrentWidth - rightDragOffset)) - 1)
-                            .frame(maxHeight: .infinity)
-                            .background(Color(NSColor.windowBackgroundColor))
-                            .focused($focus, equals: .content)
-                            .focusable(false)
-                            .clipShape(Rectangle())
+                        HStack(spacing: 0)
+                        {
+                            Spacer()
+                            
+                            rightSidebar()
+                                .frame(width: max(Self.rightMinimumWidth, rightCurrentWidth - rightDragOffset))
+                                .frame(maxHeight: .infinity)
+                                .focused($focus, equals: .rightSidebar)
+                                .focusable(false)
+                        }
                         
-                        Rectangle()
-                            .fill(colorScheme == .dark ? .black : Color(white: 0.8706))
-                            .frame(width: 1)
-                            .frame(maxHeight: .infinity)
+                        HStack(spacing: 0)
+                        {
+                            content()
+                                .frame(width: (geo.size.width - (rightCurrentWidth - rightDragOffset)) - 1)
+                                .frame(maxHeight: .infinity)
+                                .background(Color(NSColor.windowBackgroundColor))
+                                .focused($focus, equals: .content)
+                                .focusable(false)
+                                .clipShape(Rectangle())
+                            
+                            Rectangle()
+                                .fill(colorScheme == .dark ? .black : Color(white: 0.8706))
+                                .frame(width: 1)
+                                .frame(maxHeight: .infinity)
+                            
+                            Spacer()
+                        }
                         
-                        Spacer()
-                    }
-
-                    DragHandle()
-                        .position(x: (geo.size.width - (rightCurrentWidth - rightDragOffset)) - 0.5,
-                                  y: geo.size.height / 2)
-                        .gesture(
-                            DragGesture()
-                                .onChanged
+                        DragHandle()
+                            .position(x: (geo.size.width - (rightCurrentWidth - rightDragOffset)) - 0.5,
+                                      y: geo.size.height / 2)
+                            .gesture(
+                                DragGesture()
+                                    .onChanged
                                 {
                                     if !rightIsDragging
                                     {
@@ -76,13 +83,14 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
                                     let widthWithoutDrag = showRightSidebar ? rightWidthWhenVisible : 0
                                     
                                     let potentialRightPosition = (geo.size.width - widthWithoutDrag) + $0.translation.width
-
+                                    
                                     guard potentialRightPosition >= Self.minimumContentWidth else { return }
-
+                                    
                                     rightDragOffset = $0.translation.width
                                 }
-                                .onEnded { _ in endDraggingRight() }
-                        )
+                                    .onEnded { _ in endDraggingRight() }
+                            )
+                    }
                 }
             }
         }
@@ -113,6 +121,13 @@ public struct DoubleSidebarView<LeftSidebar: View, Content: View, RightSidebar: 
             if contentOrRightLostFocus { self.focus = .leftSidebar }
         }
     }
+    
+    /**
+     TODO: This navigation path is only here as a workaround for a bug by Apple. See whether they've fixed it and remove the workaround.
+     
+     https://developer.apple.com/forums/thread/728132
+     */
+    @State private var path = NavigationPath()
     
     // MARK: - Focus
     
