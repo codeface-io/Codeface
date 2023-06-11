@@ -17,6 +17,7 @@ struct RootArtifactContentView: View
                                         pathBar: analysis.pathBar,
                                         ignoreSearchFilter: analysis.search.fieldIsFocused,
                                         bgBrightness: colorScheme == .dark ? 0 : 0.6)
+                    .animation(.some(.default.speed(0.5)), value: geo.size)
                     .drawingGroup()
                 }
                 else
@@ -47,11 +48,8 @@ struct RootArtifactContentView: View
                 
 //                print("attempt to layout \(artifactVM.codeArtifact.name) because size changed to \(newSize)")
                 
-                withAnimation(.easeInOut(duration: 1))
-                {
-                    artifactVM.updateLayout(forScopeSize: newSize.size,
-                                            ignoreSearchFilter: analysis.search.fieldIsFocused)
-                }
+                artifactVM.updateLayout(forScopeSize: newSize.size,
+                                        ignoreSearchFilter: analysis.search.fieldIsFocused)
             }
             .onChange(of: artifactVM)
             {
