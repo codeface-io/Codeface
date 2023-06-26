@@ -1406,7 +1406,7 @@
 			repositoryURL = "https://github.com/codeface-io/SwiftNodes";
 			requirement = {
 				kind = exactVersion;
-				version = 0.8.2;
+				version = 0.8.3;
 			};
 		};
 		9656A69D25287F0D00D4CF26 /* XCRemoteSwiftPackageReference "SwiftyToolz" */ = {
