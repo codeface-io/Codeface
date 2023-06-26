@@ -1,3 +1,4 @@
+import SwiftLSP
 import SwiftNodes
 import SwiftyToolz
 
@@ -5,7 +6,7 @@ import SwiftyToolz
 extension CodeSymbolArtifact
 {
     convenience init(symbol: CodeSymbol,
-                     enclosingFile: CodeFile,
+                     linesOfEnclosingFile: [String],
                      pathInRootFolder: RelativeFilePath,
                      additionalReferences: inout [CodeSymbol.ReferenceLocation])
     {
@@ -19,7 +20,7 @@ extension CodeSymbolArtifact
             var extraChildReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = CodeSymbolArtifact(symbol: childSymbol,
-                                           enclosingFile: enclosingFile,
+                                           linesOfEnclosingFile: linesOfEnclosingFile,
                                            pathInRootFolder: pathInRootFolder,
                                            additionalReferences: &extraChildReferences)
             
@@ -64,7 +65,8 @@ extension CodeSymbolArtifact
         
         graph.filterEssentialEdges()
         
-        let code = enclosingFile.code(in: symbol.range)
+        let code = getCode(of: symbol.range,
+                           inFileLines: linesOfEnclosingFile)
         
         self.init(name: symbol.name,
                   kind: symbol.kind,
@@ -73,4 +75,12 @@ extension CodeSymbolArtifact
                   code: code ?? "",
                   subsymbolGraph: graph)
     }
+}
+
+func getCode(of range: LSPRange, inFileLines fileLines: [String]) -> String?
+{
+    guard fileLines.isValid(index: range.start.line),
+          fileLines.isValid(index: range.end.line) else { return nil }
+    
+    return fileLines[range.start.line ... range.end.line].joined(separator: "\n")
 }

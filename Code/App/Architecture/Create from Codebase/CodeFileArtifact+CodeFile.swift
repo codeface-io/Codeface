@@ -18,7 +18,7 @@ extension CodeFileArtifact
             var extraReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = CodeSymbolArtifact(symbol: childSymbol,
-                                           enclosingFile: codeFile,
+                                           linesOfEnclosingFile: codeFile.lines,
                                            pathInRootFolder: pathInRootFolder,
                                            additionalReferences: &extraReferences)
             
