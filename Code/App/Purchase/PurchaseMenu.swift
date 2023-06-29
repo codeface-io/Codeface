@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftyToolz
 
-struct SubscriptionMenu: View
+struct PurchaseMenu: View
 {
     var body: some View
     {
@@ -65,7 +65,7 @@ struct SubscriptionMenu: View
         }
     }
     
-    @ObservedObject var displayOptions: DocumentWindowDisplayOptions
+    @ObservedObject var displayOptions: WindowDisplayOptions
     @ObservedObject var appStoreClient = AppStoreClient.shared
     @Environment(\.openURL) var openURL
 }

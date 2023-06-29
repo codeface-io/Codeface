@@ -44,7 +44,7 @@ struct FindAndFilterMenuOptions: View
         .keyboardShortcut("f", modifiers: [.shift, .command])
     }
     
-    private var analysis: ArchitectureAnalysis?
+    private var analysis: CodebaseAnalysis?
     {
         codebaseProcessor.state.analysis
     }

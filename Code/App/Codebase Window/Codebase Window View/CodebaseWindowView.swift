@@ -2,14 +2,14 @@ import SwiftUI
 import SwiftLSP
 import SwiftyToolz
 
-struct DocumentWindowView: View
+struct CodebaseWindowView: View
 {
     internal init(codebaseFile: Binding<CodebaseFileDocument>)
     {
         _codebaseFile = codebaseFile
         
         let codebase = codebaseFile.wrappedValue.codebase
-        _documentWindow = StateObject(wrappedValue: DocumentWindow(codebase: codebase))
+        _documentWindow = StateObject(wrappedValue: CodebaseWindow(codebase: codebase))
     }
     
     var body: some View
@@ -62,5 +62,5 @@ struct DocumentWindowView: View
     }
     
     @Binding var codebaseFile: CodebaseFileDocument
-    @StateObject private var documentWindow: DocumentWindow
+    @StateObject private var documentWindow: CodebaseWindow
 }

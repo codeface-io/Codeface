@@ -4,7 +4,7 @@ import Combine
 import SwiftyToolz
 
 @MainActor
-class DocumentWindow: ObservableObject
+class CodebaseWindow: ObservableObject
 {
     // MARK: - Initialize
     
@@ -140,5 +140,5 @@ class DocumentWindow: ObservableObject
     
     // MARK: - Display Options
     
-    let displayOptions = DocumentWindowDisplayOptions()
+    let displayOptions = WindowDisplayOptions()
 }

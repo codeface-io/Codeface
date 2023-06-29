@@ -29,27 +29,12 @@ extension ArtifactIcon
         
         switch fileEnding
         {
-        case "swift": return .swift
-        case "dart": return .dart
-        case "kt": return .kotlin
+        case "swift": return .systemImage(name: "swift",
+                                          fillColor: .rgba(.bytes(251, 139, 57)))
+        case "dart": return .imageName("dart")
+        case "kt": return .imageName("kotlin")
         default: return .file
         }
-    }
-    
-    static var kotlin: ArtifactIcon
-    {
-        .imageName("kotlin")
-    }
-    
-    static var dart: ArtifactIcon
-    {
-        .imageName("dart")
-    }
-    
-    static var swift: ArtifactIcon
-    {
-        .systemImage(name: "swift",
-                     fillColor: .rgba(.bytes(251, 139, 57)))
     }
     
     static var file: ArtifactIcon

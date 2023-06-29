@@ -34,7 +34,7 @@
 		961BB8F529D19E1E005E6080 /* NSApplication+NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BB8F429D19E1E005E6080 /* NSApplication+NSWindow.swift */; };
 		961D497529A26A8A00E95E99 /* RelativeFilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961D497429A26A8A00E95E99 /* RelativeFilePath.swift */; };
 		961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */; };
-		9625697729BA5E47002FB7CC /* SubscriptionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625697629BA5E47002FB7CC /* SubscriptionPanel.swift */; };
+		9625697729BA5E47002FB7CC /* PurchasePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625697629BA5E47002FB7CC /* PurchasePanelView.swift */; };
 		9629D5AC29252A1E006B1E98 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F0E290EDC32008CA3C2 /* Client.swift */; };
 		9629D5AD29252A1E006B1E98 /* TestXPCExecutableForCodeface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96081CFB29223D9100A562BA /* TestXPCExecutableForCodeface.swift */; };
 		9629D5AE29252A1E006B1E98 /* ServiceExportedInterface+Conveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96021333291D5CAB0082DEF4 /* ServiceExportedInterface+Conveniences.swift */; };
@@ -42,14 +42,14 @@
 		9629D5B829252A2C006B1E98 /* XPCExecutableServiceExportedInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96143F00290ED68A008CA3C2 /* XPCExecutableServiceExportedInterface.swift */; };
 		9629D5B929252A2C006B1E98 /* XPCExecutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96021330291D3CCB0082DEF4 /* XPCExecutable.swift */; };
 		963170E629CC800C00B146D5 /* AppStoreClient+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */; };
-		963170EA29CE0A1100B146D5 /* DocumentWindowDisplayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E929CE0A1100B146D5 /* DocumentWindowDisplayOptions.swift */; };
-		9639C27228D761A000779BA5 /* DocumentWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639C27128D761A000779BA5 /* DocumentWindowView.swift */; };
+		963170EA29CE0A1100B146D5 /* WindowDisplayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963170E929CE0A1100B146D5 /* WindowDisplayOptions.swift */; };
+		9639C27228D761A000779BA5 /* CodebaseWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639C27128D761A000779BA5 /* CodebaseWindowView.swift */; };
 		963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */; };
-		964151DD29D0F497008E6074 /* SubscriptionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964151DC29D0F497008E6074 /* SubscriptionMenu.swift */; };
+		964151DD29D0F497008E6074 /* PurchaseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964151DC29D0F497008E6074 /* PurchaseMenu.swift */; };
 		964151DF29D0F925008E6074 /* ViewMenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964151DE29D0F925008E6074 /* ViewMenuOptions.swift */; };
 		964151E129D0F968008E6074 /* FindAndFilterMenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964151E029D0F968008E6074 /* FindAndFilterMenuOptions.swift */; };
 		964464B22951D4090004382F /* DisplayModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B12951D4090004382F /* DisplayModePicker.swift */; };
-		964464B6295201660004382F /* DocumentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B5295200FC0004382F /* DocumentWindow.swift */; };
+		964464B6295201660004382F /* CodebaseWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B5295200FC0004382F /* CodebaseWindow.swift */; };
 		964464B72952016E0004382F /* DisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464B4295200FC0004382F /* DisplayMode.swift */; };
 		964464BE295204DB0004382F /* CodebaseAnalysisContentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464BD295204DB0004382F /* CodebaseAnalysisContentPanel.swift */; };
 		964464BF295204F70004382F /* PathBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964464BA295204900004382F /* PathBar.swift */; };
@@ -83,7 +83,7 @@
 		96D59CC1294AB82D003C55B5 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC0294AB82D003C55B5 /* SearchBarView.swift */; };
 		96D59CC3294AB895003C55B5 /* CodebaseCentralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC2294AB895003C55B5 /* CodebaseCentralView.swift */; };
 		96D59CC5294AB8DE003C55B5 /* CodebaseInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC4294AB8DE003C55B5 /* CodebaseInspectorView.swift */; };
-		96D59CC7294AB9F8003C55B5 /* ArchitectureAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC6294AB9F8003C55B5 /* ArchitectureAnalysisView.swift */; };
+		96D59CC7294AB9F8003C55B5 /* CodebaseAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC6294AB9F8003C55B5 /* CodebaseAnalysisView.swift */; };
 		96D59CC9294ABB13003C55B5 /* CodebaseNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CC8294ABB13003C55B5 /* CodebaseNavigatorView.swift */; };
 		96D59CCB294ABC1F003C55B5 /* DoubleSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */; };
 		96D59CD2294AC36A003C55B5 /* DocumentLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D59CD1294AC36A003C55B5 /* DocumentLink.swift */; };
@@ -181,17 +181,17 @@
 		961BB8F429D19E1E005E6080 /* NSApplication+NSWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSApplication+NSWindow.swift"; sourceTree = "<group>"; };
 		961D497429A26A8A00E95E99 /* RelativeFilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeFilePath.swift; sourceTree = "<group>"; };
 		961EFF31284FB8BC00DB7FE9 /* RootArtifactContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootArtifactContentView.swift; sourceTree = "<group>"; };
-		9625697629BA5E47002FB7CC /* SubscriptionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPanel.swift; sourceTree = "<group>"; };
+		9625697629BA5E47002FB7CC /* PurchasePanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasePanelView.swift; sourceTree = "<group>"; };
 		963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStoreClient+SwiftUI.swift"; sourceTree = "<group>"; };
-		963170E929CE0A1100B146D5 /* DocumentWindowDisplayOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentWindowDisplayOptions.swift; sourceTree = "<group>"; };
-		9639C27128D761A000779BA5 /* DocumentWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentWindowView.swift; sourceTree = "<group>"; };
+		963170E929CE0A1100B146D5 /* WindowDisplayOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowDisplayOptions.swift; sourceTree = "<group>"; };
+		9639C27128D761A000779BA5 /* CodebaseWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseWindowView.swift; sourceTree = "<group>"; };
 		963AE38A28D505B9006E17F2 /* CodebaseFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseFileDocument.swift; sourceTree = "<group>"; };
-		964151DC29D0F497008E6074 /* SubscriptionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionMenu.swift; sourceTree = "<group>"; };
+		964151DC29D0F497008E6074 /* PurchaseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseMenu.swift; sourceTree = "<group>"; };
 		964151DE29D0F925008E6074 /* ViewMenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMenuOptions.swift; sourceTree = "<group>"; };
 		964151E029D0F968008E6074 /* FindAndFilterMenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAndFilterMenuOptions.swift; sourceTree = "<group>"; };
 		964464B12951D4090004382F /* DisplayModePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayModePicker.swift; sourceTree = "<group>"; };
 		964464B4295200FC0004382F /* DisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMode.swift; sourceTree = "<group>"; };
-		964464B5295200FC0004382F /* DocumentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentWindow.swift; sourceTree = "<group>"; };
+		964464B5295200FC0004382F /* CodebaseWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseWindow.swift; sourceTree = "<group>"; };
 		964464BA295204900004382F /* PathBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBar.swift; sourceTree = "<group>"; };
 		964464BB295204900004382F /* CodebaseProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessor.swift; sourceTree = "<group>"; };
 		964464BD295204DB0004382F /* CodebaseAnalysisContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseAnalysisContentPanel.swift; sourceTree = "<group>"; };
@@ -218,7 +218,7 @@
 		96D59CC0294AB82D003C55B5 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		96D59CC2294AB895003C55B5 /* CodebaseCentralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseCentralView.swift; sourceTree = "<group>"; };
 		96D59CC4294AB8DE003C55B5 /* CodebaseInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseInspectorView.swift; sourceTree = "<group>"; };
-		96D59CC6294AB9F8003C55B5 /* ArchitectureAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchitectureAnalysisView.swift; sourceTree = "<group>"; };
+		96D59CC6294AB9F8003C55B5 /* CodebaseAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseAnalysisView.swift; sourceTree = "<group>"; };
 		96D59CC8294ABB13003C55B5 /* CodebaseNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseNavigatorView.swift; sourceTree = "<group>"; };
 		96D59CCA294ABC1F003C55B5 /* DoubleSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleSidebarView.swift; sourceTree = "<group>"; };
 		96D59CD1294AC36A003C55B5 /* DocumentLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLink.swift; sourceTree = "<group>"; };
@@ -430,16 +430,16 @@
 			path = "Concrete Code Artifacts";
 			sourceTree = "<group>";
 		};
-		9625697829BA5E59002FB7CC /* In App Purchase */ = {
+		9625697829BA5E59002FB7CC /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
-				96E0C0BF29D080B30087A79F /* Subscription Panel */,
-				964151DC29D0F497008E6074 /* SubscriptionMenu.swift */,
+				96E0C0BF29D080B30087A79F /* Purchase Panel */,
+				964151DC29D0F497008E6074 /* PurchaseMenu.swift */,
 				96E5A9C229BCC87200B0A913 /* ProductID+Codeface.swift */,
 				963170E529CC800C00B146D5 /* AppStoreClient+SwiftUI.swift */,
 				96FDA72B29BCABCC0020A48F /* AppStoreClient.swift */,
 			);
-			path = "In App Purchase";
+			path = Purchase;
 			sourceTree = "<group>";
 		};
 		964464BC295204BC0004382F /* Top Panel */ = {
@@ -471,14 +471,14 @@
 			path = Load;
 			sourceTree = "<group>";
 		};
-		965A7AD629649FB7006C5A3A /* Document Window */ = {
+		965A7AD629649FB7006C5A3A /* Codebase Window */ = {
 			isa = PBXGroup;
 			children = (
-				965A7ADE2964A6EE006C5A3A /* Document Window View */,
-				964464B5295200FC0004382F /* DocumentWindow.swift */,
+				965A7ADE2964A6EE006C5A3A /* Codebase Window View */,
+				964464B5295200FC0004382F /* CodebaseWindow.swift */,
 				96E134E02962DB8000DF8A43 /* CodebaseLocationPersister.swift */,
 			);
-			path = "Document Window";
+			path = "Codebase Window";
 			sourceTree = "<group>";
 		};
 		965A7AD72964A236006C5A3A /* Codebase Processor */ = {
@@ -501,14 +501,15 @@
 			path = "Codebase Processor View";
 			sourceTree = "<group>";
 		};
-		965A7ADB2964A4E8006C5A3A /* Architecture Analysis */ = {
+		965A7ADB2964A4E8006C5A3A /* Codebase Analysis */ = {
 			isa = PBXGroup;
 			children = (
-				965A7AE42965D991006C5A3A /* Architecture Analysis View */,
+				965A7AE42965D991006C5A3A /* Codebase Analysis View */,
 				9619A2B12966E57700863BC0 /* CodebaseAnalysis.swift */,
-				965795AF2954661700CB9F3F /* Display Mode */,
+				960334E72A30C100003EA41F /* Artifact Icon */,
+				96E134F72962DC2200DF8A43 /* Architecture View Model */,
 			);
-			path = "Architecture Analysis";
+			path = "Codebase Analysis";
 			sourceTree = "<group>";
 		};
 		965A7ADC2964A541006C5A3A /* Central View */ = {
@@ -520,6 +521,7 @@
 				96106E6B2963561F0002F13C /* Architecture View */,
 				960A7AAD28ABB0A000F334CA /* CodeView.swift */,
 				96FF8A44294F876100D06E36 /* ContentViewStyle.swift */,
+				965795AF2954661700CB9F3F /* Display Mode */,
 			);
 			path = "Central View";
 			sourceTree = "<group>";
@@ -534,15 +536,15 @@
 			path = "Codebase Processor";
 			sourceTree = "<group>";
 		};
-		965A7ADE2964A6EE006C5A3A /* Document Window View */ = {
+		965A7ADE2964A6EE006C5A3A /* Codebase Window View */ = {
 			isa = PBXGroup;
 			children = (
-				9639C27128D761A000779BA5 /* DocumentWindowView.swift */,
+				9639C27128D761A000779BA5 /* CodebaseWindowView.swift */,
 				96842F4729AF541700FB0439 /* PrimaryToolbarButtons.swift */,
 				96842F4529AF53E000FB0439 /* SecondaryToolbarButtons.swift */,
 				96FC8C3E284BEB9000AD7DD2 /* CodebaseLocator.swift */,
 			);
-			path = "Document Window View";
+			path = "Codebase Window View";
 			sourceTree = "<group>";
 		};
 		965A7AE02965A3E3006C5A3A /* Path Bar */ = {
@@ -562,15 +564,15 @@
 			path = "Inspector View";
 			sourceTree = "<group>";
 		};
-		965A7AE42965D991006C5A3A /* Architecture Analysis View */ = {
+		965A7AE42965D991006C5A3A /* Codebase Analysis View */ = {
 			isa = PBXGroup;
 			children = (
-				96D59CC6294AB9F8003C55B5 /* ArchitectureAnalysisView.swift */,
+				96D59CC6294AB9F8003C55B5 /* CodebaseAnalysisView.swift */,
 				96D59CCD294ABD4C003C55B5 /* Navigator View */,
 				965A7ADC2964A541006C5A3A /* Central View */,
 				965A7AE12965D89A006C5A3A /* Inspector View */,
 			);
-			path = "Architecture Analysis View";
+			path = "Codebase Analysis View";
 			sourceTree = "<group>";
 		};
 		966F39B4291C03DE00198B14 /* XPCExecutable */ = {
@@ -655,17 +657,17 @@
 			path = "XPC Experiments";
 			sourceTree = "<group>";
 		};
-		96E0C0BF29D080B30087A79F /* Subscription Panel */ = {
+		96E0C0BF29D080B30087A79F /* Purchase Panel */ = {
 			isa = PBXGroup;
 			children = (
-				9625697629BA5E47002FB7CC /* SubscriptionPanel.swift */,
+				9625697629BA5E47002FB7CC /* PurchasePanelView.swift */,
 				96E0C0C229D081550087A79F /* SubscriptionManagementView.swift */,
 				96E0C0C029D080F10087A79F /* FeatureView.swift */,
 			);
-			path = "Subscription Panel";
+			path = "Purchase Panel";
 			sourceTree = "<group>";
 		};
-		96E134E92962DC2200DF8A43 /* Architecture */ = {
+		96E134E92962DC2200DF8A43 /* Codebase Architecture */ = {
 			isa = PBXGroup;
 			children = (
 				9619A2B72967101300863BC0 /* Metrics */,
@@ -674,7 +676,7 @@
 				961ED05029744CD4008C542E /* Concrete Code Artifacts */,
 				96E134F62962DC2200DF8A43 /* CodeArtifact.swift */,
 			);
-			path = Architecture;
+			path = "Codebase Architecture";
 			sourceTree = "<group>";
 		};
 		96E134F72962DC2200DF8A43 /* Architecture View Model */ = {
@@ -692,23 +694,29 @@
 			path = "Architecture View Model";
 			sourceTree = "<group>";
 		};
+		96E373FE2A4DA99500CA03EE /* Main Menu */ = {
+			isa = PBXGroup;
+			children = (
+				964151E029D0F968008E6074 /* FindAndFilterMenuOptions.swift */,
+				964151DE29D0F925008E6074 /* ViewMenuOptions.swift */,
+			);
+			path = "Main Menu";
+			sourceTree = "<group>";
+		};
 		96E863D12844125500BCCE66 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				9E00727C218E250E0094BD1C /* CodefaceApp.swift */,
 				961BB8F229D1938A005E6080 /* CodefaceAppDelegate.swift */,
+				96E373FE2A4DA99500CA03EE /* Main Menu */,
 				960C4D6A29C3C170009282A2 /* TestingDashboard.swift */,
-				964151E029D0F968008E6074 /* FindAndFilterMenuOptions.swift */,
-				964151DE29D0F925008E6074 /* ViewMenuOptions.swift */,
-				965A7AD629649FB7006C5A3A /* Document Window */,
+				965A7AD629649FB7006C5A3A /* Codebase Window */,
 				965A7AD72964A236006C5A3A /* Codebase Processor */,
-				965A7ADB2964A4E8006C5A3A /* Architecture Analysis */,
-				96E134F72962DC2200DF8A43 /* Architecture View Model */,
-				960334E72A30C100003EA41F /* Artifact Icon */,
-				96E134E92962DC2200DF8A43 /* Architecture */,
+				965A7ADB2964A4E8006C5A3A /* Codebase Analysis */,
+				96E134E92962DC2200DF8A43 /* Codebase Architecture */,
 				96106E6729634D9B0002F13C /* Codebase */,
-				9625697829BA5E59002FB7CC /* In App Purchase */,
-				963170E929CE0A1100B146D5 /* DocumentWindowDisplayOptions.swift */,
+				9625697829BA5E59002FB7CC /* Purchase */,
+				963170E929CE0A1100B146D5 /* WindowDisplayOptions.swift */,
 				967BFD5B29D4AFE400BD9CA7 /* DocumentLink+Codeface.swift */,
 				9651AC1429D348050054FB52 /* URL+Codeface.swift */,
 			);
@@ -953,7 +961,7 @@
 			files = (
 				96E479D028359C9900762FD7 /* AnimatableLine.swift in Sources */,
 				961EFF32284FB8BC00DB7FE9 /* RootArtifactContentView.swift in Sources */,
-				96D59CC7294AB9F8003C55B5 /* ArchitectureAnalysisView.swift in Sources */,
+				96D59CC7294AB9F8003C55B5 /* CodebaseAnalysisView.swift in Sources */,
 				96106E602962DEEE0002F13C /* CodeFolderArtifact+LOCInCycles.swift in Sources */,
 				96FDA72C29BCABCC0020A48F /* AppStoreClient.swift in Sources */,
 				96106E632962DF1C0002F13C /* CodeFileArtifact+CodeFile.swift in Sources */,
@@ -980,11 +988,11 @@
 				96EB5997294628390050254E /* SearchField.swift in Sources */,
 				96E135062962DD5900DF8A43 /* ArtifactViewModel+Search.swift in Sources */,
 				96106E5E2962DEDD0002F13C /* CodeFolderArtifact+SizeMetrics.swift in Sources */,
-				964151DD29D0F497008E6074 /* SubscriptionMenu.swift in Sources */,
+				964151DD29D0F497008E6074 /* PurchaseMenu.swift in Sources */,
 				96106E642962DF1C0002F13C /* CodeFolderArtifact+CodeFolder.swift in Sources */,
 				96D8DB1D28A1503C00B84B45 /* PathBarView.swift in Sources */,
-				964464B6295201660004382F /* DocumentWindow.swift in Sources */,
-				963170EA29CE0A1100B146D5 /* DocumentWindowDisplayOptions.swift in Sources */,
+				964464B6295201660004382F /* CodebaseWindow.swift in Sources */,
+				963170EA29CE0A1100B146D5 /* WindowDisplayOptions.swift in Sources */,
 				968EA5C328DCD24500FE8A9B /* CodebaseProcessorView.swift in Sources */,
 				96E0C0C129D080F10087A79F /* FeatureView.swift in Sources */,
 				96F5E7F02957191E00181473 /* ConcurrencyPOC.swift in Sources */,
@@ -1012,7 +1020,7 @@
 				960A7AAA28AB92AE00F334CA /* ArtifactHeaderView.swift in Sources */,
 				96D59CC1294AB82D003C55B5 /* SearchBarView.swift in Sources */,
 				96E135082962DD5900DF8A43 /* ArtifactViewModel+LayoutArtifacts.swift in Sources */,
-				9625697729BA5E47002FB7CC /* SubscriptionPanel.swift in Sources */,
+				9625697729BA5E47002FB7CC /* PurchasePanelView.swift in Sources */,
 				963AE38B28D505B9006E17F2 /* CodebaseFileDocument.swift in Sources */,
 				960C4D6629C3A3A6009282A2 /* LogView.swift in Sources */,
 				96D59CCB294ABC1F003C55B5 /* DoubleSidebarView.swift in Sources */,
@@ -1041,7 +1049,7 @@
 				960BBE9629004F9000F9DC2A /* LSPServiceHint.swift in Sources */,
 				96E1350E2962DD6700DF8A43 /* CodeSymbol.swift in Sources */,
 				960C4D6B29C3C170009282A2 /* TestingDashboard.swift in Sources */,
-				9639C27228D761A000779BA5 /* DocumentWindowView.swift in Sources */,
+				9639C27228D761A000779BA5 /* CodebaseWindowView.swift in Sources */,
 				964151DF29D0F925008E6074 /* ViewMenuOptions.swift in Sources */,
 				963170E629CC800C00B146D5 /* AppStoreClient+SwiftUI.swift in Sources */,
 				96FF8A45294F876100D06E36 /* ContentViewStyle.swift in Sources */,

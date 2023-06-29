@@ -43,7 +43,7 @@ struct SearchBarView: View
         .clipShape(Rectangle())
     }
     
-    @ObservedObject var analysis: ArchitectureAnalysis
+    @ObservedObject var analysis: CodebaseAnalysis
     
     let artifactName: String
 }

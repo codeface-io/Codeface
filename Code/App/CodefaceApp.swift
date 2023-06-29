@@ -26,7 +26,7 @@ struct CodefaceApp: App
     {
         DocumentGroup(newDocument: CodebaseFileDocument())
         {
-            DocumentWindowView(codebaseFile: $0.$document)
+            CodebaseWindowView(codebaseFile: $0.$document)
         }
         .commands
         {
@@ -42,7 +42,7 @@ struct CodefaceApp: App
             {
                 if let focusedDocumentWindow
                 {
-                    SubscriptionMenu(displayOptions: focusedDocumentWindow.displayOptions)
+                    PurchaseMenu(displayOptions: focusedDocumentWindow.displayOptions)
                 }
             }
             
@@ -148,12 +148,12 @@ struct CodefaceApp: App
     
     // MARK: - Basics
     
-    private var analysis: ArchitectureAnalysis?
+    private var analysis: CodebaseAnalysis?
     {
         focusedDocumentWindow?.codebaseProcessor.state.analysis
     }
     
-    @FocusedObject private var focusedDocumentWindow: DocumentWindow?
+    @FocusedObject private var focusedDocumentWindow: CodebaseWindow?
     @Environment(\.openWindow) var openWindow
     @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) var appDelegate
 }

@@ -92,14 +92,14 @@ struct CodebaseCentralView: View
                 }
             }
             
-            SubscriptionPanel(isExpanded: $displayOptions.showsSubscriptionPanel,
+            PurchasePanelView(isExpanded: $displayOptions.showsSubscriptionPanel,
                               collapsedVisibility: appStoreClient.ownsProducts ? .hidden : .banner)
         }
         .animation(.default, value: displayOptions.showsSubscriptionPanel)
     }
     
-    @ObservedObject var analysis: ArchitectureAnalysis
+    @ObservedObject var analysis: CodebaseAnalysis
     @ObservedObject private var serverManager = LSP.ServerManager.shared
     @ObservedObject var appStoreClient = AppStoreClient.shared
-    @ObservedObject var displayOptions: DocumentWindowDisplayOptions
+    @ObservedObject var displayOptions: WindowDisplayOptions
 }

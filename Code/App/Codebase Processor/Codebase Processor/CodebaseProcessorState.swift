@@ -2,7 +2,7 @@ import SwiftLSP
 
 enum CodebaseProcessorState
 {
-    var analysis: ArchitectureAnalysis?
+    var analysis: CodebaseAnalysis?
     {
         if case .analyzeArchitecture(let analysis) = self { return analysis }
         return nil
@@ -14,7 +14,7 @@ enum CodebaseProcessorState
          didJustRetrieveCodebase(CodeFolder),
          processCodebase(CodeFolder, ProgressFeedback),
          processArchitecture(CodeFolder, CodeFolderArtifact, ProgressFeedback),
-         analyzeArchitecture(ArchitectureAnalysis),
+         analyzeArchitecture(CodebaseAnalysis),
          didFail(String)
     
     struct ProgressFeedback

@@ -55,11 +55,11 @@ struct ViewButtons: View
         .disabled(analysis == nil)
     }
     
-    private var analysis: ArchitectureAnalysis?
+    private var analysis: CodebaseAnalysis?
     {
         codebaseProcessor.state.analysis
     }
     
     @ObservedObject var codebaseProcessor: CodebaseProcessor
-    @ObservedObject var displayOptions: DocumentWindowDisplayOptions
+    @ObservedObject var displayOptions: WindowDisplayOptions
 }

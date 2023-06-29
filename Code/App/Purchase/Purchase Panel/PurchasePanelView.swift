@@ -2,7 +2,7 @@ import StoreKit
 import SwiftUI
 import SwiftyToolz
 
-struct SubscriptionPanel: View
+struct PurchasePanelView: View
 {
     var body: some View
     {
