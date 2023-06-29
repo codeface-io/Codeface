@@ -31,8 +31,14 @@ extension ArtifactIcon
         {
         case "swift": return .swift
         case "dart": return .dart
+        case "kt": return .kotlin
         default: return .file
         }
+    }
+    
+    static var kotlin: ArtifactIcon
+    {
+        .imageName("kotlin")
     }
     
     static var dart: ArtifactIcon
