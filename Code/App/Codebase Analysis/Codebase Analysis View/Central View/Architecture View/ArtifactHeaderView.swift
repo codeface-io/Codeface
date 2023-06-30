@@ -12,15 +12,17 @@ struct ArtifactHeaderView: View
                              size: fontSize)
             
             Text(artifactVM.displayName)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .opacity(artifactVM.shouldShowName ? 1 : 0)
+                .frame(maxWidth: artifactVM.shouldCollapseHorizontally ? 0 : .infinity,
+                       alignment: .leading)
+                .font(.system(size: fontSize,
+                              weight: .medium,
+                              design: artifactVM.fontDesign))
                 .foregroundColor(.primary)
+                .drawingGroup() // so the opacity animation works and the text does not just plop in ...
+                .opacity(artifactVM.shouldShowName ? 1 : 0)
                 .padding(.leading,
-                         artifactVM.shouldCollapseHorizontally ? 0 : artifactVM.fontSize / 7)
+                         artifactVM.shouldCollapseHorizontally ? 0 : artifactVM.fontSize / 3)
         }
-        .font(.system(size: fontSize,
-                      weight: .medium,
-                      design: artifactVM.fontDesign))
     }
     
     @ObservedObject var artifactVM: ArtifactViewModel

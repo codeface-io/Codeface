@@ -30,3 +30,10 @@ extension ArtifactViewModel
          */
     }
 }
+
+enum LayoutAnimationMode: Equatable
+{
+    static let shared = LayoutAnimationMode.correct
+    
+    case correct, fast
+}

@@ -21,7 +21,7 @@ struct SidebarLabel: View
         }
         icon:
         {
-            ArtifactIconView(icon: artifact.icon, size: 18)
+            ArtifactIconView(icon: artifact.icon, size: 14)
         }
     }
     

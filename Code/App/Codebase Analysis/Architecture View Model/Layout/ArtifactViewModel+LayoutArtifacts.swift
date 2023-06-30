@@ -39,24 +39,32 @@ extension ArtifactViewModel
             
             part.frameInScopeContent = availableRect
             
-            if availableRect.width > 100, availableRect.height > 100
+            let padding = ArtifactViewModel.padding
+            let headerHeight = part.fontSize + 2 * padding
+            let contenFrameSize = Size(availableRect.width - (2 * padding),
+                                       (availableRect.height - padding) - headerHeight)
+            
+            if contenFrameSize.width > ArtifactViewModel.minWidth,
+               contenFrameSize.height > ArtifactViewModel.minHeight
             {
-                let padding = ArtifactViewModel.padding
-                let headerHeight = part.fontSize + 2 * padding
-                
                 part.contentFrame = Rectangle(position: Point(padding, headerHeight),
-                                              size: Size(availableRect.width - (2 * padding),
-                                                         (availableRect.height - padding) - headerHeight))
+                                              size: contenFrameSize)
+                
+                part.updateLayoutOfParts(forScopeSize: contenFrameSize,
+                                         ignoreSearchFilter: ignoreSearchFilter)
             }
             else
             {
-                part.contentFrame = Rectangle(position: Point(availableRect.width / 2,
-                                                              availableRect.height / 2))
+                part.showsContent = false
+                
+                if LayoutAnimationMode.shared == .correct
+                {
+                    part.contentFrame = Rectangle(position: Point(availableRect.width / 2,
+                                                                  availableRect.height / 2))
+                    
+                    setDefaultLayout(forHiddenParts: part.parts)
+                }
             }
-            
-            part.updateLayoutOfParts(forScopeSize: .init(width: part.contentFrame.width,
-                                                         height: part.contentFrame.height),
-                                     ignoreSearchFilter: ignoreSearchFilter)
             
             return availableRect.width >= ArtifactViewModel.minWidth &&
             availableRect.height >= ArtifactViewModel.minHeight
@@ -77,17 +85,53 @@ extension ArtifactViewModel
         let regularGap = gapBetweenParts ?? 0
         let bigGap = 3 * regularGap
         
-        guard let rectSplit = split(availableRect,
-                                    firstFraction: fractionA,
-                                    gap: isSplitBetweenComponents ? regularGap : bigGap),
-              prepare(parts: partsA,
-                      forLayoutIn: rectSplit.0,
-                      ignoreSearchFilter: ignoreSearchFilter),
-              prepare(parts: partsB,
-                      forLayoutIn: rectSplit.1,
-                      ignoreSearchFilter: ignoreSearchFilter) else { return false }
-
-        return true
+        if let rectSplit = split(availableRect,
+                                 firstFraction: fractionA,
+                                 gap: isSplitBetweenComponents ? regularGap : bigGap)
+        {
+            let partsACanBeShown = prepare(parts: partsA,
+                                           forLayoutIn: rectSplit.0,
+                                           ignoreSearchFilter: ignoreSearchFilter)
+            
+            if !partsACanBeShown && LayoutAnimationMode.shared == .fast { return false }
+            
+            let partsBCanBeShown = prepare(parts: partsB,
+                                           forLayoutIn: rectSplit.1,
+                                           ignoreSearchFilter: ignoreSearchFilter)
+            
+            return partsACanBeShown && partsBCanBeShown
+        }
+        else
+        {
+            if LayoutAnimationMode.shared == .correct
+            {
+                setDefaultLayout(forHiddenParts: parts,
+                                 inAvailableRect: availableRect)
+            }
+            
+            return false
+        }
+    }
+    
+    private func setDefaultLayout(forHiddenParts parts: [ArtifactViewModel],
+                                  inAvailableRect availableRect: Rectangle = .zero)
+    {
+        for part in parts
+        {
+            part.frameInScopeContent = availableRect
+            
+            if availableRect == .zero
+            {
+                part.contentFrame = .zero
+            }
+            else
+            {
+                part.contentFrame = Rectangle(position: Point(availableRect.width / 2,
+                                                              availableRect.height / 2))
+            }
+            
+            setDefaultLayout(forHiddenParts: part.parts)
+        }
     }
     
     func split(_ parts: [ArtifactViewModel]) -> ([ArtifactViewModel], [ArtifactViewModel])

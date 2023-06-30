@@ -119,10 +119,13 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
         shouldCollapseVertically = height <= fontSize + (2 * Self.padding)
         shouldShowName = width - (2 * Self.padding + fontSize) >= 3 * fontSize
         
-        let extraSpaceForTitles = shouldCollapseHorizontally ? 0 : 6.0
-        headerFrame = .init(center: Point(width / 2 + (extraSpaceForTitles / 2),
+        let extraTrailingLengthForTitles = shouldCollapseHorizontally ? 0 : 6.0
+        
+        let headerWidth = shouldCollapseHorizontally ? fontSize : ((width - (2 * Self.padding)) + extraTrailingLengthForTitles)
+        
+        headerFrame = .init(center: Point(width / 2 + (extraTrailingLengthForTitles / 2),
                                           shouldCollapseVertically ? height / 2 : Self.padding + fontSize / 2),
-                            size: Size(width - 2 * Self.padding + extraSpaceForTitles,
+                            size: Size(headerWidth,
                                        shouldCollapseVertically ? height - 2 * Self.padding : fontSize))
     }
     

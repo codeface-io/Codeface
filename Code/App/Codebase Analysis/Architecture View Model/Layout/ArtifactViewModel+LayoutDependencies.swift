@@ -8,7 +8,7 @@ extension ArtifactViewModel
         {
             artifactVM in
             
-            guard artifactVM.showsContent else { return }
+            if LayoutAnimationMode.shared == .fast, !artifactVM.showsContent { return }
             
             var verticalTasks = [OrthogonalDependencyLayoutTask]()
             var horizontalTasks = [OrthogonalDependencyLayoutTask]()

@@ -15,22 +15,17 @@ struct ArtifactIconView: View
         case .imageName(let imageName):
             Image(imageName)
                 .resizable()
-                .frame(width: imageSize, height: imageSize)
                 .aspectRatio(contentMode: .fit)
-                .padding(padding)
+                .frame(height: size)
             
         case .systemImage(let name, let fillColor):
             Image(systemName: name)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
                 .foregroundColor(.init(fillColor))
+                .frame(height: size)
         }
     }
-    
-    private var imageSize: CGFloat? {
-        guard let size else { return nil }
-        return size - (2 * padding)
-    }
-    
-    private var padding: CGFloat { (size ?? 0) * 0.05 }
     
     let icon: ArtifactIcon
     let size: CGFloat?
