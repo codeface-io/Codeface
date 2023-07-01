@@ -8,17 +8,31 @@ extension CodeFolderArtifact
                      pathInRootFolder: RelativeFilePath,
                      additionalReferences: inout [CodeSymbol.ReferenceLocation])
     {
-        var referencesByChildID = [CodeArtifact.ID: [CodeSymbol.ReferenceLocation]]()
-        var graph = Graph<CodeArtifact.ID, Part, Int>()
+        // use the first (sub-)folder that contains more than one thing
+        
+        var ultimateCodeFolder = codeFolder
+        var ultmatePathInRootFolder = pathInRootFolder
+        
+        while let onlySubfolder = ultimateCodeFolder.containsExactlyOneSubfolder
+        {
+            ultimateCodeFolder = CodeFolder(name: ultimateCodeFolder.name + "/" + onlySubfolder.name,
+                                            files: onlySubfolder.files ?? [],
+                                            subfolders: onlySubfolder.subfolders ?? [])
+            
+            ultmatePathInRootFolder += onlySubfolder.name
+        }
         
         // create child parts recursively – DEPTH FIRST
         
-        for subfolder in (codeFolder.subfolders ?? [])
+        var referencesByChildID = [CodeArtifact.ID: [CodeSymbol.ReferenceLocation]]()
+        var graph = Graph<CodeArtifact.ID, Part, Int>()
+        
+        for subfolder in (ultimateCodeFolder.subfolders ?? [])
         {
             var extraReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = Part(kind: .subfolder(.init(codeFolder: subfolder,
-                                                    pathInRootFolder: pathInRootFolder + subfolder.name,
+                                                    pathInRootFolder: ultmatePathInRootFolder + subfolder.name,
                                                     additionalReferences: &extraReferences)))
             
             referencesByChildID[child.id] = extraReferences
@@ -26,12 +40,12 @@ extension CodeFolderArtifact
             graph.insert(child)
         }
         
-        for file in (codeFolder.files ?? [])
+        for file in (ultimateCodeFolder.files ?? [])
         {
             var extraReferences = [CodeSymbol.ReferenceLocation]()
             
             let child = Part(kind: .file(.init(codeFile: file,
-                                               pathInRootFolder: pathInRootFolder + file.name,
+                                               pathInRootFolder: ultmatePathInRootFolder + file.name,
                                                additionalReferences: &extraReferences)))
             
             referencesByChildID[child.id] = extraReferences
@@ -47,7 +61,7 @@ extension CodeFolderArtifact
             {
                 let childReferencePath = RelativeFilePath(string: childReference.filePathRelativeToRoot)
                 
-                if pathInRootFolder.contains(childReferencePath)
+                if ultmatePathInRootFolder.contains(childReferencePath)
                 {
                     // we found a reference within the scope of this folder artifact that we initialize
                     
@@ -56,7 +70,7 @@ extension CodeFolderArtifact
                     {
                         if sibling.id == childID { continue } // not a sibling but the same child
                         
-                        let siblingFilePath = pathInRootFolder + sibling.name
+                        let siblingFilePath = ultmatePathInRootFolder + sibling.name
                         
                         if siblingFilePath.contains(childReferencePath)
                         {
@@ -76,6 +90,16 @@ extension CodeFolderArtifact
         
         graph.filterEssentialEdges()
         
-        self.init(name: codeFolder.name, partGraph: graph)
+        self.init(name: ultimateCodeFolder.name, partGraph: graph)
+    }
+}
+
+extension CodeFolder
+{
+    var containsExactlyOneSubfolder: CodeFolder?
+    {
+        if !(files?.isEmpty ?? true) { return nil }
+        guard let subfolders, subfolders.count == 1 else { return nil }
+        return subfolders.first
     }
 }

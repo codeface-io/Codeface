@@ -21,7 +21,7 @@ struct CodebaseNavigatorView: View
 
             NavigationLink(value: artifact.id)
             {
-                SidebarLabel(artifact: artifact,
+                SidebarLabel(artifactVM: artifact,
                              showsLinesOfCode: $showsLinesOfCode)
 //                    .listRowBackground(nil)
             }

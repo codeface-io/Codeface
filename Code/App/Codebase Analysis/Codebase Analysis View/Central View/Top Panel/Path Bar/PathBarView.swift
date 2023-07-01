@@ -8,7 +8,7 @@ struct PathBarView: View
         {
             ForEach(overviewBar.artifactVMStack.indices, id: \.self)
             {
-                let artifact = overviewBar.artifactVMStack[$0]
+                let artifactVM = overviewBar.artifactVMStack[$0]
                 
                 if $0 > 0
                 {
@@ -18,10 +18,10 @@ struct PathBarView: View
                         .padding([.leading, .trailing], 3)
                 }
                 
-                ArtifactIconView(icon: artifact.icon, size: 14)
+                ArtifactIconView(icon: artifactVM.icon, size: 14)
                     .padding(.trailing, 3)
                 
-                Text(artifact.codeArtifact.name)
+                Text(artifactVM.displayName)
                     .font(.callout)
                     .fixedSize(horizontal: false, vertical: false)
                     .frame(maxHeight: .infinity)

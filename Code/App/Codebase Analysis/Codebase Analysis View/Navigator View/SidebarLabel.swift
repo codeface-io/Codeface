@@ -7,24 +7,45 @@ struct SidebarLabel: View
     {
         Label
         {
-            Text(artifact.codeArtifact.name)
-                .font(.system(.title3, design: artifact.fontDesign))
+            Text(compactDisplayName)
+                .font(.system(.title3, design: artifactVM.fontDesign))
             
-            if showsLinesOfCode, let linesOfCode = artifact.metrics.linesOfCode
+            if showsLinesOfCode, let linesOfCode = artifactVM.metrics.linesOfCode
             {
                 Spacer()
 
                 Text("\(linesOfCode)")
-                    .foregroundColor(.init(artifact.linesOfCodeColor))
+                    .foregroundColor(.init(artifactVM.linesOfCodeColor))
                     .monospacedDigit()
             }
         }
         icon:
         {
-            ArtifactIconView(icon: artifact.icon, size: 14)
+            ArtifactIconView(icon: artifactVM.icon, size: 14)
         }
     }
     
-    @ObservedObject var artifact: ArtifactViewModel
+    private var compactDisplayName: String
+    {
+        switch artifactVM.kind
+        {
+        case .folder(let folderVM):
+            let components = folderVM.name.components(separatedBy: "/")
+            
+            if components.count > 1, let firstComponent = components.first
+            {
+                return firstComponent + " …"
+            }
+            else
+            {
+                return artifactVM.displayName
+            }
+            
+        default:
+            return artifactVM.displayName
+        }
+    }
+    
+    @ObservedObject var artifactVM: ArtifactViewModel
     @Binding var showsLinesOfCode: Bool
 }

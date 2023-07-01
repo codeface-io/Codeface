@@ -2,6 +2,19 @@ import SwiftyToolz
 
 struct RelativeFilePath
 {
+    func appendingStringToLastComponent(_ string: String) -> RelativeFilePath
+    {
+        var newComponents = components
+        let lastIndex = newComponents.count - 1
+        newComponents[lastIndex] = newComponents[lastIndex] + string
+        return RelativeFilePath(newComponents)
+    }
+    
+    static func +=(path: inout RelativeFilePath, component: String)
+    {
+        path = path + component
+    }
+    
     static func +(path: RelativeFilePath, component: String) -> RelativeFilePath
     {
         path.appending(component)

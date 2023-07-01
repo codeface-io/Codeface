@@ -155,6 +155,19 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
     var containsSearchTermRegardlessOfParts: Bool?
     var partsContainSearchTerm: Bool?
     
+    // MARK: - Display Name
+    
+    var displayName: String
+    {
+        switch kind
+        {
+        case .folder(let folder):
+            return folder.name.replacingOccurrences(of: "/", with: ".")
+        default:
+            return codeArtifact.name
+        }
+    }
+    
     // MARK: - Basics
     
     let metrics: Metrics
