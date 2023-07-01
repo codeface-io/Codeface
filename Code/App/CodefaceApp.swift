@@ -55,6 +55,10 @@ struct CodefaceApp: App
             }
             
             ToolbarCommands()
+            
+            // hide these. we don't need them + we use Cmd+A for a view option not to select all
+            CommandGroup(replacing: .undoRedo) {}
+            CommandGroup(replacing: .pasteboard) {}
 
             CommandGroup(replacing: .sidebar)
             {
@@ -65,6 +69,11 @@ struct CodefaceApp: App
                     
                     Divider()
                 }
+                
+                Toggle("Use Correct Animations (Slower)",
+                       isOn: $settings.useCorrectAnimations)
+                    .help("Animating layout changes correctly is slower in scopes that contain many lines of code. You might need to deactive this at higher levels of large codebases.")
+                    .keyboardShortcut("a", modifiers: [.command])
                 
                 Button("Toggle Fullscreen")
                 {
@@ -153,6 +162,7 @@ struct CodefaceApp: App
         focusedDocumentWindow?.codebaseProcessor.state.analysis
     }
     
+    @ObservedObject private var settings = GlobalSettings.shared
     @FocusedObject private var focusedDocumentWindow: CodebaseWindow?
     @Environment(\.openWindow) var openWindow
     @NSApplicationDelegateAdaptor(CodefaceAppDelegate.self) var appDelegate

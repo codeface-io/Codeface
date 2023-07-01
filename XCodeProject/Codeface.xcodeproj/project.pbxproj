@@ -77,6 +77,7 @@
 		968EA5C328DCD24500FE8A9B /* CodebaseProcessorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */; };
 		9694D6E129BB796C00BBDA31 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9694D6E029BB796C00BBDA31 /* StoreKit.framework */; };
 		969A9BF229B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A9BF129B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift */; };
+		96A7D1B52A50828E00EB143C /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D1B42A50828E00EB143C /* GlobalSettings.swift */; };
 		96C2118C28E347F0008024AA /* CombineObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118B28E347F0008024AA /* CombineObserver */; };
 		96C2118E28E347F0008024AA /* SwiftObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 96C2118D28E347F0008024AA /* SwiftObserver */; };
 		96CA360628E0F92800D71370 /* LSPServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 96CA360528E0F92800D71370 /* LSPServiceKit */; };
@@ -215,6 +216,7 @@
 		968EA5C228DCD24500FE8A9B /* CodebaseProcessorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodebaseProcessorView.swift; sourceTree = "<group>"; };
 		9694D6E029BB796C00BBDA31 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		969A9BF129B1E60C00D391AD /* ArtifactViewModel+BorderColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+BorderColor.swift"; sourceTree = "<group>"; };
+		96A7D1B42A50828E00EB143C /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
 		96CFBB3528B582D20051C318 /* ArtifactViewModel+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtifactViewModel+SwiftUI.swift"; sourceTree = "<group>"; };
 		96D5515B29BE6565009A7818 /* App Store Testing.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "App Store Testing.storekit"; sourceTree = "<group>"; };
 		96D59CC0294AB82D003C55B5 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -727,6 +729,7 @@
 				96106E6729634D9B0002F13C /* Codebase */,
 				9625697829BA5E59002FB7CC /* Purchase */,
 				963170E929CE0A1100B146D5 /* WindowDisplayOptions.swift */,
+				96A7D1B42A50828E00EB143C /* GlobalSettings.swift */,
 				967BFD5B29D4AFE400BD9CA7 /* DocumentLink+Codeface.swift */,
 				9651AC1429D348050054FB52 /* URL+Codeface.swift */,
 			);
@@ -1071,6 +1074,7 @@
 				96E0C0C329D081550087A79F /* SubscriptionManagementView.swift in Sources */,
 				96842F4829AF541700FB0439 /* PrimaryToolbarButtons.swift in Sources */,
 				964464B22951D4090004382F /* DisplayModePicker.swift in Sources */,
+				96A7D1B52A50828E00EB143C /* GlobalSettings.swift in Sources */,
 				964464B72952016E0004382F /* DisplayMode.swift in Sources */,
 				96106E5D2962DED90002F13C /* CodeFolderArtifact+DependencyMetrics.swift in Sources */,
 				96E479DD2835B36C00762FD7 /* SidebarLabel.swift in Sources */,

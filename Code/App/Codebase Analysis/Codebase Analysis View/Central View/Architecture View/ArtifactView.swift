@@ -12,7 +12,7 @@ struct ArtifactView: View
             ArtifactHeaderView(artifactVM: artifactVM)
                 .framePosition(artifactVM.headerFrame)
             
-            if LayoutAnimationMode.shared == .correct || artifactVM.showsContent
+            if GlobalSettings.shared.useCorrectAnimations || artifactVM.showsContent
             {
                 ArtifactContentView(artifactVM: artifactVM,
                                     pathBar: pathBar,

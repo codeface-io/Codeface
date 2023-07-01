@@ -57,7 +57,7 @@ extension ArtifactViewModel
             {
                 part.showsContent = false
                 
-                if LayoutAnimationMode.shared == .correct
+                if GlobalSettings.shared.useCorrectAnimations
                 {
                     part.contentFrame = Rectangle(position: Point(availableRect.width / 2,
                                                                   availableRect.height / 2))
@@ -93,7 +93,7 @@ extension ArtifactViewModel
                                            forLayoutIn: rectSplit.0,
                                            ignoreSearchFilter: ignoreSearchFilter)
             
-            if !partsACanBeShown && LayoutAnimationMode.shared == .fast { return false }
+            if !partsACanBeShown && !GlobalSettings.shared.useCorrectAnimations { return false }
             
             let partsBCanBeShown = prepare(parts: partsB,
                                            forLayoutIn: rectSplit.1,
@@ -103,7 +103,7 @@ extension ArtifactViewModel
         }
         else
         {
-            if LayoutAnimationMode.shared == .correct
+            if GlobalSettings.shared.useCorrectAnimations
             {
                 setDefaultLayout(forHiddenParts: parts,
                                  inAvailableRect: availableRect)
