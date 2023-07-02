@@ -40,10 +40,20 @@ class CodebaseAnalysis: ObservableObject
     
     private func updateSearchFilter()
     {
-        // TODO: rather "clear search results" when term is empty
-        rootArtifact.updateSearchResults(withSearchTerm: search.term)
+        if GlobalSettings.shared.updateSearchTermGlobally
+        {
+            // TODO: rather "clear search results" when term is empty
+            rootArtifact.updateSearchResults(withSearchTerm: search.term)
             
-        rootArtifact.updateSearchFilter(allPass: search.term.isEmpty)
+            rootArtifact.updateSearchFilter(allPass: search.term.isEmpty)
+        }
+        else
+        {
+            // TODO: rather "clear search results" when term is empty
+            selectedArtifact.updateSearchResults(withSearchTerm: search.term)
+            
+            selectedArtifact.updateSearchFilter(allPass: search.term.isEmpty)
+        }
     }
     
     @Published private(set) var search = Search()
