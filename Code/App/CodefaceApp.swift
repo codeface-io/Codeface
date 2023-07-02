@@ -56,9 +56,7 @@ struct CodefaceApp: App
             
             ToolbarCommands()
             
-            // hide these. we don't need them + we use Cmd+A for a view option not to select all
-            CommandGroup(replacing: .undoRedo) {}
-            CommandGroup(replacing: .pasteboard) {}
+            CommandGroup(replacing: .undoRedo) {} // hides this
 
             CommandGroup(replacing: .sidebar)
             {
@@ -73,7 +71,7 @@ struct CodefaceApp: App
                 Toggle("Use Correct Animations (Slower)",
                        isOn: $settings.useCorrectAnimations)
                     .help("Animating layout changes correctly is slower in scopes that contain many lines of code. You might need to deactive this at higher levels of large codebases.")
-                    .keyboardShortcut("a", modifiers: [.command])
+                    .keyboardShortcut("a", modifiers: [.control])
                 
                 Button("Toggle Fullscreen")
                 {
