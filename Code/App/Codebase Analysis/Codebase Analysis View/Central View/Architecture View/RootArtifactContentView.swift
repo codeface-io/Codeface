@@ -9,7 +9,7 @@ struct RootArtifactContentView: View
         {
             geo in
             
-//            LoggingView("geo.size: " + geo.size.debugDescription)
+            // LoggingText("geo.size: " + geo.size.debugDescription)
             
             Group
             {
@@ -120,18 +120,4 @@ struct RootArtifactContentView: View
 extension CGSize
 {
     var size: Size { .init(width, height) }
-}
-
-struct LoggingView: View {
-    
-    init(_ text: String) {
-        self.text = text
-        print(text)
-    }
-    
-    var body: some View {
-        Text("Last Log: " + text)
-    }
-    
-    let text: String
 }
