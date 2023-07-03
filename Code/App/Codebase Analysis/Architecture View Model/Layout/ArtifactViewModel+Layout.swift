@@ -12,6 +12,13 @@ extension ArtifactViewModel
             return
         }
         
+        guard scopeSize.width > 75 && scopeSize.height > 75 else
+        {
+            log(warning: "Invalid (small) view size: \(scopeSize). Gonna abort layout.")
+            showsContent = nil
+            return
+        }
+        
 //        print("updating layout of \(codeArtifact.name)")
         
 //        var stopWatch = StopWatch()

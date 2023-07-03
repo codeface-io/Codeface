@@ -12,14 +12,14 @@ struct ArtifactView: View
             ArtifactHeaderView(artifactVM: artifactVM)
                 .framePosition(artifactVM.headerFrame)
             
-            if GlobalSettings.shared.useCorrectAnimations || artifactVM.showsContent
+            if GlobalSettings.shared.useCorrectAnimations || artifactVM.showsContent == true
             {
                 ArtifactContentView(artifactVM: artifactVM,
                                     pathBar: pathBar,
                                     ignoreSearchFilter: ignoreSearchFilter,
                                     bgBrightness: bgBrightness)
                 .framePosition(artifactVM.contentFrame)
-                .opacity(artifactVM.showsContent ? 1 : 0)
+                .opacity(artifactVM.showsContent == true ? 1 : 0)
             }
         }
         .onHover

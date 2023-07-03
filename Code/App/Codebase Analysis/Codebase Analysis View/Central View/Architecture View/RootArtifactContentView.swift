@@ -9,37 +9,57 @@ struct RootArtifactContentView: View
         {
             geo in
             
+//            LoggingView("geo.size: " + geo.size.debugDescription)
+            
             Group
             {
-                if artifactVM.showsContent
+                if let showsContent = artifactVM.showsContent
                 {
-                    ArtifactContentView(artifactVM: artifactVM,
-                                        pathBar: analysis.pathBar,
-                                        ignoreSearchFilter: analysis.search.fieldIsFocused,
-                                        bgBrightness: colorScheme == .dark ? 0 : 0.6)
-                    .drawingGroup()
+                    if showsContent
+                    {
+                        ArtifactContentView(artifactVM: artifactVM,
+                                            pathBar: analysis.pathBar,
+                                            ignoreSearchFilter: analysis.search.fieldIsFocused,
+                                            bgBrightness: colorScheme == .dark ? 0 : 0.6)
+                        .drawingGroup()
+                    }
+                    else
+                    {
+                        Center
+                        {
+                            Text("Couldn't find a layout that fits within \(Int(geo.size.width))×\(Int(geo.size.height)) points")
+                                .padding(.bottom)
+                            
+                            if geo.size.width >= 500, geo.size.height >= 500
+                            {
+                                Text("Since this view is reasonably large, inability to fit the visualization in it MIGHT indicate that the \(artifactVM.codeArtifact.kindName.lowercased()) \"\(artifactVM.displayName)\" could have more organizational structure or balance.\nIn other words: Its content of currently \(artifactVM.parts.count) parts could potentially be organized into fewer or more equally sized organizational units.")
+                                    .foregroundColor(.secondary)
+                            }
+                            else
+                            {
+                                Text("Try to make the window larger or inspector and sidebar smaller.")
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                    }
                 }
                 else
                 {
-                    VStack
+                    Center
                     {
-                        Spacer()
-                        
-                        HStack
-                        {
-                            Spacer()
-                            
-                            Text("Couldn't find layout that fits within \(Int(geo.size.width))×\(Int(geo.size.height)) points")
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(.secondary)
-                                .font(.title3)
-                            
-                            Spacer()
-                        }
-                        
-                        Spacer()
+                        ProgressView()
+                            .progressViewStyle(.circular)
                     }
                 }
+            }
+            .onAppear
+            {
+                 print("attempt to layout artifact \(artifactVM.codeArtifact.name) in view size \(geo.size.size) because view appeared")
+                
+                artifactVM.updateLayout(forScopeSize: geo.size.size,
+                                        ignoreSearchFilter: analysis.search.fieldIsFocused)
             }
             .onChange(of: geo.size)
             {
@@ -57,17 +77,10 @@ struct RootArtifactContentView: View
             {
                 newArtifact in
                 
-                // print("attempt to layout newly selected artifact \(newArtifact.codeArtifact.name)")
+                 print("attempt to layout newly selected artifact \(newArtifact.codeArtifact.name)")
                 
                 newArtifact.updateLayout(forScopeSize: geo.size.size,
                                          ignoreSearchFilter: analysis.search.fieldIsFocused)
-            }
-            .onAppear
-            {
-                // print("attempt to layout artifact \(artifact.codeArtifact.name) because view appeared")
-                
-                artifactVM.updateLayout(forScopeSize: geo.size.size,
-                                        ignoreSearchFilter: analysis.search.fieldIsFocused)
             }
         }
     }
@@ -80,6 +93,8 @@ struct RootArtifactContentView: View
     
     private func didEndChangingSize(newSize: Size)
     {
+        print("attempt to layout \(artifactVM.displayName) after size changed to \(newSize)")
+        
         withAnimation(.easeInOut(duration: 1))
         {
             artifactVM.updateLayout(forScopeSize: newSize,
@@ -105,4 +120,18 @@ struct RootArtifactContentView: View
 extension CGSize
 {
     var size: Size { .init(width, height) }
+}
+
+struct LoggingView: View {
+    
+    init(_ text: String) {
+        self.text = text
+        print(text)
+    }
+    
+    var body: some View {
+        Text("Last Log: " + text)
+    }
+    
+    let text: String
 }

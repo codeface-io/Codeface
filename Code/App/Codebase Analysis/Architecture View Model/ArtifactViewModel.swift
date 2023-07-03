@@ -102,7 +102,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
         }
     }
     
-    @Published var showsContent = false
+    @Published var showsContent: Bool? = nil
     var contentFrame = Rectangle.zero
     @Published var gapBetweenParts: Double?
     
