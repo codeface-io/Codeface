@@ -21,7 +21,7 @@ struct CodeView: View
                 Label {
                     Text(artifact.codeArtifact.name)
                 } icon: {
-                    ArtifactIconView(icon: artifact.icon)
+                    ArtifactIconView(icon: artifact.icon, size: 20)
                 }
                 .font(.title)
                 
