@@ -92,8 +92,11 @@ struct CodebaseCentralView: View
                 }
             }
             
-            PurchasePanelView(isExpanded: $displayOptions.showsSubscriptionPanel,
-                              collapsedVisibility: appStoreClient.ownsProducts ? .hidden : .banner)
+            if GlobalSettings.shared.showPurchasePanel
+            {
+                PurchasePanelView(isExpanded: $displayOptions.showsSubscriptionPanel,
+                                  collapsedVisibility: appStoreClient.ownsProducts ? .hidden : .banner)
+            }
         }
         .animation(.default, value: displayOptions.showsSubscriptionPanel)
     }
