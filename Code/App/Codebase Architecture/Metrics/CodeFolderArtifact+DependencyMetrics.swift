@@ -52,8 +52,36 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
         // write component ranks sorted by component size
         let sortedComponents = findComponents()
             .map { $0.compactMap({ node(with: $0) }) }
-            .map { ($0, $0.sum { $0.value.linesOfCode }) }
-            .sorted { $0.1 > $1.1 }
+            .map {
+                return (
+                    // the component itself
+                    $0,
+                    
+                    // total lines of the component
+                    $0.sum { $0.value.linesOfCode },
+                    
+                    // first line number (position in file) of the component
+                    $0.min { $0.value.lineNumber ?? 0 } ?? 0
+                )
+            }
+            .sorted
+            {
+                if $0.1 != $1.1 // if there is a size difference
+                {
+                    // bigger size wins
+                    return $0.1 > $1.1
+                }
+                else if $0.2 != $1.2 // if the components differ in file position
+                {
+                    // components must contain symbols -> lower line number wins
+                    return $0.2 < $1.2
+                }
+                else // this must be equally sized files/folders (super unlikely)
+                {
+                    // alphabetical order of name of first contained artifact
+                    return ($0.0.first?.value.name ?? "") < ($1.0.first?.value.name ?? "")
+                }
+            }
             .map { $0.0 }
 
         sortedComponents.forEachIndex
@@ -92,5 +120,35 @@ private extension Graph where NodeValue: CodeArtifact & Identifiable, NodeID == 
                 }
             }
         }
+    }
+}
+
+public extension Collection
+{
+    func min<Number: Numeric & Comparable>(_ numberFromElement: (Element) -> Number) -> Number?
+    {
+        map(numberFromElement).min()
+    }
+    
+    func min() -> Element? where Element: Comparable
+    {
+        var min: Element? = nil
+        
+        for element in self
+        {
+            
+            guard let actualMin = min else
+            {
+                min = element
+                continue
+            }
+            
+            if element < actualMin
+            {
+                min = element
+            }
+        }
+        
+        return min
     }
 }

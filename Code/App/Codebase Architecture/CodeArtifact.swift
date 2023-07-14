@@ -25,6 +25,7 @@ protocol CodeArtifact: AnyObject, Hashable, Sendable
     var name: String { get }
     var kindName: String { get }
     var code: String? { get }
+    var lineNumber: Int? { get }
     
     // identity
     var id: ID { get }

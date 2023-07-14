@@ -24,6 +24,8 @@ extension CodeFileArtifact: CodeArtifact
             .joined(separator: " ")
     }
     
+    var lineNumber: Int? { nil }
+    
     // MARK: - Hashability
     
     static func == (lhs: CodeFileArtifact,

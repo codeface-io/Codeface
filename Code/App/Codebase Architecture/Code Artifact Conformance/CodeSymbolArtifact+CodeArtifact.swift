@@ -22,10 +22,12 @@ extension CodeSymbolArtifact: CodeArtifact
     
     var kindName: String { kind?.name ?? "Unknown Kind of Symbol" }
     
+    var lineNumber: Int? { selectionRange.start.line }
+    
     // MARK: - Hashability
     
     static func == (lhs: CodeSymbolArtifact,
-                           rhs: CodeSymbolArtifact) -> Bool { lhs === rhs }
+                    rhs: CodeSymbolArtifact) -> Bool { lhs === rhs }
     
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }

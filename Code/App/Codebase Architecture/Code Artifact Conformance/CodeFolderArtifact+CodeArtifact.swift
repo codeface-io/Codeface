@@ -13,6 +13,7 @@ extension CodeFolderArtifact: CodeArtifact
     var intrinsicSizeInLinesOfCode: Int? { nil }
     var kindName: String { "Folder" }
     var code: String? { nil }
+    var lineNumber: Int? { nil }
     
     // MARK: - Hashability
     

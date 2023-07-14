@@ -32,6 +32,7 @@ final class CodeFolderArtifact: Identifiable, Sendable
         var name: String { codeArtifact.name }
         var kindName: String { codeArtifact.kindName }
         var code: String? { codeArtifact.code }
+        var lineNumber: Int? { nil }
         var id: String { codeArtifact.id }
         
         // MARK: Actual Artifact

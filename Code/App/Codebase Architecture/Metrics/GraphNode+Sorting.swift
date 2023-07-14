@@ -25,23 +25,40 @@ extension GraphNode where Value: CodeArtifact
             return topoRankA < topoRankB
         }
         
-        // in- and outgoing dependencies
+        // different ratios of ingoing to outgoing dependencies?
         let inA = ancestorIDs.count
-        let inB = nextNode.ancestorIDs.count
-        
-        if inA != inB
-        {
-            return inA < inB
-        }
-        
         let outA = descendantIDs.count
+        
+        let inB = nextNode.ancestorIDs.count
         let outB = nextNode.descendantIDs.count
         
-        if outA != outB
+        if inA + outA + inB + outB > 0
         {
-            return outA < outB
+            let ratioA = Double(inA + 1) / Double(outA + 1)
+            let ratioB = Double(inB + 1) / Double(outB + 1)
+            
+            if ratioA != ratioB
+            {
+                return ratioA < ratioB
+            }
         }
         
-        return thisArtifact.linesOfCode > nextArtifact.linesOfCode
+        // different positions in code?
+        if let symbolA = thisArtifact as? CodeSymbolArtifact,
+           let symbolB = nextArtifact as? CodeSymbolArtifact,
+           symbolA.selectionRange.start.line != symbolB.selectionRange.start.line
+        {
+            
+            return symbolA.selectionRange.start.line < symbolB.selectionRange.start.line
+        }
+        
+        // different sizes?
+        if thisArtifact.linesOfCode != nextArtifact.linesOfCode
+        {
+            return thisArtifact.linesOfCode > nextArtifact.linesOfCode
+        }
+        
+        // ultima ratio: sort by name
+        return thisArtifact.name < nextArtifact.name
     }
 }
