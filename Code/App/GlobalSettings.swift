@@ -7,7 +7,7 @@ class GlobalSettings: ObservableObject
     private init() {}
     
     #if DEBUG
-    @Published var useCorrectAnimations = true
+    @Published var useCorrectAnimations = false
     #else
     /// DO NOT TOUCH THIS (so we can't accidentally fuck up a release)
     @Published var useCorrectAnimations = false
