@@ -162,6 +162,9 @@ extension ArtifactViewModel
         
         for index in 0 ..< parts.count
         {
+            let part = parts[index]
+            partsALOC += part.metrics.linesOfCode ?? 0
+            
             if partsSpanMultipleComponents
             {
                 // if parts span multiple components, we only cut between components
@@ -185,8 +188,6 @@ extension ArtifactViewModel
                 if !indexIsEndOfSCC { continue }
             }
             
-            let part = parts[index]
-            partsALOC += part.metrics.linesOfCode ?? 0
             let differenceToHalfTotalLOC = abs(halfTotalLOC - partsALOC)
             if differenceToHalfTotalLOC < minDifferenceToHalfTotalLOC
             {
