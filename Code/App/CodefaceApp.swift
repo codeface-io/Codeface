@@ -107,10 +107,9 @@ struct CodefaceApp: App
                     NSDocumentController.shared.openDocument(nil)
                 }
                 .keyboardShortcut("o")
-            }
-
-            CommandGroup(before: .undoRedo)
-            {
+            
+                Divider()
+                
                 Button("Import Code Folder...")
                 {
                     focusedDocumentWindow?.isPresentingCodebaseLocator = true
