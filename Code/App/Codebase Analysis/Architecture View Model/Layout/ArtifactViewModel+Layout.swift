@@ -15,7 +15,7 @@ extension ArtifactViewModel
         guard scopeSize.width > 75 && scopeSize.height > 75 else
         {
             log(warning: "Invalid (small) view size: \(scopeSize). Gonna abort layout.")
-            showsContent = nil
+            // invalid / untrue view sizes are reported by GeometryReader all the time – not just in the very beginning ... we can never set `showsContent = nil` (and show the loading spinner) based on that noise from SwiftUI ...
             return
         }
         
