@@ -27,8 +27,8 @@ class CodebaseAnalysis: ObservableObject
     func set(searchTerm: String)
     {
         guard search.term != searchTerm else { return }
-        search.term = searchTerm
-        updateSearchFilter()
+        search.term = searchTerm // this fires since search is Published -> only for connecting to search text field UI ...
+        updateSearchFilter() // update the filter synchronously, updates `passesSearchFilter` which is Published ...
         
         let didClearSearchTermViaButton = searchTerm.isEmpty && !search.fieldIsFocused
         
@@ -68,6 +68,8 @@ class CodebaseAnalysis: ObservableObject
     // MARK: - Artifact View Models
     
     let rootArtifact: ArtifactViewModel
+    
+    // ⚠️ observers of CodebaseAnalysis will be notified when the selected artifact is replaced, but not when any of its properties change, even though ArtifactViewModel is itself an observable class
     @Published var selectedArtifact: ArtifactViewModel
     
     // MARK: - Display Mode
