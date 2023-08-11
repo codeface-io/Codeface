@@ -67,7 +67,7 @@ function uploadPackageToAppStore {
 
 # Run each step
 
-rm -rf $BYPRODUCTS_DIRECTORY/* # Deleting all byproducts is optional
+rm -rf $BYPRODUCTS_DIRECTORY # Deleting all byproducts is optional
 buildProjectAsArchive
 exportArchiveAsPackage
 uploadPackageToAppStore
