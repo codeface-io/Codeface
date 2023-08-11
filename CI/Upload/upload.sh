@@ -31,7 +31,7 @@ APP_STORE_PASSWORD="$2"
 
 function archiveTheProject {
     echo "🤖 Archiving $PROJECT to $ARCHIVE ..."
-    rm -R $ARCHIVE
+    rm -rf $ARCHIVE
     xcodebuild archive \
         -project $PROJECT \
         -archivePath $ARCHIVE \
@@ -45,7 +45,7 @@ function archiveTheProject {
 
 function exportTheArchive {
     echo "🤖 Exporting $ARCHIVE to $PACKAGE ..."
-    rm -R $PACKAGE
+    rm -rf $PACKAGE
     xcodebuild -exportArchive \
         -archivePath $ARCHIVE \
         -exportPath $PACKAGE \
