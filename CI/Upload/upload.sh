@@ -9,8 +9,9 @@ EXPORT_OPTIONS_PLIST="$UPLOAD_DIRECTORY/ExportOptions.plist"
 
 # Specify byproducts
 
-ARCHIVE="$UPLOAD_DIRECTORY/Byproducts/Codeface.xcarchive"
-PACKAGE="$UPLOAD_DIRECTORY/Byproducts/Codeface.pkg"
+BYPRODUCTS_DIRECTORY="$UPLOAD_DIRECTORY/Byproducts"
+ARCHIVE="$BYPRODUCTS_DIRECTORY/Codeface.xcarchive"
+PACKAGE="$BYPRODUCTS_DIRECTORY/Codeface.pkg"
 
 # set "exit immediately" (this script terminates when any command returns non-zero)
 
@@ -29,7 +30,7 @@ APP_STORE_PASSWORD="$2"
 
 # Declare a function for each step 
 
-function archiveTheProject {
+function buildProjectAsArchive {
     echo "🤖 Archiving $PROJECT to $ARCHIVE ..."
     rm -rf $ARCHIVE
     xcodebuild archive \
@@ -43,29 +44,30 @@ function archiveTheProject {
         > /dev/null
 }
 
-function exportTheArchive {
+function exportArchiveAsPackage {
     echo "🤖 Exporting $ARCHIVE to $PACKAGE ..."
     rm -rf $PACKAGE
     xcodebuild -exportArchive \
         -archivePath $ARCHIVE \
-        -exportPath $PACKAGE \
+        -exportPath "$UPLOAD_DIRECTORY/Byproducts" \
         -exportOptionsPlist $EXPORT_OPTIONS_PLIST \
         > /dev/null  
 }
 
-function uploadTheExport {
+function uploadPackageToAppStore {
     echo "🤖 Uploading $PACKAGE to App Store Connect ..."
     xcrun altool --upload-app \
         --type macos \
-        --file "$PACKAGE" \
-        --username "$APP_STORE_USER" \
-        --password "$APP_STORE_PASSWORD" \
+        --file $PACKAGE \
+        --username $APP_STORE_USER \
+        --password $APP_STORE_PASSWORD \
         > /dev/null
     echo "🤖 Did upload $PACKAGE to App Store Connect ✅"
 }
 
 # Run each step
 
-archiveTheProject
-exportTheArchive
-uploadTheExport
+rm -rf $BYPRODUCTS_DIRECTORY/* # Deleting all byproducts is optional
+buildProjectAsArchive
+exportArchiveAsPackage
+uploadPackageToAppStore
