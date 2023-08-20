@@ -139,8 +139,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
     // MARK: - Geometry: Static Parameters
     
     static var padding: Double = 16
-    static var minWidth: Double = 30
-    static var minHeight: Double = 30
+    static let minimumSize = Size(30, 30)
     
     // MARK: - Colors & Symbols
     

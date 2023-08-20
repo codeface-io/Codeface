@@ -44,8 +44,8 @@ extension ArtifactViewModel
             let contenFrameSize = Size(availableRect.width - (2 * padding),
                                        (availableRect.height - padding) - headerHeight)
             
-            if contenFrameSize.width > ArtifactViewModel.minWidth,
-               contenFrameSize.height > ArtifactViewModel.minHeight
+            if contenFrameSize.width > ArtifactViewModel.minimumSize.width,
+               contenFrameSize.height > ArtifactViewModel.minimumSize.height
             {
                 part.contentFrame = Rectangle(position: Point(padding, headerHeight),
                                               size: contenFrameSize)
@@ -66,8 +66,8 @@ extension ArtifactViewModel
                 }
             }
             
-            return availableRect.width >= ArtifactViewModel.minWidth &&
-            availableRect.height >= ArtifactViewModel.minHeight
+            return availableRect.width >= ArtifactViewModel.minimumSize.width &&
+            availableRect.height >= ArtifactViewModel.minimumSize.height
         }
         
         // tree map algorithm
@@ -85,9 +85,10 @@ extension ArtifactViewModel
         let regularGap = gapBetweenParts ?? 0
         let bigGap = 3 * regularGap
         
-        if let rectSplit = split(availableRect,
-                                 firstFraction: fractionA,
-                                 gap: isSplitBetweenComponents ? regularGap : bigGap)
+        if let rectSplit = TreemapAlgorithm.split(availableRect,
+                                                  firstFraction: fractionA,
+                                                  gap: isSplitBetweenComponents ? regularGap : bigGap,
+                                                  minimumSize: ArtifactViewModel.minimumSize)
         {
             let partsACanBeShown = prepare(parts: partsA,
                                            forLayoutIn: rectSplit.0,
@@ -198,100 +199,5 @@ extension ArtifactViewModel
         
         return (Array(parts[0 ... optimalEndIndexForPartsA]),
                 Array(parts[optimalEndIndexForPartsA + 1 ..< parts.count]))
-    }
-    
-    func split(_ rect: Rectangle,
-               firstFraction: Double,
-               gap: Double) -> (Rectangle, Rectangle)?
-    {
-        let smallestPossibleResultingWidth = (rect.width - gap) * min(firstFraction, 1 - firstFraction)
-        let leftRightSplitWouldSuck = smallestPossibleResultingWidth < 200
-        let rectAspectRatio = rect.width / rect.height
-        let tryLeftRightSplitFirst = leftRightSplitWouldSuck ? false : rectAspectRatio > 1
-        
-        if tryLeftRightSplitFirst
-        {
-            let result = splitIntoLeftAndRight(rect,
-                                               firstFraction: firstFraction,
-                                               gap: gap)
-            
-            return result ?? splitIntoTopAndBottom(rect,
-                                                   firstFraction: firstFraction,
-                                                   gap: gap)
-        }
-        else
-        {
-            let result = splitIntoTopAndBottom(rect,
-                                               firstFraction: firstFraction,
-                                               gap: gap)
-            
-            return result ?? splitIntoLeftAndRight(rect,
-                                                   firstFraction: firstFraction,
-                                                   gap: gap)
-        }
-    }
-    
-    func splitIntoLeftAndRight(_ rect: Rectangle,
-                               firstFraction: Double,
-                               gap: Double) -> (Rectangle, Rectangle)?
-    {
-        if 2 * ArtifactViewModel.minWidth + gap > rect.width
-        {
-            return nil
-        }
-        
-        var widthA = (rect.width - gap) * firstFraction
-        var widthB = (rect.width - widthA) - gap
-        
-        if widthA < ArtifactViewModel.minWidth
-        {
-            widthA = ArtifactViewModel.minWidth
-            widthB = (rect.width - ArtifactViewModel.minWidth) - gap
-        }
-        else if widthB < ArtifactViewModel.minWidth
-        {
-            widthB = ArtifactViewModel.minWidth
-            widthA = (rect.width - ArtifactViewModel.minWidth) - gap
-        }
-        
-        let rectA = Rectangle(position: rect.position,
-                              size: Size(widthA, rect.height))
-        
-        let rectB = Rectangle(position: Point((rect.x + widthA) + gap, rect.y),
-                              size: Size(widthB, rect.height))
-        
-        return (rectA, rectB)
-    }
-    
-    func splitIntoTopAndBottom(_ rect: Rectangle,
-                               firstFraction: Double,
-                               gap: Double) -> (Rectangle, Rectangle)?
-    {
-        if 2 * ArtifactViewModel.minHeight + gap > rect.height
-        {
-            return nil
-        }
-        
-        var heightA = (rect.height - gap) * firstFraction
-        var heightB = (rect.height - heightA) - gap
-        
-        if heightA < ArtifactViewModel.minHeight
-        {
-            heightA = ArtifactViewModel.minHeight
-            heightB = (rect.height - ArtifactViewModel.minHeight) - gap
-        }
-        else if heightB < ArtifactViewModel.minHeight
-        {
-            heightB = ArtifactViewModel.minHeight
-            heightA = (rect.height - ArtifactViewModel.minHeight) - gap
-        }
-        
-        let rectA = Rectangle(position: rect.position,
-                              size: Size(rect.width, heightA))
-        
-        let rectB = Rectangle(position: Point(rect.x, (rect.y + heightA) + gap),
-                              size: Size(rect.width, heightB))
-        
-        return (rectA, rectB)
     }
 }
