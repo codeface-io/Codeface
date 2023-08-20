@@ -71,7 +71,7 @@ extension ArtifactViewModel
         }
         
         // tree map algorithm
-        let (partsA, partsB) = split(parts)
+        let (partsA, partsB) = TreemapAlgorithm.split(parts)
         
         let lastComponentA = partsA.last?.metrics.componentRank
         let firstComponentB = partsB.first?.metrics.componentRank
@@ -133,71 +133,5 @@ extension ArtifactViewModel
             
             setDefaultLayout(forHiddenParts: part.parts)
         }
-    }
-    
-    func split(_ parts: [ArtifactViewModel]) -> ([ArtifactViewModel], [ArtifactViewModel])
-    {
-        if parts.count == 2 { return ([parts[0]], [parts[1]]) }
-        
-        if parts.count < 2
-        {
-            log(error: "Tried to split \(parts.count) remaining parts for tree map")
-            return (parts, [])
-        }
-        
-        guard let firstPart = parts.first, let lastPart = parts.last else
-        {
-            log(error: "Could not get elements from part array \(parts)")
-            return (parts, [])
-        }
-        
-        let partsSpanMultipleComponents = firstPart.metrics.componentRank != lastPart.metrics.componentRank
-        
-        let partsSpanMultipleSCCs = firstPart.metrics.sccIndexTopologicallySorted != lastPart.metrics.sccIndexTopologicallySorted
-        
-        let halfTotalLOC = (parts.sum { $0.metrics.linesOfCode ?? 0 }) / 2
-        
-        var partsALOC = 0
-        var minDifferenceToHalfTotalLOC = Int.max
-        var optimalEndIndexForPartsA = 0
-        
-        for index in 0 ..< parts.count
-        {
-            let part = parts[index]
-            partsALOC += part.metrics.linesOfCode ?? 0
-            
-            if partsSpanMultipleComponents
-            {
-                // if parts span multiple components, we only cut between components
-                if index == parts.count - 1 { continue }
-                
-                let thisPartComponent = parts[index].metrics.componentRank
-                let nextPartComponent = parts[index + 1].metrics.componentRank
-                let indexIsEndOfComponent = thisPartComponent != nextPartComponent
-                
-                if !indexIsEndOfComponent { continue }
-            }
-            else if partsSpanMultipleSCCs
-            {
-                // if parts span multiple SCCs, we only cut between SCCs
-                if index == parts.count - 1 { continue }
-                
-                let thisPartSCC = parts[index].metrics.sccIndexTopologicallySorted
-                let nextPartSCC = parts[index + 1].metrics.sccIndexTopologicallySorted
-                let indexIsEndOfSCC = thisPartSCC != nextPartSCC
-                
-                if !indexIsEndOfSCC { continue }
-            }
-            
-            let differenceToHalfTotalLOC = abs(halfTotalLOC - partsALOC)
-            if differenceToHalfTotalLOC < minDifferenceToHalfTotalLOC
-            {
-                minDifferenceToHalfTotalLOC = differenceToHalfTotalLOC
-                optimalEndIndexForPartsA = index
-            }
-        }
-        
-        return (Array(parts[0 ... optimalEndIndexForPartsA]),
-                Array(parts[optimalEndIndexForPartsA + 1 ..< parts.count]))
     }
 }
