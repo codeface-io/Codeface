@@ -86,6 +86,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
     
     // MARK: - Geometry: Basics
     
+    /// This is just remembered so that layout updates can be done from where the scope size might not be available. It is **not** used for caching or avoiding redundant layout updates.
     var lastLayoutScopeSize: Size? = nil
     
     @Published var frameInScopeContent = Rectangle.zero

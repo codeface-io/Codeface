@@ -3,6 +3,11 @@ import SwiftyToolz
 
 extension ArtifactViewModel
 {
+    /**
+     Recursively updates the layout of all part boxes and dependency arrows within this artifact.
+     
+     It writes many properties of the contained parts, but most importantly `frameInScopeContent`, `contentFrame` and `showsParts`.
+     */
     func updateLayout(forScopeSize scopeSize: Size? = nil,
                       ignoreSearchFilter: Bool)
     {
