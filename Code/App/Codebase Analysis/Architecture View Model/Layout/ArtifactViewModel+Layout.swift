@@ -3,19 +3,12 @@ import SwiftyToolz
 
 extension ArtifactViewModel
 {
-    func updateLayout(forScopeSize optionalScopeSize: Size? = nil,
+    func updateLayout(forScopeSize scopeSize: Size? = nil,
                       ignoreSearchFilter: Bool)
     {
-        guard let scopeSize = optionalScopeSize ?? lastLayoutConfiguration?.scopeContentSize else
+        guard let scopeSize = getScopeSize(forProvided: scopeSize) else
         {
-            log(warning: "Tried to update layout but no scope size is available")
-            return
-        }
-        
-        guard scopeSize.width > 75 && scopeSize.height > 75 else
-        {
-            log(warning: "Invalid (small) view size: \(scopeSize). Gonna abort layout.")
-            // invalid / untrue view sizes are reported by GeometryReader all the time – not just in the very beginning ... we can never set `showsContent = nil` (and show the loading spinner) based on that noise from SwiftUI ...
+            log(warning: "Tried to update layout but no proper scope size is available")
             return
         }
         
@@ -35,5 +28,24 @@ extension ArtifactViewModel
          ⏱ Artifact Layout: 1.263375 mili seconds
          ⏱ Dependency Layout: 2.7165 mili seconds
          */
+    }
+    
+    private func getScopeSize(forProvided scopeSize: Size?) -> Size?
+    {
+        guard let scopeSize else
+        {
+            return lastLayoutScopeSize
+        }
+        
+        guard scopeSize.width > 75 && scopeSize.height > 75 else
+        {
+            log(warning: "Invalid (small) view size: \(scopeSize). Gonna abort layout.")
+            // invalid / untrue view sizes are reported by GeometryReader all the time – not just in the very beginning ... we can never set `showsContent = nil` (and show the loading spinner) based on that noise from SwiftUI ...
+            return lastLayoutScopeSize
+        }
+        
+        lastLayoutScopeSize = scopeSize
+        
+        return scopeSize
     }
 }

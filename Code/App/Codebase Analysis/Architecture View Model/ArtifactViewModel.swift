@@ -86,13 +86,7 @@ class ArtifactViewModel: Identifiable, ObservableObject, Comparable
     
     // MARK: - Geometry: Basics
     
-    var lastLayoutConfiguration: LayoutConfiguration? = nil
-    
-    struct LayoutConfiguration: Equatable
-    {
-        let ignoreFilter: Bool
-        let scopeContentSize: Size
-    }
+    var lastLayoutScopeSize: Size? = nil
     
     @Published var frameInScopeContent = Rectangle.zero
     {

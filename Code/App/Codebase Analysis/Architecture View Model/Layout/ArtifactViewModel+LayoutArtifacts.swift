@@ -7,9 +7,6 @@ extension ArtifactViewModel
     func updateLayoutOfParts(forScopeSize scopeSize: Size,
                              ignoreSearchFilter: Bool)
     {
-        lastLayoutConfiguration = .init(ignoreFilter: ignoreSearchFilter,
-                                        scopeContentSize: scopeSize)
-        
         let shownParts = ignoreSearchFilter ? parts : filteredParts
         
         if shownParts.isEmpty
