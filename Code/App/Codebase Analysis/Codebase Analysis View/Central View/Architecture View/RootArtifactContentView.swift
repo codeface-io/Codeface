@@ -56,7 +56,7 @@ struct RootArtifactContentView: View
             }
             .onAppear
             {
-                 print("attempt to layout artifact \(artifactVM.codeArtifact.name) in view size \(geo.size.size) because view appeared")
+                // print("attempt to layout artifact \(artifactVM.codeArtifact.name) in view size \(geo.size.size) because view appeared")
                 
                 artifactVM.updateLayout(forScopeSize: geo.size.size,
                                         ignoreSearchFilter: analysis.search.fieldIsFocused)
@@ -77,7 +77,7 @@ struct RootArtifactContentView: View
             {
                 newArtifact in
                 
-                 print("attempt to layout newly selected artifact \(newArtifact.codeArtifact.name)")
+                // print("attempt to layout newly selected artifact \(newArtifact.codeArtifact.name)")
                 
                 newArtifact.updateLayout(forScopeSize: geo.size.size,
                                          ignoreSearchFilter: analysis.search.fieldIsFocused)
@@ -93,7 +93,7 @@ struct RootArtifactContentView: View
     
     private func didEndChangingSize(newSize: Size)
     {
-        print("attempt to layout \(artifactVM.displayName) after size changed to \(newSize)")
+        // print("attempt to layout \(artifactVM.displayName) after size changed to \(newSize)")
         
         withAnimation(.easeInOut(duration: 1))
         {
