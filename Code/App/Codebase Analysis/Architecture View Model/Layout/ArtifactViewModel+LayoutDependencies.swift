@@ -2,7 +2,7 @@ import SwiftyToolz
 
 extension ArtifactViewModel
 {
-    func layoutDependencies()
+    func layoutPartDependencies()
     {
         applyRecursively
         {

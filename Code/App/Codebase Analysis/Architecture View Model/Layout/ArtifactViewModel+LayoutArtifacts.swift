@@ -4,7 +4,7 @@ import SwiftyToolz
 
 extension ArtifactViewModel
 {
-    func updateLayoutOfParts(forScopeSize scopeSize: Size,
+    func layoutParts(forScopeSize scopeSize: Size,
                              ignoreSearchFilter: Bool)
     {
         let shownParts = ignoreSearchFilter ? parts : filteredParts
@@ -47,7 +47,7 @@ extension ArtifactViewModel
                 part.contentFrame = Rectangle(position: Point(padding, headerHeight),
                                               size: contenFrameSize)
                 
-                part.updateLayoutOfParts(forScopeSize: contenFrameSize,
+                part.layoutParts(forScopeSize: contenFrameSize,
                                          ignoreSearchFilter: ignoreSearchFilter)
             }
             else
