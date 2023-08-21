@@ -10,19 +10,19 @@ extension ArtifactViewModel
         lastLayoutConfiguration = .init(ignoreFilter: ignoreSearchFilter,
                                         scopeContentSize: scopeSize)
         
-        let shownContentParts = ignoreSearchFilter ? parts : filteredParts
+        let shownParts = ignoreSearchFilter ? parts : filteredParts
         
-        guard !shownContentParts.isEmpty else
+        if shownParts.isEmpty
         {
-            showsContent = false
+            showsParts = false
             return
         }
         
         gapBetweenParts = 2 * pow(scopeSize.width * scopeSize.height, (1 / 6.0))
         
-        showsContent = prepare(parts: shownContentParts,
-                               forLayoutIn: Rectangle(size: scopeSize),
-                               ignoreSearchFilter: ignoreSearchFilter)
+        showsParts = prepare(parts: shownParts,
+                             forLayoutIn: Rectangle(size: scopeSize),
+                             ignoreSearchFilter: ignoreSearchFilter)
     }
     
     @discardableResult
@@ -55,7 +55,7 @@ extension ArtifactViewModel
             }
             else
             {
-                part.showsContent = false
+                part.showsParts = false
                 
                 if GlobalSettings.shared.useCorrectAnimations
                 {

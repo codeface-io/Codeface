@@ -13,7 +13,7 @@ struct RootArtifactContentView: View
             
             Group
             {
-                if let showsContent = artifactVM.showsContent
+                if let showsContent = artifactVM.showsParts
                 {
                     if showsContent
                     {

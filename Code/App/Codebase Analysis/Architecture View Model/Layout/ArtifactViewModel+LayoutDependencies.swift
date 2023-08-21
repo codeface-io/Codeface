@@ -9,7 +9,7 @@ extension ArtifactViewModel
             artifactVM in
             
             if !GlobalSettings.shared.useCorrectAnimations,
-                artifactVM.showsContent != true { return }
+                artifactVM.showsParts != true { return }
             
             var verticalTasks = [OrthogonalDependencyLayoutTask]()
             var horizontalTasks = [OrthogonalDependencyLayoutTask]()
