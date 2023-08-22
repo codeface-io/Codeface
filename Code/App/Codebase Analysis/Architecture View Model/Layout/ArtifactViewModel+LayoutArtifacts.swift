@@ -5,7 +5,7 @@ import SwiftyToolz
 extension ArtifactViewModel
 {
     func layoutParts(forScopeSize scopeSize: Size,
-                             ignoreSearchFilter: Bool)
+                     ignoreSearchFilter: Bool)
     {
         let shownParts = ignoreSearchFilter ? parts : filteredParts
         
@@ -15,11 +15,17 @@ extension ArtifactViewModel
             return
         }
         
-        gapBetweenParts = 2 * pow(scopeSize.width * scopeSize.height, (1 / 6.0))
+        gapBetweenParts = 2 * pow(scopeSize.surface, (1 / 6.0))
         
         showsParts = prepare(parts: shownParts,
                              forLayoutIn: Rectangle(size: scopeSize),
                              ignoreSearchFilter: ignoreSearchFilter)
+        
+        // TODO: this is correct but partly redundant. make sure we zero the layout of each hidden part only once.
+        if !(showsParts ?? false)
+        {
+            layout(hiddenParts: parts, inScopeOfSize: scopeSize)
+        }
     }
     
     @discardableResult
@@ -48,7 +54,7 @@ extension ArtifactViewModel
                                               size: contenFrameSize)
                 
                 part.layoutParts(forScopeSize: contenFrameSize,
-                                         ignoreSearchFilter: ignoreSearchFilter)
+                                 ignoreSearchFilter: ignoreSearchFilter)
             }
             else
             {
@@ -56,10 +62,9 @@ extension ArtifactViewModel
                 
                 if GlobalSettings.shared.useCorrectAnimations
                 {
-                    part.contentFrame = Rectangle(position: Point(availableRect.width / 2,
-                                                                  availableRect.height / 2))
+                    part.contentFrame = Rectangle(position: availableRect.size / 2)
                     
-                    setDefaultLayout(forHiddenParts: part.parts)
+                    layout(hiddenParts: part.parts)
                 }
             }
             
@@ -103,32 +108,25 @@ extension ArtifactViewModel
         {
             if GlobalSettings.shared.useCorrectAnimations
             {
-                setDefaultLayout(forHiddenParts: parts,
-                                 inAvailableRect: availableRect)
+                layout(hiddenParts: parts,
+                       inScopeOfSize: availableRect.size)
             }
             
             return false
         }
     }
     
-    private func setDefaultLayout(forHiddenParts parts: [ArtifactViewModel],
-                                  inAvailableRect availableRect: Rectangle = .zero)
+    private func layout(hiddenParts parts: [ArtifactViewModel],
+                        inScopeOfSize scopeSize: Size = .zero)
     {
+        let center = Rectangle(position: scopeSize / 2)
+        
         for part in parts
         {
-            part.frameInScopeContent = availableRect
+            part.frameInScopeContent = center
+            part.contentFrame = .zero
             
-            if availableRect == .zero
-            {
-                part.contentFrame = .zero
-            }
-            else
-            {
-                part.contentFrame = Rectangle(position: Point(availableRect.width / 2,
-                                                              availableRect.height / 2))
-            }
-            
-            setDefaultLayout(forHiddenParts: part.parts)
+            layout(hiddenParts: part.parts)
         }
     }
 }
