@@ -20,7 +20,7 @@ extension ArtifactViewModel
         //        print("updating layout of \(codeArtifact.name)")
         
         //        var stopWatch = StopWatch()
-        layoutParts(forScopeSize: scopeSize,
+        layoutParts(in: scopeSize,
                     ignoreSearchFilter: ignoreSearchFilter)
         //        stopWatch.measure("Artifact Layout")
         
