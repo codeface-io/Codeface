@@ -27,7 +27,7 @@ extension CodeFolder
             
             try await server.notifyDidOpen(fileUri, containingText: file.code)
             
-            let retrievedSymbols: [LSPDocumentSymbol]? = await
+            let retrievedLSPDocumentSymbols: [LSPDocumentSymbol]? = await
             {
                 do
                 {
@@ -76,7 +76,7 @@ extension CodeFolder
                 }
             }()
             
-            let symbolDataArray: [CodeSymbol]? = try await retrievedSymbols?.asyncMap
+            let symbols: [CodeSymbol]? = try await retrievedLSPDocumentSymbols?.asyncMap
             {
                 try await CodeSymbol(lspDocumentSymbol: $0,
                                      enclosingFile: fileUri,
@@ -89,7 +89,7 @@ extension CodeFolder
              */
             return CodeFile(name: file.name,
                             code: file.code,
-                            symbols: symbolDataArray)
+                            symbols: symbols)
         }
         
         return CodeFolder(name: name,
