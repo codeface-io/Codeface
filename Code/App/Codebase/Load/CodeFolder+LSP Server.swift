@@ -147,7 +147,18 @@ private extension CodeSymbol
         let retrievedReferences = try await server.requestReferences(forSymbolSelectionRange: lspDocumentSymbol.selectionRange,
                                                                      in: enclosingFile)
         
-        return retrievedReferences.compactMap
+        return retrievedReferences
+//        .filter
+//        {
+//            let isIncluded = !$0.uri.hasSuffix("app_method_channel.dart") || enclosingFile.hasSuffix("app_method_channel.dart")
+//            
+//            if !isIncluded {
+//                print("filtered out reference of \(lspDocumentSymbol.name) in \(enclosingFile) from \($0.uri) line \($0.range.start.line)")
+//            }
+//            
+//            return isIncluded
+//        }
+        .compactMap
         {
             ReferenceLocation(lspLocation: $0,
                               codebaseRootPathAbsolute: codebaseRootPathAbsolute)
