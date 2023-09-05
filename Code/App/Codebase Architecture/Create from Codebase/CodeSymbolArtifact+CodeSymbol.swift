@@ -33,6 +33,16 @@ extension CodeSymbolArtifact
         
         // base case: create this symbol artifact
         
+//        let fileName = pathInRootFolder.components.last ?? ""
+//
+//        if (fileName.contains("cookie_method_channel") || fileName.contains("cookie_method_call_handler")) {
+//            for reference in (symbol.references ?? []) {
+//                if reference.filePathRelativeToRoot.contains("app_method_channel.dart") {
+//                    print("💥 found faulty reference:\nsource: \(reference.filePathRelativeToRoot) line \(reference.range.start.line + 1)\ntarget: \(pathInRootFolder.components.last ?? "nil") line \(symbol.range.start.line + 1) symbol \(symbol.name)")
+//                }
+//            }
+//        }
+        
         for (childID, childReferences) in referencesByChildID
         {
             for childReference in childReferences
