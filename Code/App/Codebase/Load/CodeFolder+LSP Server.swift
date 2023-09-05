@@ -139,6 +139,7 @@ private extension CodeSymbol
     {
         guard lspDocumentSymbol.decodedKind != .Namespace else
         {
+            // TODO: the language-server-specific workarounds in this file should only be applied if the respective language (or better: language server) is used
             // sourcekit-lsp detects many wrong dependencies onto namespaces which are Swift extensions ...
             return nil
         }
