@@ -14,7 +14,7 @@ class GlobalSettings: ObservableObject
     #endif
     
     #if DEBUG
-    var updateSearchTermGlobally = false
+    var updateSearchTermGlobally = true
     #else
     /// DO NOT TOUCH THIS (so we can't accidentally fuck up a release)
     var updateSearchTermGlobally = true
