@@ -49,7 +49,7 @@ class CodebaseProcessor: ObservableObject
             return codebase
             
         case .didLocateCodebase(let codebaseLocation):
-            state = .retrieveCodebase("Reading Raw Data From Codebase Folder")
+            state = .retrieveCodebase("Reading raw data from codebase folder")
             guard let codebaseWithoutSymbols = await readCodebaseFolder(from: codebaseLocation) else
             {
                 return nil
@@ -57,10 +57,10 @@ class CodebaseProcessor: ObservableObject
             
             do
             {
-                state = .retrieveCodebase("Connecting to LSP Server")
+                state = .retrieveCodebase("Connecting to LSP server")
                 let server = try await LSP.ServerManager.shared.initializeServer(for: codebaseLocation)
                 
-                state = .retrieveCodebase("Retrieving Symbols and Their References From LSP Server")
+                state = .retrieveCodebase("Retrieving symbols and their references from LSP server")
                 
                 let codebase = try await CodebaseProcessorSteps.retrieveSymbolsAndReferences(for: codebaseWithoutSymbols,
                                                                                              from: server,
