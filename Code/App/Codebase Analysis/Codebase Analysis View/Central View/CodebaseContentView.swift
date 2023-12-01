@@ -5,7 +5,7 @@ struct CodebaseContentView: View
 {
     var body: some View {
         
-        if selectedArtifact.filteredParts.isEmpty
+        if selectedArtifact.partsPassingFilter.isEmpty
         {
             let contentIsFilteredOut = !selectedArtifact.passesSearchFilter || !selectedArtifact.parts.isEmpty
             

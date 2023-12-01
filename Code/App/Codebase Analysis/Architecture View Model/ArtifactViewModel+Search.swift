@@ -17,7 +17,7 @@ extension ArtifactViewModel
         parts.filter { !$0.passesSearchFilter }
     }
     
-    var filteredParts: [ArtifactViewModel]
+    var partsPassingFilter: [ArtifactViewModel]
     {
         parts.filter { $0.passesSearchFilter }
     }

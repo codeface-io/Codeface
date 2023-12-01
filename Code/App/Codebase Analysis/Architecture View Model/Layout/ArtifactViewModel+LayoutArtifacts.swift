@@ -13,7 +13,7 @@ extension ArtifactViewModel
                    in: availableSize)
         }
         
-        let shownParts = applySearchFilter ? filteredParts : parts
+        let shownParts = applySearchFilter ? partsPassingFilter : parts
         
         if shownParts.isEmpty
         {
