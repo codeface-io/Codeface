@@ -7,7 +7,7 @@ extension ArtifactViewModel
     func layoutParts(in availableSize: Size,
                      ignoreSearchFilter: Bool)
     {
-        if !ignoreSearchFilter 
+        if GlobalSettings.shared.useCorrectAnimations && !ignoreSearchFilter 
         {
             layout(hiddenParts: partsNotPassingFilter,
                    in: availableSize)
