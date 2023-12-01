@@ -45,7 +45,7 @@ struct LSPServiceHint: View
             
             Label
             {
-                Text("If you want to analyze a Swift codebase, note that Apple's LSP server (SourceKit-LSP) does NOT support Xcode projects – only Swift packages.")
+                Text("If you want to import a Swift codebase, be aware that Apple's LSP server (SourceKit-LSP) does NOT support Xcode projects – only Swift packages.")
             }
             icon:
             {
