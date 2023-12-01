@@ -54,7 +54,7 @@ struct LSPServiceHint: View
             
             DocumentLink.lspService
             
-            DocumentLink.documentation
+            DocumentLink.wiki
         }
         .task { await checkLSPService() }
     }

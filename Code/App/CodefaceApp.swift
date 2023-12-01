@@ -84,7 +84,7 @@ struct CodefaceApp: App
             {
                 DocumentLink.lspService
 
-                DocumentLink.documentation
+                DocumentLink.wiki
                 
                 Divider()
                 

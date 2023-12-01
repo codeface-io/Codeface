@@ -6,7 +6,7 @@ extension URL
     
     static let lspService = URL(string: "https://codeface.io/lspservice/index.html")!
     
-    static let documentation = URL(string: "https://codeface.io/documentation/index.html")!
+    static let wiki = URL(string: "https://github.com/codeface-io/Codeface/wiki")!
     
     static let privacyPolicy = URL(string: "https://codeface.io/privacy-policy")!
     
