@@ -11,7 +11,7 @@ struct ArtifactContentView: View
             
             ZStack
             {
-                ForEach(artifactVM.filteredPartDependencies)
+                ForEach(artifactVM.partDependencies)
                 {
                     dependencyVM in
                     
@@ -21,9 +21,10 @@ struct ArtifactContentView: View
                                    defaultBrightness: lineBrightness(forBGBrightness: partBGBrightness,
                                                                      isDarkMode: colorScheme == .dark),
                                    size: (artifactVM.gapBetweenParts ?? 0) / 2.5)
+                    .opacity(dependencyVM.sourcePart.passesSearchFilter && dependencyVM.targetPart.passesSearchFilter ? 1 : 0)
                 }
                 
-                ForEach(artifactVM.filteredParts)
+                ForEach(artifactVM.parts)
                 {
                     partVM in
                     
@@ -31,6 +32,7 @@ struct ArtifactContentView: View
                                  artifactVM: partVM,
                                  pathBar: pathBar,
                                  ignoreSearchFilter: ignoreSearchFilter)
+                    .opacity(partVM.passesSearchFilter ? 1 : 0)
                 }
             }
             .frame(width: contentGeometry.size.width,
