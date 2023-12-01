@@ -12,6 +12,11 @@ extension ArtifactViewModel
         }
     }
     
+    var partsNotPassingFilter: [ArtifactViewModel]
+    {
+        parts.filter { !$0.passesSearchFilter }
+    }
+    
     var filteredParts: [ArtifactViewModel]
     {
         parts.filter { $0.passesSearchFilter }

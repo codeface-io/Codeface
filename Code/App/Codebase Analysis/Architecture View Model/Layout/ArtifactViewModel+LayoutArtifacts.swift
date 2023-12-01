@@ -7,6 +7,12 @@ extension ArtifactViewModel
     func layoutParts(in availableSize: Size,
                      ignoreSearchFilter: Bool)
     {
+        if !ignoreSearchFilter 
+        {
+            layout(hiddenParts: partsNotPassingFilter,
+                   in: availableSize)
+        }
+        
         let shownParts = ignoreSearchFilter ? parts : filteredParts
         
         if shownParts.isEmpty
