@@ -24,8 +24,10 @@ func uploadBuild(of scheme: XcodeSchemeLocation,
                asPackage: package,
                exportOptionsPLIST: exportOptionsPlist)
     
-    upload(package: package,
-           using: appStoreCredentials)
+    try upload(package: package,
+               using: appStoreCredentials)
+    
+    print("🤖 Did upload \(package) to App Store Connect ✅")
 }
 
 struct XcodeSchemeLocation {
@@ -40,7 +42,8 @@ func build(project: String,
     print("🤖 Archiving \(project) to \(archive) ...")
     try deleteItem(at: archive)
     
-    run(command: """
+    try run(command:
+        """
         xcodebuild archive \
             -project \(project) \
             -archivePath \(archive) \
@@ -50,7 +53,8 @@ func build(project: String,
             -destination 'platform=macOS,arch=x86_64' \
             -configuration Release \
             > /dev/null
-        """)
+        """
+    )
 }
 
 func export(archive: String,
@@ -60,27 +64,29 @@ func export(archive: String,
     try deleteItem(at: package)
     let exportPath = URL(filePath: package).deletingLastPathComponent().relativePath
     
-    run(command: """
+    try run(command:
+        """
         xcodebuild -exportArchive \
             -archivePath \(archive) \
             -exportPath "\(exportPath)" \
             -exportOptionsPlist \(exportOptionsPLIST) \
             > /dev/null
-        """)
+        """
+    )
 }
 
 func upload(package: String,
-            using credentials: AppStoreCredentials) {
+            using credentials: AppStoreCredentials) throws {
     print("🤖 Uploading \(package) to App Store Connect ...")
     
-    run(command: """
+    try run(command: 
+        """
         xcrun altool --upload-app \
             --type macos \
             --file \(package) \
             --username \(credentials.username) \
             --password \(credentials.password) \
             > /dev/null
-        """)
-    
-    print("🤖 Did upload \(package) to App Store Connect ✅")
+        """
+    )
 }
