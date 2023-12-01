@@ -9,7 +9,7 @@ extension ArtifactViewModel
      It writes many properties of the contained parts, but most importantly `frameInScopeContent`, `contentFrame` and `showsParts`.
      */
     func updateLayout(forScopeSize scopeSize: Size? = nil,
-                      ignoreSearchFilter: Bool)
+                      applySearchFilter: Bool)
     {
         guard let scopeSize = getScopeSize(forProvided: scopeSize) else
         {
@@ -21,7 +21,7 @@ extension ArtifactViewModel
         
         //        var stopWatch = StopWatch()
         layoutParts(in: scopeSize,
-                    ignoreSearchFilter: ignoreSearchFilter)
+                    applySearchFilter: applySearchFilter)
         //        stopWatch.measure("Artifact Layout")
         
         //        stopWatch.restart()

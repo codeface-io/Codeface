@@ -5,15 +5,15 @@ import SwiftyToolz
 extension ArtifactViewModel
 {
     func layoutParts(in availableSize: Size,
-                     ignoreSearchFilter: Bool)
+                     applySearchFilter: Bool)
     {
-        if GlobalSettings.shared.useCorrectAnimations && !ignoreSearchFilter 
+        if GlobalSettings.shared.useCorrectAnimations && applySearchFilter
         {
             layout(hiddenParts: partsNotPassingFilter,
                    in: availableSize)
         }
         
-        let shownParts = ignoreSearchFilter ? parts : filteredParts
+        let shownParts = applySearchFilter ? filteredParts : parts
         
         if shownParts.isEmpty
         {
@@ -25,7 +25,7 @@ extension ArtifactViewModel
         
         showsParts = layout(shownParts,
                             in: Rectangle(size: availableSize),
-                            ignoreSearchFilter: ignoreSearchFilter)
+                            applySearchFilter: applySearchFilter)
         
         // TODO: this is correct but partly redundant. make sure we zero the layout of each hidden part only once, in particular avoid redundant recursive tree traversals
         if !(showsParts ?? false)
@@ -37,7 +37,7 @@ extension ArtifactViewModel
     @discardableResult
     private func layout(_ parts: [ArtifactViewModel],
                         in availableRect: Rectangle,
-                        ignoreSearchFilter: Bool) -> Bool
+                        applySearchFilter: Bool) -> Bool
     {
         // sanity check
         if parts.isEmpty
@@ -51,7 +51,7 @@ extension ArtifactViewModel
         {
             return layout(parts[0],
                           in: availableRect,
-                          ignoreSearchFilter: ignoreSearchFilter)
+                          applySearchFilter: applySearchFilter)
         }
         
         // recursive case of treemap algorithm
@@ -86,7 +86,7 @@ extension ArtifactViewModel
         
         let partsACanBeShown = layout(partsA,
                                       in: rectSplit.0,
-                                      ignoreSearchFilter: ignoreSearchFilter)
+                                      applySearchFilter: applySearchFilter)
         
         if !partsACanBeShown && !GlobalSettings.shared.useCorrectAnimations
         {
@@ -95,14 +95,14 @@ extension ArtifactViewModel
         
         let partsBCanBeShown = layout(partsB,
                                       in: rectSplit.1,
-                                      ignoreSearchFilter: ignoreSearchFilter)
+                                      applySearchFilter: applySearchFilter)
         
         return partsACanBeShown && partsBCanBeShown
     }
     
     private func layout(_ part: ArtifactViewModel,
                         in availableRect: Rectangle,
-                        ignoreSearchFilter: Bool) -> Bool
+                        applySearchFilter: Bool) -> Bool
     {
         part.frameInScopeContent = availableRect
         
@@ -117,7 +117,7 @@ extension ArtifactViewModel
                                           size: contenFrameSize)
             
             part.layoutParts(in: contenFrameSize,
-                             ignoreSearchFilter: ignoreSearchFilter)
+                             applySearchFilter: applySearchFilter)
         }
         else
         {

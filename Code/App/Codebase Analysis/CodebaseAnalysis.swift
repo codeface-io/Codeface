@@ -21,7 +21,7 @@ class CodebaseAnalysis: ObservableObject
         guard search.fieldIsFocused != fieldIsFocused else { return }
         search.fieldIsFocused = fieldIsFocused
         if !fieldIsFocused { updateSearchFilter() }
-        selectedArtifact.updateLayout(ignoreSearchFilter: fieldIsFocused)
+        selectedArtifact.updateLayout(applySearchFilter: !fieldIsFocused)
     }
     
     func set(searchTerm: String)
@@ -34,7 +34,7 @@ class CodebaseAnalysis: ObservableObject
         
         if didClearSearchTermViaButton
         {
-            selectedArtifact.updateLayout(ignoreSearchFilter: true)
+            selectedArtifact.updateLayout(applySearchFilter: false)
         }
     }
     

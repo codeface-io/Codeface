@@ -59,7 +59,7 @@ struct RootArtifactContentView: View
                 // print("attempt to layout artifact \(artifactVM.codeArtifact.name) in view size \(geo.size.size) because view appeared")
                 
                 artifactVM.updateLayout(forScopeSize: geo.size.size,
-                                        ignoreSearchFilter: analysis.search.fieldIsFocused)
+                                        applySearchFilter: !analysis.search.fieldIsFocused)
             }
             .onChange(of: geo.size)
             {
@@ -80,7 +80,7 @@ struct RootArtifactContentView: View
                 // print("attempt to layout newly selected artifact \(newArtifact.codeArtifact.name)")
                 
                 newArtifact.updateLayout(forScopeSize: geo.size.size,
-                                         ignoreSearchFilter: analysis.search.fieldIsFocused)
+                                         applySearchFilter: !analysis.search.fieldIsFocused)
             }
         }
     }
@@ -98,7 +98,7 @@ struct RootArtifactContentView: View
         withAnimation(.easeInOut(duration: 1))
         {
             artifactVM.updateLayout(forScopeSize: newSize,
-                                    ignoreSearchFilter: analysis.search.fieldIsFocused)
+                                    applySearchFilter: !analysis.search.fieldIsFocused)
         }
     }
     
