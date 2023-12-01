@@ -4,7 +4,10 @@ func deleteItem(at relativePath: String) throws {
     let fileManager = FileManager.default
     let currentWorkingPath = fileManager.currentDirectoryPath
     let absolutePath = currentWorkingPath + "/" + relativePath
-    try fileManager.removeItem(atPath: absolutePath)
+    
+    if fileManager.fileExists(atPath: absolutePath) {
+        try fileManager.removeItem(atPath: absolutePath)
+    }
 }
 
 func changeDirectory(to directory: String) throws {
