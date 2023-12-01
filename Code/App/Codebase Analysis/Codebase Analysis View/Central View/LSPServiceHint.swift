@@ -11,29 +11,9 @@ struct LSPServiceHint: View
         {
             Label
             {
-                Text("To see symbols and dependencies, you must (setup and) launch LSPService before importing code.")
-            }
-            icon:
-            {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(Color(NSColor.systemYellow))
-            }
-            
-            Label
-            {
-                Text("LSPService automatically detects SourceKit-LSP when Xcode is installed, but SourceKit-LSP does NOT support Xcode projects – only Swift packages.")
-            }
-            icon:
-            {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(Color(NSColor.systemYellow))
-            }
-            
-            Label
-            {
                 HStack(alignment: .firstTextBaseline)
                 {
-                    Text("LSPService is\(lspServiceIsRunning ? "" : " not") running")
+                    Text("LSPService is \(lspServiceIsRunning ? "running" : "not running yet")")
                     
                     Button
                     {
@@ -50,8 +30,26 @@ struct LSPServiceHint: View
             }
             icon:
             {
-                Image(systemName: lspServiceIsRunning ? "checkmark.diamond.fill" : "xmark.octagon.fill")
-                    .foregroundColor(Color(lspServiceIsRunning ? NSColor.systemGreen : NSColor.systemRed))
+                Image(systemName: lspServiceIsRunning ? "checkmark.diamond.fill" : "exclamationmark.triangle.fill")
+                    .foregroundColor(Color(lspServiceIsRunning ? NSColor.systemGreen : NSColor.systemYellow))
+            }
+            
+            Label
+            {
+                Text("To see symbols and dependencies, you must (setup and) launch LSPService before importing code.")
+            }
+            icon:
+            {
+                Image(systemName: "info.circle")
+            }
+            
+            Label
+            {
+                Text("If you want to analyze a Swift codebase, note that Apple's LSP server (SourceKit-LSP) does NOT support Xcode projects – only Swift packages.")
+            }
+            icon:
+            {
+                Image(systemName: "info.circle")
             }
             
             DocumentLink.lspService
