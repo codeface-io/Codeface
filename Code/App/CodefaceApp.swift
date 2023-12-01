@@ -68,9 +68,9 @@ struct CodefaceApp: App
                     Divider()
                 }
                 
-                Toggle("Use Correct Animations (Slower)",
+                Toggle("Use Consistent Animations (Slower)",
                        isOn: $settings.useCorrectAnimations)
-                    .help("Animating layout changes correctly is slower in scopes that contain many lines of code. You might need to deactive this at higher levels of large codebases.")
+                    .help("Animating layout changes with visual consistency is slower in scopes that contain many lines of code. You might need to deactive this at higher levels of large codebases.")
                     .keyboardShortcut("a", modifiers: [.control])
                 
                 Button("Toggle Fullscreen")
